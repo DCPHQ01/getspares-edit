@@ -7,11 +7,33 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    screens: {
+      sm: "640px",
+
+      md: "768px",
+
+      lg: "1024px",
+
+      xl: "1280px",
+
+      "2xl": "1536px",
+    },
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      colors: {
+        mecaGrayBodyText: "#4B5565",
+        mecaInputBgColor: "#EEF2F6",
+        mecaBluePrimaryColor: "#095AD3",
+        mecaErrorInputColor: "#F04438",
+        mecaVerificationCodeColor: "#CDD5DF",
+        mecaIconsFooterColor: "#98A2B3",
+        mecaSuccessBackgroundColor: "#ECFDF3",
+        mecaIconSuccessColor: "#079455",
+        mecaDarkBlueBackgroundOverlay: "#101828",
+        mecaActiveIconsNavColor: "#0852C0",
+        mecaActiveBackgroundNavColor: "#EFF4FF",
+        mecaTableTextSuccessColor: "#067647",
+        mecaTableTextErrorColor: "#B42318",
+        mecaTableTextErrorBackgroundColor: "#FEF3F2",
       },
     },
   },
