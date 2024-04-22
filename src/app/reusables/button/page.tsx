@@ -19,12 +19,12 @@ const theme = createTheme({
 
 interface ReusableButtonProps {
   onClick: () => void;
-  color: string;
+  color?: string;
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
   fullWidth?: boolean;
   text: string;
-  backgroundColor: string;
+  backgroundColor?: string;
   width?: string;
 }
 export default function ReusableButton({
@@ -47,9 +47,6 @@ export default function ReusableButton({
           width: { width }, // Responsive width based on breakpoints
           color: color,
           backgroundColor: backgroundColor,
-          "&:hover": {
-            backgroundColor: "mecaIconSuccessColor",
-          },
         }}
       >
         {leftIcon && (
