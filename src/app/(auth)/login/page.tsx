@@ -98,7 +98,11 @@ export default function Login() {
                 state.emailError ? "border-red-500" : ""
               }`}
             />
-                    {state.emailError && <span className="text-red-500 text-sm mt-1">Invalid email address</span>}
+            {state.emailError && (
+              <span className="text-red-500 text-sm mt-1">
+                Invalid email address
+              </span>
+            )}
           </FormControl>
           <FormControl className="w-full" variant="filled">
             <InputLabel htmlFor="password">Password</InputLabel>
@@ -127,14 +131,15 @@ export default function Login() {
                 </InputAdornment>
               }
             />
+            {state.passwordError && (
+              <span className="text-red-500 text-sm mt-1">
+                Password must be at least 8 characters
+              </span>
+            )}
           </FormControl>
           <Button
             id="loginBtn"
-            className={`bg-mecaBluePrimaryColor capitalize text-[white] text-lg font-semibold rounded-[36px] h-12 hover:bg-mecaBluePrimaryColor ${
-              isFormValid()
-                ? ""
-                : "disabled:bg-meca-gray-400 disabled:text-[white]"
-            }`}
+            className="bg-mecaBluePrimaryColor normal-case text-[white] text-lg font-semibold rounded-[36px] disabled:bg-mecaBgDisableColor disabled:text-[white] h-12 hover:bg-mecaBluePrimaryColor"
             variant="contained"
             endIcon={<MdChevronRight />}
             disabled={!isFormValid()}

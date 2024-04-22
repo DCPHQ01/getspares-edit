@@ -114,7 +114,7 @@ export default function Home() {
           </p>
         </a>
       </div> */}
-      <Button
+      {/* <Button
         onClick={handleClick}
         text={"Login"}
         color="white"
@@ -122,7 +122,7 @@ export default function Home() {
         width={"50%"}
         leftIcon={<BiArrowFromLeft />}
         rightIcon={<BiArrowFromRight />}
-      />
+      /> */}
     </main>
   );
 }

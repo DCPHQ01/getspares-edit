@@ -33,6 +33,7 @@ const config: Config = {
         mecaBorderColor:'#EAECF0',
         mecaGoBackText:'#202939',
         mecaGoBackArrow:'#697586',
+        mecaBgDisableColor:'#9AA4B2',
       },
     },
   },
