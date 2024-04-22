@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import Button from "./reusables/button/page";
+// import Button from "./reusables/button/page";
 import { BiArrowFromLeft, BiArrowFromRight } from "react-icons/bi";
 
 export default function Home() {
