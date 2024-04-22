@@ -1,8 +1,8 @@
 "use client";
 import AddCompanySidebar from "@/components/addCompanyPage/addCompanySidebar";
-import CalledPagesPageOnePages from "@/components/calledPages/pageOne/pages";
-import CalledPagesPageTwoPages from "@/components/calledPages/pageTwo/pages";
-import CalledPagesPageThreePages from "@/components/calledPages/pageThree/pages";
+import CalledPagesPageOnePages from "@/components/calledPages/pageOne/page";
+import CalledPagesPageTwoPages from "@/components/calledPages/pageTwo/page";
+import CalledPagesPageThreePages from "@/components/calledPages/pageThree/page";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 

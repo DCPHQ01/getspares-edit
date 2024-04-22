@@ -9,13 +9,9 @@ const config: Config = {
   theme: {
     screens: {
       sm: "640px",
-
       md: "768px",
-
       lg: "1024px",
-
       xl: "1280px",
-
       "2xl": "1536px",
     },
     extend: {
@@ -34,6 +30,9 @@ const config: Config = {
         mecaTableTextSuccessColor: "#067647",
         mecaTableTextErrorColor: "#B42318",
         mecaTableTextErrorBackgroundColor: "#FEF3F2",
+        mecaBorderColor:'#EAECF0',
+        mecaGoBackText:'#202939',
+        mecaGoBackArrow:'#697586',
       },
     },
   },

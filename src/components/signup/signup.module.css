@@ -1,0 +1,95 @@
+.formMainContainer{
+    height: 628px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* padding-top: 50px; */
+}
+
+.formMainContainer.Agent{
+    height: 700px;
+    padding-top: 35px;
+}
+.formMainContainer.Buyer{
+    height: 640px;
+    /* padding-top: 35px; */
+}
+
+.formSecondContainer{
+    width: 384px;
+    height: 628px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.formSecondContainer.Agent{
+    height: 700px;
+}
+.formSecondContainer.Buyer{
+    height: 600px;
+}
+
+.formInputs{
+    height: 330px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.formInputs.Agent{
+    height: 400px;
+}
+.formInputs.Buyer{
+    height: 280px;
+}
+
+.registerBody{
+    height: 700px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #fff;
+}
+.registerMainBody{
+    height: 100vh;
+    padding: 20px;
+}
+.mainWrapperRight{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #F9FAFB;
+    overflow-x: hidden;
+}
+
+.flexContainerRight{
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.textContainerRight{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 60vh;
+    height: 326px;
+    margin:auto;
+    font-size: 30px;
+    line-height: 38px;
+    text-align: center;
+}
+
+@media (max-width: 1100px) {
+  .textContainerRight {
+    width: 45vh;
+  }
+}
+
+.user{
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+}

@@ -1,5 +1,5 @@
 "use client";
-import AddCompanyModal from "@/components/addCompModal/addCompanyModal";
+import AddCompanyModal from "./addCompModal/addCompanyModal";
 
 function addCompanyModal() {
   return (

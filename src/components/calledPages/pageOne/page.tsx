@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-// import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import {
@@ -8,29 +8,22 @@ import {
   TextareaAutosize,
 } from "@mui/base/TextareaAutosize";
 
-import Link from "next/link";
-
 interface ChildProps {
   step: number;
   setStep: React.Dispatch<React.SetStateAction<number>>;
-  active: boolean;
-  setActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const CalledPagesPageOnePages: React.FC<ChildProps> = ({
   step,
   setStep,
-  active,
-  setActive,
 }: any) => {
   const [website, setWebsite] = useState("");
   const [fullName, setFullName] = useState("");
   const [message, setMessage] = useState("");
   const [date, setDate] = useState("");
-  // const [active, setActive] = useState(false);
   const [image, setImage] = useState<File | null>(null);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
-  // const router = useRouter();
+
   const validateWebsite = () => {
     const websiteRegex =
       /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w.-]*)*\/?$/;
@@ -65,9 +58,6 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
     }
   };
 
-  console.log("step ", step);
-  console.log("active ", active);
-
   const validateDate = () => {
     // You can implement your own validation logic for the date field
     if (!date.trim()) {
@@ -92,13 +82,6 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    // Redirect to preview page with query parameter
-    // router.push(`/preview?fullName=${fullName}`);
-    // router.push(`/preview?message=${message}`);
-    // router.push(`/preview?website=${website}`);
-    // router.push(`/preview?date=${date}`);
-    // router.push(`/preview?image=${image}`);
-
     e.preventDefault();
     validateWebsite();
     validateFullName();
@@ -110,10 +93,10 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
       console.log("Form submitted successfully");
     }
   };
+  const router = useRouter();
 
   const goToNextPage = () => {
     setStep(step + 1);
-    setActive(true);
   };
 
   return (
@@ -157,7 +140,6 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                     className="lg:w-[364px] w-[100%] mb-10 2xl:w-[35rem]"
                     sx={{ backgroundColor: "porcelain" }}
                     onChange={(e) => setFullName(e.target.value)}
-                    value={fullName}
                     onBlur={validateFullName}
                   />
                   {errors.fullName && (
@@ -168,13 +150,12 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                   <TextareaAutosize
                     required={true}
                     onChange={(e) => setMessage(e.target.value)}
-                    value={message}
                     onBlur={validateMessage}
                     id="filled-basic"
                     aria-label="Description"
                     variant="filled"
                     type="text"
-                    name="message"
+                    name="fullName"
                     placeholder="Say something about your company"
                     InputProps={{ disableUnderline: true }}
                     className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem]"
@@ -194,12 +175,11 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                     required={true}
                     onChange={(e) => setWebsite(e.target.value)}
                     onBlur={validateWebsite}
-                    value={website}
                     type="url"
                     id="filled-basic"
                     label="Website"
                     variant="filled"
-                    name="website"
+                    name="fullName"
                     placeholder="www.ideytryam.com"
                     InputProps={{ disableUnderline: true }}
                     className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem]"
@@ -213,13 +193,12 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                   <TextField
                     required={true}
                     onChange={(e) => setDate(e.target.value)}
-                    value={date}
                     onBlur={validateDate}
                     id="filled-basic"
-                    label=""
+                    label="Date founded"
                     variant="filled"
                     type="date"
-                    name="date"
+                    name="fullName"
                     placeholder=""
                     InputProps={{ disableUnderline: true }}
                     className="lg:w-[364px] w-[100%] 2xl:w-[35rem]"
@@ -235,7 +214,6 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                     type="file"
                     name="image"
                     // accept="image/*"
-                    value={image}
                     onChange={(e) =>
                       setImage(e.target.files ? e.target.files[0] : null)
                     }
@@ -266,7 +244,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
 
         <div className="absolute  w-11/12">
           <div className="md:hidden m-auto">
-            <div className="mb-16 mt-10 pageHeader">
+            <div className="mb-16 pageHeader">
               <header className="font-bold text-base">Company details</header>
               <div className="flex subheaders" id="subheader1">
                 <sub className="text-xs font-normal">
@@ -279,33 +257,14 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                 </form>
               </div>
               <div className="form-display flex flex-col flex-col-reverse mt-8">
-                <Box
+                <form
                   id="firstFormWrapper"
                   onSubmit={handleSubmit}
                   className="companyInputWrap"
                 >
-                  <Box className="flex flex-col flex-col-reverse">
+                  <div className="flex flex-col flex-col-reverse">
                     <div>
-                      <Box className="">
-                        <TextField
-                          required={true}
-                          id="filled-basic"
-                          label="Name"
-                          variant="filled"
-                          type="text"
-                          name="fullName"
-                          placeholder="Enter name"
-                          InputProps={{ disableUnderline: true }}
-                          className="lg:w-[364px] w-[100%] 2xl:w-[35rem]"
-                          sx={{ backgroundColor: "porcelain" }}
-                          onChange={(e) => setFullName(e.target.value)}
-                          onBlur={validateFullName}
-                        />
-                        {errors.fullName && (
-                          <p className="error-color">{errors.fullName}</p>
-                        )}
-                      </Box>
-                      {/* <input
+                      <input
                         required={true}
                         onChange={(e) => setFullName(e.target.value)}
                         onBlur={validateFullName}
@@ -318,118 +277,88 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                       />
                       {errors.fullName && (
                         <p className="error-color">{errors.fullName}</p>
-                      )} */}
+                      )}
 
                       <br></br>
 
-                      <Box className="">
-                        <TextareaAutosize
-                          required={true}
-                          onChange={(e) => setMessage(e.target.value)}
-                          onBlur={validateMessage}
-                          id="filled-basic"
-                          aria-label="Description"
-                          variant="filled"
-                          type="text"
-                          name="fullName"
-                          placeholder="Say something about your company"
-                          InputProps={{ disableUnderline: true }}
-                          className="lg:w-[364px]  w-[100%] 2xl:w-[35rem]"
-                          style={{
-                            backgroundColor: "#EFF2F3",
-                            height: "223px",
-                            borderColor: "none",
-                            padding: "20px",
-                          }}
-                        />
-                        {errors.message && (
-                          <p className="error-color">{errors.message}</p>
-                        )}
-                      </Box>
+                      <textarea
+                        required={true}
+                        onChange={(e) => setMessage(e.target.value)}
+                        onBlur={validateMessage}
+                        name="message"
+                        id="messageid"
+                        placeholder="Description Say something about your company"
+                        className=" companyInput inputText w-full mb-8 lg:w-[364px]"
+                      ></textarea>
+                      {errors.message && (
+                        <p className="error-color">{errors.message}</p>
+                      )}
 
                       <br></br>
 
-                      <Box className=" ">
-                        <TextField
-                          required={true}
-                          onChange={(e) => setWebsite(e.target.value)}
-                          onBlur={validateWebsite}
-                          type="url"
-                          id="filled-basic"
-                          label="Website"
-                          variant="filled"
-                          name="website"
-                          placeholder="www.ideytryam.com"
-                          InputProps={{ disableUnderline: true }}
-                          className="lg:w-[364px]  w-[100%] 2xl:w-[35rem]"
-                          sx={{ backgroundColor: "porcelain" }}
-                        />
-                        {errors.website && (
-                          <p className="error-color">{errors.website}</p>
-                        )}
-                      </Box>
+                      <input
+                        required={true}
+                        onChange={(e) => setWebsite(e.target.value)}
+                        onBlur={validateWebsite}
+                        type="url"
+                        name="website"
+                        id="websiteid"
+                        placeholder="Website www.123.com"
+                        className="companyInput mb-4 w-full lg:w-[364px]"
+                      />
+                      {errors.website && (
+                        <p className="error-color">{errors.website}</p>
+                      )}
                       <br></br>
-                      <Box className="mb-6">
-                        <TextField
-                          required={true}
-                          onChange={(e) => setDate(e.target.value)}
-                          onBlur={validateDate}
-                          id="filled-basic"
-                          label=""
-                          variant="filled"
-                          type="date"
-                          name="date"
-                          placeholder=""
-                          InputProps={{ disableUnderline: true }}
-                          className="lg:w-[364px] w-[100%] 2xl:w-[35rem]"
-                          sx={{ backgroundColor: "porcelain" }}
-                        />
-                        {errors.date && (
-                          <p className="error-color">{errors.date}</p>
-                        )}
-                      </Box>
+                      <input
+                        required={true}
+                        onChange={(e) => setDate(e.target.value)}
+                        onBlur={validateDate}
+                        type="date"
+                        name="date"
+                        id="dateid"
+                        placeholder="date funded 12/12/21"
+                        className=" companyInput mb-4"
+                      />
+                      {errors.date && (
+                        <p className="error-color">{errors.date}</p>
+                      )}
                     </div>
 
                     <div>
                       <div className="inputImage imagetext h-[283px] w-[316px]">
-                        <Box className="mb-6">
-                          <div className="inputImage imagetext h-[283px] w-[316px]">
-                            <TextField
-                              required={true}
-                              type="file"
-                              name="image"
-                              // accept="image/*"
-                              onChange={(e) =>
-                                setImage(
-                                  e.target.files ? e.target.files[0] : null
-                                )
-                              }
-                              // className="inputImage imagetext"
-                              sx={{ backgroundColor: "porcelain" }}
-                              id="secondImageid"
-                              // placeholder="Add logo by clicking or drag and drop"
-                            />
-                            {errors.image && (
-                              <p className="error-color">{errors.image}</p>
-                            )}
-                          </div>
-                        </Box>
+                        <input
+                          required={true}
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) =>
+                            setImage(e.target.files ? e.target.files[0] : null)
+                          }
+                          name="image"
+                          // className="inputImage imagetext"
+                          className="mb-4"
+                          id="firstImageId"
+                        />
+                        {errors.image && (
+                          <p className="error-color">{errors.image}</p>
+                        )}
                       </div>
                     </div>
-                  </Box>
+                  </div>
 
-                  <div
-                    onClick={goToNextPage}
-                    className="nextbtn nextmobile cursor-pointer "
-                  >
-                    <button type="submit" id="firstFormSubit">
+                  <div className="nextbtn nextmobile cursor-pointer ">
+                    <button
+                      onClick={goToNextPage}
+                      type="submit"
+                      id="firstFormSubit"
+                    >
                       Next
                     </button>
                   </div>
-                </Box>
+                </form>
               </div>
-
-              {/* <div className="mt-8 flex items-center justify-evenly gap-4 h-[8px] w-full">
+              {/* 
+              <div className="mt-8 flex items-center justify-evenly gap-4 h-[8px] w-full">
                 <div
                   className="h-full w-1/3 bg-blue-800 rounded-lg"
                   id="switchedButton"
