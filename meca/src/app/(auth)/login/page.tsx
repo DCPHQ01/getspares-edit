@@ -1,6 +1,6 @@
 "use client";
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import Link from "next/link";
 import FormControl from "@mui/material/FormControl";
 // import TextField from "@mui/material/TextField";
@@ -22,31 +22,25 @@ export default function Login() {
     showPassword: false,
     email: "",
     password: "",
-    validEmail: true,
-    validPassword: false,
+    emailError: false,
+    passwordError: false,
   });
 
   const handleEmailOnChange = (event: ChangeEvent<HTMLInputElement>) => {
     const email = event.target.value;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const isValid = emailRegex.test(email);
     setState((prevState) => ({
       ...prevState,
       email,
-      validEmail: isValid,
+      emailError: !isValidEmail(email),
     }));
   };
 
   const handlePasswordOnChange = (event: ChangeEvent<HTMLInputElement>) => {
     const password = event.target.value;
-    const passwordRegex =
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    const isValid = passwordRegex.test(password);
     setState((prevState) => ({
       ...prevState,
       password,
-      validPassword: isValid,
-      isDisabled: !isValid || !prevState.validEmail,
+      passwordError: !isValidPassword(password),
     }));
   };
 
@@ -55,6 +49,18 @@ export default function Login() {
       ...prevState,
       showPassword: !prevState.showPassword,
     }));
+  };
+
+  const isValidEmail = (email: string) => {
+    return /\S+@\S+\.\S+/.test(email);
+  };
+
+  const isValidPassword = (password: string) => {
+    return password.length >= 8;
+  };
+
+  const isFormValid = () => {
+    return isValidEmail(state.email) && isValidPassword(state.password);
   };
 
   return (
@@ -82,12 +88,13 @@ export default function Login() {
         </p>
         <FormControl className="flex flex-col gap-8 w-full mt-6" id="form">
           <FormControl className="w-full" variant="filled">
-            <InputLabel htmlFor="password">Email</InputLabel>
+            <InputLabel htmlFor="email">Email</InputLabel>
             <FilledInput
               id="email"
               disableUnderline
               onChange={handleEmailOnChange}
-              className="bg-mecaInputBgColor w-full hover:bg-mecaInputBgColor focus-within:bg-mecaInputBgColor"
+              error={state.emailError}
+              className={`bg-mecaInputBgColor w-full hover:bg-mecaInputBgColor focus-within:bg-mecaInputBgColor ${state.emailError ? 'border-red-500 border' : 'border-green-500 border'}`}
             />
           </FormControl>
           <FormControl className="w-full" variant="filled">
@@ -97,6 +104,7 @@ export default function Login() {
               type={state.showPassword ? "text" : "password"}
               disableUnderline
               onChange={handlePasswordOnChange}
+              error={state.passwordError}
               className="bg-mecaInputBgColor w-full hover:bg-mecaInputBgColor focus-within:bg-mecaInputBgColor"
               endAdornment={
                 <InputAdornment position="end">
@@ -117,9 +125,12 @@ export default function Login() {
           </FormControl>
           <Button
             id="loginBtn"
-            className="bg-mecaBluePrimaryColor capitalize text-[white] text-lg font-semibold rounded-[36px] h-12 hover:bg-mecaBluePrimaryColor"
+            className={`bg-mecaBluePrimaryColor capitalize text-[white] text-lg font-semibold rounded-[36px] h-12 hover:bg-mecaBluePrimaryColor ${
+              isFormValid() ? "" : "disabled:bg-meca-gray-400 disabled:text-[white]"
+            }`}
             variant="contained"
             endIcon={<MdChevronRight />}
+            disabled={!isFormValid()}
           >
             Login
           </Button>
