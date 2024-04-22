@@ -13,6 +13,10 @@ const theme = createTheme({
   },
 });
 
+// type OmitWithTag<T, K extends keyof T, Tag> = Pick<T, Exclude<keyof T, K>> & {
+//   tag?: Tag;
+// };
+
 interface ReusableButtonProps {
   onClick: () => void;
   color: string;
@@ -21,7 +25,7 @@ interface ReusableButtonProps {
   fullWidth?: boolean;
   text: string;
   backgroundColor: string;
-  width: string;
+  width?: string;
 }
 export default function ReusableButton({
   onClick,
@@ -35,7 +39,6 @@ export default function ReusableButton({
   return (
     <ThemeProvider theme={theme}>
       <Button
-        disableRipple
         className="rounded-full"
         variant="contained"
         onClick={onClick}
