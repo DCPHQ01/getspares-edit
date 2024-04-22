@@ -119,7 +119,7 @@ export default function Home() {
         text={"Login"}
         color="white"
         backgroundColor={"mecaIconSuccessColor"}
-        width={"10%"}
+        width={"50%"}
         leftIcon={<BiArrowFromLeft />}
         rightIcon={<BiArrowFromRight />}
       />
