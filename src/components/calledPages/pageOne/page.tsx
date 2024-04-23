@@ -195,7 +195,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                     onChange={(e) => setDate(e.target.value)}
                     onBlur={validateDate}
                     id="filled-basic"
-                    label="Date founded"
+                    label=""
                     variant="filled"
                     type="date"
                     name="fullName"
@@ -357,21 +357,6 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                   </div>
                 </form>
               </div>
-              {/* 
-              <div className="mt-8 flex items-center justify-evenly gap-4 h-[8px] w-full">
-                <div
-                  className="h-full w-1/3 bg-blue-800 rounded-lg"
-                  id="switchedButton"
-                ></div>
-                <div
-                  className="h-full w-1/3 bg-blue-800 rounded-lg"
-                  id="switchedButton"
-                ></div>
-                <div
-                  className="h-full w-1/3 bg-blue-800 rounded-lg"
-                  id="switchedButton"
-                ></div>
-              </div> */}
             </div>
           </div>
         </div>

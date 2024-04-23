@@ -52,26 +52,29 @@ const AddCompanyModal = () => {
         className="modal"
       >
         <Box sx={{ ...style, width: 400 }}>
-          <form method="dialog" className={nunito_sans.className}>
-            {/* if there is a button in form, it will close the modal */}
-            <button
-              onClick={handleClose}
-              id="cancelbtn"
-              className="btn btn-sm btn-circle btn-ghost absolute right-2 top-4"
-            >
-              ✕
-            </button>
-          </form>
+          <div className="flex justify-between flex-row-reverse">
+            <form method="dialog" className={nunito_sans.className}>
+              {/* if there is a button in form, it will close the modal */}
+              <button
+                onClick={handleClose}
+                id="cancelbtn"
+                className="btn btn-sm btn-circle btn-ghost"
+              >
+                ✕
+              </button>
+            </form>
 
-          <Image
-            src={check}
-            width={50}
-            height={50}
-            className="checkImg"
-            alt="Picture of the author"
-          />
+            <Image
+              src={check}
+              width={50}
+              height={50}
+              className="checkImg"
+              alt="Picture of the author"
+            />
+          </div>
+
           <div className={nunito_sans.className}>
-            <h3 className="addCompany">Add company</h3>
+            <h3 className="addCompany mt-2">Add company</h3>
             <p className="py-4 addCompanySub">
               Increase the confidence and trust of buyers by adding your company
               account on meca
@@ -81,7 +84,7 @@ const AddCompanyModal = () => {
                 <button
                   onClick={handleClose}
                   id="laterbtn"
-                  className="btn text-primary w-40  min-h-12 rounded-full maybe-later"
+                  className="btn w-40 font-semibold text-lg text-mecaBluePrimaryColor min-h-12 rounded-full maybe-later"
                 >
                   Maybe later
                 </button>
@@ -90,7 +93,7 @@ const AddCompanyModal = () => {
               <Link href="/modalPage/vendor">
                 <button
                   id="continuebtn"
-                  className="btn btn-primary rounded-full w-40 min-h-12"
+                  className="btn bg-mecaBluePrimaryColor  text-white  font-semibold rounded-full w-40 min-h-12"
                 >
                   Continue
                 </button>

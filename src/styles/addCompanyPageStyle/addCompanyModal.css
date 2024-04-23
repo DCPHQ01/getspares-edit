@@ -4,7 +4,9 @@
   opacity: 1;
   background-color: #101828;
 }
-
+.css-i9fmh8-MuiBackdrop-root-MuiModal-backdrop.css-i9fmh8-MuiBackdrop-root-MuiModal-backdrop {
+  background-color: #101828;
+}
 .checkImg {
   margin-top: -7px;
 }
