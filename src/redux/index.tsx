@@ -1,8 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
+import userSlice from "./features/users/userSlice";
+import companySlice from "./features/company/companySlice";
 
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    user: userSlice,
+    company: companySlice,
+  },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([]),
 });
 
