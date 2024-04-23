@@ -7,11 +7,11 @@ export const baseQueryAuth = fetchBaseQuery({
   baseUrl,
   prepareHeaders: async (headers) => {
     const session = await getSession();
-    const token = session?.user?.access_token;
-    if (token) {
-      headers.set("authorization", `Bearer ${token}`);
-      headers.set("Content-Type", `application/json`);
-    }
+    // const token = session?.user?.access_token;
+    // if (token) {
+    //   headers.set("authorization", `Bearer ${token}`);
+    //   headers.set("Content-Type", `application/json`);
+    // }
     return headers;
   },
 });
