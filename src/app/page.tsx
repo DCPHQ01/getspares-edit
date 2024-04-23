@@ -115,6 +115,7 @@ export default function Home() {
         </a>
       </div> */}
       <Button
+        fullWidth={true}
         onClick={handleClick}
         text={"Login"}
         color="white"
