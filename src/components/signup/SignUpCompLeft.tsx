@@ -68,6 +68,9 @@ const SignUpComponentLeft = () => {
     }
   };
 
+  // console.log(userVendorDetails);
+  
+
   const handleSubmit = (e: any) => {
     e.preventDefault();
     console.log("submitted");

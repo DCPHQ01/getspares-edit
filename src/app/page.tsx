@@ -1,10 +1,5 @@
 "use client";
 import Image from "next/image";
-<<<<<<< HEAD
-// import Button from "./reusables/button/page";
-import { BiArrowFromLeft, BiArrowFromRight } from "react-icons/bi";
-=======
->>>>>>> ef99a5c66e18ab62bc653c5bc97775a00a2d383c
 
 export default function Home() {
   const handleClick = () => {
@@ -117,18 +112,6 @@ export default function Home() {
           </p>
         </a>
       </div> */}
-<<<<<<< HEAD
-      {/* <Button
-        onClick={handleClick}
-        text={"Login"}
-        color="white"
-        backgroundColor={"mecaIconSuccessColor"}
-        width={"50%"}
-        leftIcon={<BiArrowFromLeft />}
-        rightIcon={<BiArrowFromRight />}
-      /> */}
-=======
->>>>>>> ef99a5c66e18ab62bc653c5bc97775a00a2d383c
     </main>
   );
 }
