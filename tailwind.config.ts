@@ -34,6 +34,8 @@ const config: Config = {
         mecaGoBackText:'#202939',
         mecaGoBackArrow:'#697586',
         mecaBgDisableColor:'#9AA4B2',
+        mecaLightBackgroundColor:'#F9FAFB',
+        mecaLightGrayText:'#475467',
       },
     },
   },

@@ -1,12 +1,10 @@
 import * as React from "react";
 import FormControl from "@mui/material/FormControl";
 import InputAdornment from "@mui/material/InputAdornment";
-import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import FormLabel from "@mui/material/FormLabel";
 import IconButton from "@mui/material/IconButton";
 import FilledInput from "@mui/material/FilledInput";
 import {
@@ -14,8 +12,7 @@ import {
   MdOutlineVisibility,
   MdOutlineVisibilityOff,
 } from "react-icons/md";
-import style from "./signup.module.css";
-import { Button } from "@mui/material";
+import { Button, Checkbox } from "@mui/material";
 import Link from "next/link";
 
 const userBuyer: User = {
@@ -52,10 +49,6 @@ const SignUpComponentLeft = () => {
   const [userAgentDetails, setUserAgentDetails] =
     React.useState<UserAgent>(userAgent);
 
-  // console.log(userBuyerDetails)
-  // console.log(userVendorDetails);
-  // console.log(userAgentDetails);
-
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (
@@ -65,65 +58,58 @@ const SignUpComponentLeft = () => {
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value, name } = event.target;
+    const { value, id } = event.target;
     if (userType === "vendor") {
-      setUserVendorDetails((values) => ({ ...values, [name]: value }));
+      setUserVendorDetails((values) => ({ ...values, [id]: value }));
     } else if (userType === "agent") {
-      setUserAgentDetails((values) => ({ ...values, [name]: value }));
+      setUserAgentDetails((values) => ({ ...values, [id]: value }));
     } else {
-      setUserBuyerDetails((values) => ({ ...values, [name]: value }));
+      setUserBuyerDetails((values) => ({ ...values, [id]: value }));
     }
   };
 
   const handleSubmit = (e: any) => {
-    //todo
     e.preventDefault();
     console.log("submitted");
   };
 
   return (
-    <div id="registerMainBodyLeft1" className={style.registerMainBody}>
-      <div id="registerBodyLeft2" className={style.registerBody}>
+    <div id="registerMainBodyLeft1" className="h-screen p-5 overflow-auto">
+      <div
+        id="registerBodyLeft2"
+        className="h-[700px] flex flex-col justify-between bg-white"
+      >
         <div>
-          <span id="e-mecaLogod" className="font-bold text-3xl text-primary">
+          <span
+            id="e-mecaLogod"
+            className="font-bold text-3xl text-mecaActiveIconsNavColor"
+          >
             e-meca
           </span>
         </div>
         <div
           id="formMainContainer2"
-          className={`${style.formMainContainer} ${
-            userType === "agent"
-              ? style.Agent
-              : userType === "buyer"
-              ? style.Buyer
-              : ""
-          }`}
+          className={`flex flex-col justify-between`}
         >
           <div
             id="formSecondContainer3"
-            className={`${style.formSecondContainer} ${
-              userType === "agent"
-                ? style.Agent
-                : userType === "buyer"
-                ? style.Buyer
-                : ""
-            }`}
+            className={`lg:w-[384px] m-auto flex flex-col justify-between `}
           >
             <div id="flexText1" className="flex flex-col">
               <span
                 id="niceToMeetid"
-                className="font-semibold text-3xl text-meca-black"
+                className="font-semibold text-3xl text-mecaDarkBlueBackgroundOverlay"
               >
                 Nice to meet you
               </span>
               <span
                 id="provideYourDetails"
-                className="text-meca-gray-600 text-base font-normal"
+                className="text-mecaGrayBodyText text-base font-normal"
               >
                 Provide your details to get started
               </span>
             </div>
-            <div className=" " id="RadioBtnSignUp">
+            <div className="py-4" id="RadioBtnSignUp">
               <FormControl id="formcontrolMui">
                 <RadioGroup
                   row
@@ -134,7 +120,7 @@ const SignUpComponentLeft = () => {
                     setUserType(e.target.value)
                   }
                   id="radiogroup1"
-                  className="w-96 flex justify-between"
+                  className="lg:w-96 w-full flex justify-between"
                 >
                   <FormControlLabel
                     value="vendor"
@@ -163,85 +149,82 @@ const SignUpComponentLeft = () => {
             <form onSubmit={handleSubmit} id={"formsumbitonclick"}>
               <FormControl
                 id="inputFilled1"
-                className={`${style.formInputs} ${
-                  userType === "agent"
-                    ? style.Agent
-                    : userType === "buyer"
-                    ? style.Buyer
-                    : ""
-                }`}
+                className="gap-y-6 flex flex-col justify-between"
               >
-                <TextField
-                  id="filledbasicfirstName"
-                  label="First name"
-                  variant="filled"
-                  InputProps={{ disableUnderline: true }}
-                  onChange={handleChange}
-                  name="firstName"
-                  value={
-                    userType === "vendor"
-                      ? userVendorDetails.firstName
-                      : userType === "agent"
-                      ? userAgentDetails.firstName
-                      : userBuyerDetails.firstName
-                  }
-                />
-                <TextField
-                  id="filledbasiclastName"
-                  label="Last name"
-                  variant="filled"
-                  InputProps={{ disableUnderline: true }}
-                  onChange={handleChange}
-                  name="lastName"
-                  value={
-                    userType === "vendor"
-                      ? userVendorDetails.lastName
-                      : userType === "agent"
-                      ? userAgentDetails.lastName
-                      : userBuyerDetails.lastName
-                  }
-                />
-                <TextField
-                  id="filledbasicemail"
-                  label="Email"
-                  variant="filled"
-                  InputProps={{ disableUnderline: true }}
-                  onChange={handleChange}
-                  name="email"
-                  value={
-                    userType === "vendor"
-                      ? userVendorDetails.email
-                      : userType === "agent"
-                      ? userAgentDetails.email
-                      : userBuyerDetails.email
-                  }
-                />
-                {userType === "agent" || userType === "vendor" ? (
-                  <TextField
-                    id="filledbasictitle"
-                    label={userType === "agent" ? "Company name" : "Job title"}
-                    variant="filled"
-                    InputProps={{ disableUnderline: true }}
+                <FormControl className="w-full" variant="filled">
+                  <InputLabel htmlFor="firstName">First name</InputLabel>
+                  <FilledInput
+                    id="firstName"
+                    disableUnderline
                     onChange={handleChange}
-                    name={userType === "agent" ? "companyName" : "jobTitle"}
+                    className="bg-mecaInputBgColor w-full rounded-t-[4px] hover:bg-mecaInputBgColor border focus-within:bg-mecaInputBgColor"
                     value={
-                      userType === "agent"
-                        ? userAgentDetails.companyName
-                        : userVendorDetails.jobTitle
+                      userType === "vendor"
+                        ? userVendorDetails.firstName
+                        : userType === "agent"
+                        ? userAgentDetails.firstName
+                        : userBuyerDetails.firstName
                     }
                   />
-                ) : null}
-                {userType === "agent" ? (
-                  <TextField
-                    id="filledbasicseller"
-                    label="Associated seller"
-                    variant="filled"
-                    InputProps={{ disableUnderline: true }}
+                </FormControl>
+
+                <FormControl className="w-full" variant="filled">
+                  <InputLabel htmlFor="lastName">Last name</InputLabel>
+                  <FilledInput
+                    id="lastName"
+                    disableUnderline
                     onChange={handleChange}
-                    name="associatedSeller"
-                    value={userAgentDetails.associatedSeller}
+                    className="bg-mecaInputBgColor w-full rounded-t-[4px] hover:bg-mecaInputBgColor border focus-within:bg-mecaInputBgColor"
+                    value={
+                      userType === "vendor"
+                        ? userVendorDetails.lastName
+                        : userType === "agent"
+                        ? userAgentDetails.lastName
+                        : userBuyerDetails.lastName
+                    }
                   />
+                </FormControl>
+
+                <FormControl className="w-full" variant="filled">
+                  <InputLabel htmlFor="email">Email</InputLabel>
+                  <FilledInput
+                    id="email"
+                    disableUnderline
+                    onChange={handleChange}
+                    className="bg-mecaInputBgColor w-full rounded-t-[4px] hover:bg-mecaInputBgColor border focus-within:bg-mecaInputBgColor"
+                    value={
+                      userType === "vendor"
+                        ? userVendorDetails.email
+                        : userType === "agent"
+                        ? userAgentDetails.email
+                        : userBuyerDetails.email
+                    }
+                  />
+                </FormControl>
+
+                {userType === "agent" || userType === "vendor" ? (
+                  <FormControl className="w-full" variant="filled">
+                    <InputLabel
+                      htmlFor={
+                        userType === "agent" ? "Company name" : "Job title"
+                      }
+                    >
+                      {userType === "agent" ? "Merchant ID" : "Job title"}
+                    </InputLabel>
+                    <FilledInput
+                      id={userType === "agent" ? "companyName" : "jobTitle"}
+                      disableUnderline
+                      onChange={handleChange}
+                      className="bg-mecaInputBgColor w-full rounded-t-[4px] hover:bg-mecaInputBgColor border focus-within:bg-mecaInputBgColor"
+                      value={
+                        userType === "agent"
+                          ? userAgentDetails.companyName
+                          : userVendorDetails.jobTitle
+                      }
+                    />
+                  </FormControl>
                 ) : null}
+
                 <FormControl
                   id="passwordSignUpform"
                   className="w-full"
@@ -254,11 +237,12 @@ const SignUpComponentLeft = () => {
                     Password
                   </InputLabel>
                   <FilledInput
-                    id="filledadornmentpassword1"
+                    id="password"
                     type={showPassword ? "text" : "password"}
                     disableUnderline
                     name="password"
                     onChange={handleChange}
+                    className="bg-mecaInputBgColor border w-full hover:bg-mecaInputBgColor focus-within:bg-mecaInputBgColor"
                     value={
                       userType === "vendor"
                         ? userVendorDetails.password
@@ -287,20 +271,29 @@ const SignUpComponentLeft = () => {
                 </FormControl>
               </FormControl>
 
-              <div id="forgotPassworddiv" className="flex justify-end">
-                <Link
-                  href="/forgot-password"
-                  id="forgotPasswordLink"
-                  className="link text-primary-500 no-underline py-4"
-                >
-                  Forgot password
-                </Link>
+              <div className="flex justify-between items-center py-2">
+                <FormControlLabel
+                  control={<Checkbox defaultChecked />}
+                  label="Remember for 30 days"
+                  className="text-sm text-mecaGrayBodyText flex"
+                  id="checkbox"
+                />
+
+                <div id="forgotPassworddiv" className="flex justify-end">
+                  <Link
+                    href="/forgot-password"
+                    id="forgotPasswordLink"
+                    className="text-mecaBluePrimaryColor no-underline py-4"
+                  >
+                    Forgot password
+                  </Link>
+                </div>
               </div>
               <div id="clickRegisterDiv">
                 <Button
                   type="submit"
                   id="clickRegisterBtn"
-                  className="btn btn-primary w-full h-12 text-white rounded-3xl border-none normal-case font-semibold lg:text-lg bg-meca-blue-500 "
+                  className="w-full h-12 text-white rounded-3xl border-none normal-case font-semibold lg:text-lg bg-mecaBluePrimaryColor"
                   variant="contained"
                   endIcon={<MdChevronRight />}
                 >
@@ -310,13 +303,13 @@ const SignUpComponentLeft = () => {
             </form>
             <div
               id="notNewHerediv"
-              className="flex justify-center items-center"
+              className="flex justify-center items-center py-8"
             >
               <span>Not new here?</span>
               <Link
                 href="/login"
                 id="loginBtn1"
-                className="text-primary-500 pl-1 normal-case no-underline"
+                className="text-mecaBluePrimaryColor pl-1 normal-case no-underline"
               >
                 Login
               </Link>
