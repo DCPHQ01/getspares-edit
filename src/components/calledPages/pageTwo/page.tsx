@@ -21,6 +21,16 @@ interface Address {
   state: string;
 }
 
+interface ChildProps {
+  step: number;
+  setStep: React.Dispatch<React.SetStateAction<number>>;
+}
+
+import { useAppSelector } from "@/redux";
+import { RootState } from "../../../../meca/src/redux";
+import { useAppDispatch } from "../../../../meca/src/redux/hooks";
+import { setCompanyForm } from "@/redux/features/company/companySlice";
+
 const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [inputValues, setInputValues] = useState<string[]>([""]);
@@ -159,6 +169,11 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
     }
   };
 
+  const dispatch = useAppDispatch();
+
+  const { company } = useAppSelector((state: RootState) => state);
+  console.log("company ", company.companyForm);
+
   // const handleClick = (e: any) => {
   //   e.preventDefault();
   // };
@@ -206,11 +221,18 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                   // className="lg:w-[100%] w-[100%]"
                   className="  w-full lg:w-[364px]  2xl:w-[35rem]"
                   // sx={{ backgroundColor: "porcelain" }}
-                  onChange={(e) => setEmail(e.target.value)}
-                  value={email}
+                  value={company.companyForm.email}
+                  onChange={(e) =>
+                    dispatch(
+                      setCompanyForm({
+                        ...company.companyForm,
+                        email: e.target.value,
+                      })
+                    )
+                  }
                   onBlur={handleEmailChange}
                 />
-                {errors.email && <p className="error-color">{errors.email}</p>}
+                {/* {errors.email && <p className="error-color">{errors.email}</p>} */}
               </Box>
 
               <Box className=" mb-10">
@@ -226,76 +248,21 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                   // className="lg:w-[100%] w-[100%]"
                   className="  w-full lg:w-[364px]  2xl:w-[35rem]"
                   // sx={{ backgroundColor: "porcelain" }}
-                  onChange={(e) => setPhoneNumber(e.target.value)}
+                  value={company.companyForm.phoneNumber}
+                  onChange={(e) =>
+                    dispatch(
+                      setCompanyForm({
+                        ...company.companyForm,
+                        phoneNumber: e.target.value,
+                      })
+                    )
+                  }
                   onBlur={handlePhoneChange}
-                  value={phoneNumber}
                 />
-                {errors.phoneNumber && (
+                {/* {errors.phoneNumber && (
                   <p className="error-color">{errors.phoneNumber}</p>
-                )}
+                )} */}
               </Box>
-              {/* <Box>
-                <TextField
-                  type="text"
-                  required={true}
-                  id="filled-basic"
-                  label="Address"
-                  variant="filled"
-                  name="address"
-                  placeholder="371, Borno way, Lagos Nigeria"
-                  InputProps={{ disableUnderline: true }}
-                  // className="lg:w-[100%] w-[100%]"
-                  className="  w-full lg:w-[364px]  mb-10 2xl:w-[35rem]"
-                  // sx={{ backgroundColor: "porcelain" }}
-                  onChange={(e) => setAddress(e.target.value)}
-                  onBlur={handleAddressChange}
-                />
-                {errors.address && (
-                  <p className="error-color">{errors.address}</p>
-                )}
-              </Box> */}
-
-              {/* <Box>
-                <TextField
-                  type="text"
-                  required={true}
-                  id="filled-basic"
-                  label="Address"
-                  variant="filled"
-                  name="address"
-                  placeholder="371, Borno way, Lagos Nigeria"
-                  InputProps={{ disableUnderline: true }}
-                  // className="lg:w-[100%] w-[100%]"
-                  className="  w-full lg:w-[364px] mb-10 2xl:w-[35rem]"
-                  // sx={{ backgroundColor: "porcelain" }}
-                  onChange={(e) => setAddress(e.target.value)}
-                  onBlur={handleAddressChange}
-                />
-                {errors.address && (
-                  <p className="error-color">{errors.address}</p>
-                )}
-              </Box> */}
-
-              {/* <Box>
-                <TextField
-                  type="text"
-                  required={true}
-                  id="filled-basic"
-                  label="Address"
-                  variant="filled"
-                  name="address"
-                  placeholder="371, Borno way, Lagos Nigeria"
-                  InputProps={{ disableUnderline: true }}
-                  // className="lg:w-[100%] w-[100%]"/
-                  className="  w-full lg:w-[364px]  mb-6 2xl:w-[35rem]"
-                  // sx={{ backgroundColor: "porcelain" }}
-                  onChange={(e) => setAddress(e.target.value)}
-                  onBlur={handleAddressChange}
-                />
-                {errors.address && (
-                  <p className="error-color">{errors.address}</p>
-                )}
-              </Box> */}
 
               <Box>
                 {" "}
@@ -321,9 +288,14 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                         InputProps={{ disableUnderline: true }}
                         className="  w-full lg:w-[364px] 2xl:w-[35rem] "
                         placeholder="Enter address (Street Number, Town, City, State)"
-                        value={inputValue}
+                        value={company.companyForm.address}
                         onChange={(e) =>
-                          handleInputChange(index, e.target.value)
+                          dispatch(
+                            setCompanyForm({
+                              ...company.companyForm,
+                              address: e.target.value,
+                            })
+                          )
                         }
                         // className="mr-2"
                       />
@@ -363,7 +335,7 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                   id="secondImageid"
                   // placeholder="Add logo by clicking or drag and drop"
                 />
-                {errors.image && <p className="error-color">{errors.image}</p>}
+                {/* {errors.image && <p className="error-color">{errors.image}</p>} */}
               </div>
             </Box>
           </Box>
@@ -411,12 +383,20 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                       // className="lg:w-[100%] w-[100%]"
                       className="  w-full lg:w-[364px]  2xl:w-[35rem]"
                       // sx={{ backgroundColor: "porcelain" }}
-                      onChange={(e) => setEmail(e.target.value)}
+                      value={company.companyForm.email}
+                      onChange={(e) =>
+                        dispatch(
+                          setCompanyForm({
+                            ...company.companyForm,
+                            email: e.target.value,
+                          })
+                        )
+                      }
                       onBlur={handleEmailChange}
                     />
-                    {errors.email && (
+                    {/* {errors.email && (
                       <p className="error-color">{errors.email}</p>
-                    )}
+                    )} */}
                   </Box>
 
                   <br></br>
@@ -433,12 +413,20 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                       // className="lg:w-[100%] w-[100%]"
                       className="  w-full lg:w-[364px]  2xl:w-[35rem]"
                       // sx={{ backgroundColor: "porcelain" }}
-                      onChange={(e) => setPhoneNumber(e.target.value)}
+                      value={company.companyForm.phoneNumber}
+                      onChange={(e) =>
+                        dispatch(
+                          setCompanyForm({
+                            ...company.companyForm,
+                            phoneNumber: e.target.value,
+                          })
+                        )
+                      }
                       onBlur={handlePhoneChange}
                     />
-                    {errors.phoneNumber && (
+                    {/* {errors.phoneNumber && (
                       <p className="error-color">{errors.phoneNumber}</p>
-                    )}
+                    )} */}
                   </Box>
 
                   <br></br>
@@ -467,9 +455,14 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                             InputProps={{ disableUnderline: true }}
                             className="  w-full lg:w-[364px]  2xl:w-[35rem] "
                             placeholder="Enter address (Street Number, Town, City, State)"
-                            value={inputValue}
+                            value={company.companyForm.address}
                             onChange={(e) =>
-                              handleInputChange(index, e.target.value)
+                              dispatch(
+                                setCompanyForm({
+                                  ...company.companyForm,
+                                  address: e.target.value,
+                                })
+                              )
                             }
                             // className="mr-2"
                           />

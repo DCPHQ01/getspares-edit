@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Box from "@mui/material/Box";
+import ImageComponent from "@/components/imageComp/ImageComponent";
 import TextField from "@mui/material/TextField";
 import {
   TextareaAutosize as BaseTextareaAutosize,
@@ -12,6 +13,11 @@ interface ChildProps {
   step: number;
   setStep: React.Dispatch<React.SetStateAction<number>>;
 }
+import formLogo from "@/assets/images/formLogo.jpg";
+import { useAppSelector } from "@/redux";
+import { RootState } from "../../../../meca/src/redux";
+import { useAppDispatch } from "../../../../meca/src/redux/hooks";
+import { setCompanyForm } from "@/redux/features/company/companySlice";
 
 const CalledPagesPageOnePages: React.FC<ChildProps> = ({
   step,
@@ -99,6 +105,11 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
     setStep(step + 1);
   };
 
+  const dispatch = useAppDispatch();
+
+  const { company } = useAppSelector((state: RootState) => state);
+  console.log("company ", company.companyForm);
+
   return (
     <>
       <div className="" style={{ width: "85%", margin: "auto" }}>
@@ -139,17 +150,33 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                     InputProps={{ disableUnderline: true }}
                     className="lg:w-[364px] w-[100%] mb-10 2xl:w-[35rem]"
                     sx={{ backgroundColor: "porcelain" }}
-                    onChange={(e) => setFullName(e.target.value)}
+                    value={company.companyForm.name}
+                    onChange={(e) =>
+                      dispatch(
+                        setCompanyForm({
+                          ...company.companyForm,
+                          name: e.target.value,
+                        })
+                      )
+                    }
                     onBlur={validateFullName}
                   />
-                  {errors.fullName && (
+                  {/* {errors.fullName && (
                     <p className="error-color">{errors.fullName}</p>
-                  )}
+                  )} */}
                 </Box>
                 <Box>
                   <TextareaAutosize
                     required={true}
-                    onChange={(e) => setMessage(e.target.value)}
+                    value={company.companyForm.description}
+                    onChange={(e) =>
+                      dispatch(
+                        setCompanyForm({
+                          ...company.companyForm,
+                          description: e.target.value,
+                        })
+                      )
+                    }
                     onBlur={validateMessage}
                     id="filled-basic"
                     aria-label="Description"
@@ -166,14 +193,22 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                       padding: "20px",
                     }}
                   />
-                  {errors.message && (
+                  {/* {errors.message && (
                     <p className="error-color">{errors.message}</p>
-                  )}
+                  )} */}
                 </Box>
                 <Box>
                   <TextField
                     required={true}
-                    onChange={(e) => setWebsite(e.target.value)}
+                    value={company.companyForm.website}
+                    onChange={(e) =>
+                      dispatch(
+                        setCompanyForm({
+                          ...company.companyForm,
+                          website: e.target.value,
+                        })
+                      )
+                    }
                     onBlur={validateWebsite}
                     type="url"
                     id="filled-basic"
@@ -185,30 +220,40 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                     className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem]"
                     sx={{ backgroundColor: "porcelain" }}
                   />
-                  {errors.website && (
+                  {/* {errors.website && (
                     <p className="error-color">{errors.website}</p>
-                  )}
+                  )} */}
                 </Box>
                 <Box>
                   <TextField
                     required={true}
-                    onChange={(e) => setDate(e.target.value)}
+                    value={company.companyForm.date_founded}
+                    onChange={(e) =>
+                      dispatch(
+                        setCompanyForm({
+                          ...company.companyForm,
+                          date_founded: e.target.value,
+                        })
+                      )
+                    }
                     onBlur={validateDate}
                     id="filled-basic"
                     label=""
                     variant="filled"
                     type="date"
-                    name="fullName"
+                    name="date"
                     placeholder=""
                     InputProps={{ disableUnderline: true }}
                     className="lg:w-[364px] w-[100%] 2xl:w-[35rem]"
                     sx={{ backgroundColor: "porcelain" }}
                   />
-                  {errors.date && <p className="error-color">{errors.date}</p>}
+                  {/* {errors.date && <p className="error-color">{errors.date}</p>} */}
                 </Box>
               </Box>
               <Box>
                 <div className="inputImage imagetext h-[283px] w-[316px]">
+                  {/* <ImageComponent src={formLogo} alt="form logo" /> */}
+
                   <TextField
                     required={true}
                     type="file"
@@ -222,9 +267,9 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                     id="secondImageid"
                     // placeholder="Add logo by clicking or drag and drop"
                   />
-                  {errors.image && (
+                  {/* {errors.image && (
                     <p className="error-color">{errors.image}</p>
-                  )}
+                  )} */}
                 </div>
               </Box>
             </Box>
@@ -266,7 +311,15 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                     <div>
                       <input
                         required={true}
-                        onChange={(e) => setFullName(e.target.value)}
+                        value={company.companyForm.name}
+                        onChange={(e) =>
+                          dispatch(
+                            setCompanyForm({
+                              ...company.companyForm,
+                              name: e.target.value,
+                            })
+                          )
+                        }
                         onBlur={validateFullName}
                         type="text"
                         name="fullname"
@@ -275,30 +328,46 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                         // className="w-[394px] h-[50px]"
                         placeholder="Name Enter name"
                       />
-                      {errors.fullName && (
+                      {/* {errors.fullName && (
                         <p className="error-color">{errors.fullName}</p>
-                      )}
+                      )} */}
 
                       <br></br>
 
                       <textarea
                         required={true}
-                        onChange={(e) => setMessage(e.target.value)}
+                        value={company.companyForm.description}
+                        onChange={(e) =>
+                          dispatch(
+                            setCompanyForm({
+                              ...company.companyForm,
+                              description: e.target.value,
+                            })
+                          )
+                        }
                         onBlur={validateMessage}
                         name="message"
                         id="messageid"
                         placeholder="Description Say something about your company"
                         className=" companyInput inputText w-full mb-8 lg:w-[364px]"
                       ></textarea>
-                      {errors.message && (
+                      {/* {errors.message && (
                         <p className="error-color">{errors.message}</p>
-                      )}
+                      )} */}
 
                       <br></br>
 
                       <input
                         required={true}
-                        onChange={(e) => setWebsite(e.target.value)}
+                        value={company.companyForm.website}
+                        onChange={(e) =>
+                          dispatch(
+                            setCompanyForm({
+                              ...company.companyForm,
+                              website: e.target.value,
+                            })
+                          )
+                        }
                         onBlur={validateWebsite}
                         type="url"
                         name="website"
@@ -306,13 +375,21 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                         placeholder="Website www.123.com"
                         className="companyInput mb-4 w-full lg:w-[364px]"
                       />
-                      {errors.website && (
+                      {/* {errors.website && (
                         <p className="error-color">{errors.website}</p>
-                      )}
+                      )} */}
                       <br></br>
                       <input
                         required={true}
-                        onChange={(e) => setDate(e.target.value)}
+                        value={company.companyForm.date_founded}
+                        onChange={(e) =>
+                          dispatch(
+                            setCompanyForm({
+                              ...company.companyForm,
+                              date_founded: e.target.value,
+                            })
+                          )
+                        }
                         onBlur={validateDate}
                         type="date"
                         name="date"
@@ -320,9 +397,9 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                         placeholder="date funded 12/12/21"
                         className=" companyInput mb-4"
                       />
-                      {errors.date && (
+                      {/* {errors.date && (
                         <p className="error-color">{errors.date}</p>
-                      )}
+                      )} */}
                     </div>
 
                     <div>
@@ -339,9 +416,9 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                           className="mb-4"
                           id="firstImageId"
                         />
-                        {errors.image && (
+                        {/* {errors.image && (
                           <p className="error-color">{errors.image}</p>
-                        )}
+                        )} */}
                       </div>
                     </div>
                   </div>

@@ -6,12 +6,13 @@ import mail from "../../assets/icons/Icon.svg";
 import connectorwrap from "../../assets/images/connectorwrap.svg";
 import locationwrap from "../../assets/images/locationwrap.svg";
 import previewwrap from "../../assets/images/previewwrap.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { title } from "process";
 
 import React from "react";
 
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { useSelector } from "react-redux";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -100,6 +101,10 @@ function ResponsiveDrawer({ step, setStep }) {
     description: string;
     image: any;
   }
+
+  useEffect(() => {
+    setActiveTab(1);
+  }, []);
 
   return (
     <div className="relative md:flex h-[800px] p-4 w-full" id="sidebar">

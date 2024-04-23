@@ -16,6 +16,16 @@ import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import React from "react";
 
+interface ChildProps {
+  step: number;
+  setStep: React.Dispatch<React.SetStateAction<number>>;
+}
+
+import { useAppSelector } from "@/redux";
+import { RootState } from "../../../../meca/src/redux";
+import { useAppDispatch } from "../../../../meca/src/redux/hooks";
+import { setCompanyForm } from "@/redux/features/company/companySlice";
+
 const CalledPagesPageThreePages = ({
   step,
   setStep,
@@ -43,37 +53,10 @@ const CalledPagesPageThreePages = ({
     setState({ ...state, open: false });
   };
 
-  // const [previewData, setPreviewData] = useState({});
-  // const { query } = useQuery("query", async () => {
-  //   // Simulating fetching data from an API
-  //   return router.query;
-  // });
+  const dispatch = useAppDispatch();
 
-  // useEffect(() => {
-  //   // Extract query parameters from URL
-  //   const {
-  //     fullName,
-  //     message,
-  //     website,
-  //     image,
-  //     date,
-  //     email,
-  //     address,
-  //     phoneNumber,
-  //   } = router.query;
-  //   // Set preview data
-  //   setPreviewData({
-  //     fullName,
-  //     message,
-  //     website,
-  //     image,
-  //     date,
-  //     email,
-  //     address,
-  //     phoneNumber,
-  //   });
-  // }, [router.query]);
-  // console.log("input form", setPreviewData);
+  const { company } = useAppSelector((state: RootState) => state);
+  console.log("company ", company.companyForm);
 
   return (
     <div className="" style={{ width: "85%", margin: "auto" }}>
@@ -112,6 +95,7 @@ const CalledPagesPageThreePages = ({
                   required={true}
                   id="filled-basic"
                   label="Name"
+                  value={company.companyForm.name}
                   variant="filled"
                   type="text"
                   name="fullName"
@@ -130,7 +114,8 @@ const CalledPagesPageThreePages = ({
                   aria-label="Description"
                   variant="filled"
                   type="text"
-                  name="fullName"
+                  name="description"
+                  value={company.companyForm.description}
                   placeholder="Say something about your company"
                   InputProps={{ disableUnderline: true }}
                   className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem]"
@@ -150,7 +135,8 @@ const CalledPagesPageThreePages = ({
                   id="filled-basic"
                   label="Website"
                   variant="filled"
-                  name="fullName"
+                  value={company.companyForm.website}
+                  name="website"
                   placeholder="www.ideytryam.com"
                   InputProps={{ disableUnderline: true }}
                   className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem]"
@@ -165,7 +151,8 @@ const CalledPagesPageThreePages = ({
                   label="Date founded"
                   variant="filled"
                   type="date"
-                  name="fullName"
+                  value={company.companyForm.date_founded}
+                  name="date"
                   placeholder=""
                   InputProps={{ disableUnderline: true }}
                   className="lg:w-[364px] w-[100%] 2xl:w-[35rem] mb-10"
@@ -180,6 +167,7 @@ const CalledPagesPageThreePages = ({
                   id="filled-basic"
                   label="Email address"
                   variant="filled"
+                  value={company.companyForm.email}
                   type="email"
                   name="email"
                   placeholder="Enter email"
@@ -198,6 +186,7 @@ const CalledPagesPageThreePages = ({
                   label="Phone number"
                   variant="filled"
                   type="phoneNumber"
+                  value={company.companyForm.phoneNumber}
                   name="number"
                   placeholder="09000000000"
                   InputProps={{ disableUnderline: true }}
@@ -214,6 +203,7 @@ const CalledPagesPageThreePages = ({
                   id="filled-basic"
                   label="Address 1"
                   variant="filled"
+                  value={company.companyForm.address}
                   name="address"
                   placeholder="371, Borno way, Lagos Nigeria"
                   InputProps={{ disableUnderline: true }}
