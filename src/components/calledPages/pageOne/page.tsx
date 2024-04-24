@@ -161,9 +161,6 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                     }
                     onBlur={validateFullName}
                   />
-                  {/* {errors.fullName && (
-                    <p className="error-color">{errors.fullName}</p>
-                  )} */}
                 </Box>
                 <Box>
                   <TextareaAutosize
@@ -182,7 +179,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                     aria-label="Description"
                     variant="filled"
                     type="text"
-                    name="fullName"
+                    name="description"
                     placeholder="Say something about your company"
                     InputProps={{ disableUnderline: true }}
                     className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem]"
@@ -214,7 +211,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                     id="filled-basic"
                     label="Website"
                     variant="filled"
-                    name="fullName"
+                    name="website"
                     placeholder="www.ideytryam.com"
                     InputProps={{ disableUnderline: true }}
                     className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem]"
