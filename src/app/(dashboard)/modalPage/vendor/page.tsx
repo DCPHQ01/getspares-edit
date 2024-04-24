@@ -10,7 +10,7 @@ const number = [1, 2, 3];
 
 const Dashboard = () => {
   const [step, setStep] = useState<number>(1);
-  const [activeTab, setActiveTab] = useState(false); // Default active tab is 'company'
+  const [activeTab, setActiveTab] = useState<boolean>(false); // Default active tab is 'company'
   const goToNextPage = () => {
     setStep(step + 1);
   };

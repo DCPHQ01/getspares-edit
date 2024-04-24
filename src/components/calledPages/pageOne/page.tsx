@@ -11,7 +11,9 @@ import {
 
 interface ChildProps {
   step: number;
+  active: boolean;
   setStep: React.Dispatch<React.SetStateAction<number>>;
+  setActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
 import formLogo from "@/assets/images/formLogo.jpg";
 import { useAppSelector } from "@/redux";
@@ -22,6 +24,7 @@ import { setCompanyForm } from "@/redux/features/company/companySlice";
 const CalledPagesPageOnePages: React.FC<ChildProps> = ({
   step,
   setStep,
+  setActive,
 }: any) => {
   const [website, setWebsite] = useState("");
   const [fullName, setFullName] = useState("");
@@ -170,7 +173,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                       dispatch(
                         setCompanyForm({
                           ...company.companyForm,
-                          description: e.pageOnetarget.value,
+                          description: e.target.value,
                         })
                       )
                     }
