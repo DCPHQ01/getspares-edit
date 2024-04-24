@@ -1,8 +1,13 @@
-import { FormControl, Button } from "@mui/material";
+
+import { FilledInput, FormControl, Button, InputLabel } from "@mui/material";
 import Link from "next/link";
 import React, { ChangeEvent, useState } from "react";
-import { MdOutlineArrowBack, MdOutlineVpnKey, MdChevronRight } from "react-icons/md";
-import TextField from "@mui/material/TextField";
+import {
+  MdOutlineArrowBack,
+  MdOutlineVpnKey,
+  MdChevronRight,
+} from "react-icons/md";
+
 
 interface EnterEmailProps {
   setHaveSentEmail: React.Dispatch<React.SetStateAction<boolean>>;
@@ -11,39 +16,36 @@ interface EnterEmailProps {
 export default function EnterEmail({ setHaveSentEmail }: EnterEmailProps) {
   const [state, setState] = useState({
     email: "",
-    validEmail: true,
-    isDisabled: true,
+
+    emailError: false,
   });
 
   const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = event.target;
-    let isValid = true;
+    const email = event.target.value;
+    setState((prevState) => ({
+      ...prevState,
+      email,
+      emailError: !isValidEmail(email),
+    }));
+  };
 
-    if (id === "email") {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      isValid = emailRegex.test(value);
-    }
+  const isValidEmail = (email: string) => {
+    return /\S+@\S+\.\S+/.test(email);
+  };
 
-    if (isValid) {
-      setState({
-        ...state,
-        isDisabled: false,
-        [id]: value,
-        [`valid${id.charAt(0).toUpperCase() + id.slice(1)}`]: isValid,
-      });
-    } else {
-      setState({
-        ...state,
-        isDisabled: true,
-        [id]: value,
-        [`valid${id.charAt(0).toUpperCase() + id.slice(1)}`]: isValid,
-      });
-    }
+  const isFormValid = () => {
+    return isValidEmail(state.email);
+
   };
 
   return (
     <>
-      <div className="border border-mecaBorderColor p-4 rounded-xl" id="keyIconDiv">
+
+      <div
+        className="border border-mecaBorderColor p-4 rounded-xl"
+        id="keyIconDiv"
+      >
+
         <MdOutlineVpnKey
           size={24}
           className="text-mecaGoBackArrow"
@@ -63,23 +65,31 @@ export default function EnterEmail({ setHaveSentEmail }: EnterEmailProps) {
         No worries, we’ll send you reset instructions.
       </p>
       <FormControl className="flex flex-col gap-8 w-full mt-6" id="form">
-        <div>
-        <TextField
-          id="email"
-          label="Email"
-          variant="filled"
-          error={!state.validEmail}
-          InputProps={{ disableUnderline: true }}
-          onChange={handleOnChange}
-          className="bg-mecaInputBgColor w-full h-full"
-        />
-        </div>
+
+        <FormControl className="w-full" variant="filled">
+          <InputLabel htmlFor="email">Email</InputLabel>
+          <FilledInput
+            id="email"
+            disableUnderline
+            onChange={handleOnChange}
+            error={state.emailError}
+            className={`bg-mecaInputBgColor w-full rounded-t-[4px] hover:bg-mecaInputBgColor border focus-within:bg-mecaInputBgColor ${
+              state.emailError ? "border-red-500" : ""
+            }`}
+          />
+          {state.emailError && (
+            <span className="text-red-500 text-sm mt-1">
+              Invalid email address
+            </span>
+          )}
+        </FormControl>
         <Button
           id="resetPasswordBtn"
           variant="contained"
-          disabled={state.isDisabled}
+          disabled={!isFormValid()}
           endIcon={<MdChevronRight />}
-          className="bg-mecaBluePrimaryColor normal-case text-[white] text-lg font-semibold rounded-[36px] disabled:bg-meca-gray-400 disabled:text-[white] h-12 hover:bg-mecaBluePrimaryColor"
+          className="bg-mecaBluePrimaryColor normal-case text-[white] text-lg font-semibold rounded-[36px] disabled:bg-mecaBgDisableColor disabled:text-[white] h-12 hover:bg-mecaBluePrimaryColor"
+
           onClick={() => setHaveSentEmail(true)}
         >
           Reset password
