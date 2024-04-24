@@ -1,20 +1,12 @@
 "use client";
 
 // import { useRouter } from "next/router";
-import { useQuery } from "react-query";
-import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import {
-  TextareaAutosize as BaseTextareaAutosize,
-  TextareaAutosize,
-} from "@mui/base/TextareaAutosize";
-import Grid from "@mui/material/Grid";
-import Button from "@mui/material/Button";
+import { TextareaAutosize } from "@mui/base/TextareaAutosize";
 import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
-// import * as React from "react";
+import * as React from "react";
 import Alert from "@mui/material/Alert";
-import React from "react";
 
 interface ChildProps {
   step: number;
@@ -24,7 +16,6 @@ interface ChildProps {
 import { useAppSelector } from "@/redux";
 import { RootState } from "../../../../meca/src/redux";
 import { useAppDispatch } from "../../../../meca/src/redux/hooks";
-import { setCompanyForm } from "@/redux/features/company/companySlice";
 
 const CalledPagesPageThreePages = ({
   step,
