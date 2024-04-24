@@ -353,124 +353,126 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                 </form>
               </div>
               <Box className="form-display flex flex-col flex-col-reverse mt-8">
-                <Box onSubmit={handleSubmit} className="companyInputWrap">
-                  <Box className="">
-                    <TextField
-                      required={true}
-                      id="filled-basic"
-                      label="Email address"
-                      variant="filled"
-                      type="email"
-                      name="email"
-                      placeholder="Enter email"
-                      InputProps={{ disableUnderline: true }}
-                      // className="lg:w-[100%] w-[100%]"
-                      className="  w-full lg:w-[364px]  2xl:w-[35rem]"
-                      // sx={{ backgroundColor: "porcelain" }}
-                      value={company.companyForm.email}
-                      onChange={(e) =>
-                        dispatch(
-                          setCompanyForm({
-                            ...company.companyForm,
-                            email: e.target.value,
-                          })
-                        )
-                      }
-                      onBlur={handleEmailChange}
-                    />
-                    {/* {errors.email && (
+                <form onSubmit={handleSubmit}>
+                  <Box className="companyInputWrap">
+                    <Box className="">
+                      <TextField
+                        required={true}
+                        id="filled-basic"
+                        label="Email address"
+                        variant="filled"
+                        type="email"
+                        name="email"
+                        placeholder="Enter email"
+                        InputProps={{ disableUnderline: true }}
+                        // className="lg:w-[100%] w-[100%]"
+                        className="  w-full lg:w-[364px]  2xl:w-[35rem]"
+                        // sx={{ backgroundColor: "porcelain" }}
+                        value={company.companyForm.email}
+                        onChange={(e) =>
+                          dispatch(
+                            setCompanyForm({
+                              ...company.companyForm,
+                              email: e.target.value,
+                            })
+                          )
+                        }
+                        onBlur={handleEmailChange}
+                      />
+                      {/* {errors.email && (
                       <p className="error-color">{errors.email}</p>
                     )} */}
-                  </Box>
+                    </Box>
 
-                  <br></br>
-                  <Box className="">
-                    <TextField
-                      required={true}
-                      id="filled-basic"
-                      label="Phone number"
-                      variant="filled"
-                      type="number"
-                      name="number"
-                      placeholder="09000000000"
-                      InputProps={{ disableUnderline: true }}
-                      // className="lg:w-[100%] w-[100%]"
-                      className="  w-full lg:w-[364px]  2xl:w-[35rem]"
-                      // sx={{ backgroundColor: "porcelain" }}
-                      value={company.companyForm.phoneNumber}
-                      onChange={(e) =>
-                        dispatch(
-                          setCompanyForm({
-                            ...company.companyForm,
-                            phoneNumber: e.target.value,
-                          })
-                        )
-                      }
-                      onBlur={handlePhoneChange}
-                    />
-                    {/* {errors.phoneNumber && (
+                    <br></br>
+                    <Box className="">
+                      <TextField
+                        required={true}
+                        id="filled-basic"
+                        label="Phone number"
+                        variant="filled"
+                        type="number"
+                        name="number"
+                        placeholder="09000000000"
+                        InputProps={{ disableUnderline: true }}
+                        // className="lg:w-[100%] w-[100%]"
+                        className="  w-full lg:w-[364px]  2xl:w-[35rem]"
+                        // sx={{ backgroundColor: "porcelain" }}
+                        value={company.companyForm.phoneNumber}
+                        onChange={(e) =>
+                          dispatch(
+                            setCompanyForm({
+                              ...company.companyForm,
+                              phoneNumber: e.target.value,
+                            })
+                          )
+                        }
+                        onBlur={handlePhoneChange}
+                      />
+                      {/* {errors.phoneNumber && (
                       <p className="error-color">{errors.phoneNumber}</p>
                     )} */}
-                  </Box>
+                    </Box>
 
-                  <br></br>
+                    <br></br>
 
-                  <Box>
-                    {" "}
-                    <div>
-                      {addresses.map((address, index) => (
-                        <div key={index}>
-                          <p>{address.streetNumber}</p>
-                          <p>{address.town}</p>
-                          <p>{address.city}</p>
-                          <p>{address.state}</p>
-                        </div>
-                      ))}
-                      {inputValues.map((inputValue, index) => (
-                        <div key={index} className="mb-6">
-                          <TextField
-                            type="text"
-                            required={true}
-                            id="filled-basic"
-                            label="Address"
-                            variant="filled"
-                            name="address"
-                            style={{ backgroundColor: "#EEF2F6" }}
-                            InputProps={{ disableUnderline: true }}
-                            className="  w-full lg:w-[364px]  2xl:w-[35rem] "
-                            placeholder="Enter address (Street Number, Town, City, State)"
-                            value={company.companyForm.address}
-                            onChange={(e) =>
-                              dispatch(
-                                setCompanyForm({
-                                  ...company.companyForm,
-                                  address: e.target.value,
-                                })
-                              )
-                            }
-                            // className="mr-2"
-                          />
-                          {/* <button
+                    <Box>
+                      {" "}
+                      <div>
+                        {addresses.map((address, index) => (
+                          <div key={index}>
+                            <p>{address.streetNumber}</p>
+                            <p>{address.town}</p>
+                            <p>{address.city}</p>
+                            <p>{address.state}</p>
+                          </div>
+                        ))}
+                        {inputValues.map((inputValue, index) => (
+                          <div key={index} className="mb-6">
+                            <TextField
+                              type="text"
+                              required={true}
+                              id="filled-basic"
+                              label="Address"
+                              variant="filled"
+                              name="address"
+                              style={{ backgroundColor: "#EEF2F6" }}
+                              InputProps={{ disableUnderline: true }}
+                              className="  w-full lg:w-[364px]  2xl:w-[35rem] "
+                              placeholder="Enter address (Street Number, Town, City, State)"
+                              value={company.companyForm.address}
+                              onChange={(e) =>
+                                dispatch(
+                                  setCompanyForm({
+                                    ...company.companyForm,
+                                    address: e.target.value,
+                                  })
+                                )
+                              }
+                              // className="mr-2"
+                            />
+                            {/* <button
                         onClick={handleSaveAddress}
                         className="px-4 py-2 bg-blue-500 text-white rounded"
                       >
                         Save
                       </button> */}
-                        </div>
-                      ))}
+                          </div>
+                        ))}
 
-                      <button
-                        onClick={handleAddAddress}
-                        className="add-address"
-                        id="addAnotherid"
-                      >
-                        Add another address
-                      </button>
-                    </div>
+                        <button
+                          onClick={handleAddAddress}
+                          className="add-address"
+                          id="addAnotherid"
+                        >
+                          Add another address
+                        </button>
+                      </div>
+                    </Box>
                   </Box>
-                </Box>
+                </form>
 
-                <div className="inputImage imagetext h-[283px] w-[316px]">
+                <Box className="inputImage imagetext h-[283px] w-[316px]">
                   <Box>
                     <TextField
                       required={true}
@@ -489,7 +491,7 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                       <p className="error-color">{errors.image}</p>
                     )}
                   </Box>
-                </div>
+                </Box>
               </Box>
               {/* <div className="mt-2 flex justify-center items-center">
                 <button
