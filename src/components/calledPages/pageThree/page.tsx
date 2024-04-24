@@ -14,8 +14,8 @@ interface ChildProps {
 }
 
 import { useAppSelector } from "@/redux";
-import { RootState } from "../../../../meca/src/redux";
-import { useAppDispatch } from "../../../../meca/src/redux/hooks";
+import { useAppDispatch } from "@/redux/hooks";
+import { RootState } from "@/redux";
 
 const CalledPagesPageThreePages = ({
   step,
@@ -355,6 +355,7 @@ const CalledPagesPageThreePages = ({
                 <input
                   readOnly={true}
                   type="text"
+                  value={company.companyForm.name}
                   name="fullName"
                   id="previewNameId"
                   className=" companyInput w-full mt-6"
@@ -366,7 +367,8 @@ const CalledPagesPageThreePages = ({
                 <input
                   readOnly={true}
                   type="message"
-                  name="inputName"
+                  value={company.companyForm.description}
+                  name="description"
                   id="previewMessageId"
                   placeholder="Description Say something about your company"
                   className=" companyInput mt-6"
@@ -378,6 +380,7 @@ const CalledPagesPageThreePages = ({
                   readOnly={true}
                   type="url"
                   name="inputName"
+                  value={company.companyForm.website}
                   id="previewWebsiteId"
                   placeholder="Website www.123.com"
                   className=" companyInput mt-6"
@@ -387,7 +390,8 @@ const CalledPagesPageThreePages = ({
                 <input
                   readOnly={true}
                   type="date"
-                  name="inputName"
+                  name="date"
+                  value={company.companyForm.date_founded}
                   id="previewDateId"
                   placeholder="date funded 12/12/21"
                   className=" companyInput mt-6"
@@ -396,8 +400,9 @@ const CalledPagesPageThreePages = ({
                 <input
                   readOnly={true}
                   type="email"
-                  name="inputName"
+                  name="email"
                   id="previewEmailId"
+                  value={company.companyForm.email}
                   className=" companyInput mt-6"
                   placeholder="Enter email"
                 />
@@ -406,6 +411,7 @@ const CalledPagesPageThreePages = ({
                   readOnly={true}
                   type="number"
                   name="inputName"
+                  value={company.companyForm.phoneNumber}
                   id="previewNumberId"
                   placeholder="phone number"
                   className=" companyInput mt-6"
@@ -417,6 +423,7 @@ const CalledPagesPageThreePages = ({
                   readOnly={true}
                   type="text"
                   name="inputName"
+                  value={company.companyForm.address}
                   id="previewAddress1Id"
                   placeholder="Address1"
                   className=" companyInput mt-6"

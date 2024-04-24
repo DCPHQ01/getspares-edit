@@ -15,8 +15,8 @@ interface ChildProps {
 }
 import formLogo from "@/assets/images/formLogo.jpg";
 import { useAppSelector } from "@/redux";
-import { RootState } from "../../../../meca/src/redux";
-import { useAppDispatch } from "../../../../meca/src/redux/hooks";
+import { useAppDispatch } from "@/redux/hooks";
+import { RootState } from "@/redux";
 import { setCompanyForm } from "@/redux/features/company/companySlice";
 
 const CalledPagesPageOnePages: React.FC<ChildProps> = ({
@@ -170,7 +170,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                       dispatch(
                         setCompanyForm({
                           ...company.companyForm,
-                          description: e.target.value,
+                          description: e.pageOnetarget.value,
                         })
                       )
                     }

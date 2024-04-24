@@ -27,8 +27,8 @@ interface ChildProps {
 }
 
 import { useAppSelector } from "@/redux";
-import { RootState } from "../../../../meca/src/redux";
-import { useAppDispatch } from "../../../../meca/src/redux/hooks";
+import { useAppDispatch } from "@/redux/hooks";
+import { RootState } from "@/redux";
 import { setCompanyForm } from "@/redux/features/company/companySlice";
 
 const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
