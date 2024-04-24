@@ -23,18 +23,46 @@ interface CreateNewPasswordProps {
 export default function CreateNewPassword({
   setHavePasswordReset,
 }: CreateNewPasswordProps) {
-  const [isDisabled, setIsDisabled] = useState(false);
-  const [showNewPassword, setShowNewPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+ 
   const [password, setPassword] = useState({
-    new_password: "",
-    confirm_password: "",
-    passwordError: "",
-    // confirmPasswordError: "",
+    newPassword: "",
+    confirmPassword: "",
+    showNewPassword: false,
+    showConfirmPassword: false,
+    passwordError: false,
+    confirmPasswordError:false
   });
 
-  const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setPassword({ ...password, [e.target.id]: e.target.value });
+  const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = event.target;
+    const newPassword = id === "newPassword" ? value : password.newPassword;
+    const confirmPassword = id === "confirmPassword" ? value : password.confirmPassword;
+    setPassword((prevState) => ({
+      ...prevState,
+      [id]: value,
+      passwordError: id === "newPassword" ? !isValidPassword(newPassword) : prevState.passwordError,
+      confirmPasswordError: id === "confirmPassword" ? confirmPassword !== password.newPassword : prevState.confirmPasswordError
+    }));
+  };
+
+  const handleClickShowPassword = (field: keyof typeof password) => {
+    setPassword((prevState) => ({
+      ...prevState,
+      [field]: !prevState[field],
+    }));
+
+  };
+
+  const isValidPassword = (password: string) => {
+    return password.length >= 8;
+  };
+
+  const isFormValid = () => {
+    return (
+      password.newPassword === password.confirmPassword &&
+      password.newPassword.length >= 8
+    );
   };
 
   return (
@@ -66,7 +94,7 @@ export default function CreateNewPassword({
           <InputLabel htmlFor="newPassword">New password</InputLabel>
           <FilledInput
             id="newPassword"
-            type={showNewPassword ? "text" : "password"}
+            type={password.showNewPassword ? "text" : "password"}
             disableUnderline
             onChange={handleOnChange}
             className="bg-mecaInputBgColor w-full h-full"
@@ -74,10 +102,12 @@ export default function CreateNewPassword({
               <InputAdornment position="end">
                 <IconButton
                   aria-label="toggle password visibility"
-                  onClick={() => setShowNewPassword(!showNewPassword)}
+
+                  onClick={() => handleClickShowPassword("showNewPassword")}
                   edge="end"
                 >
-                  {showNewPassword ? (
+                  {password.showNewPassword ? (
+
                     <MdOutlineVisibilityOff />
                   ) : (
                     <MdOutlineVisibility />
@@ -86,9 +116,10 @@ export default function CreateNewPassword({
               </InputAdornment>
             }
           />
-          {password.passwordError && (
-            <p className="text-[red] text-sm">{password.passwordError}</p>
-          )}
+
+          {password.passwordError && ( <span className="text-red-500 text-sm mt-1">
+          Passwords must be at least 8 characters long
+              </span>)}
         </FormControl>
         <FormControl className="w-full" variant="filled">
           <InputLabel htmlFor="confirmPassword">
@@ -96,7 +127,9 @@ export default function CreateNewPassword({
           </InputLabel>
           <FilledInput
             id="confirmPassword"
-            type={showConfirmPassword ? "text" : "password"}
+
+            type={password.showConfirmPassword ? "text" : "password"}
+
             disableUnderline
             onChange={handleOnChange}
             className="bg-mecaInputBgColor w-full h-full"
@@ -104,10 +137,11 @@ export default function CreateNewPassword({
               <InputAdornment position="end">
                 <IconButton
                   aria-label="toggle password visibility"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+
+                  onClick={() => handleClickShowPassword("showConfirmPassword")}
                   edge="end"
                 >
-                  {showConfirmPassword ? (
+                  {password.showConfirmPassword ? (
                     <MdOutlineVisibilityOff />
                   ) : (
                     <MdOutlineVisibility />
@@ -116,14 +150,20 @@ export default function CreateNewPassword({
               </InputAdornment>
             }
           />
+
+          {password.confirmPasswordError && ( <span className="text-red-500 text-sm mt-1">
+          Passwords must must match
+              </span>)}
         </FormControl>
 
         <Button
           id="createPasswordBtn"
           variant="contained"
-          // disabled={!isDisabled}
+
+          disabled={!isFormValid()}
           endIcon={<MdChevronRight />}
-          className="bg-mecaBluePrimaryColor text-[white] normal-case h-12 text-lg font-semibold rounded-[36px] disabled:bg-meca-gray-400 disabled:text-[white] hover:bg-mecaBluePrimaryColor"
+          className="bg-mecaBluePrimaryColor text-[white] normal-case h-12 text-lg font-semibold rounded-[36px] disabled:bg-mecaBgDisableColor disabled:text-[white] hover:bg-mecaBluePrimaryColor"
+
           onClick={() => setHavePasswordReset(true)}
         >
           Set password
