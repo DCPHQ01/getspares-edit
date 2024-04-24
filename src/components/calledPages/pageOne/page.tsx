@@ -180,11 +180,8 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                     onBlur={validateMessage}
                     id="filled-basic"
                     aria-label="Description"
-                    variant="filled"
-                    type="text"
                     name="description"
                     placeholder="Say something about your company"
-                    InputProps={{ disableUnderline: true }}
                     className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem]"
                     style={{
                       backgroundColor: "#EFF2F3",

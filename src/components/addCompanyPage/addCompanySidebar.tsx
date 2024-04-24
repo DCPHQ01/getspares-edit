@@ -48,7 +48,7 @@ const drawerWidth = 240;
 //   },
 // }));
 
-function ResponsiveDrawer({ step, setStep }) {
+function ResponsiveDrawer({ step, setStep }: any) {
   // const { window } = props;
   // const classes = useStyles();
   // const theme = useTheme();
@@ -58,11 +58,7 @@ function ResponsiveDrawer({ step, setStep }) {
     setMobileOpen(!mobileOpen);
   };
 
-  const drawer = (
-    <div>
-      {/* <div className={classes.toolbar} /> */}
-    </div>
-  );
+  const drawer = <div>{/* <div className={classes.toolbar} /> */}</div>;
 
   const [activeTab, setActiveTab] = useState<number | null>(null);
 
