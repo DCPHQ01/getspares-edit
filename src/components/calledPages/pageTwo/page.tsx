@@ -153,11 +153,6 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
   const [input2, setInput2] = useState("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    // router.push(`/preview?email=${email}`);
-    // router.push(`/preview?phoneNumber=${phoneNumber}`);
-    // router.push(`/preview?address=${address}`);
-    // router.push(`/preview?image=${image}`);
-
     e.preventDefault();
     handleAddressChange();
     handlePhoneChange();
@@ -174,15 +169,6 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
   const { company } = useAppSelector((state: RootState) => state);
   console.log("company ", company.companyForm);
 
-  // const handleClick = (e: any) => {
-  //   e.preventDefault();
-  // };
-
-  // console.log(value);
-
-  // const handleChange = (e: any) => {
-  //   setValue({ ...value, [e.target.name]: e.target.value });
-  // };
   return (
     <div className="" style={{ width: "85%", margin: "auto" }}>
       <div className="pageWrapper">
@@ -218,9 +204,7 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                   name="email"
                   placeholder="Enter email"
                   InputProps={{ disableUnderline: true }}
-                  // className="lg:w-[100%] w-[100%]"
                   className="  w-full lg:w-[364px]  2xl:w-[35rem]"
-                  // sx={{ backgroundColor: "porcelain" }}
                   value={company.companyForm.email}
                   onChange={(e) =>
                     dispatch(
@@ -327,9 +311,9 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                   name="image"
                   value={image}
                   // accept="image/*"
-                  onChange={(e) =>
-                    setImage(e.target.files ? e.target.files[0] : null)
-                  }
+                  // onChange={(e) =>
+                  //   setImage(e.target.files ? e.target.files[0] : null)
+                  // }
                   // className="inputImage imagetext"
                   className=""
                   id="secondImageid"
@@ -493,9 +477,9 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                       type="file"
                       name="image"
                       // accept="image/*"
-                      onChange={(e) =>
-                        setImage(e.target.files ? e.target.files[0] : null)
-                      }
+                      // onChange={(e) =>
+                      //   setImage(e.target.files ? e.target.files[0] : null)
+                      // }
                       // className="inputImage imagetext"
                       className=""
                       id="secondImageid"

@@ -27,21 +27,21 @@ const CalledPagesPageThreePages = ({
     // Navigate to the previous page if it's available
     setStep(step - 1);
   };
-  const [state, setState] = React.useState<State>({
-    open: false,
-    vertical: "top",
-    horizontal: "center",
-  });
-  const { vertical, horizontal, open } = state;
+  // const [state, setState] = React.useState<State>({
+  //   open: false,
+  //   vertical: "top",
+  //   horizontal: "center",
+  // });
+  // const { vertical, horizontal, open } = state;
 
-  const handleClick = (newState: SnackbarOrigin) => () => {
-    setState({ ...newState, open: true });
-  };
+  // const handleClick = (newState: SnackbarOrigin) => () => {
+  //   setState({ ...newState, open: true });
+  // };
   console.log("step ", step);
   console.log("active ", active);
-  const handleClose = () => {
-    setState({ ...state, open: false });
-  };
+  // const handleClose = () => {
+  //   setState({ ...state, open: false });
+  // };
 
   const dispatch = useAppDispatch();
 
@@ -102,12 +102,10 @@ const CalledPagesPageThreePages = ({
                   required={true}
                   id="filled-basic"
                   aria-label="Description"
-                  variant="filled"
-                  type="text"
                   name="description"
                   value={company.companyForm.description}
                   placeholder="Say something about your company"
-                  InputProps={{ disableUnderline: true }}
+                  // InputProps={{ disableUnderline: true }}
                   className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem]"
                   style={{
                     backgroundColor: "#EFF2F3",
@@ -301,10 +299,10 @@ const CalledPagesPageThreePages = ({
           <div className="">
             <div className="nextbtn-wrapper">
               <button
-                onClick={handleClick({
-                  vertical: "top",
-                  horizontal: "center",
-                })}
+                // onClick={handleClick({
+                //   vertical: "top",
+                //   horizontal: "center",
+                // })}
                 type="submit"
                 id="thirdFormSubmit"
                 className="nextbtn w-96 mt-40 mb-6 "
@@ -312,11 +310,11 @@ const CalledPagesPageThreePages = ({
                 Add company
               </button>
             </div>
-            <Box sx={{ width: 500 }}>
+            {/* <Box sx={{ width: 500 }}>
               <Snackbar
                 anchorOrigin={{ vertical, horizontal }}
                 open={open}
-                onClose={handleClose}
+                // onClose={handleClose}
                 // sx={{ backgroundColor: "green" }}
 
                 key={vertical + horizontal}
@@ -325,7 +323,7 @@ const CalledPagesPageThreePages = ({
                   Company added successfully !
                 </Alert>
               </Snackbar>
-            </Box>
+            </Box> */}
           </div>
         </div>
 
@@ -482,21 +480,21 @@ const CalledPagesPageThreePages = ({
             <div className="">
               <div className="nextbtn-wrapper">
                 <button
-                  onClick={handleClick({
-                    vertical: "top",
-                    horizontal: "center",
-                  })}
+                  // onClick={handleClick({
+                  //   vertical: "top",
+                  //   horizontal: "center",
+                  // })}
                   id="thirdFormSubmit"
                   className="nextbtn nextbtnMobile h-12  mt-6 mb-20"
                 >
                   Add company
                 </button>
               </div>
-              <Box sx={{ width: 500 }}>
+              {/* <Box sx={{ width: 500 }}>
                 <Snackbar
                   anchorOrigin={{ vertical, horizontal }}
                   open={open}
-                  onClose={handleClose}
+                  // onClose={handleClose}
                   // sx={{ backgroundColor: "green" }}
 
                   key={vertical + horizontal}
@@ -505,7 +503,7 @@ const CalledPagesPageThreePages = ({
                     Company added successfully !
                   </Alert>
                 </Snackbar>
-              </Box>
+              </Box> */}
               {/* <div className="mt-8 flex items-center justify-evenly gap-4 h-[8px] w-full">
                 <div
                   className="h-full w-1/3 bg-blue-800 rounded-lg"

@@ -256,9 +256,9 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                     type="file"
                     name="image"
                     // accept="image/*"
-                    onChange={(e) =>
-                      setImage(e.target.files ? e.target.files[0] : null)
-                    }
+                    // onChange={(e) =>
+                    //   setImage(e.target.files ? e.target.files[0] : null)
+                    // }
                     // className="inputImage imagetext"
                     sx={{ backgroundColor: "porcelain" }}
                     id="secondImageid"
