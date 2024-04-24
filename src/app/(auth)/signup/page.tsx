@@ -9,11 +9,6 @@ const SignUp = () => {
     <>
       <div
         id="signUpPage"
-
-        className="grid h-full sm:grid-cols-1 md:grid-cols-2"
-      >
-        <SignUpComponentLeft />
-        {!isMobile && <SignUpComponentRight />}
         className="grid grid-cols-1 lg:grid-cols-2 h-screen "
       >
         <SignUpComponentLeft />

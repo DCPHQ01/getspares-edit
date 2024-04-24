@@ -32,8 +32,15 @@ export default function VerifyEmail({
 
   return (
     <>
-      <div className="border border-mecaBorderColor p-4 rounded-xl" id="keyIconDiv">
-        <MdOutlineMail size={24} className="text-mecaGoBackArrow" id="keyIcon" />
+      <div
+        className="border border-mecaBorderColor p-4 rounded-xl"
+        id="keyIconDiv"
+      >
+        <MdOutlineMail
+          size={24}
+          className="text-mecaGoBackArrow"
+          id="keyIcon"
+        />
       </div>
       <h2
         className="text-mecaDarkBlueBackgroundOverlay font-bold text-center lg:text-3xl text-xl mt-4"

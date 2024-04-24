@@ -48,6 +48,7 @@ const SignUpComponentLeft = () => {
     React.useState<UserVendor>(userVendor);
   const [userAgentDetails, setUserAgentDetails] =
     React.useState<UserAgent>(userAgent);
+
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (
@@ -57,7 +58,6 @@ const SignUpComponentLeft = () => {
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-
     const { value, id } = event.target;
     if (userType === "vendor") {
       setUserVendorDetails((values) => ({ ...values, [id]: value }));
@@ -69,7 +69,6 @@ const SignUpComponentLeft = () => {
   };
 
   // console.log(userVendorDetails);
-  
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -77,7 +76,6 @@ const SignUpComponentLeft = () => {
   };
 
   return (
-
     <div id="registerMainBodyLeft1" className="h-screen p-5 overflow-auto">
       <div
         id="registerBodyLeft2"
@@ -93,7 +91,6 @@ const SignUpComponentLeft = () => {
         </div>
         <div
           id="formMainContainer2"
-
           className={`flex flex-col justify-between`}
         >
           <div
@@ -103,7 +100,6 @@ const SignUpComponentLeft = () => {
             <div id="flexText1" className="flex flex-col">
               <span
                 id="niceToMeetid"
-        className="font-semibold text-3xl text-meca-black"
                 className="font-semibold text-3xl text-mecaDarkBlueBackgroundOverlay"
               >
                 Nice to meet you
@@ -116,7 +112,6 @@ const SignUpComponentLeft = () => {
               </span>
             </div>
             <div className="py-4" id="RadioBtnSignUp">
-
               <FormControl id="formcontrolMui">
                 <RadioGroup
                   row
@@ -244,14 +239,12 @@ const SignUpComponentLeft = () => {
                     Password
                   </InputLabel>
                   <FilledInput
-
                     id="password"
                     type={showPassword ? "text" : "password"}
                     disableUnderline
                     name="password"
                     onChange={handleChange}
                     className="bg-mecaInputBgColor border w-full hover:bg-mecaInputBgColor focus-within:bg-mecaInputBgColor"
-
                     value={
                       userType === "vendor"
                         ? userVendorDetails.password
@@ -297,7 +290,6 @@ const SignUpComponentLeft = () => {
                     Forgot password
                   </Link>
                 </div>
-
               </div>
               <div id="clickRegisterDiv">
                 <Button

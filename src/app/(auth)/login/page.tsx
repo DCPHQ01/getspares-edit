@@ -98,7 +98,6 @@ export default function Login() {
                 state.emailError ? "border-red-500" : ""
               }`}
             />
-
             {state.emailError && (
               <span className="text-red-500 text-sm mt-1">
                 Invalid email address
@@ -131,15 +130,7 @@ export default function Login() {
                   </IconButton>
                 </InputAdornment>
               }
-            
-          </FormControl>
-          <Button
-            id="loginBtn"
-            className={`bg-mecaBluePrimaryColor capitalize text-[white] text-lg font-semibold rounded-[36px] h-12 hover:bg-mecaBluePrimaryColor ${
-              isFormValid()
-                ? ""
-                : "disabled:bg-meca-gray-400 disabled:text-[white]"
-            }`}
+            />
             {state.passwordError && (
               <span className="text-red-500 text-sm mt-1">
                 Password must be at least 8 characters
