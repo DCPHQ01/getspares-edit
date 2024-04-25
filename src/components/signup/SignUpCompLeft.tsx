@@ -1,4 +1,3 @@
-import * as React from "react";
 import FormControl from "@mui/material/FormControl";
 import InputAdornment from "@mui/material/InputAdornment";
 import InputLabel from "@mui/material/InputLabel";
@@ -14,12 +13,14 @@ import {
 } from "react-icons/md";
 import { Button, Checkbox } from "@mui/material";
 import Link from "next/link";
+import { useState } from "react";
 
 const userBuyer: User = {
   firstName: "",
   lastName: "",
   email: "",
   password: "",
+  roleName: "BUYER",
 };
 
 const userVendor: UserVendor = {
@@ -28,6 +29,7 @@ const userVendor: UserVendor = {
   email: "",
   password: "",
   jobTitle: "",
+  roleName: "VENDOR",
 };
 
 const userAgent: UserAgent = {
@@ -37,17 +39,17 @@ const userAgent: UserAgent = {
   password: "",
   companyName: "",
   associatedSeller: "",
+  roleName: "AGENT",
 };
 
 const SignUpComponentLeft = () => {
-  const [showPassword, setShowPassword] = React.useState(false);
-  const [userType, setUserType] = React.useState("vendor");
-  const [userBuyerDetails, setUserBuyerDetails] =
-    React.useState<User>(userBuyer);
+  const [showPassword, setShowPassword] = useState(false);
+  const [userType, setUserType] = useState("vendor");
+  const [userBuyerDetails, setUserBuyerDetails] = useState<User>(userBuyer);
   const [userVendorDetails, setUserVendorDetails] =
-    React.useState<UserVendor>(userVendor);
+    useState<UserVendor>(userVendor);
   const [userAgentDetails, setUserAgentDetails] =
-    React.useState<UserAgent>(userAgent);
+    useState<UserAgent>(userAgent);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -68,8 +70,6 @@ const SignUpComponentLeft = () => {
     }
   };
 
-  // console.log(userVendorDetails);
-  
 
   const handleSubmit = (e: any) => {
     e.preventDefault();

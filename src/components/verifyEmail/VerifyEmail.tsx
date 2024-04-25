@@ -10,6 +10,7 @@ export default function VerifyEmail({
   setHaveVerifiedEmail,
 }: VerifyEmailProps) {
   const [otp, setOtp] = useState(new Array(6).fill(""));
+  const [isDisabled, setIsDisabled] = useState(true);
 
   const handleChangeOtp = (element: HTMLInputElement, index: number): void => {
     if (isNaN(Number(element.value))) return;
@@ -27,8 +28,12 @@ export default function VerifyEmail({
       if (nextInput) {
         (nextInput as HTMLInputElement).focus();
       }
+      setIsDisabled(true)
+    } else {
+      setIsDisabled(false)
     }
   };
+// console.log(otp.join(""));
 
   return (
     <>
@@ -75,8 +80,9 @@ export default function VerifyEmail({
 
         <div className="lg:w-4/5 mx-auto pt-12">
           <button
-            className="w-full bg-mecaBluePrimaryColor text-[white] lg:text-lg text-sm font-semibold rounded-[36px] lg:h-12 h-8 hover:bg-mecaBluePrimaryColor"
+            className="w-full bg-mecaBluePrimaryColor text-[white] lg:text-lg text-sm font-semibold rounded-[36px] lg:h-12 h-8 disabled:bg-mecaBgDisableColor disabled:text-[white]"
             onClick={() => setHaveVerifiedEmail(true)}
+            disabled={isDisabled}
           >
             Verify email
           </button>
