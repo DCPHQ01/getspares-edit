@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Nunito_Sans } from "next/font/google";
 import "./globals.css";
+import { Providers } from "@/redux/provider";
 
 const nunito = Nunito_Sans({ subsets: ["latin"] });
 
@@ -17,7 +18,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={nunito.className}>{children}</body>
+      <Providers>
+        <body className={nunito.className}>{children}</body>
+      </Providers>
     </html>
   );
 }

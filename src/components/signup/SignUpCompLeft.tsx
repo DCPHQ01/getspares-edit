@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react";
 import FormControl from "@mui/material/FormControl";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -14,6 +15,11 @@ import {
 } from "react-icons/md";
 import { Button, Checkbox } from "@mui/material";
 import Link from "next/link";
+import {
+  useRegisterAgentMutation,
+  useRegisterBuyerMutation,
+  useRegisterVendorMutation,
+} from "../../redux/baseQuery";
 
 const userBuyer: User = {
   firstName: "",
@@ -57,6 +63,31 @@ const SignUpComponentLeft = () => {
     event.preventDefault();
   };
 
+  const [
+    registerVendor,
+    {
+      isLoading: isLoadingVendor,
+      isError: isErrorVendor,
+      isSuccess: isSuccessVendor,
+    },
+  ] = useRegisterVendorMutation();
+  const [
+    registerBuyer,
+    {
+      isLoading: isLoadingBuyer,
+      isError: isErrorBuyer,
+      isSuccess: isSuccessBuyer,
+    },
+  ] = useRegisterBuyerMutation();
+  const [
+    registerAgent,
+    {
+      isLoading: isLoadingAgent,
+      isError: isErrorAgent,
+      isSuccess: isSuccessAgent,
+    },
+  ] = useRegisterAgentMutation();
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, id } = event.target;
     if (userType === "vendor") {
@@ -66,14 +97,20 @@ const SignUpComponentLeft = () => {
     } else {
       setUserBuyerDetails((values) => ({ ...values, [id]: value }));
     }
+    console.log(value);
   };
 
   // console.log(userVendorDetails);
-  
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log("submitted");
+    if (userType === "vendor") {
+      registerVendor(userVendorDetails);
+    } else if (userType === "agent") {
+      registerAgent(userAgentDetails);
+    } else {
+      registerBuyer(userBuyerDetails);
+    }
   };
 
   return (
