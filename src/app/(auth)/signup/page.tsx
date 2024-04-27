@@ -12,7 +12,9 @@ const SignUp = () => {
         className="grid grid-cols-1 lg:grid-cols-2 h-screen "
       >
         <SignUpComponentLeft />
-        <SignUpComponentRight />
+        <div className="lg:block hidden">
+          <SignUpComponentRight />
+        </div>
       </div>
     </>
   );

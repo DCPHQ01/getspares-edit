@@ -1,17 +1,66 @@
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
-import { getSession } from "next-auth/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
-export const baseQueryAuth = fetchBaseQuery({
-  baseUrl,
-  prepareHeaders: async (headers) => {
-    const session = await getSession();
-    // const token = session?.user?.access_token;
-    // if (token) {
-    //   headers.set("authorization", `Bearer ${token}`);
-    //   headers.set("Content-Type", `application/json`);
-    // }
-    return headers;
-  },
+export const baseQuery = createApi({
+  reducerPath: "baseQuery",
+  baseQuery: fetchBaseQuery({ baseUrl }),
+  endpoints: (builder) => ({
+    registerBuyer: builder.mutation({
+      query: (body: {
+        email: string,
+        password: string,
+        firstName: string,
+        lastName: string,
+        roleName: string,
+      }) => ({
+        url: "api/v1/auth/signup",
+        method: "POST",
+        body,
+      }),
+    }),
+    registerAgent: builder.mutation({
+      query: (body: {
+        email: string,
+        password: string,
+        firstName: string,
+        lastName: string,
+        roleName: string,
+        vendorMerchantId: string[],
+      }) => ({
+        url: "api/v1/auth/signup",
+        method: "POST",
+        body,
+      }),
+    }),
+    registerVendor: builder.mutation({
+      query: (body: {
+        email: string,
+        password: string,
+        firstName: string,
+        lastName: string,
+        roleName: string,
+        jobTitle: string,
+      }) => ({
+        url: "api/v1/auth/signup",
+        method: "POST",
+        body,
+      }),
+    }),
+    verifyEmail: builder.mutation({
+      query: (body: { email: string, otpCode: string }) => ({
+        url: "api/v1/auth/verify-email",
+        method: "POST",
+        body,
+      }),
+    }),
+  }),
 });
+
+export const {
+  useRegisterBuyerMutation,
+  useRegisterAgentMutation,
+  useRegisterVendorMutation,
+  useVerifyEmailMutation,
+} = baseQuery;
