@@ -76,7 +76,7 @@ const SignUpComponentLeft = () => {
     }
   };
 
-  console.log(userAgentDetails, "userAgentDetails");
+  // console.log(userAgentDetails, "userAgentDetails");
 
   const [registerVendor] = useRegisterVendorMutation();
   const [registerBuyer] = useRegisterBuyerMutation();
