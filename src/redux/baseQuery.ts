@@ -1,5 +1,6 @@
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import { createApi } from "@reduxjs/toolkit/query/react";
+import { LoginResponse } from "@/models/loginResponse";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -55,6 +56,16 @@ export const baseQuery = createApi({
         body,
       }),
     }),
+    login: builder.mutation<LoginResponse, { email: string, password: string }>({
+      query: ({ email, password }) => ({
+        url: '/api/login',
+        method: 'POST',
+        body: {
+          email,
+          password,
+        },
+      }),
+    }),
   }),
 });
 
@@ -63,4 +74,5 @@ export const {
   useRegisterAgentMutation,
   useRegisterVendorMutation,
   useVerifyEmailMutation,
+  useLoginMutation,
 } = baseQuery;

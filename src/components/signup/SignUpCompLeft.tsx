@@ -335,7 +335,7 @@ const SignUpComponentLeft = () => {
                 <Button
                   type="submit"
                   id="clickRegisterBtn"
-                  className="w-full h-12 text-white rounded-3xl border-none normal-case font-semibold lg:text-lg bg-mecaBluePrimaryColor"
+                  className="w-full h-12 text-white rounded-3xl border-none normal-case font-semibold lg:text-lg bg-mecaBluePrimaryColor disabled:bg-mecaBgDisableColor disabled:text-[white] hover:bg-mecaBluePrimaryColor"
                   variant="contained"
                   endIcon={<MdChevronRight />}
                   disabled={isLoading}
