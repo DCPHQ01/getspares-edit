@@ -1,0 +1,327 @@
+.bg-base-200 {
+  --tw-bg-opacity: 1;
+  background-color: #f9fafb;
+  /* width: 25rem; */
+  height: 100vh;
+}
+.success {
+  color: green;
+}
+.css-1pw81iq-MuiInputBase-root-MuiFilledInput-root {
+  background-color: "#EEF2F6" !important;
+}
+
+@media (min-width: 700px) {
+  .lg\:drawer-open > .drawer-toggle ~ .drawer-side > *:not(.drawer-overlay) {
+    transform: translateX(0%);
+    height: 100vh;
+  }
+}
+
+@media (max-width: 900px) {
+  .big-base-200 {
+    width: 10rem;
+  }
+}
+#sidebar {
+  background-color: #f9fafb;
+  position: fixed;
+  width: 30%;
+  height: 100vh;
+}
+.sidebarItems {
+  position: relative;
+  top: -25px;
+  font-size: 14px;
+  font-weight: 700;
+  /* line-height: 24px; */
+  text-align: left;
+}
+
+.sub-sidebarItems {
+  position: relative;
+  top: -25px;
+  font-size: 12px;
+  font-weight: 400;
+  /* line-height: 24px; */
+  text-align: left;
+}
+
+.companydetailset {
+  display: flex;
+  position: absolute;
+  width: 96%;
+}
+
+.company-sidebar {
+  /* width: 550px; */
+}
+
+.eachpages {
+  padding-left: 80px;
+}
+
+.subheaders {
+  justify-content: space-between;
+  width: 100%;
+}
+
+.skip {
+  color: #095ad3;
+  cursor: pointer;
+}
+
+/* .form-display {
+  display: flex;
+  justify-content: space-between;
+  gap: 44px;
+  width: 100%;
+} */
+
+.companyInput {
+  /* width: 394px; */
+  height: 50px;
+  gap: 0px;
+  border-radius: 4px 4px 0px 0px;
+  opacity: 0px;
+  padding: 0 8px;
+  background: #eef2f6;
+  outline: none;
+  /* margin-bottom: 44px; */
+}
+
+.inputText {
+  height: 223px;
+  padding-top: 15px;
+}
+
+.inputImage {
+  /* width: 17rem; */
+  height: 283px;
+  gap: 0px;
+  opacity: 0px;
+  background: #eef2f6;
+}
+
+.companyInput::placeholder {
+  padding: 0px 8px;
+  gap: 0px;
+  border-radius: 4px 4px 0px 0px;
+  opacity: 0px;
+}
+
+.nextbtn-wrapper {
+  display: flex;
+  justify-content: end;
+  /* margin-bottom: 24px; */
+  /* margin-top: 98px; */
+}
+
+.nextbtn {
+  background-color: #095ad3;
+  color: #ffffff;
+
+  text-align: center;
+
+  /* padding-top: 10px; */
+
+  width: 360px;
+  height: 48px;
+  padding: 10px 24px 10px 24px;
+  /* gap: 10px; */
+  border-radius: 36px;
+  opacity: 0px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+.add-address {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 28px;
+  text-align: left;
+  color: #095ad3;
+  /* margin-top: -24px; */
+}
+
+.nextbtn-wrapper2 {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  gap: 40px;
+  margin-top: 80px;
+}
+
+.previousbtn {
+  width: 360px;
+  height: 48px;
+  padding: 10px 24px 10px 24px;
+  /* gap: 10px; */
+  border-radius: 36px;
+  opacity: 0px;
+  border: 2px solid #095ad3;
+  color: #095ad3;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+  text-align: center;
+}
+
+.pageWrapper {
+  /* width: 88%; */
+}
+
+.edit-btn-Wrapper {
+  display: flex;
+  gap: 6px;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.edit-btn {
+  width: Fixed (155px) px;
+  height: Hug (40px) px;
+  padding: 6px 24px 6px 24px;
+  gap: 6px;
+  border-radius: 36px;
+  opacity: 0px;
+  color: #095ad3;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 28px;
+  text-align: left;
+}
+
+.edit-btn:hover {
+  border: 2px solid #095ad3;
+  background-size: contain !important;
+}
+
+.imagetext::placeholder {
+  z-index: -20;
+}
+#companyButton {
+  background-color: #095ad3;
+  color: white;
+  /* font-family: "Nunito Sans"; */
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+}
+#switchedButton {
+  background-color: #095ad3;
+}
+.company-footer {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  bottom: 0px;
+  gap: 10rem;
+  padding-bottom: 24px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.error-color {
+  color: red;
+}
+
+@media (max-width: 1023px) {
+  .inputImage {
+    width: auto;
+    margin-bottom: 20px;
+  }
+
+  #inputName1,
+  #inputName5 {
+    margin-top: 24px;
+  }
+
+  .fullname {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .nextbtnMobile,
+  .nextmobile {
+    width: 100%;
+  }
+  .companyInput {
+    width: 100%;
+  }
+
+  .inputImage {
+    width: 100%;
+  }
+
+  /* .nextbtn-wrapper {
+    flex-direction: column;
+    justify-content: flex-start;
+  } */
+
+  .companydetailset {
+    width: 100%;
+  }
+
+  .previousbtn {
+    width: 100%;
+  }
+  .companyInputWrap {
+    width: -webkit-fill-available;
+  }
+  /* 
+  .form-display {
+    position: absolute;
+    left: 114px;
+  }
+
+  .lg\:drawer-open > .drawer-toggle ~ .drawer-side > *:not(.drawer-overlay) {
+    display: none;
+  } */
+
+  /* 
+
+  .nextbtn-wrapper {
+    flex-direction: column;
+    justify-content: flex-start;
+  } */
+
+  /* .nextbtn {
+    width: 100%;
+    position: absolute;
+
+    bottom: 100px;
+  }
+  .nextbtn > button {
+    text-align: center;
+  }
+
+  .nextbtn-wrapper2 {
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 20px;
+  }
+
+  .companydetailset {
+    width: 100%;
+  }
+  .previousbtn {
+    width: 100%;
+  } */
+
+  /* .sidebarMobile {
+    width: 0px;
+  }
+
+  .companyInputWrap {
+    width: -webkit-fill-available;
+  } */
+}
+
+@media (max-width: 360px) {
+  /* .eachpages {
+    padding-left: 4.5rem;
+  } */
+}

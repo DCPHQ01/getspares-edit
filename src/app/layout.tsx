@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Nunito_Sans } from "next/font/google";
 import "./globals.css";
-import { Providers } from "@/redux/provider";
+import { Providers } from "./provider";
 
 const nunito = Nunito_Sans({ subsets: ["latin"] });
 

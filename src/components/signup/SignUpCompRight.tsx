@@ -22,7 +22,7 @@ const SignUpComponentRight = () => {
             to kick start the sales and inventory of all our products for
             sustainable agriculture.
           </span>
-          <div id="userImageDiv" className='flex justify-center pt-[10px]'>
+          <div id="userImageDiv" className="flex justify-center pt-[10px]">
             <img id="userImagetag" src={userImage.src} alt="user" />
           </div>
           <div
@@ -46,7 +46,6 @@ const SignUpComponentRight = () => {
           <Envelope />
           info@meca.com.ng
         </p>
-        
       </div>
     </div>
   );
