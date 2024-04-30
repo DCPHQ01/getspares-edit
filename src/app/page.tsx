@@ -4,7 +4,10 @@ export default function Home() {
   const handleClick = () => {
     alert("clicked");
   };
-  return redirect("/signup")
+  return redirect("/signup");
+
+}
+
 
 // // "use client";
 // // import Image from "next/image";
