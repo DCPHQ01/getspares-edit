@@ -1,54 +1,54 @@
-# name: Build and Test
-
-# on:
-#   push:
-#     branches: ["main"]
-#   pull_request:
-#     branches: ["main"]
-    
-
-# jobs:
-#    build:
-#      runs-on: ubuntu-latest
-#      steps:
-#      - name: Checkout code
-#        uses: actions/checkout@v2
-
-#      - name: Setup Node.js
-#        uses: actions/setup-node@v2
-#        with:
-#          node-version: '18'
-
-#      - name: Install dependencies
-#        run: npm install
-
-#      - name: Build
-
-#        run: npm run build
-
-
-name: Build and Deploy
+name: Build and Test
 
 on:
   push:
     branches: ["main"]
   pull_request:
     branches: ["main"]
+    
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+   build:
+     runs-on: ubuntu-latest
+     steps:
+     - name: Checkout code
+       uses: actions/checkout@v2
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '18'
+     - name: Setup Node.js
+       uses: actions/setup-node@v2
+       with:
+         node-version: '18'
 
-      - name: Install dependencies
-        run: npm install
+     - name: Install dependencies
+       run: npm install
+
+     - name: Build
+
+       run: npm run build
+
+
+# name: Build and Deploy
+
+# on:
+#   push:
+#     branches: ["main"]
+#   pull_request:
+#     branches: ["main"]
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
+
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v2
+#         with:
+#           node-version: '18'
+
+#       - name: Install dependencies
+#         run: npm install
 
       - name: Authenticate with Vercel
         run: npx vercel login --token ${{ secrets.VERCEL_TOKEN }}
