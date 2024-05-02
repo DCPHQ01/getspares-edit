@@ -3,7 +3,12 @@ import { Nunito_Sans } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/redux/provider";
 
-const nunito = Nunito_Sans({ subsets: ["latin"] });
+const nunito = Nunito_Sans({
+  subsets: ["latin"],
+  variable: "--font-nunito_sans",
+  adjustFontFallback: false,
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "E Meca",
