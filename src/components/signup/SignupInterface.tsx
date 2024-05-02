@@ -1,15 +1,15 @@
 interface User {
-  firstName: string,
-  lastName: string,
-  email: string,
-  password: string,
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  roleName: string;
 }
 
 interface UserVendor extends User {
-  jobTitle: string,
+  jobTitle: string;
 }
 
 interface UserAgent extends User {
-  companyName: string,
-  associatedSeller: string,
+  vendorMerchantId: string[];
 }

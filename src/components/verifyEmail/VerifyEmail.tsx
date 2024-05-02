@@ -1,6 +1,8 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { MdOutlineArrowBack, MdOutlineMail } from "react-icons/md";
 import Link from "next/link";
+import { useVerifyEmailMutation } from "@/redux/baseQuery";
+// import { useRouter } from "next/navigation";
 
 interface VerifyEmailProps {
   setHaveVerifiedEmail: React.Dispatch<React.SetStateAction<boolean>>;
@@ -10,6 +12,18 @@ export default function VerifyEmail({
   setHaveVerifiedEmail,
 }: VerifyEmailProps) {
   const [otp, setOtp] = useState(new Array(6).fill(""));
+  const [isDisabled, setIsDisabled] = useState(true);
+
+  // const router = useRouter();
+  const [userEmail, setUserEmail] = useState("");
+
+  useEffect(() => {
+    const storedEmail = sessionStorage.getItem("userEmail");
+    if (storedEmail) {
+      setUserEmail(storedEmail);
+    }
+  }, []);
+  console.log(userEmail);
 
   const handleChangeOtp = (element: HTMLInputElement, index: number): void => {
     if (isNaN(Number(element.value))) return;
@@ -27,6 +41,27 @@ export default function VerifyEmail({
       if (nextInput) {
         (nextInput as HTMLInputElement).focus();
       }
+      setIsDisabled(true);
+    } else {
+      setIsDisabled(false);
+    }
+  };
+  console.log(otp.join(""));
+
+  const [verifyEmail] = useVerifyEmailMutation();
+
+  const handleSubmit = async () => {
+    const data = {
+      email: userEmail,
+      otpCode: otp.join(""),
+    };
+    console.log(data, "data");
+
+    try {
+      await verifyEmail(data);
+      setHaveVerifiedEmail(true);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -53,7 +88,7 @@ export default function VerifyEmail({
         id="checkEmailText"
       >
         We sent a password reset link to
-        <span className="font-bold">Camoly@gmail.com</span>
+        <span className="font-bold">{userEmail}</span>
       </p>
       <div className="mt-8">
         <p className="font-semibold text-sm text-mecaGrayBodyText pb-1">
@@ -82,8 +117,9 @@ export default function VerifyEmail({
 
         <div className="lg:w-4/5 mx-auto pt-12">
           <button
-            className="w-full bg-mecaBluePrimaryColor text-[white] lg:text-lg text-sm font-semibold rounded-[36px] lg:h-12 h-8 hover:bg-mecaBluePrimaryColor"
-            onClick={() => setHaveVerifiedEmail(true)}
+            className="w-full bg-mecaBluePrimaryColor text-[white] lg:text-lg text-sm font-semibold rounded-[36px] lg:h-12 h-8 disabled:bg-mecaBgDisableColor disabled:text-[white]"
+            onClick={handleSubmit}
+            disabled={isDisabled}
           >
             Verify email
           </button>

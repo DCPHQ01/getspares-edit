@@ -95,11 +95,11 @@ export default function Login() {
               onChange={handleEmailOnChange}
               error={state.emailError}
               className={`bg-mecaInputBgColor w-full rounded-t-[4px] hover:bg-mecaInputBgColor border focus-within:bg-mecaInputBgColor ${
-                state.emailError ? "border-red-500" : ""
+                state.emailError ? "border-mecaTableTextErrorColor" : ""
               }`}
             />
             {state.emailError && (
-              <span className="text-red-500 text-sm mt-1">
+              <span className="text-mecaTableTextErrorColor text-sm mt-1">
                 Invalid email address
               </span>
             )}
@@ -113,7 +113,7 @@ export default function Login() {
               onChange={handlePasswordOnChange}
               error={state.passwordError}
               className={`bg-mecaInputBgColor border w-full hover:bg-mecaInputBgColor focus-within:bg-mecaInputBgColor ${
-                state.passwordError ? "border-red-500" : ""
+                state.passwordError ? "border-mecaTableTextErrorColor" : ""
               }`}
               endAdornment={
                 <InputAdornment position="end">
@@ -132,7 +132,7 @@ export default function Login() {
               }
             />
             {state.passwordError && (
-              <span className="text-red-500 text-sm mt-1">
+              <span className="text-mecaTableTextErrorColor text-sm mt-1">
                 Password must be at least 8 characters
               </span>
             )}
@@ -143,6 +143,7 @@ export default function Login() {
             variant="contained"
             endIcon={<MdChevronRight />}
             disabled={!isFormValid()}
+            disableElevation
           >
             Login
           </Button>

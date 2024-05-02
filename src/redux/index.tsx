@@ -3,13 +3,16 @@ import { useSelector, type TypedUseSelectorHook } from "react-redux";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import userSlice from "./features/users/userSlice";
 import companySlice from "./features/company/companySlice";
+import { baseQuery } from "./baseQuery";
 
 export const store = configureStore({
   reducer: {
+    [baseQuery.reducerPath]: baseQuery.reducer,
     user: userSlice,
     company: companySlice,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([]),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat([baseQuery.middleware]),
 });
 
 setupListeners(store.dispatch);
