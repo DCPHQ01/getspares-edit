@@ -1,0 +1,52 @@
+.modal[open] {
+  pointer-events: auto;
+  visibility: visible;
+  opacity: 1;
+  background-color: #101828;
+}
+.css-i9fmh8-MuiBackdrop-root-MuiModal-backdrop.css-i9fmh8-MuiBackdrop-root-MuiModal-backdrop {
+  background-color: #101828;
+}
+.checkImg {
+  margin-top: -7px;
+}
+
+.addCompany {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 30px;
+  text-align: left;
+}
+
+.addCompanySub {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+}
+
+.modalbtn {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.maybe-later {
+  background-color: white;
+  border-color: white;
+}
+
+@media only screen and (max-width: 460px) {
+  .modalbtn {
+    flex-direction: column-reverse;
+  }
+  .maybebtn,
+  .continuebtn {
+    width: 100%;
+    row-gap: 12px;
+  }
+  .modal-box {
+    width: 90%;
+  }
+}

@@ -1,5 +1,3 @@
-"use client";
-import * as React from "react";
 import FormControl from "@mui/material/FormControl";
 import InputAdornment from "@mui/material/InputAdornment";
 import InputLabel from "@mui/material/InputLabel";
@@ -15,17 +13,20 @@ import {
 } from "react-icons/md";
 import { Button, Checkbox } from "@mui/material";
 import Link from "next/link";
+import { FormEvent, useState } from "react";
 import {
   useRegisterAgentMutation,
   useRegisterBuyerMutation,
   useRegisterVendorMutation,
-} from "../../redux/baseQuery";
+} from "@/redux/baseQuery";
+import { useRouter } from "next/navigation";
 
 const userBuyer: User = {
   firstName: "",
   lastName: "",
   email: "",
   password: "",
+  roleName: "BUYER",
 };
 
 const userVendor: UserVendor = {
@@ -34,6 +35,7 @@ const userVendor: UserVendor = {
   email: "",
   password: "",
   jobTitle: "",
+  roleName: "VENDOR",
 };
 
 const userAgent: UserAgent = {
@@ -41,52 +43,27 @@ const userAgent: UserAgent = {
   lastName: "",
   email: "",
   password: "",
-  companyName: "",
-  associatedSeller: "",
+  vendorMerchantId: [],
+  roleName: "AGENT",
 };
 
 const SignUpComponentLeft = () => {
-  const [showPassword, setShowPassword] = React.useState(false);
-  const [userType, setUserType] = React.useState("vendor");
-  const [userBuyerDetails, setUserBuyerDetails] =
-    React.useState<User>(userBuyer);
+  const [showPassword, setShowPassword] = useState(false);
+  const [userType, setUserType] = useState("vendor");
+  const [userBuyerDetails, setUserBuyerDetails] = useState<User>(userBuyer);
   const [userVendorDetails, setUserVendorDetails] =
-    React.useState<UserVendor>(userVendor);
+    useState<UserVendor>(userVendor);
   const [userAgentDetails, setUserAgentDetails] =
-    React.useState<UserAgent>(userAgent);
+    useState<UserAgent>(userAgent);
+  // const [successAlert, setSuccessAlert] = useState(false);
+  // const [errorAlert, setErrorAlert] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const router = useRouter();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-  };
-
-  const [
-    registerVendor,
-    {
-      isLoading: isLoadingVendor,
-      isError: isErrorVendor,
-      isSuccess: isSuccessVendor,
-    },
-  ] = useRegisterVendorMutation();
-  const [
-    registerBuyer,
-    {
-      isLoading: isLoadingBuyer,
-      isError: isErrorBuyer,
-      isSuccess: isSuccessBuyer,
-    },
-  ] = useRegisterBuyerMutation();
-  const [
-    registerAgent,
-    {
-      isLoading: isLoadingAgent,
-      isError: isErrorAgent,
-      isSuccess: isSuccessAgent,
-    },
-  ] = useRegisterAgentMutation();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, id } = event.target;
@@ -100,16 +77,38 @@ const SignUpComponentLeft = () => {
     console.log(value);
   };
 
-  // console.log(userVendorDetails);
+  // console.log(userAgentDetails, "userAgentDetails");
 
-  const handleSubmit = (e: any) => {
+  const [registerVendor] = useRegisterVendorMutation();
+  const [registerBuyer] = useRegisterBuyerMutation();
+  const [registerAgent] = useRegisterAgentMutation();
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (userType === "vendor") {
-      registerVendor(userVendorDetails);
-    } else if (userType === "agent") {
-      registerAgent(userAgentDetails);
-    } else {
-      registerBuyer(userBuyerDetails);
+    try {
+      setIsLoading(true);
+      let userEmail = "";
+      if (userType === "vendor") {
+        await registerVendor(userVendorDetails);
+        userEmail = userVendorDetails.email;
+        setSuccessMessage("Vendor registered successfully!");
+      } else if (userType === "agent") {
+        await registerAgent(userAgentDetails);
+        userEmail = userAgentDetails.email;
+        setSuccessMessage("Agent registered successfully!");
+      } else {
+        await registerBuyer(userBuyerDetails);
+        userEmail = userBuyerDetails.email;
+        setSuccessMessage("Buyer registered successfully!");
+      }
+      sessionStorage.setItem("userEmail", userEmail);
+      router.push("/verify-email");
+    } catch (error: any) {
+      setErrorMessage(
+        error.message || "Registration failed. Please try again."
+      );
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -196,6 +195,7 @@ const SignUpComponentLeft = () => {
                   <FilledInput
                     id="firstName"
                     disableUnderline
+                    required
                     onChange={handleChange}
                     className="bg-mecaInputBgColor w-full rounded-t-[4px] hover:bg-mecaInputBgColor border focus-within:bg-mecaInputBgColor"
                     value={
@@ -213,6 +213,7 @@ const SignUpComponentLeft = () => {
                   <FilledInput
                     id="lastName"
                     disableUnderline
+                    required
                     onChange={handleChange}
                     className="bg-mecaInputBgColor w-full rounded-t-[4px] hover:bg-mecaInputBgColor border focus-within:bg-mecaInputBgColor"
                     value={
@@ -230,6 +231,7 @@ const SignUpComponentLeft = () => {
                   <FilledInput
                     id="email"
                     disableUnderline
+                    required
                     onChange={handleChange}
                     className="bg-mecaInputBgColor w-full rounded-t-[4px] hover:bg-mecaInputBgColor border focus-within:bg-mecaInputBgColor"
                     value={
@@ -252,13 +254,15 @@ const SignUpComponentLeft = () => {
                       {userType === "agent" ? "Merchant ID" : "Job title"}
                     </InputLabel>
                     <FilledInput
-                      id={userType === "agent" ? "companyName" : "jobTitle"}
+                      id={
+                        userType === "agent" ? "vendorMerchantId" : "jobTitle"
+                      }
                       disableUnderline
                       onChange={handleChange}
                       className="bg-mecaInputBgColor w-full rounded-t-[4px] hover:bg-mecaInputBgColor border focus-within:bg-mecaInputBgColor"
                       value={
                         userType === "agent"
-                          ? userAgentDetails.companyName
+                          ? userAgentDetails.vendorMerchantId
                           : userVendorDetails.jobTitle
                       }
                     />
@@ -280,7 +284,7 @@ const SignUpComponentLeft = () => {
                     id="password"
                     type={showPassword ? "text" : "password"}
                     disableUnderline
-                    name="password"
+                    required
                     onChange={handleChange}
                     className="bg-mecaInputBgColor border w-full hover:bg-mecaInputBgColor focus-within:bg-mecaInputBgColor"
                     value={
@@ -295,7 +299,6 @@ const SignUpComponentLeft = () => {
                         <IconButton
                           aria-label="toggle password visibility"
                           onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
                           edge="end"
                           id="iconbuttonfield"
                         >
@@ -333,11 +336,13 @@ const SignUpComponentLeft = () => {
                 <Button
                   type="submit"
                   id="clickRegisterBtn"
-                  className="w-full h-12 text-white rounded-3xl border-none normal-case font-semibold lg:text-lg bg-mecaBluePrimaryColor"
+                  className="w-full h-12 text-white rounded-3xl border-none normal-case font-semibold lg:text-lg bg-mecaBluePrimaryColor disabled:bg-mecaBgDisableColor disabled:text-[white] hover:bg-mecaBluePrimaryColor"
                   variant="contained"
                   endIcon={<MdChevronRight />}
+                  disabled={isLoading}
+                  disableElevation
                 >
-                  Register
+                  {isLoading ? "Loading..." : "Register"}
                 </Button>
               </div>
             </form>

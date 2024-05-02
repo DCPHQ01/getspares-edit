@@ -23,6 +23,8 @@ interface CreateNewPasswordProps {
 export default function CreateNewPassword({
   setHavePasswordReset,
 }: CreateNewPasswordProps) {
+
+ 
   const [password, setPassword] = useState({
     newPassword: "",
     confirmPassword: "",
@@ -100,10 +102,12 @@ export default function CreateNewPassword({
               <InputAdornment position="end">
                 <IconButton
                   aria-label="toggle password visibility"
+
                   onClick={() => handleClickShowPassword("showNewPassword")}
                   edge="end"
                 >
                   {password.showNewPassword ? (
+
                     <MdOutlineVisibilityOff />
                   ) : (
                     <MdOutlineVisibility />
@@ -112,6 +116,7 @@ export default function CreateNewPassword({
               </InputAdornment>
             }
           />
+
           {password.passwordError && ( <span className="text-red-500 text-sm mt-1">
           Passwords must be at least 8 characters long
               </span>)}
@@ -122,7 +127,9 @@ export default function CreateNewPassword({
           </InputLabel>
           <FilledInput
             id="confirmPassword"
+
             type={password.showConfirmPassword ? "text" : "password"}
+
             disableUnderline
             onChange={handleOnChange}
             className="bg-mecaInputBgColor w-full h-full"
@@ -130,6 +137,7 @@ export default function CreateNewPassword({
               <InputAdornment position="end">
                 <IconButton
                   aria-label="toggle password visibility"
+
                   onClick={() => handleClickShowPassword("showConfirmPassword")}
                   edge="end"
                 >
@@ -142,6 +150,7 @@ export default function CreateNewPassword({
               </InputAdornment>
             }
           />
+
           {password.confirmPasswordError && ( <span className="text-red-500 text-sm mt-1">
           Passwords must must match
               </span>)}
@@ -150,14 +159,15 @@ export default function CreateNewPassword({
         <Button
           id="createPasswordBtn"
           variant="contained"
+
           disabled={!isFormValid()}
           endIcon={<MdChevronRight />}
           className="bg-mecaBluePrimaryColor text-[white] normal-case h-12 text-lg font-semibold rounded-[36px] disabled:bg-mecaBgDisableColor disabled:text-[white] hover:bg-mecaBluePrimaryColor"
+
           onClick={() => setHavePasswordReset(true)}
         >
           Set password
         </Button>
-        
       </FormControl>
       <Link
         href="/login"

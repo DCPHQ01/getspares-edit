@@ -18,7 +18,6 @@ const config: Config = {
       colors: {
         mecaGrayBodyText: "#4B5565",
         mecaInputBgColor: "#EEF2F6",
-        mecaBlack: "#101828",
         mecaBluePrimaryColor: "#095AD3",
         mecaErrorInputColor: "#F04438",
         mecaVerificationCodeColor: "#CDD5DF",
