@@ -46,7 +46,8 @@ const navData = [
     icon: "",
   },
 ];
-export const NavBar = ({ defaultState = false }) => {
+
+const NavBarPage = ({ defaultState = false }) => {
   const [active, setActive] = useState(1);
   const handleClick = (id: number) => {
     setActive(id);
@@ -190,3 +191,5 @@ export const NavBar = ({ defaultState = false }) => {
     </nav>
   );
 };
+
+export default NavBarPage;
