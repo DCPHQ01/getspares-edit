@@ -1,5 +1,5 @@
 "use client";
-import { Header } from "./reusables/Header/page";
+import { Header } from "./reusables/header/page";
 import { NavBar } from "./reusables/NavBar/page";
 
 export default function Home() {
