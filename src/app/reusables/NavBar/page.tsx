@@ -44,7 +44,12 @@ const navData = [
     icon: "",
   },
 ];
-export const NavBar = () => {
+
+interface NavBarProps {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+}
+export const NavBar = ({ open, setOpen }: NavBarProps) => {
   const [active, setActive] = useState(1);
   const handleClick = (id: number) => {
     setActive(id);
@@ -75,12 +80,14 @@ export const NavBar = () => {
               0
             </p>
           </div>
-          <MdMenu size={18} />
+          <div id="mobileMenuBtn" onClick={() => setOpen(!open)}>
+            <MdMenu size={18} />
+          </div>
         </div>
       </div>
       {/* desktop */}
       <div
-        className="hidden lg:flex flex-col border-b-2 border-b-mecaBottomBorder px-5"
+        className="hidden lg:flex flex-col border-b-2 border-b-mecaBottomBorder px-10"
         id="menuContainerDesktop"
       >
         <div
@@ -122,7 +129,10 @@ export const NavBar = () => {
                 0
               </p>
             </div>
-            <button className="w-[40%] h-full bg-mecaBluePrimaryColor text-white text-[12px] xl:text-sm font-nunito font-semibold rounded-full">
+            <button
+              className="w-[40%] h-full bg-mecaBluePrimaryColor text-white text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
+              id="startShoppingBtn"
+            >
               Start shopping
             </button>
             <p className="text-sm font-nunito font-medium">Need Help?</p>
@@ -140,6 +150,7 @@ export const NavBar = () => {
             } rounded-full`}
             id="navItem"
             onClick={() => handleClick(item.id)}
+            key={item.id}
           >
             <p
               className={`${
