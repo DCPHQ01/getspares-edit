@@ -10,7 +10,7 @@ const SignUpComponentRight = () => {
   return (
     <div id="mainWrapperRightComponent" className='h-screen flex flex-col justify-between bg-mecaLightBackgroundColor'>
       <div id="flexContainerRighttag" className='h-[90vh] flex flex-col justify-center'>
-        <div id="textContainerRightTag" className='flex flex-col justify-between lg:w-[60vh] w-[45vh] h-[326px] m-auto text-3xl leading-[38px] text-center'>
+        <div id="textContainerRightTag" className='flex flex-col justify-between lg:w-4/5 h-[326px] m-auto text-3xl leading-[38px] text-center'>
           <span
             id="weHaveBeenid"
             className="sm:text-xl lg:text-2xl xl:text-3xl px-4"
@@ -22,7 +22,7 @@ const SignUpComponentRight = () => {
             to kick start the sales and inventory of all our products for
             sustainable agriculture.
           </span>
-          <div id="userImageDiv" className='flex justify-center pt-[10px]'>
+          <div id="userImageDiv" className="flex justify-center pt-[10px]">
             <img id="userImagetag" src={userImage.src} alt="user" />
           </div>
           <div
@@ -46,7 +46,6 @@ const SignUpComponentRight = () => {
           <Envelope />
           info@meca.com.ng
         </p>
-        
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ const companySlice = createSlice({
       website: "",
       date_founded: "",
       email: "",
-      phone: "",
+      phoneNumber: "",
       address: [],
     },
   },
