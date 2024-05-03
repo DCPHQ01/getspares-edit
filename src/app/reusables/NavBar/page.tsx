@@ -86,12 +86,14 @@ const NavBarPage = ({ defaultState = false }) => {
               0
             </p>
           </div>
-          <MdMenu size={18} />
+          <div id="mobileMenuBtn" onClick={() => setIsOpen(!open)}>
+            <MdMenu size={18} />
+          </div>
         </div>
       </div>
       {/* desktop */}
       <div
-        className="hidden lg:flex flex-col border-b-2 border-b-mecaBottomBorder px-5"
+        className="hidden lg:flex flex-col border-b-2 border-b-mecaBottomBorder px-10"
         id="menuContainerDesktop"
       >
         <div
@@ -133,7 +135,10 @@ const NavBarPage = ({ defaultState = false }) => {
                 0
               </p>
             </div>
-            <button className="w-[40%] h-full bg-mecaBluePrimaryColor text-white text-[12px] xl:text-sm font-nunito font-semibold rounded-full">
+            <button
+              className="w-[40%] h-full bg-mecaBluePrimaryColor text-white text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
+              id="startShoppingBtn"
+            >
               Start shopping
             </button>
             <p className="text-sm font-nunito font-medium">Need Help?</p>
@@ -151,6 +156,7 @@ const NavBarPage = ({ defaultState = false }) => {
             } rounded-full`}
             id="navItem"
             onClick={() => handleClick(item.id)}
+            key={item.id}
           >
             <p
               className={`${
