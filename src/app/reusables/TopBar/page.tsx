@@ -7,9 +7,9 @@ import {
   MdOutlineShoppingCart,
   MdSearch,
 } from "react-icons/md";
-import { Header } from "./../Header/page";
-import { NavBar } from "./../NavBar/page";
-import { useState } from "react";
+import Header from "./../Header/page";
+import NavBar from "./../NavBar/page";
+import { useEffect, useState } from "react";
 
 const mobileNavData = [
   {
@@ -55,13 +55,15 @@ const mobileNavData = [
   },
 ];
 
-export const TopBar = () => {
+export default function TopBar() {
   const [open, setOpen] = useState(false);
   const handleNav = () => {
     setOpen(!open);
   };
+
+  useEffect(() => setOpen(true), []);
   return (
-    <section className="relative w-full lg:hidden" id="topBar">
+    <section className="relative w-full" id="topBar">
       {open ? (
         <>
           <Header />
@@ -108,4 +110,4 @@ export const TopBar = () => {
       )}
     </section>
   );
-};
+}

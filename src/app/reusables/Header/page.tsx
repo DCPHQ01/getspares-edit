@@ -1,6 +1,6 @@
 import { MdOutlineCelebration, MdOutlineEast } from "react-icons/md";
 
-export const Header = () => {
+export default function Header() {
   return (
     <div className="max-w-full w-full flex flex-col" id="headerMainMobile">
       {/* mobile and tab */}
@@ -48,4 +48,4 @@ export const Header = () => {
       </div>
     </div>
   );
-};
+}

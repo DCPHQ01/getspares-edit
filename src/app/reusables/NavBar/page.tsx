@@ -49,7 +49,7 @@ interface NavBarProps {
   open: boolean;
   setOpen: (open: boolean) => void;
 }
-export const NavBar = ({ open, setOpen }: NavBarProps) => {
+export default function NavBar({ open, setOpen }: NavBarProps) {
   const [active, setActive] = useState(1);
   const handleClick = (id: number) => {
     setActive(id);
@@ -167,4 +167,4 @@ export const NavBar = ({ open, setOpen }: NavBarProps) => {
       </div>
     </nav>
   );
-};
+}
