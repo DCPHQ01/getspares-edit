@@ -1,11 +1,11 @@
-"use client";
-// import Image from "next/image";
+"use client"
+
+import Index from "../components/Homepage/Index";
 
 export default function Home() {
-  // const handleClick = () => {
-  //   alert("clicked");
-  // };
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24"></main>
+    <div>
+      <Index />
+    </div>
   );
 }

@@ -36,6 +36,10 @@ const config: Config = {
         mecaBgDisableColor: "#9AA4B2",
         mecaLightBackgroundColor: "#F9FAFB",
         mecaLightGrayText: "#475467",
+        mecaGrayBackgroundColor:'#F8FAFC',
+        mecaYellowStarColor:'#FEC84B',
+        mecaGrayLightBg:'#FCFCFD',
+        
       },
     },
   },

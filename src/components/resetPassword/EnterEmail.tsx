@@ -74,11 +74,11 @@ export default function EnterEmail({ setHaveSentEmail }: EnterEmailProps) {
             onChange={handleOnChange}
             error={state.emailError}
             className={`bg-mecaInputBgColor w-full rounded-t-[4px] hover:bg-mecaInputBgColor border focus-within:bg-mecaInputBgColor ${
-              state.emailError ? "border-red-500" : ""
+              state.emailError ? "border-mecaTableTextErrorColor" : ""
             }`}
           />
           {state.emailError && (
-            <span className="text-red-500 text-sm mt-1">
+            <span className="text-mecaTableTextErrorColor text-sm mt-1">
               Invalid email address
             </span>
           )}
