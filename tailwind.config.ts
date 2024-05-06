@@ -36,10 +36,16 @@ const config: Config = {
         mecaBgDisableColor: "#9AA4B2",
         mecaLightBackgroundColor: "#F9FAFB",
         mecaLightGrayText: "#475467",
+        mecaTagColor: "#528BFF",
+        mecaBottomBorder: "#CDD5DF",
+        mecaCartColor: "#84ADFF",
+        mecaSearchColor: "#F8FAFC",
         mecaGrayBackgroundColor:'#F8FAFC',
         mecaYellowStarColor:'#FEC84B',
         mecaGrayLightBg:'#FCFCFD',
-        
+      },
+      fontFamily: {
+        nunito: ["var(--font-nunito_sans)"],
       },
     },
   },

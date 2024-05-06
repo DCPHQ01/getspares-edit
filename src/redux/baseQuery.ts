@@ -10,11 +10,11 @@ export const baseQuery = createApi({
   endpoints: (builder) => ({
     registerBuyer: builder.mutation({
       query: (body: {
-        email: string,
-        password: string,
-        firstName: string,
-        lastName: string,
-        roleName: string,
+        email: string;
+        password: string;
+        firstName: string;
+        lastName: string;
+        roleName: string;
       }) => ({
         url: "api/v1/auth/signup",
         method: "POST",
@@ -23,12 +23,12 @@ export const baseQuery = createApi({
     }),
     registerAgent: builder.mutation({
       query: (body: {
-        email: string,
-        password: string,
-        firstName: string,
-        lastName: string,
-        roleName: string,
-        vendorMerchantId: string[],
+        email: string;
+        password: string;
+        firstName: string;
+        lastName: string;
+        roleName: string;
+        vendorMerchantId: string[];
       }) => ({
         url: "api/v1/auth/signup",
         method: "POST",
@@ -37,12 +37,12 @@ export const baseQuery = createApi({
     }),
     registerVendor: builder.mutation({
       query: (body: {
-        email: string,
-        password: string,
-        firstName: string,
-        lastName: string,
-        roleName: string,
-        jobTitle: string,
+        email: string;
+        password: string;
+        firstName: string;
+        lastName: string;
+        roleName: string;
+        jobTitle: string;
       }) => ({
         url: "api/v1/auth/signup",
         method: "POST",
@@ -50,22 +50,24 @@ export const baseQuery = createApi({
       }),
     }),
     verifyEmail: builder.mutation({
-      query: (body: { email: string, otpCode: string }) => ({
+      query: (body: { email: string; otpCode: string }) => ({
         url: "api/v1/auth/verify-email",
         method: "POST",
         body,
       }),
     }),
-    login: builder.mutation<LoginResponse, { email: string, password: string }>({
-      query: ({ email, password }) => ({
-        url: '/api/login',
-        method: 'POST',
-        body: {
-          email,
-          password,
-        },
-      }),
-    }),
+    login: builder.mutation<LoginResponse, { email: string; password: string }>(
+      {
+        query: ({ email, password }) => ({
+          url: "/api/login",
+          method: "POST",
+          body: {
+            email,
+            password,
+          },
+        }),
+      }
+    ),
   }),
 });
 

@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  font-family: "Nunito Sans", sans-serif;
+}
 
 
 /* @media (prefers-color-scheme: dark) {
@@ -10,7 +13,7 @@
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
   }
-}  */
+}
 
 /* body {
   color: rgb(var(--foreground-rgb));

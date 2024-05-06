@@ -1,10 +1,15 @@
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { useRef } from "react";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import Tractor from "@/assets/images/tractor.png";
 import Bulldozer from "@/assets/images/bulldozer.png";
+
+interface CardProps {
+  image: StaticImageData;
+  type: string;
+}
 
 const responsive = {
   superLargeDesktop: {
@@ -38,6 +43,20 @@ export default function ProductCarousel() {
     if (carouselRef.current) carouselRef.current.previous(0);
   };
 
+  const Card: React.FC<CardProps> = ({ image, type }) => {
+    return (
+      <div className="relative">
+        <Image src={image} alt="" width={630} height={564} placeholder="blur" />
+        <span className="absolute lg:bottom-16 bottom-8 lg:left-16 left-6 flex flex-col lg:gap-10 gap-6">
+          <p className="text-white lg:text-3xl text-xl font-bold">{type}</p>
+          <button className="lg:text-lg text-sm text-mecaBluePrimaryColor font-semibold bg-white w-fit rounded-[36px] lg:py-[10px] py-[6px] px-6">
+            Explore parts
+          </button>
+        </span>
+      </div>
+    );
+  };
+
   return (
     <div>
       <div className="flex justify-between items-center my-8">
@@ -69,48 +88,9 @@ export default function ProductCarousel() {
           ref={carouselRef}
           itemClass="lg:pr-8"
         >
-          <div className="relative">
-            <Image
-              src={Tractor}
-              alt="image of a tractor"
-              width={630}
-              height={564}
-            />
-            <span className="absolute bottom-16 left-16 flex flex-col gap-10">
-              <p className="text-white text-3xl font-bold">Tractor Parts</p>
-              <button className="text-lg text-mecaBluePrimaryColor font-semibold bg-white h-12 w-fit rounded-[36px] py-[10px] px-6">
-                Explore parts
-              </button>
-            </span>
-          </div>
-          <div className="relative">
-            <Image
-              src={Bulldozer}
-              alt="image of a tractor"
-              width={630}
-              height={564}
-            />
-            <span className="absolute bottom-16 left-16 flex flex-col gap-10">
-              <p className="text-white text-3xl font-bold">Bulldozer Parts</p>
-              <button className="text-lg text-mecaBluePrimaryColor font-semibold bg-white h-12 w-fit rounded-[36px] py-[10px] px-6">
-                Explore parts
-              </button>
-            </span>
-          </div>
-          <div className="relative">
-            <Image
-              src={Bulldozer}
-              alt="image of a tractor"
-              width={630}
-              height={564}
-            />
-            <span className="absolute bottom-16 left-16 flex flex-col gap-10">
-              <p className="text-white text-3xl font-bold">Bulldozer Parts</p>
-              <button className="text-lg text-mecaBluePrimaryColor font-semibold bg-white h-12 w-fit rounded-[36px] py-[10px] px-6">
-                Explore parts
-              </button>
-            </span>
-          </div>
+          <Card image={Tractor} type="Tractor Parts" />
+          <Card image={Bulldozer} type="Bulldozer Parts" />
+          <Card image={Bulldozer} type="Bulldozer Parts" />
         </Carousel>
       </div>
     </div>

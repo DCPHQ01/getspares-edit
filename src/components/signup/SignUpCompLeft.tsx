@@ -74,6 +74,7 @@ const SignUpComponentLeft = () => {
     } else {
       setUserBuyerDetails((values) => ({ ...values, [id]: value }));
     }
+    console.log(value);
   };
 
   // console.log(userAgentDetails, "userAgentDetails");
