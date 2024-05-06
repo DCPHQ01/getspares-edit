@@ -98,9 +98,6 @@ function ResponsiveDrawer({ step, setStep }: any) {
     image: any;
   }
 
-  useEffect(() => {
-    setActiveTab(1);
-  }, []);
 
   return (
     <div className="relative md:flex h-[800px] p-4 w-full" id="sidebar">
