@@ -6,6 +6,8 @@ import {
   MdOutlineShoppingCart,
   MdSearch,
 } from "react-icons/md";
+import IconButton from "@mui/material/IconButton";
+import DropdownPage from "./dropdown/page";
 
 const navData = [
   {
@@ -45,22 +47,26 @@ const navData = [
   },
 ];
 
-interface NavBarProps {
-  open: boolean;
-  setOpen: (open: boolean) => void;
-}
-export default function NavBar({ open, setOpen }: NavBarProps) {
+const NavBarPage = ({ defaultState = false }) => {
   const [active, setActive] = useState(1);
   const handleClick = (id: number) => {
     setActive(id);
   };
 
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const [isOpen, setIsOpen] = useState(defaultState);
+
+  const toggle = () => {
+    setIsOpen(!isOpen);
+  };
+
   useEffect(() => setActive(1), []);
   return (
-    <nav className="w-full container mx-auto px-5" id="navbarContainer">
+    <nav className="w-full" id="navbarContainer">
       {/* mobile and tab */}
       <div
-        className="w-full h-[60px] border-b-2 border-b-mecaBottomBorder flex justify-between items-center lg:hidden"
+        className="w-full h-[60px] border-b-2 border-b-mecaBottomBorder px-4 flex justify-between items-center lg:hidden"
         id="contentContainer"
       >
         <p className="text-mecaActiveIconsNavColor text-xl font-nunito font-bold">
@@ -80,14 +86,12 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
               0
             </p>
           </div>
-          <div id="mobileMenuBtn" onClick={() => setOpen(!open)}>
-            <MdMenu size={18} />
-          </div>
+          <MdMenu size={18} />
         </div>
       </div>
       {/* desktop */}
       <div
-        className="hidden lg:flex flex-col border-b-2 border-b-mecaBottomBorder"
+        className="hidden lg:flex flex-col border-b-2 border-b-mecaBottomBorder px-5"
         id="menuContainerDesktop"
       >
         <div
@@ -129,10 +133,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                 0
               </p>
             </div>
-            <button
-              className="w-[40%] h-full bg-mecaBluePrimaryColor text-white text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
-              id="startShoppingBtn"
-            >
+            <button className="w-[40%] h-full bg-mecaBluePrimaryColor text-white text-[12px] xl:text-sm font-nunito font-semibold rounded-full">
               Start shopping
             </button>
             <p className="text-sm font-nunito font-medium">Need Help?</p>
@@ -150,7 +151,6 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
             } rounded-full`}
             id="navItem"
             onClick={() => handleClick(item.id)}
-            key={item.id}
           >
             <p
               className={`${
@@ -161,10 +161,35 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
             >
               {item.title}
             </p>
-            {item.icon}
+            <IconButton
+              onClick={toggle}
+              size="small"
+              // sx={{ ml: 2 }}
+              aria-controls={open ? "account-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+            >
+              {item.icon}
+            </IconButton>
           </div>
         ))}
       </div>
+      {isOpen && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "-10px",
+          }}
+          onClick={toggle}
+        >
+          <div className="dropdownStyle">
+            <DropdownPage />
+          </div>
+        </div>
+      )}
     </nav>
   );
-}
+};
+
+export default NavBarPage;
