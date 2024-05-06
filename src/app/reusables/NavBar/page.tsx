@@ -63,7 +63,7 @@ const NavBarPage = ({ defaultState = false }) => {
 
   useEffect(() => setActive(1), []);
   return (
-    <nav className="w-full" id="navbarContainer">
+    <nav className="w-full container mx-auto" id="navbarContainer">
       {/* mobile and tab */}
       <div
         className="w-full h-[60px] border-b-2 border-b-mecaBottomBorder px-4 flex justify-between items-center lg:hidden"

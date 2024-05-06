@@ -11,6 +11,12 @@ import { Button } from "@mui/material";
 import { MdChevronRight } from "react-icons/md";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import Indicator from "@/assets/icons/indicatorRectangle";
+
+interface CustomDotProps {
+  onClick: () => void;
+  active: boolean;
+}
 
 const responsive = {
   superLargeDesktop: {
@@ -33,10 +39,66 @@ const responsive = {
   },
 };
 
+const responsives = {
+  superLargeDesktop: {
+    breakpoint: { max: 4000, min: 3000 },
+    items: 1,
+    partialVisibilityGutter: 0,
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 1,
+    partialVisibilityGutter: 0,
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 1,
+  },
+  module: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
+  },
+};
+
 export default function Home() {
+  const CustomDot = ({ onClick, active }: CustomDotProps) => {
+    return (
+      <li onClick={() => onClick()}>
+        <Indicator active={active} />
+      </li>
+    );
+  };
+
   return (
     <main className="container mx-auto px-5 mt-8">
-      <Hero />
+      <div>
+        <Carousel
+          showDots={true}
+          renderDotsOutside={false}
+          customDot={
+            <CustomDot
+              onClick={function (): void {
+                throw new Error("Function not implemented.");
+              }}
+              active={false}
+            />
+          }
+          partialVisible={true}
+          draggable={false}
+          responsive={responsives}
+          ssr={true}
+          arrows={false}
+          infinite
+          autoPlay={true}
+          dotListClass="gap-2"
+          itemClass="pb-6"
+        >
+          <Hero />
+          <Hero />
+          <Hero />
+        </Carousel>
+      </div>
+
       <div className="text-mecaDarkBlueBackgroundOverlay">
         <span className="flex justify-between py-6">
           <p className="font-semibold lg:text-3xl text-lg">Trending</p>
@@ -88,7 +150,8 @@ export default function Home() {
         <Image
           src={HomeImage3}
           alt="image of a tractor in a field"
-          fill placeholder="blur"
+          fill
+          placeholder="blur"
           className="h-full w-full rounded-lg"
         />
         <span className="absolute lg:bottom-16 bottom-8 lg:left-10 flex flex-col lg:gap-8 gap-4 px-6 lg:w-1/2">

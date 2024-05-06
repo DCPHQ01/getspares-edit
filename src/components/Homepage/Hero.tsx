@@ -25,7 +25,13 @@ export default function Hero() {
         </Button>
       </div>
       <div className="lg:w-1/2">
-        <Image src={HomeImage1} alt="home image" width={564} height={376} placeholder="blur" />
+        <Image
+          src={HomeImage1}
+          alt="home image"
+          width={564}
+          height={376}
+          placeholder="blur"
+        />
       </div>
     </div>
   );
