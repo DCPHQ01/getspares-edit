@@ -17,10 +17,7 @@ interface FilterProps {
   setIsFilterOpen: (value: boolean) => void;
 }
 
-export const Filter: React.FC<FilterProps> = ({
-  isFilterOpen,
-  setIsFilterOpen,
-}) => {
+const Filter: React.FC<FilterProps> = ({ isFilterOpen, setIsFilterOpen }) => {
   const [onPicked, setOnPicked] = useState(false);
 
   useEffect(() => {
@@ -191,3 +188,5 @@ export const Filter: React.FC<FilterProps> = ({
     </section>
   );
 };
+
+export default Filter;
