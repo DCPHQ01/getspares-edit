@@ -6,7 +6,6 @@ import {
   Checkbox,
   FormControl,
   FormControlLabel,
-  FormGroup,
   Radio,
   RadioGroup,
 } from "@mui/material";
@@ -18,7 +17,10 @@ interface FilterProps {
   setIsFilterOpen: (value: boolean) => void;
 }
 
-export default function Filter({ isFilterOpen, setIsFilterOpen }: FilterProps) {
+export const Filter: React.FC<FilterProps> = ({
+  isFilterOpen,
+  setIsFilterOpen,
+}) => {
   const [onPicked, setOnPicked] = useState(false);
 
   useEffect(() => {
@@ -188,4 +190,4 @@ export default function Filter({ isFilterOpen, setIsFilterOpen }: FilterProps) {
       </div>
     </section>
   );
-}
+};
