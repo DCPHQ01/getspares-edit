@@ -1,7 +1,7 @@
 const DropdownPage = () => {
   return (
     <div>
-      <div className="flex justify-between p-16 leading-10 cursor-pointer">
+      <div className="flex justify-between p-16 leading-10 cursor-pointer dropdownStyle">
         <div className="">
           <p>AC</p>
           <p>Air Filters</p>

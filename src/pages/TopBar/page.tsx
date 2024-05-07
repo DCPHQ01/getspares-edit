@@ -7,9 +7,13 @@ import {
   MdOutlineShoppingCart,
   MdSearch,
 } from "react-icons/md";
-import Header from "./../Header/page";
-import NavBar from "./../NavBar/page";
-import { useState } from "react";
+import Header from "../../app/reusables/Header/page";
+import NavBar from "../../app/reusables/NavBar/page";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+// import MobileDropdownViewPage from "@/pages/page";
+import MobileDropdownViewPage from "../page";
+import { IconButton } from "@mui/material";
 
 const mobileNavData = [
   {
@@ -60,13 +64,14 @@ const TopBar = () => {
   const handleNav = () => {
     setOpen(!open);
   };
+
+  useEffect(() => setOpen(true), []);
   return (
-    <section className="relative w-full lg:hidden" id="topBar">
+    <section className="relative w-full" id="topBar">
       {open ? (
         <>
           <Header />
-          
-          <NavBar />
+          <NavBar open={open} setOpen={setOpen} />
         </>
       ) : (
         <div className="w-full h-screen">
@@ -90,7 +95,7 @@ const TopBar = () => {
            px-4 mt-4"
             id="navDataMenuWhenClosed"
           >
-            {mobileNavData.map((data) => (
+            {mobileNavData.map((data, id) => (
               <div
                 className="flex justify-between items-center"
                 id="navDatum"
@@ -99,9 +104,14 @@ const TopBar = () => {
                 <p className="text-mecaGoBackText text-lg capitalize">
                   {data.title}
                 </p>
-                <div className="flex" id="mdMenu">
+                <Link
+                  href={`${data.id === 2 ? "../page" : ""}`}
+                  // onClick={() => data.id === 2 && <MobileDropdownViewPage />}
+                  className="flex"
+                  id="mdMenu"
+                >
                   {data.icon2}
-                </div>
+                </Link>
               </div>
             ))}
           </div>

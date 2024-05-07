@@ -47,18 +47,27 @@ const navData = [
   },
 ];
 
-const NavBarPage = ({ defaultState = false }) => {
+interface NavBarProps {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+}
+export const NavBar = ({ open, setOpen }: NavBarProps) => {
   const [active, setActive] = useState(1);
   const handleClick = (id: number) => {
     setActive(id);
   };
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const [isOpen, setIsOpen] = useState(defaultState);
+  // const open = Boolean(anchorEl);
+  const [isCategoryOptionOpened, setIsCategoryOptionOpen] = useState(false);
 
   const toggle = () => {
-    setIsOpen(!isOpen);
+    setIsCategoryOptionOpen(!isCategoryOptionOpened);
+  };
+
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const handleMobile = () => {
+    setMobileOpen(!mobileOpen);
   };
 
   useEffect(() => setActive(1), []);
@@ -86,7 +95,7 @@ const NavBarPage = ({ defaultState = false }) => {
               0
             </p>
           </div>
-          <div id="mobileMenuBtn" onClick={() => setIsOpen(!open)}>
+          <div id="mobileMenuBtn" onClick={() => setOpen(!open)}>
             <MdMenu size={18} />
           </div>
         </div>
@@ -168,7 +177,7 @@ const NavBarPage = ({ defaultState = false }) => {
               {item.title}
             </p>
             <IconButton
-              onClick={toggle}
+              onClick={item.id === 2 && toggle}
               size="small"
               // sx={{ ml: 2 }}
               aria-controls={open ? "account-menu" : undefined}
@@ -180,22 +189,24 @@ const NavBarPage = ({ defaultState = false }) => {
           </div>
         ))}
       </div>
-      {isOpen && (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: "-10px",
-          }}
-          onClick={toggle}
-        >
-          <div className="dropdownStyle">
-            <DropdownPage />
+      <div className="">
+        {isCategoryOptionOpened && (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "-10px",
+            }}
+            onClick={toggle}
+          >
+            <div>
+              <DropdownPage />
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </nav>
   );
 };
 
-export default NavBarPage;
+export default NavBar;
