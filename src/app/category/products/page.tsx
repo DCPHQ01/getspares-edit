@@ -240,7 +240,7 @@ export default function Products() {
                   >
                     <div
                       className="w-full h-[194px] flex justify-center items-center bg-mecaSearchColor"
-                      id="itemImage"
+                      id="itemImageDiv"
                     >
                       <Image
                         src={item.image}
@@ -251,7 +251,7 @@ export default function Products() {
                     </div>
                     <div
                       className="w-full flex flex-col gap-y-4"
-                      id="itemContent"
+                      id="itemContentDiv"
                     >
                       <div className="flex justify-between items-center md:hidden">
                         <TruncateText text={item.desc} maxLength={15} />
@@ -271,7 +271,7 @@ export default function Products() {
                         </div>
                       </div>
                       <div
-                        id="priceContainer"
+                        id="priceContainerDiv"
                         className="flex items-center ml-6"
                       >
                         <p className="text-mecaDarkBlueBackgroundOverlay text-sm font-nunito font-bold text-center">
@@ -402,7 +402,7 @@ export default function Products() {
             id="allItemsContainerDivDesktop"
           >
             {itemsData.map((item: ItemsDataProps) => (
-              <div className="flex flex-col w-[30.4%]">
+              <div className="flex flex-col w-[30.4%]" key={item.id}>
                 <div
                   className="w-full h-[194px] flex justify-center items-center bg-mecaSearchColor"
                   id="itemImage"
