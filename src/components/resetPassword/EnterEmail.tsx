@@ -1,4 +1,3 @@
-
 import { FilledInput, FormControl, Button, InputLabel } from "@mui/material";
 import Link from "next/link";
 import React, { ChangeEvent, useState } from "react";
@@ -8,7 +7,6 @@ import {
   MdChevronRight,
 } from "react-icons/md";
 
-
 interface EnterEmailProps {
   setHaveSentEmail: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -16,7 +14,6 @@ interface EnterEmailProps {
 export default function EnterEmail({ setHaveSentEmail }: EnterEmailProps) {
   const [state, setState] = useState({
     email: "",
-
     emailError: false,
   });
 
@@ -35,17 +32,14 @@ export default function EnterEmail({ setHaveSentEmail }: EnterEmailProps) {
 
   const isFormValid = () => {
     return isValidEmail(state.email);
-
   };
 
   return (
     <>
-
       <div
         className="border border-mecaBorderColor p-4 rounded-xl"
         id="keyIconDiv"
       >
-
         <MdOutlineVpnKey
           size={24}
           className="text-mecaGoBackArrow"
@@ -65,7 +59,6 @@ export default function EnterEmail({ setHaveSentEmail }: EnterEmailProps) {
         No worries, we’ll send you reset instructions.
       </p>
       <FormControl className="flex flex-col gap-8 w-full mt-6" id="form">
-
         <FormControl className="w-full" variant="filled">
           <InputLabel htmlFor="email">Email</InputLabel>
           <FilledInput
@@ -89,7 +82,6 @@ export default function EnterEmail({ setHaveSentEmail }: EnterEmailProps) {
           disabled={!isFormValid()}
           endIcon={<MdChevronRight />}
           className="bg-mecaBluePrimaryColor normal-case text-[white] text-lg font-semibold rounded-[36px] disabled:bg-mecaBgDisableColor disabled:text-[white] h-12 hover:bg-mecaBluePrimaryColor"
-
           onClick={() => setHaveSentEmail(true)}
         >
           Reset password
