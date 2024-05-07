@@ -188,5 +188,4 @@ const Filter: React.FC<FilterProps> = ({ isFilterOpen, setIsFilterOpen }) => {
     </section>
   );
 };
-
 export default Filter;

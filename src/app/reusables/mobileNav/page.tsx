@@ -45,7 +45,6 @@ const mobileNavData = [
   },
 ];
 interface MobileNavProps {
-  // mobileNavData: { id: number; title: string; icon2: any; icon: any }[];
   handleNav: () => void;
 }
 export default function MobileNav({ handleNav }: MobileNavProps) {
