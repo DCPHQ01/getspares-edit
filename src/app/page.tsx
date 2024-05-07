@@ -1,13 +1,15 @@
 "use client";
 
-import Category from "./category/page";
 import TopBar from "./reusables/TopBar/page";
+import Index from "../components/Homepage/Index";
+import Footer from "@/components/footer/Footer";
 
 export default function Home() {
   return (
     <main>
-      {/* <TopBar /> */}
-      <Category />
+      <TopBar />
+      <Index />
+      <Footer />
     </main>
   );
 }
