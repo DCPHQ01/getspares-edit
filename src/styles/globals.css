@@ -14,6 +14,45 @@ body {
   }
 }
 
+#mobileMenuContainer::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+#mobileMenuContainer {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+#filterButton {
+  padding: 2px, 8px, 2px, 8px;
+}
+#ratingContainerMobile {
+  width: 39px;
+  height: 18px;
+  padding: 0px 8px 0px 8px;
+  gap: 3px;
+  background: #fcfcfd;
+  border-radius: 20px 0px 0px 0px;
+  border: 4px solid #e3e8ef;
+}
+#ratingContainerTab {
+  width: 39px;
+  height: 18px;
+  padding: 0px 8px 0px 8px;
+  gap: 3px;
+  background: #fcfcfd;
+  border-radius: 20px 0px 0px 0px;
+  border: 1px;
+  border-color: #e3e8ef;
+}
+#priceContainer {
+  width: 99px;
+  height: 28px;
+  padding: 4px 12px 4px 12px;
+  gap: 10px;
+  border-radius: 32px 0px 0px 0px;
+  background-color: #f8fafc;
+}
 /* body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
