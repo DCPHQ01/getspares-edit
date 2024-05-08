@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 // import AddtoCartPage from "../../../components/addtoCart/page";
 // import AddToCartViewPage from "./addToCartView/page";
 import Link from "next/link";
+import Button from "@mui/material/Button";
 
 const navData = [
   {
@@ -99,18 +100,20 @@ export const NavBar = ({ open, setOpen }: NavBarProps) => {
         </p>
         <div className="flex items-center gap-x-2" id="menuSearchCart">
           <MdSearch size={18} />
-          <div
-            className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1"
-            id="textCart"
-          >
-            <MdOutlineShoppingCart
-              size={18}
-              className="text-mecaBluePrimaryColor"
-            />
-            <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
-              0
-            </p>
-          </div>
+          <Link href="/addtoCart">
+            <div
+              className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1"
+              id="textCart"
+            >
+              <MdOutlineShoppingCart
+                size={18}
+                className="text-mecaBluePrimaryColor"
+              />
+              <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
+                0
+              </p>
+            </div>
+          </Link>
           <div id="mobileMenuBtn" onClick={() => setOpen(!open)}>
             <MdMenu size={18} />
           </div>
@@ -196,16 +199,7 @@ export const NavBar = ({ open, setOpen }: NavBarProps) => {
             >
               {item.title}
             </p>
-            <IconButton
-              onClick={item.id === 2 && toggle}
-              size="small"
-              // sx={{ ml: 2 }}
-              aria-controls={open ? "account-menu" : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? "true" : undefined}
-            >
-              {item.icon}
-            </IconButton>
+            <div onClick={item.id === 2 ? toggle : () => {}}>{item.icon}</div>
           </div>
         ))}
       </div>
@@ -215,7 +209,6 @@ export const NavBar = ({ open, setOpen }: NavBarProps) => {
             style={{
               display: "flex",
               justifyContent: "center",
-              marginTop: "-10px",
             }}
             onClick={toggle}
           >

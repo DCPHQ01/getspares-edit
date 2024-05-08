@@ -1,5 +1,5 @@
 "use client";
-import Products from "./products/page";
+import Products from "./products/page"
 
 export default function Category() {
   return (

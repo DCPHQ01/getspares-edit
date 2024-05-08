@@ -3,6 +3,7 @@ import { Nunito_Sans } from "next/font/google";
 import "./globals.css";
 import "../styles/addCompanyPageStyle/addCompanyDetails.css";
 import "../styles/addCompanyPageStyle/addCompanyModal.css";
+import "../styles/addtocart/addtoCart.css"
 import "../styles/categorybg/category.css";
 import { Providers } from "./provider";
 
