@@ -8,6 +8,11 @@ import {
 } from "react-icons/md";
 import IconButton from "@mui/material/IconButton";
 import DropdownPage from "./dropdown/page";
+import { useRouter } from "next/navigation";
+// import AddtoCartPage from "./addtoCart/page.tsx";
+// import AddtoCartPage from "../../../components/addtoCart/page";
+// import AddToCartViewPage from "./addToCartView/page";
+import Link from "next/link";
 
 const navData = [
   {
@@ -57,8 +62,6 @@ export const NavBar = ({ open, setOpen }: NavBarProps) => {
     setActive(id);
   };
 
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  // const open = Boolean(anchorEl);
   const [isCategoryOptionOpened, setIsCategoryOptionOpen] = useState(false);
 
   const toggle = () => {
@@ -68,6 +71,19 @@ export const NavBar = ({ open, setOpen }: NavBarProps) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const handleMobile = () => {
     setMobileOpen(!mobileOpen);
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
+  const router = useRouter();
+
+  const routs = (e: any) => {
+    e.preventDefault();
+    router.push("../../../components/addtoCart/page");
   };
 
   useEffect(() => setActive(1), []);
@@ -132,18 +148,22 @@ export const NavBar = ({ open, setOpen }: NavBarProps) => {
             className="w-[28%] h-8 flex justify-end items-center gap-x-2"
             id="cartDesktop"
           >
-            <div
-              className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1 cursor-pointer"
-              id="textCart"
-            >
-              <MdOutlineShoppingCart
-                size={18}
-                className="text-mecaBluePrimaryColor"
-              />
-              <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
-                0
-              </p>
-            </div>
+            <Link href="/addtoCart">
+              <div
+                className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1 cursor-pointer"
+                id="textCart"
+              >
+                <MdOutlineShoppingCart
+                  size={18}
+                  className="text-mecaBluePrimaryColor"
+                  // onClick={routs}
+                />
+                <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
+                  0
+                </p>
+              </div>
+            </Link>
+
             <button
               className="w-[40%] h-full bg-mecaBluePrimaryColor text-white text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
               id="startShoppingBtn"
@@ -199,7 +219,7 @@ export const NavBar = ({ open, setOpen }: NavBarProps) => {
             }}
             onClick={toggle}
           >
-            <div>
+            <div className="absolute">
               <DropdownPage />
             </div>
           </div>
