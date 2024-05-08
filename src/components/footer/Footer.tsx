@@ -75,19 +75,20 @@ export default function Footer() {
             className="flex flex-wrap gap-8 justify-between lg:w-1/2 lg:mt-0 mt-10"
             id="rightSection"
           >
-            {RightSideList.map((list) => (
+            {RightSideList.map((list, index) => (
               <div
                 className="text-mecaDarkBlueBackgroundOverlay"
                 id={list.title}
+                key={index}
               >
                 <h6 className="text-[#91959C]" id="title">
                   {list.title}
                 </h6>
                 <ul className="flex flex-col gap-8 pt-8" id="linkList">
-                  {list.children.map((item) => (
+                  {list.children.map((item, i) => (
                     <a
                       href={item.link}
-                      key={item.title}
+                      key={i}
                       id={item.title.replace(/\s/g, "")}
                       className="font-semibold"
                     >

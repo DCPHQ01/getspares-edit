@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import Tractor from "@/assets/images/tractor.png";
 import Bulldozer from "@/assets/images/bulldozer.png";
+import Link from "next/link";
 
 interface CardProps {
   image: StaticImageData;
@@ -44,14 +45,25 @@ export default function ProductCarousel() {
   };
 
   const Card: React.FC<CardProps> = ({ image, type }) => {
+    const urlType = type.replace(/\s+/g, "");
     return (
       <div className="relative">
         <Image src={image} alt="" width={630} height={564} placeholder="blur" />
         <span className="absolute lg:bottom-16 bottom-8 lg:left-16 left-6 flex flex-col lg:gap-10 gap-6">
           <p className="text-white lg:text-3xl text-xl font-bold">{type}</p>
-          <button className="lg:text-lg text-sm text-mecaBluePrimaryColor font-semibold bg-white w-fit rounded-[36px] lg:py-[10px] py-[6px] px-6">
-            Explore parts
-          </button>
+          <Link
+            href={{
+              pathname: "/category/products/?",
+              query: { type: encodeURIComponent(urlType) },
+            }}
+          >
+            <button
+              type="button"
+              className="lg:text-lg text-sm text-mecaBluePrimaryColor font-semibold bg-white w-fit rounded-[36px] lg:py-[10px] py-[6px] px-6"
+            >
+              Explore parts
+            </button>
+          </Link>
         </span>
       </div>
     );
@@ -63,12 +75,16 @@ export default function ProductCarousel() {
         <p className="text-3xl font-semibold">Shop</p>
         <span className="flex gap-8">
           <button
+            title="left"
+            type="button"
             className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay"
             onClick={handlePrevious}
           >
             <MdChevronLeft size={40} />
           </button>
           <button
+            title="right"
+            type="button"
             className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay"
             onClick={handleNext}
           >

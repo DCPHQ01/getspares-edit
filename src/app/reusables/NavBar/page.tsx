@@ -70,7 +70,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
           <MdSearch size={18} />
           <div
             className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1"
-            id="textCart"
+            id="textCartDiv"
           >
             <MdOutlineShoppingCart
               size={18}

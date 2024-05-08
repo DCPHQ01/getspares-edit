@@ -102,7 +102,10 @@ export default function Home() {
       <div className="text-mecaDarkBlueBackgroundOverlay">
         <span className="flex justify-between py-6">
           <p className="font-semibold lg:text-3xl text-lg">Trending</p>
-          <button className="font-medium lg:text-xl text-sm underline">
+          <button
+            type="button"
+            className="font-medium lg:text-xl text-sm underline"
+          >
             <p>View more</p>
           </button>
         </span>
@@ -126,7 +129,10 @@ export default function Home() {
       <div className="text-mecaDarkBlueBackgroundOverlay py-8">
         <span className="flex justify-between py-8">
           <p className="font-semibold lg:text-3xl text-lg">New Products</p>
-          <button className="font-medium lg:text-xl text-sm underline">
+          <button
+            type="button"
+            className="font-medium lg:text-xl text-sm underline"
+          >
             <p>View more</p>
           </button>
         </span>
@@ -178,16 +184,28 @@ export default function Home() {
       <div className="bg-mecaActiveBackgroundNavColor rounded-lg my-16 lg:py-16 py-8 lg:px-10 px-4 lg:flex items-center justify-between">
         <div className="lg:w-3/5">
           <span className="flex flex-wrap gap-4">
-            <button className="font-bold text-sm bg-white py-1 px-[10px] rounded-[20px]">
+            <button
+              type="button"
+              className="font-bold text-sm bg-white py-1 px-[10px] rounded-[20px]"
+            >
               40+ <span className="font-normal">makes</span>
             </button>
-            <button className="font-bold text-sm bg-white py-1 px-[10px] rounded-[20px]">
+            <button
+              type="button"
+              className="font-bold text-sm bg-white py-1 px-[10px] rounded-[20px]"
+            >
               1129+ <span className="font-normal">models</span>
             </button>
-            <button className="font-bold text-sm bg-white py-1 px-[10px] rounded-[20px]">
+            <button
+              type="button"
+              className="font-bold text-sm bg-white py-1 px-[10px] rounded-[20px]"
+            >
               2306+ <span className="font-normal">types</span>
             </button>
-            <button className="font-bold text-sm bg-white py-1 px-[10px] rounded-[20px]">
+            <button
+              type="button"
+              className="font-bold text-sm bg-white py-1 px-[10px] rounded-[20px]"
+            >
               3000+ <span className="font-normal">auto parts</span>
             </button>
           </span>
