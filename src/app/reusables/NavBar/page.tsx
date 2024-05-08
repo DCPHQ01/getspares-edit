@@ -6,6 +6,8 @@ import {
   MdOutlineShoppingCart,
   MdSearch,
 } from "react-icons/md";
+import IconButton from "@mui/material/IconButton";
+import DropdownPage from "./dropdown/page";
 
 const navData = [
   {
@@ -44,10 +46,19 @@ const navData = [
     icon: "",
   },
 ];
-export const NavBar = () => {
+
+const NavBarPage = ({ defaultState = false }) => {
   const [active, setActive] = useState(1);
   const handleClick = (id: number) => {
     setActive(id);
+  };
+
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const [isOpen, setIsOpen] = useState(defaultState);
+
+  const toggle = () => {
+    setIsOpen(!isOpen);
   };
 
   useEffect(() => setActive(1), []);
@@ -150,10 +161,35 @@ export const NavBar = () => {
             >
               {item.title}
             </p>
-            {item.icon}
+            <IconButton
+              onClick={toggle}
+              size="small"
+              // sx={{ ml: 2 }}
+              aria-controls={open ? "account-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+            >
+              {item.icon}
+            </IconButton>
           </div>
         ))}
       </div>
+      {isOpen && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "-10px",
+          }}
+          onClick={toggle}
+        >
+          <div className="dropdownStyle">
+            <DropdownPage />
+          </div>
+        </div>
+      )}
     </nav>
   );
 };
+
+export default NavBarPage;
