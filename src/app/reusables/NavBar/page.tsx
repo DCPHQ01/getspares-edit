@@ -168,6 +168,7 @@ export const NavBar = ({ open, setOpen }: NavBarProps) => {
             </Link>
 
             <button
+              type="button"
               className="w-[40%] h-full bg-mecaBluePrimaryColor text-white text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
               id="startShoppingBtn"
             >

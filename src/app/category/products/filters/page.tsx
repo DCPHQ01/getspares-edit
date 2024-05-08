@@ -35,22 +35,22 @@ const Filter: React.FC<FilterProps> = ({ isFilterOpen, setIsFilterOpen }) => {
         {
           id: 1,
           title: "JCB Agriculture",
-          icon: <Checkbox defaultChecked />,
+          icon: <Checkbox />,
         },
         {
           id: 2,
           title: "AGCO Challenger",
-          icon: <Checkbox defaultChecked />,
+          icon: <Checkbox />,
         },
         {
           id: 3,
           title: "Deutz-Fahr",
-          icon: <Checkbox defaultChecked />,
+          icon: <Checkbox />,
         },
         {
           id: 4,
           title: "Kuhn",
-          icon: <Checkbox defaultChecked />,
+          icon: <Checkbox />,
         },
       ],
     },
@@ -61,17 +61,17 @@ const Filter: React.FC<FilterProps> = ({ isFilterOpen, setIsFilterOpen }) => {
         {
           id: 1,
           title: "New",
-          icon: <Checkbox defaultChecked />,
+          icon: <Checkbox />,
         },
         {
           id: 2,
           title: "Refurbished",
-          icon: <Checkbox defaultChecked />,
+          icon: <Checkbox />,
         },
         {
           id: 3,
           title: "Not specified",
-          icon: <Checkbox defaultChecked />,
+          icon: <Checkbox />,
         },
       ],
     },
@@ -82,17 +82,17 @@ const Filter: React.FC<FilterProps> = ({ isFilterOpen, setIsFilterOpen }) => {
         {
           id: 1,
           title: "New",
-          icon: <Checkbox defaultChecked />,
+          icon: <Checkbox />,
         },
         {
           id: 2,
           title: "Refurbished",
-          icon: <Checkbox defaultChecked />,
+          icon: <Checkbox />,
         },
         {
           id: 3,
           title: "Not specified",
-          icon: <Checkbox defaultChecked />,
+          icon: <Checkbox />,
         },
       ],
     },
@@ -140,11 +140,7 @@ const Filter: React.FC<FilterProps> = ({ isFilterOpen, setIsFilterOpen }) => {
             />
           </div>
         </div>
-        <div
-          className="flex flex-col
-           mt-4"
-          id="navDataMenuWhenClosed"
-        >
+        <div className="flex flex-col mt-4" id="navDataMenuWhenClosed">
           {filterData.map((data) => (
             <div className="" id="navDatum" key={data.id}>
               <Accordion className="w-full" style={{ boxShadow: "none" }}>

@@ -29,6 +29,9 @@ import { Button, Card, CardActionArea } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import Footer from "../../components/footer/Footer";
+import ProductCarousel from "../../components/Homepage/ProductCarousel";
+import Home from "../../components/Homepage/Home";
 // import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 const cardCartItems = [
@@ -386,7 +389,7 @@ const AddtoCartPage = () => {
         </div>
         {/* mobile */}
         <div className="lg:hidden w-full">
-          <div className="w-[85%]" style={{ margin: "0px auto" }}>
+          <div className="w-[90%]" style={{ margin: "0px auto" }}>
             <div style={{ width: "100%" }} className={nunito.className}>
               <div className="flex items-center gap-4 mt-6" id="breadCrumbsDiv">
                 <p className="font-nunito text-sm font-medium text-mecaDarkBlueBackgroundOverlay">
@@ -423,16 +426,19 @@ const AddtoCartPage = () => {
                               </div>
                               <div className="mt--4">
                                 <CardContent style={{ padding: "inherit" }}>
-                                  <Typography className="text-base font-semibold mb-2">
+                                  <Typography className="text-sm font-semibold mb-2">
                                     <p className={nunito.className}>
                                       {" "}
                                       {cardCartItem.header}
                                     </p>
                                   </Typography>
                                   <Typography className={nunito.className}>
-                                    <div className="flex gap-x-2 font-normal text-sm text-mecaLightGrayText mb-10">
+                                    <div className="flex gap-x-2 font-normal text-xs text-mecaLightGrayText mb-10">
                                       {cardCartItem.subHeader}
-                                      {cardCartItem.icondot}
+                                      <span className="w-0.5">
+                                        {cardCartItem.icondot}
+                                      </span>
+
                                       {cardCartItem.new}
                                     </div>
                                   </Typography>
@@ -546,6 +552,12 @@ const AddtoCartPage = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="">{/* <Home /> */}</div>
+
+      <div className="">
+        <Footer />
       </div>
     </div>
   );

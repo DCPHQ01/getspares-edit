@@ -13,12 +13,10 @@ import { useEffect, useState } from "react";
 import MobileNav from "../mobileNav/page";
 
 export default function TopBar() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const handleNav = () => {
     setOpen(!open);
   };
-
-  useEffect(() => setOpen(true), []);
   return (
     <section className="relative w-full" id="topBar">
       {open ? (

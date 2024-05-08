@@ -47,10 +47,17 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-export default function Switches() {
+interface SwitchesProps {
+  onClick: () => void;
+}
+
+export default function Switches({ onClick }: SwitchesProps) {
   return (
     <Stack direction="row" spacing={1} alignItems="center">
-      <AntSwitch inputProps={{ "aria-label": "ant design" }} />
+      <AntSwitch
+        inputProps={{ "aria-label": "ant design" }}
+        onClick={onClick}
+      />
     </Stack>
   );
 }
