@@ -115,22 +115,22 @@ export default function Products() {
         {
           id: 1,
           title: "JCB Agriculture",
-          icon: <Checkbox defaultChecked />,
+          icon: <Checkbox />,
         },
         {
           id: 2,
           title: "AGCO Challenger",
-          icon: <Checkbox defaultChecked />,
+          icon: <Checkbox />,
         },
         {
           id: 3,
           title: "Deutz-Fahr",
-          icon: <Checkbox defaultChecked />,
+          icon: <Checkbox />,
         },
         {
           id: 4,
           title: "Kuhn",
-          icon: <Checkbox defaultChecked />,
+          icon: <Checkbox />,
         },
       ],
     },
@@ -141,17 +141,17 @@ export default function Products() {
         {
           id: 1,
           title: "New",
-          icon: <Checkbox defaultChecked />,
+          icon: <Checkbox />,
         },
         {
           id: 2,
           title: "Refurbished",
-          icon: <Checkbox defaultChecked />,
+          icon: <Checkbox />,
         },
         {
           id: 3,
           title: "Not specified",
-          icon: <Checkbox defaultChecked />,
+          icon: <Checkbox />,
         },
       ],
     },
@@ -162,17 +162,17 @@ export default function Products() {
         {
           id: 1,
           title: "New",
-          icon: <Checkbox defaultChecked />,
+          icon: <Checkbox />,
         },
         {
           id: 2,
           title: "Refurbished",
-          icon: <Checkbox defaultChecked />,
+          icon: <Checkbox />,
         },
         {
           id: 3,
           title: "Not specified",
-          icon: <Checkbox defaultChecked />,
+          icon: <Checkbox />,
         },
       ],
     },
@@ -338,7 +338,7 @@ export default function Products() {
           <p className="text-2xl text-mecaDarkBlueBackgroundOverlay font-bold font-nunito">
             {searchWords}
           </p>
-          <div className="flex gap-x-2 items-center mr-8" id="toggler/header">
+          <div className="flex gap-x-2 items-center" id="toggler/header">
             <p className="text-sm text-mecaDarkBlueBackgroundOverlay font-normal font-nunito">
               Hide filters
             </p>
@@ -414,7 +414,7 @@ export default function Products() {
             </div>
           </div>
           <div
-            className="flex flex-wrap justify-between w-full px-8"
+            className="flex flex-wrap justify-between w-full"
             id="allItemsContainerDivDesktop"
           >
             {itemsData.map((item: ItemsDataProps) => (
