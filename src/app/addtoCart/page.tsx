@@ -19,20 +19,28 @@ import {
   MdCircle,
   MdKeyboardArrowDown,
   MdDeleteOutline,
+  MdCheckCircle,
 } from "react-icons/md";
 import HeaderPage from "../reusables/Header/page";
 import Parts from "../../assets/images/parts.png";
 import Image from "next/image";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { Button, Card, CardActionArea } from "@mui/material";
+import { Alert, Button, Card, CardActionArea } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Footer from "../../components/footer/Footer";
 import ProductCarousel from "../../components/Homepage/ProductCarousel";
 import Home from "../../components/Homepage/Home";
-// import MoreVertIcon from "@mui/icons-material/MoreVert";
+import Box from "@mui/material/Box";
+import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
+// import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+// import { MdCheckCircle } from "react-icons/md";
+
+interface State extends SnackbarOrigin {
+  open: boolean;
+}
 
 const cardCartItems = [
   {
@@ -115,9 +123,9 @@ const itemSelected = [
 const ITEM_HEIGHT = 48;
 
 const AddtoCartPage = () => {
-  const [open, setOpen] = useState(false);
+  const [openA, setOpenA] = useState(false);
   const handleNav = () => {
-    setOpen(!open);
+    setOpenA(!open);
   };
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -127,6 +135,21 @@ const AddtoCartPage = () => {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const [state, setState] = useState<State>({
+    open: false,
+    vertical: "top",
+    horizontal: "center",
+  });
+  const { vertical, horizontal, open } = state;
+
+  const handleSucessClick = (newState: SnackbarOrigin) => () => {
+    setState({ ...newState, open: true });
+  };
+
+  const handleSucessClose = () => {
+    setState({ ...state, open: false });
   };
 
   return (
@@ -161,7 +184,7 @@ const AddtoCartPage = () => {
                 </p>
               </div>
 
-              <div id="mobileMenuBtn" onClick={() => setOpen(!open)}>
+              <div id="mobileMenuBtn" onClick={() => setOpenA(!openA)}>
                 <MdMenu size={18} />
               </div>
             </div>
@@ -376,7 +399,13 @@ const AddtoCartPage = () => {
                         </>
                       ))}
                       <div className="">
-                        <button className="w-full h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer">
+                        <button
+                          onClick={handleSucessClick({
+                            vertical: "top",
+                            horizontal: "center",
+                          })}
+                          className="w-full h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer"
+                        >
                           Checkout
                         </button>
                       </div>
@@ -386,6 +415,39 @@ const AddtoCartPage = () => {
               </div>
             </div>
           </div>
+          {/* 
+          <Snackbar
+            className={nunito.className}
+            anchorOrigin={{ vertical, horizontal }}
+            open={open}
+            onClose={handleSucessClose}
+            message="Item has been removed successfully"
+            key={vertical + horizontal}
+          /> */}
+
+          <Snackbar
+            anchorOrigin={{ vertical, horizontal }}
+            open={open}
+            onClose={handleSucessClose}
+            key={vertical + horizontal}
+          >
+            <Alert
+              onClose={handleSucessClose}
+              // severity="success"
+              variant="filled"
+              sx={{ width: "100%" }}
+            >
+              <div className="flex gap-x-3">
+                <span>
+                  <MdCheckCircle className="w-5 h-5" />
+                </span>
+
+                <span className={nunito.className}>
+                  Item has been removed successfully
+                </span>
+              </div>
+            </Alert>
+          </Snackbar>
         </div>
         {/* mobile */}
         <div className="lg:hidden w-full">
