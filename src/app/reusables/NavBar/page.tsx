@@ -1,5 +1,4 @@
 "use client";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
   MdChevronRight,
@@ -11,9 +10,7 @@ import {
 } from "react-icons/md";
 import IconButton from "@mui/material/IconButton";
 import DropdownPage from "./dropdown/page";
-// import AddtoCartPage from "./addtoCart/page.tsx";
-// import AddtoCartPage from "../../../components/addtoCart/page";
-// import AddToCartViewPage from "./addToCartView/page";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Button from "@mui/material/Button";
 
@@ -110,7 +107,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
     <nav className="w-full" id="navbarContainer">
       {/* mobile and tab */}
       <div
-        className="w-full h-[60px] border-b-2 border-b-mecaBottomBorder px-4 flex justify-between items-center lg:hidden"
+        className="w-full h-[60px] border-b-2 z-50 border-b-mecaBottomBorder px-4 flex justify-between items-center lg:hidden"
         id="contentContainer"
       >
         <p className="text-mecaActiveIconsNavColor text-xl font-nunito font-bold">
@@ -197,6 +194,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
           </div>
         </div>
       </div>
+
       <div
         className="hidden w-full h-20 lg:flex justify-center items-center"
         id="navigationData"
@@ -225,19 +223,20 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
           </div>
         ))}
       </div>
-      <div className="">
-        {isCategoryOptionOpened && (
-          <div
-            className="flex justify-center"
-            id="categoryOptionDiv"
-            onClick={toggle}
-          >
-            <div className="absolute">
-              <DropdownPage />
-            </div>
+
+      {isCategoryOptionOpened && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+          onClick={toggle}
+        >
+          <div className="absolute z-50">
+            <DropdownPage />
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </nav>
   );
 }
