@@ -201,6 +201,7 @@ export default function Products() {
   // useEffect(() => {
   //   setIsFilterOpen(false);
   // }, []);
+  
   return (
     <section id="productCategory w-full">
       {/* mobile and Tab */}

@@ -1,6 +1,13 @@
 "use client";
 import { useState } from "react";
 import { Nunito_Sans } from "next/font/google";
+import Carousel from "react-multi-carousel";
+import Cards from "../../components/Homepage/Card";
+import "react-multi-carousel/lib/styles.css";
+import HomeImage1 from "../../assets/images/homeImage1.png";
+import HomeImage2 from "../../assets/images/homeImage2.png";
+// import HomeImage3 from "../../assets/images/homeImage3.png";
+import HomeImage3 from "../../assets/images/homeImage3.png";
 
 const nunito = Nunito_Sans({
   subsets: ["latin"],
@@ -35,12 +42,34 @@ import ProductCarousel from "../../components/Homepage/ProductCarousel";
 import Home from "../../components/Homepage/Home";
 import Box from "@mui/material/Box";
 import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
+import Link from "next/link";
 // import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 // import { MdCheckCircle } from "react-icons/md";
 
 interface State extends SnackbarOrigin {
   open: boolean;
 }
+
+const responsive = {
+  superLargeDesktop: {
+    breakpoint: { max: 4000, min: 3000 },
+    items: 3,
+    partialVisibilityGutter: 0,
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 3,
+    partialVisibilityGutter: 0,
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2,
+  },
+  module: {
+    breakpoint: { max: 464, min: 0 },
+    items: 2,
+  },
+};
 
 const cardCartItems = [
   {
@@ -253,9 +282,11 @@ const AddtoCartPage = () => {
           <div className="w-[85%]" style={{ margin: "0px auto" }}>
             <div style={{ width: "100%" }} className={nunito.className}>
               <div className="flex items-center gap-4 mt-6" id="breadCrumbsDiv">
-                <p className="font-nunito text-sm font-medium text-mecaDarkBlueBackgroundOverlay">
-                  Home
-                </p>
+                <Link href="/">
+                  <p className="font-nunito text-sm font-medium text-mecaDarkBlueBackgroundOverlay">
+                    Home
+                  </p>
+                </Link>
                 <MdChevronRight size={20} />
                 <p className="font-nunito text-sm font-medium text-mecaGoBackArrow">
                   Shopping Cart
@@ -415,15 +446,6 @@ const AddtoCartPage = () => {
               </div>
             </div>
           </div>
-          {/* 
-          <Snackbar
-            className={nunito.className}
-            anchorOrigin={{ vertical, horizontal }}
-            open={open}
-            onClose={handleSucessClose}
-            message="Item has been removed successfully"
-            key={vertical + horizontal}
-          /> */}
 
           <Snackbar
             anchorOrigin={{ vertical, horizontal }}
@@ -454,9 +476,11 @@ const AddtoCartPage = () => {
           <div className="w-[90%]" style={{ margin: "0px auto" }}>
             <div style={{ width: "100%" }} className={nunito.className}>
               <div className="flex items-center gap-4 mt-6" id="breadCrumbsDiv">
-                <p className="font-nunito text-sm font-medium text-mecaDarkBlueBackgroundOverlay">
-                  Home
-                </p>
+                <Link href="/">
+                  <p className="font-nunito text-sm font-medium text-mecaDarkBlueBackgroundOverlay">
+                    Home
+                  </p>
+                </Link>
                 <MdChevronRight size={20} />
                 <p className="font-nunito text-sm font-medium text-mecaGoBackArrow">
                   Shopping Cart
@@ -603,7 +627,13 @@ const AddtoCartPage = () => {
                         </>
                       ))}
                       <div className="">
-                        <button className="w-full h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer">
+                        <button
+                          onClick={handleSucessClick({
+                            vertical: "top",
+                            horizontal: "center",
+                          })}
+                          className="w-full h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer"
+                        >
                           Checkout
                         </button>
                       </div>
@@ -613,12 +643,56 @@ const AddtoCartPage = () => {
               </div>
             </div>
           </div>
+
+          <Snackbar
+            anchorOrigin={{ vertical, horizontal }}
+            open={open}
+            onClose={handleSucessClose}
+            key={vertical + horizontal}
+            // sx={{ position: "relative", top: "71rem" }}
+          >
+            <Alert
+              onClose={handleSucessClose}
+              // severity="success"
+              variant="filled"
+              sx={{ width: "100%" }}
+            >
+              <div className="flex gap-x-3">
+                <span>
+                  <MdCheckCircle className="w-5 h-5" />
+                </span>
+
+                <span className={nunito.className}>
+                  Item has been removed successfully
+                </span>
+              </div>
+            </Alert>
+          </Snackbar>
         </div>
       </div>
 
-      <div className="">{/* <Home /> */}</div>
+      <div className="ml-28">
+        <div className="">
+          <div className="mt-24 mb-9">
+            <p className="font-semibold text-3xl ">More Products Like This</p>
+          </div>
+          <Carousel
+            partialVisible={true}
+            draggable={false}
+            responsive={responsive}
+            ssr={true}
+            infinite
+            autoPlay={true}
+            itemClass="lg:pr-8 pr-4"
+          >
+            <Cards image={HomeImage1} />
+            <Cards image={HomeImage2} />
+            <Cards image={HomeImage1} />
+          </Carousel>
+        </div>
+      </div>
 
-      <div className="">
+      <div className="mt-14">
         <Footer />
       </div>
     </div>
