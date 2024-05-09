@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
   MdExpandMore,
@@ -53,6 +54,11 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
   const [active, setActive] = useState(1);
   const handleClick = (id: number) => {
     setActive(id);
+  };
+
+  const router = useRouter();
+  const handleStartShopping = () => {
+    router.push("/signup");
   };
 
   useEffect(() => setActive(1), []);
@@ -133,6 +139,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
               type="button"
               className="w-[40%] h-full bg-mecaBluePrimaryColor text-white text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
               id="startShoppingBtn"
+              onClick={handleStartShopping}
             >
               Start shopping
             </button>

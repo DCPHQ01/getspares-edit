@@ -50,7 +50,7 @@ interface MobileNavProps {
 export default function MobileNav({ handleNav }: MobileNavProps) {
   return (
     <div
-      className="w-full h-screen bg-white fixed overflow-y-hidden"
+      className="w-full h-screen z-50 bg-white fixed overflow-y-hidden"
       id="mobileMenuContainer"
     >
       <div

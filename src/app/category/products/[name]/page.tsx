@@ -205,7 +205,7 @@ export default function Products() {
     <section id="productCategory w-full">
       {/* mobile and Tab */}
       {!isFilterOpen ? (
-        <div className="flex flex-col lg:hidden">
+        <div className="flex flex-col lg:hidden" id="ProductMobileDivContainer">
           <TopBar />
           <div
             className="px-4 flex flex-col gap-y-4 lg:hidden"
@@ -312,6 +312,7 @@ export default function Products() {
               </div>
             </div>
           </div>
+          <Footer />
         </div>
       ) : (
         <Filter isFilterOpen={isFilterOpen} setIsFilterOpen={setIsFilterOpen} />
@@ -466,6 +467,7 @@ export default function Products() {
             ))}
           </div>
         </div>
+        <Footer />
       </div>
     </section>
   );
