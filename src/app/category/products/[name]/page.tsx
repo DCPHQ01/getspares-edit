@@ -359,7 +359,11 @@ export default function Products() {
             </p>
             {filterData.map((data) => (
               <div className="" id="navDatum" key={data.id}>
-                <Accordion className="w-full" style={{ boxShadow: "none" }}>
+                <Accordion
+                  defaultExpanded
+                  className="w-full"
+                  style={{ boxShadow: "none" }}
+                >
                   <AccordionSummary
                     expandIcon={<MdExpandMore size={28} />}
                     aria-controls="panel1a-content"
