@@ -18,7 +18,7 @@ import {
   useRegisterAgentMutation,
   useRegisterBuyerMutation,
   useRegisterVendorMutation,
-} from "@/redux/baseQuery";
+} from "../../redux/baseQuery";
 import { useRouter } from "next/navigation";
 
 const userBuyer: User = {
