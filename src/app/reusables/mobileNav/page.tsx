@@ -15,42 +15,49 @@ const mobileNavData = [
     title: "home",
     icon: "",
     icon2: "",
+    link: "/",
   },
   {
     id: 2,
     title: "categories",
     icon1: <MdExpandMore size={24} className="text-mecaGoBackArrow" />,
     icon2: <MdChevronRight size={24} className="text-mecaGoBackArrow" />,
+    link: "",
   },
   {
     id: 3,
     title: "brands",
     icon: <MdExpandMore size={24} className="text-mecaGoBackArrow" />,
     icon2: <MdChevronRight size={24} className="text-mecaGoBackArrow" />,
+    link: "",
   },
   {
     id: 4,
     title: "mechanics",
     icon: <MdExpandMore size={24} className="text-mecaGoBackArrow" />,
     icon2: <MdChevronRight size={24} className="text-mecaGoBackArrow" />,
+    link: "",
   },
   {
     id: 5,
     title: "vendors",
     icon: <MdExpandMore size={24} className="text-mecaGoBackArrow" />,
     icon2: <MdChevronRight size={24} className="text-mecaGoBackArrow" />,
+    link: "",
   },
   {
     id: 6,
     title: "listings",
     icon: <MdExpandMore size={24} className="text-mecaGoBackArrow" />,
     icon2: <MdChevronRight size={24} className="text-mecaGoBackArrow" />,
+    link: "",
   },
   {
     id: 7,
     title: "advertise",
     icon: <MdExpandMore size={24} className="text-mecaGoBackArrow" />,
     icon2: <MdChevronRight size={24} className="text-mecaGoBackArrow" />,
+    link: "",
   },
 ];
 interface MobileNavProps {
@@ -95,7 +102,10 @@ export default function MobileNav({ handleNav }: MobileNavProps) {
             id="navDatum"
             key={data.id}
           >
-            <p className="text-mecaGoBackText text-lg capitalize">
+            <p
+              className="text-mecaGoBackText text-lg capitalize"
+              onClick={() => router.push(data.link)}
+            >
               {data.title}
             </p>
 

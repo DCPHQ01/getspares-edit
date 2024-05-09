@@ -17,7 +17,7 @@ import {
   Radio,
   RadioGroup,
 } from "@mui/material";
-import TopBar from "../../../../app/reusables/TopBar/page"
+import TopBar from "../../../../app/reusables/TopBar/page";
 import Switches from "../../../../app/reusables/switch/page";
 import Footer from "../../../../components/footer/Footer";
 import TruncateText from "../../../utils/page";
@@ -103,7 +103,7 @@ export default function Products() {
     setShowFilter(!showFilter);
   };
 
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams()!;
   const search = searchParams.get("type");
   const searchWords = search ? search.replace(/([A-Z])/g, " $1").trim() : "";
 

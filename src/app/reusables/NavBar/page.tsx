@@ -2,6 +2,8 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
+  MdChevronRight,
+  MdExpandLess,
   MdExpandMore,
   MdMenu,
   MdOutlineShoppingCart,
@@ -20,36 +22,50 @@ const navData = [
     id: 1,
     title: "home",
     icon: "",
+    icon2: "",
+    link: "/",
   },
   {
     id: 2,
     title: "categories",
-    icon: <MdExpandMore size={18} />,
+    icon: <MdExpandMore size={18} className="text-mecaGoBackArrow" />,
+    icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
+    link: "",
   },
   {
     id: 3,
     title: "brands",
-    icon: "",
+    icon: <MdExpandMore size={18} className="text-mecaGoBackArrow" />,
+    icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
+    link: "",
   },
   {
     id: 4,
     title: "mechanics",
-    icon: "",
+    icon: <MdExpandMore size={18} className="text-mecaGoBackArrow" />,
+    icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
+    link: "",
   },
   {
     id: 5,
     title: "vendors",
-    icon: "",
+    icon: <MdExpandMore size={18} className="text-mecaGoBackArrow" />,
+    icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
+    link: "",
   },
   {
     id: 6,
     title: "listings",
-    icon: "",
+    icon: <MdExpandMore size={18} className="text-mecaGoBackArrow" />,
+    icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
+    link: "",
   },
   {
     id: 7,
     title: "advertise",
-    icon: "",
+    icon: <MdExpandMore size={18} className="text-mecaGoBackArrow" />,
+    icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
+    link: "",
   },
 ];
 
@@ -105,7 +121,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
           <Link href="/addtoCart">
             <div
               className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1"
-              id="textCart"
+              id="textCartMobTab"
             >
               <MdOutlineShoppingCart
                 size={18}
@@ -203,7 +219,9 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
             >
               {item.title}
             </p>
-            <div onClick={item.id === 2 ? toggle : () => {}}>{item.icon}</div>
+            <div onClick={item.id === 2 ? toggle : () => {}}>
+              {!isCategoryOptionOpened ? item.icon : item.icon2}
+            </div>
           </div>
         ))}
       </div>
