@@ -671,10 +671,12 @@ const AddtoCartPage = () => {
         </div>
       </div>
 
-      <div className="ml-28">
+      <div className="lg:ml-28 ml-10">
         <div className="">
           <div className="mt-24 mb-9">
-            <p className="font-semibold text-3xl ">More Products Like This</p>
+            <p className="font-semibold lg:text-3xl text-lg ">
+              More Products Like This
+            </p>
           </div>
           <Carousel
             partialVisible={true}
