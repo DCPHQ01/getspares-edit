@@ -1,4 +1,13 @@
+"use client";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+// import MobileDropdownViewPage from "../../../pages/page";
+// import MobileDropdownViewPage from "/pages/page";
+// import MobileDropdownViewPage from "../../../../src/pages/MobileDropdownView/page";
+import MobileDropdownViewPage from "../../../pages/MobileDropdownView/page";
+import Filter from "../../category/products/filters/page";
 import { MdChevronRight, MdClear, MdExpandMore } from "react-icons/md";
+import { useState } from "react";
 
 const mobileNavData = [
   {
@@ -48,6 +57,13 @@ interface MobileNavProps {
   handleNav: () => void;
 }
 export default function MobileNav({ handleNav }: MobileNavProps) {
+  const router = useRouter();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
   return (
     <div
       className="w-full h-screen z-50 bg-white fixed overflow-y-hidden"
@@ -82,11 +98,21 @@ export default function MobileNav({ handleNav }: MobileNavProps) {
             <p className="text-mecaGoBackText text-lg capitalize">
               {data.title}
             </p>
-            <div className="flex" id="mdMenu">
+
+            <p
+              onClick={data.id === 2 ? toggleModal : undefined}
+              // onClick={toggleModal}
+            >
               {data.icon2}
-            </div>
+            </p>
           </div>
         ))}
+        <div
+          className=" absolute top-0 "
+          style={{ width: "98%", margin: "0px auto" }}
+        >
+          {isModalOpen && <MobileDropdownViewPage />}
+        </div>
       </div>
     </div>
   );

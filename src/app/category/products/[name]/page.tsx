@@ -17,10 +17,10 @@ import {
   Radio,
   RadioGroup,
 } from "@mui/material";
-import TopBar from "@/app/reusables/TopBar/page";
-import Switches from "@/app/reusables/switch/page";
-import Footer from "@/components/footer/Footer";
-import TruncateText from "@/app/utils/page";
+import TopBar from "../../../../app/reusables/TopBar/page"
+import Switches from "../../../../app/reusables/switch/page";
+import Footer from "../../../../components/footer/Footer";
+import TruncateText from "../../../utils/page";
 import Filter from "../filters/page";
 import { useSearchParams } from "next/navigation";
 

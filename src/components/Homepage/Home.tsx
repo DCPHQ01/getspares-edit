@@ -1,17 +1,17 @@
 import Card from "./Card";
 import Hero from "./Hero";
 import Image from "next/image";
-import HomeImage1 from "@/assets/images/homeImage1.png";
-import HomeImage2 from "@/assets/images/homeImage2.png";
-import HomeImage3 from "@/assets/images/homeImage3.png";
-import HomeImage4 from "@/assets/images/homeImage4.png";
-import HomeImage4Sm from "@/assets/images/homeImage4-sm.png";
+import HomeImage1 from "../../assets/images/homeImage1.png";
+import HomeImage2 from "../../assets/images/homeImage2.png";
+import HomeImage3 from "../../assets/images/homeImage3.png";
+import HomeImage4 from "../../assets/images/homeImage4.png";
+import HomeImage4Sm from "../../assets/images/HomeImage4-sm.png";
 import ProductCarousel from "./ProductCarousel";
 import { Button } from "@mui/material";
 import { MdChevronRight } from "react-icons/md";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import Indicator from "@/assets/icons/indicatorRectangle";
+import Indicator from "../../assets/icons/indicatorRectangle";
 
 interface CustomDotProps {
   onClick: () => void;
@@ -101,7 +101,7 @@ export default function Home() {
 
       <div className="text-mecaDarkBlueBackgroundOverlay">
         <span className="flex justify-between py-6">
-          <p className="font-semibold lg:text-3xl text-lg">Trending</p>
+          <p className="font-semibold lg:text-3xl text-lg"></p>
           <button
             type="button"
             className="font-medium lg:text-xl text-sm underline"

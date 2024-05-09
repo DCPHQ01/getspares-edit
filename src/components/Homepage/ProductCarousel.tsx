@@ -3,8 +3,8 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { useRef } from "react";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
-import Tractor from "@/assets/images/tractor.png";
-import Bulldozer from "@/assets/images/bulldozer.png";
+import Tractor from "../../assets/images/tractor.png";
+import Bulldozer from "../../assets/images/bulldozer.png";
 import Link from "next/link";
 
 interface CardProps {

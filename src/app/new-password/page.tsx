@@ -1,7 +1,7 @@
 "use client";
 
-import CreateNewPassword from "@/components/resetPassword/CreateNewPassword";
-import ResetConfirmation from "@/components/resetPassword/ResetConfirmation";
+import CreateNewPassword from "../../components/resetPassword/CreateNewPassword";
+import ResetConfirmation from "../../components/resetPassword/ResetConfirmation";
 import { useState } from "react";
 
 export default function New_password() {

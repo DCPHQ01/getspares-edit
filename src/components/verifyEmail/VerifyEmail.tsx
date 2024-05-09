@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { MdOutlineArrowBack, MdOutlineMail } from "react-icons/md";
 import Link from "next/link";
-import { useVerifyEmailMutation } from "@/redux/baseQuery";
+import { useVerifyEmailMutation } from "../../redux/baseQuery";
 
 interface VerifyEmailProps {
   setHaveVerifiedEmail: React.Dispatch<React.SetStateAction<boolean>>;

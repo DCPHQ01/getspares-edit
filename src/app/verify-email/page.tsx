@@ -1,7 +1,7 @@
 "use client";
 
-import EmailVerified from "@/components/verifyEmail/EmailVerified";
-import VerifyEmail from "@/components/verifyEmail/VerifyEmail";
+import EmailVerified from "../../components/verifyEmail/EmailVerified";
+import VerifyEmail from "../../components/verifyEmail/VerifyEmail";
 import { useState } from "react";
 
 export default function New_password() {

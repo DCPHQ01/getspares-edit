@@ -1,4 +1,4 @@
-import CheckIcon from "@/assets/icons/checkIcon";
+import CheckIcon from "../../assets/icons/checkIcon";
 import { Button } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { MdChevronRight } from "react-icons/md";

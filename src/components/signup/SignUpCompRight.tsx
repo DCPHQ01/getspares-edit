@@ -1,7 +1,7 @@
 import * as React from "react";
 import userImage from "../../assets/images/150727131450-01-cnnphotos-nigerian-identity-tease 1.png";
 import TextRating from "../rating/rating";
-import Envelope from "@/assets/icons/EnvelopeIcon";
+import Envelope from "../../assets/icons/EnvelopeIcon";
 
 const SignUpComponentRight = () => {
   const value = 5;

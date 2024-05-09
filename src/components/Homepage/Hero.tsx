@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import { MdChevronRight } from "react-icons/md";
 import Image from "next/image";
-import HomeImage1 from "@/assets/images/homeImage1.png";
+import HomeImage1 from "../../assets/images/homeImage1.png";
 
 export default function Hero() {
   return (
