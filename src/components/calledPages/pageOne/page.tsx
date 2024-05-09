@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Box from "@mui/material/Box";
-import ImageComponent from "@/components/imageComp/ImageComponent";
+import ImageComponent from "../../../components/imageComp/ImageComponent";
 import TextField from "@mui/material/TextField";
 import {
   TextareaAutosize as BaseTextareaAutosize,
@@ -16,10 +16,10 @@ interface ChildProps {
   setActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
 import formLogo from "@/assets/images/formLogo.jpg";
-import { useAppSelector } from "@/redux";
-import { useAppDispatch } from "@/redux/hooks";
-import { RootState } from "@/redux";
-import { setCompanyForm } from "@/redux/features/company/companySlice";
+import { useAppSelector } from "../../../redux";
+import { useAppDispatch } from "../../../redux/hooks";
+import { RootState } from "../../../redux";
+import { setCompanyForm } from "../../../redux/features/company/companySlice";
 
 const CalledPagesPageOnePages: React.FC<ChildProps> = ({
   step,

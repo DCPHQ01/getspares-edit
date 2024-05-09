@@ -5,7 +5,7 @@ import HomeImage1 from "../../assets/images/homeImage1.png";
 import HomeImage2 from "../../assets/images/homeImage2.png";
 import HomeImage3 from "../../assets/images/homeImage3.png";
 import HomeImage4 from "../../assets/images/homeImage4.png";
-import HomeImage4Sm from "../../assets/images/homeImage4-sm.png";
+import HomeImage4Sm from "../../assets/images/HomeImage4-sm.png";
 import ProductCarousel from "./ProductCarousel";
 import { Button } from "@mui/material";
 import { MdChevronRight } from "react-icons/md";
