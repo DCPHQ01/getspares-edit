@@ -201,7 +201,7 @@ export default function Products() {
   // useEffect(() => {
   //   setIsFilterOpen(false);
   // }, []);
-  
+
   return (
     <section id="productCategory w-full">
       {/* mobile and Tab */}
@@ -472,7 +472,9 @@ export default function Products() {
             ))}
           </div>
         </div>
-        <Footer />
+        <div id="footerDiv" className="mt-12">
+          <Footer />
+        </div>
       </div>
     </section>
   );
