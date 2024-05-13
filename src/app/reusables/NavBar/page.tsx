@@ -82,25 +82,15 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
   };
   const [isCategoryOptionOpened, setIsCategoryOptionOpen] = useState(false);
 
-  const toggle = () => {
-    setIsCategoryOptionOpen(!isCategoryOptionOpened);
+  const toggle = (id: number) => {
+    if (id === active) {
+      setIsCategoryOptionOpen((prev) => !prev);
+      console.log("category ", isCategoryOptionOpened);
+    }
+    return isCategoryOptionOpened;
   };
 
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const handleMobile = () => {
-    setMobileOpen(!mobileOpen);
-  };
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
-  };
-
-  const routs = (e: any) => {
-    e.preventDefault();
-    router.push("../../../components/addtoCart/page");
-  };
+  // useEffect(() => setIsCategoryOptionOpen(false), [active]);
 
   useEffect(() => setActive(1), []);
   return (
@@ -224,21 +214,25 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
             >
               {item.title}
             </p>
-            <div onClick={item.id === 2 ? toggle : () => {}}>
-              {!isCategoryOptionOpened ? item.icon : item.icon2}
+            <div onClick={item.id === 2 ? () => toggle(item.id) : () => {}}>
+              {isCategoryOptionOpened && item.id === active
+                ? item.icon2
+                : item.icon}
             </div>
+
+            {/* {item.id === 2 && isCategoryOptionOpened && (
+              <div className="flex justify-center">
+                <div className="absolute top-56 z-50">
+                  <DropdownPage />
+                </div>
+              </div>
+            )} */}
           </div>
         ))}
       </div>
 
       {isCategoryOptionOpened && (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-          }}
-          onClick={toggle}
-        >
+        <div className="flex justify-center">
           <div className="absolute z-50">
             <DropdownPage />
           </div>
