@@ -18,6 +18,11 @@ interface CustomDotProps {
   active: boolean;
 }
 
+interface CardProps {
+  no: string;
+  text: string;
+}
+
 const responsive = {
   superLargeDesktop: {
     breakpoint: { max: 4000, min: 3000 },
@@ -69,9 +74,17 @@ export default function Home() {
     );
   };
 
+  const CardBtn = ({ no, text }: CardProps) => {
+    return (
+      <button className="font-bold text-sm bg-white py-1 px-[10px] rounded-[20px]">
+        {no}+ <span className="font-normal">{text}</span>
+      </button>
+    );
+  };
+
   return (
-    <main className="container mx-auto px-5 mt-44">
-      <div>
+    <main className="container mx-auto px-5 mt-8" id="mainContainer">
+      <div id="heroCarousel">
         <Carousel
           showDots={true}
           renderDotsOutside={false}
@@ -99,17 +112,22 @@ export default function Home() {
         </Carousel>
       </div>
 
-      <div className="text-mecaDarkBlueBackgroundOverlay">
-        <span className="flex justify-between py-6">
-          <p className="font-semibold lg:text-3xl text-lg"></p>
+      <div
+        className="text-mecaDarkBlueBackgroundOverlay"
+        id="TrendingContainer"
+      >
+        <span className="flex justify-between py-6" id="TrendingSpan">
+          <p className="font-semibold lg:text-3xl text-lg" id="TrendingText">
+            Trending
+          </p>
           <button
-            type="button"
             className="font-medium lg:text-xl text-sm underline"
+            id="viewMoreBtn"
           >
-            <p>View more</p>
+            <p id="btnText">View more</p>
           </button>
         </span>
-        <div className="">
+        <div id="carouselContainer">
           <Carousel
             partialVisible={true}
             draggable={false}
@@ -126,17 +144,22 @@ export default function Home() {
         </div>
       </div>
       <ProductCarousel />
-      <div className="text-mecaDarkBlueBackgroundOverlay py-8">
-        <span className="flex justify-between py-8">
-          <p className="font-semibold lg:text-3xl text-lg">New Products</p>
+      <div
+        className="text-mecaDarkBlueBackgroundOverlay py-8"
+        id="newProductsContainer"
+      >
+        <span className="flex justify-between py-8" id="newProductsSpan">
+          <p className="font-semibold lg:text-3xl text-lg" id="newProductsText">
+            New Products
+          </p>
           <button
-            type="button"
             className="font-medium lg:text-xl text-sm underline"
+            id="newProductsBtn"
           >
-            <p>View more</p>
+            View more
           </button>
         </span>
-        <div className="">
+        <div id="newProductsCarousel">
           <Carousel
             partialVisible={true}
             draggable={false}
@@ -152,23 +175,33 @@ export default function Home() {
           </Carousel>
         </div>
       </div>
-      <div className="relative lg:h-[674px] h-[338px] my-8 rounded-lg">
+      <div
+        className="relative lg:h-[674px] h-[338px] my-8 rounded-lg"
+        id="homeImage3Container"
+      >
         <Image
           src={HomeImage3}
           alt="image of a tractor in a field"
           fill
           placeholder="blur"
           className="h-full w-full rounded-lg"
+          id="homeImage3"
         />
-        <span className="absolute lg:bottom-16 bottom-8 lg:left-10 flex flex-col lg:gap-8 gap-4 px-6 lg:w-1/2">
-          <h2 className="text-white lg:text-5xl text-xl font-bold lg:leading-[60px]">
+        <span
+          className="absolute lg:bottom-16 bottom-8 lg:left-10 flex flex-col lg:gap-8 gap-4 px-6 lg:w-1/2"
+          id="homeImage3Span"
+        >
+          <h2
+            className="text-white lg:text-5xl text-xl font-bold lg:leading-[60px]"
+            id="homeImage3Header"
+          >
             Let us help you sell your items and make profit with ease
           </h2>
-          <p className="text-white lg:text-lg text-sm">
+          <p className="text-white lg:text-lg text-sm" id="homeImage3Text">
             Showcase your items on our platform and we will take it from there.
             Worry less about the number of people that will buy your products.
           </p>
-          <div className="mt-4">
+          <div className="mt-4" id="homeImage3ButtonContainer">
             <Button
               id="exploreEnginesBtn"
               className="bg-white normal-case text-mecaBluePrimaryColor lg:text-lg text-sm font-semibold rounded-[36px] disabled:bg-mecaBgDisableColor disabled:text-white hover:bg-white lg:my-6 py-[10px] px-6"
@@ -181,19 +214,20 @@ export default function Home() {
           </div>
         </span>
       </div>
-      <div className="bg-mecaActiveBackgroundNavColor rounded-lg my-16 lg:py-16 py-8 lg:px-10 px-4 lg:flex items-center justify-between">
-        <div className="lg:w-3/5">
-          <span className="flex flex-wrap gap-4">
-            <button
-              type="button"
-              className="font-bold text-sm bg-white py-1 px-[10px] rounded-[20px]"
-            >
+      <div
+        className="bg-mecaActiveBackgroundNavColor rounded-lg my-16 lg:py-16 py-8 lg:px-10 px-4 lg:flex items-center justify-between"
+        id="modelsdiv"
+      >
+        <div className="lg:w-3/5" id="modelsLeftSide">
+          <span className="flex flex-wrap gap-4" id="modelsLeftSideSpan">
+            {/* <button className="font-bold text-sm bg-white py-1 px-[10px] rounded-[20px]">
               40+ <span className="font-normal">makes</span>
-            </button>
-            <button
-              type="button"
-              className="font-bold text-sm bg-white py-1 px-[10px] rounded-[20px]"
-            >
+            </button> */}
+            <CardBtn no="40" text="makes" />
+            <CardBtn no="1129" text="models" />
+            <CardBtn no="2306" text="types" />
+            <CardBtn no="3000" text="auto parts" />
+            {/* <button className="font-bold text-sm bg-white py-1 px-[10px] rounded-[20px]">
               1129+ <span className="font-normal">models</span>
             </button>
             <button
@@ -207,7 +241,7 @@ export default function Home() {
               className="font-bold text-sm bg-white py-1 px-[10px] rounded-[20px]"
             >
               3000+ <span className="font-normal">auto parts</span>
-            </button>
+            </button> */}
           </span>
           <h2 className="text-mecaDarkBlueBackgroundOverlay lg:text-5xl text-2xl font-bold py-6">
             Necessary makes of farming vehicles and trucks are available.
