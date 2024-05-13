@@ -104,7 +104,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
 
   useEffect(() => setActive(1), []);
   return (
-    <nav className="w-full" id="navbarContainer">
+    <nav className="w-full bg-white" id="navbarContainer">
       {/* mobile and tab */}
       <div
         className="w-full h-[60px] border-b-2 z-50 border-b-mecaBottomBorder px-4 flex justify-between items-center lg:hidden"
@@ -214,6 +214,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                   ? "text-mecaBluePrimaryColor"
                   : "text-mecaDarkBlueBackgroundOverlay"
               } text-sm font-nunito font-semibold capitalize`}
+              onClick={() => router.push(item.link)}
             >
               {item.title}
             </p>

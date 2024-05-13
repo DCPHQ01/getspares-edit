@@ -9,7 +9,7 @@ export default function Home() {
     <main>
       <TopBar />
       <Index />
-      <Footer />
+      {/* <Footer /> */}
     </main>
   );
 }
