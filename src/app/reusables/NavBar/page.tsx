@@ -190,7 +190,6 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
           </div>
         </div>
       </div>
-
       <div
         className="hidden w-full h-20 lg:flex justify-center items-center"
         id="navigationData"

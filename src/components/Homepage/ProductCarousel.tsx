@@ -47,52 +47,60 @@ export default function ProductCarousel() {
   const Card: React.FC<CardProps> = ({ image, type }) => {
     const urlType = type.replace(/\s+/g, "");
     return (
-      <div className="relative">
-        <Image src={image} alt="" width={630} height={564} placeholder="blur" />
-        <span className="absolute lg:bottom-16 bottom-8 lg:left-16 left-6 flex flex-col lg:gap-10 gap-6">
-          <p className="text-white lg:text-3xl text-xl font-bold">{type}</p>
-          <Link
-            href={{
-              pathname: "/category/products/?",
-              query: { type: encodeURIComponent(urlType) },
-            }}
+      <div className="relative" id="productContainer">
+        <Image
+          src={image}
+          alt=""
+          width={630}
+          height={564}
+          placeholder="blur"
+          id="productImage"
+        />
+        <span
+          className="absolute lg:bottom-16 bottom-8 lg:left-16 left-6 flex flex-col lg:gap-10 gap-6"
+          is="subContainer"
+        >
+          <p className="text-white lg:text-3xl text-xl font-bold" id="productText">
+            {type}
+          </p>
+          <button
+            className="lg:text-lg text-sm text-mecaBluePrimaryColor font-semibold bg-white w-fit rounded-[36px] lg:py-[10px] py-[6px] px-6"
+            id="exploreBtn"
           >
-            <button
-              type="button"
-              className="lg:text-lg text-sm text-mecaBluePrimaryColor font-semibold bg-white w-fit rounded-[36px] lg:py-[10px] py-[6px] px-6"
-            >
-              Explore parts
-            </button>
-          </Link>
+            Explore parts
+          </button>
         </span>
       </div>
     );
   };
 
   return (
-    <div>
-      <div className="flex justify-between items-center my-8">
-        <p className="text-3xl font-semibold">Shop</p>
-        <span className="flex gap-8">
+    <div id="productCarousel">
+      <div
+        className="flex justify-between items-center my-8"
+        id="carouselContainer"
+      >
+        <p className="text-3xl font-semibold" id="carouselTitle">
+          Shop
+        </p>
+        <span className="flex gap-8" id="carouselButtonSpan">
           <button
-            title="left"
-            type="button"
-            className="text-mecaVerificationCodeColor z-0 bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay"
+            id="previousBtn"
+            className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay"
             onClick={handlePrevious}
           >
             <MdChevronLeft size={30} />
           </button>
           <button
-            title="right"
-            type="button"
-            className="text-mecaVerificationCodeColor z-0 bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay"
+            id="nextBtn"
+            className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay"
             onClick={handleNext}
           >
             <MdChevronRight size={30} />
           </button>
         </span>
       </div>
-      <div>
+      <div id="carousel">
         <Carousel
           partialVisible={true}
           draggable={false}
