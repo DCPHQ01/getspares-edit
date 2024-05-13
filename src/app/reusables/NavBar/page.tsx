@@ -1,6 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import {
+  MdChevronRight,
+  MdExpandLess,
   MdExpandMore,
   MdMenu,
   MdOutlineShoppingCart,
@@ -8,90 +10,136 @@ import {
 } from "react-icons/md";
 import IconButton from "@mui/material/IconButton";
 import DropdownPage from "./dropdown/page";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import Button from "@mui/material/Button";
 
 const navData = [
   {
     id: 1,
     title: "home",
     icon: "",
+    icon2: "",
+    link: "/",
   },
   {
     id: 2,
     title: "categories",
-    icon: <MdExpandMore size={18} />,
+    icon: <MdExpandMore size={18} className="text-mecaGoBackArrow" />,
+    icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
+    link: "",
   },
   {
     id: 3,
     title: "brands",
-    icon: "",
+    icon: <MdExpandMore size={18} className="text-mecaGoBackArrow" />,
+    icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
+    link: "",
   },
   {
     id: 4,
     title: "mechanics",
-    icon: "",
+    icon: <MdExpandMore size={18} className="text-mecaGoBackArrow" />,
+    icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
+    link: "",
   },
   {
     id: 5,
     title: "vendors",
-    icon: "",
+    icon: <MdExpandMore size={18} className="text-mecaGoBackArrow" />,
+    icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
+    link: "",
   },
   {
     id: 6,
     title: "listings",
-    icon: "",
+    icon: <MdExpandMore size={18} className="text-mecaGoBackArrow" />,
+    icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
+    link: "",
   },
   {
     id: 7,
     title: "advertise",
-    icon: "",
+    icon: <MdExpandMore size={18} className="text-mecaGoBackArrow" />,
+    icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
+    link: "",
   },
 ];
 
-const NavBarPage = ({ defaultState = false }) => {
+interface NavBarProps {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+}
+export default function NavBar({ open, setOpen }: NavBarProps) {
   const [active, setActive] = useState(1);
   const handleClick = (id: number) => {
     setActive(id);
   };
 
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const [isOpen, setIsOpen] = useState(defaultState);
+  const router = useRouter();
+  const handleStartShopping = () => {
+    router.push("/signup");
+  };
+  const [isCategoryOptionOpened, setIsCategoryOptionOpen] = useState(false);
 
   const toggle = () => {
-    setIsOpen(!isOpen);
+    setIsCategoryOptionOpen(!isCategoryOptionOpened);
+  };
+
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const handleMobile = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
+  const routs = (e: any) => {
+    e.preventDefault();
+    router.push("../../../components/addtoCart/page");
   };
 
   useEffect(() => setActive(1), []);
   return (
-    <nav className="w-full" id="navbarContainer">
+    <nav className="w-full bg-white" id="navbarContainer">
       {/* mobile and tab */}
       <div
-        className="w-full h-[60px] border-b-2 border-b-mecaBottomBorder px-4 flex justify-between items-center lg:hidden"
+        className="w-full h-[60px] border-b-2 z-50 border-b-mecaBottomBorder px-4 flex justify-between items-center lg:hidden"
         id="contentContainer"
       >
-        <p className="text-mecaActiveIconsNavColor text-xl font-nunito font-bold">
+        <p
+          className="text-mecaActiveIconsNavColor text-xl font-nunito font-bold cursor-pointer"
+          onClick={() => router.push("/")}
+        >
           e-meca
         </p>
         <div className="flex items-center gap-x-2" id="menuSearchCart">
           <MdSearch size={18} />
-          <div
-            className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1"
-            id="textCart"
-          >
-            <MdOutlineShoppingCart
-              size={18}
-              className="text-mecaBluePrimaryColor"
-            />
-            <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
-              0
-            </p>
+          <Link href="/addtoCart">
+            <div
+              className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1"
+              id="textCartMobTab"
+            >
+              <MdOutlineShoppingCart
+                size={18}
+                className="text-mecaBluePrimaryColor"
+              />
+              <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
+                0
+              </p>
+            </div>
+          </Link>
+          <div id="mobileMenuBtn" onClick={() => setOpen(!open)}>
+            <MdMenu size={18} />
           </div>
-          <MdMenu size={18} />
         </div>
       </div>
       {/* desktop */}
       <div
-        className="hidden lg:flex flex-col border-b-2 border-b-mecaBottomBorder px-5"
+        className="hidden lg:flex flex-col border-b-2 border-b-mecaBottomBorder px-10"
         id="menuContainerDesktop"
       >
         <div
@@ -99,7 +147,10 @@ const NavBarPage = ({ defaultState = false }) => {
           id="desktopNavContentContainer"
         >
           <div className="w-[20%]" id="mecaLogoDesktop">
-            <p className="text-mecaActiveIconsNavColor text-3xl font-nunito font-bold">
+            <p
+              className="text-mecaActiveIconsNavColor text-3xl font-nunito font-bold cursor-pointer"
+              onClick={() => router.push("/")}
+            >
               e-meca
             </p>
           </div>
@@ -121,19 +172,28 @@ const NavBarPage = ({ defaultState = false }) => {
             className="w-[28%] h-8 flex justify-end items-center gap-x-2"
             id="cartDesktop"
           >
-            <div
-              className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1 cursor-pointer"
-              id="textCart"
+            <Link href="/addtoCart">
+              <div
+                className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1 cursor-pointer"
+                id="textCart"
+              >
+                <MdOutlineShoppingCart
+                  size={18}
+                  className="text-mecaBluePrimaryColor"
+                  // onClick={routs}
+                />
+                <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
+                  0
+                </p>
+              </div>
+            </Link>
+
+            <button
+              type="button"
+              className="w-[40%] h-full bg-mecaBluePrimaryColor text-white text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
+              id="startShoppingBtn"
+              onClick={handleStartShopping}
             >
-              <MdOutlineShoppingCart
-                size={18}
-                className="text-mecaBluePrimaryColor"
-              />
-              <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
-                0
-              </p>
-            </div>
-            <button className="w-[40%] h-full bg-mecaBluePrimaryColor text-white text-[12px] xl:text-sm font-nunito font-semibold rounded-full">
               Start shopping
             </button>
             <p className="text-sm font-nunito font-medium">Need Help?</p>
@@ -151,6 +211,7 @@ const NavBarPage = ({ defaultState = false }) => {
             } rounded-full`}
             id="navItem"
             onClick={() => handleClick(item.id)}
+            key={item.id}
           >
             <p
               className={`${
@@ -158,38 +219,30 @@ const NavBarPage = ({ defaultState = false }) => {
                   ? "text-mecaBluePrimaryColor"
                   : "text-mecaDarkBlueBackgroundOverlay"
               } text-sm font-nunito font-semibold capitalize`}
+              onClick={() => router.push(item.link)}
             >
               {item.title}
             </p>
-            <IconButton
-              onClick={toggle}
-              size="small"
-              // sx={{ ml: 2 }}
-              aria-controls={open ? "account-menu" : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? "true" : undefined}
-            >
-              {item.icon}
-            </IconButton>
+            <div onClick={item.id === 2 ? toggle : () => {}}>
+              {!isCategoryOptionOpened ? item.icon : item.icon2}
+            </div>
           </div>
         ))}
       </div>
-      {isOpen && (
+
+      {isCategoryOptionOpened && (
         <div
           style={{
             display: "flex",
             justifyContent: "center",
-            marginTop: "-10px",
           }}
           onClick={toggle}
         >
-          <div className="dropdownStyle">
+          <div className="absolute z-50">
             <DropdownPage />
           </div>
         </div>
       )}
     </nav>
   );
-};
-
-export default NavBarPage;
+}

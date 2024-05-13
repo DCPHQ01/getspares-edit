@@ -26,10 +26,10 @@ interface ChildProps {
   setStep: React.Dispatch<React.SetStateAction<number>>;
 }
 
-import { useAppSelector } from "@/redux";
-import { useAppDispatch } from "@/redux/hooks";
-import { RootState } from "@/redux";
-import { setCompanyForm } from "@/redux/features/company/companySlice";
+import { useAppSelector } from "../../../redux";
+import { useAppDispatch } from "../../../redux/hooks";
+import { RootState } from "../../../redux";
+import { setCompanyForm } from "../../../redux/features/company/companySlice";
 
 const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
   const [addresses, setAddresses] = useState<Address[]>([]);

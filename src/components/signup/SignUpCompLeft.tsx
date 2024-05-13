@@ -18,7 +18,7 @@ import {
   useRegisterAgentMutation,
   useRegisterBuyerMutation,
   useRegisterVendorMutation,
-} from "@/redux/baseQuery";
+} from "../../redux/baseQuery";
 import { useRouter } from "next/navigation";
 
 const userBuyer: User = {
@@ -74,14 +74,19 @@ const SignUpComponentLeft = () => {
     } else {
       setUserBuyerDetails((values) => ({ ...values, [id]: value }));
     }
-    console.log(value);
+    // console.log(value);
   };
 
-  // console.log(userAgentDetails, "userAgentDetails");
+  // console.log(userAgentDetails, "userAgentDetails", userBuyerDetails, userVendorDetails);
 
-  const [registerVendor] = useRegisterVendorMutation();
-  const [registerBuyer] = useRegisterBuyerMutation();
-  const [registerAgent] = useRegisterAgentMutation();
+  const [registerVendor, { data: VendorData, error: VendorError }] =
+    useRegisterVendorMutation();
+  const [registerBuyer, { data: buyerData, error: BuyerError }] =
+    useRegisterBuyerMutation();
+  const [registerAgent, { data: AgentData, error: AgentError }] =
+    useRegisterAgentMutation();
+
+  console.log(buyerData, BuyerError);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -96,17 +101,15 @@ const SignUpComponentLeft = () => {
         await registerAgent(userAgentDetails);
         userEmail = userAgentDetails.email;
         setSuccessMessage("Agent registered successfully!");
-      } else {
+      } else if (userType === "buyer") {
         await registerBuyer(userBuyerDetails);
         userEmail = userBuyerDetails.email;
-        setSuccessMessage("Buyer registered successfully!");
+        BuyerError
+          ? alert("Registration failed. Please try again.")
+          : (alert(buyerData.message), router.push("/verify-email"));
       }
       sessionStorage.setItem("userEmail", userEmail);
-      router.push("/verify-email");
-    } catch (error: any) {
-      setErrorMessage(
-        error.message || "Registration failed. Please try again."
-      );
+    } catch (error) {
     } finally {
       setIsLoading(false);
     }

@@ -1,7 +1,10 @@
 const DropdownPage = () => {
   return (
     <div>
-      <div className="flex justify-between p-6 leading-10">
+      <div
+        className="flex justify-between p-6 leading-10 bg-white w-full gap-x-32 "
+        style={{ boxShadow: "0px 2px 8px 0px #63636333", zIndex: 200 }}
+      >
         <div className="">
           <p>AC</p>
           <p>Air Filters</p>
