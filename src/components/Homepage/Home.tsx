@@ -70,7 +70,7 @@ export default function Home() {
   };
 
   return (
-    <main className="container mx-auto px-5 mt-36">
+    <main className="container mx-auto px-5 mt-44">
       <div>
         <Carousel
           showDots={true}

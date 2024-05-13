@@ -43,6 +43,7 @@ import Home from "../../components/Homepage/Home";
 import Box from "@mui/material/Box";
 import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 // import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 // import { MdCheckCircle } from "react-icons/md";
 
@@ -181,9 +182,11 @@ const AddtoCartPage = () => {
     setState({ ...state, open: false });
   };
 
+  const router = useRouter();
+
   return (
     <div>
-      <div className="">
+      <div className="w-full fixed top-0 z-50">
         <div className="">
           <HeaderPage />
         </div>
@@ -224,11 +227,14 @@ const AddtoCartPage = () => {
             id="menuContainerDesktop"
           >
             <div
-              className="w-full h-[83px] flex justify-between items-center"
+              className="w-full h-[83px] flex justify-between bg-white items-center"
               id="desktopNavContentContainer"
             >
               <div className="w-[20%]" id="mecaLogoDesktop">
-                <p className="text-mecaActiveIconsNavColor text-3xl font-nunito font-bold">
+                <p
+                  className="text-mecaActiveIconsNavColor text-3xl font-nunito font-bold cursor-pointer"
+                  onClick={() => router.push("/")}
+                >
                   e-meca
                 </p>
               </div>
@@ -281,7 +287,10 @@ const AddtoCartPage = () => {
         <div className="hidden lg:flex flex-col">
           <div className="w-[85%]" style={{ margin: "0px auto" }}>
             <div style={{ width: "100%" }} className={nunito.className}>
-              <div className="flex items-center gap-4 mt-6" id="breadCrumbsDiv">
+              <div
+                className="flex items-center gap-4 mt-40"
+                id="breadCrumbsDiv"
+              >
                 <Link href="/">
                   <p className="font-nunito text-sm font-medium text-mecaDarkBlueBackgroundOverlay">
                     Home

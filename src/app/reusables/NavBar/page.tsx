@@ -110,7 +110,10 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
         className="w-full h-[60px] border-b-2 z-50 border-b-mecaBottomBorder px-4 flex justify-between items-center lg:hidden"
         id="contentContainer"
       >
-        <p className="text-mecaActiveIconsNavColor text-xl font-nunito font-bold">
+        <p
+          className="text-mecaActiveIconsNavColor text-xl font-nunito font-bold cursor-pointer"
+          onClick={() => router.push("/")}
+        >
           e-meca
         </p>
         <div className="flex items-center gap-x-2" id="menuSearchCart">
@@ -144,7 +147,10 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
           id="desktopNavContentContainer"
         >
           <div className="w-[20%]" id="mecaLogoDesktop">
-            <p className="text-mecaActiveIconsNavColor text-3xl font-nunito font-bold">
+            <p
+              className="text-mecaActiveIconsNavColor text-3xl font-nunito font-bold cursor-pointer"
+              onClick={() => router.push("/")}
+            >
               e-meca
             </p>
           </div>

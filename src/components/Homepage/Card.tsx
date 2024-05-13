@@ -21,13 +21,19 @@ const Card: React.FC<CardProps> = ({ image }) => {
         <p className="lg:text-lg font-normal text-sm truncate text-mecaDarkBlueBackgroundOverlay">
           E46 Engine 1996 Model
         </p>
-        <button className="text-sm bg-mecaGrayLightBg flex items-center gap-1 outline-none border border-mecaBorderColor rounded-[20px] lg:py-[2px] lg:px-2 px-1 h-fit">
+        <button
+          type="button"
+          className="text-sm bg-mecaGrayLightBg flex items-center gap-1 outline-none border border-mecaBorderColor rounded-[20px] lg:py-[2px] lg:px-2 px-1 h-fit"
+        >
           <MdStar className="text-mecaYellowStarColor lg:text-[15px] text-sm" />{" "}
           5
         </button>
       </span>
       <span className="flex justify-start w-full items-center">
-        <button className="lg:text-lg text-xs font-bold bg-mecaSearchColor   rounded-[32px] py-3 px-8">
+        <button
+          type="button"
+          className="lg:text-lg text-xs font-bold bg-mecaSearchColor   rounded-[32px] py-3 px-8"
+        >
           ₦97,500.00
         </button>
       </span>

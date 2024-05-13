@@ -5,9 +5,9 @@ import HomeImage1 from "../../assets/images/homeImage1.png";
 
 export default function Hero() {
   return (
-    <div className="bg-mecaActiveBackgroundNavColor lg:flex items-center gap-8 rounded-lg lg:px-8 px-4 lg:py-16 py-6">
+    <div className="bg-mecaActiveBackgroundNavColor lg:flex items-center mt-12 gap-8 rounded-lg lg:px-8 px-4 lg:py-16 py-6">
       <div className="lg:w-1/2">
-        <h1 className="font-bold lg:text-[54px] text-2xl lg:leading-[72px] leading-8 text-mecaDarkBlueBackgroundOverlay">
+        <h1 className="font-bold lg:text-[54px] text-2xl lg:leading-[56px] leading-8 text-mecaDarkBlueBackgroundOverlay">
           Explore our top picks for a powerful shopping engine experience.
         </h1>
         <p className="text-mecaGrayBodyText lg:text-lg text-sm py-4">

@@ -73,14 +73,17 @@ export default function MobileNav({ handleNav }: MobileNavProps) {
   };
   return (
     <div
-      className="w-full h-screen z-50 bg-white fixed overflow-y-hidden"
+      className="w-full h-screen z-50 bg-white fixed top-0 overflow-y-hidden"
       id="mobileMenuContainer"
     >
       <div
         className="w-full h-[60px] border-b-2 border-b-mecaBottomBorder px-4 flex justify-between items-center lg:hidden"
         id="topBarContentContainer"
       >
-        <p className="text-mecaActiveIconsNavColor text-xl font-nunito font-bold">
+        <p
+          className="text-mecaActiveIconsNavColor text-xl font-nunito font-bold cursor-pointer"
+          onClick={() => router.push("/")}
+        >
           e-meca
         </p>
         <div className="flex" id="mdClear">
