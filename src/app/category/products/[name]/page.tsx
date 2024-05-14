@@ -22,7 +22,7 @@ import Switches from "../../../../app/reusables/switch/page";
 import Footer from "../../../../components/footer/Footer";
 import TruncateText from "../../../utils/page";
 import Filter from "../filters/page";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 interface ItemsDataProps {
   id: number;
@@ -98,14 +98,22 @@ export default function Products() {
     console.log(isFilterOpen, "isFilterOpen");
   };
 
+  const router = useRouter();
   const [showFilter, setShowFilter] = useState(true);
   const handleToggleFilter = () => {
     setShowFilter(!showFilter);
   };
 
-  const searchParams = useSearchParams()!;
-  const search = searchParams.get("type");
-  const searchWords = search ? search.replace(/([A-Z])/g, " $1").trim() : "";
+  const searchParams = usePathname()!;
+  const search = searchParams;
+  const segments = searchParams.split("/");
+  const searches = segments[3];
+  const searchWords = segments[3].replace(/([A-Z])/g, " $1").trim();
+  // const searchWords = search ? search.replace(/([A-Z])/g, " $1").trim() : "";
+
+  const handleProductDescription = (id: number) => {
+    router.push(`/category/products/${searches}/${id}`);
+  };
 
   const filterData = [
     {
@@ -212,7 +220,7 @@ export default function Products() {
             className="px-4 flex flex-col gap-y-4 lg:hidden"
             id="productCategoryContentDiv"
           >
-            <div className="flex items-center gap-4 mt-6" id="breadCrumbsDiv">
+            <div className="flex items-center gap-4 mt-52" id="breadCrumbsDiv">
               <p className="font-nunito text-sm font-medium text-mecaDarkBlueBackgroundOverlay">
                 Home
               </p>
@@ -322,7 +330,7 @@ export default function Products() {
       <div className="hidden lg:flex flex-col" id="desktopDiv">
         <TopBar />
         <div
-          className="flex items-center gap-2 mt-6 px-8"
+          className="flex items-center gap-2 mt-56 px-8"
           id="breadCrumbsDivDesktop"
         >
           <p className="font-nunito text-sm font-medium text-mecaDarkBlueBackgroundOverlay">
@@ -424,7 +432,11 @@ export default function Products() {
             id="allItemsContainerDivDesktop"
           >
             {itemsData.map((item: ItemsDataProps) => (
-              <div className="flex flex-col w-[30.4%]" key={item.id}>
+              <div
+                className="flex flex-col w-[30.4%]"
+                key={item.id}
+                onClick={() => handleProductDescription(item.id)}
+              >
                 <div
                   className="w-full h-[194px] flex justify-center items-center bg-mecaSearchColor"
                   id="itemImage"

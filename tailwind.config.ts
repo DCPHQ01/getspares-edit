@@ -40,6 +40,9 @@ const config: Config = {
         mecaBottomBorder: "#CDD5DF",
         mecaCartColor: "#84ADFF",
         mecaSearchColor: "#F8FAFC",
+        mecaRatingsDiv: "#FCFCFD",
+        mecaRatingsBorder: "#E3E8EF",
+        mecaSuccess: "#DCFAE6",
       },
       fontFamily: {
         nunito: ["var(--font-nunito_sans)"],

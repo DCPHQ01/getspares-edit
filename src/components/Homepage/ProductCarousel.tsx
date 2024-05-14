@@ -6,6 +6,7 @@ import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import Tractor from "../../assets/images/tractor.png";
 import Bulldozer from "../../assets/images/bulldozer.png";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface CardProps {
   image: StaticImageData;
@@ -46,8 +47,19 @@ export default function ProductCarousel() {
 
   const Card: React.FC<CardProps> = ({ image, type }) => {
     const urlType = type.replace(/\s+/g, "");
+    const router = useRouter();
     return (
-      <div className="relative" id="productContainer">
+      // <Link
+      //   href={{
+      //     pathname: "/category/products/?",
+      //     query: { type: encodeURIComponent(urlType) },
+      //   }}
+      // >
+      <div
+        className="relative"
+        id="productContainer"
+        onClick={() => router.push(`/category/products/${urlType}`)}
+      >
         <Image
           src={image}
           alt=""
@@ -60,10 +72,14 @@ export default function ProductCarousel() {
           className="absolute lg:bottom-16 bottom-8 lg:left-16 left-6 flex flex-col lg:gap-10 gap-6"
           is="subContainer"
         >
-          <p className="text-white lg:text-3xl text-xl font-bold" id="productText">
+          <p
+            className="text-white lg:text-3xl text-xl font-bold"
+            id="productText"
+          >
             {type}
           </p>
           <button
+            type="button"
             className="lg:text-lg text-sm text-mecaBluePrimaryColor font-semibold bg-white w-fit rounded-[36px] lg:py-[10px] py-[6px] px-6"
             id="exploreBtn"
           >
@@ -71,6 +87,7 @@ export default function ProductCarousel() {
           </button>
         </span>
       </div>
+      // </Link>
     );
   };
 
@@ -84,20 +101,20 @@ export default function ProductCarousel() {
           Shop
         </p>
         <span className="flex gap-8" id="carouselButtonSpan">
-          <button
+          <div
             id="previousBtn"
             className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay"
             onClick={handlePrevious}
           >
             <MdChevronLeft size={30} />
-          </button>
-          <button
+          </div>
+          <div
             id="nextBtn"
             className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay"
             onClick={handleNext}
           >
             <MdChevronRight size={30} />
-          </button>
+          </div>
         </span>
       </div>
       <div id="carousel">

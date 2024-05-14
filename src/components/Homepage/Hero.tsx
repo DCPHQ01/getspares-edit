@@ -5,12 +5,21 @@ import HomeImage1 from "../../assets/images/homeImage1.png";
 
 export default function Hero() {
   return (
-    <div className="bg-mecaActiveBackgroundNavColor lg:flex items-center gap-8 rounded-lg lg:px-8 px-4 lg:py-16 py-6" id='container'>
-      <div className="lg:w-1/2" id='leftSide'>
-        <h1 className="font-bold lg:text-[54px] text-2xl lg:leading-[72px] leading-8 text-mecaDarkBlueBackgroundOverlay" id='heroHeader'>
+    <div
+      className="bg-mecaActiveBackgroundNavColor lg:flex items-center gap-8 mt-52 rounded-lg lg:px-8 px-4 lg:py-16 py-6"
+      id="container"
+    >
+      <div className="lg:w-1/2" id="leftSide">
+        <h1
+          className="font-bold lg:text-[54px] text-2xl lg:leading-[72px] leading-8 text-mecaDarkBlueBackgroundOverlay"
+          id="heroHeader"
+        >
           Explore our top picks for a powerful shopping engine experience.
         </h1>
-        <p className="text-mecaGrayBodyText lg:text-lg text-sm py-4" id='heroText'>
+        <p
+          className="text-mecaGrayBodyText lg:text-lg text-sm py-4"
+          id="heroText"
+        >
           Discover the latest additions to our inventory and prepare to elevate
           your outdoor experiences in style.
         </p>
@@ -24,7 +33,7 @@ export default function Hero() {
           Explore engines
         </Button>
       </div>
-      <div className="lg:w-1/2" id='rightSide'>
+      <div className="lg:w-1/2" id="rightSide">
         <Image
           src={HomeImage1}
           alt="home image"
