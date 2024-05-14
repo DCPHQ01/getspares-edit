@@ -5,12 +5,21 @@ import HomeImage1 from "../../assets/images/homeImage1.png";
 
 export default function Hero() {
   return (
-    <div className="bg-mecaActiveBackgroundNavColor lg:flex items-center gap-8 rounded-lg lg:px-8 px-4 lg:py-16 py-6">
-      <div className="lg:w-1/2">
-        <h1 className="font-bold lg:text-[54px] text-2xl lg:leading-[72px] leading-8 text-mecaDarkBlueBackgroundOverlay">
+    <div
+      className="bg-mecaActiveBackgroundNavColor lg:flex items-center gap-8 rounded-lg lg:px-8 px-4 lg:py-16 py-6"
+      id="homepageHeroContainer"
+    >
+      <div className="lg:w-1/2" id="homepageHeroContainer1">
+        <h1
+          id="homepageHeroContainer2"
+          className="font-bold lg:text-[54px] text-2xl lg:leading-[72px] leading-8 text-mecaDarkBlueBackgroundOverlay"
+        >
           Explore our top picks for a powerful shopping engine experience.
         </h1>
-        <p className="text-mecaGrayBodyText lg:text-lg text-sm py-4">
+        <p
+          id="homepageHeroContainer3"
+          className="text-mecaGrayBodyText lg:text-lg text-sm py-4"
+        >
           Discover the latest additions to our inventory and prepare to elevate
           your outdoor experiences in style.
         </p>
@@ -31,6 +40,7 @@ export default function Hero() {
           width={564}
           height={376}
           placeholder="blur"
+          id="homepageHeroContainerImg"
         />
       </div>
     </div>

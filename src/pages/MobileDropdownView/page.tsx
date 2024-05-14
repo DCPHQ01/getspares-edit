@@ -7,6 +7,7 @@ import Link from "next/link";
 // import NavBar from "@/app/reusables/NavBar/page";
 import NavBar from "../../app/reusables/NavBar/page";
 import { Nunito_Sans } from "next/font/google";
+// import MobileNav from "../../app/reusables/mobileNav/page";
 
 const nunito = Nunito_Sans({
   subsets: ["latin"],

@@ -47,7 +47,7 @@ export default function ProductCarousel() {
   const Card: React.FC<CardProps> = ({ image, type }) => {
     const urlType = type.replace(/\s+/g, "");
     return (
-      <div className="relative">
+      <div className="relative" id="hompageProductionCarousel">
         <Image src={image} alt="" width={630} height={564} placeholder="blur" />
         <span className="absolute lg:bottom-16 bottom-8 lg:left-16 left-6 flex flex-col lg:gap-10 gap-6">
           <p className="text-white lg:text-3xl text-xl font-bold">{type}</p>
@@ -71,7 +71,10 @@ export default function ProductCarousel() {
 
   return (
     <div>
-      <div className="flex justify-between items-center my-8">
+      <div
+        className="flex justify-between items-center my-8"
+        id="hompageProductionCarousel2"
+      >
         <p className="text-3xl font-semibold">Shop</p>
         <span className="flex gap-8">
           <button
@@ -92,7 +95,7 @@ export default function ProductCarousel() {
           </button>
         </span>
       </div>
-      <div>
+      <div id="hompageProductionCarousel3">
         <Carousel
           partialVisible={true}
           draggable={false}

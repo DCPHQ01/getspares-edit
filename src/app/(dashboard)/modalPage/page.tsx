@@ -4,7 +4,7 @@ import AddCompanyModal from "../../../components/addCompModal/addCompanyModal";
 
 function addCompanyModal() {
   return (
-    <div>
+    <div id="companymodaldisplay">
       <AddCompanyModal />
     </div>
   );

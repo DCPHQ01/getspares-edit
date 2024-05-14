@@ -12,4 +12,6 @@ interface UserVendor extends User {
 
 interface UserAgent extends User {
   vendorMerchantId: string[];
+  agentCompanyNameId: string[];
+  agentAssociateSellerId: string[];
 }

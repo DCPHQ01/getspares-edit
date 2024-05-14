@@ -92,7 +92,7 @@ export const NavBar = ({ open, setOpen }: NavBarProps) => {
         </p>
         <div className="flex items-center gap-x-2" id="menuSearchCart">
           <MdSearch size={18} />
-          <Link href="/addtoCart">
+          <Link href="/removetoCart">
             <div
               className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1"
               id="textCart"
@@ -143,7 +143,7 @@ export const NavBar = ({ open, setOpen }: NavBarProps) => {
             className="w-[28%] h-8 flex justify-end items-center gap-x-2"
             id="cartDesktop"
           >
-            <Link href="/addtoCart">
+            <Link href="/removetoCart">
               <div
                 className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1 cursor-pointer"
                 id="textCart"
@@ -176,24 +176,26 @@ export const NavBar = ({ open, setOpen }: NavBarProps) => {
         id="navigationData"
       >
         {navData.map((item) => (
-          <div
-            className={`w-[110px] h-8 flex justify-center items-center px-3 cursor-pointer ${
-              active === item.id ? "bg-mecaActiveBackgroundNavColor" : ""
-            } rounded-full`}
-            id="navItem"
-            onClick={() => handleClick(item.id)}
-            key={item.id}
-          >
-            <p
-              className={`${
-                active === item.id
-                  ? "text-mecaBluePrimaryColor"
-                  : "text-mecaDarkBlueBackgroundOverlay"
-              } text-sm font-nunito font-semibold capitalize`}
+          <div className="" onClick={item.id === 2 ? toggle : () => {}}>
+            <div
+              className={`w-[110px] h-8 flex justify-center items-center px-3 cursor-pointer ${
+                active === item.id ? "bg-mecaActiveBackgroundNavColor" : ""
+              } rounded-full`}
+              id="navItem"
+              onClick={() => handleClick(item.id)}
+              key={item.id}
             >
-              {item.title}
-            </p>
-            <div onClick={item.id === 2 ? toggle : () => {}}>{item.icon}</div>
+              <p
+                className={`${
+                  active === item.id
+                    ? "text-mecaBluePrimaryColor"
+                    : "text-mecaDarkBlueBackgroundOverlay"
+                } text-sm font-nunito font-semibold capitalize`}
+              >
+                {item.title}
+              </p>
+              <div>{item.icon}</div>
+            </div>
           </div>
         ))}
       </div>
@@ -205,8 +207,9 @@ export const NavBar = ({ open, setOpen }: NavBarProps) => {
             justifyContent: "center",
           }}
           onClick={toggle}
+          id="navbarhomedrop"
         >
-          <div className="absolute z-50">
+          <div className="absolute z-50" id="navbarhomedropdown">
             <DropdownPage />
           </div>
         </div>

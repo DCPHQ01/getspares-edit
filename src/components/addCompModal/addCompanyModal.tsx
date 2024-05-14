@@ -39,21 +39,33 @@ const AddCompanyModal = () => {
   return (
     <div>
       {/* You can open the modal using document.getElementById('ID').showModal() method */}
-      <div className="open-modal-btn"></div>
-      <Button className="btn" id="modalButton" onClick={handleOpen}>
-        open modal
-      </Button>
+      <div id="openmodalbtn" className="">
+        <button
+          className="btn bg-mecaBluePrimaryColor w-[30%] h-20 border-spacing-10 text-white font-semibold text-lg rounded-lg"
+          id="modalButton"
+          onClick={handleOpen}
+        >
+          open modal
+        </button>
+      </div>
       <Modal
         open={open}
         // onClose={handleClose}
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
-        id="my_modal_3"
+        id="mymoda3"
         className="modal"
       >
         <Box sx={{ ...style, width: 400 }}>
-          <div className="flex justify-between flex-row-reverse">
-            <form method="dialog" className={nunito_sans.className}>
+          <div
+            className="flex justify-between flex-row-reverse"
+            id="confirmpage"
+          >
+            <form
+              method="dialog"
+              id="confirmpageButton"
+              className={nunito_sans.className}
+            >
               {/* if there is a button in form, it will close the modal */}
               <button
                 onClick={handleClose}
@@ -65,6 +77,7 @@ const AddCompanyModal = () => {
             </form>
 
             <Image
+              id="confirmpageImage"
               src={check}
               width={50}
               height={50}
@@ -73,14 +86,23 @@ const AddCompanyModal = () => {
             />
           </div>
 
-          <div className={nunito_sans.className}>
-            <h3 className="addCompany mt-2">Add company</h3>
-            <p className="py-4 addCompanySub">
+          <div className={nunito_sans.className} id="confirmpageForm">
+            <h3 className="addCompany mt-2" id="confirmpageHeader">
+              Add company
+            </h3>
+            <p className="py-4 addCompanySub" id="confirmpageSubHeader">
               Increase the confidence and trust of buyers by adding your company
               account on meca
             </p>
-            <div className="modalbtn gap-y-3 text-lg font-semibold">
-              <form method="dialog" className={nunito_sans.className}>
+            <div
+              className="modalbtn gap-y-3 text-lg font-semibold"
+              id="confirmpageButton2"
+            >
+              <form
+                method="dialog"
+                id="confirmpageForm2"
+                className={nunito_sans.className}
+              >
                 <button
                   onClick={handleClose}
                   id="laterbtn"
@@ -90,7 +112,7 @@ const AddCompanyModal = () => {
                 </button>
               </form>
 
-              <Link href="/modalPage/vendor">
+              <Link id="continuebtnLink" href="/modalPage/vendor">
                 <button
                   id="continuebtn"
                   className="btn bg-mecaBluePrimaryColor  text-white  font-semibold rounded-full w-40 min-h-12"

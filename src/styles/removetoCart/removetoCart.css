@@ -30,7 +30,13 @@
   text-align: left;
 }
 
-/* .css-zzms1-MuiSnackbar-root {
-  position: relative;
-  top: -71rem;
-} */
+@media (min-width: "570px") {
+  #cardHeadTitle {
+    font-size: 10px;
+  }
+}
+
+.css-1d3z3hw-MuiOutlinedInput-notchedOutline {
+  height: 40px;
+  margin-top: 10px;
+}

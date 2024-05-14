@@ -1,9 +1,6 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-// import MobileDropdownViewPage from "../../../pages/page";
-// import MobileDropdownViewPage from "/pages/page";
-// import MobileDropdownViewPage from "../../../../src/pages/MobileDropdownView/page";
 import MobileDropdownViewPage from "../../../pages/MobileDropdownView/page";
 import Filter from "../../category/products/filters/page";
 import { MdChevronRight, MdClear, MdExpandMore } from "react-icons/md";
@@ -58,10 +55,6 @@ interface MobileNavProps {
 }
 export default function MobileNav({ handleNav }: MobileNavProps) {
   const router = useRouter();
-
-  // const handleCategory = () => {
-  //   router.push("../../../../src/pages/MobileDropdownView/page");
-  // };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
