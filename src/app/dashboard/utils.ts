@@ -6,3 +6,10 @@ export enum sidePanel {
     INVENTORY = "INVENTORY",
     CATEGORY = "CATEGORY",
 }
+
+export enum roles {
+    MECA_ADMIN = "MECA_ADMIN",
+    VENDOR_ADMIN = "VENDOR_ADMIN",
+}
+
+export const userRole = roles.VENDOR_ADMIN;

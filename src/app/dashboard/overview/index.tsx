@@ -2,8 +2,13 @@
 import React from 'react';
 import Cards from "@/app/dashboard/overview/cards";
 import PeriodRadios from "@/app/dashboard/overview/periodRadios";
+import OverviewTable from "@/app/dashboard/overview/overviewTable";
 
-function Index() {
+interface IProps{
+    header:string;
+    subheader: string;
+}
+function Index({header, subheader}:IProps) {
     const cardProps = [
         {
             total: "number of parts ordered",
@@ -54,12 +59,15 @@ function Index() {
             </div>
             <div className={`mt-[52px] flex justify-between`}>
                 <div>
-                    <p className={`font-semibold text-[20px]`}>Top performing vendors</p>
-                    <p className={`text-[#364152]`}>A quick glance on vendors with highest sales on meca</p>
+                    <p className={`font-semibold text-[20px]`}>{header}</p>
+                    <p className={`text-[#364152]`}>{subheader}</p>
                 </div>
                 <div>
                     <PeriodRadios/>
                 </div>
+            </div>
+            <div>
+                <OverviewTable/>
             </div>
         </>
     );
