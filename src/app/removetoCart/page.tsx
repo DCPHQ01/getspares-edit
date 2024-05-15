@@ -442,13 +442,7 @@ const RemoveToCartPage = () => {
                                           removeFromCart(cardCartItem.id)
                                         }
                                       >
-                                        <div
-                                          // style={{
-                                          //   boxShadow:
-                                          //     "0px 2px 8px 0px #63636333",
-                                          // }}
-                                          className="flex hover:shadow-#63636333-500  gap-x-2 w-20  h-9 m-auto  hover:bg-mecaTableTextErrorBackgroundColor hover:text-mecaErrorInputColor"
-                                        >
+                                        <div className="flex hover:shadow-#63636333-500  gap-x-2 w-20  h-9 m-auto  hover:bg-mecaTableTextErrorBackgroundColor hover:text-mecaErrorInputColor">
                                           <div className="mt-2">
                                             {cardCartItem.delete}
                                           </div>
@@ -457,64 +451,8 @@ const RemoveToCartPage = () => {
                                           </div>
                                         </div>
                                       </button>
-
-                                      {/* <div
-                                        onClick={toggleDropdown}
-                                        className=""
-                                      >
-                                        <div className="flex  gap-x-2 ">
-                                          <div className="mt-1">
-                                            {cardCartItem.delete}
-                                          </div>
-                                          <div className="text-sm font-normal mt-1">
-                                            {cardCartItem.remove}
-                                          </div>
-                                        </div>
-                                      </div> */}
                                     </div>
                                   )}
-
-                                  {/* {showButton && (
-                                    <button
-                                      onClick={toggleButton}
-                                      className="bg-red-500 text-white p-2 rounded"
-                                    >
-                                      Click Me
-                                    </button>
-                                  )} */}
-
-                                  {/* {isOpen ? (
-                                    <MenuItem
-                                      className="z-50 absolute"
-                                      onClick={() =>
-                                        removeFromCart(cardCartItem.id)
-                                      }
-                                    >
-                                      <MenuItem
-                                        className=" z-50 w-36 h-12 pt-1 cursor-pointer bg-white rounded"
-                                        style={{
-                                          boxShadow:
-                                            "0px 2px 8px 0px #63636333",
-                                        }}
-                                      >
-                                        <div
-                                          onClick={toggleDropdown}
-                                          className="cursor-pointer  hover:bg-mecaTableTextErrorBackgroundColor hover:text-mecaErrorInputColor pl-2 pr-2 pt-1 rounded m-auto w-[92%] h-[88%]"
-                                        >
-                                          <div className="flex  gap-x-2 ">
-                                            <div className="mt-1">
-                                              {cardCartItem.delete}
-                                            </div>
-                                            <div className="text-sm font-normal mt-1">
-                                              {cardCartItem.remove}
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </MenuItem>
-                                    </MenuItem>
-                                  ) : (
-                                    ""
-                                  )} */}
                                 </div>
 
                                 <div
@@ -697,59 +635,54 @@ const RemoveToCartPage = () => {
                                 </div>
                               </div>
 
-                              <div>
-                                <div className="">
-                                  <div
+                              <div className="">
+                                <div
+                                  style={{
+                                    position: "relative",
+                                    left: "81px",
+                                    cursor: "pointer",
+                                  }}
+                                >
+                                  <MdMoreVert
+                                    onClick={() =>
+                                      toggleButton(cardCartItem.id)
+                                    }
                                     style={{
-                                      position: "relative",
-                                      left: "81px",
-                                      cursor: "pointer",
+                                      fontSize: "20px",
+                                      overflow: "hidden",
+                                      whiteSpace: "nowrap",
+                                      textOverflow: "ellipsis",
+                                      maxWidth: "150px",
                                     }}
-                                    onClick={toggleDropdown}
+                                  />
+                                </div>
+
+                                {visibleButtons[cardCartItem.id] && (
+                                  <div
+                                    onClick={() =>
+                                      toggleButton(cardCartItem.id)
+                                    }
                                   >
-                                    {cardCartItem.icon2}
-                                  </div>
-                                  {isOpen && (
-                                    <div
-                                      className=" "
+                                    <button
+                                      style={{
+                                        boxShadow: "0px 2px 8px 0px #63636333",
+                                      }}
+                                      className=" h-12 w-24 cursor-pointer bg-white rounded  absolute "
                                       onClick={() =>
                                         removeFromCart(cardCartItem.id)
                                       }
-                                      style={{
-                                        position: "absolute",
-                                      }}
                                     >
-                                      <div
-                                        className=" z-50 w-36 h-12 pt-1 cursor-pointer bg-white rounded"
-                                        style={{
-                                          boxShadow:
-                                            "0px 2px 8px 0px #63636333",
-                                        }}
-                                      >
-                                        <div
-                                          onClick={toggleDropdown}
-                                          className="cursor-pointer  hover:bg-mecaTableTextErrorBackgroundColor hover:text-mecaErrorInputColor pl-2 pr-2 pt-1 rounded m-auto w-[92%] h-[88%]"
-                                        >
-                                          <div className="flex  gap-x-2 ">
-                                            <div className="mt-1">
-                                              {cardCartItem.delete}
-                                            </div>
-                                            <div className="text-sm font-normal mt-1">
-                                              {cardCartItem.remove}
-                                            </div>
-                                          </div>
+                                      <div className="flex hover:shadow-#63636333-500  gap-x-2 w-20  h-9 m-auto  hover:bg-mecaTableTextErrorBackgroundColor hover:text-mecaErrorInputColor">
+                                        <div className="mt-2">
+                                          {cardCartItem.delete}
+                                        </div>
+                                        <div className="text-sm font-normal mt-1">
+                                          {cardCartItem.remove}
                                         </div>
                                       </div>
-                                    </div>
-                                  )}
-                                </div>
-
-                                <div
-                                  className="font-bold"
-                                  style={{ marginTop: "5rem" }}
-                                >
-                                  <p>{cardCartItem.price}</p>
-                                </div>
+                                    </button>
+                                  </div>
+                                )}
                               </div>
                             </div>
                           </div>
