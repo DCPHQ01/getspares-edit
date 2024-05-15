@@ -1,11 +1,11 @@
-import * as React from 'react';
-import {styled} from '@mui/material/styles';
-import Radio, {RadioProps} from '@mui/material/Radio';
+import React, { useState } from 'react';
+import { styled } from '@mui/material/styles';
+import Radio, { RadioProps } from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 
-const BpIcon = styled('span')(({theme}) => ({
+const BpIcon = styled('span')(({ theme }) => ({
     borderRadius: '50%',
     width: 16,
     height: 16,
@@ -53,30 +53,37 @@ function BpRadio(props: RadioProps) {
         <Radio
             disableRipple
             color="default"
-            checkedIcon={<BpCheckedIcon/>}
-            icon={<BpIcon/>}
+            checkedIcon={<BpCheckedIcon />}
+            icon={<BpIcon />}
             {...props}
         />
     );
 }
 
 export default function PeriodRadios() {
+    const [selectedValue, setSelectedValue] = useState('last7days');
+
+    const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSelectedValue(event.target.value);
+    };
+
     return (
         <FormControl>
             <RadioGroup
-                defaultValue="last7days"
+                value={selectedValue}
+                onChange={handleRadioChange}
                 aria-labelledby="period-radios"
                 name="customized-radios"
             >
                 <div className={`flex`}>
-                    <div className={`border py-[8px] px-[16px] rounded-tl-[10px] rounded-bl-[10px]`}>
-                        <FormControlLabel value="last7days" control={<BpRadio/>} label="Last 7 days"/>
+                    <div className={`border py-[8px] px-[16px] rounded-tl-[10px] rounded-bl-[10px] ${selectedValue === 'last7days' ? 'bg-[#EEF2F6]' : ''}`}>
+                        <FormControlLabel value="last7days" control={<BpRadio />} label="Last 7 days" />
                     </div>
-                    <div className={`border py-[8px] px-[16px]`}>
-                        <FormControlLabel value="last30days" control={<BpRadio/>} label="Last 30 days"/>
+                    <div className={`border py-[8px] px-[16px] ${selectedValue === 'last30days' ? 'bg-[#EEF2F6]' : ''}`}>
+                        <FormControlLabel value="last30days" control={<BpRadio />} label="Last 30 days" />
                     </div>
-                    <div className={`border py-[8px] px-[16px] rounded-tr-[10px] rounded-br-[10px]`}>
-                        <FormControlLabel value="last1year" control={<BpRadio/>} label="Last 1 year"/>
+                    <div className={`border py-[8px] px-[16px] rounded-tr-[10px] rounded-br-[10px] ${selectedValue === 'last1year' ? 'bg-[#EEF2F6]' : ''}`}>
+                        <FormControlLabel value="last1year" control={<BpRadio />} label="Last 1 year" />
                     </div>
                 </div>
             </RadioGroup>

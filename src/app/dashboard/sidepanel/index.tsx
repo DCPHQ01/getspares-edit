@@ -10,8 +10,13 @@ import {
     MdYard,
     MdLogout
 } from "react-icons/md"
+import {useAppDispatch} from "@/redux/hooks";
+import {dashboardActions} from "@/redux/features/dashboard/dashboardSlice";
+import {sidePanel} from "@/app/dashboard/utils";
 
 function Index() {
+
+    const dispatch = useAppDispatch();
 
     const buttons = [
         {
@@ -19,7 +24,7 @@ function Index() {
             title: "Overview",
             size: 18,
             onClick: () => {
-                console.log(" Button Clicked");
+                dispatch(dashboardActions.setNavButton(sidePanel.OVERVIEW));
             },
         },
         {
@@ -27,7 +32,7 @@ function Index() {
             title: "Vendors",
             size: 18,
             onClick: () => {
-                console.log(" Button Clicked");
+                dispatch(dashboardActions.setNavButton(sidePanel.VENDORS));
             },
         },
         {
@@ -35,7 +40,7 @@ function Index() {
             title: "Agents",
             size: 18,
             onClick: () => {
-                console.log(" Button Clicked");
+                dispatch(dashboardActions.setNavButton(sidePanel.AGENTS));
             },
         },
         {
@@ -43,7 +48,7 @@ function Index() {
             title: "Buyers",
             size: 18,
             onClick: () => {
-                console.log(" Button Clicked");
+                dispatch(dashboardActions.setNavButton(sidePanel.BUYERS));
             },
         },
         {
@@ -51,7 +56,7 @@ function Index() {
             title: "Inventory",
             size: 18,
             onClick: () => {
-                console.log(" Button Clicked");
+                dispatch(dashboardActions.setNavButton(sidePanel.INVENTORY));
             },
         },
         {
@@ -59,7 +64,7 @@ function Index() {
             title: "Category",
             size: 18,
             onClick: () => {
-                console.log(" Button Clicked");
+                dispatch(dashboardActions.setNavButton(sidePanel.CATEGORY));
             },
         },
     ]
@@ -70,7 +75,7 @@ function Index() {
             title: "Profile",
             size: 18,
             onClick: () => {
-                console.log(" Button Clicked");
+                console.log("Profile Button Clicked");
             },
         },
         {
@@ -78,13 +83,13 @@ function Index() {
             title: "Logout",
             size: 18,
             onClick: () => {
-                console.log(" Button Clicked");
+                console.log("Logout Button Clicked");
             },
         },
     ]
     return (
         <>
-            <div className={`w-[280px] fixed h-screen py-[32px] border-2 border-r-[#EAECF0]`}>
+            <div className={`w-[280px] fixed h-screen py-[32px] border-2 border-r-[#EAECF0] bg-white`}>
                 <h1 className={`text-[#0852C0] mx-[35px] text-[30px] font-[700]`}>e-meca</h1>
                 <div className={`mx-[31px] mt-[52px]`}>
                     {buttons.map((btn, index) => (

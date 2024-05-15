@@ -4,12 +4,14 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 import userSlice from "./features/users/userSlice";
 import companySlice from "./features/company/companySlice";
 import { baseQuery } from "./baseQuery";
+import dashboardSlice from "@/redux/features/dashboard/dashboardSlice";
 
 export const store = configureStore({
   reducer: {
     [baseQuery.reducerPath]: baseQuery.reducer,
     user: userSlice,
     company: companySlice,
+    dashboard: dashboardSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat([baseQuery.middleware]),

@@ -10,7 +10,7 @@ function Index() {
             amount: 2250,
             percentage: 32,
             onClick: () => {
-                console.log("Owo repete")
+                console.log("View total number of parts ordered")
             }
         },
         {
@@ -18,7 +18,7 @@ function Index() {
             amount: 1475,
             percentage: 10,
             onClick: () => {
-                console.log("Owo repete")
+                console.log("View total number of agents")
             }
         },
         {
@@ -26,7 +26,7 @@ function Index() {
             amount: 1250,
             percentage: 59,
             onClick: () => {
-                console.log("Owo repete")
+                console.log("View total transaction value")
             }
         },
         {
@@ -34,14 +34,14 @@ function Index() {
             amount: 1280,
             percentage: 59,
             onClick: () => {
-                console.log("Owo repete")
+                console.log("View total number of vendors")
             }
         },
     ]
     return (
         <>
             <div>
-                <h1 className={`font-[700] text-[30px] text-[#101828]`}>Welcome Back, Sam</h1>
+                <h1 className={`font-semibold text-[30px] text-[#101828]`}>Welcome Back, Sam</h1>
                 <p className={`text-[#364152]`}>Take a quick glance on what is happening with meca</p>
             </div>
             <div className={`mt-[16px] flex gap-5`}>
@@ -54,7 +54,7 @@ function Index() {
             </div>
             <div className={`mt-[52px] flex justify-between`}>
                 <div>
-                    <p className={`font-[700] text-[20px]`}>Top performing vendors</p>
+                    <p className={`font-semibold text-[20px]`}>Top performing vendors</p>
                     <p className={`text-[#364152]`}>A quick glance on vendors with highest sales on meca</p>
                 </div>
                 <div>
