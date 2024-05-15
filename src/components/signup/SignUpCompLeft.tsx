@@ -269,19 +269,19 @@ const SignUpComponentLeft = () => {
                     />
                   </FormControl>
 
-                  {userType === "agent" ? (
+                  {userType === "vendor" ? (
                     <FormControl className="w-full" variant="filled">
                       <InputLabel htmlFor="">
-                        {userType === "agent" && "Company name"}
+                        {userType === "vendor" && "Company name"}
                       </InputLabel>
 
                       <FilledInput
-                        id={userType === "agent" ? "agentCompanyNameId" : ""}
+                        id={userType === "vendor" ? "agentCompanyNameId" : ""}
                         disableUnderline
                         onChange={handleChange}
                         className="bg-mecaInputBgColor w-full rounded-t-[4px] hover:bg-mecaInputBgColor border focus-within:bg-mecaInputBgColor"
                         value={
-                          userType === "agent"
+                          userType === "vendor"
                             ? userAgentDetails.agentCompanyNameId
                             : ""
                         }
@@ -292,7 +292,7 @@ const SignUpComponentLeft = () => {
                   {userType === "agent" ? (
                     <FormControl className="w-full" variant="filled">
                       <InputLabel htmlFor="">
-                        {userType === "agent" && "Associated seller"}
+                        {userType === "agent" && "Associated vendor"}
                       </InputLabel>
 
                       <FilledInput
