@@ -2,13 +2,16 @@
 import React from 'react';
 import Cards from "@/app/dashboard/overview/cards";
 import PeriodRadios from "@/app/dashboard/overview/periodRadios";
-import OverviewTable from "@/app/dashboard/overview/overviewTable";
+import Table from "@/app/dashboard/table";
+import {roles, userRole} from "@/app/dashboard/utils";
 
-interface IProps{
-    header:string;
+interface IProps {
+    header: string;
     subheader: string;
 }
-function Index({header, subheader}:IProps) {
+
+function Index({header, subheader}: IProps) {
+    const role: any = userRole;
     const cardProps = [
         {
             total: "number of parts ordered",
@@ -37,7 +40,7 @@ function Index({header, subheader}:IProps) {
         {
             total: "number of vendors",
             amount: 1280,
-            percentage: 59,
+            percentage: 43,
             onClick: () => {
                 console.log("View total number of vendors")
             }
@@ -45,17 +48,28 @@ function Index({header, subheader}:IProps) {
     ]
     return (
         <>
-            <div>
-                <h1 className={`font-semibold text-[30px] text-[#101828]`}>Welcome Back, Sam</h1>
-                <p className={`text-[#364152]`}>Take a quick glance on what is happening with meca</p>
+            <div className={`flex justify-between items-center`}>
+                <div>
+                    <h1 className={`font-semibold text-[30px] text-[#101828]`}>Welcome Back, Sam</h1>
+                    <p className={`text-[#364152]`}>Take a quick glance on what is happening with meca</p>
+                </div>
+                <div>
+                    {role === roles.VENDOR_ADMIN &&
+                        (<button className={`bg-[#095AD3] text-white rounded-full py-[6px] px-[24px]`}>
+                                Add Company
+                            </button>
+                        )
+                    }
+
+                </div>
             </div>
             <div className={`mt-[16px] flex gap-5`}>
                 {cardProps.map((card, index) => (
                     <div key={index}>
-                        <Cards amount={card.amount} percentage={card.percentage} total={card.total} onClick={card.onClick}/>
+                        <Cards amount={card.amount} percentage={card.percentage} total={card.total}
+                               onClick={card.onClick}/>
                     </div>
-                ))
-                }
+                ))}
             </div>
             <div className={`mt-[52px] flex justify-between`}>
                 <div>
@@ -67,7 +81,7 @@ function Index({header, subheader}:IProps) {
                 </div>
             </div>
             <div>
-                <OverviewTable/>
+                <Table/>
             </div>
         </>
     );

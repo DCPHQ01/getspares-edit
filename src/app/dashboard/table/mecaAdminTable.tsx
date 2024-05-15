@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from "./styles.module.css";
+import styles from "../overview/styles.module.css";
 import image1 from "../../../assets/dashboardAssets/Avatar.png";
 import image2 from "../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
@@ -52,7 +52,7 @@ const data = [
     },
 
 ]
-function OverviewTable() {
+function MecaAdminTable() {
     return (
         <div className={`my-[20px] w-full`}>
             <table className={`w-full ${styles.table}`}>
@@ -93,4 +93,4 @@ function OverviewTable() {
     );
 }
 
-export default OverviewTable;
+export default MecaAdminTable;

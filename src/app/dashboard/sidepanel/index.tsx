@@ -19,7 +19,6 @@ function Index() {
     const [activeButton, setActiveButton] = useState(0);
 
     const role = userRole;
-    // const role = roles.VENDOR_ADMIN
 
     const buttons = [
         {
@@ -54,7 +53,7 @@ function Index() {
             icon: <MdBusinessCenter />,
             title: "Orders",
             size: 18,
-            panel: sidePanel.BUYERS,
+            panel: sidePanel.ORDERS,
             role: [roles.VENDOR_ADMIN],
         },
         {

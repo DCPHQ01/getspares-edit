@@ -9,6 +9,7 @@ import Agents from "@/app/dashboard/agents";
 import Buyers from "@/app/dashboard/buyers";
 import Inventory from "@/app/dashboard/inventory";
 import Category from "@/app/dashboard/category";
+import Orders from "@/app/dashboard/orders";
 
 function Page() {
     const SidePanelButton = () => {
@@ -45,6 +46,10 @@ function Page() {
             case sidePanel.BUYERS:
                 return(
                     <Buyers />
+                );
+            case sidePanel.ORDERS:
+                return(
+                    <Orders />
                 );
             case sidePanel.INVENTORY:
                 return(
