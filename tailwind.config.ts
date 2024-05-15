@@ -43,6 +43,7 @@ const config: Config = {
         mecaRatingsDiv: "#FCFCFD",
         mecaRatingsBorder: "#E3E8EF",
         mecaSuccess: "#DCFAE6",
+        mecaBorderSuccess: "#17B26A",
       },
       fontFamily: {
         nunito: ["var(--font-nunito_sans)"],

@@ -28,7 +28,7 @@ export const baseQuery = createApi({
         firstName: string;
         lastName: string;
         roleName: string;
-        vendorMerchantId: string[];
+        companyName: string;
       }) => ({
         url: "api/v1/auth/signup",
         method: "POST",
@@ -42,7 +42,7 @@ export const baseQuery = createApi({
         firstName: string;
         lastName: string;
         roleName: string;
-        jobTitle: string;
+        companyName: string;
       }) => ({
         url: "api/v1/auth/signup",
         method: "POST",

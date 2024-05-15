@@ -34,8 +34,8 @@ const userVendor: UserVendor = {
   lastName: "",
   email: "",
   password: "",
-  jobTitle: "",
-  roleName: "VENDOR",
+  companyName: "",
+  roleName: "VENDOR_ADMIN",
 };
 
 const userAgent: UserAgent = {
@@ -43,7 +43,7 @@ const userAgent: UserAgent = {
   lastName: "",
   email: "",
   password: "",
-  vendorMerchantId: [],
+  companyName: "",
   roleName: "AGENT",
 };
 
@@ -71,7 +71,6 @@ const SignUpComponentLeft = () => {
       setUserBuyerDetails((values) => ({ ...values, [id]: value }));
     }
   };
-
 
   const [registerVendor, { data: VendorData, error: VendorError }] =
     useRegisterVendorMutation();
@@ -243,22 +242,20 @@ const SignUpComponentLeft = () => {
                   <FormControl className="w-full" variant="filled">
                     <InputLabel
                       htmlFor={
-                        userType === "agent" ? "Company name" : "Job title"
+                        userType === "agent" ? "companyName" : "companyName"
                       }
                     >
-                      {userType === "agent" ? "Merchant ID" : "Job title"}
+                      {userType === "agent" ? "Company name" : "Company name"}
                     </InputLabel>
                     <FilledInput
-                      id={
-                        userType === "agent" ? "vendorMerchantId" : "jobTitle"
-                      }
+                      id={userType === "agent" ? "companyName" : "companyName"}
                       disableUnderline
                       onChange={handleChange}
                       className="bg-mecaInputBgColor w-full rounded-t-[4px] hover:bg-mecaInputBgColor border focus-within:bg-mecaInputBgColor"
                       value={
                         userType === "agent"
-                          ? userAgentDetails.vendorMerchantId
-                          : userVendorDetails.jobTitle
+                          ? userAgentDetails.companyName
+                          : userVendorDetails.companyName
                       }
                     />
                   </FormControl>
@@ -310,12 +307,12 @@ const SignUpComponentLeft = () => {
               </FormControl>
 
               <div className="flex justify-between items-center py-2">
-                <FormControlLabel
+                {/* <FormControlLabel
                   control={<Checkbox defaultChecked />}
                   label="Remember for 30 days"
                   className="text-sm text-mecaGrayBodyText flex"
                   id="checkbox"
-                />
+                /> */}
 
                 <div id="forgotPassworddiv" className="flex justify-end">
                   <Link
