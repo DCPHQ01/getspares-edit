@@ -1,6 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import {
+  MdChevronRight,
+  MdExpandLess,
   MdExpandMore,
   MdMenu,
   MdOutlineShoppingCart,
@@ -17,36 +19,50 @@ const navData = [
     id: 1,
     title: "home",
     icon: "",
+    icon2: "",
+    link: "/",
   },
   {
     id: 2,
     title: "categories",
-    icon: <MdExpandMore size={18} />,
+    icon: <MdExpandMore size={18} className="text-mecaGoBackArrow" />,
+    icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
+    link: "",
   },
   {
     id: 3,
     title: "brands",
-    icon: "",
+    icon: <MdExpandMore size={18} className="text-mecaGoBackArrow" />,
+    icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
+    link: "",
   },
   {
     id: 4,
     title: "mechanics",
-    icon: "",
+    icon: <MdExpandMore size={18} className="text-mecaGoBackArrow" />,
+    icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
+    link: "",
   },
   {
     id: 5,
     title: "vendors",
-    icon: "",
+    icon: <MdExpandMore size={18} className="text-mecaGoBackArrow" />,
+    icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
+    link: "",
   },
   {
     id: 6,
     title: "listings",
-    icon: "",
+    icon: <MdExpandMore size={18} className="text-mecaGoBackArrow" />,
+    icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
+    link: "",
   },
   {
     id: 7,
     title: "advertise",
-    icon: "",
+    icon: <MdExpandMore size={18} className="text-mecaGoBackArrow" />,
+    icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
+    link: "",
   },
 ];
 
@@ -54,12 +70,16 @@ interface NavBarProps {
   open: boolean;
   setOpen: (open: boolean) => void;
 }
-export const NavBar = ({ open, setOpen }: NavBarProps) => {
+export default function NavBar({ open, setOpen }: NavBarProps) {
   const [active, setActive] = useState(1);
   const handleClick = (id: number) => {
     setActive(id);
   };
 
+  const router = useRouter();
+  const handleStartShopping = () => {
+    router.push("/signup");
+  };
   const [isCategoryOptionOpened, setIsCategoryOptionOpen] = useState(false);
 
   const toggle = () => {
@@ -77,17 +97,23 @@ export const NavBar = ({ open, setOpen }: NavBarProps) => {
     setIsModalOpen(!isModalOpen);
   };
 
-  const router = useRouter();
+  const routs = (e: any) => {
+    e.preventDefault();
+    router.push("../../../components/addtoCart/page");
+  };
 
   useEffect(() => setActive(1), []);
   return (
-    <nav className="w-full" id="navbarContainer">
+    <nav className="w-full bg-white" id="navbarContainer">
       {/* mobile and tab */}
       <div
         className="w-full h-[60px] border-b-2 z-50 border-b-mecaBottomBorder px-4 flex justify-between items-center lg:hidden"
         id="contentContainer"
       >
-        <p className="text-mecaActiveIconsNavColor text-xl font-nunito font-bold">
+        <p
+          className="text-mecaActiveIconsNavColor text-xl font-nunito font-bold cursor-pointer"
+          onClick={() => router.push("/")}
+        >
           e-meca
         </p>
         <div className="flex items-center gap-x-2" id="menuSearchCart">
@@ -95,7 +121,7 @@ export const NavBar = ({ open, setOpen }: NavBarProps) => {
           <Link href="/removetoCart">
             <div
               className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1"
-              id="textCart"
+              id="textCartMobTab"
             >
               <MdOutlineShoppingCart
                 size={18}
@@ -121,7 +147,10 @@ export const NavBar = ({ open, setOpen }: NavBarProps) => {
           id="desktopNavContentContainer"
         >
           <div className="w-[20%]" id="mecaLogoDesktop">
-            <p className="text-mecaActiveIconsNavColor text-3xl font-nunito font-bold">
+            <p
+              className="text-mecaActiveIconsNavColor text-3xl font-nunito font-bold cursor-pointer"
+              onClick={() => router.push("/")}
+            >
               e-meca
             </p>
           </div>
@@ -163,6 +192,7 @@ export const NavBar = ({ open, setOpen }: NavBarProps) => {
               type="button"
               className="w-[40%] h-full bg-mecaBluePrimaryColor text-white text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
               id="startShoppingBtn"
+              onClick={handleStartShopping}
             >
               Start shopping
             </button>
@@ -216,6 +246,4 @@ export const NavBar = ({ open, setOpen }: NavBarProps) => {
       )}
     </nav>
   );
-};
-
-export default NavBar;
+}

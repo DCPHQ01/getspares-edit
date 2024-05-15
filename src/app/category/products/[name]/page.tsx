@@ -17,7 +17,7 @@ import {
   Radio,
   RadioGroup,
 } from "@mui/material";
-import TopBar from "../../../../app/reusables/TopBar/page"
+import TopBar from "../../../../app/reusables/TopBar/page";
 import Switches from "../../../../app/reusables/switch/page";
 import Footer from "../../../../components/footer/Footer";
 import TruncateText from "../../../utils/page";
@@ -103,7 +103,7 @@ export default function Products() {
     setShowFilter(!showFilter);
   };
 
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams()!;
   const search = searchParams.get("type");
   const searchWords = search ? search.replace(/([A-Z])/g, " $1").trim() : "";
 
@@ -201,12 +201,12 @@ export default function Products() {
   // useEffect(() => {
   //   setIsFilterOpen(false);
   // }, []);
-  
+
   return (
     <section id="productCategory w-full">
       {/* mobile and Tab */}
       {!isFilterOpen ? (
-        <div className="flex flex-col lg:hidden">
+        <div className="flex flex-col lg:hidden" id="ProductMobileDivContainer">
           <TopBar />
           <div
             className="px-4 flex flex-col gap-y-4 lg:hidden"
@@ -313,6 +313,7 @@ export default function Products() {
               </div>
             </div>
           </div>
+          <Footer />
         </div>
       ) : (
         <Filter isFilterOpen={isFilterOpen} setIsFilterOpen={setIsFilterOpen} />
@@ -359,7 +360,11 @@ export default function Products() {
             </p>
             {filterData.map((data) => (
               <div className="" id="navDatum" key={data.id}>
-                <Accordion className="w-full" style={{ boxShadow: "none" }}>
+                <Accordion
+                  defaultExpanded
+                  className="w-full"
+                  style={{ boxShadow: "none" }}
+                >
                   <AccordionSummary
                     expandIcon={<MdExpandMore size={28} />}
                     aria-controls="panel1a-content"
@@ -466,6 +471,9 @@ export default function Products() {
               </div>
             ))}
           </div>
+        </div>
+        <div id="footerDiv" className="mt-12">
+          <Footer />
         </div>
       </div>
     </section>

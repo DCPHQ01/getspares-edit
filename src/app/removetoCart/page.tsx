@@ -38,24 +38,9 @@ import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+// import MoreVertIcon from "@mui/icons-material/MoreVert";
 
-const options = [
-  "None",
-  "Atria",
-  "Callisto",
-  "Dione",
-  "Ganymede",
-  "Hangouts Call",
-  "Luna",
-  "Oberon",
-  "Phobos",
-  "Pyxis",
-  "Sedna",
-  "Titania",
-  "Triton",
-  "Umbriel",
-];
+import { useRouter } from "next/navigation";
 
 interface State extends SnackbarOrigin {
   open: boolean;
@@ -84,7 +69,7 @@ const responsive = {
 
 const cardCartItems = [
   {
-    id: 1,
+    id: "1",
     Image: Parts,
     header: "E46 Engine 1996 Model",
     subHeader: "Tractor parts",
@@ -94,14 +79,14 @@ const cardCartItems = [
     icon1: <MdOutlineExpandMore />,
     icondropdown: <MdKeyboardArrowDown />,
     delete: <MdDeleteOutline />,
-    icon2: <MdMoreVert />,
+    // icon2: <MdMoreVert />,
     icondot: <MdCircle />,
     remove: "Remove",
     price: "₦900,000.00",
   },
 
   {
-    id: 2,
+    id: "2",
     Image: Parts,
     header: "E46 Engine 1996 Model",
     subHeader: "Tractor parts",
@@ -112,13 +97,13 @@ const cardCartItems = [
     icondropdown: <MdKeyboardArrowDown />,
     delete: <MdDeleteOutline />,
     remove: "Remove",
-    icon2: <MdMoreVert />,
+    // icon2: <MdMoreVert />,
     icondot: <MdCircle />,
     price: "₦9,000,000.00",
   },
 
   {
-    id: 3,
+    id: "3",
     Image: Parts,
     header: "E46 Engine 1996 Model",
     subHeader: "Tractor parts",
@@ -129,12 +114,12 @@ const cardCartItems = [
     delete: <MdDeleteOutline />,
     remove: "Remove",
     icondropdown: <MdKeyboardArrowDown />,
-    icon2: <MdMoreVert />,
+    // icon2: <MdMoreVert />,
     icondot: <MdCircle />,
     price: "₦450,000.00",
   },
   {
-    id: 4,
+    id: "4",
     Image: Parts,
     header: "E46 Engine 1996 Model",
     subHeader: "Tractor parts",
@@ -145,7 +130,7 @@ const cardCartItems = [
     delete: <MdDeleteOutline />,
     remove: "Remove",
     icondropdown: <MdKeyboardArrowDown />,
-    icon2: <MdMoreVert />,
+    // icon2: <MdMoreVert />,
     icondot: <MdCircle />,
     price: "₦450,000.00",
   },
@@ -163,14 +148,16 @@ const itemSelected = [
 const ITEM_HEIGHT = 48;
 
 const RemoveToCartPage = () => {
-  // const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  // const open = Boolean(anchorEl);
-  // const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-  //   setAnchorEl(event.currentTarget);
-  // };
-  // const handleClose = () => {
-  //   setAnchorEl(null);
-  // };
+  const [visibleButtons, setVisibleButtons] = useState<{
+    [key: string]: boolean;
+  }>({});
+
+  const toggleButton = (id: string) => {
+    setVisibleButtons((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
+  };
 
   const [number, setNumber] = useState("");
 
@@ -205,13 +192,16 @@ const RemoveToCartPage = () => {
 
   const [cart, setCart] = useState(cardCartItems);
 
-  const removeFromCart = (id: number) => {
+  const removeFromCart = (id: string) => {
     setCart((prevCart) => prevCart.filter((item) => item.id !== id));
   };
+  const router = useRouter();
+
+  const [showButton, setShowButton] = useState(false);
 
   return (
     <div>
-      <div className="">
+      <div className="w-full fixed top-0 z-50">
         <div className="">
           <HeaderPage />
         </div>
@@ -256,11 +246,14 @@ const RemoveToCartPage = () => {
             id="menuContainerDesktop"
           >
             <div
-              className="w-full h-[83px] flex justify-between items-center"
+              className="w-full h-[83px] flex justify-between bg-white items-center"
               id="desktopNavContentContainer"
             >
               <div className="w-[20%]" id="mecaLogoDesktop">
-                <p className="text-mecaActiveIconsNavColor text-3xl font-nunito font-bold">
+                <p
+                  className="text-mecaActiveIconsNavColor text-3xl font-nunito font-bold cursor-pointer"
+                  onClick={() => router.push("/")}
+                >
                   e-meca
                 </p>
               </div>
@@ -316,7 +309,10 @@ const RemoveToCartPage = () => {
         >
           <div className="w-[85%]" style={{ margin: "0px auto" }}>
             <div style={{ width: "100%" }} className={nunito.className}>
-              <div className="flex items-center gap-4 mt-6" id="breadCrumbsDiv">
+              <div
+                className="flex items-center gap-4 mt-40"
+                id="breadCrumbsDiv"
+              >
                 <Link href="/">
                   <p className="font-nunito text-sm font-medium text-mecaDarkBlueBackgroundOverlay hover:text-black hover:font-bold">
                     Home
@@ -365,46 +361,43 @@ const RemoveToCartPage = () => {
                                   </div>
                                   <div className="mt--4">
                                     <CardContent style={{ padding: "inherit" }}>
-                                      <Typography className="text-base font-semibold mb-2">
-                                        <p className={nunito.className}>
-                                          {" "}
+                                      <div className="text-base font-semibold mb-2">
+                                        <div className={nunito.className}>
                                           {cardCartItem.header}
-                                        </p>
-                                      </Typography>
-                                      <Typography className={nunito.className}>
+                                        </div>
+                                      </div>
+                                      <div className={nunito.className}>
                                         <div className="flex gap-x-2 font-normal text-sm text-mecaLightGrayText mb-10">
                                           {cardCartItem.subHeader}{" "}
                                           <span className="mb--6">.</span>
                                           {cardCartItem.new}
                                         </div>
-                                      </Typography>
+                                      </div>
 
-                                      <Typography className="flex gap-x-3 font-normal text-sm">
+                                      <div className="flex gap-x-3 font-normal text-sm">
                                         <div className="text-black">
                                           {cardCartItem.quantity}
                                         </div>
 
                                         <div className="relative bottom-4">
-                                          <form
-                                            style={{
-                                              width: "90px",
-                                              border: "none",
-                                              height: "5px",
-                                            }}
-                                          >
-                                            <Select
-                                              value={number}
-                                              onChange={handleChange}
-                                              displayEmpty
+                                          <form>
+                                            <select
+                                              className="w-16 h-9 rounded border-2 p-2 border-mecaVerificationCodeColor mt-2"
+                                              name="categoria"
+                                              id="categoriaId"
                                             >
-                                              <MenuItem value="">0</MenuItem>
-                                              <MenuItem value={1}>1</MenuItem>
-                                              <MenuItem value={2}>2</MenuItem>
-                                              <MenuItem value={3}>3</MenuItem>
-                                            </Select>
+                                              <option value="0" selected>
+                                                0
+                                              </option>
+                                              <option value="1">1</option>
+                                              <option value="2">2</option>
+                                              <option value="3">3</option>
+                                              <option value="4">4</option>
+                                              <option value="5">5</option>
+                                            </select>
                                           </form>
                                         </div>
-                                      </Typography>
+                                      </div>
                                     </CardContent>
                                   </div>
                                 </div>
@@ -418,12 +411,79 @@ const RemoveToCartPage = () => {
                                       left: "81px",
                                       cursor: "pointer",
                                     }}
-                                    onClick={toggleDropdown}
                                   >
-                                    {cardCartItem.icon2}
+                                    <MdMoreVert
+                                      onClick={() =>
+                                        toggleButton(cardCartItem.id)
+                                      }
+                                      style={{
+                                        fontSize: "20px",
+                                        overflow: "hidden",
+                                        whiteSpace: "nowrap",
+                                        textOverflow: "ellipsis",
+                                        maxWidth: "150px",
+                                      }}
+                                    />
                                   </div>
 
-                                  {isOpen ? (
+                                  {visibleButtons[cardCartItem.id] && (
+                                    <div
+                                      onClick={() =>
+                                        toggleButton(cardCartItem.id)
+                                      }
+                                    >
+                                      <button
+                                        style={{
+                                          boxShadow:
+                                            "0px 2px 8px 0px #63636333",
+                                        }}
+                                        className=" h-12 w-24 cursor-pointer bg-white rounded  absolute "
+                                        onClick={() =>
+                                          removeFromCart(cardCartItem.id)
+                                        }
+                                      >
+                                        <div
+                                          // style={{
+                                          //   boxShadow:
+                                          //     "0px 2px 8px 0px #63636333",
+                                          // }}
+                                          className="flex hover:shadow-#63636333-500  gap-x-2 w-20  h-9 m-auto  hover:bg-mecaTableTextErrorBackgroundColor hover:text-mecaErrorInputColor"
+                                        >
+                                          <div className="mt-2">
+                                            {cardCartItem.delete}
+                                          </div>
+                                          <div className="text-sm font-normal mt-1">
+                                            {cardCartItem.remove}
+                                          </div>
+                                        </div>
+                                      </button>
+
+                                      {/* <div
+                                        onClick={toggleDropdown}
+                                        className=""
+                                      >
+                                        <div className="flex  gap-x-2 ">
+                                          <div className="mt-1">
+                                            {cardCartItem.delete}
+                                          </div>
+                                          <div className="text-sm font-normal mt-1">
+                                            {cardCartItem.remove}
+                                          </div>
+                                        </div>
+                                      </div> */}
+                                    </div>
+                                  )}
+
+                                  {/* {showButton && (
+                                    <button
+                                      onClick={toggleButton}
+                                      className="bg-red-500 text-white p-2 rounded"
+                                    >
+                                      Click Me
+                                    </button>
+                                  )} */}
+
+                                  {/* {isOpen ? (
                                     <MenuItem
                                       className="z-50 absolute"
                                       onClick={() =>
@@ -454,7 +514,7 @@ const RemoveToCartPage = () => {
                                     </MenuItem>
                                   ) : (
                                     ""
-                                  )}
+                                  )} */}
                                 </div>
 
                                 <div
@@ -592,48 +652,46 @@ const RemoveToCartPage = () => {
                                   </div>
                                   <div className="mt--4">
                                     <CardContent style={{ padding: "inherit" }}>
-                                      <Typography className="text-base font-semibold mb-2">
-                                        <p
+                                      <div className="text-base font-semibold mb-2">
+                                        <div
                                           className={nunito.className}
                                           id="cardHeadTitle"
                                         >
                                           {cardCartItem.header}
-                                        </p>
-                                      </Typography>
-                                      <Typography className={nunito.className}>
+                                        </div>
+                                      </div>
+                                      <div className={nunito.className}>
                                         <div className="flex gap-x-2 font-normal text-sm text-mecaLightGrayText mb-10">
-                                          {cardCartItem.subHeader}{" "}
+                                          {cardCartItem.subHeader}
                                           <span className="mb--6">.</span>
                                           {cardCartItem.new}
                                         </div>
-                                      </Typography>
+                                      </div>
 
-                                      <Typography className="flex gap-x-3 font-normal text-sm">
+                                      <div className="flex gap-x-3 font-normal text-sm">
                                         <div className="text-black">
                                           {cardCartItem.quantity}
                                         </div>
 
                                         <div className="relative bottom-4">
-                                          <form
-                                            style={{
-                                              width: "90px",
-                                              border: "none",
-                                              height: "5px",
-                                            }}
-                                          >
-                                            <Select
-                                              value={number}
-                                              onChange={handleChange}
-                                              displayEmpty
+                                          <form>
+                                            <select
+                                              className="w-16 h-9 rounded border-2 p-2 border-mecaVerificationCodeColor mt-2"
+                                              name="categoria"
+                                              id="categoriaId"
                                             >
-                                              <MenuItem value="">0</MenuItem>
-                                              <MenuItem value={1}>1</MenuItem>
-                                              <MenuItem value={2}>2</MenuItem>
-                                              <MenuItem value={3}>3</MenuItem>
-                                            </Select>
+                                              <option value="0" selected>
+                                                0
+                                              </option>
+                                              <option value="1">1</option>
+                                              <option value="2">2</option>
+                                              <option value="3">3</option>
+                                              <option value="4">4</option>
+                                              <option value="5">5</option>
+                                            </select>
                                           </form>
                                         </div>
-                                      </Typography>
+                                      </div>
                                     </CardContent>
                                   </div>
                                 </div>

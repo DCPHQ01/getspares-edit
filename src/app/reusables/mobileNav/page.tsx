@@ -12,42 +12,49 @@ const mobileNavData = [
     title: "home",
     icon: "",
     icon2: "",
+    link: "/",
   },
   {
     id: 2,
     title: "categories",
     icon1: <MdExpandMore size={24} className="text-mecaGoBackArrow" />,
     icon2: <MdChevronRight size={24} className="text-mecaGoBackArrow" />,
+    link: "",
   },
   {
     id: 3,
     title: "brands",
     icon: <MdExpandMore size={24} className="text-mecaGoBackArrow" />,
     icon2: <MdChevronRight size={24} className="text-mecaGoBackArrow" />,
+    link: "",
   },
   {
     id: 4,
     title: "mechanics",
     icon: <MdExpandMore size={24} className="text-mecaGoBackArrow" />,
     icon2: <MdChevronRight size={24} className="text-mecaGoBackArrow" />,
+    link: "",
   },
   {
     id: 5,
     title: "vendors",
     icon: <MdExpandMore size={24} className="text-mecaGoBackArrow" />,
     icon2: <MdChevronRight size={24} className="text-mecaGoBackArrow" />,
+    link: "",
   },
   {
     id: 6,
     title: "listings",
     icon: <MdExpandMore size={24} className="text-mecaGoBackArrow" />,
     icon2: <MdChevronRight size={24} className="text-mecaGoBackArrow" />,
+    link: "",
   },
   {
     id: 7,
     title: "advertise",
     icon: <MdExpandMore size={24} className="text-mecaGoBackArrow" />,
     icon2: <MdChevronRight size={24} className="text-mecaGoBackArrow" />,
+    link: "",
   },
 ];
 interface MobileNavProps {
@@ -63,14 +70,17 @@ export default function MobileNav({ handleNav }: MobileNavProps) {
   };
   return (
     <div
-      className="w-full h-screen z-50 bg-white fixed overflow-y-hidden"
+      className="w-full h-screen z-50 bg-white fixed top-0 overflow-y-hidden"
       id="mobileMenuContainer"
     >
       <div
         className="w-full h-[60px] border-b-2 border-b-mecaBottomBorder px-4 flex justify-between items-center lg:hidden"
         id="topBarContentContainer"
       >
-        <p className="text-mecaActiveIconsNavColor text-xl font-nunito font-bold">
+        <p
+          className="text-mecaActiveIconsNavColor text-xl font-nunito font-bold cursor-pointer"
+          onClick={() => router.push("/")}
+        >
           e-meca
         </p>
         <div className="flex" id="mdClear">
@@ -92,7 +102,10 @@ export default function MobileNav({ handleNav }: MobileNavProps) {
             id="navDatum"
             key={data.id}
           >
-            <p className="text-mecaGoBackText text-lg capitalize">
+            <p
+              className="text-mecaGoBackText text-lg capitalize"
+              onClick={() => router.push(data.link)}
+            >
               {data.title}
             </p>
 

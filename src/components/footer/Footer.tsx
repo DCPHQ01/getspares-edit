@@ -27,10 +27,7 @@ export default function Footer() {
   };
 
   return (
-    <footer
-      className="p-20 bg-mecaSearchColor w-screen m-auto"
-      id="footerContainer"
-    >
+    <footer className="p-20 bg-mecaSearchColor w-full" id="footerContainer">
       <div>
         <h2
           className="text-mecaBluePrimaryColor font-medium lg:text-5xl text-2xl"

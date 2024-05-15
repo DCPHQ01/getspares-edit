@@ -80,18 +80,18 @@ export default function ProductCarousel() {
           <button
             title="left"
             type="button"
-            className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay"
+            className="text-mecaVerificationCodeColor z-0 bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay"
             onClick={handlePrevious}
           >
-            <MdChevronLeft size={40} />
+            <MdChevronLeft size={30} />
           </button>
           <button
             title="right"
             type="button"
-            className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay"
+            className="text-mecaVerificationCodeColor z-0 bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay"
             onClick={handleNext}
           >
-            <MdChevronRight size={40} />
+            <MdChevronRight size={30} />
           </button>
         </span>
       </div>
