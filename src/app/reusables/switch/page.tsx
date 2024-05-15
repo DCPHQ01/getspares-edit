@@ -53,7 +53,7 @@ interface SwitchesProps {
 
 export default function Switches({ onClick }: SwitchesProps) {
   return (
-    <Stack direction="row" spacing={1} alignItems="center">
+    <Stack direction="row" spacing={1} alignItems="center" >
       <AntSwitch
         inputProps={{ "aria-label": "ant design" }}
         onClick={onClick}

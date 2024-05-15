@@ -15,50 +15,15 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const drawerWidth = 240;
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     display: "flex",
-//   },
-//   drawer: {
-//     [theme.breakpoints.up("sm")]: {
-//       width: drawerWidth,
-//       flexShrink: 0,
-//     },
-//   },
-//   appBar: {
-//     [theme.breakpoints.up("sm")]: {
-//       width: `calc(100% - ${drawerWidth}px)`,
-//       marginLeft: drawerWidth,
-//     },
-//   },
-//   menuButton: {
-//     marginRight: theme.spacing(2),
-//     [theme.breakpoints.up("sm")]: {
-//       display: "none",
-//     },
-//   },
-//   // necessary for content to be below app bar
-//   toolbar: theme.mixins.toolbar,
-//   drawerPaper: {
-//     width: drawerWidth,
-//   },
-//   content: {
-//     flexGrow: 1,
-//     padding: theme.spacing(3),
-//   },
-// }));
 
 function ResponsiveDrawer({ step, setStep }: any) {
-  // const { window } = props;
-  // const classes = useStyles();
-  // const theme = useTheme();
+
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const drawer = <div>{/* <div className={classes.toolbar} /> */}</div>;
 
   const [activeTab, setActiveTab] = useState<number | null>(null);
 
@@ -101,28 +66,50 @@ function ResponsiveDrawer({ step, setStep }: any) {
 
   return (
     <div className="relative md:flex h-[800px] p-4 w-full" id="sidebar">
-      <div className="hidden md:flex gap-x-4 w-full h-1/2 mt-6 ">
-        <div className="flex flex-col justify-center mt-8 gap-y-12">
-          <Image src={emeca} alt="logo" className="w-[90px]" />
-          <div className="flex flex-col justify-center h-full ">
+      <div
+        className="hidden md:flex gap-x-4 w-full h-1/2 mt-6 "
+        id="sidebardiv2"
+      >
+        <div
+          className="flex flex-col justify-center mt-8 gap-y-12"
+          id="sidebardiv3"
+        >
+          <Image src={emeca} alt="logo" className="w-[90px]" id="sidebarImg" />
+          <div
+            className="flex flex-col justify-center h-full "
+            id="sidebardiv4"
+          >
             {details.map((item: dataObject) => (
               <div
                 className="flex gap-x-4 items-center cursor-pointer"
+                id="sidebardiv5"
                 key={item.id}
                 onClick={() => handleToggle(item.id)}
               >
-                <Image width={40} src={item.image} alt={item.title} />
+                <Image
+                  width={40}
+                  src={item.image}
+                  alt={item.title}
+                  id="sidebarImg2"
+                />
                 <div
+                  id="sidebardiv6"
                   onClick={() => handleTabClick(item.id)}
                   className={`text-gray-400 flex flex-col -mt-4 lg:-mt-10 ${
                     activeTab === item.id ? "text-gray-800" : "`text-gray-800"
                   }`}
                   // sx="flex flex-col -mt-4 lg:-mt-10"
                 >
-                  <p className="font-bold text-base font-nunito_sans">
+                  <p
+                    className="font-bold text-base font-nunito_sans"
+                    id="sidebardivHeader"
+                  >
                     {item.title}
                   </p>
-                  <p className="text-base font-nunito_sans">
+                  <p
+                    className="text-base font-nunito_sans"
+                    id="sidebardivDescription"
+                  >
                     {item.description}
                   </p>
                 </div>
@@ -131,11 +118,14 @@ function ResponsiveDrawer({ step, setStep }: any) {
           </div>
         </div>
       </div>
-      <div className="hidden md:flex w-full h-[50px] justify-between text-sm items-center absolute bottom-0 left-0 p-2">
-        <p>© Meca 2024</p>
-        <div className="flex gap-x-2 ">
-          <Image src={mail} alt="mail" className="w-auto" />
-          <p>info@meca.com.ng</p>
+      <div
+        className="hidden md:flex w-full h-[50px] justify-between text-sm items-center absolute bottom-0 left-0 p-2"
+        id="sidebardivFooterText"
+      >
+        <p id="sidebarProductiondate">© Meca 2024</p>
+        <div className="flex gap-x-2 " id="sidebardivcopyright">
+          <Image src={mail} alt="mail" id="mail" className="w-auto" />
+          <p id="copyright">info@meca.com.ng</p>
         </div>
       </div>
     </div>

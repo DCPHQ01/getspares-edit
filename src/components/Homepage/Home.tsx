@@ -243,10 +243,16 @@ export default function Home() {
               3000+ <span className="font-normal">auto parts</span>
             </button> */}
           </span>
-          <h2 className="text-mecaDarkBlueBackgroundOverlay lg:text-5xl text-2xl font-bold py-6">
+          <h2
+            id="homepageHomeContainer20"
+            className="text-mecaDarkBlueBackgroundOverlay lg:text-5xl text-2xl font-bold py-6"
+          >
             Necessary makes of farming vehicles and trucks are available.
           </h2>
-          <p className="text-mecaGrayBodyText lg:text-lg text-sm">
+          <p
+            id="homepageHomeContainer21"
+            className="text-mecaGrayBodyText lg:text-lg text-sm"
+          >
             From sturdy tractors designed to handle heavy-duty tasks such as
             plowing and planting to versatile trucks that can transport crops,
             livestock, and equipment with ease, farmers have access to the
@@ -254,8 +260,12 @@ export default function Home() {
             farm.
           </p>
         </div>
-        <div className="flex justify-center items-center lg:w-2/5 lg:mt-0 mt-8">
+        <div
+          id="homepageHomeContainer22"
+          className="flex justify-center items-center lg:w-2/5 lg:mt-0 mt-8"
+        >
           <Image
+            id="homepageHomeContainer23"
             src={HomeImage4}
             alt="logo of manufacturers"
             width={416}
@@ -263,6 +273,7 @@ export default function Home() {
             className="lg:block hidden"
           />
           <Image
+            id="homepageHomeContainer24"
             src={HomeImage4Sm}
             alt="logo of manufacturers"
             width={324}

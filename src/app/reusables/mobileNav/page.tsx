@@ -1,9 +1,6 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-// import MobileDropdownViewPage from "../../../pages/page";
-// import MobileDropdownViewPage from "/pages/page";
-// import MobileDropdownViewPage from "../../../../src/pages/MobileDropdownView/page";
 import MobileDropdownViewPage from "../../../pages/MobileDropdownView/page";
 import Filter from "../../category/products/filters/page";
 import { MdChevronRight, MdClear, MdExpandMore } from "react-icons/md";

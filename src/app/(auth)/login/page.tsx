@@ -3,6 +3,15 @@
 import React, { ChangeEvent, useState } from "react";
 import Link from "next/link";
 import FormControl from "@mui/material/FormControl";
+import { Nunito_Sans } from "next/font/google";
+
+const nunito = Nunito_Sans({
+  subsets: ["latin"],
+  variable: "--font-nunito_sans",
+  adjustFontFallback: false,
+  display: "swap",
+});
+
 // import TextField from "@mui/material/TextField";
 import {
   Button,
@@ -13,6 +22,7 @@ import {
 } from "@mui/material";
 import {
   MdChevronRight,
+  MdOutlineVpnKey,
   MdOutlineVisibility,
   MdOutlineVisibilityOff,
 } from "react-icons/md";
@@ -64,16 +74,27 @@ export default function Login() {
   };
 
   return (
-    <div>
-      <div className="absolute top-16 lg:left-16 left-8" id="eMecaLogin">
+    <div className={nunito.className}>
+      <div className="absolute top-16  lg:left-16 left-8" id="eMecaLogin">
         <span className="font-bold lg:text-3xl text-2xl text-mecaActiveIconsNavColor">
           e-meca
         </span>
       </div>
+
       <div
-        className="flex flex-col lg:justify-center items-center mx-auto gap-2 h-screen w-fit px-6 lg:mt-0 mt-40"
+        className="flex flex-col lg:justify-center items-center lg:mx-auto gap-2 h-screen lg:w-fit w-[100%] px-6 lg:mt-10 mt-60"
         id="container"
       >
+        <div
+          className="border border-mecaBorderColor p-4 rounded-xl"
+          id="keyIconDiv"
+        >
+          <MdOutlineVpnKey
+            size={24}
+            className="text-mecaGoBackArrow"
+            id="keyIcon"
+          />
+        </div>
         <h2
           className="text-meca-black font-bold text-center text-3xl"
           id="forgotPasswordHeader"
@@ -84,7 +105,7 @@ export default function Login() {
           className="text-meca-gray-600 text-center px-8"
           id="forgotPasswordText"
         >
-          Welcome back! Please input your details
+          Welcome back! Please input your correct details
         </p>
         <FormControl className="flex flex-col gap-8 w-full mt-6" id="form">
           <FormControl className="w-full" variant="filled">

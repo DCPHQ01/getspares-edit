@@ -115,15 +115,19 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
 
   return (
     <>
-      <div className="" style={{ width: "85%", margin: "auto" }}>
-        <div className="pageWrapper">
-          <div className="hidden md:flex flex-col mt-8">
-            <div className="mb-16 pageHeader w-94">
-              <header className="font-bold text-base">Company details</header>
+      <div className="" style={{ width: "85%", margin: "auto" }} id="pageone1">
+        <div className="pageWrapper" id="pageone2">
+          <div className="hidden md:flex flex-col mt-8" id="pageone3">
+            <div className="mb-16 pageHeader w-94" id="pageone4">
+              <header className="font-bold text-base" id="pageone5">
+                Company details
+              </header>
               <div className="flex subheaders" id="subheader1">
-                <sub className="text-xs font-normal">Provide details</sub>
+                <sub className="text-xs font-normal" id="pageone6">
+                  Provide details
+                </sub>
 
-                <form method="dialog">
+                <form method="dialog" id="pageone7">
                   <button className="text-sm font-semibold skip " id="skip1">
                     Skip
                   </button>
@@ -135,6 +139,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
 
             <Box
               component="form"
+              id="pageone8"
               className="flex gap-x-16 flex-col flex-col-reverse lg:flex-row lg:items-start   "
               noValidate
               onSubmit={handleSubmit}
@@ -144,7 +149,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                 <Box>
                   <TextField
                     required={true}
-                    id="filled-basic"
+                    id="filledbasic"
                     label="Name"
                     variant="filled"
                     type="text"
@@ -178,7 +183,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                       )
                     }
                     onBlur={validateMessage}
-                    id="filled-basic"
+                    id="filledbasic"
                     aria-label="Description"
                     name="description"
                     placeholder="Say something about your company"
@@ -208,7 +213,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                     }
                     onBlur={validateWebsite}
                     type="url"
-                    id="filled-basic"
+                    id="filledbasic"
                     label="Website"
                     variant="filled"
                     name="website"
@@ -234,7 +239,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                       )
                     }
                     onBlur={validateDate}
-                    id="filled-basic"
+                    id="filledbasic"
                     label=""
                     variant="filled"
                     type="date"
@@ -284,27 +289,32 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
           </div>
         </div>
 
-        <div className="absolute  w-11/12">
-          <div className="md:hidden m-auto">
-            <div className="mb-16 pageHeader">
-              <header className="font-bold text-base">Company details</header>
-              <div className="flex subheaders" id="subheader1">
-                <sub className="text-xs font-normal">
+        <div className="absolute  w-11/12" id="pageone9">
+          <div className="md:hidden m-auto" id="pageone10">
+            <div className="mb-16 pageHeader" id="pageone11">
+              <header className="font-bold text-base" id="pageone12">
+                Company details
+              </header>
+              <div className="flex subheaders" id="subheader2">
+                <sub className="text-xs font-normal" id="pageoneDescription">
                   Double-check all the information you provided
                 </sub>
-                <form method="dialog">
-                  <button className="text-sm font-semibold skip " id="skip1">
+                <form method="dialog" id="pageoneSkip">
+                  <button className="text-sm font-semibold skip " id="skipbtn2">
                     Skip
                   </button>
                 </form>
               </div>
-              <div className="form-display flex flex-col flex-col-reverse mt-8">
+              <div
+                className="form-display flex flex-col flex-col-reverse mt-8"
+                id="pageone13"
+              >
                 <form
                   id="firstFormWrapper"
                   onSubmit={handleSubmit}
                   className="companyInputWrap"
                 >
-                  <div className="flex flex-col flex-col-reverse">
+                  <div className="flex flex-col flex-col-reverse" id="pageone14">
                     <div>
                       <input
                         required={true}
@@ -320,7 +330,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                         onBlur={validateFullName}
                         type="text"
                         name="fullname"
-                        id="fullnameid"
+                        id="fullnameid2"
                         className="companyInput w-full mb-4"
                         // className="w-[394px] h-[50px]"
                         placeholder="Name Enter name"
@@ -344,7 +354,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                         }
                         onBlur={validateMessage}
                         name="message"
-                        id="messageid"
+                        id="messageid2"
                         placeholder="Description Say something about your company"
                         className=" companyInput inputText w-full mb-8 lg:w-[364px]"
                       ></textarea>
@@ -368,7 +378,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                         onBlur={validateWebsite}
                         type="url"
                         name="website"
-                        id="websiteid"
+                        id="websiteid2"
                         placeholder="Website www.123.com"
                         className="companyInput mb-4 w-full lg:w-[364px]"
                       />
@@ -390,7 +400,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                         onBlur={validateDate}
                         type="date"
                         name="date"
-                        id="dateid"
+                        id="dateid2"
                         placeholder="date funded 12/12/21"
                         className=" companyInput mb-4"
                       />
@@ -411,7 +421,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                           name="image"
                           // className="inputImage imagetext"
                           className="mb-4"
-                          id="firstImageId"
+                          id="firstImageId2"
                         />
                         {/* {errors.image && (
                           <p className="error-color">{errors.image}</p>
@@ -424,7 +434,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                     <button
                       onClick={goToNextPage}
                       type="submit"
-                      id="firstFormSubit"
+                      id="firstFormSubit2"
                     >
                       Next
                     </button>
