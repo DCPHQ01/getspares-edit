@@ -10,12 +10,15 @@ import {
 
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useAppSelector } from "../../../../redux/hooks";
 
 export default function NavBarWhileInsideApp() {
   const router = useRouter();
   const handleStartShopping = () => {
     router.push("/signup");
   };
+
+  const { cart } = useAppSelector((state) => state.product);
 
   return (
     <nav className="w-full bg-white" id="navbarContainer">
@@ -67,7 +70,7 @@ export default function NavBarWhileInsideApp() {
                   // onClick={routs}
                 />
                 <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
-                  0
+                  {cart.length}
                 </p>
               </div>
             </Link>

@@ -150,7 +150,6 @@ const SignUpComponentLeft = () => {
             response?.data?.message === "SignUp Successfully" ||
             response?.data?.statusCode === 201
           ) {
-            alert(buyerData.message);
             router.push("/verify-email");
           } else if (
             response?.data?.message === "User Already Exists" ||

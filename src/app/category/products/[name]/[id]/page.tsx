@@ -32,6 +32,8 @@ import {
 
 import { IoCloseCircleOutline } from "react-icons/io5";
 import TopBarWhileInside from "../../../../reusables/TopBarWhileInside/page";
+import { useAppDispatch } from "../../../../../redux/hooks";
+import { addToCart } from "../../../../../redux/features/product/productSlice";
 
 interface State extends SnackbarOrigin {
   open: boolean;
@@ -75,15 +77,10 @@ export default function ProductDescription() {
     vertical: "top",
     horizontal: "center",
   });
+
   const { vertical, horizontal, open } = state;
 
-  const handleClick = (newState: SnackbarOrigin) => () => {
-    setState({ ...newState, open: true });
-
-    setTimeout(() => {
-      setState({ ...newState, open: false });
-    }, 3000);
-  };
+  const dispatch = useAppDispatch();
 
   const firstImages = images.slice(0, 5);
   const remainingImages = images.slice(5);
@@ -102,7 +99,17 @@ export default function ProductDescription() {
   const segments = searchParams.split("/");
   // console.log(segments, " segments");
   const searches = segments[3];
+  const id = Number(segments[4]);
   // console.log(searches, " searches");
+
+  const handleClick = (newState: SnackbarOrigin) => () => {
+    dispatch(addToCart({ id }));
+    setState({ ...newState, open: true });
+
+    setTimeout(() => {
+      setState({ ...newState, open: false });
+    }, 3000);
+  };
 
   const searchWords = segments[3].replace(/([A-Z])/g, " $1").trim();
 

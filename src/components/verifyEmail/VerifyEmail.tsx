@@ -49,6 +49,7 @@ export default function VerifyEmail({
   const [verifyEmail] = useVerifyEmailMutation();
 
   const handleSubmit = async () => {
+    let response;
     const data = {
       email: userEmail,
       otpCode: otp.join(""),
@@ -56,8 +57,15 @@ export default function VerifyEmail({
     console.log(data, "data");
 
     try {
-      await verifyEmail(data);
-      setHaveVerifiedEmail(true);
+      const response = await verifyEmail(data);
+      if ("data" in response) {
+        console.log(response.data.message, " verify email response");
+        if (response?.data?.statusCode === 201) {
+          setHaveVerifiedEmail(true);
+        } else {
+          setHaveVerifiedEmail(false);
+        }
+      }
     } catch (error) {
       console.log(error);
     }

@@ -30,6 +30,8 @@ import {
   MdOutlineVisibilityOff,
 } from "react-icons/md";
 import { useRouter } from "next/navigation";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { setUser } from "../../../redux/features/users/userSlice";
 
 interface JwtPayload extends BaseJwtPayload {
   role?: string;
@@ -81,6 +83,9 @@ export default function Login() {
     return isValidEmail(state.email) && isValidPassword(state.password);
   };
 
+  const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.user);
+  console.log(user, " user");
   const [login, { isLoading, error }] = useLoginMutation();
 
   const router = useRouter();
@@ -93,6 +98,7 @@ export default function Login() {
       });
 
       if ("data" in response && response.data) {
+        dispatch(setUser(response.data));
         // const decoded = JWT.jwtDecode(response.data.access_token);
         let decoded: JwtPayload = JWT.jwtDecode(response.data.access_token);
         console.log(decoded, "decoded");
@@ -107,7 +113,7 @@ export default function Login() {
             router.push("/dashboard");
             break;
           case "BUYER":
-            router.push("/dashboard");
+            router.push("/");
             break;
           default:
             alert("Unknown role. Please try again.");

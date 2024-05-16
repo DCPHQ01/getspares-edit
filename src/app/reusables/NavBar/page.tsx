@@ -13,6 +13,7 @@ import DropdownPage from "./dropdown/page";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Button from "@mui/material/Button";
+import { useAppSelector } from "../../../redux/hooks";
 
 const navData = [
   {
@@ -84,6 +85,11 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
     setActive(id);
   };
 
+  const { user } = useAppSelector((state) => state.user);
+  const { cart } = useAppSelector((state) => state.product);
+  console.log(" user", user);
+  console.log(" product", cart);
+
   const router = useRouter();
   const handleStartShopping = () => {
     router.push("/signup");
@@ -126,7 +132,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                 className="text-mecaBluePrimaryColor"
               />
               <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
-                0
+                {cart.length}
               </p>
             </div>
           </Link>
@@ -181,7 +187,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                   // onClick={routs}
                 />
                 <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
-                  0
+                  {cart.length}
                 </p>
               </div>
             </Link>
