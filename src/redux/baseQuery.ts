@@ -1,6 +1,6 @@
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { LoginResponse } from "@/models/loginResponse";
+import { LoginResponse } from "../models/loginResponse";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -28,7 +28,7 @@ export const baseQuery = createApi({
         firstName: string;
         lastName: string;
         roleName: string;
-        vendorMerchantId: string[];
+        agentAssociateSellerId: string;
       }) => ({
         url: "api/v1/auth/signup",
         method: "POST",

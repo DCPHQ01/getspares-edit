@@ -1,8 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { MdOutlineArrowBack, MdOutlineMail } from "react-icons/md";
 import Link from "next/link";
-import { useVerifyEmailMutation } from "@/redux/baseQuery";
-// import { useRouter } from "next/navigation";
+import { useVerifyEmailMutation } from "../../redux/baseQuery";
 
 interface VerifyEmailProps {
   setHaveVerifiedEmail: React.Dispatch<React.SetStateAction<boolean>>;
@@ -14,7 +13,6 @@ export default function VerifyEmail({
   const [otp, setOtp] = useState(new Array(6).fill(""));
   const [isDisabled, setIsDisabled] = useState(true);
 
-  // const router = useRouter();
   const [userEmail, setUserEmail] = useState("");
 
   useEffect(() => {
