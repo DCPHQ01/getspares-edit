@@ -10,7 +10,7 @@ const DropdownPage = () => {
           zIndex: 200,
         }}
       >
-        <div className="h-96 flex justify-between p-6 leading-10 gap-x-32 overflow-y-scroll no-scrollbar no-scrollbar::-webkit-scrollbar ">
+        <div className="h-96 flex scrollbar-none justify-between p-6 leading-10 gap-x-32 overflow-y-scroll ">
           <div className="">
             <p>AC</p>
             <p>Air Filters</p>
