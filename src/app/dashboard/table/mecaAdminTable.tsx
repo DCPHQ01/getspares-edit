@@ -54,8 +54,8 @@ const data = [
 ]
 function MecaAdminTable() {
     return (
-        <div id="mecaAdminTable" className={`my-[1.25rem] w-full`}>
-            <table id="adminTable" className={`w-full ${styles.table}`}>
+        <div id="mecaAdminTable" className={`my-[1.25rem] w-full max-h-[25.19rem] overflow-y-auto scrollbar-none ${styles.table}`}>
+            <table id="adminTable" className={`w-full`}>
                 <thead>
                 <tr>
                     <th id="companyNameHeader">Company name</th>

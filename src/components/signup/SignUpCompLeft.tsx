@@ -118,10 +118,13 @@ const SignUpComponentLeft = () => {
 
   return (
     <div className={nunito.className}>
-      <div id="registerMainBodyLeft1" className="h-screen p-5 overflow-auto">
+      <div
+        id="registerMainBodyLeft1"
+        className="h-screen p-5 overflow-auto scrollbar-none"
+      >
         <div
           id="registerBodyLeft2"
-          className="h-[700px] flex flex-col justify-between bg-white"
+          className="h-[700px] flex flex-col justify-between bg-white "
         >
           <div>
             <span
