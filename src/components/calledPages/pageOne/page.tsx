@@ -1,9 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Box from "@mui/material/Box";
 import ImageComponent from "../../../components/imageComp/ImageComponent";
 import TextField from "@mui/material/TextField";
+// import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
+import { MdPhotoLibrary } from "react-icons/md";
+
 import {
   TextareaAutosize as BaseTextareaAutosize,
   TextareaAutosize,
@@ -20,6 +23,8 @@ import { useAppSelector } from "../../../redux";
 import { useAppDispatch } from "../../../redux/hooks";
 import { RootState } from "../../../redux";
 import { setCompanyForm } from "../../../redux/features/company/companySlice";
+import { FaUpload } from "react-icons/fa";
+import Link from "next/link";
 
 const CalledPagesPageOnePages: React.FC<ChildProps> = ({
   step,
@@ -113,6 +118,23 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
   const { company } = useAppSelector((state: RootState) => state);
   console.log("company ", company.companyForm);
 
+  const [formImage, setFormImage] = useState<string | null>(null);
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleImageClick = () => {
+    fileInputRef.current?.click();
+  };
   return (
     <>
       <div className="" style={{ width: "85%", margin: "auto" }} id="pageone1">
@@ -253,25 +275,62 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                 </Box>
               </Box>
               <Box>
-                <div className="inputImage imagetext h-[283px] w-[316px]">
-                  {/* <ImageComponent src={formLogo} alt="form logo" /> */}
+                <div className="inputImage imagetext h-[283px] w-[316px] pt-6">
+                  <div className="">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                      ref={fileInputRef}
+                      className="hidden w-full px-3 py-2 "
+                    />
+                  </div>
 
-                  <TextField
-                    required={true}
-                    type="file"
-                    name="image"
-                    // accept="image/*"
-                    // onChange={(e) =>
-                    //   setImage(e.target.files ? e.target.files[0] : null)
-                    // }
-                    // className="inputImage imagetext"
-                    sx={{ backgroundColor: "porcelain" }}
-                    id="secondImageid"
-                    // placeholder="Add logo by clicking or drag and drop"
-                  />
-                  {/* {errors.image && (
-                    <p className="error-color">{errors.image}</p>
+                  {/* {formImage && (
+                  
                   )} */}
+                  {formImage ? (
+                    <div className="">
+                      <form
+                        method="dialog"
+                        id="confirmpageButton"
+                        className="absolute lg:ml-72 ml-96"
+
+                        // className={nunito_sans.className}
+                      >
+                        <Link href="/modalPage">
+                          <button
+                            id="cancelbtn"
+                            className="btn btn-sm btn-circle btn-ghost font-bold w-3 h-3 "
+                          >
+                            ✕
+                          </button>
+                        </Link>
+                      </form>
+
+                      <div className="h-[237px] w-[237px] m-auto">
+                        <img
+                          src={formImage}
+                          alt="Uploaded"
+                          className="w-full h-full object-cover rounded-full"
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <div
+                      id="prevImgState"
+                      onClick={handleImageClick}
+                      className="w-full px-3 py-2 border rounded-md flex flex-col items-center justify-center cursor-pointer border-none"
+                    >
+                      <MdPhotoLibrary className="text-gray-600 text-7xl relative top-12" />
+                      <div className="text-gray-600 text-base  text-center relative top-16">
+                        <p className="font-bold">Add logo</p>
+                        <p className="font-normal">
+                          by clicking or drag and drop
+                        </p>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </Box>
             </Box>
@@ -314,7 +373,10 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                   onSubmit={handleSubmit}
                   className="companyInputWrap"
                 >
-                  <div className="flex flex-col flex-col-reverse" id="pageone14">
+                  <div
+                    className="flex flex-col flex-col-reverse"
+                    id="pageone14"
+                  >
                     <div>
                       <input
                         required={true}
@@ -409,25 +471,64 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                       )} */}
                     </div>
 
-                    <div>
-                      <div className="inputImage imagetext h-[283px] w-[316px]">
-                        <input
-                          required={true}
-                          type="file"
-                          accept="image/*"
-                          onChange={(e) =>
-                            setImage(e.target.files ? e.target.files[0] : null)
-                          }
-                          name="image"
-                          // className="inputImage imagetext"
-                          className="mb-4"
-                          id="firstImageId2"
-                        />
-                        {/* {errors.image && (
-                          <p className="error-color">{errors.image}</p>
-                        )} */}
+                    <Box>
+                      <div className="inputImage imagetext h-[283px] w-[316px] pt-6">
+                        <div className="">
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleImageChange}
+                            ref={fileInputRef}
+                            className="hidden w-full px-3 py-2 "
+                          />
+                        </div>
+
+                        {/* {formImage && (
+                  
+                  )} */}
+                        {formImage ? (
+                          <div className="">
+                            <form
+                              method="dialog"
+                              id="confirmpageButton"
+                              className="absolute right-0 pr-4"
+                              // className={nunito_sans.className}
+                            >
+                              <Link href="/modalPage">
+                                <button
+                                  id="cancelbtn"
+                                  className="btn btn-sm btn-circle btn-ghost font-bold w-3 h-3 "
+                                >
+                                  ✕
+                                </button>
+                              </Link>
+                            </form>
+
+                            <div className="h-[237px] w-[237px] m-auto">
+                              <img
+                                src={formImage}
+                                alt="Uploaded"
+                                className="w-full h-full object-cover rounded-full"
+                              />
+                            </div>
+                          </div>
+                        ) : (
+                          <div
+                            id="prevImgState"
+                            onClick={handleImageClick}
+                            className="w-full px-3 py-2 border rounded-md flex flex-col items-center justify-center cursor-pointer border-none"
+                          >
+                            <MdPhotoLibrary className="text-gray-600 text-7xl relative top-12" />
+                            <div className="text-gray-600 text-base  text-center relative top-16">
+                              <p className="font-bold">Add logo</p>
+                              <p className="font-normal">
+                                by clicking or drag and drop
+                              </p>
+                            </div>
+                          </div>
+                        )}
                       </div>
-                    </div>
+                    </Box>
                   </div>
 
                   <div className="nextbtn nextmobile cursor-pointer ">
