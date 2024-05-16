@@ -2,6 +2,7 @@ import FormControl from "@mui/material/FormControl";
 import { Button, FilledInput, InputLabel } from "@mui/material";
 import { ChangeEvent, useState } from "react";
 import RightSideList from "./footerList";
+import { useRouter } from "next/navigation";
 
 export default function Footer() {
   const [state, setState] = useState({
@@ -26,15 +27,20 @@ export default function Footer() {
     return isValidEmail(state.email);
   };
 
+  const router = useRouter();
+
   return (
-    <footer className="p-20 bg-mecaSearchColor w-full" id="footerContainer">
-      <div>
-        <h2
-          className="text-mecaBluePrimaryColor font-medium lg:text-5xl text-2xl"
-          id="eMecaLogo"
+    <footer
+      className="px-10 py-10 bg-mecaSearchColor w-full"
+      id="footerContainer"
+    >
+      <div id="mecaFooterLogo">
+        <p
+          className="text-mecaActiveIconsNavColor text-5xl font-nunito font-bold cursor-pointer"
+          onClick={() => router.push("/")}
         >
           e-meca
-        </h2>
+        </p>
         <div className="lg:flex justify-between" id="subContainer">
           <div className="lg:w-1/2">
             <div className="lg:w-1/2">

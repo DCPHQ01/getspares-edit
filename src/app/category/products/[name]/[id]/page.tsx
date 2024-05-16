@@ -109,7 +109,7 @@ export default function ProductDescription() {
   return (
     <div className="relative">
       <TopBarWhileInside />
-      <div id="mainContainer" className="container mx-auto px-5">
+      <div id="mainContainer" className="container mx-auto px-2">
         <div
           className="flex flex-col space-y-8 mt-40 w-full"
           id="productDescriptionContentContainer"
@@ -188,7 +188,7 @@ export default function ProductDescription() {
                 </h2>
                 <div
                   id="companyDiv"
-                  className="w-[96%] h-[76px] border rounded-lg p-2 border-mecaBottomBorder flex items-center justify-between"
+                  className="w-full h-[76px] border rounded-lg p-2 border-mecaBottomBorder flex items-center justify-between"
                 >
                   <div
                     id="frameOne"
@@ -284,7 +284,7 @@ export default function ProductDescription() {
                     >
                       Buy now
                     </button>
-                    <div className="mt-4" id="accordionForProductDescription">
+                    {/* <div className="mt-4" id="accordionForProductDescription">
                       <Accordion>
                         <AccordionSummary
                           expandIcon={
@@ -321,7 +321,7 @@ export default function ProductDescription() {
                           leo lobortis eget.
                         </AccordionDetails>
                       </Accordion>
-                    </div>
+                    </div> */}
                     <Snackbar
                       anchorOrigin={{ vertical, horizontal }}
                       open={open}

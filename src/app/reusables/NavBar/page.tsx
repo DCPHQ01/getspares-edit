@@ -25,43 +25,47 @@ const navData = [
   {
     id: 2,
     title: "categories",
-    icon: <MdExpandMore size={18} className="text-mecaGoBackArrow" />,
+    icon: <MdExpandMore size={18} />,
     icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
     link: "",
   },
   {
     id: 3,
     title: "brands",
-    icon: <MdExpandMore size={18} className="text-mecaGoBackArrow" />,
+    icon: <MdExpandMore size={18} />,
     icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
     link: "",
   },
   {
     id: 4,
     title: "mechanics",
-    icon: <MdExpandMore size={18} className="text-mecaGoBackArrow" />,
-    icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
+    icon: <MdExpandMore size={18} />,
+    // icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
+    icon2: "",
     link: "",
   },
   {
     id: 5,
     title: "vendors",
-    icon: <MdExpandMore size={18} className="text-mecaGoBackArrow" />,
-    icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
+    icon: <MdExpandMore size={18} />,
+    // icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
+    icon2: "",
     link: "",
   },
   {
     id: 6,
     title: "listings",
-    icon: <MdExpandMore size={18} className="text-mecaGoBackArrow" />,
-    icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
+    icon: <MdExpandMore size={18} className="" />,
+    icon2: "",
+    // icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
     link: "",
   },
   {
     id: 7,
     title: "advertise",
-    icon: <MdExpandMore size={18} className="text-mecaGoBackArrow" />,
-    icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
+    icon: <MdExpandMore size={18} />,
+    icon2: "",
+    // icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
     link: "",
   },
 ];
@@ -108,7 +112,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
         </p>
         <div className="flex items-center gap-x-2" id="menuSearchCart">
           <MdSearch size={18} />
-          <Link href="/removetoCart">
+          <Link href="/addtoCart">
             <div
               className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1"
               id="textCartMobTab"
@@ -162,7 +166,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
             className="w-[28%] h-8 flex justify-end items-center gap-x-2"
             id="cartDesktop"
           >
-            <Link href="/removetoCart">
+            <Link href="/addtoCart">
               <div
                 className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1 cursor-pointer"
                 id="textCart"
@@ -195,30 +199,53 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
         id="navigationData"
       >
         {navData.map((item) => (
-          <div className="" onClick={() => (item.id === 2 ? toggle : () => {})}>
-            <div
-              className={`w-[110px] h-8 flex justify-center items-center px-3 cursor-pointer ${
-                active === item.id ? "bg-mecaActiveBackgroundNavColor" : ""
-              } rounded-full`}
-              id="navItem"
-              onClick={() => handleClick(item.id)}
-              key={item.id}
+          <div
+            className={`w-[110px] h-8 flex justify-center items-center px-3 cursor-pointer ${
+              active === item.id ? "bg-mecaActiveBackgroundNavColor" : ""
+            } rounded-full`}
+            id="navItem"
+            onClick={() => handleClick(item.id)}
+            key={item.id}
+          >
+            <p
+              className={`${
+                active === item.id
+                  ? "text-mecaBluePrimaryColor"
+                  : "text-mecaDarkBlueBackgroundOverlay"
+              } text-sm font-nunito font-semibold capitalize`}
+              onClick={() => router.push(item.link)}
             >
-              <p>{item.title}</p>
-              <div onClick={item.id === 2 ? () => toggle(item.id) : () => {}}>
-                {isCategoryOptionOpened && item.id === active
-                  ? item.icon2
-                  : item.icon}
-              </div>
+              {item.title}
+            </p>
+            <div
+              onClick={
+                item.id === 2 || item.id === 3
+                  ? () => toggle(item.id)
+                  : () => {}
+              }
+            >
+              {isCategoryOptionOpened && item.id === active ? (
+                <p>{item.icon2}</p>
+              ) : (
+                <p
+                  className={`${
+                    active === item.id
+                      ? "text-mecaBluePrimaryColor"
+                      : "text-mecaGoBackArrow"
+                  }`}
+                >
+                  {item.icon}
+                </p>
+              )}
+            </div>
 
-              {/* {item.id === 2 && isCategoryOptionOpened && (
+            {/* {item.id === 2 && isCategoryOptionOpened && (
               <div className="flex justify-center">
                 <div className="absolute top-56 z-50">
                   <DropdownPage />
                 </div>
               </div>
             )} */}
-            </div>
           </div>
         ))}
       </div>
