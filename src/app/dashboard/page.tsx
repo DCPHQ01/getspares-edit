@@ -64,10 +64,9 @@ function Page() {
         }
     }
     return (
-        <div className={`flex`}>
+        <div id={`mainContainer`} className={`flex`}>
             <SidePanel/>
-            <div className={`w-[280px]`}/>
-            <div className={`flex-1 my-[52px] ml-[22px] mr-[34px]`}>
+            <div id={`contentContainer`} className={`flex-1 my-[3.25rem] ml-[17.5rem] pl-[1.375rem] mr-[2.125rem]`}>
                 <SidePanelButton/>
             </div>
         </div>

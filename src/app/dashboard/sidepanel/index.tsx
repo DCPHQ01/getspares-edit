@@ -99,14 +99,15 @@ function Index() {
     const filteredButtons = buttons.filter((button) => button.role.includes(role))
 
     return (
-        <>
-            <div className={`w-[280px] fixed h-screen py-[32px] border-2 border-r-[#EAECF0] bg-white`}>
-                <h1 className={`text-[#0852C0] mx-[35px] text-[30px] font-[700]`}>e-meca</h1>
-                <div className={`mx-[31px] mt-[52px]`}>
+        <div id="sidePanelContainer" className={`z-[1000]`}>
+            <div id="sidePanel" className={`w-[17.5rem] fixed h-screen py-[2rem] border border-r-[#EAECF0] bg-white`}>
+                <h1 id="sidePanelTitle" className={`text-[#0852C0] mx-[2.19rem] text-[1.9rem] font-[700]`}>e-meca</h1>
+                <div id="buttonContainer" className={`mx-[2rem] mt-[3.25rem]`}>
                     {filteredButtons.map((btn, index) => (
                         <button
                             key={index}
-                            className={`flex items-center text-[#364152] rounded-full hover:bg-[#EFF4FF] hover:text-[#0852C0] w-full py-[8px] px-[12px] gap-4 mb-[16px] ${activeButton === index ? 'bg-[#EFF4FF] text-[#0852C0]' : ''}`}
+                            id={`button_${index}`}
+                            className={`flex items-center text-[#364152] rounded-full hover:bg-[#EFF4FF] hover:text-[#0852C0] w-full py-[0.5rem] px-[0.75rem] gap-4 mb-[1rem] ${activeButton === index ? 'bg-[#EFF4FF] text-[#0852C0]' : ''}`}
                             onClick={() => handleButtonClick(index, btn.panel)}
                         >
                             <span>{React.cloneElement(btn.icon, { size: btn.size })}</span>
@@ -114,19 +115,19 @@ function Index() {
                         </button>
                     ))}
                 </div>
-                <div className={`absolute bottom-0 mx-[31px]`}>
+                <div id="bottomButtonContainer" className={`absolute bottom-0 mx-[2rem]`}>
                     {bottomButton.map((btn, index) => (
                         <button key={index}
-                                className={`flex items-center text-[#364152] rounded-full hover:bg-[#EFF4FF] hover:text-[#0852C0] w-[208px] py-[8px] px-[12px] gap-4 mb-[16px]`}
+                                id={`bottomButton_${index}`}
+                                className={`flex items-center text-[#364152] rounded-full hover:bg-[#EFF4FF] hover:text-[#0852C0] w-[13rem] py-[0.5rem] px-[0.75rem] gap-4 mb-[1rem]`}
                                 onClick={btn.onClick}>
                             <span>{React.cloneElement(btn.icon, { size: btn.size })}</span>
                             <span>{btn.title}</span>
                         </button>
                     ))}
                 </div>
-
             </div>
-        </>
+        </div>
     );
 }
 
