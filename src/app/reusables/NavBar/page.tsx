@@ -108,7 +108,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
         </p>
         <div className="flex items-center gap-x-2" id="menuSearchCart">
           <MdSearch size={18} />
-          <Link href="/addtoCart">
+          <Link href="/removetoCart">
             <div
               className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1"
               id="textCartMobTab"
@@ -162,7 +162,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
             className="w-[28%] h-8 flex justify-end items-center gap-x-2"
             id="cartDesktop"
           >
-            <Link href="/addtoCart">
+            <Link href="/removetoCart">
               <div
                 className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1 cursor-pointer"
                 id="textCart"
