@@ -18,6 +18,11 @@ interface CustomDotProps {
   active: boolean;
 }
 
+interface CardProps {
+  no: string;
+  text: string;
+}
+
 const responsive = {
   superLargeDesktop: {
     breakpoint: { max: 4000, min: 3000 },
@@ -69,9 +74,17 @@ export default function Home() {
     );
   };
 
+  const CardBtn = ({ no, text }: CardProps) => {
+    return (
+      <button className="font-bold text-sm bg-white py-1 px-[10px] rounded-[20px]">
+        {no}+ <span className="font-normal">{text}</span>
+      </button>
+    );
+  };
+
   return (
-    <main className="container mx-auto px-5 mt-8" id="homepageHomeContainer">
-      <div id="homepageHomeContainer1">
+    <main className="container mx-auto px-5 mt-8" id="mainContainer">
+      <div id="heroCarousel">
         <Carousel
           showDots={true}
           renderDotsOutside={false}
@@ -101,19 +114,20 @@ export default function Home() {
 
       <div
         className="text-mecaDarkBlueBackgroundOverlay"
-        id="homepageHomeContainer2"
+        id="TrendingContainer"
       >
-        <span className="flex justify-between py-6" id="homepageHomeContainer3">
-          <p className="font-semibold lg:text-3xl text-lg"></p>
+        <span className="flex justify-between py-6" id="TrendingSpan">
+          <p className="font-semibold lg:text-3xl text-lg" id="TrendingText">
+            Trending
+          </p>
           <button
-            id="homepageHomeContainer4"
-            type="button"
             className="font-medium lg:text-xl text-sm underline"
+            id="viewMoreBtn"
           >
-            <p>View more</p>
+            <p id="btnText">View more</p>
           </button>
         </span>
-        <div className="" id="homepageHomeContainer5">
+        <div id="carouselContainer">
           <Carousel
             partialVisible={true}
             draggable={false}
@@ -131,25 +145,21 @@ export default function Home() {
       </div>
       <ProductCarousel />
       <div
-        id="homepageHomeContainer6"
         className="text-mecaDarkBlueBackgroundOverlay py-8"
+        id="newProductsContainer"
       >
-        <span className="flex justify-between py-8" id="homepageHomeContainer7">
-          <p
-            className="font-semibold lg:text-3xl text-lg"
-            id="homepageHomeContainer8"
-          >
+        <span className="flex justify-between py-8" id="newProductsSpan">
+          <p className="font-semibold lg:text-3xl text-lg" id="newProductsText">
             New Products
           </p>
           <button
-            id="homepageHomeContainer9"
-            type="button"
             className="font-medium lg:text-xl text-sm underline"
+            id="newProductsBtn"
           >
-            <p>View more</p>
+            View more
           </button>
         </span>
-        <div className="" id="homepageHomeContainer10">
+        <div id="newProductsCarousel">
           <Carousel
             partialVisible={true}
             draggable={false}
@@ -167,7 +177,7 @@ export default function Home() {
       </div>
       <div
         className="relative lg:h-[674px] h-[338px] my-8 rounded-lg"
-        id="homepageHomeContainer11"
+        id="homeImage3Container"
       >
         <Image
           src={HomeImage3}
@@ -175,26 +185,23 @@ export default function Home() {
           fill
           placeholder="blur"
           className="h-full w-full rounded-lg"
-          id="homepageHomeContainer12"
+          id="homeImage3"
         />
         <span
-          id="homepageHomeContainer13"
           className="absolute lg:bottom-16 bottom-8 lg:left-10 flex flex-col lg:gap-8 gap-4 px-6 lg:w-1/2"
+          id="homeImage3Span"
         >
           <h2
-            id="homepageHomeContainer14"
             className="text-white lg:text-5xl text-xl font-bold lg:leading-[60px]"
+            id="homeImage3Header"
           >
             Let us help you sell your items and make profit with ease
           </h2>
-          <p
-            id="homepageHomeContainer15"
-            className="text-white lg:text-lg text-sm"
-          >
+          <p className="text-white lg:text-lg text-sm" id="homeImage3Text">
             Showcase your items on our platform and we will take it from there.
             Worry less about the number of people that will buy your products.
           </p>
-          <div className="mt-4" id="homepageHomeContainer16">
+          <div className="mt-4" id="homeImage3ButtonContainer">
             <Button
               id="exploreEnginesBtn"
               className="bg-white normal-case text-mecaBluePrimaryColor lg:text-lg text-sm font-semibold rounded-[36px] disabled:bg-mecaBgDisableColor disabled:text-white hover:bg-white lg:my-6 py-[10px] px-6"
@@ -208,21 +215,19 @@ export default function Home() {
         </span>
       </div>
       <div
-        id="homepageHomeContainer17"
         className="bg-mecaActiveBackgroundNavColor rounded-lg my-16 lg:py-16 py-8 lg:px-10 px-4 lg:flex items-center justify-between"
+        id="modelsdiv"
       >
-        <div className="lg:w-3/5" id="homepageHomeContainer18">
-          <span id="homepageHomeContainer19" className="flex flex-wrap gap-4">
-            <button
-              type="button"
-              className="font-bold text-sm bg-white py-1 px-[10px] rounded-[20px]"
-            >
+        <div className="lg:w-3/5" id="modelsLeftSide">
+          <span className="flex flex-wrap gap-4" id="modelsLeftSideSpan">
+            {/* <button className="font-bold text-sm bg-white py-1 px-[10px] rounded-[20px]">
               40+ <span className="font-normal">makes</span>
-            </button>
-            <button
-              type="button"
-              className="font-bold text-sm bg-white py-1 px-[10px] rounded-[20px]"
-            >
+            </button> */}
+            <CardBtn no="40" text="makes" />
+            <CardBtn no="1129" text="models" />
+            <CardBtn no="2306" text="types" />
+            <CardBtn no="3000" text="auto parts" />
+            {/* <button className="font-bold text-sm bg-white py-1 px-[10px] rounded-[20px]">
               1129+ <span className="font-normal">models</span>
             </button>
             <button
@@ -236,7 +241,7 @@ export default function Home() {
               className="font-bold text-sm bg-white py-1 px-[10px] rounded-[20px]"
             >
               3000+ <span className="font-normal">auto parts</span>
-            </button>
+            </button> */}
           </span>
           <h2
             id="homepageHomeContainer20"

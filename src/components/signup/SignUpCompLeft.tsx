@@ -44,6 +44,7 @@ const userVendor: UserVendor = {
   email: "",
   password: "",
   jobTitle: "",
+  companyName: "",
   roleName: "VENDOR",
 };
 
@@ -52,9 +53,7 @@ const userAgent: UserAgent = {
   lastName: "",
   email: "",
   password: "",
-  vendorMerchantId: [],
-  agentCompanyNameId: [],
-  agentAssociateSellerId: [],
+  agentAssociateSellerId: "",
   roleName: "AGENT",
 };
 
@@ -66,10 +65,6 @@ const SignUpComponentLeft = () => {
     useState<UserVendor>(userVendor);
   const [userAgentDetails, setUserAgentDetails] =
     useState<UserAgent>(userAgent);
-  // const [successAlert, setSuccessAlert] = useState(false);
-  // const [errorAlert, setErrorAlert] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
@@ -85,15 +80,7 @@ const SignUpComponentLeft = () => {
     } else {
       setUserBuyerDetails((values) => ({ ...values, [id]: value }));
     }
-    // console.log(value);
   };
-
-  // const [openAssociatedSeller, setOpenAssociatedSeller] = useState(false);
-  // const handleNav = () => {
-  //   setOpenAssociatedSeller(!openAssociatedSeller);
-  // };
-
-  // console.log(userAgentDetails, "userAgentDetails", userBuyerDetails, userVendorDetails);
 
   const [registerVendor, { data: VendorData, error: VendorError }] =
     useRegisterVendorMutation();
@@ -112,11 +99,9 @@ const SignUpComponentLeft = () => {
       if (userType === "vendor") {
         await registerVendor(userVendorDetails);
         userEmail = userVendorDetails.email;
-        setSuccessMessage("Vendor registered successfully!");
       } else if (userType === "agent") {
         await registerAgent(userAgentDetails);
         userEmail = userAgentDetails.email;
-        setSuccessMessage("Agent registered successfully!");
       } else if (userType === "buyer") {
         await registerBuyer(userBuyerDetails);
         userEmail = userBuyerDetails.email;
@@ -276,13 +261,13 @@ const SignUpComponentLeft = () => {
                       </InputLabel>
 
                       <FilledInput
-                        id={userType === "vendor" ? "agentCompanyNameId" : ""}
+                        id={userType === "vendor" ? "companyName" : ""}
                         disableUnderline
                         onChange={handleChange}
                         className="bg-mecaInputBgColor w-full rounded-t-[4px] hover:bg-mecaInputBgColor border focus-within:bg-mecaInputBgColor"
                         value={
                           userType === "vendor"
-                            ? userAgentDetails.agentCompanyNameId
+                            ? userVendorDetails.companyName
                             : ""
                         }
                       />

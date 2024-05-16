@@ -21,7 +21,7 @@ export default function TopBar() {
   return (
     <section className="relative w-full" id="topBar">
       {open ? (
-        <div className="fixed top-0 w-full z-50">
+        <div className="fixed top-0 w-full z-[2000]">
           <Header />
           <NavBar open={open} setOpen={setOpen} />
         </div>

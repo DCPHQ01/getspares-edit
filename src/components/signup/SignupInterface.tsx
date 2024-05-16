@@ -8,10 +8,10 @@ interface User {
 
 interface UserVendor extends User {
   jobTitle: string;
+  companyName: string
 }
 
 interface UserAgent extends User {
-  vendorMerchantId: string[];
-  agentCompanyNameId: string[];
-  agentAssociateSellerId: string[];
+
+  agentAssociateSellerId: string;
 }

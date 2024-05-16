@@ -9,9 +9,9 @@ import {
     MdYard,
     MdLogout
 } from "react-icons/md"
-import { useAppDispatch } from "@/redux/hooks";
-import { dashboardActions } from "@/redux/features/dashboard/dashboardSlice";
-import { sidePanel, roles, userRole } from "@/app/dashboard/utils";
+import { useAppDispatch } from "../../../redux/hooks";
+import { dashboardActions } from "../../../redux/features/dashboard/dashboardSlice";
+import { sidePanel, roles, userRole } from "../../../app/dashboard/utils";
 
 function Index() {
 

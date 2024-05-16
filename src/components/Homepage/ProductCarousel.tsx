@@ -6,6 +6,7 @@ import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import Tractor from "../../assets/images/tractor.png";
 import Bulldozer from "../../assets/images/bulldozer.png";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface CardProps {
   image: StaticImageData;
@@ -46,56 +47,77 @@ export default function ProductCarousel() {
 
   const Card: React.FC<CardProps> = ({ image, type }) => {
     const urlType = type.replace(/\s+/g, "");
+    const router = useRouter();
     return (
-      <div className="relative" id="hompageProductionCarousel">
-        <Image src={image} alt="" width={630} height={564} placeholder="blur" />
-        <span className="absolute lg:bottom-16 bottom-8 lg:left-16 left-6 flex flex-col lg:gap-10 gap-6">
-          <p className="text-white lg:text-3xl text-xl font-bold">{type}</p>
-          <Link
-            href={{
-              pathname: "/category/products/?",
-              query: { type: encodeURIComponent(urlType) },
-            }}
+      // <Link
+      //   href={{
+      //     pathname: "/category/products/?",
+      //     query: { type: encodeURIComponent(urlType) },
+      //   }}
+      // >
+      <div
+        className="relative"
+        id="productContainer"
+        onClick={() => router.push(`/category/products/${urlType}`)}
+      >
+        <Image
+          src={image}
+          alt=""
+          width={630}
+          height={564}
+          placeholder="blur"
+          id="productImage"
+        />
+        <span
+          className="absolute lg:bottom-16 bottom-8 lg:left-16 left-6 flex flex-col lg:gap-10 gap-6"
+          is="subContainer"
+        >
+          <p
+            className="text-white lg:text-3xl text-xl font-bold"
+            id="productText"
           >
-            <button
-              type="button"
-              className="lg:text-lg text-sm text-mecaBluePrimaryColor font-semibold bg-white w-fit rounded-[36px] lg:py-[10px] py-[6px] px-6"
-            >
-              Explore parts
-            </button>
-          </Link>
+            {type}
+          </p>
+          <button
+            type="button"
+            className="lg:text-lg text-sm text-mecaBluePrimaryColor font-semibold bg-white w-fit rounded-[36px] lg:py-[10px] py-[6px] px-6"
+            id="exploreBtn"
+          >
+            Explore parts
+          </button>
         </span>
       </div>
+      // </Link>
     );
   };
 
   return (
-    <div>
+    <div id="productCarousel">
       <div
         className="flex justify-between items-center my-8"
-        id="hompageProductionCarousel2"
+        id="carouselContainer"
       >
-        <p className="text-3xl font-semibold">Shop</p>
-        <span className="flex gap-8">
-          <button
-            title="left"
-            type="button"
-            className="text-mecaVerificationCodeColor z-0 bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay"
+        <p className="text-3xl font-semibold" id="carouselTitle">
+          Shop
+        </p>
+        <span className="flex gap-8" id="carouselButtonSpan">
+          <div
+            id="previousBtn"
+            className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay"
             onClick={handlePrevious}
           >
             <MdChevronLeft size={30} />
-          </button>
-          <button
-            title="right"
-            type="button"
-            className="text-mecaVerificationCodeColor z-0 bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay"
+          </div>
+          <div
+            id="nextBtn"
+            className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay"
             onClick={handleNext}
           >
             <MdChevronRight size={30} />
-          </button>
+          </div>
         </span>
       </div>
-      <div id="hompageProductionCarousel3">
+      <div id="carousel">
         <Carousel
           partialVisible={true}
           draggable={false}
