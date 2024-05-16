@@ -39,7 +39,8 @@ const navData = [
   {
     id: 4,
     title: "mechanics",
-    icon: <MdExpandMore size={18} />,
+    icon: "",
+    // icon: <MdExpandMore size={18} />,
     // icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
     icon2: "",
     link: "",
@@ -47,7 +48,8 @@ const navData = [
   {
     id: 5,
     title: "vendors",
-    icon: <MdExpandMore size={18} />,
+    icon: "",
+    // icon: <MdExpandMore size={18} />,
     // icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
     icon2: "",
     link: "",
@@ -55,7 +57,8 @@ const navData = [
   {
     id: 6,
     title: "listings",
-    icon: <MdExpandMore size={18} className="" />,
+    icon: "",
+    // icon: <MdExpandMore size={18} className="" />,
     icon2: "",
     // icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
     link: "",
@@ -63,7 +66,8 @@ const navData = [
   {
     id: 7,
     title: "advertise",
-    icon: <MdExpandMore size={18} />,
+    icon: "",
+    // icon: <MdExpandMore size={18} />,
     icon2: "",
     // icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
     link: "",

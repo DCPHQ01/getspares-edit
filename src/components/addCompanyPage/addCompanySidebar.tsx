@@ -17,13 +17,11 @@ import { useSelector } from "react-redux";
 const drawerWidth = 240;
 
 function ResponsiveDrawer({ step, setStep }: any) {
-
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
 
   const [activeTab, setActiveTab] = useState<number | null>(null);
 
@@ -63,7 +61,9 @@ function ResponsiveDrawer({ step, setStep }: any) {
     image: any;
   }
 
-
+  useEffect(() => {
+    setActiveTab(details[step - 1].id);
+  }, []);
   return (
     <div className="relative md:flex h-[800px] p-4 w-full" id="sidebar">
       <div
