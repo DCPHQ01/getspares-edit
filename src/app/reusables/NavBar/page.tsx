@@ -249,7 +249,6 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
           </div>
         ))}
       </div>
-
       {isCategoryOptionOpened && (
         <div className="flex justify-center">
           <div className="absolute z-50">

@@ -39,23 +39,8 @@ const AddCompanyModal = () => {
   return (
     <div>
       {/* You can open the modal using document.getElementById('ID').showModal() method */}
-      <div id="openmodalbtn" className="">
-        <button
-          className="btn bg-mecaBluePrimaryColor w-[30%] h-20 border-spacing-10 text-white font-semibold text-lg rounded-lg"
-          id="modalButton"
-          onClick={handleOpen}
-        >
-          open modal
-        </button>
-      </div>
-      <Modal
-        open={open}
-        // onClose={handleClose}
-        aria-labelledby="parent-modal-title"
-        aria-describedby="parent-modal-description"
-        id="mymoda3"
-        className="modal"
-      >
+
+      <div className="w-[100%] h-[100vh] bg-mecaDarkBlueBackgroundOverlay">
         <Box sx={{ ...style, width: 400 }}>
           <div
             className="flex justify-between flex-row-reverse"
@@ -66,14 +51,14 @@ const AddCompanyModal = () => {
               id="confirmpageButton"
               className={nunito_sans.className}
             >
-              {/* if there is a button in form, it will close the modal */}
-              <button
-                onClick={handleClose}
-                id="cancelbtn"
-                className="btn btn-sm btn-circle btn-ghost"
-              >
-                ✕
-              </button>
+              <Link href="/dashboard">
+                <button
+                  id="cancelbtn"
+                  className="btn btn-sm btn-circle btn-ghost"
+                >
+                  ✕
+                </button>
+              </Link>
             </form>
 
             <Image
@@ -103,13 +88,14 @@ const AddCompanyModal = () => {
                 id="confirmpageForm2"
                 className={nunito_sans.className}
               >
-                <button
-                  onClick={handleClose}
-                  id="laterbtn"
-                  className="btn w-40 font-semibold text-lg text-mecaBluePrimaryColor min-h-12 rounded-full maybe-later"
-                >
-                  Maybe later
-                </button>
+                <Link href="/dashboard">
+                  <button
+                    id="laterbtn"
+                    className="btn w-40 font-semibold text-lg text-mecaBluePrimaryColor min-h-12 rounded-full maybe-later"
+                  >
+                    Maybe later
+                  </button>
+                </Link>
               </form>
 
               <Link id="continuebtnLink" href="/modalPage/vendor">
@@ -123,7 +109,7 @@ const AddCompanyModal = () => {
             </div>
           </div>
         </Box>
-      </Modal>
+      </div>
     </div>
   );
 };
