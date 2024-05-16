@@ -128,7 +128,11 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                 </sub>
 
                 <form method="dialog" id="pageone7">
-                  <button className="text-sm font-semibold skip " id="skip1">
+                  <button
+                    className="text-sm font-semibold skip "
+                    id="skip1"
+                    onClick={goToNextPage}
+                  >
                     Skip
                   </button>
                 </form>
@@ -314,7 +318,10 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                   onSubmit={handleSubmit}
                   className="companyInputWrap"
                 >
-                  <div className="flex flex-col flex-col-reverse" id="pageone14">
+                  <div
+                    className="flex flex-col flex-col-reverse"
+                    id="pageone14"
+                  >
                     <div>
                       <input
                         required={true}

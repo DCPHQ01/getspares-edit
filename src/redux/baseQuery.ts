@@ -27,7 +27,7 @@ export const baseQuery = createApi({
         firstName: string;
         lastName: string;
         roleName: string;
-        agentAssociateSellerId: string;
+        companyName: string;
       }) => ({
         url: "api/v1/auth/signup",
         method: "POST",
@@ -58,7 +58,7 @@ export const baseQuery = createApi({
     login: builder.mutation<LoginResponse, { email: string; password: string }>(
       {
         query: ({ email, password }) => ({
-          url: "/api/login",
+          url: "api/v1/auth/login",
           method: "POST",
           body: {
             email,

@@ -4,6 +4,8 @@ import React, { ChangeEvent, useState } from "react";
 import Link from "next/link";
 import FormControl from "@mui/material/FormControl";
 import { Nunito_Sans } from "next/font/google";
+import jwt_decode from "jwt-decode";
+import { useLoginMutation } from "../../../redux/baseQuery";
 
 const nunito = Nunito_Sans({
   subsets: ["latin"],
@@ -26,6 +28,7 @@ import {
   MdOutlineVisibility,
   MdOutlineVisibilityOff,
 } from "react-icons/md";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   const [state, setState] = useState({
@@ -71,6 +74,43 @@ export default function Login() {
 
   const isFormValid = () => {
     return isValidEmail(state.email) && isValidPassword(state.password);
+  };
+
+  const [login, { isLoading, error }] = useLoginMutation();
+
+  const router = useRouter();
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    try {
+      const response = await login({
+        email: state.email,
+        password: state.password,
+      });
+
+      if ("data" in response && response.data) {
+        const decodedToken = jwt_decode(response.data.access_token);
+        switch (decodedToken.role) {
+          case "admin":
+            router.push("/admin-dashboard");
+            break;
+          case "vendor":
+            router.push("/vendor-dashboard");
+            break;
+          case "agent":
+            router.push("/agent-dashboard");
+            break;
+          case "buyer":
+            router.push("/buyer-dashboard");
+            break;
+          default:
+            alert("Unknown role. Please try again.");
+        }
+      } else if ("error" in response) {
+        alert("Login failed. Please try again.");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -165,6 +205,7 @@ export default function Login() {
             endIcon={<MdChevronRight />}
             disabled={!isFormValid()}
             disableElevation
+            onClick={handleSubmit}
           >
             Login
           </Button>

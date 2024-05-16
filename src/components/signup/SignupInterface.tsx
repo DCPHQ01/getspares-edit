@@ -11,5 +11,5 @@ interface UserVendor extends User {
 }
 
 interface UserAgent extends User {
-  agentAssociateSellerId: string;
+  companyName: string;
 }
