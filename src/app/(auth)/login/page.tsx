@@ -1,10 +1,11 @@
 "use client";
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import React, { ChangeEvent, useState } from "react";
 import Link from "next/link";
 import FormControl from "@mui/material/FormControl";
 import { Nunito_Sans } from "next/font/google";
-import jwt_decode from "jwt-decode";
+import * as JWT from "jwt-decode";
+import { JwtPayload as BaseJwtPayload } from "jsonwebtoken";
 import { useLoginMutation } from "../../../redux/baseQuery";
 
 const nunito = Nunito_Sans({
@@ -29,6 +30,10 @@ import {
   MdOutlineVisibilityOff,
 } from "react-icons/md";
 import { useRouter } from "next/navigation";
+
+interface JwtPayload extends BaseJwtPayload {
+  role?: string;
+}
 
 export default function Login() {
   const [state, setState] = useState({
@@ -88,19 +93,21 @@ export default function Login() {
       });
 
       if ("data" in response && response.data) {
-        const decodedToken = jwt_decode(response.data.access_token);
-        switch (decodedToken.role) {
-          case "admin":
-            router.push("/admin-dashboard");
+        // const decoded = JWT.jwtDecode(response.data.access_token);
+        let decoded: JwtPayload = JWT.jwtDecode(response.data.access_token);
+        console.log(decoded, "decoded");
+        switch (decoded?.resource_access?.meca?.roles[0]) {
+          case "MECA_ADMIN":
+            router.push("/dashboard");
             break;
-          case "vendor":
-            router.push("/vendor-dashboard");
+          case "VENDOR_ADMIN":
+            router.push("/dashboard");
             break;
-          case "agent":
-            router.push("/agent-dashboard");
+          case "AGENT":
+            router.push("/dashboard");
             break;
-          case "buyer":
-            router.push("/buyer-dashboard");
+          case "BUYER":
+            router.push("/dashboard");
             break;
           default:
             alert("Unknown role. Please try again.");
