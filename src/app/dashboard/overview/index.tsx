@@ -49,28 +49,35 @@ function Index({ header, subheader }: IProps) {
   ];
   return (
     <>
-      <div className={`flex justify-between items-center`}>
+      <div id="welcomeSection" className={`flex justify-between items-center`}>
         <div>
-          <h1 className={`font-semibold text-[30px] text-[#101828]`}>
+          <h1
+            id="welcomeTitle"
+            className={`font-semibold text-[1.9rem] text-[#101828]`}
+          >
             Welcome Back, Sam
           </h1>
-          <p className={`text-[#364152]`}>
+          <p id="welcomeText" className={`text-[#364152]`}>
             Take a quick glance on what is happening with meca
           </p>
         </div>
-        <Link href="/modalPage">
-          {role === roles.VENDOR_ADMIN && (
-            <button
-              className={`bg-[#095AD3] text-white rounded-full py-[6px] px-[24px]`}
-            >
-              Add Company
-            </button>
-          )}
-        </Link>
+
+        <div>
+          <Link href="/modalPage">
+            {role === roles.VENDOR_ADMIN && (
+              <button
+                id="addCompanyButton"
+                className={`bg-[#095AD3] text-white rounded-full py-[0.38rem] px-[1.5rem]`}
+              >
+                Add Company
+              </button>
+            )}
+          </Link>
+        </div>
       </div>
-      <div className={`mt-[16px] flex gap-5`}>
+      <div id="cardContainer" className={`mt-[1rem] flex gap-5 w-full`}>
         {cardProps.map((card, index) => (
-          <div key={index}>
+          <div id={`card_${index}`} key={index}>
             <Cards
               amount={card.amount}
               percentage={card.percentage}
@@ -80,16 +87,20 @@ function Index({ header, subheader }: IProps) {
           </div>
         ))}
       </div>
-      <div className={`mt-[52px] flex justify-between`}>
+      <div id="sectionHeader" className={`mt-[3.25rem] flex justify-between`}>
         <div>
-          <p className={`font-semibold text-[20px]`}>{header}</p>
-          <p className={`text-[#364152]`}>{subheader}</p>
+          <p id="headerTitle" className={`font-semibold text-[1.25rem]`}>
+            {header}
+          </p>
+          <p id="subheaderText" className={`text-[#364152]`}>
+            {subheader}
+          </p>
         </div>
         <div>
           <PeriodRadios />
         </div>
       </div>
-      <div>
+      <div id="tableContainer">
         <Table />
       </div>
     </>

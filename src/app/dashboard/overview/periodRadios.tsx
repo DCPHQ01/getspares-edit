@@ -76,13 +76,13 @@ export default function PeriodRadios() {
                 name="customized-radios"
             >
                 <div className={`flex`}>
-                    <div className={`border py-[8px] px-[16px] rounded-tl-[10px] rounded-bl-[10px] ${selectedValue === 'last7days' ? 'bg-[#EEF2F6]' : ''}`}>
-                        <FormControlLabel value="last7days" control={<BpRadio />} label="Last 7 days" />
+                    <div id={`last7days`} className={`border py-[0.5rem] px-[1rem] rounded-tl-[0.625rem] rounded-bl-[0.6235rem] ${selectedValue === 'last7days' ? 'bg-[#EEF2F6]' : ''}`}>
+                        <FormControlLabel value="last7days" control={<BpRadio />} label="Last 7 days"  />
                     </div>
-                    <div className={`border py-[8px] px-[16px] ${selectedValue === 'last30days' ? 'bg-[#EEF2F6]' : ''}`}>
+                    <div id={`last30days`} className={`border py-[0.5rem] px-[1rem] ${selectedValue === 'last30days' ? 'bg-[#EEF2F6]' : ''}`}>
                         <FormControlLabel value="last30days" control={<BpRadio />} label="Last 30 days" />
                     </div>
-                    <div className={`border py-[8px] px-[16px] rounded-tr-[10px] rounded-br-[10px] ${selectedValue === 'last1year' ? 'bg-[#EEF2F6]' : ''}`}>
+                    <div id={`last1year`} className={`border py-[0.5rem] px-[1rem] rounded-tr-[0.625rem] rounded-br-[0.6235rem]  ${selectedValue === 'last1year' ? 'bg-[#EEF2F6]' : ''}`}>
                         <FormControlLabel value="last1year" control={<BpRadio />} label="Last 1 year" />
                     </div>
                 </div>
