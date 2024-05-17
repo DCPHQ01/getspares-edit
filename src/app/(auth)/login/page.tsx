@@ -1,9 +1,12 @@
 "use client";
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import React, { ChangeEvent, useState } from "react";
 import Link from "next/link";
 import FormControl from "@mui/material/FormControl";
 import { Nunito_Sans } from "next/font/google";
+import * as JWT from "jwt-decode";
+import { JwtPayload as BaseJwtPayload } from "jsonwebtoken";
+import { useLoginMutation } from "../../../redux/baseQuery";
 
 const nunito = Nunito_Sans({
   subsets: ["latin"],
@@ -26,6 +29,13 @@ import {
   MdOutlineVisibility,
   MdOutlineVisibilityOff,
 } from "react-icons/md";
+import { useRouter } from "next/navigation";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { setUser } from "../../../redux/features/users/userSlice";
+
+interface JwtPayload extends BaseJwtPayload {
+  role?: string;
+}
 
 export default function Login() {
   const [state, setState] = useState({
@@ -71,6 +81,49 @@ export default function Login() {
 
   const isFormValid = () => {
     return isValidEmail(state.email) && isValidPassword(state.password);
+  };
+
+  const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.user);
+  console.log(user, " user");
+  const [login, { isLoading, error }] = useLoginMutation();
+
+  const router = useRouter();
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    try {
+      const response = await login({
+        email: state.email,
+        password: state.password,
+      });
+
+      if ("data" in response && response.data) {
+        dispatch(setUser(response.data));
+        // const decoded = JWT.jwtDecode(response.data.access_token);
+        let decoded: JwtPayload = JWT.jwtDecode(response.data.access_token);
+        console.log(decoded, "decoded");
+        switch (decoded?.resource_access?.meca?.roles[0]) {
+          case "MECA_ADMIN":
+            router.push("/dashboard");
+            break;
+          case "VENDOR_ADMIN":
+            router.push("/dashboard");
+            break;
+          case "AGENT":
+            router.push("/dashboard");
+            break;
+          case "BUYER":
+            router.push("/");
+            break;
+          default:
+            alert("Unknown role. Please try again.");
+        }
+      } else if ("error" in response) {
+        alert("Login failed. Please try again.");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -165,6 +218,7 @@ export default function Login() {
             endIcon={<MdChevronRight />}
             disabled={!isFormValid()}
             disableElevation
+            onClick={handleSubmit}
           >
             Login
           </Button>

@@ -367,7 +367,7 @@ export default function Products() {
               Filter by
             </p>
             {filterData.map((data) => (
-              <div className="" id="navDatum" key={data.id}>
+              <div className="-ml-4" id="navDatum" key={data.id}>
                 <Accordion
                   defaultExpanded
                   className="w-full"

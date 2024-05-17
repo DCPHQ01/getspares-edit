@@ -7,11 +7,9 @@ interface User {
 }
 
 interface UserVendor extends User {
-  jobTitle: string;
-  companyName: string
+  companyName: string;
 }
 
 interface UserAgent extends User {
-
-  agentAssociateSellerId: string;
+  companyName: string;
 }

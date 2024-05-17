@@ -43,9 +43,8 @@ const userVendor: UserVendor = {
   lastName: "",
   email: "",
   password: "",
-  jobTitle: "",
   companyName: "",
-  roleName: "VENDOR",
+  roleName: "VENDOR_ADMIN",
 };
 
 const userAgent: UserAgent = {
@@ -53,7 +52,7 @@ const userAgent: UserAgent = {
   lastName: "",
   email: "",
   password: "",
-  agentAssociateSellerId: "",
+  companyName: "",
   roleName: "AGENT",
 };
 
@@ -93,24 +92,78 @@ const SignUpComponentLeft = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     try {
       setIsLoading(true);
       let userEmail = "";
+      let response;
       if (userType === "vendor") {
-        await registerVendor(userVendorDetails);
+        response = await registerVendor(userVendorDetails);
         userEmail = userVendorDetails.email;
+        if ("data" in response) {
+          console.log("data response ", response?.data);
+          if (
+            response?.data?.message === "SignUp Successfully" ||
+            response?.data?.statusCode === 201
+          ) {
+            alert(VendorData.message);
+            router.push("/verify-email");
+          } else if (
+            response?.data?.message === "User Already Exists" ||
+            response?.data.error?.data?.status === 400
+          ) {
+            alert(VendorData.message);
+          } else {
+            alert("Registration failed. Please try again.");
+          }
+        }
+        sessionStorage.setItem("userEmail", userEmail);
       } else if (userType === "agent") {
-        await registerAgent(userAgentDetails);
+        response = await registerAgent(userAgentDetails);
+        console.log("data response ", response);
         userEmail = userAgentDetails.email;
+        if ("data" in response) {
+          console.log("data response ", response?.data);
+          if (
+            response?.data?.message === "SignUp Successfully" ||
+            response?.data?.statusCode === 201
+          ) {
+            alert(AgentData.message);
+            router.push("/verify-email");
+          } else if (
+            response?.data?.message === "User Already Exists" ||
+            response?.data.error?.data?.status === 400
+          ) {
+            alert(AgentData.message);
+          } else {
+            alert("Registration failed. Please try again.");
+          }
+        }
+        sessionStorage.setItem("userEmail", userEmail);
       } else if (userType === "buyer") {
-        await registerBuyer(userBuyerDetails);
+        response = await registerBuyer(userBuyerDetails);
+        console.log("data response ", response);
         userEmail = userBuyerDetails.email;
-        BuyerError
-          ? alert("Registration failed. Please try again.")
-          : (alert(buyerData.message), router.push("/verify-email"));
+        if ("data" in response) {
+          console.log("data response ", response?.data);
+          if (
+            response?.data?.message === "SignUp Successfully" ||
+            response?.data?.statusCode === 201
+          ) {
+            router.push("/verify-email");
+          } else if (
+            response?.data?.message === "User Already Exists" ||
+            response?.data.error?.data?.status === 400
+          ) {
+            alert(buyerData.message);
+          } else {
+            alert("Registration failed. Please try again.");
+          }
+        }
+        sessionStorage.setItem("userEmail", userEmail);
       }
-      sessionStorage.setItem("userEmail", userEmail);
     } catch (error) {
+      console.error(error);
     } finally {
       setIsLoading(false);
     }
@@ -284,15 +337,13 @@ const SignUpComponentLeft = () => {
                       </InputLabel>
 
                       <FilledInput
-                        id={
-                          userType === "agent" ? "agentAssociateSellerId" : ""
-                        }
+                        id={userType === "agent" ? "companyName" : ""}
                         disableUnderline
                         onChange={handleChange}
                         className="bg-mecaInputBgColor w-full rounded-t-[4px] hover:bg-mecaInputBgColor border focus-within:bg-mecaInputBgColor"
                         value={
                           userType === "agent"
-                            ? userAgentDetails.agentAssociateSellerId
+                            ? userAgentDetails.companyName
                             : ""
                         }
                       />

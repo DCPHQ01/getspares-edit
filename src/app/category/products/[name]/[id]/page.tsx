@@ -7,16 +7,37 @@ import "react-multi-carousel/lib/styles.css";
 import HomeImage1 from "../../../../../assets/images/homeImage1.png";
 import tractor from "../../../../../assets/images/tractors.png";
 import HomeImage2 from "../../../../../assets/images/homeImage2.png";
-import ratingStar from "../../../../../assets/images/star.png";
-import { useRef } from "react";
+import ratingStar from "../../../../../assets/images/Star.png";
+import { useRef, useState } from "react";
 import {
+  MdCheckCircle,
   MdChevronLeft,
   MdChevronRight,
+  MdExpandMore,
   MdOutlineStorefront,
 } from "react-icons/md";
 import Footer from "../../../../../components/footer/Footer";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+import * as React from "react";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  IconButton,
+  Snackbar,
+  SnackbarOrigin,
+  Typography,
+} from "@mui/material";
+
+import { IoCloseCircleOutline } from "react-icons/io5";
+import TopBarWhileInside from "../../../../reusables/TopBarWhileInside/page";
+import { useAppDispatch } from "../../../../../redux/hooks";
+import { addToCart } from "../../../../../redux/features/product/productSlice";
+
+interface State extends SnackbarOrigin {
+  open: boolean;
+}
 
 const responsive = {
   superLargeDesktop: {
@@ -51,6 +72,16 @@ const images = [
 ];
 
 export default function ProductDescription() {
+  const [state, setState] = React.useState<State>({
+    open: false,
+    vertical: "top",
+    horizontal: "center",
+  });
+
+  const { vertical, horizontal, open } = state;
+
+  const dispatch = useAppDispatch();
+
   const firstImages = images.slice(0, 5);
   const remainingImages = images.slice(5);
   const carouselRef = useRef<Carousel>(null);
@@ -68,16 +99,26 @@ export default function ProductDescription() {
   const segments = searchParams.split("/");
   // console.log(segments, " segments");
   const searches = segments[3];
+  const id = Number(segments[4]);
   // console.log(searches, " searches");
+
+  const handleClick = (newState: SnackbarOrigin) => () => {
+    dispatch(addToCart({ id }));
+    setState({ ...newState, open: true });
+
+    setTimeout(() => {
+      setState({ ...newState, open: false });
+    }, 3000);
+  };
 
   const searchWords = segments[3].replace(/([A-Z])/g, " $1").trim();
 
   return (
-    <div>
-      <TopBar />
-      <div id="mainContainer" className="container mx-auto px-5">
+    <div className="relative">
+      <TopBarWhileInside />
+      <div id="mainContainer" className="container mx-auto px-2">
         <div
-          className="flex flex-col space-y-8 mt-56 w-full"
+          className="flex flex-col space-y-8 mt-40 w-full"
           id="productDescriptionContentContainer"
         >
           <div
@@ -154,7 +195,7 @@ export default function ProductDescription() {
                 </h2>
                 <div
                   id="companyDiv"
-                  className="w-[96%] h-[76px] border rounded-lg p-2 border-mecaBottomBorder flex items-center justify-between"
+                  className="w-full h-[76px] border rounded-lg p-2 border-mecaBottomBorder flex items-center justify-between"
                 >
                   <div
                     id="frameOne"
@@ -235,6 +276,10 @@ export default function ProductDescription() {
                     className="w-full h-full mt-4 flex flex-col gap-y-4"
                   >
                     <button
+                      onClick={handleClick({
+                        vertical: "top",
+                        horizontal: "center",
+                      })}
                       type="button"
                       className="w-full h-[44px] text-white text-lg font-nunito font-semibold flex items-center justify-center bg-mecaBluePrimaryColor rounded-full"
                     >
@@ -246,6 +291,62 @@ export default function ProductDescription() {
                     >
                       Buy now
                     </button>
+                    {/* <div className="mt-4" id="accordionForProductDescription">
+                      <Accordion>
+                        <AccordionSummary
+                          expandIcon={
+                            <MdExpandMore size={28} className="text-black" />
+                          }
+                          aria-controls="panel1a-content"
+                          id="panel1a-header"
+                        >
+                          <p className="text-mecaDarkBlueBackgroundOverlay text-lg">
+                            Shipping & Returns
+                          </p>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. Suspendisse malesuada lacus ex, sit amet blandit
+                          leo lobortis eget.
+                        </AccordionDetails>
+                      </Accordion>
+                      <Accordion>
+                        <AccordionSummary
+                          expandIcon={
+                            <MdExpandMore size={28} className="text-black" />
+                          }
+                          aria-controls="panel2-content"
+                          id="panel2-header"
+                        >
+                          <p className="text-mecaDarkBlueBackgroundOverlay text-lg">
+                            Delivery
+                          </p>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. Suspendisse malesuada lacus ex, sit amet blandit
+                          leo lobortis eget.
+                        </AccordionDetails>
+                      </Accordion>
+                    </div> */}
+                    <Snackbar
+                      anchorOrigin={{ vertical, horizontal }}
+                      open={open}
+                      autoHideDuration={6000}
+                    >
+                      <div
+                        id="snackbar"
+                        className="absolute top-20 flex gap-2 items-center bg-mecaSuccessBackgroundColor border border-mecaBorderSuccess text-mecaIconSuccessColor w-[449px] h-[44px] rounded-md px-4"
+                      >
+                        <MdCheckCircle
+                          size={20}
+                          className="text-mecaBorderSuccess"
+                        />
+                        <p className="text-sm font-normal font-nunito">
+                          Added to cart successfully
+                        </p>
+                      </div>
+                    </Snackbar>
                   </div>
                 </div>
               </div>
@@ -280,7 +381,7 @@ export default function ProductDescription() {
               </div>
             </span>
           </div>
-          <div id="carousel">
+          <div id="carouselProductDescription">
             <Carousel
               partialVisible={true}
               draggable={false}
