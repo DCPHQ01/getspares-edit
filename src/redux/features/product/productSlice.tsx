@@ -5,8 +5,7 @@ const initialState = {
 };
 
 interface CartItem {
-  totalNumber: number;
-  id: number;
+  id: string;
 }
 
 const productSlice = createSlice({
@@ -16,7 +15,7 @@ const productSlice = createSlice({
     addToCart: (state, action: PayloadAction<CartItem>) => {
       state.cart.push(action.payload);
     },
-    removeFromCart: (state, action: PayloadAction<{ id: number }>) => {
+    removeFromCart: (state, action: PayloadAction<{ id: string }>) => {
       state.cart = state.cart.filter((item) => item.id !== action.payload.id);
     },
   },

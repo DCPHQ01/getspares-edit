@@ -433,7 +433,7 @@ export default function Products() {
           >
             {itemsData.map((item: ItemsDataProps) => (
               <div
-                className="flex flex-col w-[30.4%]"
+                className="flex flex-col w-[30.4%] cursor-pointer"
                 key={item.id}
                 onClick={() => handleProductDescription(item.id)}
               >

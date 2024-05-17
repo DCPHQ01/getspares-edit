@@ -204,7 +204,7 @@ const CalledPagesPageThreePages = ({
                 />
               </Box>
 
-              <Box>
+              {/* <Box>
                 <TextField
                   inputProps={{ readOnly: true }}
                   type="text"
@@ -219,9 +219,9 @@ const CalledPagesPageThreePages = ({
                   className="  w-full lg:w-[364px] mb-10 2xl:w-[35rem]"
                   // sx={{ backgroundColor: "porcelain" }}
                 />
-              </Box>
+              </Box> */}
 
-              <Box>
+              {/* <Box>
                 <TextField
                   inputProps={{ readOnly: true }}
                   type="text"
@@ -236,7 +236,7 @@ const CalledPagesPageThreePages = ({
                   className="  w-full lg:w-[364px]  mb-6 2xl:w-[35rem]"
                   // sx={{ backgroundColor: "porcelain" }}
                 />
-              </Box>
+              </Box> */}
 
               {/* <Box>
                 {" "}
@@ -310,7 +310,7 @@ const CalledPagesPageThreePages = ({
                 id="thirdFormSubmit6"
                 className="nextbtn w-96 mt-40 mb-6 "
               >
-                Add company
+                Save
               </button>
             </div>
             {/* <Box sx={{ width: 500 }}>
@@ -430,25 +430,25 @@ const CalledPagesPageThreePages = ({
                 />
                 <br></br>
 
-                <input
+                {/* <input
                   readOnly={true}
                   type="text"
                   name="inputName"
                   id="previewAddress2Id9"
                   placeholder="Address2"
                   className=" companyInput mt-6"
-                />
+                /> */}
 
                 <br></br>
 
-                <input
+                {/* <input
                   readOnly={true}
                   type="text"
                   name="inputName"
                   id="previewAddress3Id10"
                   placeholder="Address3"
                   className=" companyInput mt-6"
-                />
+                /> */}
               </form>
 
               <div className="" id="inputName4">
@@ -490,7 +490,7 @@ const CalledPagesPageThreePages = ({
                   id="thirdFormSubmit2"
                   className="nextbtn nextbtnMobile h-12  mt-6 mb-20"
                 >
-                  Add company
+                  Save
                 </button>
               </div>
               {/* <Box sx={{ width: 500 }}>
