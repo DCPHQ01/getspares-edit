@@ -3,7 +3,7 @@ import React from "react";
 import Cards from "../../../app/dashboard/overview/cards";
 import PeriodRadios from "../../../app/dashboard/overview/periodRadios";
 import Table from "../../../app/dashboard/table";
-import { roles, userRole } from "../../../app/dashboard/utils";
+import { roles, userRole } from "../utils/utils";
 import Link from "next/link";
 
 interface IProps {

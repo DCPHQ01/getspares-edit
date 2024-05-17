@@ -3,7 +3,7 @@ import React from "react";
 import SidePanel from "../../app/dashboard/sidepanel";
 import Overview from "../../app/dashboard/overview";
 import { useAppSelector } from "../../redux/hooks";
-import { roles, sidePanel, userRole } from "../../app/dashboard/utils";
+import { roles, sidePanel, userRole } from "./utils/utils";
 import Vendors from "../../app/dashboard/vendors";
 import Agents from "../../app/dashboard/agents";
 import Buyers from "../../app/dashboard/buyers";

@@ -1,5 +1,5 @@
 import React from "react";
-import { roles, userRole } from "../../../app/dashboard/utils";
+import { roles, userRole } from "../utils/utils";
 import MecaAdminTable from "../../../app/dashboard/table/mecaAdminTable";
 import VendorAdminTable from "../../../app/dashboard/table/vendorAdminTable";
 

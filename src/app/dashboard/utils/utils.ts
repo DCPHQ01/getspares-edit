@@ -1,3 +1,8 @@
+import {store} from "../../../redux";
+import * as JWT from "jwt-decode";
+import {JwtPayload} from "jwt-decode";
+
+
 export enum sidePanel {
   OVERVIEW = "OVERVIEW",
   VENDORS = "VENDORS",
@@ -15,3 +20,5 @@ export enum roles {
 
 // export const userRole = roles.MECA_ADMIN;
 export const userRole = roles.VENDOR_ADMIN;
+
+
