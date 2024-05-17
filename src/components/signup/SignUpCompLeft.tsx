@@ -135,6 +135,7 @@ const SignUpComponentLeft = () => {
             response?.data.error?.data?.status === 400
           ) {
             alert(AgentData.message);
+            router.push("/verify-email");
           } else {
             alert("Registration failed. Please try again.");
           }

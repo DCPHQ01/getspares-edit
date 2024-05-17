@@ -41,6 +41,7 @@ import Menu from "@mui/material/Menu";
 // import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 import { useRouter } from "next/navigation";
+import { useAppSelector } from "../../redux/hooks";
 
 interface State extends SnackbarOrigin {
   open: boolean;
@@ -190,10 +191,12 @@ const RemoveToCartPage = () => {
     setState({ ...state, open: false });
   };
 
-  const [cart, setCart] = useState(cardCartItems);
+  const [carts, setCarts] = useState(cardCartItems);
+
+  const { cart } = useAppSelector((state) => state.product);
 
   const removeFromCart = (id: string) => {
-    setCart((prevCart) => prevCart.filter((item) => item.id !== id));
+    setCarts((prevCart) => prevCart.filter((item) => item.id !== id));
   };
   const router = useRouter();
 
@@ -227,7 +230,7 @@ const RemoveToCartPage = () => {
                   className="text-mecaBluePrimaryColor"
                 />
                 <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
-                  0
+                  {cart.length}
                 </p>
               </div>
 
@@ -284,7 +287,7 @@ const RemoveToCartPage = () => {
                     className="text-mecaBluePrimaryColor"
                   />
                   <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
-                    0
+                    {cart.length}
                   </p>
                 </div>
 
@@ -337,7 +340,7 @@ const RemoveToCartPage = () => {
                     </p>
                   ) : (
                     <div className="">
-                      {cart.map((cardCartItem) => (
+                      {carts.map((cardCartItem) => (
                         <div key={cardCartItem.id} className="mt-6 mb-5 ">
                           <div
                             className=" h-40 p-4 bg-white rounded-lg"
@@ -382,6 +385,7 @@ const RemoveToCartPage = () => {
                                         <div className="relative bottom-4">
                                           <form>
                                             <select
+                                              title="quantity"
                                               className="w-16 h-9 rounded border-2 p-2 border-mecaVerificationCodeColor mt-2"
                                               name="categoria"
                                               id="categoriesId"
@@ -563,13 +567,13 @@ const RemoveToCartPage = () => {
 
               <div className="flex  flex-col w-full">
                 <div className="" style={{ width: "100%" }}>
-                  {cart.length === 0 ? (
+                  {carts.length === 0 ? (
                     <p className="text-lg font-bold text-center mt-20 mb-20">
                       Your Cart is Empty!
                     </p>
                   ) : (
                     <div className="">
-                      {cart.map((cardCartItem) => (
+                      {carts.map((cardCartItem) => (
                         <div key={cardCartItem.id} className="mt-6 mb-5 ">
                           <div
                             className="h-52 p-4 rounded-lg bg-white"
@@ -617,6 +621,7 @@ const RemoveToCartPage = () => {
                                         <div className="relative bottom-4">
                                           <form>
                                             <select
+                                              title="quantity"
                                               className="w-16 h-9 rounded border-2 p-2 border-mecaVerificationCodeColor mt-2"
                                               name="categoria"
                                               id="categoriaId"

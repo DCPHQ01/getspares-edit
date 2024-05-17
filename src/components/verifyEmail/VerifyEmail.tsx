@@ -62,9 +62,10 @@ export default function VerifyEmail({
         console.log(response.data.message, " verify email response");
         if (response?.data?.statusCode === 201) {
           setHaveVerifiedEmail(true);
-        } else {
-          setHaveVerifiedEmail(false);
         }
+        // else {
+        //   setHaveVerifiedEmail(false);
+        // }
       }
     } catch (error) {
       console.log(error);
@@ -110,6 +111,8 @@ export default function VerifyEmail({
                   name="otp"
                   value={data}
                   onChange={(e) => handleChangeOtp(e.target, index)}
+                  title="OTP"
+                  placeholder="Enter OTP"
                 />
                 {index === 2 && (
                   <span className="text-mecaVerificationCodeColor text-5xl flex items-center">
