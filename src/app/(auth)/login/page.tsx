@@ -1,8 +1,20 @@
 "use client";
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import React, { ChangeEvent, useState } from "react";
 import Link from "next/link";
 import FormControl from "@mui/material/FormControl";
+import { Nunito_Sans } from "next/font/google";
+import * as JWT from "jwt-decode";
+import { JwtPayload as BaseJwtPayload } from "jsonwebtoken";
+import { useLoginMutation } from "../../../redux/baseQuery";
+
+const nunito = Nunito_Sans({
+  subsets: ["latin"],
+  variable: "--font-nunito_sans",
+  adjustFontFallback: false,
+  display: "swap",
+});
+
 // import TextField from "@mui/material/TextField";
 import {
   Button,
@@ -13,9 +25,17 @@ import {
 } from "@mui/material";
 import {
   MdChevronRight,
+  MdOutlineVpnKey,
   MdOutlineVisibility,
   MdOutlineVisibilityOff,
 } from "react-icons/md";
+import { useRouter } from "next/navigation";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { setUser } from "../../../redux/features/users/userSlice";
+
+interface JwtPayload extends BaseJwtPayload {
+  role?: string;
+}
 
 export default function Login() {
   const [state, setState] = useState({
@@ -63,17 +83,71 @@ export default function Login() {
     return isValidEmail(state.email) && isValidPassword(state.password);
   };
 
+  const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.user);
+  console.log(user, " user");
+  const [login, { isLoading, error }] = useLoginMutation();
+
+  const router = useRouter();
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    try {
+      const response = await login({
+        email: state.email,
+        password: state.password,
+      });
+
+      if ("data" in response && response.data) {
+        dispatch(setUser(response.data));
+        // const decoded = JWT.jwtDecode(response.data.access_token);
+        let decoded: JwtPayload = JWT.jwtDecode(response.data.access_token);
+        console.log(decoded, "decoded");
+        switch (decoded?.resource_access?.meca?.roles[0]) {
+          case "MECA_ADMIN":
+            router.push("/dashboard");
+            break;
+          case "VENDOR_ADMIN":
+            router.push("/dashboard");
+            break;
+          case "AGENT":
+            router.push("/dashboard");
+            break;
+          case "BUYER":
+            router.push("/");
+            break;
+          default:
+            alert("Unknown role. Please try again.");
+        }
+      } else if ("error" in response) {
+        alert("Login failed. Please try again.");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
-    <div>
-      <div className="absolute top-16 lg:left-16 left-8" id="eMecaLogin">
+    <div className={nunito.className}>
+      <div className="absolute top-16  lg:left-16 left-8" id="eMecaLogin">
         <span className="font-bold lg:text-3xl text-2xl text-mecaActiveIconsNavColor">
           e-meca
         </span>
       </div>
+
       <div
-        className="flex flex-col lg:justify-center items-center mx-auto gap-2 h-screen w-fit px-6 lg:mt-0 mt-40"
+        className="flex flex-col lg:justify-center items-center lg:mx-auto gap-2 h-screen lg:w-fit w-[100%] px-6 lg:mt-10 mt-60"
         id="container"
       >
+        <div
+          className="border border-mecaBorderColor p-4 rounded-xl"
+          id="keyIconDiv"
+        >
+          <MdOutlineVpnKey
+            size={24}
+            className="text-mecaGoBackArrow"
+            id="keyIcon"
+          />
+        </div>
         <h2
           className="text-meca-black font-bold text-center text-3xl"
           id="forgotPasswordHeader"
@@ -84,7 +158,7 @@ export default function Login() {
           className="text-meca-gray-600 text-center px-8"
           id="forgotPasswordText"
         >
-          Welcome back! Please input your details
+          Welcome back! Please input your correct details
         </p>
         <FormControl className="flex flex-col gap-8 w-full mt-6" id="form">
           <FormControl className="w-full" variant="filled">
@@ -144,6 +218,7 @@ export default function Login() {
             endIcon={<MdChevronRight />}
             disabled={!isFormValid()}
             disableElevation
+            onClick={handleSubmit}
           >
             Login
           </Button>

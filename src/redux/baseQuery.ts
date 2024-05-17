@@ -1,7 +1,6 @@
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { LoginResponse } from "@/models/loginResponse";
-
+import { LoginResponse } from "../models/loginResponse";
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export const baseQuery = createApi({
@@ -28,7 +27,7 @@ export const baseQuery = createApi({
         firstName: string;
         lastName: string;
         roleName: string;
-        vendorMerchantId: string[];
+        companyName: string;
       }) => ({
         url: "api/v1/auth/signup",
         method: "POST",
@@ -42,7 +41,7 @@ export const baseQuery = createApi({
         firstName: string;
         lastName: string;
         roleName: string;
-        jobTitle: string;
+        companyName: string;
       }) => ({
         url: "api/v1/auth/signup",
         method: "POST",
@@ -59,7 +58,7 @@ export const baseQuery = createApi({
     login: builder.mutation<LoginResponse, { email: string; password: string }>(
       {
         query: ({ email, password }) => ({
-          url: "/api/login",
+          url: "api/v1/auth/login",
           method: "POST",
           body: {
             email,

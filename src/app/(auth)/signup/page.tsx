@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import SignUpComponentRight from "@/components/signup/SignUpCompRight";
-import SignUpComponentLeft from "@/components/signup/SignUpCompLeft";
+import SignUpComponentRight from "../../../components/signup/SignUpCompRight";
+import SignUpComponentLeft from "../../../components/signup/SignUpCompLeft";
 
 const SignUp = () => {
   return (

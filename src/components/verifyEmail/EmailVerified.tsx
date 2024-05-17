@@ -1,6 +1,8 @@
+import { useRouter } from "next/navigation";
 import { MdDoneAll } from "react-icons/md";
 
 export default function EmailVerified() {
+  const router = useRouter();
   return (
     <div className="w-96">
       <div
@@ -25,6 +27,9 @@ export default function EmailVerified() {
       <button
         id="emailVerifiedBtn"
         className="w-full bg-mecaBluePrimaryColor text-[white] lg:text-lg text-sm font-semibold rounded-[36px] lg:h-12 h-8 hover:bg-mecaBluePrimaryColor mt-8"
+        onClick={() => {
+          router.push("/login");
+        }}
       >
         Continue
       </button>

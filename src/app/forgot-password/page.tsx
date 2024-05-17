@@ -1,6 +1,6 @@
 "use client";
-import EnterEmail from "@/components/resetPassword/EnterEmail";
-import SendEmail from "@/components/resetPassword/SendEmail";
+import EnterEmail from "../../components/resetPassword/EnterEmail";
+import SendEmail from "../../components/resetPassword/SendEmail";
 import { useState } from "react";
 
 export default function ResetPassword() {

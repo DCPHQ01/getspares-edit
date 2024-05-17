@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 import Link from "next/link";
 import { useState } from "react";
 // import { useRouter } from "next/router";
@@ -26,10 +26,11 @@ interface ChildProps {
   setStep: React.Dispatch<React.SetStateAction<number>>;
 }
 
-import { useAppSelector } from "@/redux";
-import { useAppDispatch } from "@/redux/hooks";
-import { RootState } from "@/redux";
-import { setCompanyForm } from "@/redux/features/company/companySlice";
+import { useAppSelector } from "../../../redux";
+import { useAppDispatch } from "../../../redux/hooks";
+import { RootState } from "../../../redux";
+import { setCompanyForm } from "../../../redux/features/company/companySlice";
+import { MdPhotoLibrary } from "react-icons/md";
 
 const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
   const [addresses, setAddresses] = useState<Address[]>([]);
@@ -169,17 +170,37 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
   const { company } = useAppSelector((state: RootState) => state);
   console.log("company ", company.companyForm);
 
+  const [formImage, setFormImage] = useState<string | null>(null);
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleImageClick = () => {
+    fileInputRef.current?.click();
+  };
+
   return (
-    <div className="" style={{ width: "85%", margin: "auto" }}>
-      <div className="pageWrapper">
-        <div className="hidden md:flex flex-col mt-8">
-          <div className="mb-16 pageHeader w-94">
-            <header className="font-bold text-base">Location</header>
-            <div className="flex subheaders" id="subheader1">
+    <div className="" style={{ width: "85%", margin: "auto" }} id="pageTwo1">
+      <div className="pageWrapper" id="pageTwo2">
+        <div className="hidden md:flex flex-col mt-8" id="pageTwo3">
+          <div className="mb-16 pageHeader w-94" id="pageTwo4">
+            <header className="font-bold text-base" id="pageTwo5">
+              Location
+            </header>
+            <div className="flex subheaders" id="subhead2">
               <sub className="text-xs font-normal">Provide details</sub>
 
-              <form method="dialog">
-                <button className="text-sm font-semibold skip " id="skip1">
+              <form method="dialog" id="pageTwo6">
+                <button className="text-sm font-semibold skip " id="skipper1">
                   Skip
                 </button>
               </form>
@@ -187,6 +208,7 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
           </div>
 
           <Box
+            id="pageTwo7"
             component="form"
             className="flex gap-x-16 flex-col flex-col-reverse lg:flex-row lg:items-start   "
             noValidate
@@ -194,10 +216,10 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
             autoComplete="off"
           >
             <Box>
-              <Box className=" mb-10">
+              <Box className=" mb-10" id="pageTwo8">
                 <TextField
                   required={true}
-                  id="filled-basic"
+                  id="filledasic1"
                   label="Email address"
                   variant="filled"
                   type="email"
@@ -222,7 +244,7 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
               <Box className=" mb-10">
                 <TextField
                   required={true}
-                  id="filled-basic"
+                  id="filledasic2"
                   label="Phone number"
                   variant="filled"
                   type="number"
@@ -250,7 +272,7 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
 
               <Box>
                 {" "}
-                <div>
+                <div id="pageTwo9">
                   {addresses.map((address, index) => (
                     <div key={index}>
                       <p>{address.streetNumber}</p>
@@ -264,7 +286,7 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                       <TextField
                         type="text"
                         required={true}
-                        id="filled-basic"
+                        id="filledasic4"
                         label="Address"
                         variant="filled"
                         name="address"
@@ -295,7 +317,7 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                   <button
                     onClick={handleAddAddress}
                     className="add-address"
-                    id="addAnotherid"
+                    id="addAnotherid4"
                   >
                     Add another address
                   </button>
@@ -304,22 +326,62 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
             </Box>
 
             <Box>
-              <div className="inputImage imagetext h-[283px] w-[316px]">
-                <TextField
-                  required={true}
-                  type="file"
-                  name="image"
-                  value={image}
-                  // accept="image/*"
-                  // onChange={(e) =>
-                  //   setImage(e.target.files ? e.target.files[0] : null)
-                  // }
-                  // className="inputImage imagetext"
-                  className=""
-                  id="secondImageid"
-                  // placeholder="Add logo by clicking or drag and drop"
-                />
-                {/* {errors.image && <p className="error-color">{errors.image}</p>} */}
+              <div className="inputImage imagetext h-[283px] w-[316px] pt-6">
+                <div className="">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                    ref={fileInputRef}
+                    className="hidden w-full px-3 py-2 "
+                  />
+                </div>
+
+                {/* {formImage && (
+                  
+                  )} */}
+                {formImage ? (
+                  <div className="">
+                    <form
+                      method="dialog"
+                      id="confirmpageButton"
+                      className="absolute lg:ml-72 ml-96"
+
+                      // className={nunito_sans.className}
+                    >
+                      <Link href="/modalPage">
+                        <button
+                          id="cancelbtn"
+                          className="btn btn-sm btn-circle btn-ghost font-bold w-3 h-3 "
+                        >
+                          ✕
+                        </button>
+                      </Link>
+                    </form>
+
+                    <div className="h-[237px] w-[237px] m-auto">
+                      <img
+                        src={formImage}
+                        alt="Uploaded"
+                        className="w-full h-full object-cover rounded-full"
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  <div
+                    id="prevImgState"
+                    onClick={handleImageClick}
+                    className="w-full px-3 py-2 border rounded-md flex flex-col items-center justify-center cursor-pointer border-none"
+                  >
+                    <MdPhotoLibrary className="text-gray-600 text-7xl relative top-12" />
+                    <div className="text-gray-600 text-base  text-center relative top-16">
+                      <p className="font-bold">Add logo</p>
+                      <p className="font-normal">
+                        by clicking or drag and drop
+                      </p>
+                    </div>
+                  </div>
+                )}
               </div>
             </Box>
           </Box>
@@ -328,11 +390,11 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
             <div
               onClick={goToPreviousPage}
               className="previousbtn"
-              id="firstPreviousbtn"
+              id="firstPreviousbtn9"
             >
               <button type="submit">Previous</button>
             </div>
-            <div onClick={goToNextPage} className="nextbtn ">
+            <div onClick={goToNextPage} className="nextbtn " id="pageTwo12">
               <button type="submit" id="secondFormSubmit">
                 Next
               </button>
@@ -340,25 +402,35 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
           </div>
         </div>
 
-        <div className="absolute  w-11/12">
-          <div className="md:hidden m-auto">
-            <div className="mb-16 mt-10 pageHeader">
-              <header className="font-bold text-base">Location</header>
-              <div className="flex subheaders" id="subheader1">
-                <sub className="text-xs font-normal">Provide details</sub>
-                <form method="dialog">
-                  <button className="text-sm font-semibold skip " id="skip1">
+        <div className="absolute  w-11/12" id="pageTwo13">
+          <div className="md:hidden m-auto " id="pageTwo14">
+            <div className="mb-16 mt-10 pageHeader" id="pageTwo15">
+              <header className="font-bold text-base" id="pageTwo16">
+                Location
+              </header>
+              <div className="flex subheaders" id="subhea1">
+                <sub className="text-xs font-normal" id="pageTwo17">
+                  Provide details
+                </sub>
+                <form method="dialog" id="pageTwo18">
+                  <button
+                    className="text-sm font-semibold skip "
+                    id="skipper34"
+                  >
                     Skip
                   </button>
                 </form>
               </div>
-              <Box className="form-display flex flex-col flex-col-reverse mt-8">
-                <form onSubmit={handleSubmit}>
+              <Box
+                className="form-display flex flex-col flex-col-reverse mt-8"
+                id="pageTwo19"
+              >
+                <form onSubmit={handleSubmit} id="pageTwo20">
                   <Box className="companyInputWrap">
                     <Box className="">
                       <TextField
                         required={true}
-                        id="filled-basic"
+                        id="filleasic"
                         label="Email address"
                         variant="filled"
                         type="email"
@@ -388,7 +460,7 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                     <Box className="">
                       <TextField
                         required={true}
-                        id="filled-basic"
+                        id="fillesic"
                         label="Phone number"
                         variant="filled"
                         type="number"
@@ -418,7 +490,7 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
 
                     <Box>
                       {" "}
-                      <div>
+                      <div id="pageTwo21">
                         {addresses.map((address, index) => (
                           <div key={index}>
                             <p>{address.streetNumber}</p>
@@ -428,11 +500,11 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                           </div>
                         ))}
                         {inputValues.map((inputValue, index) => (
-                          <div key={index} className="mb-6">
+                          <div key={index} className="mb-6" id="pageTwo22">
                             <TextField
                               type="text"
                               required={true}
-                              id="filled-basic"
+                              id="filasic"
                               label="Address"
                               variant="filled"
                               name="address"
@@ -463,7 +535,7 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                         <button
                           onClick={handleAddAddress}
                           className="add-address"
-                          id="addAnotherid"
+                          id="addAnotheraddress"
                         >
                           Add another address
                         </button>
@@ -472,25 +544,63 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                   </Box>
                 </form>
 
-                <Box className="inputImage imagetext h-[283px] w-[316px]">
-                  <Box>
-                    <TextField
-                      required={true}
-                      type="file"
-                      name="image"
-                      // accept="image/*"
-                      // onChange={(e) =>
-                      //   setImage(e.target.files ? e.target.files[0] : null)
-                      // }
-                      // className="inputImage imagetext"
-                      className=""
-                      id="secondImageid"
-                      // placeholder="Add logo by clicking or drag and drop"
-                    />
-                    {errors.image && (
-                      <p className="error-color">{errors.image}</p>
+                <Box>
+                  <div className="inputImage imagetext h-[283px] w-[316px] pt-6">
+                    <div className="">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        ref={fileInputRef}
+                        className="hidden w-full px-3 py-2 "
+                      />
+                    </div>
+
+                    {/* {formImage && (
+                  
+                  )} */}
+                    {formImage ? (
+                      <div className="">
+                        <form
+                          method="dialog"
+                          id="confirmpageButton"
+                          className="absolute right-0 pr-4"
+                          // className={nunito_sans.className}
+                        >
+                          <Link href="/modalPage">
+                            <button
+                              id="cancelbtn"
+                              className="btn btn-sm btn-circle btn-ghost font-bold w-3 h-3 "
+                            >
+                              ✕
+                            </button>
+                          </Link>
+                        </form>
+
+                        <div className="h-[237px] w-[237px] m-auto">
+                          <img
+                            src={formImage}
+                            alt="Uploaded"
+                            className="w-full h-full object-cover rounded-full"
+                          />
+                        </div>
+                      </div>
+                    ) : (
+                      <div
+                        id="prevImgState"
+                        onClick={handleImageClick}
+                        className="w-full px-3 py-2 border rounded-md flex flex-col items-center justify-center cursor-pointer border-none"
+                      >
+                        <MdPhotoLibrary className="text-gray-600 text-7xl relative top-12" />
+                        <div className="text-gray-600 text-base  text-center relative top-16">
+                          <p className="font-bold">Add logo</p>
+                          <p className="font-normal">
+                            by clicking or drag and drop
+                          </p>
+                        </div>
+                      </div>
                     )}
-                  </Box>
+                  </div>
                 </Box>
               </Box>
               {/* <div className="mt-2 flex justify-center items-center">
@@ -506,12 +616,12 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                 <div
                   onClick={goToPreviousPage}
                   className="previousbtn"
-                  id="firstPreviousbtn"
+                  id="seondPreviousbtn4"
                 >
                   <button type="submit">Previous</button>
                 </div>
                 <div onClick={goToNextPage} className="nextbtn nextmobile ">
-                  <button type="submit" id="secondFormSubmit">
+                  <button type="submit" id="secondFormSubmitNext">
                     Next
                   </button>
                 </div>

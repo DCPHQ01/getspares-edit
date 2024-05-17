@@ -1,9 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Box from "@mui/material/Box";
-import ImageComponent from "@/components/imageComp/ImageComponent";
+import ImageComponent from "../../../components/imageComp/ImageComponent";
 import TextField from "@mui/material/TextField";
+// import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
+import { MdPhotoLibrary } from "react-icons/md";
+
 import {
   TextareaAutosize as BaseTextareaAutosize,
   TextareaAutosize,
@@ -16,10 +19,12 @@ interface ChildProps {
   setActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
 import formLogo from "@/assets/images/formLogo.jpg";
-import { useAppSelector } from "@/redux";
-import { useAppDispatch } from "@/redux/hooks";
-import { RootState } from "@/redux";
-import { setCompanyForm } from "@/redux/features/company/companySlice";
+import { useAppSelector } from "../../../redux";
+import { useAppDispatch } from "../../../redux/hooks";
+import { RootState } from "../../../redux";
+import { setCompanyForm } from "../../../redux/features/company/companySlice";
+import { FaUpload } from "react-icons/fa";
+import Link from "next/link";
 
 const CalledPagesPageOnePages: React.FC<ChildProps> = ({
   step,
@@ -113,18 +118,43 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
   const { company } = useAppSelector((state: RootState) => state);
   console.log("company ", company.companyForm);
 
+  const [formImage, setFormImage] = useState<string | null>(null);
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleImageClick = () => {
+    fileInputRef.current?.click();
+  };
   return (
     <>
-      <div className="" style={{ width: "85%", margin: "auto" }}>
-        <div className="pageWrapper">
-          <div className="hidden md:flex flex-col mt-8">
-            <div className="mb-16 pageHeader w-94">
-              <header className="font-bold text-base">Company details</header>
+      <div className="" style={{ width: "85%", margin: "auto" }} id="pageone1">
+        <div className="pageWrapper" id="pageone2">
+          <div className="hidden md:flex flex-col mt-8" id="pageone3">
+            <div className="mb-16 pageHeader w-94" id="pageone4">
+              <header className="font-bold text-base" id="pageone5">
+                Company details
+              </header>
               <div className="flex subheaders" id="subheader1">
-                <sub className="text-xs font-normal">Provide details</sub>
+                <sub className="text-xs font-normal" id="pageone6">
+                  Provide details
+                </sub>
 
-                <form method="dialog">
-                  <button className="text-sm font-semibold skip " id="skip1">
+                <form method="dialog" id="pageone7">
+                  <button
+                    className="text-sm font-semibold skip "
+                    id="skip1"
+                    onClick={goToNextPage}
+                  >
                     Skip
                   </button>
                 </form>
@@ -135,6 +165,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
 
             <Box
               component="form"
+              id="pageone8"
               className="flex gap-x-16 flex-col flex-col-reverse lg:flex-row lg:items-start   "
               noValidate
               onSubmit={handleSubmit}
@@ -144,7 +175,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                 <Box>
                   <TextField
                     required={true}
-                    id="filled-basic"
+                    id="filledbasic"
                     label="Name"
                     variant="filled"
                     type="text"
@@ -178,7 +209,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                       )
                     }
                     onBlur={validateMessage}
-                    id="filled-basic"
+                    id="filledbasic"
                     aria-label="Description"
                     name="description"
                     placeholder="Say something about your company"
@@ -208,7 +239,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                     }
                     onBlur={validateWebsite}
                     type="url"
-                    id="filled-basic"
+                    id="filledbasic"
                     label="Website"
                     variant="filled"
                     name="website"
@@ -234,7 +265,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                       )
                     }
                     onBlur={validateDate}
-                    id="filled-basic"
+                    id="filledbasic"
                     label=""
                     variant="filled"
                     type="date"
@@ -248,25 +279,62 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                 </Box>
               </Box>
               <Box>
-                <div className="inputImage imagetext h-[283px] w-[316px]">
-                  {/* <ImageComponent src={formLogo} alt="form logo" /> */}
+                <div className="inputImage imagetext h-[283px] w-[316px] pt-6">
+                  <div className="">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                      ref={fileInputRef}
+                      className="hidden w-full px-3 py-2 "
+                    />
+                  </div>
 
-                  <TextField
-                    required={true}
-                    type="file"
-                    name="image"
-                    // accept="image/*"
-                    // onChange={(e) =>
-                    //   setImage(e.target.files ? e.target.files[0] : null)
-                    // }
-                    // className="inputImage imagetext"
-                    sx={{ backgroundColor: "porcelain" }}
-                    id="secondImageid"
-                    // placeholder="Add logo by clicking or drag and drop"
-                  />
-                  {/* {errors.image && (
-                    <p className="error-color">{errors.image}</p>
+                  {/* {formImage && (
+                  
                   )} */}
+                  {formImage ? (
+                    <div className="">
+                      <form
+                        method="dialog"
+                        id="confirmpageButton"
+                        className="absolute lg:ml-72 ml-96"
+
+                        // className={nunito_sans.className}
+                      >
+                        <Link href="/modalPage">
+                          <button
+                            id="cancelbtn"
+                            className="btn btn-sm btn-circle btn-ghost font-bold w-3 h-3 "
+                          >
+                            ✕
+                          </button>
+                        </Link>
+                      </form>
+
+                      <div className="h-[237px] w-[237px] m-auto">
+                        <img
+                          src={formImage}
+                          alt="Uploaded"
+                          className="w-full h-full object-cover rounded-full"
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <div
+                      id="prevImgState"
+                      onClick={handleImageClick}
+                      className="w-full px-3 py-2 border rounded-md flex flex-col items-center justify-center cursor-pointer border-none"
+                    >
+                      <MdPhotoLibrary className="text-gray-600 text-7xl relative top-12" />
+                      <div className="text-gray-600 text-base  text-center relative top-16">
+                        <p className="font-bold">Add logo</p>
+                        <p className="font-normal">
+                          by clicking or drag and drop
+                        </p>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </Box>
             </Box>
@@ -284,27 +352,35 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
           </div>
         </div>
 
-        <div className="absolute  w-11/12">
-          <div className="md:hidden m-auto">
-            <div className="mb-16 pageHeader">
-              <header className="font-bold text-base">Company details</header>
-              <div className="flex subheaders" id="subheader1">
-                <sub className="text-xs font-normal">
+        <div className="absolute  w-11/12" id="pageone9">
+          <div className="md:hidden m-auto" id="pageone10">
+            <div className="mb-16 pageHeader" id="pageone11">
+              <header className="font-bold text-base" id="pageone12">
+                Company details
+              </header>
+              <div className="flex subheaders" id="subheader2">
+                <sub className="text-xs font-normal" id="pageoneDescription">
                   Double-check all the information you provided
                 </sub>
-                <form method="dialog">
-                  <button className="text-sm font-semibold skip " id="skip1">
+                <form method="dialog" id="pageoneSkip">
+                  <button className="text-sm font-semibold skip " id="skipbtn2">
                     Skip
                   </button>
                 </form>
               </div>
-              <div className="form-display flex flex-col flex-col-reverse mt-8">
+              <div
+                className="form-display flex flex-col flex-col-reverse mt-8"
+                id="pageone13"
+              >
                 <form
                   id="firstFormWrapper"
                   onSubmit={handleSubmit}
                   className="companyInputWrap"
                 >
-                  <div className="flex flex-col flex-col-reverse">
+                  <div
+                    className="flex flex-col flex-col-reverse"
+                    id="pageone14"
+                  >
                     <div>
                       <input
                         required={true}
@@ -320,7 +396,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                         onBlur={validateFullName}
                         type="text"
                         name="fullname"
-                        id="fullnameid"
+                        id="fullnameid2"
                         className="companyInput w-full mb-4"
                         // className="w-[394px] h-[50px]"
                         placeholder="Name Enter name"
@@ -344,7 +420,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                         }
                         onBlur={validateMessage}
                         name="message"
-                        id="messageid"
+                        id="messageid2"
                         placeholder="Description Say something about your company"
                         className=" companyInput inputText w-full mb-8 lg:w-[364px]"
                       ></textarea>
@@ -368,7 +444,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                         onBlur={validateWebsite}
                         type="url"
                         name="website"
-                        id="websiteid"
+                        id="websiteid2"
                         placeholder="Website www.123.com"
                         className="companyInput mb-4 w-full lg:w-[364px]"
                       />
@@ -390,7 +466,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                         onBlur={validateDate}
                         type="date"
                         name="date"
-                        id="dateid"
+                        id="dateid2"
                         placeholder="date funded 12/12/21"
                         className=" companyInput mb-4"
                       />
@@ -399,32 +475,71 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                       )} */}
                     </div>
 
-                    <div>
-                      <div className="inputImage imagetext h-[283px] w-[316px]">
-                        <input
-                          required={true}
-                          type="file"
-                          accept="image/*"
-                          onChange={(e) =>
-                            setImage(e.target.files ? e.target.files[0] : null)
-                          }
-                          name="image"
-                          // className="inputImage imagetext"
-                          className="mb-4"
-                          id="firstImageId"
-                        />
-                        {/* {errors.image && (
-                          <p className="error-color">{errors.image}</p>
-                        )} */}
+                    <Box>
+                      <div className="inputImage imagetext h-[283px] w-[316px] pt-6">
+                        <div className="">
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleImageChange}
+                            ref={fileInputRef}
+                            className="hidden w-full px-3 py-2 "
+                          />
+                        </div>
+
+                        {/* {formImage && (
+                  
+                  )} */}
+                        {formImage ? (
+                          <div className="">
+                            <form
+                              method="dialog"
+                              id="confirmpageButton"
+                              className="absolute right-0 pr-4"
+                              // className={nunito_sans.className}
+                            >
+                              <Link href="/modalPage">
+                                <button
+                                  id="cancelbtn"
+                                  className="btn btn-sm btn-circle btn-ghost font-bold w-3 h-3 "
+                                >
+                                  ✕
+                                </button>
+                              </Link>
+                            </form>
+
+                            <div className="h-[237px] w-[237px] m-auto">
+                              <img
+                                src={formImage}
+                                alt="Uploaded"
+                                className="w-full h-full object-cover rounded-full"
+                              />
+                            </div>
+                          </div>
+                        ) : (
+                          <div
+                            id="prevImgState"
+                            onClick={handleImageClick}
+                            className="w-full px-3 py-2 border rounded-md flex flex-col items-center justify-center cursor-pointer border-none"
+                          >
+                            <MdPhotoLibrary className="text-gray-600 text-7xl relative top-12" />
+                            <div className="text-gray-600 text-base  text-center relative top-16">
+                              <p className="font-bold">Add logo</p>
+                              <p className="font-normal">
+                                by clicking or drag and drop
+                              </p>
+                            </div>
+                          </div>
+                        )}
                       </div>
-                    </div>
+                    </Box>
                   </div>
 
                   <div className="nextbtn nextmobile cursor-pointer ">
                     <button
                       onClick={goToNextPage}
                       type="submit"
-                      id="firstFormSubit"
+                      id="firstFormSubit2"
                     >
                       Next
                     </button>

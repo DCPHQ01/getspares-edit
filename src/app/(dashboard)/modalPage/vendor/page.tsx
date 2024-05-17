@@ -1,8 +1,8 @@
 "use client";
-import AddCompanySidebar from "@/components/addCompanyPage/addCompanySidebar";
-import CalledPagesPageOnePages from "@/components/calledPages/pageOne/page";
-import CalledPagesPageTwoPages from "@/components/calledPages/pageTwo/page";
-import CalledPagesPageThreePages from "@/components/calledPages/pageThree/page";
+import AddCompanySidebar from "../../../../components/addCompanyPage/addCompanySidebar";
+import CalledPagesPageOnePages from "../../../../components/calledPages/pageOne/page";
+import CalledPagesPageTwoPages from "../../../../components/calledPages/pageTwo/page";
+import CalledPagesPageThreePages from "../../../../components/calledPages/pageThree/page";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
@@ -64,13 +64,18 @@ const Dashboard = () => {
     }
   };
   return (
-    <div className="flex w-full">
-      <div className="hidden md:flex w-[32%]">
+    <div className="flex w-full" id="vendorVend1">
+      <div className="hidden md:flex w-[32%]" id="vendorVend2">
         <AddCompanySidebar step={step} setStep={setStep} />
       </div>
-      <div className="w-[64%]">{togglePages(step)}</div>
+      <div id="vendorVend3" className="w-[64%]">
+        {togglePages(step)}
+      </div>
 
-      <div className="md:hidden fixed bottom-0 left-0 w-full m-auto flex justify-between gap-2 px-8 mt-6 mb-6">
+      <div
+        id="vendorVend4"
+        className="md:hidden fixed bottom-0 left-0 w-full m-auto flex justify-between gap-2 px-8 mt-6 mb-6"
+      >
         {/* <div className="mt-8 flex items-center justify-evenly gap-4 h-[8px] w-full"> */}
         {number.map((item, index) => (
           <div

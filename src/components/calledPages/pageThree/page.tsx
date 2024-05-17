@@ -12,9 +12,9 @@ interface ChildProps {
   setStep: React.Dispatch<React.SetStateAction<number>>;
 }
 
-import { useAppSelector } from "@/redux";
-import { useAppDispatch } from "@/redux/hooks";
-import { RootState } from "@/redux";
+import { useAppSelector } from "../../../redux";
+import { useAppDispatch } from "../../../redux/hooks";
+import { RootState } from "../../../redux";
 
 const CalledPagesPageThreePages = ({
   step,
@@ -49,21 +49,23 @@ const CalledPagesPageThreePages = ({
   console.log("company ", company.companyForm);
 
   return (
-    <div className="" style={{ width: "85%", margin: "auto" }}>
-      <div className="pageWrapper">
-        <div className="hidden md:flex flex-col mt-8">
-          <div className="mb-16 pageHeader w-94">
-            <header className="font-bold text-base">Preview</header>
+    <div className="" style={{ width: "85%", margin: "auto" }} id="pageThree1">
+      <div className="pageWrapper" id="pageThree2">
+        <div className="hidden md:flex flex-col mt-8" id="pageThree3">
+          <div className="mb-16 pageHeader w-94" id="pageThree4">
+            <header className="font-bold text-base" id="pageThree5">
+              Preview
+            </header>
 
-            <div className="flex subheaders" id="subheader1">
-              <sub className="text-xs font-normal">
+            <div className="flex subheaders" id="subheader3">
+              <sub className="text-xs font-normal" id="pageThree6">
                 Double-check all the information you provided
               </sub>
-              <form method="dialog">
+              <form method="dialog" id="pageThree7">
                 <button
                   onClick={goToPreviousPage}
                   className="text-sm font-semibold skip "
-                  id="skip1"
+                  id="skip3"
                 >
                   Back
                 </button>
@@ -73,6 +75,7 @@ const CalledPagesPageThreePages = ({
 
           <Box
             component="form"
+            id="pageThree8"
             className="flex gap-x-16 flex-col flex-col-reverse lg:flex-row lg:items-start   "
             noValidate
             // onSubmit={handleSubmit}
@@ -83,7 +86,7 @@ const CalledPagesPageThreePages = ({
                 <TextField
                   inputProps={{ readOnly: true }}
                   required={true}
-                  id="filled-basic"
+                  id="filledbasic5"
                   label="Name"
                   value={company.companyForm.name}
                   variant="filled"
@@ -100,7 +103,7 @@ const CalledPagesPageThreePages = ({
                   // inputProps={{ readOnly: true }}
                   readOnly={true}
                   required={true}
-                  id="filled-basic"
+                  id="filledbasic6"
                   aria-label="Description"
                   name="description"
                   value={company.companyForm.description}
@@ -120,7 +123,7 @@ const CalledPagesPageThreePages = ({
                   inputProps={{ readOnly: true }}
                   required={true}
                   type="url"
-                  id="filled-basic"
+                  id="filledbasic7"
                   label="Website"
                   variant="filled"
                   value={company.companyForm.website}
@@ -135,8 +138,8 @@ const CalledPagesPageThreePages = ({
                 <TextField
                   inputProps={{ readOnly: true }}
                   required={true}
-                  id="filled-basic"
-                  label="Date founded"
+                  id="filledbasic8"
+                  label=""
                   variant="filled"
                   type="date"
                   value={company.companyForm.date_founded}
@@ -152,7 +155,7 @@ const CalledPagesPageThreePages = ({
                 <TextField
                   inputProps={{ readOnly: true }}
                   required={true}
-                  id="filled-basic"
+                  id="filledbasic9"
                   label="Email address"
                   variant="filled"
                   value={company.companyForm.email}
@@ -170,7 +173,7 @@ const CalledPagesPageThreePages = ({
                 <TextField
                   inputProps={{ readOnly: true }}
                   required={true}
-                  id="filled-basic"
+                  id="filledbasic10"
                   label="Phone number"
                   variant="filled"
                   type="phoneNumber"
@@ -188,7 +191,7 @@ const CalledPagesPageThreePages = ({
                   inputProps={{ readOnly: true }}
                   type="text"
                   required={true}
-                  id="filled-basic"
+                  id="filledbasic11"
                   label="Address 1"
                   variant="filled"
                   value={company.companyForm.address}
@@ -206,7 +209,7 @@ const CalledPagesPageThreePages = ({
                   inputProps={{ readOnly: true }}
                   type="text"
                   required={true}
-                  id="filled-basic"
+                  id="filledbasic12"
                   label="Address 2"
                   variant="filled"
                   name="address"
@@ -223,7 +226,7 @@ const CalledPagesPageThreePages = ({
                   inputProps={{ readOnly: true }}
                   type="text"
                   required={true}
-                  id="filled-basic"
+                  id="filledbasic14"
                   label="Address 3"
                   variant="filled"
                   name="address"
@@ -289,7 +292,7 @@ const CalledPagesPageThreePages = ({
                   name="image"
                   // className="inputImage imagetext"
                   sx={{ backgroundColor: "porcelain" }}
-                  id="secondImageid"
+                  id="secondImageid5"
                   // placeholder="Add logo by clicking or drag and drop"
                 />
               </div>
@@ -304,7 +307,7 @@ const CalledPagesPageThreePages = ({
                 //   horizontal: "center",
                 // })}
                 type="submit"
-                id="thirdFormSubmit"
+                id="thirdFormSubmit6"
                 className="nextbtn w-96 mt-40 mb-6 "
               >
                 Add company
@@ -339,7 +342,7 @@ const CalledPagesPageThreePages = ({
                   <button
                     onClick={goToPreviousPage}
                     className="text-sm font-semibold skip "
-                    id="skip1"
+                    id="skip8"
                   >
                     Back
                   </button>
@@ -354,7 +357,7 @@ const CalledPagesPageThreePages = ({
                   type="text"
                   value={company.companyForm.name}
                   name="fullName"
-                  id="previewNameId"
+                  id="previewNameId2"
                   className=" companyInput w-full mt-6"
                   placeholder="Name Enter name"
                 />
@@ -366,7 +369,7 @@ const CalledPagesPageThreePages = ({
                   type="message"
                   value={company.companyForm.description}
                   name="description"
-                  id="previewMessageId"
+                  id="previewMessageId3"
                   placeholder="Description Say something about your company"
                   className=" companyInput mt-6"
                 />
@@ -378,7 +381,7 @@ const CalledPagesPageThreePages = ({
                   type="url"
                   name="inputName"
                   value={company.companyForm.website}
-                  id="previewWebsiteId"
+                  id="previewWebsiteId4"
                   placeholder="Website www.123.com"
                   className=" companyInput mt-6"
                 />
@@ -389,7 +392,7 @@ const CalledPagesPageThreePages = ({
                   type="date"
                   name="date"
                   value={company.companyForm.date_founded}
-                  id="previewDateId"
+                  id="previewDateId5"
                   placeholder="date funded 12/12/21"
                   className=" companyInput mt-6"
                 />
@@ -398,7 +401,7 @@ const CalledPagesPageThreePages = ({
                   readOnly={true}
                   type="email"
                   name="email"
-                  id="previewEmailId"
+                  id="previewEmailId6"
                   value={company.companyForm.email}
                   className=" companyInput mt-6"
                   placeholder="Enter email"
@@ -409,7 +412,7 @@ const CalledPagesPageThreePages = ({
                   type="number"
                   name="inputName"
                   value={company.companyForm.phoneNumber}
-                  id="previewNumberId"
+                  id="previewNumberId7"
                   placeholder="phone number"
                   className=" companyInput mt-6"
                 />
@@ -421,7 +424,7 @@ const CalledPagesPageThreePages = ({
                   type="text"
                   name="inputName"
                   value={company.companyForm.address}
-                  id="previewAddress1Id"
+                  id="previewAddress1Id8"
                   placeholder="Address1"
                   className=" companyInput mt-6"
                 />
@@ -431,7 +434,7 @@ const CalledPagesPageThreePages = ({
                   readOnly={true}
                   type="text"
                   name="inputName"
-                  id="previewAddress2Id"
+                  id="previewAddress2Id9"
                   placeholder="Address2"
                   className=" companyInput mt-6"
                 />
@@ -442,7 +445,7 @@ const CalledPagesPageThreePages = ({
                   readOnly={true}
                   type="text"
                   name="inputName"
-                  id="previewAddress3Id"
+                  id="previewAddress3Id10"
                   placeholder="Address3"
                   className=" companyInput mt-6"
                 />
@@ -457,7 +460,7 @@ const CalledPagesPageThreePages = ({
                       // onChange={handleOnchange}
                       // value={value.date}
                       className=" inputImage imagetext"
-                      id="previewImageId"
+                      id="previewImageId11"
 
                       // placeholder="Add logo by clicking or drag and drop"
                     />
@@ -484,7 +487,7 @@ const CalledPagesPageThreePages = ({
                   //   vertical: "top",
                   //   horizontal: "center",
                   // })}
-                  id="thirdFormSubmit"
+                  id="thirdFormSubmit2"
                   className="nextbtn nextbtnMobile h-12  mt-6 mb-20"
                 >
                   Add company

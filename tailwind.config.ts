@@ -40,6 +40,10 @@ const config: Config = {
         mecaBottomBorder: "#CDD5DF",
         mecaCartColor: "#84ADFF",
         mecaSearchColor: "#F8FAFC",
+        mecaRatingsDiv: "#FCFCFD",
+        mecaRatingsBorder: "#E3E8EF",
+        mecaSuccess: "#DCFAE6",
+        mecaBorderSuccess: "#17B26A",
       },
       fontFamily: {
         nunito: ["var(--font-nunito_sans)"],
@@ -50,4 +54,5 @@ const config: Config = {
     require('tailwind-scrollbar')
   ],
 };
+
 export default config;

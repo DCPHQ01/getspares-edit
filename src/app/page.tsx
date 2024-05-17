@@ -1,14 +1,15 @@
-import  Header  from "@/app/reusables/Header/page";
-import  NavBar  from "@/app/reusables/NavBar/page";
+"use client";
+
+import TopBar from "./reusables/TopBar/page";
+import Index from "../components/Homepage/Index";
+import Footer from "../components/footer/Footer";
 
 export default function Home() {
-  // const handleClick = () => {
-  //   alert("clicked");
-  // };
   return (
-    <main className="">
-      <Header />
-      <NavBar />
+    <main id="completehomeSection">
+      <TopBar />
+      <Index />
+      <Footer />
     </main>
   );
 }
