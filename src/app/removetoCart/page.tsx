@@ -384,7 +384,7 @@ const RemoveToCartPage = () => {
                                             <select
                                               className="w-16 h-9 rounded border-2 p-2 border-mecaVerificationCodeColor mt-2"
                                               name="categoria"
-                                              id="categoriaId"
+                                              id="categoriesId"
                                             >
                                               <option value="0" selected>
                                                 0
@@ -473,7 +473,10 @@ const RemoveToCartPage = () => {
                   <div className="h-64 bg-mecaSearchColor  rounded-lg pt-5">
                     <div className="w-[90%] m-auto">
                       {itemSelected.map((itemSelect) => (
-                        <div className={nunito.className}>
+                        <div
+                          className={nunito.className}
+                          key={itemSelect.count}
+                        >
                           <div className="flex justify-between">
                             <div className="flex font-normal text-sm">
                               <p> item</p>

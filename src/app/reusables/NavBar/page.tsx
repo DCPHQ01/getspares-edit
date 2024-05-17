@@ -13,6 +13,7 @@ import DropdownPage from "./dropdown/page";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Button from "@mui/material/Button";
+import { useAppSelector } from "../../../redux/hooks";
 
 const navData = [
   {
@@ -25,43 +26,51 @@ const navData = [
   {
     id: 2,
     title: "categories",
-    icon: <MdExpandMore size={18} className="text-mecaGoBackArrow" />,
+    icon: <MdExpandMore size={18} />,
     icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
     link: "",
   },
   {
     id: 3,
     title: "brands",
-    icon: <MdExpandMore size={18} className="text-mecaGoBackArrow" />,
+    icon: <MdExpandMore size={18} />,
     icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
     link: "",
   },
   {
     id: 4,
     title: "mechanics",
-    icon: <MdExpandMore size={18} className="text-mecaGoBackArrow" />,
-    icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
+    icon: "",
+    // icon: <MdExpandMore size={18} />,
+    // icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
+    icon2: "",
     link: "",
   },
   {
     id: 5,
     title: "vendors",
-    icon: <MdExpandMore size={18} className="text-mecaGoBackArrow" />,
-    icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
+    icon: "",
+    // icon: <MdExpandMore size={18} />,
+    // icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
+    icon2: "",
     link: "",
   },
   {
     id: 6,
     title: "listings",
-    icon: <MdExpandMore size={18} className="text-mecaGoBackArrow" />,
-    icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
+    icon: "",
+    // icon: <MdExpandMore size={18} className="" />,
+    icon2: "",
+    // icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
     link: "",
   },
   {
     id: 7,
     title: "advertise",
-    icon: <MdExpandMore size={18} className="text-mecaGoBackArrow" />,
-    icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
+    icon: "",
+    // icon: <MdExpandMore size={18} />,
+    icon2: "",
+    // icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
     link: "",
   },
 ];
@@ -75,6 +84,11 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
   const handleClick = (id: number) => {
     setActive(id);
   };
+
+  const { user } = useAppSelector((state) => state.user);
+  const { cart } = useAppSelector((state) => state.product);
+  console.log(" user", user);
+  console.log(" product", cart);
 
   const router = useRouter();
   const handleStartShopping = () => {
@@ -118,7 +132,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                 className="text-mecaBluePrimaryColor"
               />
               <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
-                0
+                {cart.length}
               </p>
             </div>
           </Link>
@@ -173,7 +187,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                   // onClick={routs}
                 />
                 <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
-                  0
+                  {cart.length}
                 </p>
               </div>
             </Link>
@@ -213,10 +227,26 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
             >
               {item.title}
             </p>
-            <div onClick={item.id === 2 ? () => toggle(item.id) : () => {}}>
-              {isCategoryOptionOpened && item.id === active
-                ? item.icon2
-                : item.icon}
+            <div
+              onClick={
+                item.id === 2 || item.id === 3
+                  ? () => toggle(item.id)
+                  : () => {}
+              }
+            >
+              {isCategoryOptionOpened && item.id === active ? (
+                <p>{item.icon2}</p>
+              ) : (
+                <p
+                  className={`${
+                    active === item.id
+                      ? "text-mecaBluePrimaryColor"
+                      : "text-mecaGoBackArrow"
+                  }`}
+                >
+                  {item.icon}
+                </p>
+              )}
             </div>
 
             {/* {item.id === 2 && isCategoryOptionOpened && (
@@ -236,7 +266,6 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
           </div>
         </div>
       )}
-         
     </nav>
   );
 }

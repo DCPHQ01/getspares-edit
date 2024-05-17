@@ -150,7 +150,11 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                 </sub>
 
                 <form method="dialog" id="pageone7">
-                  <button className="text-sm font-semibold skip " id="skip1">
+                  <button
+                    className="text-sm font-semibold skip "
+                    id="skip1"
+                    onClick={goToNextPage}
+                  >
                     Skip
                   </button>
                 </form>
