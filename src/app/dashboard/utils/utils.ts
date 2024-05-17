@@ -1,8 +1,3 @@
-import {store} from "../../../redux";
-import * as JWT from "jwt-decode";
-import {JwtPayload} from "jwt-decode";
-
-
 export enum sidePanel {
   OVERVIEW = "OVERVIEW",
   VENDORS = "VENDORS",

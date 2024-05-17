@@ -56,7 +56,7 @@ export default function ProductCarousel() {
       //   }}
       // >
       <div
-        className="relative"
+        className="relative cursor-pointer"
         id="productContainer"
         onClick={() => router.push(`/category/products/${urlType}`)}
       >

@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import Box from "@mui/material/Box";
 import ImageComponent from "../../../components/imageComp/ImageComponent";
 import TextField from "@mui/material/TextField";
-// import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
 import { MdPhotoLibrary } from "react-icons/md";
 
 import {
@@ -252,7 +251,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                     <p className="error-color">{errors.website}</p>
                   )} */}
                 </Box>
-                <Box>
+                {/* <Box>
                   <TextField
                     required={true}
                     value={company.companyForm.date_founded}
@@ -275,8 +274,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                     className="lg:w-[364px] w-[100%] 2xl:w-[35rem]"
                     sx={{ backgroundColor: "porcelain" }}
                   />
-                  {/* {errors.date && <p className="error-color">{errors.date}</p>} */}
-                </Box>
+                </Box> */}
               </Box>
               <Box>
                 <div className="inputImage imagetext h-[283px] w-[316px] pt-6">
