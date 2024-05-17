@@ -248,7 +248,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                     <p className="error-color">{errors.website}</p>
                   )} */}
                 </Box>
-                <Box>
+                {/* <Box>
                   <TextField
                     required={true}
                     value={company.companyForm.date_founded}
@@ -271,8 +271,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                     className="lg:w-[364px] w-[100%] 2xl:w-[35rem]"
                     sx={{ backgroundColor: "porcelain" }}
                   />
-                  {/* {errors.date && <p className="error-color">{errors.date}</p>} */}
-                </Box>
+                </Box> */}
               </Box>
               <Box>
                 <div className="inputImage imagetext h-[283px] w-[316px] pt-6">

@@ -73,7 +73,7 @@ const AddCompanyModal = () => {
 
           <div className={nunito_sans.className} id="confirmpageForm">
             <h3 className="addCompany mt-2" id="confirmpageHeader">
-              Add company
+              Update company
             </h3>
             <p className="py-4 addCompanySub" id="confirmpageSubHeader">
               Increase the confidence and trust of buyers by adding your company
