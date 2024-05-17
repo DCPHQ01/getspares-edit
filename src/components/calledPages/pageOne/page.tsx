@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import Box from "@mui/material/Box";
 import ImageComponent from "../../../components/imageComp/ImageComponent";
 import TextField from "@mui/material/TextField";
-// import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
 import { MdPhotoLibrary } from "react-icons/md";
 
 import {
