@@ -58,15 +58,16 @@ export default function VerifyEmail({
 
     try {
       const response = await verifyEmail(data);
-      if ("data" in response) {
-        console.log(response.data.message, " verify email response");
-        if (response?.data?.statusCode === 201) {
-          setHaveVerifiedEmail(true);
-        }
-        // else {
-        //   setHaveVerifiedEmail(false);
-        // }
-      }
+      // if ("data" in response) {
+      //   console.log(response.data.message, " verify email response");
+      //   if (response?.data?.statusCode === 201) {
+      //     setHaveVerifiedEmail(true);
+      //   }
+      //   // else {
+      //   //   setHaveVerifiedEmail(false);
+      //   // }
+      setHaveVerifiedEmail(true);
+      // }
     } catch (error) {
       console.log(error);
     }
