@@ -162,7 +162,9 @@ const SignUpComponentLeft = () => {
       setIsLoading(false);
     }
   };
-
+  const routerToHomePage = () => {
+    router.push("/");
+  };
   return (
     <div className={nunito.className}>
       <div
@@ -175,7 +177,7 @@ const SignUpComponentLeft = () => {
         >
           <div>
             <span
-              onClick={() => router.push("/")}
+              onClick={routerToHomePage}
               id="e-mecaLogod"
               className="font-bold text-2xl  text-mecaActiveIconsNavColor"
             >
