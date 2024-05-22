@@ -1,7 +1,15 @@
 import React from "react";
+import { roles } from "../../../app/dashboard/utils";
+
 import { MdSearch } from "react-icons/md";
 
-function Index() {
+interface IProps {
+  buyerRoles: string;
+}
+
+function Index({ buyerRoles }: IProps) {
+  const role: any = buyerRoles;
+
   return (
     <div className="">
       <div>

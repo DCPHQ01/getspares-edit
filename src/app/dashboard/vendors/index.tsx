@@ -3,7 +3,7 @@ import React from "react";
 import Cards from "../../../app/dashboard/overview/cards";
 import PeriodRadios from "../../../app/dashboard/overview/periodRadios";
 import Table from "../../../app/dashboard/table";
-import { roles, userRole } from "../../../app/dashboard/utils";
+import { roles} from "../../../app/dashboard/utils";
 import Link from "next/link";
 import styles from "../overview/styles.module.css";
 import image1 from "../../../assets/dashboardAssets/Avatar.png";
@@ -142,12 +142,12 @@ const data = [
 ];
 
 interface IProps {
-  header: string;
-  subheader: string;
+ 
+  vendorRoles: string;
 }
 
-function Index({ header, subheader }: IProps) {
-  const role: any = userRole;
+function Index({  vendorRoles }: IProps) {
+  const role: any = vendorRoles;
   const cardProps = [
     {
       total: "number of parts ordered",

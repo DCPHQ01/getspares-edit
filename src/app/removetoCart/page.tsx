@@ -5,7 +5,7 @@ import Carousel from "react-multi-carousel";
 import Cards from "../../components/Homepage/Card";
 import "react-multi-carousel/lib/styles.css";
 import HomeImage1 from "../../assets/images/homeImage1.png";
-import HomeImage2 from "../../assets/images/homeImage2.png";
+import HomeImage2 from "../../assets/images/HomeImage2.png";
 
 const nunito = Nunito_Sans({
   subsets: ["latin"],
@@ -385,6 +385,7 @@ const RemoveToCartPage = () => {
                                         <div className="relative bottom-4">
                                           <form>
                                             <select
+                                              title="quantity"
                                               className="w-16 h-9 rounded border-2 p-2 border-mecaVerificationCodeColor mt-2"
                                               name="categoria"
                                               id="categoriesId"
@@ -620,6 +621,7 @@ const RemoveToCartPage = () => {
                                         <div className="relative bottom-4">
                                           <form>
                                             <select
+                                              title="quantity"
                                               className="w-16 h-9 rounded border-2 p-2 border-mecaVerificationCodeColor mt-2"
                                               name="categoria"
                                               id="categoriaId"

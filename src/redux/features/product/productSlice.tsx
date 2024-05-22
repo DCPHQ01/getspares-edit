@@ -5,7 +5,6 @@ const initialState = {
 };
 
 interface CartItem {
-  totalNumber: number;
   id: string;
 }
 

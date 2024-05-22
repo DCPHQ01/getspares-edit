@@ -3,16 +3,43 @@ import React from "react";
 import Cards from "../../../app/dashboard/overview/cards";
 import PeriodRadios from "../../../app/dashboard/overview/periodRadios";
 import Table from "../../../app/dashboard/table";
-import { roles, userRole } from "../../../app/dashboard/utils";
+import { roles } from "../../../app/dashboard/utils";
 import Link from "next/link";
+import * as JWT from "jwt-decode";
+import { JwtPayload as BaseJwtPayload } from "jsonwebtoken";
+import { useAppSelector } from "../../../redux/hooks";
 
 interface IProps {
   header: string;
   subheader: string;
+  overviewRoles: string;
 }
 
-function Index({ header, subheader }: IProps) {
-  const role: any = userRole;
+interface JwtPayload extends BaseJwtPayload {
+  role?: string;
+}
+
+function Index({ header, subheader, overviewRoles }: IProps) {
+  const { user } = useAppSelector((state) => state.user);
+  console.log("dashboard ", user);
+
+  let decoded: JwtPayload | null = null;
+  try {
+    if (
+      user?.access_token &&
+      typeof user.access_token === "string" &&
+      user.access_token.split(".").length === 3
+    ) {
+      decoded = JWT.jwtDecode(user.access_token);
+    }
+  } catch (error) {
+    console.error("Failed to decode token:", error);
+  }
+
+  const userRole = decoded?.resource_access?.meca?.roles[0];
+  const name = decoded?.given_name;
+
+  const role: any = overviewRoles;
   const cardProps = [
     {
       total: "number of parts ordered",
@@ -55,7 +82,7 @@ function Index({ header, subheader }: IProps) {
             id="welcomeTitle"
             className={`font-semibold text-[1.9rem] text-[#101828]`}
           >
-            Welcome Back, Sam
+            Welcome Back, {name}
           </h1>
           <p id="welcomeText" className={`text-[#364152]`}>
             Take a quick glance on what is happening with meca

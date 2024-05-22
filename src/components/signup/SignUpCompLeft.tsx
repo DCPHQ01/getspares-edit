@@ -101,12 +101,14 @@ const SignUpComponentLeft = () => {
         response = await registerVendor(userVendorDetails);
         userEmail = userVendorDetails.email;
         if ("data" in response) {
-          console.log("data response ", response?.data);
-          if (
-            response?.data?.message === "SignUp Successfully" ||
-            response?.data?.statusCode === 201
-          ) {
-            alert(VendorData.message);
+          console.log(
+            "data response ",
+            response?.data?.message,
+            " status code ",
+            response.data.statusCode
+          );
+          if (response?.data?.message === "SignUp Successfully") {
+            // alert(VendorData.message);
             router.push("/verify-email");
           } else if (
             response?.data?.message === "User Already Exists" ||
@@ -124,17 +126,12 @@ const SignUpComponentLeft = () => {
         userEmail = userAgentDetails.email;
         if ("data" in response) {
           console.log("data response ", response?.data);
-          if (
-            response?.data?.message === "SignUp Successfully" ||
-            response?.data?.statusCode === 201
-          ) {
-            alert(AgentData.message);
+          if (response?.data?.message === "SignUp Successfully") {
+            // alert(AgentData.message);
             router.push("/verify-email");
-          } else if (
-            response?.data?.message === "User Already Exists" ||
-            response?.data.error?.data?.status === 400
-          ) {
-            alert(AgentData.message);
+          } else if (response?.data?.message === "User Already Exists") {
+            // alert(AgentData.message);
+            router.push("/verify-email");
           } else {
             alert("Registration failed. Please try again.");
           }
@@ -146,10 +143,7 @@ const SignUpComponentLeft = () => {
         userEmail = userBuyerDetails.email;
         if ("data" in response) {
           console.log("data response ", response?.data);
-          if (
-            response?.data?.message === "SignUp Successfully" ||
-            response?.data?.statusCode === 201
-          ) {
+          if (response?.data?.message === "SignUp Successfully") {
             router.push("/verify-email");
           } else if (
             response?.data?.message === "User Already Exists" ||
@@ -168,7 +162,9 @@ const SignUpComponentLeft = () => {
       setIsLoading(false);
     }
   };
-
+  const routerToHomePage = () => {
+    router.push("/");
+  };
   return (
     <div className={nunito.className}>
       <div
@@ -181,6 +177,7 @@ const SignUpComponentLeft = () => {
         >
           <div>
             <span
+              onClick={routerToHomePage}
               id="e-mecaLogod"
               className="font-bold text-2xl  text-mecaActiveIconsNavColor"
             >

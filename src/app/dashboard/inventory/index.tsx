@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { roles, userRole } from "../../../app/dashboard/utils";
+import { roles } from "../../../app/dashboard/utils";
 import Link from "next/link";
 import styles from "../overview/styles.module.css";
 import image1 from "../../../assets/dashboardAssets/Avatar.png";
@@ -140,12 +140,11 @@ const data = [
 ];
 
 interface IProps {
-  header: string;
-  subheader: string;
+  inventoryRoles: string;
 }
 
-function Index({ header, subheader }: IProps) {
-  const role: any = userRole;
+function Index({ inventoryRoles }: IProps) {
+  const role: any = inventoryRoles;
   const cardProps = [
     {
       total: "number of parts ordered",
