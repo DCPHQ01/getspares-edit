@@ -44,15 +44,14 @@ const config: Config = {
         mecaRatingsBorder: "#E3E8EF",
         mecaSuccess: "#DCFAE6",
         mecaBorderSuccess: "#17B26A",
+        mecaProfileColor: "#D0D5DD",
       },
       fontFamily: {
         nunito: ["var(--font-nunito_sans)"],
       },
     },
   },
-  plugins: [
-    require('tailwind-scrollbar')
-  ],
+  plugins: [require("tailwind-scrollbar")],
 };
 
 export default config;

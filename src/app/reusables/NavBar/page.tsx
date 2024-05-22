@@ -7,6 +7,8 @@ import {
   MdMenu,
   MdOutlineShoppingCart,
   MdSearch,
+  MdOutlineAccountCircle,
+  MdLogout,
 } from "react-icons/md";
 import IconButton from "@mui/material/IconButton";
 import DropdownPage from "./dropdown/page";
@@ -104,6 +106,11 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
     return isCategoryOptionOpened;
   };
 
+  const [toggleProfile, setToggleProfile] = useState(false);
+  const profile = () => {
+    setToggleProfile(!toggleProfile);
+  };
+
   // useEffect(() => setIsCategoryOptionOpen(false), [active]);
 
   useEffect(() => setActive(1), []);
@@ -191,16 +198,52 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                 </p>
               </div>
             </Link>
-
-            <button
-              type="button"
-              className="w-[40%] h-full bg-mecaBluePrimaryColor text-white text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
-              id="startShoppingBtn"
-              onClick={handleStartShopping}
-            >
-              Start shopping
-            </button>
-            <p className="text-sm font-nunito font-medium">Need Help?</p>
+            <div className="">
+              {/* <button
+                type="button"
+                className="w-[40%] h-full bg-mecaBluePrimaryColor text-white text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
+                id="startShoppingBtn"
+                onClick={handleStartShopping}
+              >
+                Start shopping
+              </button>
+              <p className="text-sm font-nunito font-medium">Need Help?</p> */}
+              <button onClick={profile} className="flex gap-2 ">
+                <MdOutlineAccountCircle className="w-8 h-8 text-mecaProfileColor" />
+                <p className="mt-2 font-normal text-mecaDarkBlueBackgroundOverlay text-sm">
+                  Hi, Obinna
+                </p>
+                <MdExpandLess className="text-mecaGoBackArrow w-5 h-5 mt-2" />
+              </button>
+              {toggleProfile && (
+                <div
+                  className="w-52 h-24 rounded-lg p-1 bg-white absolute top-28 right-6 "
+                  style={{ boxShadow: "0px 2px 8px 0px #63636333" }}
+                >
+                  <button
+                    onClick={profile}
+                    className="flex gap-2 w-48 m-auto  h-10 p-2 pt-3 hover:bg-mecaActiveBackgroundNavColor hover:text-mecaActiveIconsNavColor"
+                  >
+                    <MdOutlineAccountCircle className="text-mecaProfileColor w-6 h-6 " />
+                    <span className="w-24 h-6 flex gap-1 font-normal text-base text-mecaDarkBlueBackgroundOverlay hover:text-mecaActiveIconsNavColor">
+                      <span>My</span>
+                      <span>Dashboard</span>
+                    </span>
+                  </button>
+                  <div className="mt-1">
+                    <button
+                      onClick={profile}
+                      className="flex gap-2 m-auto w-48 h-10 p-2 pt-3 hover:bg-mecaActiveBackgroundNavColor hover:text-mecaActiveIconsNavColor"
+                    >
+                      <MdLogout className="text-mecaProfileColor w-6 h-6 " />
+                      <span className="h-6 font-normal text-base text-mecaDarkBlueBackgroundOverlay hover:text-mecaActiveIconsNavColor">
+                        Logout
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

@@ -23,9 +23,9 @@ function Page() {
     } else if (role === roles.VENDOR_ADMIN) {
       header = "Top performing parts";
       subheader = "A quick glance on parts with highest sales on meca";
-    } else {
-      header = "";
-      subheader = "";
+    } else if (role === roles.AGENTS) {
+      header = "Top performing agents";
+      subheader = "A quick glance on agents with highest sales on meca";
     }
 
     const clicked = useAppSelector((state) => state.dashboard.sidePanelButton);
@@ -33,17 +33,17 @@ function Page() {
       case sidePanel.OVERVIEW:
         return <Overview header={header!} subheader={subheader} />;
       case sidePanel.VENDORS:
-        return <Vendors />;
+        return <Vendors header={""} subheader={""} />;
       case sidePanel.AGENTS:
-        return <Agents />;
+        return <Agents header={header!} subheader={subheader} />;
       case sidePanel.BUYERS:
         return <Buyers />;
       case sidePanel.ORDERS:
         return <Orders />;
       case sidePanel.INVENTORY:
-        return <Inventory />;
+        return <Inventory header={""} subheader={""} />;
       case sidePanel.CATEGORY:
-        return <Category />;
+        return <Category header={""} subheader={""} />;
       default:
         return null;
     }

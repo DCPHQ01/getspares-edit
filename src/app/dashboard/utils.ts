@@ -11,6 +11,7 @@ export enum sidePanel {
 export enum roles {
   MECA_ADMIN = "MECA_ADMIN",
   VENDOR_ADMIN = "VENDOR_ADMIN",
+  AGENTS = "AGENTS",
 }
 
 export const userRole = roles.MECA_ADMIN;
