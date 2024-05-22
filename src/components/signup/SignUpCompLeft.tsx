@@ -175,6 +175,7 @@ const SignUpComponentLeft = () => {
         >
           <div>
             <span
+              onClick={() => router.push("/")}
               id="e-mecaLogod"
               className="font-bold text-2xl  text-mecaActiveIconsNavColor"
             >
