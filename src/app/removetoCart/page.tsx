@@ -5,7 +5,7 @@ import Carousel from "react-multi-carousel";
 import Cards from "../../components/Homepage/Card";
 import "react-multi-carousel/lib/styles.css";
 import HomeImage1 from "../../assets/images/homeImage1.png";
-import HomeImage2 from "../../assets/images/homeImage2.png";
+import HomeImage2 from "../../assets/images/HomeImage2.png";
 
 const nunito = Nunito_Sans({
   subsets: ["latin"],
@@ -171,6 +171,8 @@ const RemoveToCartPage = () => {
     setIsOpen(!isOpen);
   };
 
+  const { cart } = useAppSelector((state) => state.product);
+  console.log("cart ", cart);
   const [OpenA, setOpenA] = useState(false);
   const handleNav = () => {
     setOpenA(!OpenA);
@@ -192,8 +194,6 @@ const RemoveToCartPage = () => {
   };
 
   const [carts, setCarts] = useState(cardCartItems);
-
-  const { cart } = useAppSelector((state) => state.product);
 
   const removeFromCart = (id: string) => {
     setCarts((prevCart) => prevCart.filter((item) => item.id !== id));
@@ -334,7 +334,7 @@ const RemoveToCartPage = () => {
 
               <div className="flex gap-x-6">
                 <div className="" style={{ width: "70%" }}>
-                  {cart.length === 0 ? (
+                  {carts.length === 0 ? (
                     <p className="text-lg font-bold text-center mt-20">
                       Your Cart is Empty!
                     </p>

@@ -6,7 +6,7 @@ interface IProps{
     percentage: number;
     onClick: ()=> void;
 }
-function Cards({total, amount, percentage, onClick}: IProps) {
+function Card({total, amount, percentage, onClick}: IProps) {
     return (
         <div id="cardsContainer" className={`border border-[#EAECF0] w-[17.5rem] min-h-[9.63rem] rounded-[0.75rem]`}>
             <div id="cardContent" className={`m-[24px]`}>
@@ -23,4 +23,4 @@ function Cards({total, amount, percentage, onClick}: IProps) {
 }
 
 
-export default Cards;
+export default Card;

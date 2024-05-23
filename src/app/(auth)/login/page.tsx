@@ -15,7 +15,6 @@ const nunito = Nunito_Sans({
   display: "swap",
 });
 
-// import TextField from "@mui/material/TextField";
 import {
   Button,
   FilledInput,
@@ -128,10 +127,17 @@ export default function Login() {
     }
   };
 
+  const routerToHomePage = () => {
+    router.push("/");
+  };
+
   return (
     <div className={nunito.className}>
       <div className="absolute top-16  lg:left-16 left-8" id="eMecaLogin">
-        <span className="font-bold lg:text-3xl text-2xl text-mecaActiveIconsNavColor">
+        <span
+          className="font-bold lg:text-3xl text-2xl text-mecaActiveIconsNavColor"
+          onClick={routerToHomePage}
+        >
           e-meca
         </span>
       </div>

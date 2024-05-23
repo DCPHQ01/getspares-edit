@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  user: {},
+  user: {
+    access_token: "",
+  },
   isAuthenticated: false,
 };
 const userSlice = createSlice({
@@ -12,7 +14,7 @@ const userSlice = createSlice({
       Object.assign(state, { isAuthenticated: true, user: action.payload });
     },
     clearUser: (state) => {
-      state.user = {};
+      state.user.access_token = "";
       state.isAuthenticated = false;
     },
   },

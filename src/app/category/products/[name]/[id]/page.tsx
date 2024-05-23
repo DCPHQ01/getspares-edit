@@ -103,7 +103,12 @@ export default function ProductDescription() {
   // console.log(searches, " searches");
 
   const handleClick = (newState: SnackbarOrigin) => () => {
-    dispatch(addToCart({ id }));
+    dispatch(
+      addToCart({
+        id,
+        totalNumber: 0,
+      })
+    );
     setState({ ...newState, open: true });
 
     setTimeout(() => {

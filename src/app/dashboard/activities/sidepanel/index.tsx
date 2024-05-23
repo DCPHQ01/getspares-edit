@@ -9,16 +9,34 @@ import {
     MdYard,
     MdLogout, MdShoppingCart
 } from "react-icons/md"
-import { useAppDispatch } from "../../../redux/hooks";
-import { dashboardActions } from "../../../redux/features/dashboard/dashboardSlice";
-import { sidePanel, roles, userRole } from "../utils/utils";
+import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
+import { dashboardActions } from "../../../../redux/features/dashboard/dashboardSlice";
+import { clearUser, setUser } from "../../../../redux/features/users/userSlice";
+import { useRouter } from "next/navigation";
+import {roles, sidePanel} from "../utils/utils";
 
-function Index() {
+function Index({ sidePanelRoles }: any) {
+  //   const { user } = useAppSelector((state) => state.user);
+  //   console.log("dashboard ", user);
+  //   const dispatch = useAppDispatch();
+  //   let decoded: JwtPayload = JWT.jwtDecode(user.access_token);
+
+  //   const userRole = decoded?.resource_access?.meca?.roles[0];
+  //   const names = decoded;
 
     const dispatch = useAppDispatch();
     const [activeButton, setActiveButton] = useState(0);
 
-    const role: any = userRole;
+  const role = sidePanelRoles;
+
+  const router = useRouter();
+
+  const logOut = () => {
+    dispatch(clearUser());
+    router.push("/");
+  };
+
+  console.log(roles, " roles");
 
     const buttons = [
         {
@@ -79,24 +97,25 @@ function Index() {
         },
     ]
 
-    const bottomButton = [
-        {
-            icon: <MdPersonPin />,
-            title: "Profile",
-            size: 18,
-            onClick: () => {
-                console.log("Profile Button Clicked");
-            },
-        },
-        {
-            icon: <MdLogout />,
-            title: "Logout",
-            size: 18,
-            onClick: () => {
-                console.log("Logout Button Clicked");
-            },
-        },
-    ]
+  const bottomButton = [
+    {
+      icon: <MdPersonPin />,
+      title: "Profile",
+      size: 18,
+      onClick: () => {
+        console.log("Profile Button Clicked");
+      },
+    },
+    {
+      icon: <MdLogout />,
+      title: "Logout",
+      size: 18,
+      onClick: () => {
+        dispatch(setUser({}));
+        router.push("/");
+      },
+    },
+  ];
 
     const handleButtonClick = (index:any, panel:any) => {
         setActiveButton(index);

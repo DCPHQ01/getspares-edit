@@ -13,9 +13,9 @@ export enum roles {
   MECA_ADMIN = "MECA_ADMIN",
   VENDOR_ADMIN = "VENDOR_ADMIN",
   BUYER = "BUYER",
+  AGENTS = "AGENTS",
 }
 
 // export const userRole = roles.MECA_ADMIN;
-// export const userRole = roles.VENDOR_ADMIN;
-export const userRole = sessionStorage.getItem("token");
 
+// export const userRole = roles.VENDOR_ADMIN;

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { sidePanel } from "../../../app/dashboard/utils/utils";
+import { sidePanel } from "../../../app/dashboard/activities/utils/utils";
 
 interface IProps {
   sidePanelButton: string;
