@@ -75,7 +75,7 @@ function Index({ header, subheader }: IProps) {
           </Link>
         </div>
       </div>
-      <div id="cardContainer" className={`mt-[1rem] flex gap-5 w-full`}>
+      <div id="cardContainer" className={`mt-[1rem] flex justify-between w-full`}>
         {cardProps.map((card, index) => (
           <div id={`card_${index}`} key={index}>
             <Cards

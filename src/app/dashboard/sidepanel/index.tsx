@@ -7,7 +7,7 @@ import {
     MdLocalPolice,
     MdPersonPin,
     MdYard,
-    MdLogout
+    MdLogout, MdShoppingCart
 } from "react-icons/md"
 import { useAppDispatch } from "../../../redux/hooks";
 import { dashboardActions } from "../../../redux/features/dashboard/dashboardSlice";
@@ -18,7 +18,7 @@ function Index() {
     const dispatch = useAppDispatch();
     const [activeButton, setActiveButton] = useState(0);
 
-    const role = userRole;
+    const role: any = userRole;
 
     const buttons = [
         {
@@ -54,6 +54,13 @@ function Index() {
             title: "Orders",
             size: 18,
             panel: sidePanel.ORDERS,
+            role: [roles.VENDOR_ADMIN],
+        },
+        {
+            icon: <MdShoppingCart />,
+            title: "Cart",
+            size: 18,
+            panel: sidePanel.CART,
             role: [roles.VENDOR_ADMIN],
         },
         {

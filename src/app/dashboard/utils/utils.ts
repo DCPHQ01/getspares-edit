@@ -6,14 +6,16 @@ export enum sidePanel {
   ORDERS = "ORDERS",
   INVENTORY = "INVENTORY",
   CATEGORY = "CATEGORY",
+  CART = "CART",
 }
 
 export enum roles {
   MECA_ADMIN = "MECA_ADMIN",
   VENDOR_ADMIN = "VENDOR_ADMIN",
+  BUYER = "BUYER",
 }
 
 // export const userRole = roles.MECA_ADMIN;
-export const userRole = roles.VENDOR_ADMIN;
-
+// export const userRole = roles.VENDOR_ADMIN;
+export const userRole = sessionStorage.getItem("token");
 

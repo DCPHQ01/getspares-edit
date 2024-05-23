@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, {useLayoutEffect} from "react";
 import SidePanel from "../../app/dashboard/sidepanel";
 import Overview from "../../app/dashboard/overview";
 import { useAppSelector } from "../../redux/hooks";
@@ -12,8 +12,12 @@ import Category from "../../app/dashboard/category";
 import Orders from "../../app/dashboard/orders";
 
 function Page() {
+
   const SidePanelButton = () => {
     const role: any = userRole;
+
+    console.log("Role =>", role);
+
     let header = "";
     let subheader = "";
 

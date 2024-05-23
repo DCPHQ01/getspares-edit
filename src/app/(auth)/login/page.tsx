@@ -89,6 +89,8 @@ export default function Login() {
   const [login, { isLoading, error }] = useLoginMutation();
 
   const router = useRouter();
+
+
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
@@ -99,9 +101,9 @@ export default function Login() {
 
       if ("data" in response && response.data) {
         dispatch(setUser(response.data));
-        // const decoded = JWT.jwtDecode(response.data.access_token);
         let decoded: JwtPayload = JWT.jwtDecode(response.data.access_token);
         console.log(decoded, "decoded");
+
         switch (decoded?.resource_access?.meca?.roles[0]) {
           case "MECA_ADMIN":
             router.push("/dashboard");
