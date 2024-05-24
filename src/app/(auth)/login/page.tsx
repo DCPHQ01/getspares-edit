@@ -226,7 +226,7 @@ export default function Login() {
             disableElevation
             onClick={handleSubmit}
           >
-            Login
+            {isLoading ? "Loading" : "Login"}
           </Button>
         </FormControl>
         <span className="flex items-center gap-1 text-meca-gray-600 text-sm mt-6">

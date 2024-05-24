@@ -10,34 +10,12 @@ import Buyers from "../../app/dashboard/buyers";
 import Inventory from "../../app/dashboard/inventory";
 import Category from "../../app/dashboard/category";
 import Orders from "../../app/dashboard/orders";
-import { JwtPayload as BaseJwtPayload } from "jsonwebtoken";
-import * as JWT from "jwt-decode";
-
-interface JwtPayload extends BaseJwtPayload {
-  role?: string;
-}
+import withAuth from "../withAuth";
+import { useUserRole } from "../hooks/useUserRole";
 
 function Page() {
-  const { user } = useAppSelector((state) => state.user);
-  console.log("dashboard ", user);
+  const userRole = useUserRole();
 
-  let decoded: JwtPayload | null = null;
-  try {
-    if (
-      user?.access_token &&
-      typeof user.access_token === "string" &&
-      user.access_token.split(".").length === 3
-    ) {
-      decoded = JWT.jwtDecode(user.access_token);
-    }
-  } catch (error) {
-    console.error("Failed to decode token:", error);
-  }
-
-  const userRole = decoded?.resource_access?.meca?.roles[0];
-  const names = decoded;
-
-  console.log(names, " names");
   const SidePanelButton = () => {
     const role: any = userRole;
     let header = "";
@@ -58,20 +36,28 @@ function Page() {
     switch (clicked) {
       case sidePanel.OVERVIEW:
         return (
-          <Overview header={header!} subheader={subheader} overviewRoles={userRole} />
+          <Overview
+            header={header!}
+            subheader={subheader}
+            overviewRoles={userRole}
+          />
         );
       case sidePanel.VENDORS:
         return <Vendors vendorRoles={userRole} />;
       case sidePanel.AGENTS:
-        return <Agents header={header!} subheader={subheader} agentRoles={userRole} />;
+        return (
+          <Agents
+            header={header!}
+            subheader={subheader}
+            agentRoles={userRole}
+          />
+        );
       case sidePanel.BUYERS:
-        return <Buyers  buyerRoles={userRole} />;
+        return <Buyers buyerRoles={userRole} />;
       case sidePanel.ORDERS:
         return <Orders />;
       case sidePanel.INVENTORY:
-        return (
-          <Inventory inventoryRoles={userRole} />
-        );
+        return <Inventory inventoryRoles={userRole} />;
       case sidePanel.CATEGORY:
         return <Category categoryRoles={userRole} />;
       default:
@@ -91,4 +77,4 @@ function Page() {
   );
 }
 
-export default Page;
+export default withAuth(Page);

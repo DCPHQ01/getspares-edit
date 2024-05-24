@@ -15,6 +15,8 @@ import DropdownPage from "./dropdown/page";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Button from "@mui/material/Button";
+import { JwtPayload as BaseJwtPayload } from "jsonwebtoken";
+import * as JWT from "jwt-decode";
 import { useAppSelector } from "../../../redux/hooks";
 
 const navData = [
@@ -81,6 +83,10 @@ interface NavBarProps {
   open: boolean;
   setOpen: (open: boolean) => void;
 }
+
+interface JwtPayload extends BaseJwtPayload {
+  role?: string;
+}
 export default function NavBar({ open, setOpen }: NavBarProps) {
   const [active, setActive] = useState(1);
   const handleClick = (id: number) => {
@@ -110,6 +116,21 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
   const profile = () => {
     setToggleProfile(!toggleProfile);
   };
+
+  let decoded: JwtPayload | null = null;
+  try {
+    if (
+      user?.access_token &&
+      typeof user.access_token === "string" &&
+      user.access_token.split(".").length === 3
+    ) {
+      decoded = JWT.jwtDecode(user.access_token);
+    }
+  } catch (error) {
+    console.error("Failed to decode token:", error);
+  }
+
+  const name = decoded?.given_name;
 
   // useEffect(() => setIsCategoryOptionOpen(false), [active]);
 
@@ -198,23 +219,40 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                 </p>
               </div>
             </Link>
-            <div className="">
-              {/* <button
-                type="button"
-                className="w-[40%] h-full bg-mecaBluePrimaryColor text-white text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
-                id="startShoppingBtn"
-                onClick={handleStartShopping}
-              >
-                Start shopping
-              </button>
-              <p className="text-sm font-nunito font-medium">Need Help?</p> */}
-              <button onClick={profile} className="flex gap-2 ">
-                <MdOutlineAccountCircle className="w-8 h-8 text-mecaProfileColor" />
-                <p className="mt-2 font-normal text-mecaDarkBlueBackgroundOverlay text-sm">
-                  Hi, Obinna
-                </p>
-                <MdExpandLess className="text-mecaGoBackArrow w-5 h-5 mt-2" />
-              </button>
+            <div className="w-full flex items-center h-full">
+              {!user?.access_token ? (
+                <div className="w-full flex items-center h-full gap-4">
+                  <button
+                    type="button"
+                    className="w-[28%] h-full border border-mecaBluePrimaryColor bg-white text-mecaBluePrimaryColor text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
+                    id="startShoppingBtnMainNavBar"
+                    onClick={handleStartShopping}
+                  >
+                    Login
+                  </button>
+                  <button
+                    type="button"
+                    className="w-[52%] h-full bg-mecaBluePrimaryColor text-white text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
+                    id="startShoppingBtn"
+                    onClick={handleStartShopping}
+                  >
+                    Create an account
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={profile}
+                  className="flex gap-2 "
+                  type="button"
+                  id="profileBtnMainNav"
+                >
+                  <MdOutlineAccountCircle className="w-8 h-8 text-mecaProfileColor" />
+                  <p className="mt-2 font-normal text-mecaDarkBlueBackgroundOverlay text-sm">
+                    Hi, {name}
+                  </p>
+                  <MdExpandLess className="text-mecaGoBackArrow w-5 h-5 mt-2" />
+                </button>
+              )}
               {toggleProfile && (
                 <div
                   className="w-52 h-24 rounded-lg p-1 bg-white absolute top-28 right-6 "

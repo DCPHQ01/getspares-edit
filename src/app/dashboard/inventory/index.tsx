@@ -10,7 +10,7 @@ import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import { MdSearch } from "react-icons/md";
 import { IoFilterSharp } from "react-icons/io5";
-import "react-tabs/style/react-tabs.css";
+// import "react-tabs/style/react-tabs.css";
 
 const data = [
   {

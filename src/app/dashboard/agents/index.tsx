@@ -3,7 +3,7 @@ import React from "react";
 import Cards from "../../../app/dashboard/overview/cards";
 import PeriodRadios from "../../../app/dashboard/overview/periodRadios";
 import Table from "../../../app/dashboard/table";
-import { roles} from "../../../app/dashboard/utils";
+import { roles } from "../../../app/dashboard/utils";
 import Link from "next/link";
 import styles from "../overview/styles.module.css";
 import image1 from "../../../assets/dashboardAssets/Avatar.png";
@@ -13,8 +13,7 @@ import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import { MdSearch } from "react-icons/md";
 import { IoFilterSharp } from "react-icons/io5";
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import "react-tabs/style/react-tabs.css";
+// import "react-tabs/style/react-tabs.css";
 
 const data = [
   {
