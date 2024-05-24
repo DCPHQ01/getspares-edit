@@ -2,6 +2,7 @@ import { jwtDecode } from "jwt-decode";
 import { useAppSelector } from "../../redux/hooks";
 import { JwtPayload as BaseJwtPayload } from "jsonwebtoken";
 import * as JWT from "jwt-decode";
+import { RootState } from "../../redux";
 
 interface JwtPayload extends BaseJwtPayload {
   role?: string;

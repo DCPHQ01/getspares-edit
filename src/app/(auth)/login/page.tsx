@@ -221,12 +221,12 @@ export default function Login() {
             id="loginBtn"
             className="bg-mecaBluePrimaryColor normal-case text-[white] text-lg font-semibold rounded-[36px] disabled:bg-mecaBgDisableColor disabled:text-[white] h-12 hover:bg-mecaBluePrimaryColor"
             variant="contained"
-            endIcon={<MdChevronRight />}
-            disabled={!isFormValid()}
+            endIcon={!isLoading ? <MdChevronRight /> : ""}
+            disabled={!isFormValid() && isLoading}
             disableElevation
             onClick={handleSubmit}
           >
-            {isLoading ? "Loading" : "Login"}
+            {isLoading ? "Loading..." : "Login"}
           </Button>
         </FormControl>
         <span className="flex items-center gap-1 text-meca-gray-600 text-sm mt-6">

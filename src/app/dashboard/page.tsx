@@ -32,7 +32,9 @@ function Page() {
       subheader = "A quick glance on agents with highest sales on meca";
     }
 
-    const clicked = useAppSelector((state) => state.dashboard.sidePanelButton);
+    const clicked = useAppSelector(
+      (state) => state?.dashboard?.sidePanelButton
+    );
     switch (clicked) {
       case sidePanel.OVERVIEW:
         return (
