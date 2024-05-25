@@ -1,9 +1,8 @@
 import React from 'react';
 
-function Index() {
+export default function Home() {
     return (
         <div></div>
     );
 }
 
-export default Index;

@@ -1,6 +1,6 @@
 import React from "react";
-import MecaAdminTable from "./mecaAdminTable";
-import VendorAdminTable from "./vendorAdminTable";
+import MecaAdminOverview from "./mecaadmin/overview";
+import VendorAdminOverview from "./vendoradmin/overview";
 import { useAppSelector } from "../../../../redux/hooks";
 import * as JWT from "jwt-decode";
 import { JwtPayload as BaseJwtPayload } from "jsonwebtoken";
@@ -34,9 +34,9 @@ function Index() {
 
   switch (role) {
     case roles.MECA_ADMIN:
-      return <MecaAdminTable />;
+      return <MecaAdminOverview />;
     case roles.VENDOR_ADMIN:
-      return <VendorAdminTable />;
+      return <VendorAdminOverview />;
     default:
       return null;
   }

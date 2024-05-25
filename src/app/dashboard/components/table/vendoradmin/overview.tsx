@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./styles.module.css";
-import image1 from "../../../../assets/dashboardAssets/Avatar2.png";
-import image2 from "../../../../assets/dashboardAssets/Avatar3.png";
+import styles from "../styles.module.css";
+import image1 from "../../../../../assets/dashboardAssets/Avatar2.png";
+import image2 from "../../../../../assets/dashboardAssets/Avatar3.png";
 import Image from "next/image";
 
 const data = [
@@ -10,7 +10,7 @@ const data = [
     name: "Caterpillar Engine IV2 ",
     email: "ebuka&sons@gmail.com",
     sale: 23,
-    vale: "₦ 2,000,000.00",
+    value: "₦ 2,000,000.00",
     date: "24 June 2022",
     time: "10:00AM",
   },
@@ -19,7 +19,7 @@ const data = [
     name: "Caterpillar Engine IV2 ",
     email: "ebuka&sons@gmail.com",
     sale: 60,
-    vale: "₦ 6,000,000.00",
+    value: "₦ 6,000,000.00",
     date: "24 June 2023",
     time: "01:00PM",
   },
@@ -28,7 +28,7 @@ const data = [
     name: "Caterpillar Engine IV2 ",
     email: "ebuka&sons@gmail.com",
     sale: 52,
-    vale: "₦ 5,100,000.00",
+    value: "₦ 5,100,000.00",
     date: "30th Oct 2023",
     time: "12:00PM",
   },
@@ -37,7 +37,7 @@ const data = [
     name: "Ebuka & Sons International",
     email: "ebuka&sons@gmail.com",
     sale: 80,
-    vale: "₦ 82,000,000.00",
+    value: "₦ 82,000,000.00",
     date: "05 July 2022",
     time: "02:00PM",
   },
@@ -46,7 +46,7 @@ const data = [
     name: "Caterpillar Engine IV2 ",
     email: "ebuka&sons@gmail.com",
     sale: 12,
-    vale: "₦ 1,200,000.00",
+    value: "₦ 1,200,000.00",
     date: "01 Nov 2022",
     time: "11:35AM",
   },
@@ -55,7 +55,7 @@ const data = [
     name: "Caterpillar Engine IV2 ",
     email: "ebuka&sons@gmail.com",
     sale: 5,
-    vale: "₦ 500,000.00",
+    value: "₦ 500,000.00",
     date: "24 June 2022",
     time: "03:45PM",
   },
@@ -64,7 +64,7 @@ const data = [
     name: "Caterpillar Engine IV2 ",
     email: "ebuka&sons@gmail.com",
     sale: 66,
-    vale: "₦ 6,600,000.00",
+    value: "₦ 6,600,000.00",
     date: "24 Feb 2024",
     time: "12:30PM",
   },
@@ -73,7 +73,7 @@ const data = [
     name: "Caterpillar Engine IV2 ",
     email: "ebuka&sons@gmail.com",
     sale: 30,
-    vale: "₦ 3,000,000.00",
+    value: "₦ 3,000,000.00",
     date: "12 Jan 2024",
     time: "05:00AM",
   },
@@ -82,7 +82,7 @@ const data = [
     name: "Ebuka & Sons International",
     email: "ebuka&sons@gmail.com",
     sale: 80,
-    vale: "₦ 82,000,000.00",
+    value: "₦ 82,000,000.00",
     date: "05 July 2022",
     time: "02:00PM",
   },
@@ -91,7 +91,7 @@ const data = [
     name: "Caterpillar Engine IV2 ",
     email: "ebuka&sons@gmail.com",
     sale: 12,
-    vale: "₦ 1,200,000.00",
+    value: "₦ 1,200,000.00",
     date: "01 Nov 2022",
     time: "11:35AM",
   },
@@ -100,7 +100,7 @@ const data = [
     name: "Caterpillar Engine IV2 ",
     email: "ebuka&sons@gmail.com",
     sale: 30,
-    vale: "₦ 3,000,000.00",
+    value: "₦ 3,000,000.00",
     date: "12 Jan 2024",
     time: "05:00AM",
   },
@@ -109,7 +109,7 @@ const data = [
     name: "Caterpillar Engine IV2 ",
     email: "ebuka&sons@gmail.com",
     sale: 66,
-    vale: "₦ 6,600,000.00",
+    value: "₦ 6,600,000.00",
     date: "24 Feb 2024",
     time: "12:30PM",
   },
@@ -118,7 +118,7 @@ const data = [
     name: "Caterpillar Engine IV2 ",
     email: "ebuka&sons@gmail.com",
     sale: 23,
-    vale: "₦ 2,000,000.00",
+    value: "₦ 2,000,000.00",
     date: "24 June 2022",
     time: "10:00AM",
   },
@@ -127,7 +127,7 @@ const data = [
     name: "Ebuka & Sons International",
     email: "ebuka&sons@gmail.com",
     sale: 52,
-    vale: "₦ 5,100,000.00",
+    value: "₦ 5,100,000.00",
     date: "30th Oct 2023",
     time: "12:00PM",
   },
@@ -136,13 +136,13 @@ const data = [
     name: "Caterpillar Engine IV2 ",
     email: "ebuka&sons@gmail.com",
     sale: 5,
-    vale: "₦ 500,000.00",
+    value: "₦ 500,000.00",
     date: "24 June 2022",
     time: "03:45PM",
   },
 ];
 
-function VendorAdminTable() {
+function Overview() {
   return (
     <div
       id="vendorAdminTable"
@@ -178,7 +178,7 @@ function VendorAdminTable() {
                 className={`text-[0.88rem] py-[1rem] px-[3.125rem]`}
                 id={`transactionValue_${index}`}
               >
-                {d.vale}
+                {d.value}
               </td>
               <td>
                 <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
@@ -196,4 +196,4 @@ function VendorAdminTable() {
   );
 }
 
-export default VendorAdminTable;
+export default Overview;

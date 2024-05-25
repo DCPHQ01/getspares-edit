@@ -1,18 +1,18 @@
 "use client";
 import React from "react";
-import Cards from "../activities/overview/cards";
-import PeriodRadios from "../overview/periodRadios";
-import Table from "../table";
-import { roles} from "../../../app/dashboard/utils";
+import PeriodRadios from "../../ui/periodradios";
+import Table from "../../table";
 import Link from "next/link";
-import styles from "../table/styles.module.css";
-import image1 from "../../../../assets/dashboardAssets/Avatar.png";
-import image2 from "../../../../assets/dashboardAssets/Avatar1.png";
+import styles from "../../table/styles.module.css";
+import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
+import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import { MdSearch } from "react-icons/md";
 import { IoFilterSharp } from "react-icons/io5";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
 
 const data = [
   {
@@ -142,12 +142,13 @@ const data = [
 ];
 
 interface IProps {
- 
-  vendorRoles: string;
+  header: string;
+  subheader: string;
+  agentRoles: string;
 }
 
-function Index({  vendorRoles }: IProps) {
-  const role: any = vendorRoles;
+function Index({ header, subheader, agentRoles }: IProps) {
+  const role: any = agentRoles;
   const cardProps = [
     {
       total: "number of parts ordered",
@@ -191,33 +192,32 @@ function Index({  vendorRoles }: IProps) {
               id="welcomeTitle"
               className={`font-semibold text-[1.9rem] text-[#101828]`}
             >
-              Vendors
+              Agents
             </h1>
             <div className="w-16 h-6 rounded-full border-2 mt-3">
               <p className="text-xs text-center mt-1 ">430,607</p>
             </div>
           </div>
           <p id="welcomeText" className={`text-[#364152]`}>
-            Keep track of vendor sales and their service ratings.
+            Keep track of agents and their service ratings.
           </p>
         </div>
-
-        <div>
-          <Link href="">
-            {/* {role === roles.VENDOR_ADMIN && ( */}
-            <button
-              id="addCompanyButton"
-              className={`bg-[#095AD3] text-white rounded-full py-[0.38rem] px-[1.5rem]`}
-            >
-              + Add Vendor
-            </button>
-            {/* )} */}
-          </Link>
-        </div>
       </div>
-      <div className="flex gap-x-6">
+      <div className="flex justify-between">
+        <div className="flex gap-x-6 mt-6">
+          <div className="">
+            <p>All(22)</p>
+          </div>
+          <div className="">
+            <p>Made sales (122)</p>
+          </div>
+          <div className="">
+            <p>Not made sales (122)</p>
+          </div>
+        </div>
+
         <div
-          className="flex mt-5 items-center gap-x-2 relative"
+          className="flex mt-4 items-center gap-x-2 relative"
           id="searchDesktop"
         >
           <MdSearch
@@ -226,17 +226,25 @@ function Index({  vendorRoles }: IProps) {
           />
           <input
             id="inputSearchDesktop"
-            placeholder="Search for vendor"
+            placeholder="Search for agents"
             className="border-2 w-[253px]  h-[44px] rounded-full px-9 outline-none"
           />
         </div>
-
-        <div className="flex gap-x-1 text-mecaBluePrimaryColor">
-          <IoFilterSharp className="mt-9" />
-          <span className="mt-8">Filter by</span>
-        </div>
       </div>
 
+      <div id="sectionHeader" className={`mt-4 flex justify-between`}>
+        <div>
+          <p id="headerTitle" className={`font-semibold text-[1.25rem]`}>
+            {header}
+          </p>
+          <p id="subheaderText" className={`text-[#364152]`}>
+            {subheader}
+          </p>
+        </div>
+        <div>
+          <PeriodRadios />
+        </div>
+      </div>
       <div id="tableContainer">
         <div
           id="mecaAdminTable"
@@ -245,11 +253,10 @@ function Index({  vendorRoles }: IProps) {
           <table id="adminTable" className={`w-full`}>
             <thead>
               <tr>
-                <th id="companyNameHeader">Company name</th>
-                <th id="totalItemsSoldHeader">Total items sold</th>
+                <th id="companyNameHeader">Full name</th>
+                <th id="totalItemsSoldHeader">Quantity sold</th>
                 <th id="transactionValueHeader">Transaction value</th>
-                <th id="transactionRatings">Ratings</th>
-                <th id="dateTimeJoinedHeader">Date & time joined</th>
+                <th id="dateTimeJoinedHeader">Date & time added</th>
               </tr>
             </thead>
             <tbody>
@@ -284,21 +291,6 @@ function Index({  vendorRoles }: IProps) {
                     id={`transactionValue_${index}`}
                   >
                     {d.value}
-                  </td>
-                  <td
-                    className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
-                    id={`transactionRatings_${index}`}
-                  >
-                    <div>
-                      <Stack spacing={1}>
-                        <Rating
-                          name="half-rating"
-                          defaultValue={2.5}
-                          precision={0.5}
-                        />
-                      </Stack>
-                      <p>2k</p>
-                    </div>
                   </td>
 
                   <td id={`dateJoined_${index}`}>

@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./styles.module.css";
-import image1 from "../../../../assets/dashboardAssets/Avatar.png";
-import image2 from "../../../../assets/dashboardAssets/Avatar1.png";
+import styles from "../styles.module.css";
+import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
+import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
 
 const data = [
@@ -10,7 +10,7 @@ const data = [
     name: "Ebuka & Sons International",
     email: "ebuka&sons@gmail.com",
     sale: 12,
-    vale: "₦ 200,000.00",
+    value: "₦ 200,000.00",
     date: "24 June 2022",
     time: "12:00PM",
   },
@@ -19,7 +19,7 @@ const data = [
     name: "Ebuka & Sons International",
     email: "ebuka&sons@gmail.com",
     sale: 83,
-    vale: "₦ 1,000,000.00",
+    value: "₦ 1,000,000.00",
     date: "30 June 2023",
     time: "06:00PM",
   },
@@ -28,7 +28,7 @@ const data = [
     name: "Ebuka & Sons International",
     email: "ebuka&sons@gmail.com",
     sale: 45,
-    vale: "₦ 600,000.00",
+    value: "₦ 600,000.00",
     date: "12 May 2024",
     time: "08:45PM",
   },
@@ -37,7 +37,7 @@ const data = [
     name: "Ebuka & Sons International",
     email: "ebuka&sons@gmail.com",
     sale: 10,
-    vale: "₦ 120,000.00",
+    value: "₦ 120,000.00",
     date: "02 Sep 2022",
     time: "11:15AM",
   },
@@ -46,12 +46,12 @@ const data = [
     name: "Ebuka & Sons International",
     email: "ebuka&sons@gmail.com",
     sale: 67,
-    vale: "₦ 700,000,00",
+    value: "₦ 700,000,00",
     date: "30 Aug 2022",
     time: "04:00PM",
   },
 ];
-function MecaAdminTable() {
+function Overview() {
   return (
     <div
       id="mecaAdminTable"
@@ -92,7 +92,7 @@ function MecaAdminTable() {
                 className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
                 id={`transactionValue_${index}`}
               >
-                {d.vale}
+                {d.value}
               </td>
               <td id={`dateJoined_${index}`}>
                 <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
@@ -110,4 +110,4 @@ function MecaAdminTable() {
   );
 }
 
-export default MecaAdminTable;
+export default Overview;

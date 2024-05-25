@@ -60,7 +60,7 @@ function BpRadio(props: RadioProps) {
     );
 }
 
-export default function PeriodRadios() {
+export default function Index() {
     const [selectedValue, setSelectedValue] = useState('last7days');
 
     const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
