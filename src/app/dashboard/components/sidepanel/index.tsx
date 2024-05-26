@@ -16,7 +16,7 @@ import { clearUser, setUser } from "../../../../redux/features/users/userSlice";
 import { useRouter } from "next/navigation";
 import {roles, sidePanel} from "../utils/utils";
 
-function Index({ sidePanelRoles }: any) {
+function Index({ sidePanelRoles }: {sidePanelRoles?: any}) {
   //   const { user } = useAppSelector((state) => state.user);
   //   console.log("dashboard ", user);
   //   const dispatch = useAppDispatch();
@@ -28,7 +28,7 @@ function Index({ sidePanelRoles }: any) {
     const dispatch = useAppDispatch();
     const [activeButton, setActiveButton] = useState(0);
 
-  const role = sidePanelRoles;
+  const role = roles.MECA_ADMIN;
 
   const router = useRouter();
 

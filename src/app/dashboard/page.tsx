@@ -2,20 +2,26 @@
 import React from 'react';
 import SearchBox from './components/ui/searchbox'
 import AddButton from './components/ui/addbutton'
-import TopHeader from "./components/ui/topheader"
+import TopHeader from "./components/ui/header"
 import SortButton from "./components/ui/sortbutton"
 import Categories from "./components/ui/categories";
+import BuyerCard from "./components/ui/buyercard";
+import CartItems from "./components/ui/cartitems";
+import Overview from "./actors/mecaadmin/Overview";
 function Page() {
   return (
       <div>
-        <p className={`pb-16`}>
-          DASHBOARD
-        </p>
+        {/*<p className={`pb-16`}>*/}
+        {/*  DASHBOARD*/}
+        {/*</p>*/}
         {/*<SearchBox/>*/}
         {/*  <AddButton title={'Add Something'}/>*/}
-          <TopHeader subtitle={`See wetin dey shele`} name={`Kunle`}/>
+        {/*  <TopHeader subtitle={`See wetin dey shele`} name={`Kunle`}/>*/}
         {/*  <SortButton/>*/}
-          <Categories/>
+        {/*  <Categories/>*/}
+        {/*  <BuyerCard/>*/}
+        {/*  <CartItems/>*/}
+          <Overview/>
       </div>
   );
 }
@@ -26,7 +32,7 @@ export default Page;
 // import SidePanel from "./activities/sidepanel";
 // import Overview from "./activities/overview";
 // import { useAppSelector } from "../../redux/hooks";
-// import Vendors from "./activities/vendors";
+// import Vendors.tsx from "./activities/vendors";
 // import Agents from "./activities/agents";
 // import Buyers from "./activities/buyers";
 // import Inventory from "./activities/inventory";
@@ -85,7 +91,7 @@ export default Page;
 //           <Overview header={header!} subheader={subheader} overviewRoles={userRole} />
 //         );
 //       case sidePanel.VENDORS:
-//         return <Vendors vendorRoles={userRole} />;
+//         return <Vendors.tsx vendorRoles={userRole} />;
 //       case sidePanel.AGENTS:
 //         return <Agents header={header!} subheader={subheader} agentRoles={userRole} />;
 //       case sidePanel.BUYERS:
