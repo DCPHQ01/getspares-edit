@@ -1,13 +1,13 @@
 "use client";
 import React from "react";
-import Cards from "../../../app/dashboard/overview/cards";
-import PeriodRadios from "../../../app/dashboard/overview/periodRadios";
-import Table from "../../../app/dashboard/table";
-import { roles } from "../../../app/dashboard/utils";
+import Cards from "../overview/cards";
+import PeriodRadios from "../overview/periodRadios";
+import Table from "../table";
+import { roles } from "../../utils";
 import Link from "next/link";
 import styles from "../overview/styles.module.css";
-import image1 from "../../../assets/dashboardAssets/Avatar.png";
-import image2 from "../../../assets/dashboardAssets/Avatar1.png";
+import image1 from "../../../../assets/dashboardAssets/Avatar.png";
+import image2 from "../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
@@ -184,7 +184,7 @@ function Index({ categoryRoles }: IProps) {
       <div id="tableContainer">
         <div
           id="mecaAdminTable"
-          className={`my-[1.25rem] w-full max-h-[25.19rem] overflow-y-auto scrollbar-none ${styles.table}`}
+          className={`my-[1.25rem] w-full max-h-[28.19rem] overflow-y-auto scrollbar-none ${styles.table}`}
         >
           <table id="adminTable" className={`w-full`}>
             <thead>

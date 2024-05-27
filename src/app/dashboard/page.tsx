@@ -1,15 +1,15 @@
 "use client";
 import React from "react";
 import SidePanel from "../../app/dashboard/sidepanel";
-import Overview from "../../app/dashboard/overview";
+import Overview from "./meca_admin-dashboardFolder/overview";
 import { useAppSelector } from "../../redux/hooks";
 import { roles, sidePanel } from "../../app/dashboard/utils";
-import Vendors from "../../app/dashboard/vendors";
-import Agents from "../../app/dashboard/agents";
-import Buyers from "../../app/dashboard/buyers";
-import Inventory from "../../app/dashboard/inventory";
-import Category from "../../app/dashboard/category";
-import Orders from "../../app/dashboard/orders";
+import Vendors from "./meca_admin-dashboardFolder/vendors";
+import Agents from "./meca_admin-dashboardFolder/agents";
+import Buyers from "./meca_admin-dashboardFolder/buyers";
+import Inventory from "./meca_admin-dashboardFolder/inventory";
+import Category from "./meca_admin-dashboardFolder/category";
+import Orders from "./vendor_admin-dashboardFolder/orders";
 import { JwtPayload as BaseJwtPayload } from "jsonwebtoken";
 import * as JWT from "jwt-decode";
 
@@ -34,7 +34,8 @@ function Page() {
     console.error("Failed to decode token:", error);
   }
 
-  const userRole = decoded?.resource_access?.meca?.roles[0];
+  // const userRole = decoded?.resource_access?.meca?.roles[0];
+  const userRole = roles.MECA_ADMIN;
   const names = decoded;
 
   console.log(names, " names");
@@ -58,20 +59,28 @@ function Page() {
     switch (clicked) {
       case sidePanel.OVERVIEW:
         return (
-          <Overview header={header!} subheader={subheader} overviewRoles={userRole} />
+          <Overview
+            header={header!}
+            subheader={subheader}
+            overviewRoles={userRole}
+          />
         );
       case sidePanel.VENDORS:
         return <Vendors vendorRoles={userRole} />;
       case sidePanel.AGENTS:
-        return <Agents header={header!} subheader={subheader} agentRoles={userRole} />;
-      case sidePanel.BUYERS:
-        return <Buyers  buyerRoles={userRole} />;
-      case sidePanel.ORDERS:
-        return <Orders />;
-      case sidePanel.INVENTORY:
         return (
-          <Inventory inventoryRoles={userRole} />
+          <Agents
+            header={header!}
+            subheader={subheader}
+            agentRoles={userRole}
+          />
         );
+      case sidePanel.BUYERS:
+        return <Buyers buyerRoles={userRole} />;
+      case sidePanel.ORDERS:
+        return <Orders buyerRoles={userRole} />;
+      case sidePanel.INVENTORY:
+        return <Inventory inventoryRoles={userRole} />;
       case sidePanel.CATEGORY:
         return <Category categoryRoles={userRole} />;
       default:

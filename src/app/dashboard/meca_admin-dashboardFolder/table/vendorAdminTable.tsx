@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../overview/styles.module.css";
-import image1 from "../../../assets/dashboardAssets/Avatar2.png";
-import image2 from "../../../assets/dashboardAssets/Avatar3.png";
+import image1 from "../../../../assets/dashboardAssets/Avatar2.png";
+import image2 from "../../../../assets/dashboardAssets/Avatar3.png";
 import Image from "next/image";
 
 const data = [

@@ -1,8 +1,8 @@
 import React from "react";
-import { roles } from "../../../app/dashboard/utils";
-import MecaAdminTable from "../../../app/dashboard/table/mecaAdminTable";
-import VendorAdminTable from "../../../app/dashboard/table/vendorAdminTable";
-import { useAppSelector } from "../../../redux/hooks";
+import { roles } from "../../utils";
+import MecaAdminTable from "./mecaAdminTable";
+import VendorAdminTable from "./vendorAdminTable";
+import { useAppSelector } from "../../../../redux/hooks";
 import * as JWT from "jwt-decode";
 
 import { JwtPayload as BaseJwtPayload } from "jsonwebtoken";

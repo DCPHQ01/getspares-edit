@@ -1,21 +1,26 @@
 "use client";
 import React from "react";
-import { roles } from "../../../app/dashboard/utils";
+import Cards from "../overview/cards";
+import PeriodRadios from "../overview/periodRadios";
+// import Table from "../table";
+import Table from "../../vendor_admin-dashboardFolder/table"
+import { roles } from "../../utils";
 import Link from "next/link";
 import styles from "../overview/styles.module.css";
-import image1 from "../../../assets/dashboardAssets/Avatar.png";
-import image2 from "../../../assets/dashboardAssets/Avatar1.png";
+import image1 from "../../../../assets/dashboardAssets/Avatar.png";
+import image2 from "../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import { MdSearch } from "react-icons/md";
 import { IoFilterSharp } from "react-icons/io5";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
 const data = [
   {
     avatar: image1,
-    name: "Ebuka & Sons International",
+    name: "Ebuka & sons international an arm of the peoples...",
     email: "Ebukainternional.com",
     sale: 12,
     vale: "₦ 200,000.00",
@@ -140,11 +145,13 @@ const data = [
 ];
 
 interface IProps {
-  inventoryRoles: string;
+  header: string;
+  subheader: string;
+  agentRoles: string;
 }
 
-function Index({ inventoryRoles }: IProps) {
-  const role: any = inventoryRoles;
+function Index({ header, subheader, agentRoles }: IProps) {
+  const role: any = agentRoles;
   const cardProps = [
     {
       total: "number of parts ordered",
@@ -179,7 +186,6 @@ function Index({ inventoryRoles }: IProps) {
       },
     },
   ];
-
   return (
     <>
       <div id="welcomeSection" className={`flex justify-between items-center`}>
@@ -189,49 +195,59 @@ function Index({ inventoryRoles }: IProps) {
               id="welcomeTitle"
               className={`font-semibold text-[1.9rem] text-[#101828]`}
             >
-              Inventory
+              Agents
             </h1>
             <div className="w-16 h-6 rounded-full border-2 mt-3">
               <p className="text-xs text-center mt-1 ">430,607</p>
             </div>
           </div>
           <p id="welcomeText" className={`text-[#364152]`}>
-            Keep track of how each item is performing.
+            Keep track of agents and their service ratings.
           </p>
         </div>
       </div>
       <div className="flex justify-between">
         <div className="flex gap-x-6 mt-6">
           <div className="">
-            <p>In stock(22)</p>
+            <p>All(22)</p>
           </div>
           <div className="">
-            <p>Out of stock(122)</p>
+            <p>Made sales (122)</p>
+          </div>
+          <div className="">
+            <p>Not made sales (122)</p>
           </div>
         </div>
-        <div className="flex gap-x-5">
-          <div className="flex gap-x-1 text-mecaBluePrimaryColor">
-            <IoFilterSharp className="mt-6" />
-            <span className="mt-5">Filter by</span>
-          </div>
 
-          <div
-            className="flex mt-2 items-center gap-x-2 relative"
-            id="searchDesktop"
-          >
-            <MdSearch
-              size={24}
-              className="absolute left-1 text-mecaGoBackArrow"
-            />
-            <input
-              id="inputSearchDesktop"
-              placeholder="Search for item"
-              className="border-2 w-[253px]  h-[44px] rounded-full px-9 outline-none"
-            />
-          </div>
-        </div>
+        {/* <div
+          className="flex mt-4 items-center gap-x-2 relative"
+          id="searchDesktop"
+        >
+          <MdSearch
+            size={24}
+            className="absolute left-1 text-mecaGoBackArrow"
+          />
+          <input
+            id="inputSearchDesktop"
+            placeholder="Search for agents"
+            className="border-2 w-[253px]  h-[44px] rounded-full px-9 outline-none"
+          />
+        </div> */}
       </div>
 
+      <div id="sectionHeader" className={`mt-4 flex justify-between`}>
+        <div>
+          <p id="headerTitle" className={`font-semibold text-[1.25rem]`}>
+            {header}
+          </p>
+          <p id="subheaderText" className={`text-[#364152]`}>
+            {subheader}
+          </p>
+        </div>
+        <div>
+          <PeriodRadios />
+        </div>
+      </div>
       <div id="tableContainer">
         <div
           id="mecaAdminTable"
@@ -240,31 +256,15 @@ function Index({ inventoryRoles }: IProps) {
           <table id="adminTable" className={`w-full`}>
             <thead>
               <tr>
-                <th id="companyNameHeader">Product name</th>
-                <th id="dateTimeJoinedHeader">Vendors</th>
+                <th id="companyNameHeader">Full name</th>
                 <th id="totalItemsSoldHeader">Quantity sold</th>
                 <th id="transactionValueHeader">Transaction value</th>
+                <th id="dateTimeJoinedHeader">Date & time added</th>
               </tr>
             </thead>
             <tbody>
               {data.map((d, index) => (
                 <tr key={index} id={`row_${index}`}>
-                  <td id={`companyData_${index}`}>
-                    <div
-                      className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
-                    >
-                      <Image
-                        src={d.avatar}
-                        className="object-contain"
-                        alt="Avatar"
-                        id={`avatar_${index}`}
-                      />
-                      <div id={`companyDetails_${index}`}>
-                        <div>{d.name}</div>
-                      </div>
-                    </div>
-                  </td>
-
                   <td id={`companyData_${index}`}>
                     <div
                       className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
@@ -283,7 +283,6 @@ function Index({ inventoryRoles }: IProps) {
                       </div>
                     </div>
                   </td>
-
                   <td
                     className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
                     id={`itemsSold_${index}`}
@@ -295,6 +294,15 @@ function Index({ inventoryRoles }: IProps) {
                     id={`transactionValue_${index}`}
                   >
                     {d.vale}
+                  </td>
+
+                  <td id={`dateJoined_${index}`}>
+                    <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
+                      <div id={`date_${index}`}>{d.date}</div>
+                      <div className={`text-[#4B5565]`} id={`time_${index}`}>
+                        {d.time}
+                      </div>
+                    </div>
                   </td>
                 </tr>
               ))}

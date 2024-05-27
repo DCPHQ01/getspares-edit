@@ -1,13 +1,13 @@
 "use client";
 import React from "react";
-import Cards from "../../../app/dashboard/overview/cards";
-import PeriodRadios from "../../../app/dashboard/overview/periodRadios";
-import Table from "../../../app/dashboard/table";
-import { roles } from "../../../app/dashboard/utils";
+import Cards from "./cards";
+import PeriodRadios from "./periodRadios";
+import Table from "../../meca_admin-dashboardFolder/table";
+import { roles } from "../../utils";
 import Link from "next/link";
 import * as JWT from "jwt-decode";
 import { JwtPayload as BaseJwtPayload } from "jsonwebtoken";
-import { useAppSelector } from "../../../redux/hooks";
+import { useAppSelector } from "../../../../redux/hooks";
 
 interface IProps {
   header: string;

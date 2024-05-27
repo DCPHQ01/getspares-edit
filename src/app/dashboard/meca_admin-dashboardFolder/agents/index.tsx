@@ -1,13 +1,13 @@
 "use client";
 import React from "react";
-import Cards from "../../../app/dashboard/overview/cards";
-import PeriodRadios from "../../../app/dashboard/overview/periodRadios";
-import Table from "../../../app/dashboard/table";
-import { roles} from "../../../app/dashboard/utils";
+import Cards from "../overview/cards";
+import PeriodRadios from "../overview/periodRadios";
+import Table from "../table";
+import { roles } from "../../utils";
 import Link from "next/link";
 import styles from "../overview/styles.module.css";
-import image1 from "../../../assets/dashboardAssets/Avatar.png";
-import image2 from "../../../assets/dashboardAssets/Avatar1.png";
+import image1 from "../../../../assets/dashboardAssets/Avatar.png"
+import image2 from "../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
@@ -205,8 +205,8 @@ function Index({ header, subheader, agentRoles }: IProps) {
           </p>
         </div>
       </div>
-      <div className="flex justify-between">
-        <div className="flex gap-x-6 mt-6">
+      <div className="">
+        {/* <div className="flex gap-x-6 mt-6">
           <div className="">
             <p>All(22)</p>
           </div>
@@ -216,7 +216,7 @@ function Index({ header, subheader, agentRoles }: IProps) {
           <div className="">
             <p>Not made sales (122)</p>
           </div>
-        </div>
+        </div> */}
 
         <div
           className="flex mt-4 items-center gap-x-2 relative"
