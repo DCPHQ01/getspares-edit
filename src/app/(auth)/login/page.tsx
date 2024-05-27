@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import Link from "next/link";
 import FormControl from "@mui/material/FormControl";
 import { Nunito_Sans } from "next/font/google";
@@ -88,6 +88,11 @@ export default function Login() {
   const [login, { isLoading, error }] = useLoginMutation();
 
   const router = useRouter();
+
+  useEffect(() => {
+    dispatch(setUser(null));
+  }, []);
+
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
@@ -99,9 +104,10 @@ export default function Login() {
       if ("data" in response && response.data) {
         dispatch(setUser(response.data));
         // const decoded = JWT.jwtDecode(response.data.access_token);
-        let decoded: JwtPayload = JWT.jwtDecode(response.data.access_token);
+        let decoded: JwtPayload = JWT.jwtDecode(response?.data?.access_token);
         console.log(decoded, "decoded");
-        switch (decoded?.resource_access?.meca?.roles[0]) {
+        console.log(decoded?.resource_access["e-meca"]?.roles[0], " roles");
+        switch (decoded?.resource_access["e-meca"]?.roles[0]) {
           case "MECA_ADMIN":
             router.push("/dashboard");
             break;

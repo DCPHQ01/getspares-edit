@@ -1,18 +1,32 @@
 "use client";
 
-import { useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { useAppSelector } from "../redux/hooks";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function withAuth(Component: any) {
   return function AuthComponent(props: any) {
     const { user } = useAppSelector((state) => state.user);
-
+    const router = useRouter();
     const token = user?.access_token;
     useLayoutEffect(() => {
       if (!token) {
-        redirect("/login");
+        router.push("/login");
       }
+    }, [token, router]);
+
+    useEffect(() => {
+      const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+        if (!token) {
+          event.preventDefault();
+        }
+      };
+
+      window.addEventListener("beforeunload", handleBeforeUnload);
+
+      return () => {
+        window.removeEventListener("beforeunload", handleBeforeUnload);
+      };
     }, [token]);
     if (!token) {
       return null;

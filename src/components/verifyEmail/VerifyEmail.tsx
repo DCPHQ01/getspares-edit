@@ -63,7 +63,7 @@ export default function VerifyEmail({
       response = await verifyEmail(data);
       if ("data" in response) {
         console.log(response.data.message, " verify");
-        if (response?.data?.statusCode === 201) {
+        if (response?.data?.message === "User verified successfully") {
           setHaveVerifiedEmail(true);
         } else if (response?.data?.statusCode === 400) {
           setHaveVerifiedEmail(false);
@@ -86,9 +86,6 @@ export default function VerifyEmail({
   console.log("email error ", emailError);
   return (
     <>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <span>{emailError}</span>
-      </Snackbar>
       <div
         className="border border-mecaBorderColor p-4 rounded-xl"
         id="keyIconDiv"

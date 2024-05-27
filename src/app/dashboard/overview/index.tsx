@@ -36,7 +36,8 @@ function Index({ header, subheader, overviewRoles }: IProps) {
     console.error("Failed to decode token:", error);
   }
 
-  const userRole = decoded?.resource_access?.meca?.roles[0];
+  const userRole = decoded?.resource_access["e-meca"]?.roles[0];
+  console.log("name ", decoded);
   const name = decoded?.given_name;
 
   const role: any = overviewRoles;

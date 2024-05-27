@@ -102,6 +102,9 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
   const handleStartShopping = () => {
     router.push("/signup");
   };
+  const handleLogin = () => {
+    router.push("/login");
+  };
   const [isCategoryOptionOpened, setIsCategoryOptionOpen] = useState(false);
 
   const toggle = (id: number) => {
@@ -226,7 +229,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                     type="button"
                     className="w-[28%] h-full border border-mecaBluePrimaryColor bg-white text-mecaBluePrimaryColor text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
                     id="startShoppingBtnMainNavBar"
-                    onClick={handleStartShopping}
+                    onClick={handleLogin}
                   >
                     Login
                   </button>
