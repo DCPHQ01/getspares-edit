@@ -26,13 +26,13 @@ const Index: React.FC<IProps> = ({ title, subtitle, amount, name }) => {
                     )}
                 </h1>
                 {amount && (
-                    <p className="border inline-block border-[#9AA4B2] text-center text-[#9AA4B2] rounded-full px-3">
+                    <p className="border inline-block border-[#9AA4B2] text-center text-[#9AA4B2] rounded-full px-3 ml-2">
                         {amount}
                     </p>
                 )}
             </div>
 
-            <p id="topHeaderSubtitle" className="text-[#364152]">
+            <p id="topHeaderSubtitle" className={`text-[#4B5565]`}>
                 {subtitle}
             </p>
         </div>

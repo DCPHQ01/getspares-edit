@@ -1,29 +1,28 @@
-
+"use client"
 import React from 'react';
-import SearchBox from './components/ui/searchbox'
-import AddButton from './components/ui/addbutton'
-import TopHeader from "./components/ui/header"
-import SortButton from "./components/ui/sortbutton"
-import Categories from "./components/ui/categories";
-import BuyerCard from "./components/ui/buyercard";
-import CartItems from "./components/ui/cartitems";
-import Overview from "./actors/mecaadmin/Overview";
+import { useRouter } from 'next/navigation'
+
+
+import {sidePanel, roles, userRole} from "./components/utils/utils";
+
 function Page() {
-  return (
-      <div>
-        {/*<p className={`pb-16`}>*/}
-        {/*  DASHBOARD*/}
-        {/*</p>*/}
-        {/*<SearchBox/>*/}
-        {/*  <AddButton title={'Add Something'}/>*/}
-        {/*  <TopHeader subtitle={`See wetin dey shele`} name={`Kunle`}/>*/}
-        {/*  <SortButton/>*/}
-        {/*  <Categories/>*/}
-        {/*  <BuyerCard/>*/}
-        {/*  <CartItems/>*/}
-          <Overview/>
-      </div>
-  );
+    const role:any = userRole;
+    const router = useRouter()
+    switch (role) {
+        case roles.MECA_ADMIN:
+            router.push("/admin")
+            break;
+        // case sidePanel.VENDORS:
+        //     return <Vendors/>;
+        default:
+            return null;
+    }
+  // return (
+  //     <div>
+  //
+  //         <MecaAdmin/>
+  //     </div>
+  // );
 }
 
 export default Page;
