@@ -5,16 +5,16 @@ import {
   MdDashboard,
   MdInventory2,
   MdLocalPolice,
-  MdPersonPin,
-  MdYard,
   MdLogout,
+  MdPersonPin,
   MdShoppingCart,
+  MdYard,
 } from "react-icons/md";
-import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
+import { useAppDispatch } from "../../../../redux/hooks";
 import { dashboardActions } from "../../../../redux/features/dashboard/dashboardSlice";
 import { clearUser, setUser } from "../../../../redux/features/users/userSlice";
 import { useRouter } from "next/navigation";
-import { roles, sidePanel } from "../utils/utils";
+import { roles, sidePanel, userRole } from "../utils/utils";
 
 function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
   //   const { user } = useAppSelector((state) => state.user);
@@ -28,7 +28,7 @@ function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
   const dispatch = useAppDispatch();
   const [activeButton, setActiveButton] = useState(0);
 
-  const role = roles.MECA_ADMIN;
+  const role = userRole;
 
   const router = useRouter();
 
@@ -37,7 +37,7 @@ function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
     router.push("/");
   };
 
-  console.log(roles, " roles");
+  // console.log(roles, " roles");
 
   const buttons = [
     {
@@ -80,7 +80,7 @@ function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
       title: "Cart",
       size: 18,
       panel: sidePanel.CART,
-      role: [roles.VENDOR_ADMIN],
+      role: [roles.BUYER],
     },
     {
       icon: <MdInventory2 />,
@@ -103,8 +103,9 @@ function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
       icon: <MdPersonPin />,
       title: "Profile",
       size: 18,
-      panel: sidePanel.PROFILE,
-      role: [roles.MECA_ADMIN],
+      onClick: () => {
+        handleButtonClick(sidePanel.PROFILE);
+      },
     },
     {
       icon: <MdLogout />,
@@ -117,7 +118,7 @@ function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
     },
   ];
 
-  const handleButtonClick = (index: any, panel: any) => {
+  const handleButtonClick = (panel: any, index?: any) => {
     setActiveButton(index);
     dispatch(dashboardActions.setNavButton(panel));
   };
@@ -146,7 +147,7 @@ function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
               className={`flex items-center text-[#364152] rounded-full hover:bg-[#EFF4FF] hover:text-[#0852C0] w-full py-[0.5rem] px-[0.75rem] gap-4 mb-[1rem] ${
                 activeButton === index ? "bg-[#EFF4FF] text-[#0852C0]" : ""
               }`}
-              onClick={() => handleButtonClick(index, btn.panel)}
+              onClick={() => handleButtonClick(btn.panel, index)}
             >
               <span>{React.cloneElement(btn.icon, { size: btn.size })}</span>
               <span>{btn.title}</span>
@@ -157,17 +158,6 @@ function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
           id="bottomButtonContainer"
           className={`absolute bottom-0 mx-[2rem]`}
         >
-          {bottomButton.map((btn, index) => (
-            <button
-              key={index}
-              id={`bottomButton_${index}`}
-              className={`flex items-center text-[#364152] rounded-full hover:bg-[#EFF4FF] hover:text-[#0852C0] w-[13rem] py-[0.5rem] px-[0.75rem] gap-4 mb-[1rem]`}
-              onClick={btn.onClick}
-            >
-              <span>{React.cloneElement(btn.icon, { size: btn.size })}</span>
-              <span>{btn.title}</span>
-            </button>
-          ))}
           {bottomButton.map((btn, index) => (
             <button
               key={index}

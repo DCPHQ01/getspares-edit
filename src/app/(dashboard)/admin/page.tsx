@@ -9,26 +9,29 @@ import Inventory from "./Inventory";
 import Category from "./Category";
 import {useAppSelector} from "../../../redux";
 import {sidePanel} from "../../dashboard/components/utils/utils";
+import Profile from './Profile';
 
 function Page() {
 
     const SidePanelButton = () => {
         const clicked = useAppSelector((state) => state.dashboard.sidePanelButton);
         switch (clicked) {
-            case sidePanel.OVERVIEW:
-                return <Overview/>;
-            case sidePanel.VENDORS:
-                return <Vendors/>;
-            case sidePanel.AGENTS:
-                return <Agents/>;
-            case sidePanel.BUYERS:
-                return <Buyers/>;
-            case sidePanel.INVENTORY:
-                return <Inventory/>
-            case sidePanel.CATEGORY:
-                return <Category />;
-            default:
-                return null;
+          case sidePanel.OVERVIEW:
+            return <Overview />;
+          case sidePanel.VENDORS:
+            return <Vendors />;
+          case sidePanel.AGENTS:
+            return <Agents />;
+          case sidePanel.BUYERS:
+            return <Buyers />;
+          case sidePanel.INVENTORY:
+            return <Inventory />;
+          case sidePanel.CATEGORY:
+            return <Category />;
+          case sidePanel.PROFILE:
+            return <Profile />;
+          default:
+            return null;
         }
     };
 

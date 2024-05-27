@@ -7,7 +7,7 @@ export enum sidePanel {
   INVENTORY = "INVENTORY",
   CATEGORY = "CATEGORY",
   CART = "CART",
-  PROFILE = "PROFILE"
+  PROFILE = "PROFILE",
 }
 
 export enum roles {
