@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 
 
 import {sidePanel, roles, userRole} from "./components/utils/utils";
+import Vendors from "./actors/vendoradmin";
 
 function Page() {
     const role:any = userRole;
@@ -12,7 +13,9 @@ function Page() {
         case roles.MECA_ADMIN:
             router.push("/admin")
             break;
-        // case sidePanel.VENDORS:
+        case roles.VENDOR_ADMIN:
+            return <Vendors/>;
+        // case roles.VENDOR_ADMIN:
         //     return <Vendors/>;
         default:
             return null;

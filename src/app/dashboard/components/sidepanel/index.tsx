@@ -1,96 +1,96 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
     MdBusinessCenter,
     MdCategory,
     MdDashboard,
     MdInventory2,
     MdLocalPolice,
-    MdPersonPin,
-    MdYard,
     MdLogout,
-    MdShoppingCart
+    MdPersonPin,
+    MdShoppingCart,
+    MdYard
 } from "react-icons/md"
-import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
-import { dashboardActions } from "../../../../redux/features/dashboard/dashboardSlice";
-import { clearUser, setUser } from "../../../../redux/features/users/userSlice";
-import { useRouter } from "next/navigation";
-import {roles, sidePanel} from "../utils/utils";
+import {useAppDispatch} from "../../../../redux/hooks";
+import {dashboardActions} from "../../../../redux/features/dashboard/dashboardSlice";
+import {clearUser, setUser} from "../../../../redux/features/users/userSlice";
+import {useRouter} from "next/navigation";
+import {roles, sidePanel, userRole} from "../utils/utils";
 
-function Index({ sidePanelRoles }: {sidePanelRoles?: any}) {
-  //   const { user } = useAppSelector((state) => state.user);
-  //   console.log("dashboard ", user);
-  //   const dispatch = useAppDispatch();
-  //   let decoded: JwtPayload = JWT.jwtDecode(user.access_token);
+function Index({sidePanelRoles}: { sidePanelRoles?: any }) {
+    //   const { user } = useAppSelector((state) => state.user);
+    //   console.log("dashboard ", user);
+    //   const dispatch = useAppDispatch();
+    //   let decoded: JwtPayload = JWT.jwtDecode(user.access_token);
 
-  //   const userRole = decoded?.resource_access?.meca?.roles[0];
-  //   const names = decoded;
+    //   const userRole = decoded?.resource_access?.meca?.roles[0];
+    //   const names = decoded;
 
     const dispatch = useAppDispatch();
     const [activeButton, setActiveButton] = useState(0);
 
-  const role = roles.MECA_ADMIN;
+    const role = userRole;
 
-  const router = useRouter();
+    const router = useRouter();
 
-  const logOut = () => {
-    dispatch(clearUser());
-    router.push("/");
-  };
+    const logOut = () => {
+        dispatch(clearUser());
+        router.push("/");
+    };
 
-  console.log(roles, " roles");
+    // console.log(roles, " roles");
 
     const buttons = [
         {
-            icon: <MdDashboard />,
+            icon: <MdDashboard/>,
             title: "Overview",
             size: 18,
             panel: sidePanel.OVERVIEW,
             role: [roles.MECA_ADMIN, roles.VENDOR_ADMIN],
         },
         {
-            icon: <MdYard />,
+            icon: <MdYard/>,
             title: "Vendors",
             size: 18,
             panel: sidePanel.VENDORS,
             role: [roles.MECA_ADMIN],
         },
         {
-            icon: <MdLocalPolice />,
+            icon: <MdLocalPolice/>,
             title: "Agents",
             size: 18,
             panel: sidePanel.AGENTS,
             role: [roles.MECA_ADMIN, roles.VENDOR_ADMIN],
         },
         {
-            icon: <MdBusinessCenter />,
+            icon: <MdBusinessCenter/>,
             title: "Buyers",
             size: 18,
             panel: sidePanel.BUYERS,
             role: [roles.MECA_ADMIN],
         },
         {
-            icon: <MdBusinessCenter />,
+            icon: <MdBusinessCenter/>,
             title: "Orders",
             size: 18,
             panel: sidePanel.ORDERS,
             role: [roles.VENDOR_ADMIN],
         },
         {
-            icon: <MdShoppingCart />,
+            icon: <MdShoppingCart/>,
             title: "Cart",
             size: 18,
             panel: sidePanel.CART,
-            role: [roles.VENDOR_ADMIN],
+            role: [roles.BUYER],
         },
         {
-            icon: <MdInventory2 />,
+            icon: <MdInventory2/>,
             title: "Inventory",
             size: 18,
             panel: sidePanel.INVENTORY,
             role: [roles.MECA_ADMIN, roles.VENDOR_ADMIN],
         },
         {
-            icon: <MdCategory />,
+            icon: <MdCategory/>,
             title: "Category",
             size: 18,
             panel: sidePanel.CATEGORY,
@@ -98,27 +98,27 @@ function Index({ sidePanelRoles }: {sidePanelRoles?: any}) {
         },
     ]
 
-  const bottomButton = [
-    {
-      icon: <MdPersonPin />,
-      title: "Profile",
-      size: 18,
-      onClick: () => {
-        console.log("Profile Button Clicked");
-      },
-    },
-    {
-      icon: <MdLogout />,
-      title: "Logout",
-      size: 18,
-      onClick: () => {
-        dispatch(setUser({}));
-        router.push("/");
-      },
-    },
-  ];
+    const bottomButton = [
+        {
+            icon: <MdPersonPin/>,
+            title: "Profile",
+            size: 18,
+            onClick: () => {
+                handleButtonClick(sidePanel.PROFILE)
+            },
+        },
+        {
+            icon: <MdLogout/>,
+            title: "Logout",
+            size: 18,
+            onClick: () => {
+                dispatch(setUser({}));
+                router.push("/");
+            },
+        },
+    ];
 
-    const handleButtonClick = (index:any, panel:any) => {
+    const handleButtonClick = (panel: any, index?: any, ) => {
         setActiveButton(index);
         dispatch(dashboardActions.setNavButton(panel));
     };
@@ -135,9 +135,9 @@ function Index({ sidePanelRoles }: {sidePanelRoles?: any}) {
                             key={index}
                             id={`button_${index}`}
                             className={`flex items-center text-[#364152] rounded-full hover:bg-[#EFF4FF] hover:text-[#0852C0] w-full py-[0.5rem] px-[0.75rem] gap-4 mb-[1rem] ${activeButton === index ? 'bg-[#EFF4FF] text-[#0852C0]' : ''}`}
-                            onClick={() => handleButtonClick(index, btn.panel)}
+                            onClick={() => handleButtonClick(btn.panel, index)}
                         >
-                            <span>{React.cloneElement(btn.icon, { size: btn.size })}</span>
+                            <span>{React.cloneElement(btn.icon, {size: btn.size})}</span>
                             <span>{btn.title}</span>
                         </button>
                     ))}
@@ -148,7 +148,7 @@ function Index({ sidePanelRoles }: {sidePanelRoles?: any}) {
                                 id={`bottomButton_${index}`}
                                 className={`flex items-center text-[#364152] rounded-full hover:bg-[#EFF4FF] hover:text-[#0852C0] w-[13rem] py-[0.5rem] px-[0.75rem] gap-4 mb-[1rem]`}
                                 onClick={btn.onClick}>
-                            <span>{React.cloneElement(btn.icon, { size: btn.size })}</span>
+                            <span>{React.cloneElement(btn.icon, {size: btn.size})}</span>
                             <span>{btn.title}</span>
                         </button>
                     ))}
