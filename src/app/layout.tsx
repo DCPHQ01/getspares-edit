@@ -3,9 +3,9 @@ import { Nunito_Sans } from "next/font/google";
 import "./globals.css";
 import "../styles/addCompanyPageStyle/addCompanyDetails.css";
 import "../styles/addCompanyPageStyle/addCompanyModal.css";
-import "../styles/removetocart/removetoCart.css"
+import "../styles/removetocart/removetoCart.css";
 import "../styles/categorybg/category.css";
-import "../app/dashboard/meca_admin-dashboardFolder/overview/styles.module.css"
+// import "./overview/styles.module.css";
 import { Providers } from "./provider";
 
 const nunito = Nunito_Sans({
