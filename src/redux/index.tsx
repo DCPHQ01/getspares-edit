@@ -6,17 +6,22 @@ import companySlice from "./features/company/companySlice";
 import { baseQuery } from "./baseQuery";
 import dashboardSlice from "../redux/features/dashboard/dashboardSlice";
 import productSlice from "./features/product/productSlice";
+import { productsQuery } from "./productsQuery";
 
 export const store = configureStore({
   reducer: {
     [baseQuery.reducerPath]: baseQuery.reducer,
+    [productsQuery.reducerPath]: productsQuery.reducer,
     user: userSlice,
     company: companySlice,
     product: productSlice,
     dashboard: dashboardSlice,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat([baseQuery.middleware]),
+    getDefaultMiddleware().concat([
+      baseQuery.middleware,
+      productsQuery.middleware,
+    ]),
 });
 
 setupListeners(store.dispatch);

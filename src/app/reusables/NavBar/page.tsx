@@ -17,7 +17,8 @@ import Link from "next/link";
 import Button from "@mui/material/Button";
 import { JwtPayload as BaseJwtPayload } from "jsonwebtoken";
 import * as JWT from "jwt-decode";
-import { useAppSelector } from "../../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { clearUser } from "../../../redux/features/users/userSlice";
 
 const navData = [
   {
@@ -99,6 +100,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
   console.log(" product", cart);
 
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const handleStartShopping = () => {
     router.push("/signup");
   };
@@ -114,7 +116,9 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
     }
     return isCategoryOptionOpened;
   };
-
+  const handleDashboard = () => {
+    router.push("/dashboard");
+  };
   const [toggleProfile, setToggleProfile] = useState(false);
   const profile = () => {
     setToggleProfile(!toggleProfile);
@@ -134,6 +138,11 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
   }
 
   const name = decoded?.given_name;
+
+  const logOut = () => {
+    dispatch(clearUser());
+    router.push("/");
+  };
 
   // useEffect(() => setIsCategoryOptionOpen(false), [active]);
 
@@ -266,7 +275,10 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                     className="flex gap-2 w-48 m-auto  h-10 p-2 pt-3 hover:bg-mecaActiveBackgroundNavColor hover:text-mecaActiveIconsNavColor"
                   >
                     <MdOutlineAccountCircle className="text-mecaProfileColor w-6 h-6 " />
-                    <span className="w-24 h-6 flex gap-1 font-normal text-base text-mecaDarkBlueBackgroundOverlay hover:text-mecaActiveIconsNavColor">
+                    <span
+                      className="w-24 h-6 flex gap-1 font-normal text-base text-mecaDarkBlueBackgroundOverlay hover:text-mecaActiveIconsNavColor"
+                      onClick={handleDashboard}
+                    >
                       <span>My</span>
                       <span>Dashboard</span>
                     </span>
@@ -277,7 +289,10 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                       className="flex gap-2 m-auto w-48 h-10 p-2 pt-3 hover:bg-mecaActiveBackgroundNavColor hover:text-mecaActiveIconsNavColor"
                     >
                       <MdLogout className="text-mecaProfileColor w-6 h-6 " />
-                      <span className="h-6 font-normal text-base text-mecaDarkBlueBackgroundOverlay hover:text-mecaActiveIconsNavColor">
+                      <span
+                        className="h-6 font-normal text-base text-mecaDarkBlueBackgroundOverlay hover:text-mecaActiveIconsNavColor"
+                        onClick={logOut}
+                      >
                         Logout
                       </span>
                     </button>

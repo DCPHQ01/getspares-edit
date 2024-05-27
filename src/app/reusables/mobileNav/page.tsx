@@ -62,9 +62,7 @@ interface MobileNavProps {
 }
 export default function MobileNav({ handleNav }: MobileNavProps) {
   const router = useRouter();
-
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };

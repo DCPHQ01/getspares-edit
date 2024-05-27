@@ -31,11 +31,6 @@ function Index({ sidePanelRoles }: any) {
 
   const router = useRouter();
 
-  const logOut = () => {
-    dispatch(clearUser());
-    router.push("/");
-  };
-
   console.log(roles, " roles");
 
   const buttons = [
@@ -119,6 +114,11 @@ function Index({ sidePanelRoles }: any) {
     button.role.includes(role)
   );
 
+  const handleBackToHome = () => {
+    if (role === "BUYER") {
+      router.push("/");
+    }
+  };
   return (
     <div id="sidePanelContainer" className={`z-[1000]`}>
       <div
@@ -128,14 +128,16 @@ function Index({ sidePanelRoles }: any) {
         <h1
           id="sidePanelTitle"
           className={`text-[#0852C0] mx-[2.19rem] text-[1.9rem] font-[700]`}
+          onClick={handleBackToHome}
         >
           e-meca
         </h1>
         <div id="buttonContainer" className={`mx-[2rem] mt-[3.25rem]`}>
           {filteredButtons.map((btn, index) => (
             <button
+              type="button"
               key={index}
-              id={`button_${index}`}
+              id={`button${index}`}
               className={`flex items-center text-[#364152] rounded-full hover:bg-[#EFF4FF] hover:text-[#0852C0] w-full py-[0.5rem] px-[0.75rem] gap-4 mb-[1rem] ${
                 activeButton === index ? "bg-[#EFF4FF] text-[#0852C0]" : ""
               }`}
