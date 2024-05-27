@@ -2,6 +2,7 @@ import { Fragment, useEffect, useState } from "react";
 import { MdOutlineArrowBack, MdOutlineMail } from "react-icons/md";
 import Link from "next/link";
 import { useVerifyEmailMutation } from "../../redux/baseQuery";
+import { Snackbar } from "@mui/material";
 
 interface VerifyEmailProps {
   setHaveVerifiedEmail: React.Dispatch<React.SetStateAction<boolean>>;
@@ -12,8 +13,10 @@ export default function VerifyEmail({
 }: VerifyEmailProps) {
   const [otp, setOtp] = useState(new Array(6).fill(""));
   const [isDisabled, setIsDisabled] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const [userEmail, setUserEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
 
   useEffect(() => {
     const storedEmail = sessionStorage.getItem("userEmail");
@@ -21,7 +24,7 @@ export default function VerifyEmail({
       setUserEmail(storedEmail);
     }
   }, []);
-  console.log(userEmail);
+  // console.log(userEmail);
 
   const handleChangeOtp = (element: HTMLInputElement, index: number): void => {
     if (isNaN(Number(element.value))) return;
@@ -57,22 +60,30 @@ export default function VerifyEmail({
     console.log(data, "data");
 
     try {
-      const response = await verifyEmail(data);
-      // if ("data" in response) {
-      //   console.log(response.data.message, " verify email response");
-      //   if (response?.data?.statusCode === 201) {
-      //     setHaveVerifiedEmail(true);
-      //   }
-      //   // else {
-      //   //   setHaveVerifiedEmail(false);
-      //   // }
-      setHaveVerifiedEmail(true);
-      // }
-    } catch (error) {
-      console.log(error);
+      response = await verifyEmail(data);
+      if ("data" in response) {
+        console.log(response.data.message, " verify");
+        if (response?.data?.message === "User verified successfully") {
+          setHaveVerifiedEmail(true);
+        } else if (response?.data?.statusCode === 400) {
+          setHaveVerifiedEmail(false);
+          setEmailError(response?.data?.message);
+          setOpen(true);
+        }
+      }
+    } catch (error: any) {
+      console.log(error.message);
+      setOpen(true);
+      setOtp(Array(6).fill(""));
     }
+    setOtp(Array(6).fill(""));
   };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  console.log("email error ", emailError);
   return (
     <>
       <div

@@ -7,6 +7,7 @@ import Overview from "./Overview";
 import Agents from "./Agents";
 import Orders from "./Orders";
 import Inventory from "./Inventory";
+import Profile from './Profile';
 
 
 function Index() {
@@ -14,16 +15,18 @@ function Index() {
     const SidePanelButton = () => {
         const clicked = useAppSelector((state) => state.dashboard.sidePanelButton);
         switch (clicked) {
-            case sidePanel.OVERVIEW:
-                return <Overview/>;
-            case sidePanel.AGENTS:
-                return <Agents/>;
-            case sidePanel.ORDERS:
-                return <Orders/>;
-            case sidePanel.INVENTORY:
-                return <Inventory/>
-            default:
-                return null;
+          case sidePanel.OVERVIEW:
+            return <Overview />;
+          case sidePanel.AGENTS:
+            return <Agents />;
+          case sidePanel.ORDERS:
+            return <Orders />;
+          case sidePanel.INVENTORY:
+            return <Inventory />;
+          case sidePanel.PROFILE:
+            return <Profile />;
+          default:
+            return null;
         }
     };
 
@@ -37,7 +40,6 @@ function Index() {
                     <SidePanelButton/>
                 </div>
             </div>
-            );
         </>
     );
 }

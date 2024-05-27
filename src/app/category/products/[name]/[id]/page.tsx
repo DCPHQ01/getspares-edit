@@ -106,7 +106,6 @@ export default function ProductDescription() {
     dispatch(
       addToCart({
         id,
-        totalNumber: 0,
       })
     );
     setState({ ...newState, open: true });

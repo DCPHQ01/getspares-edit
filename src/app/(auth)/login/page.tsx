@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import Link from "next/link";
 import FormControl from "@mui/material/FormControl";
 import { Nunito_Sans } from "next/font/google";
@@ -89,6 +89,9 @@ export default function Login() {
 
   const router = useRouter();
 
+  useEffect(() => {
+    dispatch(setUser(null));
+  }, []);
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -100,10 +103,11 @@ export default function Login() {
 
       if ("data" in response && response.data) {
         dispatch(setUser(response.data));
-        let decoded: JwtPayload = JWT.jwtDecode(response.data.access_token);
+        // const decoded = JWT.jwtDecode(response.data.access_token);
+        let decoded: JwtPayload = JWT.jwtDecode(response?.data?.access_token);
         console.log(decoded, "decoded");
-
-        switch (decoded?.resource_access?.meca?.roles[0]) {
+        console.log(decoded?.resource_access["e-meca"]?.roles[0], " roles");
+        switch (decoded?.resource_access["e-meca"]?.roles[0]) {
           case "MECA_ADMIN":
             router.push("/dashboard");
             break;
@@ -223,12 +227,12 @@ export default function Login() {
             id="loginBtn"
             className="bg-mecaBluePrimaryColor normal-case text-[white] text-lg font-semibold rounded-[36px] disabled:bg-mecaBgDisableColor disabled:text-[white] h-12 hover:bg-mecaBluePrimaryColor"
             variant="contained"
-            endIcon={<MdChevronRight />}
-            disabled={!isFormValid()}
+            endIcon={!isLoading ? <MdChevronRight /> : ""}
+            disabled={!isFormValid() && isLoading}
             disableElevation
             onClick={handleSubmit}
           >
-            Login
+            {isLoading ? "Loading..." : "Login"}
           </Button>
         </FormControl>
         <span className="flex items-center gap-1 text-meca-gray-600 text-sm mt-6">
