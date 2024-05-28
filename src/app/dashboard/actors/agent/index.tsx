@@ -6,6 +6,7 @@ import {sidePanel} from "../../components/utils/utils";
 import Overview from "./Overview";
 import Vendors from "./Vendors";
 import Orders from "./Orders";
+import Profile from './Profile';
 
 
 function Index() {
@@ -13,14 +14,16 @@ function Index() {
     const SidePanelButton = () => {
         const clicked = useAppSelector((state) => state.dashboard.sidePanelButton);
         switch (clicked) {
-            case sidePanel.OVERVIEW:
-                return <Overview/>;
-            case sidePanel.VENDORS:
-                return <Vendors/>;
-            case sidePanel.ORDERS:
-                return <Orders/>;
-            default:
-                return null;
+          case sidePanel.OVERVIEW:
+            return <Overview />;
+          case sidePanel.VENDORS:
+            return <Vendors />;
+          case sidePanel.ORDERS:
+            return <Orders />;
+          case sidePanel.PROFILE:
+            return <Profile />;
+          default:
+            return null;
         }
     };
 

@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 // import Cards from "../../../../../app/dashboard/overview/cards";
-import Cards from "../../../app/dashboard/components/ui/cards"
+import Cards from "../../../app/dashboard/components/ui/cards";
 import PeriodRadios from "../../../app/dashboard/components/ui/periodradios";
 import Table from "../../../app/dashboard/components/table";
 
@@ -99,7 +99,7 @@ function Index({ header, subheader, overviewRoles }: IProps) {
                 id="addCompanyButton"
                 className={`bg-[#095AD3] text-white rounded-full py-[0.38rem] px-[1.5rem]`}
               >
-                Add Company
+                Update Company
               </button>
             )}
           </Link>

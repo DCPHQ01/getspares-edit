@@ -9,6 +9,7 @@ function Orders() {
             <Searchbox/>
 
             <VendorOrderTable />
+            
         </div>
     );
 }

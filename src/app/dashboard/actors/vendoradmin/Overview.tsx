@@ -17,7 +17,7 @@ function Overview() {
             name={`Ayodeji`}
           />
           <Link href="/modalPage">
-            <Addbutton title={`Add company`} />
+            <Addbutton title={`Update Company`} />
           </Link>
         </div>
         <Cards />
