@@ -9,7 +9,7 @@ function Index({ tabs }: { tabs: { label: string, count: string }[] }) {
                 {tabs.map((tab) => (
                     <button
                         key={tab.label}
-                        className={`focus:outline-none ${activeTab === tab.label ? 'border-b-2 border-blue-500 text-blue-500' : ''}`}
+                        className={`mx-[0.5rem] focus:outline-none ${activeTab === tab.label ? 'border-b-2 border-blue-500 text-blue-500' : ''}`}
                         onClick={() => setActiveTab(tab.label)}
                     >
                         {tab.label}({tab.count})

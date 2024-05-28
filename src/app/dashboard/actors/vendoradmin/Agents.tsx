@@ -4,6 +4,7 @@ import Tabs from "../../components/ui/tabs";
 import SortButton from "../../components/ui/sortbutton";
 import SearchBox from "../../components/ui/searchbox";
 import PeriodRadios from "../../components/ui/periodradios";
+import VendorAgentTable from '../../components/table/vendoradmin/vendorAgentTable';
 
 function Agents() {
     const tabs = [
@@ -25,6 +26,8 @@ function Agents() {
                 <Header subtitle={`A quick glance on agents performance`} title={`Top performing agents`}/>
                 <PeriodRadios/>
             </div>
+
+            <VendorAgentTable />
         </>
     );
 }

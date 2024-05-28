@@ -1,10 +1,10 @@
 "use client"
 import React from 'react';
 import { useRouter } from 'next/navigation'
-
-
 import {sidePanel, roles, userRole} from "./components/utils/utils";
 import Vendors from "./actors/vendoradmin";
+import Agents from "./actors/agent";
+import Buyer from "./actors/buyer";
 
 function Page() {
     const role:any = userRole;
@@ -15,8 +15,10 @@ function Page() {
             break;
         case roles.VENDOR_ADMIN:
             return <Vendors/>;
-        // case roles.VENDOR_ADMIN:
-        //     return <Vendors/>;
+        case roles.AGENTS:
+            return <Agents/>;
+        case roles.BUYER:
+            return <Buyer/>;
         default:
             return null;
     }

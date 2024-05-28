@@ -102,7 +102,7 @@ export default function Index() {
                     </div>
                     <div
                         id={`last1year`}
-                        className={`border py-[0.5rem] px-[1rem] rounded-tr-[0.625rem] rounded-br-[0.6235rem]  ${selectedValue === 'last1year' ? 'bg-[#EEF2F6]' : ''}`}
+                        className={`border py-[0.5rem] px-[1rem] rounded-tr-[0.625rem] rounded-br-[0.625rem]  ${selectedValue === 'last1year' ? 'bg-[#EEF2F6]' : ''}`}
                     >
                         <FormControlLabel
                             value="last1year"

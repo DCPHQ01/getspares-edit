@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
-import styles from "../overview/styles.module.css";
-import image1 from "../../../../assets/dashboardAssets/Avatar.png";
-import image2 from "../../../../assets/dashboardAssets/Avatar1.png";
+import styles from "../styles.module.css";
+import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
+import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
