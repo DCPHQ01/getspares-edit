@@ -26,7 +26,7 @@ function Index() {
   const DropdownMenu = () => {
     return (
       <div
-        className={`absolute mt-2 w-[17rem] p-1 shadow-[0_2px_8px_0_rgba(0,0,0,0.2)] rounded-[8px] bg-white z-50`}
+        className={`absolute mt-2 w-[17rem] p-1 shadow-[0_2px_8px_0_rgba(0,0,0,0.2)] rounded-[8px] bg-white `}
       >
         <div className={`mx-auto p-[0.75rem] `}>
           {items.map((item, index) => (
