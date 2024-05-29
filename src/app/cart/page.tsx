@@ -229,9 +229,9 @@ const RemoveToCartPage = () => {
         <TopBar />
       </div>
 
-      {/* <div className=""> */}
+      <div className="">
       {/* mobile and tab */}
-      {/* <div
+      <div
             className="w-full h-[60px] border-b-2 border-b-mecaBottomBorder px-4 flex justify-between items-center lg:hidden"
             id="contentContainerCartMobile"
           >
@@ -262,9 +262,9 @@ const RemoveToCartPage = () => {
                 <MdMenu size={18} />
               </Link>
             </div>
-          </div> */}
+          </div>
       {/* desktop */}
-      {/* <div
+      <div
             className="hidden lg:flex flex-col border-b-2 border-b-mecaBottomBorder px-10"
             id="menuContainerDesktop"
           >
@@ -320,8 +320,8 @@ const RemoveToCartPage = () => {
                 <p className="text-sm font-nunito font-medium">Need Help?</p>
               </div>
             </div>
-          </div> */}
-      {/* </div> */}
+          </div>
+      </div>
 
       <div className="">
         {/* desktop */}
@@ -350,7 +350,7 @@ const RemoveToCartPage = () => {
                   Shopping Cart
                 </h1>
               </div>
-              {/* 
+              
               <div className="flex gap-x-6">
                 <div className="" style={{ width: "70%" }}>
                   {carts.length === 0 ? (
@@ -535,7 +535,7 @@ const RemoveToCartPage = () => {
                     </div>
                   </div>
                 </div>
-              </div> */}
+              </div>
             </div>
           </div>
 

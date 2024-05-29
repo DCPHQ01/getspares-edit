@@ -44,6 +44,7 @@ import { useRouter } from "next/navigation";
 import { useAppSelector } from "../../../../redux/hooks";
 import Header from "../../components/ui/header";
 import Searchbox from "../../components/ui/searchbox";
+import TruncateText from "../../../utils/page";
 
 interface State extends SnackbarOrigin {
   open: boolean;
@@ -481,11 +482,8 @@ const Cart = () => {
                   </div>
                 )}
               </div>
-              <div
-                className="mt-6"
-                // style={{ width: "30%" }}
-              >
-                <div className="h-64 w-[22.5%] bg-mecaSearchColor  rounded-lg pt-5 fixed ">
+              <div className="mt-6" style={{ width: "30%" }}>
+                <div className="h-64 bg-mecaSearchColor  rounded-lg pt-5">
                   <div className="w-[90%] m-auto">
                     {itemSelected.map((itemSelect) => (
                       <div className={nunito.className} key={itemSelect.count}>
@@ -556,21 +554,13 @@ const Cart = () => {
       <div className="lg:hidden w-full" id="contentContainerAddToCartMobile">
         <div className="w-[90%]" style={{ margin: "0px auto" }}>
           <div style={{ width: "100%" }} className={nunito.className}>
-            <div className="flex items-center gap-4 mt-6" id="breadCrumbsDiv">
-              <Link href="/">
-                <p className="font-nunito text-sm font-medium text-mecaDarkBlueBackgroundOverlay  hover:text-black hover:font-bold">
-                  Home
-                </p>
-              </Link>
-              <MdChevronRight size={20} />
-              <p className="font-nunito text-sm font-medium text-mecaGoBackArrow">
-                Shopping Cart
-              </p>
-            </div>
-            <div className="">
-              <h1 className="text-lg font-semibold font-nunito text-mecaDarkBlueBackgroundOverlay mt-6">
-                Shopping Cart
-              </h1>
+            <div className={`flex flex-col gap-6`}>
+              <Header
+                subtitle={`Keep track of items in your cart.`}
+                title={`Cart`}
+                amount={``}
+              />
+              <Searchbox />
             </div>
 
             <div className="flex  flex-col w-full">
@@ -589,49 +579,79 @@ const Cart = () => {
                             boxShadow: "0px 0px 0px 1px rgba(42, 59, 81, 0.12)",
                           }}
                         >
-                          <div className="flex justify-between">
-                            <div>
-                              <div className=" flex gap-x-5">
-                                <div className="">
-                                  <div className="bg-mecaActiveBackgroundNavColor h-32 w-44 rounded-lg">
-                                    <Image
-                                      className="w-44 m-auto p-3"
-                                      src={cardCartItem.Image}
-                                      id="cardCartItemImage"
-                                      alt="mobile spear part image"
-                                    />
-                                  </div>
+                          <div className="flex justify-between h-full">
+                            <div className="flex justify-between gap-x-4 w-full h-full relative">
+                              <div className="flex justify-start">
+                                <div className="bg-mecaActiveBackgroundNavColor h-20 flex justify-center items-center w-24 rounded-lg">
+                                  <Image
+                                    className="m-auto p-3"
+                                    src={cardCartItem.Image}
+                                    id="cardCartItemImage"
+                                    alt="mobile spear part image"
+                                  />
                                 </div>
-                                <div className="mt--4">
-                                  <CardContent style={{ padding: "inherit" }}>
-                                    <div className="text-base font-semibold mb-2">
-                                      <div
-                                        className={nunito.className}
-                                        id="cardHeadTitle"
-                                      >
-                                        {cardCartItem.header}
-                                      </div>
+                              </div>
+                              <div className="h-full flex-1">
+                                <CardContent
+                                  style={{
+                                    padding: "inherit",
+                                    width: "100%",
+                                  }}
+                                >
+                                  <div className="text-base font-semibold mb-2">
+                                    <div
+                                      className={nunito.className}
+                                      id="cardHeadTitle"
+                                    >
+                                      <TruncateText
+                                        text={cardCartItem.header}
+                                        maxLength={20}
+                                      />
                                     </div>
-                                    <div className={nunito.className}>
-                                      <div className="flex gap-x-2 font-normal text-sm text-mecaLightGrayText mb-10">
-                                        {cardCartItem.subHeader}
-                                        <span className="mb--6">.</span>
-                                        {cardCartItem.new}
-                                      </div>
+                                  </div>
+                                  <div className={`${nunito.className} w-full`}>
+                                    <div className="flex gap-x-1 font-normal text-sm text-mecaLightGrayText">
+                                      {cardCartItem.subHeader}
+                                      <span className="">.</span>
+                                      <TruncateText
+                                        text={cardCartItem.new}
+                                        maxLength={10}
+                                      />
+                                    </div>
+                                  </div>
+
+                                  <div className="flex gap-x-3 mt-4 font-normal text-sm">
+                                    <div className="text-black">
+                                      {cardCartItem.quantity}
                                     </div>
 
-                                    <div className="flex gap-x-3 font-normal text-sm">
-                                      <div className="text-black">
-                                        {cardCartItem.quantity}
-                                      </div>
-
-                                      <div className="relative bottom-4">
-                                        <form>
+                                    <div className="relative bottom-4">
+                                      <form>
+                                        {isInputVisible ? (
+                                          <div className="flex gap-x-2">
+                                            <input
+                                              type="number"
+                                              min="10"
+                                              value={quantity}
+                                              onChange={handleInputChange}
+                                              className="w-16 h-9 rounded border-2 p-2 border-mecaVerificationCodeColor mt-2"
+                                            />
+                                            {isUpdateButtonVisible && (
+                                              <button
+                                                onClick={handleUpdateClick}
+                                                className="bg-mecaBluePrimaryColor rounded-lg mt-2 text-white cursor-pointer w-16 h-9"
+                                              >
+                                                Update
+                                              </button>
+                                            )}
+                                          </div>
+                                        ) : (
                                           <select
+                                            onChange={handleDropdownChange}
                                             title="quantity"
                                             className="w-16 h-9 rounded border-2 p-2 border-mecaVerificationCodeColor mt-2"
                                             name="categoria"
-                                            id="categoriaId"
+                                            id="categoriesId"
                                           >
                                             <option value="0" selected>
                                               0
@@ -641,59 +661,74 @@ const Cart = () => {
                                             <option value="3">3</option>
                                             <option value="4">4</option>
                                             <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10+">10+</option>
                                           </select>
-                                        </form>
-                                      </div>
+                                        )}
+                                      </form>
                                     </div>
-                                  </CardContent>
-                                </div>
-                              </div>
-                            </div>
+                                  </div>
 
-                            <div className="">
-                              <div
-                                style={{
-                                  position: "relative",
-                                  left: "81px",
-                                  cursor: "pointer",
-                                }}
-                              >
-                                <MdMoreVert
-                                  onClick={() => toggleButton(cardCartItem.id)}
-                                  style={{
-                                    fontSize: "20px",
-                                    overflow: "hidden",
-                                    whiteSpace: "nowrap",
-                                    textOverflow: "ellipsis",
-                                    maxWidth: "150px",
-                                  }}
-                                />
+                                  <div className="mt-1">
+                                    <p className="font-nunito font-semibold">
+                                      {cardCartItem.price}
+                                    </p>
+                                  </div>
+                                </CardContent>
                               </div>
 
-                              {visibleButtons[cardCartItem.id] && (
+                              <div className="">
                                 <div
-                                  onClick={() => toggleButton(cardCartItem.id)}
+                                // style={{
+                                //   position: "relative",
+                                //   left: "40px",
+                                //   cursor: "pointer",
+                                // }}
                                 >
-                                  <button
-                                    style={{
-                                      boxShadow: "0px 2px 8px 0px #63636333",
-                                    }}
-                                    className=" h-12 w-24 cursor-pointer bg-white rounded  absolute "
+                                  <MdMoreVert
                                     onClick={() =>
-                                      removeFromCart(cardCartItem.id)
+                                      toggleButton(cardCartItem.id)
+                                    }
+                                    style={{
+                                      fontSize: "20px",
+                                      overflow: "hidden",
+                                      whiteSpace: "nowrap",
+                                      textOverflow: "ellipsis",
+                                      maxWidth: "150px",
+                                    }}
+                                  />
+                                </div>
+
+                                {visibleButtons[cardCartItem.id] && (
+                                  <div
+                                    onClick={() =>
+                                      toggleButton(cardCartItem.id)
                                     }
                                   >
-                                    <div className="flex hover:shadow-#63636333-500  gap-x-2 w-20  h-9 m-auto  hover:bg-mecaTableTextErrorBackgroundColor hover:text-mecaErrorInputColor">
-                                      <div className="mt-2">
-                                        {cardCartItem.delete}
+                                    <button
+                                      style={{
+                                        boxShadow: "0px 2px 8px 0px #63636333",
+                                      }}
+                                      className="absolute right-1 top-7 h-[34px] w-[100px] cursor-pointer bg-white rounded"
+                                      onClick={() =>
+                                        removeFromCart(cardCartItem.id)
+                                      }
+                                    >
+                                      <div className="px-1 flex items-center hover:shadow-xl gap-x-1 w-full h-full m-auto hover:bg-mecaTableTextErrorBackgroundColor hover:text-mecaErrorInputColor">
+                                        <div className="">
+                                          {cardCartItem.delete}
+                                        </div>
+                                        <div className="text-sm font-normal">
+                                          {cardCartItem.remove}
+                                        </div>
                                       </div>
-                                      <div className="text-sm font-normal mt-1">
-                                        {cardCartItem.remove}
-                                      </div>
-                                    </div>
-                                  </button>
-                                </div>
-                              )}
+                                    </button>
+                                  </div>
+                                )}
+                              </div>
                             </div>
                           </div>
                         </div>
