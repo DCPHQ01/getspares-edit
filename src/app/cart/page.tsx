@@ -226,23 +226,80 @@ const RemoveToCartPage = () => {
     <div>
       <div className="w-full flex flex-col z-[2000]">
         {/* <HeaderPage /> */}
-        <TopBar />
+        <TopBarWhileInside />
       </div>
 
-      {/* <div className=""> */}
-      {/* mobile and tab */}
-      {/* <div
-            className="w-full h-[60px] border-b-2 border-b-mecaBottomBorder px-4 flex justify-between items-center lg:hidden"
-            id="contentContainerCartMobile"
-          >
-            <p className="text-mecaActiveIconsNavColor text-xl font-nunito font-bold">
-              e-meca
-            </p>
-            <div className="flex items-center gap-x-2" id="menuSearchCart">
-              <MdSearch size={18} />
+      <div className="">
+        {/* mobile and tab */}
+        <div
+          className="w-full h-[60px] border-b-2 border-b-mecaBottomBorder px-4 flex justify-between items-center lg:hidden"
+          id="contentContainerCartMobile"
+        >
+          <p className="text-mecaActiveIconsNavColor text-xl font-nunito font-bold">
+            e-meca
+          </p>
+          <div className="flex items-center gap-x-2" id="menuSearchCart">
+            <MdSearch size={18} />
 
+            <div
+              className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1"
+              id="textCart"
+            >
+              <MdOutlineShoppingCart
+                size={18}
+                className="text-mecaBluePrimaryColor"
+              />
+              <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
+                {cart.length}
+              </p>
+            </div>
+
+            <Link
+              href="/reusables/mobileNav"
+              id="mobileMenuBtn"
+              onClick={() => setOpenA(!OpenA)}
+            >
+              <MdMenu size={18} />
+            </Link>
+          </div>
+        </div>
+        {/* desktop */}
+        <div
+          className="hidden lg:flex flex-col border-b-2 border-b-mecaBottomBorder px-10"
+          id="menuContainerDesktop"
+        >
+          <div
+            className="w-full h-[83px] flex justify-between bg-white items-center"
+            id="desktopNavContentContainer"
+          >
+            <div className="w-[20%]" id="mecaLogoDesktop">
+              <p
+                className="text-mecaActiveIconsNavColor text-3xl font-nunito font-bold cursor-pointer"
+                onClick={() => router.push("/")}
+              >
+                e-meca
+              </p>
+            </div>
+            <div
+              className="w-1/3 flex items-center gap-x-2 relative"
+              id="searchDesktop"
+            >
+              <MdSearch
+                size={24}
+                className="absolute left-1 text-mecaGoBackArrow"
+              />
+              <input
+                id="inputSearchDesktop"
+                placeholder="Search for anything"
+                className="bg-mecaSearchColor w-[580px] h-[44px] rounded-full px-9 outline-none"
+              />
+            </div>
+            <div
+              className="w-[28%] h-8 flex justify-end items-center gap-x-2"
+              id="cartDesktop"
+            >
               <div
-                className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1"
+                className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1 cursor-pointer"
                 id="textCart"
               >
                 <MdOutlineShoppingCart
@@ -254,74 +311,17 @@ const RemoveToCartPage = () => {
                 </p>
               </div>
 
-              <Link
-                href="/reusables/mobileNav"
-                id="mobileMenuBtn"
-                onClick={() => setOpenA(!OpenA)}
+              <button
+                className="w-[40%] h-full bg-mecaBluePrimaryColor text-white text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
+                id="startShoppingBtn"
               >
-                <MdMenu size={18} />
-              </Link>
+                Start shopping
+              </button>
+              <p className="text-sm font-nunito font-medium">Need Help?</p>
             </div>
-          </div> */}
-      {/* desktop */}
-      {/* <div
-            className="hidden lg:flex flex-col border-b-2 border-b-mecaBottomBorder px-10"
-            id="menuContainerDesktop"
-          >
-            <div
-              className="w-full h-[83px] flex justify-between bg-white items-center"
-              id="desktopNavContentContainer"
-            >
-              <div className="w-[20%]" id="mecaLogoDesktop">
-                <p
-                  className="text-mecaActiveIconsNavColor text-3xl font-nunito font-bold cursor-pointer"
-                  onClick={() => router.push("/")}
-                >
-                  e-meca
-                </p>
-              </div>
-              <div
-                className="w-1/3 flex items-center gap-x-2 relative"
-                id="searchDesktop"
-              >
-                <MdSearch
-                  size={24}
-                  className="absolute left-1 text-mecaGoBackArrow"
-                />
-                <input
-                  id="inputSearchDesktop"
-                  placeholder="Search for anything"
-                  className="bg-mecaSearchColor w-[580px] h-[44px] rounded-full px-9 outline-none"
-                />
-              </div>
-              <div
-                className="w-[28%] h-8 flex justify-end items-center gap-x-2"
-                id="cartDesktop"
-              >
-                <div
-                  className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1 cursor-pointer"
-                  id="textCart"
-                >
-                  <MdOutlineShoppingCart
-                    size={18}
-                    className="text-mecaBluePrimaryColor"
-                  />
-                  <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
-                    {cart.length}
-                  </p>
-                </div>
-
-                <button
-                  className="w-[40%] h-full bg-mecaBluePrimaryColor text-white text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
-                  id="startShoppingBtn"
-                >
-                  Start shopping
-                </button>
-                <p className="text-sm font-nunito font-medium">Need Help?</p>
-              </div>
-            </div>
-          </div> */}
-      {/* </div> */}
+          </div>
+        </div>
+      </div>
 
       <div className="">
         {/* desktop */}
@@ -332,7 +332,7 @@ const RemoveToCartPage = () => {
           <div className="w-[85%]" style={{ margin: "0px auto" }}>
             <div style={{ width: "100%" }} className={nunito.className}>
               <div
-                className="flex mt-56 items-center gap-4"
+                className="flex mt-24 items-center gap-4"
                 id="breadCrumbsDivDesktop"
               >
                 <Link href="/">
@@ -350,7 +350,7 @@ const RemoveToCartPage = () => {
                   Shopping Cart
                 </h1>
               </div>
-              {/* 
+
               <div className="flex gap-x-6">
                 <div className="" style={{ width: "70%" }}>
                   {carts.length === 0 ? (
@@ -535,7 +535,7 @@ const RemoveToCartPage = () => {
                     </div>
                   </div>
                 </div>
-              </div> */}
+              </div>
             </div>
           </div>
 

@@ -58,7 +58,7 @@ const mobileNavData = [
   },
 ];
 interface MobileNavProps {
-  handleNav: () => void;
+  handleNav?: () => void;
 }
 export default function MobileNav({ handleNav }: MobileNavProps) {
   const router = useRouter();

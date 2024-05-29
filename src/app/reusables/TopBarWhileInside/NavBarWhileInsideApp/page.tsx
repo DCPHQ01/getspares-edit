@@ -15,6 +15,8 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { clearUser } from "../../../../redux/features/users/userSlice";
+import MobileNav from "../../mobileNav/page";
+import NavBar from "../../NavBar/page";
 
 interface JwtPayload extends BaseJwtPayload {
   role?: string;
@@ -30,10 +32,14 @@ export default function NavBarWhileInsideApp() {
   const { cart } = useAppSelector((state) => state.product);
 
   const [toggleProfile, setToggleProfile] = useState(false);
+  const [openNavOptions, setOpenNavOptions] = useState(false);
   const profile = () => {
     setToggleProfile(!toggleProfile);
   };
 
+  const handleNavOptions = () => {
+    setOpenNavOptions(!openNavOptions);
+  };
   let decoded: JwtPayload | null = null;
   try {
     if (
@@ -59,7 +65,9 @@ export default function NavBarWhileInsideApp() {
   return (
     <nav className="w-full bg-white" id="navbarContainer">
       {/* mobile and tab */}
-
+      <div className="flex lg:hidden">
+        <NavBar open={openNavOptions} setOpen={setOpenNavOptions} />
+      </div>
       {/* desktop */}
       <div
         className="hidden lg:flex flex-col border-b-2 border-b-mecaBottomBorder px-10"
