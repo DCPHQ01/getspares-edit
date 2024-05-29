@@ -110,7 +110,7 @@ export default function Login() {
         console.log(decoded?.resource_access["e-meca"]?.roles[0], " roles");
         switch (decoded?.resource_access["e-meca"]?.roles[0]) {
           case "MECA_ADMIN":
-            router.push("/dashboard");
+            router.push("/admin");
             break;
           case "VENDOR_ADMIN":
             router.push("/dashboard");

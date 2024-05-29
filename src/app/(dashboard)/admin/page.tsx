@@ -10,6 +10,7 @@ import Category from "./Category";
 import { useAppSelector } from "../../../redux";
 import { sidePanel } from "../../dashboard/components/utils/utils";
 import Profile from "./Profile";
+import withAuth from "../../withAuth";
 
 function Page() {
   const SidePanelButton = () => {
@@ -48,4 +49,4 @@ function Page() {
   );
 }
 
-export default Page;
+export default withAuth(Page);

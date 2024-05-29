@@ -86,7 +86,9 @@ const cardCartItems = [
     quantityAmount: "10",
     icon1: <MdOutlineExpandMore />,
     icondropdown: <MdKeyboardArrowDown />,
-    delete: <MdDeleteOutline className="w-[18px] h-[18px]" />,
+    delete: (
+      <MdDeleteOutline className="w-[18px] h-[18px] hover:text-mecaErrorInputColor" />
+    ),
     // icon2: <MdMoreVert />,
     icondot: <MdCircle />,
     remove: "Remove",
@@ -103,7 +105,9 @@ const cardCartItems = [
     quantityAmount: "100",
     icon1: <MdOutlineExpandMore />,
     icondropdown: <MdKeyboardArrowDown />,
-    delete: <MdDeleteOutline className="w-[18px] h-[18px]" />,
+    delete: (
+      <MdDeleteOutline className="w-[18px] h-[18px] hover:text-mecaErrorInputColor" />
+    ),
     remove: "Remove",
     // icon2: <MdMoreVert />,
     icondot: <MdCircle />,
@@ -119,7 +123,9 @@ const cardCartItems = [
     quantity: "Quantity",
     quantityAmount: "5",
     icon1: <MdOutlineExpandMore />,
-    delete: <MdDeleteOutline className="w-[18px] h-[18px]" />,
+    delete: (
+      <MdDeleteOutline className="w-[18px] h-[18px] hover:text-mecaErrorInputColor" />
+    ),
     remove: "Remove",
     icondropdown: <MdKeyboardArrowDown />,
     // icon2: <MdMoreVert />,
@@ -135,7 +141,9 @@ const cardCartItems = [
     quantity: "Quantity",
     quantityAmount: "5",
     icon1: <MdOutlineExpandMore />,
-    delete: <MdDeleteOutline className="w-[18px] h-[18px]" />,
+    delete: (
+      <MdDeleteOutline className="w-[18px] h-[18px] hover:text-mecaErrorInputColor" />
+    ),
     remove: "Remove",
     icondropdown: <MdKeyboardArrowDown />,
     // icon2: <MdMoreVert />,
@@ -459,16 +467,16 @@ const RemoveToCartPage = () => {
                                           boxShadow:
                                             "0px 2px 8px 0px #63636333",
                                         }}
-                                        className=" h-12 w-24 cursor-pointer bg-white rounded  absolute "
+                                        className="px-1 h-12 w-24 cursor-pointer bg-white rounded absolute "
                                         onClick={() =>
                                           removeFromCart(cardCartItem.id)
                                         }
                                       >
-                                        <div className="flex hover:shadow-#63636333-500  gap-x-2 w-20  h-9 m-auto  hover:bg-mecaTableTextErrorBackgroundColor hover:text-mecaErrorInputColor">
+                                        <div className="flex hover:shadow-xl items-center gap-x-2 w-20 h-9 m-auto hover:bg-mecaTableTextErrorBackgroundColor hover:text-mecaErrorInputColor">
                                           <div className="mt-2">
                                             {cardCartItem.delete}
                                           </div>
-                                          <div className="text-sm font-normal mt-1">
+                                          <div className="text-sm font-normal mt-1 hover:text-red-600">
                                             {cardCartItem.remove}
                                           </div>
                                         </div>
@@ -654,6 +662,7 @@ const RemoveToCartPage = () => {
                                       <div className="relative bottom-4">
                                         <form>
                                           <select
+                                            defaultValue="1"
                                             title="quantity"
                                             className="w-16 h-9 rounded border-2 p-2 border-mecaVerificationCodeColor mt-2"
                                             name="categoria"
@@ -713,16 +722,16 @@ const RemoveToCartPage = () => {
                                           boxShadow:
                                             "0px 2px 8px 0px #63636333",
                                         }}
-                                        className="absolute right-1 top-7 h-[34px] w-[100px] cursor-pointer bg-white rounded"
+                                        className="absolute right-1 top-7 h-[34px] w-[100px] cursor-pointer bg-white rounded hover:text-mecaErrorInputColor px-1"
                                         onClick={() =>
                                           removeFromCart(cardCartItem.id)
                                         }
                                       >
-                                        <div className="px-1 flex items-center hover:shadow-xl gap-x-1 w-full h-full m-auto hover:bg-mecaTableTextErrorBackgroundColor hover:text-mecaErrorInputColor">
+                                        <div className="flex items-center hover:shadow-xl gap-x-1 w-full h-full m-auto hover:bg-red-300">
                                           <div className="">
                                             {cardCartItem.delete}
                                           </div>
-                                          <div className="text-sm font-normal">
+                                          <div className="text-sm font-normal hover:text-blue-500">
                                             {cardCartItem.remove}
                                           </div>
                                         </div>
@@ -744,7 +753,10 @@ const RemoveToCartPage = () => {
                   <div className="h-64 bg-mecaSearchColor  rounded-lg pt-5">
                     <div className="w-[90%] m-auto">
                       {itemSelected.map((itemSelect) => (
-                        <div className={nunito.className}>
+                        <div
+                          className={nunito.className}
+                          key={itemSelect.count}
+                        >
                           <div className="flex justify-between">
                             <div className="flex font-normal text-sm">
                               <p> item</p>

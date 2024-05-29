@@ -5,7 +5,7 @@ import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
 import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
 import Stack from "@mui/material/Stack";
-import "react-tabs/style/react-tabs.css";
+// import "react-tabs/style/react-tabs.css";
 
 const data = [
   {
@@ -135,78 +135,78 @@ const data = [
 ];
 
 const InventoryTable = () => {
-    return (
-      <div id="tableContainer">
-        <div
-          id="mecaAdminTable"
-          className={`my-[1.25rem] w-full max-h-[30rem] overflow-y-auto scrollbar-none ${styles.table}`}
-        >
-          <table id="adminTable" className={`w-full`}>
-            <thead>
-              <tr>
-                <th id="companyNameHeader">Product name</th>
-                <th id="dateTimeJoinedHeader">Vendors</th>
-                <th id="totalItemsSoldHeader">Quantity sold</th>
-                <th id="transactionValueHeader">Transaction value</th>
+  return (
+    <div id="tableContainer">
+      <div
+        id="mecaAdminTable"
+        className={`my-[1.25rem] w-full max-h-[30rem] overflow-y-auto scrollbar-none ${styles.table}`}
+      >
+        <table id="adminTable" className={`w-full`}>
+          <thead>
+            <tr>
+              <th id="companyNameHeader">Product name</th>
+              <th id="dateTimeJoinedHeader">Vendors</th>
+              <th id="totalItemsSoldHeader">Quantity sold</th>
+              <th id="transactionValueHeader">Transaction value</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((d, index) => (
+              <tr key={index} id={`row_${index}`} className="cursor-pointer">
+                <td id={`companyData_${index}`}>
+                  <div
+                    className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
+                  >
+                    <Image
+                      src={d.avatar}
+                      className="object-contain"
+                      alt="Avatar"
+                      id={`avatar_${index}`}
+                    />
+                    <div id={`companyDetails_${index}`}>
+                      <div>{d.name}</div>
+                    </div>
+                  </div>
+                </td>
+
+                <td id={`companyData_${index}`}>
+                  <div
+                    className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
+                  >
+                    <Image
+                      src={d.avatar}
+                      className="object-contain"
+                      alt="Avatar"
+                      id={`avatar_${index}`}
+                    />
+                    <div id={`companyDetails_${index}`}>
+                      <div>{d.name}</div>
+                      <div className={`text-[#4B5565]`} id={`email_${index}`}>
+                        {d.email}
+                      </div>
+                    </div>
+                  </div>
+                </td>
+
+                <td
+                  className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
+                  id={`itemsSold_${index}`}
+                >
+                  {d.sale}
+                </td>
+                <td
+                  className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
+                  id={`transactionValue_${index}`}
+                >
+                  {d.vale}
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {data.map((d, index) => (
-                <tr key={index} id={`row_${index}`} className="cursor-pointer">
-                  <td id={`companyData_${index}`}>
-                    <div
-                      className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
-                    >
-                      <Image
-                        src={d.avatar}
-                        className="object-contain"
-                        alt="Avatar"
-                        id={`avatar_${index}`}
-                      />
-                      <div id={`companyDetails_${index}`}>
-                        <div>{d.name}</div>
-                      </div>
-                    </div>
-                  </td>
-
-                  <td id={`companyData_${index}`}>
-                    <div
-                      className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
-                    >
-                      <Image
-                        src={d.avatar}
-                        className="object-contain"
-                        alt="Avatar"
-                        id={`avatar_${index}`}
-                      />
-                      <div id={`companyDetails_${index}`}>
-                        <div>{d.name}</div>
-                        <div className={`text-[#4B5565]`} id={`email_${index}`}>
-                          {d.email}
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-
-                  <td
-                    className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
-                    id={`itemsSold_${index}`}
-                  >
-                    {d.sale}
-                  </td>
-                  <td
-                    className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
-                    id={`transactionValue_${index}`}
-                  >
-                    {d.vale}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
       </div>
-    );
-}
+    </div>
+  );
+};
 
-export default InventoryTable
+export default InventoryTable;

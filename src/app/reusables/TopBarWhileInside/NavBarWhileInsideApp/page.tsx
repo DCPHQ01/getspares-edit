@@ -26,6 +26,9 @@ export default function NavBarWhileInsideApp() {
   const handleStartShopping = () => {
     router.push("/signup");
   };
+  const handleLogin = () => {
+    router.push("/login");
+  };
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.user);
 
@@ -37,9 +40,6 @@ export default function NavBarWhileInsideApp() {
     setToggleProfile(!toggleProfile);
   };
 
-  const handleNavOptions = () => {
-    setOpenNavOptions(!openNavOptions);
-  };
   let decoded: JwtPayload | null = null;
   try {
     if (
@@ -126,7 +126,7 @@ export default function NavBarWhileInsideApp() {
                     type="button"
                     className="w-[28%] h-full border border-mecaBluePrimaryColor bg-white text-mecaBluePrimaryColor text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
                     id="startShoppingBtnMainNavBar"
-                    onClick={handleStartShopping}
+                    onClick={handleLogin}
                   >
                     Login
                   </button>
