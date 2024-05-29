@@ -7,6 +7,7 @@ import Tractor from "../../assets/images/tractor.png";
 import Bulldozer from "../../assets/images/bulldozer.png";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useGetCategoryQuery } from "../../redux/productsQuery";
 
 interface CardProps {
   image: StaticImageData;
@@ -36,6 +37,12 @@ const responsive = {
 
 export default function ProductCarousel() {
   const carouselRef = useRef<Carousel>(null);
+
+  const {
+    data: categoryData,
+    error: categoryError,
+    isLoading,
+  } = useGetCategoryQuery({}, {});
 
   const handleNext = () => {
     if (carouselRef.current) carouselRef.current.next(0);

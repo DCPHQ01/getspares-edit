@@ -103,6 +103,7 @@ export default function Login() {
 
       if ("data" in response && response.data) {
         dispatch(setUser(response.data));
+        console.log("response data ", response.data);
         // const decoded = JWT.jwtDecode(response.data.access_token);
         let decoded: JwtPayload = JWT.jwtDecode(response?.data?.access_token);
         console.log(decoded, "decoded");

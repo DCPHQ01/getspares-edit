@@ -13,7 +13,8 @@ import { JwtPayload as BaseJwtPayload } from "jsonwebtoken";
 import * as JWT from "jwt-decode";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useAppSelector } from "../../../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
+import { clearUser } from "../../../../redux/features/users/userSlice";
 
 interface JwtPayload extends BaseJwtPayload {
   role?: string;
@@ -23,7 +24,7 @@ export default function NavBarWhileInsideApp() {
   const handleStartShopping = () => {
     router.push("/signup");
   };
-
+  const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.user);
 
   const { cart } = useAppSelector((state) => state.product);
@@ -46,6 +47,13 @@ export default function NavBarWhileInsideApp() {
     console.error("Failed to decode token:", error);
   }
 
+  const handleDashboard = () => {
+    router.push("/dashboard");
+  };
+  const logOut = () => {
+    dispatch(clearUser());
+    router.push("/");
+  };
   const name = decoded?.given_name;
 
   return (
@@ -87,7 +95,7 @@ export default function NavBarWhileInsideApp() {
             className="w-[28%] h-8 flex justify-end items-center gap-x-4"
             id="cartDesktop"
           >
-            <Link href="/removetoCart">
+            <Link href="/cart">
               <div
                 className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1 cursor-pointer"
                 id="textCart"
@@ -147,7 +155,10 @@ export default function NavBarWhileInsideApp() {
                     className="flex gap-2 w-48 m-auto  h-10 p-2 pt-3 hover:bg-mecaActiveBackgroundNavColor hover:text-mecaActiveIconsNavColor"
                   >
                     <MdOutlineAccountCircle className="text-mecaProfileColor w-6 h-6 " />
-                    <span className="w-24 h-6 flex gap-1 font-normal text-base text-mecaDarkBlueBackgroundOverlay hover:text-mecaActiveIconsNavColor">
+                    <span
+                      className="w-24 h-6 flex gap-1 font-normal text-base text-mecaDarkBlueBackgroundOverlay hover:text-mecaActiveIconsNavColor"
+                      onClick={handleDashboard}
+                    >
                       <span>My</span>
                       <span>Dashboard</span>
                     </span>
@@ -158,7 +169,10 @@ export default function NavBarWhileInsideApp() {
                       className="flex gap-2 m-auto w-48 h-10 p-2 pt-3 hover:bg-mecaActiveBackgroundNavColor hover:text-mecaActiveIconsNavColor"
                     >
                       <MdLogout className="text-mecaProfileColor w-6 h-6 " />
-                      <span className="h-6 font-normal text-base text-mecaDarkBlueBackgroundOverlay hover:text-mecaActiveIconsNavColor">
+                      <span
+                        className="h-6 font-normal text-base text-mecaDarkBlueBackgroundOverlay hover:text-mecaActiveIconsNavColor"
+                        onClick={logOut}
+                      >
                         Logout
                       </span>
                     </button>

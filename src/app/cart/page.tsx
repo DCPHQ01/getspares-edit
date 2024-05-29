@@ -5,7 +5,7 @@ import Carousel from "react-multi-carousel";
 import Cards from "../../components/Homepage/Card";
 import "react-multi-carousel/lib/styles.css";
 import HomeImage1 from "../../assets/images/homeImage1.png";
-import HomeImage2 from "../../assets/images/HomeImage2.png";
+import HomeImage2 from "../../assets/images/homeImage2.png";
 
 const nunito = Nunito_Sans({
   subsets: ["latin"],
@@ -41,7 +41,14 @@ import Menu from "@mui/material/Menu";
 // import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 import { useRouter } from "next/navigation";
-import { useAppSelector } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import {
+  useRemoveProductFromCartMutation,
+  useViewCartQuery,
+} from "../../redux/productsQuery";
+import TopBarWhileInside from "../reusables/TopBarWhileInside/page";
+import TopBar from "../reusables/TopBar/page";
+import TruncateText from "../utils/page";
 
 interface State extends SnackbarOrigin {
   open: boolean;
@@ -79,7 +86,7 @@ const cardCartItems = [
     quantityAmount: "10",
     icon1: <MdOutlineExpandMore />,
     icondropdown: <MdKeyboardArrowDown />,
-    delete: <MdDeleteOutline />,
+    delete: <MdDeleteOutline className="w-[18px] h-[18px]" />,
     // icon2: <MdMoreVert />,
     icondot: <MdCircle />,
     remove: "Remove",
@@ -96,7 +103,7 @@ const cardCartItems = [
     quantityAmount: "100",
     icon1: <MdOutlineExpandMore />,
     icondropdown: <MdKeyboardArrowDown />,
-    delete: <MdDeleteOutline />,
+    delete: <MdDeleteOutline className="w-[18px] h-[18px]" />,
     remove: "Remove",
     // icon2: <MdMoreVert />,
     icondot: <MdCircle />,
@@ -112,7 +119,7 @@ const cardCartItems = [
     quantity: "Quantity",
     quantityAmount: "5",
     icon1: <MdOutlineExpandMore />,
-    delete: <MdDeleteOutline />,
+    delete: <MdDeleteOutline className="w-[18px] h-[18px]" />,
     remove: "Remove",
     icondropdown: <MdKeyboardArrowDown />,
     // icon2: <MdMoreVert />,
@@ -128,7 +135,7 @@ const cardCartItems = [
     quantity: "Quantity",
     quantityAmount: "5",
     icon1: <MdOutlineExpandMore />,
-    delete: <MdDeleteOutline />,
+    delete: <MdDeleteOutline className="w-[18px] h-[18px]" />,
     remove: "Remove",
     icondropdown: <MdKeyboardArrowDown />,
     // icon2: <MdMoreVert />,
@@ -153,12 +160,19 @@ const RemoveToCartPage = () => {
     [key: string]: boolean;
   }>({});
 
+  const [
+    removeProductFromCart,
+    { isLoading: isRemovingProductFromCart, error: removeError },
+  ] = useRemoveProductFromCartMutation();
   const toggleButton = (id: string) => {
     setVisibleButtons((prev) => ({
       ...prev,
       [id]: !prev[id],
     }));
   };
+
+  // const { data: cartsData, refetch } = useViewCartQuery(buyerId);
+  const dispatch = useAppDispatch();
 
   const [number, setNumber] = useState("");
 
@@ -195,23 +209,29 @@ const RemoveToCartPage = () => {
 
   const [carts, setCarts] = useState(cardCartItems);
 
-  const removeFromCart = (id: string) => {
-    setCarts((prevCart) => prevCart.filter((item) => item.id !== id));
+  const removeFromCart = async (productId: string) => {
+    try {
+      // await removeProductFromCart(productId, buyersId);
+    } catch (error) {
+      console.error("Failed to remove item from cart", error);
+      return error;
+    }
+    // setCarts((prevCart) => prevCart.filter((item) => item.id !== id));
   };
   const router = useRouter();
 
-  const [showButton, setShowButton] = useState(false);
+  // const [showButton, setShowButton] = useState(false);
 
   return (
     <div>
-      <div className="w-full fixed top-0 z-50">
-        <div className="">
-          <HeaderPage />
-        </div>
+      <div className="w-full flex flex-col z-[2000]">
+        {/* <HeaderPage /> */}
+        <TopBar />
+      </div>
 
-        <div className="">
-          {/* mobile and tab */}
-          <div
+      {/* <div className=""> */}
+      {/* mobile and tab */}
+      {/* <div
             className="w-full h-[60px] border-b-2 border-b-mecaBottomBorder px-4 flex justify-between items-center lg:hidden"
             id="contentContainerCartMobile"
           >
@@ -242,9 +262,9 @@ const RemoveToCartPage = () => {
                 <MdMenu size={18} />
               </Link>
             </div>
-          </div>
-          {/* desktop */}
-          <div
+          </div> */}
+      {/* desktop */}
+      {/* <div
             className="hidden lg:flex flex-col border-b-2 border-b-mecaBottomBorder px-10"
             id="menuContainerDesktop"
           >
@@ -300,9 +320,8 @@ const RemoveToCartPage = () => {
                 <p className="text-sm font-nunito font-medium">Need Help?</p>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
+          </div> */}
+      {/* </div> */}
 
       <div className="">
         {/* desktop */}
@@ -313,8 +332,8 @@ const RemoveToCartPage = () => {
           <div className="w-[85%]" style={{ margin: "0px auto" }}>
             <div style={{ width: "100%" }} className={nunito.className}>
               <div
-                className="flex items-center gap-4 mt-40"
-                id="breadCrumbsDiv"
+                className="flex mt-56 items-center gap-4"
+                id="breadCrumbsDivDesktop"
               >
                 <Link href="/">
                   <p className="font-nunito text-sm font-medium text-mecaDarkBlueBackgroundOverlay hover:text-black hover:font-bold">
@@ -331,7 +350,7 @@ const RemoveToCartPage = () => {
                   Shopping Cart
                 </h1>
               </div>
-
+              {/* 
               <div className="flex gap-x-6">
                 <div className="" style={{ width: "70%" }}>
                   {carts.length === 0 ? (
@@ -516,7 +535,7 @@ const RemoveToCartPage = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
 
@@ -548,7 +567,10 @@ const RemoveToCartPage = () => {
         <div className="lg:hidden w-full" id="contentContainerAddToCartMobile">
           <div className="w-[90%]" style={{ margin: "0px auto" }}>
             <div style={{ width: "100%" }} className={nunito.className}>
-              <div className="flex items-center gap-4 mt-6" id="breadCrumbsDiv">
+              <div
+                className="flex items-center gap-4 mt-52"
+                id="breadCrumbsDiv"
+              >
                 <Link href="/">
                   <p className="font-nunito text-sm font-medium text-mecaDarkBlueBackgroundOverlay  hover:text-black hover:font-bold">
                     Home
@@ -582,115 +604,133 @@ const RemoveToCartPage = () => {
                                 "0px 0px 0px 1px rgba(42, 59, 81, 0.12)",
                             }}
                           >
-                            <div className="flex justify-between">
-                              <div>
-                                <div className=" flex gap-x-5">
-                                  <div className="">
-                                    <div className="bg-mecaActiveBackgroundNavColor h-32 w-44 rounded-lg">
-                                      <Image
-                                        className="w-44 m-auto p-3"
-                                        src={cardCartItem.Image}
-                                        id="cardCartItemImage"
-                                        alt="mobile spear part image"
-                                      />
-                                    </div>
-                                  </div>
-                                  <div className="mt--4">
-                                    <CardContent style={{ padding: "inherit" }}>
-                                      <div className="text-base font-semibold mb-2">
-                                        <div
-                                          className={nunito.className}
-                                          id="cardHeadTitle"
-                                        >
-                                          {cardCartItem.header}
-                                        </div>
-                                      </div>
-                                      <div className={nunito.className}>
-                                        <div className="flex gap-x-2 font-normal text-sm text-mecaLightGrayText mb-10">
-                                          {cardCartItem.subHeader}
-                                          <span className="mb--6">.</span>
-                                          {cardCartItem.new}
-                                        </div>
-                                      </div>
-
-                                      <div className="flex gap-x-3 font-normal text-sm">
-                                        <div className="text-black">
-                                          {cardCartItem.quantity}
-                                        </div>
-
-                                        <div className="relative bottom-4">
-                                          <form>
-                                            <select
-                                              title="quantity"
-                                              className="w-16 h-9 rounded border-2 p-2 border-mecaVerificationCodeColor mt-2"
-                                              name="categoria"
-                                              id="categoriaId"
-                                            >
-                                              <option value="0" selected>
-                                                0
-                                              </option>
-                                              <option value="1">1</option>
-                                              <option value="2">2</option>
-                                              <option value="3">3</option>
-                                              <option value="4">4</option>
-                                              <option value="5">5</option>
-                                            </select>
-                                          </form>
-                                        </div>
-                                      </div>
-                                    </CardContent>
+                            <div className="flex justify-between h-full">
+                              <div className="flex justify-between gap-x-4 w-full h-full relative">
+                                <div className="flex justify-start">
+                                  <div className="bg-mecaActiveBackgroundNavColor h-20 flex justify-center items-center w-24 rounded-lg">
+                                    <Image
+                                      className="m-auto p-3"
+                                      src={cardCartItem.Image}
+                                      id="cardCartItemImage"
+                                      alt="mobile spear part image"
+                                    />
                                   </div>
                                 </div>
-                              </div>
-
-                              <div className="">
-                                <div
-                                  style={{
-                                    position: "relative",
-                                    left: "81px",
-                                    cursor: "pointer",
-                                  }}
-                                >
-                                  <MdMoreVert
-                                    onClick={() =>
-                                      toggleButton(cardCartItem.id)
-                                    }
+                                <div className="h-full flex-1">
+                                  <CardContent
                                     style={{
-                                      fontSize: "20px",
-                                      overflow: "hidden",
-                                      whiteSpace: "nowrap",
-                                      textOverflow: "ellipsis",
-                                      maxWidth: "150px",
+                                      padding: "inherit",
+                                      width: "100%",
                                     }}
-                                  />
+                                  >
+                                    <div className="text-base font-semibold mb-2">
+                                      <div
+                                        className={nunito.className}
+                                        id="cardHeadTitle"
+                                      >
+                                        <TruncateText
+                                          text={cardCartItem.header}
+                                          maxLength={20}
+                                        />
+                                      </div>
+                                    </div>
+                                    <div
+                                      className={`${nunito.className} w-full`}
+                                    >
+                                      <div className="flex gap-x-1 font-normal text-sm text-mecaLightGrayText">
+                                        {cardCartItem.subHeader}
+                                        <span className="">.</span>
+                                        <TruncateText
+                                          text={cardCartItem.new}
+                                          maxLength={10}
+                                        />
+                                      </div>
+                                    </div>
+
+                                    <div className="flex gap-x-3 mt-4 font-normal text-sm">
+                                      <div className="text-black">
+                                        {cardCartItem.quantity}
+                                      </div>
+
+                                      <div className="relative bottom-4">
+                                        <form>
+                                          <select
+                                            title="quantity"
+                                            className="w-16 h-9 rounded border-2 p-2 border-mecaVerificationCodeColor mt-2"
+                                            name="categoria"
+                                            id="categoriaId"
+                                          >
+                                            <option value="0" selected>
+                                              0
+                                            </option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                          </select>
+                                        </form>
+                                      </div>
+                                    </div>
+
+                                    <div className="mt-1">
+                                      <p className="font-nunito font-semibold">
+                                        {cardCartItem.price}
+                                      </p>
+                                    </div>
+                                  </CardContent>
                                 </div>
 
-                                {visibleButtons[cardCartItem.id] && (
+                                <div className="">
                                   <div
-                                    onClick={() =>
-                                      toggleButton(cardCartItem.id)
-                                    }
+                                  // style={{
+                                  //   position: "relative",
+                                  //   left: "40px",
+                                  //   cursor: "pointer",
+                                  // }}
                                   >
-                                    <button
-                                      style={{
-                                        boxShadow: "0px 2px 8px 0px #63636333",
-                                      }}
-                                      className=" h-12 w-24 cursor-pointer bg-white rounded  absolute "
+                                    <MdMoreVert
                                       onClick={() =>
-                                        removeFromCart(cardCartItem.id)
+                                        toggleButton(cardCartItem.id)
+                                      }
+                                      style={{
+                                        fontSize: "20px",
+                                        overflow: "hidden",
+                                        whiteSpace: "nowrap",
+                                        textOverflow: "ellipsis",
+                                        maxWidth: "150px",
+                                      }}
+                                    />
+                                  </div>
+
+                                  {visibleButtons[cardCartItem.id] && (
+                                    <div
+                                      onClick={() =>
+                                        toggleButton(cardCartItem.id)
                                       }
                                     >
-                                      <div className="flex hover:shadow-#63636333-500  gap-x-2 w-20  h-9 m-auto  hover:bg-mecaTableTextErrorBackgroundColor hover:text-mecaErrorInputColor">
-                                        <div className="mt-2">
-                                          {cardCartItem.delete}
+                                      <button
+                                        style={{
+                                          boxShadow:
+                                            "0px 2px 8px 0px #63636333",
+                                        }}
+                                        className="absolute right-1 top-7 h-[34px] w-[100px] cursor-pointer bg-white rounded"
+                                        onClick={() =>
+                                          removeFromCart(cardCartItem.id)
+                                        }
+                                      >
+                                        <div className="px-1 flex items-center hover:shadow-xl gap-x-1 w-full h-full m-auto hover:bg-mecaTableTextErrorBackgroundColor hover:text-mecaErrorInputColor">
+                                          <div className="">
+                                            {cardCartItem.delete}
+                                          </div>
+                                          <div className="text-sm font-normal">
+                                            {cardCartItem.remove}
+                                          </div>
                                         </div>
-                                        <div className="text-sm font-normal mt-1">
-                                          {cardCartItem.remove}
-                                        </div>
-                                      </div>
-                                    </button>
-                                  </div>
-                                )}
+                                      </button>
+                                    </div>
+                                  )}
+                                </div>
                               </div>
                             </div>
                           </div>
