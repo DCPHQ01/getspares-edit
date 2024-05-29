@@ -350,7 +350,6 @@ const RemoveToCartPage = () => {
                   Shopping Cart
                 </h1>
               </div>
-
               <div className="flex gap-x-6">
                 <div className="" style={{ width: "70%" }}>
                   {carts.length === 0 ? (

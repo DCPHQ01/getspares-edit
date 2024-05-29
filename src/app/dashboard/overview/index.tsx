@@ -1,9 +1,11 @@
 "use client";
 import React from "react";
-import Cards from "../../../app/dashboard/overview/cards";
-import PeriodRadios from "../../../app/dashboard/overview/periodRadios";
-import Table from "../../../app/dashboard/table";
-import { roles } from "../../../app/dashboard/utils";
+// import Cards from "../../../../../app/dashboard/overview/cards";
+import Cards from "../../../app/dashboard/components/ui/cards";
+import PeriodRadios from "../../../app/dashboard/components/ui/periodradios";
+import Table from "../../../app/dashboard/components/table";
+
+import { roles } from "../../../app/dashboard/components/utils/utils";
 import Link from "next/link";
 import * as JWT from "jwt-decode";
 import { JwtPayload as BaseJwtPayload } from "jsonwebtoken";
@@ -97,7 +99,7 @@ function Index({ header, subheader, overviewRoles }: IProps) {
                 id="addCompanyButton"
                 className={`bg-[#095AD3] text-white rounded-full py-[0.38rem] px-[1.5rem]`}
               >
-                Add Company
+                Update Company
               </button>
             )}
           </Link>

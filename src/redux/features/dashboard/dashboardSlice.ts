@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { sidePanel } from "../../../app/dashboard/utils";
+import {sidePanel} from "../../../app/dashboard/components/utils/utils";
 
 interface IProps {
   sidePanelButton: string;
 }
 
 const initialState: IProps = {
-  sidePanelButton: sidePanel.OVERVIEW,
+  sidePanelButton: sidePanel?.OVERVIEW,
 };
 const dashboardSlice = createSlice({
   name: "dashboard",

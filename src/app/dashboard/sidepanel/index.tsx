@@ -11,7 +11,10 @@ import {
 } from "react-icons/md";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { dashboardActions } from "../../../redux/features/dashboard/dashboardSlice";
-import { sidePanel, roles } from "../../../app/dashboard/utils";
+import {
+  sidePanel,
+  roles,
+} from "../../../app/dashboard/components/utils/utils";
 import { clearUser, setUser } from "../../../redux/features/users/userSlice";
 import { useRouter } from "next/navigation";
 
