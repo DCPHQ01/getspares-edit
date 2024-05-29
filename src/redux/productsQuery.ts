@@ -62,7 +62,7 @@ export const productsQuery = createApi({
       query: (body: {
         productId: string;
         buyerId: string;
-        quantity: number;
+        quantity?: number;
       }) => ({
         url: "api/v1/cart/removeItemFromCart",
         method: "POST",

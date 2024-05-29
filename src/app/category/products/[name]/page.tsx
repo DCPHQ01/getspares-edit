@@ -105,7 +105,6 @@ export default function Products() {
   };
 
   const searchParams = usePathname()!;
-  const search = searchParams;
   const segments = searchParams.split("/");
   const searches = segments[3];
   const searchWords = segments[3].replace(/([A-Z])/g, " $1").trim();

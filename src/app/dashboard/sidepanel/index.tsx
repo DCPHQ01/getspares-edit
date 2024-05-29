@@ -117,6 +117,8 @@ function Index({ sidePanelRoles }: any) {
   const handleBackToHome = () => {
     if (role === "BUYER") {
       router.push("/");
+    } else {
+      return;
     }
   };
   return (
