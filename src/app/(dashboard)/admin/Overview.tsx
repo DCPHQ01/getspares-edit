@@ -9,7 +9,7 @@ function Overview() {
     return (
         <>
             <div>
-                <Header subtitle={`Take a quick glance on what is happening with meca`} name={`Sam`}/>
+                <Header subtitle={`Take a quick glance on what is happening with meca`} name={`Welcome Sam`}/>
                 <Cards/>
                 <div className={`flex justify-between items-center mt-[3.25rem] mb-[1.25rem]`}>
                     <Header subtitle={`A quick glance on vendors with highest sales on meca`} title={`Top performing vendors`}/>

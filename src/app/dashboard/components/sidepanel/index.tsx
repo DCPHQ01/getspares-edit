@@ -128,7 +128,8 @@ function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
   );
 
     return (
-        <div id="sidePanelContainer" className={`z-[1000]`}>
+        <div id="sidePanelContainer" className={`z-[1000]
+        `}>
             <div id="sidePanel" className={`w-[17.5rem] fixed h-screen py-[2rem] border border-r-[#EAECF0] bg-white`}>
                 <h1 id="sidePanelTitle" className={`text-[#0852C0] mx-[2.19rem] text-[1.9rem] font-[700]`}>e-meca</h1>
                 <div id="buttonContainer" className={`mx-[2rem] mt-[3.25rem]`}>

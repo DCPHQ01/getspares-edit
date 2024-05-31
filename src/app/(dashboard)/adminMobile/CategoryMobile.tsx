@@ -2,14 +2,13 @@ import React, { useRef, useState } from "react";
 import Header from "../../dashboard/components/ui/header";
 import SearchBox from "../../dashboard/components/ui/searchbox";
 import PeriodRadios from "../../dashboard/components/ui/periodradios";
-import Addbutton from "../../dashboard/components/ui//addbutton";
+import Addbutton from "../../dashboard/components/ui/addbutton";
 import CategoryTable from "../../dashboard/components/table/mecaadmin/categoryTable";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { MdAdd, MdClose, MdPhotoLibrary } from "react-icons/md";
-import Link from "next/link";
 import { TextField } from "@mui/material";
 
 const style = {
@@ -25,7 +24,6 @@ const style = {
   borderRadius: "20px",
   p: 4,
 };
-
 function Category() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -51,24 +49,17 @@ function Category() {
 
   return (
     <>
-      <div className={`mb-[1.25rem] flex justify-between items-center`}>
+      <div
+        className={`mb-[1.25rem] lg:flex  flex-col justify-between items-center`}
+      >
         <Header
           subtitle={`Keep track of categories and their products`}
           title={`Category`}
           amount={`500,607`}
         />
-
-        <button
-          id="addButton"
-          onClick={handleOpen}
-          className={`bg-[#095AD3] lg:w-[20%] w-[100%] text-white rounded-full py-[0.38rem] px-[1.5rem] 
-        `}
-        >
-          <div className={`flex text-white items-center justify-center`}>
-            <MdAdd size={20} />
-            Create category
-          </div>
-        </button>
+        <div className="mt-4" onClick={handleOpen}>
+          <Addbutton title={`Create category`} />
+        </div>
 
         <Modal
           open={open}
@@ -157,7 +148,7 @@ function Category() {
       </div>
       <div className={`flex justify-between items-center mb-[1.25rem]`}>
         <SearchBox placeholder={`Search for category`} />
-        <PeriodRadios />
+        {/* <PeriodRadios /> */}
       </div>
 
       <CategoryTable />

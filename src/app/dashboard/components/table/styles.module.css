@@ -1,5 +1,5 @@
 .table th {
-  position: sticky;
+  /* position: sticky; */
   top: 0;
   padding: 12px 24px;
   text-align: left;

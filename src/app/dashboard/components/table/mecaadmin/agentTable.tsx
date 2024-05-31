@@ -146,7 +146,7 @@ const AgentTable = () => {
         >
           <table id="adminTable" className={`w-full`}>
             <thead>
-              <tr>
+              <tr className="truncate">
                 <th id="companyNameHeader">Full name</th>
                 <th id="totalItemsSoldHeader">Quantity sold</th>
                 <th id="transactionValueHeader">Transaction value</th>
@@ -171,8 +171,11 @@ const AgentTable = () => {
                         id={`avatar_${index}`}
                       />
                       <div id={`companyDetails_${index}`}>
-                        <div>{d.name}</div>
-                        <div className={`text-[#4B5565]`} id={`email_${index}`}>
+                        <div className="truncate">{d.name}</div>
+                        <div
+                          className={`text-[#4B5565] truncate`}
+                          id={`email_${index}`}
+                        >
                           {d.email}
                         </div>
                       </div>
@@ -194,7 +197,10 @@ const AgentTable = () => {
                   <td id={`dateJoined_${index}`}>
                     <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
                       <div id={`date_${index}`}>{d.date}</div>
-                      <div className={`text-[#4B5565]`} id={`time_${index}`}>
+                      <div
+                        className={`text-[#4B5565] truncate`}
+                        id={`time_${index}`}
+                      >
                         {d.time}
                       </div>
                     </div>
