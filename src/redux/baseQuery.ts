@@ -2,6 +2,15 @@ import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { LoginResponse } from "../models/loginResponse";
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+const getToken = () => {
+  if (typeof window !== "undefined") {
+    return JSON.parse(sessionStorage.getItem("token") || "{}");
+  }
+  return {};
+};
+
+let token = getToken();
+console.log("token for basequery ", token);
 
 export const baseQuery = createApi({
   reducerPath: "baseQuery",
@@ -67,6 +76,34 @@ export const baseQuery = createApi({
         }),
       }
     ),
+    resetOtp: builder.mutation({
+      query: (body: { email: string }) => ({
+        url: "api/v1/auth/resetOtp",
+        method: "POST",
+        body,
+      }),
+    }),
+    resetPassword: builder.mutation({
+      query: (body: {
+        email: string;
+        otpCode: string;
+        newPassword: string;
+      }) => ({
+        url: "api/v1/auth/resetPassword",
+        method: "POST",
+        body,
+      }),
+    }),
+    getUserDetails: builder.mutation({
+      query: () => ({
+        url: "api/v1/auth",
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }),
+    }),
   }),
 });
 
@@ -76,4 +113,7 @@ export const {
   useRegisterVendorMutation,
   useVerifyEmailMutation,
   useLoginMutation,
+  useResetOtpMutation,
+  useResetPasswordMutation,
+  useGetUserDetailsMutation,
 } = baseQuery;

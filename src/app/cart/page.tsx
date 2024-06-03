@@ -194,7 +194,7 @@ const RemoveToCartPage = () => {
   };
 
   const { cart } = useAppSelector((state) => state.product);
-  console.log("cart ", cart);
+  // console.log("cart ", cart);
   const [OpenA, setOpenA] = useState(false);
   const handleNav = () => {
     setOpenA(!OpenA);
@@ -217,19 +217,33 @@ const RemoveToCartPage = () => {
 
   const [carts, setCarts] = useState(cardCartItems);
 
+  // let buyersId: string;
+  // if (typeof window !== "undefined") {
+  //   const userDetails = JSON.parse(
+  //     sessionStorage.getItem("userDetails") || "{}"
+  //   );
+  //   buyersId = userDetails.buyersId;
+  // }
+
+  let userId = "";
+  if (typeof window !== "undefined") {
+    const userDetails = JSON.parse(
+      sessionStorage.getItem("userDetails") || "{}"
+    );
+    userId = userDetails.userId;
+  }
+
+  console.log("User ID: ", userId);
+
   const removeFromCart = async (productId: string) => {
     try {
-      // await removeProductFromCart(productId, buyersId);
+      await removeProductFromCart({ productId, buyerId: userId });
     } catch (error) {
       console.error("Failed to remove item from cart", error);
       return error;
     }
-    // setCarts((prevCart) => prevCart.filter((item) => item.id !== id));
   };
   const router = useRouter();
-
-  // const [showButton, setShowButton] = useState(false);
-
   return (
     <div>
       <div className="w-full flex flex-col z-[2000]">

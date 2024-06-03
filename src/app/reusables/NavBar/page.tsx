@@ -94,13 +94,13 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
     setActive(id);
   };
 
-  const { user } = useAppSelector((state) => state.user);
   const { cart } = useAppSelector((state) => state.product);
-  console.log(" user", user);
+
   console.log(" product", cart);
 
   const router = useRouter();
   const dispatch = useAppDispatch();
+
   const handleStartShopping = () => {
     router.push("/signup");
   };
@@ -120,18 +120,24 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
     router.push("/dashboard");
   };
   const [toggleProfile, setToggleProfile] = useState(false);
+  const [tokens, setTokens] = useState("");
   const profile = () => {
     setToggleProfile(!toggleProfile);
   };
-
   let decoded: JwtPayload | null = null;
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setTokens((sessionStorage.getItem("token") as string | null) ?? "");
+    }
+  }, []);
   try {
     if (
-      user?.access_token &&
-      typeof user.access_token === "string" &&
-      user.access_token.split(".").length === 3
+      tokens &&
+      typeof tokens === "string" &&
+      tokens.split(".").length === 3
     ) {
-      decoded = JWT.jwtDecode(user.access_token);
+      decoded = JWT.jwtDecode(tokens);
     }
   } catch (error) {
     console.error("Failed to decode token:", error);
@@ -140,12 +146,11 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
   const name = decoded?.given_name;
 
   const logOut = () => {
+    sessionStorage.clear();
+    sessionStorage.removeItem("userDetails");
     dispatch(clearUser());
-    router.push("/");
+    router.push("/login");
   };
-
-  // useEffect(() => setIsCategoryOptionOpen(false), [active]);
-
   useEffect(() => setActive(1), []);
   return (
     <nav className="w-full bg-white" id="navbarContainer">
@@ -224,7 +229,6 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                 <MdOutlineShoppingCart
                   size={18}
                   className="text-mecaBluePrimaryColor"
-                  // onClick={routs}
                 />
                 <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
                   {cart.length}
@@ -232,7 +236,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
               </div>
             </Link>
             <div className="w-full flex items-center h-full">
-              {!user?.access_token ? (
+              {!tokens ? (
                 <div className="w-full flex items-center h-full gap-4">
                   <button
                     type="button"

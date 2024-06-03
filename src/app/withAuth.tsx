@@ -1,23 +1,29 @@
 "use client";
 
 import { useEffect, useLayoutEffect } from "react";
-import { useAppSelector } from "../redux/hooks";
 import { useRouter } from "next/navigation";
 
 export default function withAuth(Component: any) {
   return function AuthComponent(props: any) {
-    const { user } = useAppSelector((state) => state.user);
     const router = useRouter();
-    const token = user?.access_token;
+    // const tokens = JSON.parse(sessionStorage.getItem("token") || "{}");
+    const getToken = () => {
+      if (typeof window !== "undefined") {
+        return JSON.parse(sessionStorage.getItem("token") || "{}");
+      }
+      return {};
+    };
+
+    let tokens = getToken();
     useLayoutEffect(() => {
-      if (!token) {
+      if (!tokens) {
         router.push("/login");
       }
-    }, [token, router]);
+    }, [tokens, router]);
 
     useEffect(() => {
       const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-        if (!token) {
+        if (!tokens) {
           event.preventDefault();
         }
       };
@@ -27,8 +33,8 @@ export default function withAuth(Component: any) {
       return () => {
         window.removeEventListener("beforeunload", handleBeforeUnload);
       };
-    }, [token]);
-    if (!token) {
+    }, [tokens]);
+    if (!tokens) {
       return null;
     }
     return <Component {...props} />;

@@ -12,6 +12,10 @@ import { MdChevronRight } from "react-icons/md";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Indicator from "../../assets/icons/indicatorRectangle";
+import { useEffect } from "react";
+import { useAppDispatch } from "../../redux/hooks";
+import { setUser, setUserDetails } from "../../redux/features/users/userSlice";
+import { redirect } from "next/navigation";
 
 interface CustomDotProps {
   onClick: () => void;
@@ -66,6 +70,12 @@ const responsives = {
 };
 
 export default function Home() {
+  useEffect(() => {
+    if (typeof window !== "undefined" && !sessionStorage.getItem("token")) {
+      redirect("/login");
+    }
+  }, []);
+
   const CustomDot = ({ onClick, active }: CustomDotProps) => {
     return (
       <li onClick={() => onClick()}>

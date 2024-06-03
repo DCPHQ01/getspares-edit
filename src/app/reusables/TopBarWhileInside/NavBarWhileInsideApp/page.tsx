@@ -36,18 +36,24 @@ export default function NavBarWhileInsideApp() {
 
   const [toggleProfile, setToggleProfile] = useState(false);
   const [openNavOptions, setOpenNavOptions] = useState(false);
+  const [tokens, setTokens] = useState("");
   const profile = () => {
     setToggleProfile(!toggleProfile);
   };
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setTokens((sessionStorage.getItem("token") as string | null) ?? "");
+    }
+  }, []);
 
   let decoded: JwtPayload | null = null;
   try {
     if (
-      user?.access_token &&
-      typeof user.access_token === "string" &&
-      user.access_token.split(".").length === 3
+      tokens &&
+      typeof tokens === "string" &&
+      tokens.split(".").length === 3
     ) {
-      decoded = JWT.jwtDecode(user.access_token);
+      decoded = JWT.jwtDecode(tokens);
     }
   } catch (error) {
     console.error("Failed to decode token:", error);
@@ -57,8 +63,10 @@ export default function NavBarWhileInsideApp() {
     router.push("/dashboard");
   };
   const logOut = () => {
+    sessionStorage.clear();
+    sessionStorage.removeItem("userDetails");
     dispatch(clearUser());
-    router.push("/");
+    router.push("/login");
   };
   const name = decoded?.given_name;
 
@@ -120,7 +128,7 @@ export default function NavBarWhileInsideApp() {
             </Link>
 
             <div className="w-full flex items-center h-full">
-              {!user?.access_token ? (
+              {!tokens ? (
                 <div className="w-full flex items-center h-full gap-4">
                   <button
                     type="button"

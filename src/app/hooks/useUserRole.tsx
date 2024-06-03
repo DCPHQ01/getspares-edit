@@ -9,15 +9,23 @@ interface JwtPayload extends BaseJwtPayload {
 }
 
 export function useUserRole() {
-  const { user } = useAppSelector((state: RootState) => state.user); // Add type annotation to 'state' parameter
+  // const { user } = useAppSelector((state: RootState) => state.user);
+  const getToken = () => {
+    if (typeof window !== "undefined") {
+      return JSON.parse(sessionStorage.getItem("token") || "{}");
+    }
+    return {};
+  };
+
+  let tokens = getToken();
   let decoded: JwtPayload | null = null;
   try {
     if (
-      user?.access_token &&
-      typeof user.access_token === "string" &&
-      user.access_token.split(".").length === 3
+      tokens &&
+      typeof tokens === "string" &&
+      tokens.split(".").length === 3
     ) {
-      decoded = JWT.jwtDecode(user.access_token);
+      decoded = JWT.jwtDecode(tokens);
     }
   } catch (error) {
     console.error("Failed to decode token:", error);

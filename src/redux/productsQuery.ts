@@ -2,6 +2,14 @@ import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import { createApi } from "@reduxjs/toolkit/query/react";
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
+const getToken = () => {
+  if (typeof window !== "undefined") {
+    return JSON.parse(sessionStorage.getItem("token") || "{}");
+  }
+  return {};
+};
+
+let token = getToken();
 export const productsQuery = createApi({
   reducerPath: "productsQuery",
   baseQuery: fetchBaseQuery({ baseUrl }),
@@ -45,6 +53,10 @@ export const productsQuery = createApi({
       query: (id: string) => ({
         url: `api/v1/product/${id}`,
         method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
       }),
     }),
     addProductToCart: builder.mutation({
@@ -56,6 +68,10 @@ export const productsQuery = createApi({
         url: "api/v1/cart/AddProductToCart",
         method: "POST",
         body,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
       }),
     }),
     removeProductFromCart: builder.mutation({
@@ -67,11 +83,21 @@ export const productsQuery = createApi({
         url: "api/v1/cart/removeItemFromCart",
         method: "POST",
         body,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
       }),
     }),
     viewCart: builder.query({
-      query: (buyerId: string) =>
-        `/api/v1/cart/viewCartItems?buyerId=${buyerId}`,
+      query: (buyerId: string) => ({
+        url: `/api/v1/cart/viewCartItems?buyerId=${buyerId}`,
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }),
     }),
     getCategory: builder.query({
       query: () => "api/v1/product/category",

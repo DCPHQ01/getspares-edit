@@ -5,8 +5,12 @@ import Link from "next/link";
 import FormControl from "@mui/material/FormControl";
 import { Nunito_Sans } from "next/font/google";
 import * as JWT from "jwt-decode";
+import { ColorRing } from "react-loader-spinner";
 import { JwtPayload as BaseJwtPayload } from "jsonwebtoken";
-import { useLoginMutation } from "../../../redux/baseQuery";
+import {
+  useGetUserDetailsMutation,
+  useLoginMutation,
+} from "../../../redux/baseQuery";
 
 const nunito = Nunito_Sans({
   subsets: ["latin"],
@@ -78,20 +82,19 @@ export default function Login() {
     return password.length >= 8;
   };
 
-  const isFormValid = () => {
-    return isValidEmail(state.email) && isValidPassword(state.password);
-  };
+  const isFormValid = Boolean(
+    isValidEmail(state.email) && isValidPassword(state.password)
+  );
 
   const dispatch = useAppDispatch();
-  const { user } = useAppSelector((state) => state.user);
-  console.log(user, " user");
+  // const { user } = useAppSelector((state) => state.user);
+  const [token, setToken] = useState("");
+
   const [login, { isLoading, error }] = useLoginMutation();
 
   const router = useRouter();
-
-  useEffect(() => {
-    dispatch(setUser(null));
-  }, []);
+  // const { data: userDetails, refetch } = useGetUserDetailsQuery({});
+  const [getUserData] = useGetUserDetailsMutation({});
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -102,12 +105,28 @@ export default function Login() {
       });
 
       if ("data" in response && response.data) {
-        dispatch(setUser(response.data));
-        console.log("response data ", response.data);
-        // const decoded = JWT.jwtDecode(response.data.access_token);
-        let decoded: JwtPayload = JWT.jwtDecode(response?.data?.access_token);
+        dispatch(setUser(response.data.access_token));
+
+        setToken(response?.data?.access_token ?? "");
+        console.log(token, " token");
+        let decoded: JwtPayload = JWT.jwtDecode(token);
+        sessionStorage.setItem("token", JSON.stringify(token));
         console.log(decoded, "decoded");
-        console.log(decoded?.resource_access["e-meca"]?.roles[0], " roles");
+
+        if (token) {
+          const userDetails = await getUserData().unwrap();
+          if (userDetails) {
+            console.log("user details", userDetails);
+            if (typeof window !== "undefined") {
+              sessionStorage.setItem(
+                "userDetails",
+                JSON.stringify(userDetails)
+              );
+            }
+          }
+        }
+
+        console.log(decoded, " decoded");
         switch (decoded?.resource_access["e-meca"]?.roles[0]) {
           case "MECA_ADMIN":
             router.push("/admin");
@@ -135,6 +154,13 @@ export default function Login() {
   const routerToHomePage = () => {
     router.push("/");
   };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      sessionStorage.clear();
+      sessionStorage.removeItem("userDetails");
+    }
+  }, []);
 
   return (
     <div className={nunito.className}>
@@ -229,11 +255,23 @@ export default function Login() {
             className="bg-mecaBluePrimaryColor normal-case text-[white] text-lg font-semibold rounded-[36px] disabled:bg-mecaBgDisableColor disabled:text-[white] h-12 hover:bg-mecaBluePrimaryColor"
             variant="contained"
             endIcon={!isLoading ? <MdChevronRight /> : ""}
-            disabled={!isFormValid() && isLoading}
+            disabled={!isFormValid}
             disableElevation
             onClick={handleSubmit}
           >
-            {isLoading ? "Loading..." : "Login"}
+            {isLoading ? (
+              <ColorRing
+                visible={true}
+                height="40"
+                width="40"
+                ariaLabel="color-ring-loading"
+                wrapperStyle={{}}
+                wrapperClass="color-ring-wrapper"
+                colors={["#ffff", "#ffff", "#ffff", "#ffff", "#ffff"]}
+              />
+            ) : (
+              "Login"
+            )}
           </Button>
         </FormControl>
         <span className="flex items-center gap-1 text-meca-gray-600 text-sm mt-6">
