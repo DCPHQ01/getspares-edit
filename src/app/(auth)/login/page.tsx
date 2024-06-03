@@ -4,6 +4,7 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import Link from "next/link";
 import FormControl from "@mui/material/FormControl";
 import { Nunito_Sans } from "next/font/google";
+import { unwrapResult } from '@reduxjs/toolkit'
 import * as JWT from "jwt-decode";
 import { ColorRing } from "react-loader-spinner";
 import { JwtPayload as BaseJwtPayload } from "jsonwebtoken";
@@ -41,6 +42,8 @@ interface JwtPayload extends BaseJwtPayload {
 }
 
 export default function Login() {
+  const router = useRouter();
+
   const [state, setState] = useState({
     showPassword: false,
     email: "",
@@ -48,6 +51,10 @@ export default function Login() {
     emailError: false,
     passwordError: false,
   });
+
+  const [login, { isLoading, error }] = useLoginMutation();
+
+  const [getUserData] = useGetUserDetailsMutation({});
 
   const handleEmailOnChange = (event: ChangeEvent<HTMLInputElement>) => {
     const email = event.target.value;
@@ -86,32 +93,21 @@ export default function Login() {
     isValidEmail(state.email) && isValidPassword(state.password)
   );
 
-  const dispatch = useAppDispatch();
-  // const { user } = useAppSelector((state) => state.user);
-  const [token, setToken] = useState("");
-
-  const [login, { isLoading, error }] = useLoginMutation();
-
-  const router = useRouter();
-  // const { data: userDetails, refetch } = useGetUserDetailsQuery({});
-  const [getUserData] = useGetUserDetailsMutation({});
-
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
       const response = await login({
         email: state.email,
         password: state.password,
-      });
+      }).unwrap();
 
-      if ("data" in response && response.data) {
-        dispatch(setUser(response.data.access_token));
+      if (response.access_token) {
 
-        setToken(response?.data?.access_token ?? "");
+        let token = response.access_token
+
         console.log(token, " token");
         let decoded: JwtPayload = JWT.jwtDecode(token);
         sessionStorage.setItem("token", JSON.stringify(token));
-        console.log(decoded, "decoded");
 
         if (token) {
           const userDetails = await getUserData(token).unwrap();
