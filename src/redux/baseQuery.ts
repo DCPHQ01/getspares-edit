@@ -2,15 +2,15 @@ import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { LoginResponse } from "../models/loginResponse";
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-const getToken = () => {
-  if (typeof window !== "undefined") {
-    return JSON.parse(sessionStorage.getItem("token") || "{}");
-  }
-  return {};
-};
+// const getToken = () => {
+//   if (typeof window !== "undefined") {
+//     return JSON.parse(sessionStorage.getItem("token") || "{}");
+//   }
+//   return {};
+// };
 
-let token = getToken();
-console.log("token for basequery ", token);
+// let token = getToken();
+// console.log("token for basequery ", token);
 
 export const baseQuery = createApi({
   reducerPath: "baseQuery",
@@ -95,7 +95,7 @@ export const baseQuery = createApi({
       }),
     }),
     getUserDetails: builder.mutation({
-      query: () => ({
+      query: (token) => ({
         url: "api/v1/auth",
         method: "GET",
         headers: {

@@ -114,7 +114,7 @@ export default function Login() {
         console.log(decoded, "decoded");
 
         if (token) {
-          const userDetails = await getUserData().unwrap();
+          const userDetails = await getUserData(token).unwrap();
           if (userDetails) {
             console.log("user details", userDetails);
             if (typeof window !== "undefined") {
