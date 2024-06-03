@@ -4,14 +4,11 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import Link from "next/link";
 import FormControl from "@mui/material/FormControl";
 import { Nunito_Sans } from "next/font/google";
-import { unwrapResult } from '@reduxjs/toolkit'
+import { unwrapResult } from "@reduxjs/toolkit";
 import * as JWT from "jwt-decode";
 import { ColorRing } from "react-loader-spinner";
 import { JwtPayload as BaseJwtPayload } from "jsonwebtoken";
-import {
-  useGetUserDetailsMutation,
-  useLoginMutation,
-} from "../../../redux/baseQuery";
+import { useLoginMutation } from "../../../redux/features/users/authQuery";
 
 const nunito = Nunito_Sans({
   subsets: ["latin"],
@@ -34,8 +31,7 @@ import {
   MdOutlineVisibilityOff,
 } from "react-icons/md";
 import { useRouter } from "next/navigation";
-import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import { setUser } from "../../../redux/features/users/userSlice";
+import { useGetUserDetailsMutation } from "../../../redux/features/users/userQuery";
 
 interface JwtPayload extends BaseJwtPayload {
   role?: string;
@@ -102,8 +98,7 @@ export default function Login() {
       }).unwrap();
 
       if (response.access_token) {
-
-        let token = response.access_token
+        let token = response.access_token;
 
         console.log(token, " token");
         let decoded: JwtPayload = JWT.jwtDecode(token);

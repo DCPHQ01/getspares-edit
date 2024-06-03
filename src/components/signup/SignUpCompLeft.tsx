@@ -20,7 +20,7 @@ import {
   useRegisterAgentMutation,
   useRegisterBuyerMutation,
   useRegisterVendorMutation,
-} from "../../redux/baseQuery";
+} from "../../redux/features/users/authQuery";
 import { useRouter } from "next/navigation";
 import { ColorRing } from "react-loader-spinner";
 

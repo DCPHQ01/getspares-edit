@@ -4,7 +4,7 @@ import Link from "next/link";
 import {
   useVerifyEmailMutation,
   useResetOtpMutation,
-} from "../../redux/baseQuery";
+} from "../../redux/features/users/authQuery";
 import { Snackbar } from "@mui/material";
 
 interface VerifyEmailProps {

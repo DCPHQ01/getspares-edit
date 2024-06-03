@@ -1,6 +1,6 @@
 import Image, { StaticImageData } from "next/image";
 import { MdStar } from "react-icons/md";
-import { useGetProductsQuery } from "../../redux/productsQuery";
+import { useGetProductsQuery } from "../../redux/features/product/productsQuery";
 
 interface CardProps {
   image: StaticImageData;

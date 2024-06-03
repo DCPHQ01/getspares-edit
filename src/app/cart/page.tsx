@@ -45,7 +45,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   useRemoveProductFromCartMutation,
   useViewCartQuery,
-} from "../../redux/productsQuery";
+} from "../../redux/features/product/productsQuery";
 import TopBarWhileInside from "../reusables/TopBarWhileInside/page";
 import TopBar from "../reusables/TopBar/page";
 import TruncateText from "../utils/page";
