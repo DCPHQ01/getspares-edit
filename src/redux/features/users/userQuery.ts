@@ -3,7 +3,7 @@ import customFetchBase from "../../customFetchBaseQuery";
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export const userQuery = createApi({
-  reducerPath: "productsQuery",
+  reducerPath: "userQuery",
   baseQuery: customFetchBase,
   endpoints: (builder) => ({
     getUserDetails: builder.mutation({

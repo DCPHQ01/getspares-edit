@@ -13,6 +13,7 @@ export const store = configureStore({
   reducer: {
     [authQuery.reducerPath]: authQuery.reducer,
     [productsQuery.reducerPath]: productsQuery.reducer,
+    [userQuery.reducerPath]: userQuery.reducer,
     user: userSlice,
     company: companySlice,
     product: productSlice,
