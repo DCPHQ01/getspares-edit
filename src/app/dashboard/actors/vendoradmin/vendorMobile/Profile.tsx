@@ -1,11 +1,12 @@
 "use client";
 import { useState } from "react";
-import Header from "../../../dashboard/components/ui/header";
+import "../../../../../styles/Profile.css";
+import Header from "../../../../dashboard/components/ui/header";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
-import Addbutton from "../../components/ui/addbutton";
+import Addbutton from "../../../components/ui/addbutton";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
@@ -62,10 +63,10 @@ const Profile = () => {
 
   return (
     <div>
-      <div className="flex justify-between">
+      <div className="">
         <div className="flex gap-x-2 mb-12">
           <Avatar
-            className="bg-mecaActiveBackgroundNavColor text-mecaBluePrimaryColor w-16 h-16 text-4xl"
+            className="bg-mecaActiveBackgroundNavColor text-mecaBluePrimaryColor w-16 h-16 text-4xl "
             {...stringAvatar("Emeka Sons Limited")}
           />
           <Header
@@ -87,26 +88,25 @@ const Profile = () => {
           <Box
             sx={{ ...style }}
             onClick={handleClose}
-            className="w-[30%] h-[399px] rounded-lg 
+            className="w-[90%] h-[399px] rounded-lg 
             "
           >
             <div className=" mt-6 ">
-              <div className="flex justify-center">
+              <div className="flex justify-center ">
                 <Avatar
-                  className="bg-mecaActiveBackgroundNavColor mb-3 text-mecaBluePrimaryColor w-16 h-16 text-4xl"
+                  className="bg-mecaActiveBackgroundNavColor mb-3  text-mecaBluePrimaryColor w-16 h-16 text-4xl"
                   {...stringAvatar("Emeka Sons Limited")}
                 />
               </div>
 
-              <div className="flex justify-center">
+              <div className=" flex justify-center ">
                 <Header
                   subtitle={``}
                   title={`Emeka & Sons Limited`}
                   amount={``}
                 />
               </div>
-
-              <div className="flex justify-center">
+              <div className="flex justify-center ">
                 <Header
                   subtitle={`emekaemeka@gmail.com`}
                   title={``}
@@ -138,15 +138,15 @@ const Profile = () => {
         </Modal>
       </div>
 
-      <hr></hr>
+      <hr className="mt-10"></hr>
 
-      <div className="flex justify-between mt-5">
+      <div className="lg:flex justify-between mt-5">
         <div className="">
           <p>Company profile</p>
           <span>Update company description or address.</span>
         </div>
 
-        <div className="border-2 w-[60%] h-screen p-5 rounded-xl overflow-auto scrollbar-none">
+        <div className="border-2 lg:w-[60%] mt-10 w-[100%] h-screen p-5 rounded-xl overflow-auto scrollbar-none">
           <Box>
             <TextareaAutosize
               readOnly={true}
@@ -155,7 +155,7 @@ const Profile = () => {
               aria-label="Description"
               name="description"
               placeholder="Description"
-              className="  w-[100%] mb-10"
+              className="  w-[100%] mb-10 -z-50"
               style={{
                 backgroundColor: "#EFF2F3",
                 height: "223px",
@@ -164,7 +164,7 @@ const Profile = () => {
               }}
             />
           </Box>
-          <Box className="flex gap-x-4">
+          <Box className=" gap-x-4">
             <TextField
               inputProps={{ readOnly: true }}
               required={true}
@@ -172,7 +172,7 @@ const Profile = () => {
               label="Address1"
               variant="filled"
               InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] rounded"
+              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] rounded -z-50"
               sx={{ backgroundColor: "porcelain" }}
             />
 
@@ -184,11 +184,11 @@ const Profile = () => {
               label="Address2"
               variant="filled"
               InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem]"
+              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] -z-50"
               sx={{ backgroundColor: "porcelain" }}
             />
           </Box>
-          <Box className="flex gap-x-4">
+          <Box className=" gap-x-4">
             <TextField
               inputProps={{ readOnly: true }}
               required={true}
@@ -197,7 +197,7 @@ const Profile = () => {
               label="Phone number"
               variant="filled"
               InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] rounded"
+              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] rounded -z-50"
               sx={{ backgroundColor: "porcelain" }}
             />
 
@@ -209,12 +209,12 @@ const Profile = () => {
               label="Agents"
               variant="filled"
               InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] rounded"
+              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] rounded -z-50"
               sx={{ backgroundColor: "porcelain" }}
             />
           </Box>
 
-          <Box className="flex gap-x-4">
+          <Box className=" gap-x-4">
             <TextField
               inputProps={{ readOnly: true }}
               required={true}
@@ -223,7 +223,7 @@ const Profile = () => {
               label="Total item sold"
               variant="filled"
               InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] rounded"
+              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] rounded -z-50"
               sx={{ backgroundColor: "porcelain" }}
             />
 
@@ -235,12 +235,12 @@ const Profile = () => {
               label="Date and time joined"
               variant="filled"
               InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem]"
+              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] -z-50"
               sx={{ backgroundColor: "porcelain" }}
             />
           </Box>
 
-          <Box className="flex gap-x-4">
+          <Box className=" gap-x-4">
             <TextField
               inputProps={{ readOnly: true }}
               required={true}
@@ -251,7 +251,7 @@ const Profile = () => {
               //   value={company.companyForm.website}
               name="website"
               InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] rounded"
+              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] rounded -z-50"
               sx={{ backgroundColor: "porcelain" }}
             />
 
@@ -263,12 +263,12 @@ const Profile = () => {
               label="Transaction value"
               variant="filled"
               InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] rounded"
+              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] rounded -z-50"
               sx={{ backgroundColor: "porcelain" }}
             />
           </Box>
 
-          <Box className="flex gap-x-4">
+          <Box className=" gap-x-4">
             <TextField
               inputProps={{ readOnly: true }}
               required={true}
@@ -277,7 +277,7 @@ const Profile = () => {
               label="Last active"
               variant="filled"
               InputProps={{ disableUnderline: true }}
-              className=" w-[100%] mb-10"
+              className=" w-[100%] mb-10 -z-50"
               sx={{ backgroundColor: "porcelain" }}
             />
           </Box>

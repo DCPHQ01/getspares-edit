@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Nunito_Sans } from "next/font/google";
 import Carousel from "react-multi-carousel";
-import Cards from "../../../../components/Homepage/Card";
+import Cards from "../../../../../components/Homepage/Card";
 import "react-multi-carousel/lib/styles.css";
 import HomeImage1 from "../../../../assets/images/homeImage1.png";
 import HomeImage2 from "../../../../assets/images/HomeImage2.png";
@@ -25,13 +25,13 @@ import {
   MdDeleteOutline,
   MdCheckCircle,
 } from "react-icons/md";
-import HeaderPage from "../../../reusables/Header/page";
-import Parts from "../../../../assets/images/parts.png";
+import HeaderPage from "../../../../reusables/Header/page";
+import Parts from "../../../../../assets/images/parts.png";
 import Image from "next/image";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Alert, Card } from "@mui/material";
-import Footer from "../../../../components/footer/Footer";
+import Footer from "../../../../../components/footer/Footer";
 import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
 import Link from "next/link";
 import MenuItem from "@mui/material/MenuItem";
@@ -41,10 +41,10 @@ import Menu from "@mui/material/Menu";
 // import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 import { useRouter } from "next/navigation";
-import { useAppSelector } from "../../../../redux/hooks";
-import Header from "../../components/ui/header";
-import Searchbox from "../../components/ui/searchbox";
-import TruncateText from "../../../utils/page";
+import { useAppSelector } from "../../../../../redux/hooks";
+import Header from "../../../components/ui/header";
+import Searchbox from "../../../components/ui/searchbox";
+import TruncateText from "../../../../utils/page";
 
 interface State extends SnackbarOrigin {
   open: boolean;
@@ -218,7 +218,7 @@ const itemSelected = [
 
 const ITEM_HEIGHT = 48;
 
-const Cart = () => {
+const BuyerCartMobile = () => {
   const [visibleButtons, setVisibleButtons] = useState<{
     [key: string]: boolean;
   }>({});
@@ -241,6 +241,7 @@ const Cart = () => {
     setIsOpen(!isOpen);
   };
 
+  //  const { cart } = useAppSelector((state) => state.product);
   const { cart } = useAppSelector((state) => state.product);
   console.log("cart ", cart);
   const [OpenA, setOpenA] = useState(false);
@@ -300,13 +301,10 @@ const Cart = () => {
   };
 
   return (
-    <div className="">
-      {/* desktop */}
-      <div
-        id="contentContainerAddToCartDesktop"
-        className="hidden lg:flex flex-col"
-      >
-        <div className="w-[100%]" style={{ margin: "0px auto" }}>
+    <div>
+      {/* mobile */}
+      <div className="lg:hidden w-full" id="contentContainerAddToCartMobile">
+        <div className="w-[90%]" style={{ margin: "0px auto" }}>
           <div style={{ width: "100%" }} className={nunito.className}>
             <div className={`flex flex-col gap-6`}>
               <Header
@@ -317,10 +315,10 @@ const Cart = () => {
               <Searchbox />
             </div>
 
-            <div className="flex gap-x-6">
-              <div className="" style={{ width: "70%" }}>
+            <div className="flex  flex-col w-full">
+              <div className="" style={{ width: "100%" }}>
                 {carts.length === 0 ? (
-                  <p className="text-lg font-bold text-center mt-20">
+                  <p className="text-lg font-bold text-center mt-20 mb-20">
                     Your Cart is Empty!
                   </p>
                 ) : (
@@ -328,103 +326,118 @@ const Cart = () => {
                     {carts.map((cardCartItem) => (
                       <div key={cardCartItem.id} className="mt-6 mb-5 ">
                         <div
-                          className=" h-40 p-4 bg-white rounded-lg"
+                          className="h-52 p-4 rounded-lg bg-white "
                           style={{
                             boxShadow: "0px 0px 0px 1px rgba(42, 59, 81, 0.12)",
                           }}
                         >
-                          <div className="flex justify-between">
-                            <div>
-                              <div className=" flex gap-x-5">
-                                <div className="">
-                                  <div className="bg-mecaActiveBackgroundNavColor h-32 w-44 rounded-lg">
-                                    <Image
-                                      className="w-44 m-auto p-3"
-                                      src={cardCartItem.Image}
-                                      id="cardCartItemImage"
-                                      alt="mobile spear part image"
-                                    />
-                                  </div>
-                                </div>
-                                <div className="mt--4">
-                                  <CardContent style={{ padding: "inherit" }}>
-                                    <div className="text-base font-semibold mb-2">
-                                      <div className={nunito.className}>
-                                        {cardCartItem.header}
-                                      </div>
-                                    </div>
-                                    <div className={nunito.className}>
-                                      <div className="flex gap-x-2 font-normal text-sm text-mecaLightGrayText mb-10">
-                                        {cardCartItem.subHeader}{" "}
-                                        <span className="mb--6">.</span>
-                                        {cardCartItem.new}
-                                      </div>
-                                    </div>
-
-                                    <div className="flex gap-x-3 font-normal text-sm">
-                                      <div className="text-black">
-                                        {cardCartItem.quantity}
-                                      </div>
-
-                                      <div className="relative bottom-4">
-                                        <form>
-                                          {isInputVisible ? (
-                                            <div className="flex gap-x-2">
-                                              <input
-                                                type="number"
-                                                min="10"
-                                                value={quantity}
-                                                onChange={handleInputChange}
-                                                className="w-16 h-9 rounded border-2 p-2 border-mecaVerificationCodeColor mt-2"
-                                              />
-                                              {isUpdateButtonVisible && (
-                                                <button
-                                                  onClick={handleUpdateClick}
-                                                  className="bg-mecaBluePrimaryColor rounded-lg mt-2 text-white cursor-pointer w-16 h-9"
-                                                >
-                                                  Update
-                                                </button>
-                                              )}
-                                            </div>
-                                          ) : (
-                                            <select
-                                              onChange={handleDropdownChange}
-                                              title="quantity"
-                                              className="w-16 h-9 rounded border-2 p-2 border-mecaVerificationCodeColor mt-2"
-                                              name="categoria"
-                                              id="categoriesId"
-                                            >
-                                              <option value="0" selected>
-                                                0
-                                              </option>
-                                              <option value="1">1</option>
-                                              <option value="2">2</option>
-                                              <option value="3">3</option>
-                                              <option value="4">4</option>
-                                              <option value="5">5</option>
-                                              <option value="6">6</option>
-                                              <option value="7">7</option>
-                                              <option value="8">8</option>
-                                              <option value="9">9</option>
-                                              <option value="10+">10+</option>
-                                            </select>
-                                          )}
-                                        </form>
-                                      </div>
-                                    </div>
-                                  </CardContent>
+                          <div className="flex justify-between h-full">
+                            <div className="flex justify-between gap-x-4 w-full h-full relative">
+                              <div className="flex justify-start">
+                                <div className="bg-mecaActiveBackgroundNavColor z-50   h-20 flex justify-center items-center w-24 rounded-lg">
+                                  <Image
+                                    className="m-auto p-3 "
+                                    src={cardCartItem.Image}
+                                    id="cardCartItemImage"
+                                    alt="mobile spear part image"
+                                  />
                                 </div>
                               </div>
-                            </div>
+                              <div className="h-full flex-1">
+                                <CardContent
+                                  className=""
+                                  style={{
+                                    padding: "inherit",
+                                    width: "100%",
+                                    zIndex: "",
+                                  }}
+                                >
+                                  <div className="text-base font-semibold mb-2">
+                                    <div className="" id="cardHeadTitle">
+                                      <TruncateText
+                                        text={cardCartItem.header}
+                                        maxLength={20}
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className={`${nunito.className} w-full`}>
+                                    <div className="flex gap-x-1 font-normal text-sm text-mecaLightGrayText">
+                                      {cardCartItem.subHeader}
+                                      <span className="">.</span>
+                                      <TruncateText
+                                        text={cardCartItem.new}
+                                        maxLength={10}
+                                      />
+                                    </div>
+                                  </div>
 
-                            <div>
+                                  <div className="flex gap-x-3 mt-4 font-normal text-sm">
+                                    <div className="text-black">
+                                      {cardCartItem.quantity}
+                                    </div>
+
+                                    <div className="relative bottom-4">
+                                      <form>
+                                        {isInputVisible ? (
+                                          <div className="flex gap-x-2">
+                                            <input
+                                              type="number"
+                                              min="10"
+                                              value={quantity}
+                                              onChange={handleInputChange}
+                                              className="w-16 h-9 rounded border-2 p-2 border-mecaVerificationCodeColor mt-2"
+                                            />
+                                            {isUpdateButtonVisible && (
+                                              <button
+                                                onClick={handleUpdateClick}
+                                                className="bg-mecaBluePrimaryColor rounded-lg mt-2 text-white cursor-pointer w-16 h-9"
+                                              >
+                                                Update
+                                              </button>
+                                            )}
+                                          </div>
+                                        ) : (
+                                          <select
+                                            onChange={handleDropdownChange}
+                                            title="quantity"
+                                            className="w-16 h-9 rounded border-2 p-2 border-mecaVerificationCodeColor mt-2"
+                                            name="categoria"
+                                            id="categoriesId"
+                                          >
+                                            <option value="0" selected>
+                                              0
+                                            </option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10+">10+</option>
+                                          </select>
+                                        )}
+                                      </form>
+                                    </div>
+                                  </div>
+
+                                  <div className="mt-1">
+                                    <p className="font-nunito font-semibold">
+                                      {cardCartItem.price}
+                                    </p>
+                                  </div>
+                                </CardContent>
+                              </div>
+
                               <div className="">
                                 <div
-                                  style={{
-                                    position: "relative",
-                                    left: "81px",
-                                    cursor: "pointer",
-                                  }}
+                                // style={{
+                                //   position: "relative",
+                                //   left: "40px",
+                                //   cursor: "pointer",
+                                // }}
                                 >
                                   <MdMoreVert
                                     onClick={() =>
@@ -450,29 +463,22 @@ const Cart = () => {
                                       style={{
                                         boxShadow: "0px 2px 8px 0px #63636333",
                                       }}
-                                      className=" h-12 w-24 cursor-pointer bg-white rounded  absolute "
+                                      className="absolute right-1 top-7 h-[34px] w-[100px] cursor-pointer bg-white rounded"
                                       onClick={() =>
                                         removeFromCart(cardCartItem.id)
                                       }
                                     >
-                                      <div className="flex hover:shadow-#63636333-500  gap-x-2 w-20  h-9 m-auto  hover:bg-mecaTableTextErrorBackgroundColor hover:text-mecaErrorInputColor">
-                                        <div className="mt-2">
+                                      <div className="px-1 flex items-center hover:shadow-xl gap-x-1 w-full h-full m-auto hover:bg-mecaTableTextErrorBackgroundColor hover:text-mecaErrorInputColor">
+                                        <div className="">
                                           {cardCartItem.delete}
                                         </div>
-                                        <div className="text-sm font-normal mt-1">
+                                        <div className="text-sm font-normal">
                                           {cardCartItem.remove}
                                         </div>
                                       </div>
                                     </button>
                                   </div>
                                 )}
-                              </div>
-
-                              <div
-                                className="font-bold"
-                                style={{ marginTop: "5rem" }}
-                              >
-                                <p>{cardCartItem.price}</p>
                               </div>
                             </div>
                           </div>
@@ -482,11 +488,13 @@ const Cart = () => {
                   </div>
                 )}
               </div>
-              <div className="mt-6" style={{ width: "30%" }}>
+
+              {/* Subtotal items */}
+              <div className="mb-10" style={{ width: "100%" }}>
                 <div className="h-64 bg-mecaSearchColor  rounded-lg pt-5">
                   <div className="w-[90%] m-auto">
                     {itemSelected.map((itemSelect) => (
-                      <div className={nunito.className} key={itemSelect.count}>
+                      <div className={nunito.className}>
                         <div className="flex justify-between">
                           <div className="flex font-normal text-sm">
                             <p> item</p>
@@ -531,6 +539,7 @@ const Cart = () => {
           open={open}
           onClose={handleSucessClose}
           key={vertical + horizontal}
+          // sx={{ position: "relative", top: "71rem" }}
         >
           <Alert
             onClose={handleSucessClose}
@@ -550,9 +559,8 @@ const Cart = () => {
           </Alert>
         </Snackbar>
       </div>
-    
     </div>
   );
 };
 
-export default Cart;
+export default BuyerCartMobile;

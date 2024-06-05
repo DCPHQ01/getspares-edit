@@ -150,7 +150,7 @@ function Overview() {
     >
       <table id="vendorTable" className={`w-full`}>
         <thead className={``}>
-          <tr>
+          <tr className="truncate">
             <th id="itemNameHeader">Item name</th>
             <th id="totalSoldHeader">Total sold</th>
             <th id="transactionValueHeader">Transaction value</th>
@@ -159,7 +159,7 @@ function Overview() {
         </thead>
         <tbody>
           {data.map((d, index) => (
-            <tr key={index} id={`row_${index}`}>
+            <tr key={index} id={`row_${index}`} className="truncate">
               <td>
                 <div
                   className={`flex gap-3 items-center text-[0.88rem] py-[1rem] px-[1.5rem]`}

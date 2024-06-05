@@ -3,6 +3,12 @@ import Header from "../../dashboard/components/ui/header";
 import SearchBox from "../../dashboard/components/ui/searchbox";
 import PeriodRadios from "../../dashboard/components/ui/periodradios";
 import AgentTable from "../../dashboard/components/table/mecaadmin/agentTable";
+import {
+  MdArrowBack,
+  MdArrowForward,
+  MdChevronLeft,
+  MdChevronRight,
+} from "react-icons/md";
 
 function Agents() {
   return (
@@ -24,6 +30,15 @@ function Agents() {
       </div>
 
       <AgentTable />
+
+      <div className="flex justify-between mt-10 text-mecaBluePrimaryColor font-bold text-lg">
+        <button className="flex gap-x-2">
+          <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
+        </button>
+        <button className="flex gap-x-2">
+          <MdChevronRight className="mt-1 text-2xl" /> <span>Next</span>
+        </button>
+      </div>
     </>
   );
 }

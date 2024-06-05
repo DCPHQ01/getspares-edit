@@ -10,7 +10,7 @@ function Card({ total, amount, percentage, onClick }: IProps) {
   return (
     <div
       id="cardsContainer"
-      className={`border border-[#EAECF0] lg:w-[100%] md:w-[100%] lg:h-[10rem] h-[11rem] rounded-[0.75rem] mb-5 `}
+      className={`border border-[#EAECF0] lg:w-[19.3vw] lg:h-[90%] h-[90%] rounded-[0.75rem] mb-5 `}
     >
       <div id="cardContent" className={`m-[24px]`}>
         <p id="totalText" className={`text-[14px] text-[#4B5565] pb-[8px]`}>

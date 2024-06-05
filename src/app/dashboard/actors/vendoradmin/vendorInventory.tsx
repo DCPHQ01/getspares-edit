@@ -3,8 +3,9 @@ import Searchbox from "../../components/ui/searchbox";
 import Addbutton from "../../components/ui/addbutton";
 import Categories from "../../components/ui/categories";
 import VendorInventoryTable from "../../components/table/vendoradmin/vendorInventoryTable";
+import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
-function Inventory() {
+function VendorInventory() {
   return (
     <>
       <div className={`flex justify-between items-center`}>
@@ -22,9 +23,18 @@ function Inventory() {
 
       <div className="">
         <VendorInventoryTable />
+
+        <div className="flex justify-between mt-10 text-mecaBluePrimaryColor font-bold text-lg">
+          <button className="flex gap-x-2">
+            <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
+          </button>
+          <button className="flex gap-x-2">
+            <MdChevronRight className="mt-1 text-2xl" /> <span>Next</span>
+          </button>
+        </div>
       </div>
     </>
   );
 }
 
-export default Inventory;
+export default VendorInventory;

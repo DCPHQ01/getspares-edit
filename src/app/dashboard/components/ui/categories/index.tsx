@@ -46,6 +46,7 @@ function Index() {
             Reset
           </button>
           <button
+            onClick={handleButtonClicked}
             className={`bg-[#095AD3] text-white py-[0.4rem] px-[1.5rem] rounded-full`}
           >
             Apply
@@ -56,12 +57,12 @@ function Index() {
   };
 
   return (
-    <div className="relative inline-block">
+    <div className="relative inline-block -z-50">
       <button
-        className={`bg-[#F8FAFC] border border-[#CDD5DF] inline-block rounded-full px-3 py-2 mb-[0.5rem]`}
+        className={`bg-[#F8FAFC] border   border-[#CDD5DF] inline-block rounded-full px-3 py-2 mb-[0.5rem]`}
         onClick={handleButtonClicked}
       >
-        <div className={`flex items-center gap-2`}>
+        <div className={`flex items-center gap-2 `}>
           <p>Categories</p>
           <p>
             {clicked ? <MdExpandLess size={18} /> : <MdExpandMore size={18} />}

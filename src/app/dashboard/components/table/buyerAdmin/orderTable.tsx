@@ -94,11 +94,11 @@ const OrderTable = () => {
     <div id="tableContainer">
       <div
         id="mecaAdminTable"
-        className={`my-[1.25rem] w-full max-h-[30rem] overflow-y-auto scrollbar-none ${styles.table}`}
+        className={`my-[1.25rem] w-full max-h-[34rem] overflow-y-auto scrollbar-none ${styles.table}`}
       >
         <table id="adminTable" className={`w-full`}>
           <thead>
-            <tr>
+            <tr className="truncate">
               <th id="companyNameHeader">Products</th>
               <th id="totalItemsSoldHeader">Order ID</th>
               <th id="transactionValueHeader">Transaction value</th>
@@ -108,7 +108,7 @@ const OrderTable = () => {
           </thead>
           <tbody>
             {data.map((d, index) => (
-              <tr key={index} id={`row_${index}`} className="cursor-pointer">
+              <tr key={index} id={`row_${index}`} className="cursor-pointer truncate">
                 <td id={`companyData_${index}`}>
                   <div
                     className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}

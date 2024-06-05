@@ -6,8 +6,9 @@ import PeriodRadios from "../../components/ui/periodradios";
 import OverviewTable from "../../components/table/vendoradmin/overview";
 import Addbutton from "../../components/ui/addbutton";
 import Link from "next/link";
+import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
-function Overview() {
+function VendorOverview() {
   return (
     <>
       <div>
@@ -15,9 +16,9 @@ function Overview() {
           <Header
             subtitle={`Take a quick glance on what is happening with meca`}
             name={`Ayodeji`}
-          />
+          /> 
           <Link href="/modalPage">
-            <Addbutton title={`Update Company`} />
+            <Addbutton title={`   Update Company`} />
           </Link>
         </div>
         <Cards />
@@ -31,9 +32,18 @@ function Overview() {
           <PeriodRadios />
         </div>
         <OverviewTable />
+
+        <div className="flex justify-between mt-10 text-mecaBluePrimaryColor font-bold text-lg">
+          <button className="flex gap-x-2">
+            <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
+          </button>
+          <button className="flex gap-x-2">
+            <MdChevronRight className="mt-1 text-2xl" /> <span>Next</span>
+          </button>
+        </div>
       </div>
     </>
   );
 }
 
-export default Overview;
+export default VendorOverview;

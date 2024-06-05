@@ -8,7 +8,15 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { MdAdd, MdClose, MdPhotoLibrary } from "react-icons/md";
+import {
+  MdAdd,
+  MdArrowBack,
+  MdArrowForward,
+  MdChevronLeft,
+  MdChevronRight,
+  MdClose,
+  MdPhotoLibrary,
+} from "react-icons/md";
 import Link from "next/link";
 import { TextField } from "@mui/material";
 
@@ -65,8 +73,8 @@ function Category() {
         `}
         >
           <div className={`flex text-white items-center justify-center`}>
-            <MdAdd size={20} />
-            Create category
+            <MdAdd size={20} className="mr-2" />
+            <span> Create category</span>
           </div>
         </button>
 
@@ -161,6 +169,14 @@ function Category() {
       </div>
 
       <CategoryTable />
+      <div className="flex justify-between mt-10 text-mecaBluePrimaryColor font-bold text-lg">
+        <button className="flex gap-x-2">
+          <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
+        </button>
+        <button className="flex gap-x-2">
+          <MdChevronRight className="mt-1 text-2xl" /> <span>Next</span>
+        </button>
+      </div>
     </>
   );
 }

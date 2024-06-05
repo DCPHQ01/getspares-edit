@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../../components/ui/header";
 import Searchbox from "../../components/ui/searchbox";
 import Order from "../../components/table/agentAdmin/order";
+import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 function Orders() {
   return (
@@ -15,6 +16,15 @@ function Orders() {
         <Searchbox />
       </div>
       <Order />
+
+      <div className="flex justify-between mt-10 text-mecaBluePrimaryColor font-bold text-lg">
+        <button className="flex gap-x-2">
+          <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
+        </button>
+        <button className="flex gap-x-2">
+          <MdChevronRight className="mt-1 text-2xl" /> <span>Next</span>
+        </button>
+      </div>
     </div>
   );
 }

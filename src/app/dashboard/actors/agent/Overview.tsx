@@ -4,6 +4,7 @@ import Header from "../../components/ui/header";
 import Cards from "../../components/ui/cards";
 import PeriodRadios from "../../components/ui/periodradios";
 import OverviewTable from "../../components/table/agentAdmin/overviewTable";
+import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 function Overview() {
   // @ts-ignore
@@ -26,6 +27,15 @@ function Overview() {
         </div>
 
         <OverviewTable />
+
+        <div className="flex justify-between mt-10 text-mecaBluePrimaryColor font-bold text-lg">
+          <button className="flex gap-x-2">
+            <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
+          </button>
+          <button className="flex gap-x-2">
+            <MdChevronRight className="mt-1 text-2xl" /> <span>Next</span>
+          </button>
+        </div>
       </div>
     </>
   );

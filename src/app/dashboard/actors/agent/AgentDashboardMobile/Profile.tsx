@@ -1,6 +1,7 @@
 "use client";
-import Header from "../../dashboard/components/ui/header";
+import Header from "../../../../dashboard/components/ui/header";
 import Avatar from "@mui/material/Avatar";
+import "../../../../../styles/profile.css";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
@@ -39,26 +40,26 @@ const Profile = () => {
       <Header subtitle={``} title={`Profile`} amount={``} />
       <div className="flex gap-x-2 mb-12">
         <Avatar
-          className="bg-mecaActiveBackgroundNavColor text-mecaBluePrimaryColor w-16 h-16 text-4xl -z-50"
-          {...stringAvatar("Sam Immanuel")}
+          className="bg-mecaActiveBackgroundNavColor text-mecaBluePrimaryColor w-16 h-16 text-4xl"
+          {...stringAvatar("Sule Femi")}
         />
         <Header
-          subtitle={`samimmanuel@gmail.com`}
-          title={`Sam Immanuel`}
+          subtitle={`sulefemi@gmail.com`}
+          title={`Sule Femi`}
           amount={``}
         />
       </div>
 
       <hr></hr>
 
-      <div className="lg:flex flex-col justify-between mt-5 ">
-        <div className="">
+      <div className=" mt-5">
+        <div className="mb-5">
           <p>Personal info</p>
           <span>Update your photo and personal details.</span>
         </div>
 
-        <div className="border-2 lg:w-[60%] w-[100%] mt-10 mb-10 h-[100%] p-5 rounded-xl">
-          <Box className="mt-10 gap-x-4">
+        <div className="border-2 w-[100%] h-[100%] p-5 rounded-xl ">
+          <Box className="">
             <TextField
               inputProps={{ readOnly: true }}
               required={true}
@@ -66,7 +67,7 @@ const Profile = () => {
               label="First name"
               variant="filled"
               InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] rounded -z-50"
+              className="lg:w-[364px]  w-[100%] mb-5 2xl:w-[35rem] rounded -z-50"
               sx={{ backgroundColor: "porcelain" }}
             />
 
@@ -78,11 +79,11 @@ const Profile = () => {
               label="Last name"
               variant="filled"
               InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] -z-50"
+              className="lg:w-[364px] mb-5  w-[100%] 2xl:w-[35rem] -z-50"
               sx={{ backgroundColor: "porcelain" }}
             />
           </Box>
-          <Box className=" gap-x-4">
+          <Box className="">
             <TextField
               inputProps={{ readOnly: true }}
               required={true}
@@ -91,7 +92,7 @@ const Profile = () => {
               label="Phone number"
               variant="filled"
               InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] rounded -z-50"
+              className="lg:w-[364px]  w-[100%] mb-5 2xl:w-[35rem] rounded -z-50"
               sx={{ backgroundColor: "porcelain" }}
             />
 
@@ -103,12 +104,12 @@ const Profile = () => {
               label="Gender"
               variant="filled"
               InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] rounded -z-50"
+              className="lg:w-[364px] mb-5  w-[100%] 2xl:w-[35rem] rounded -z-50"
               sx={{ backgroundColor: "porcelain" }}
             />
           </Box>
 
-          <Box className="gap-x-4">
+          <Box className="">
             <TextField
               inputProps={{ readOnly: true }}
               required={true}
@@ -119,7 +120,7 @@ const Profile = () => {
               //   value={company.companyForm.website}
               name="website"
               InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] rounded -z-50"
+              className="lg:w-[364px]  w-[100%] mb-5 2xl:w-[35rem] rounded -z-50"
               sx={{ backgroundColor: "porcelain" }}
             />
 
@@ -131,12 +132,12 @@ const Profile = () => {
               label="Last active"
               variant="filled"
               InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] -z-50"
+              className="lg:w-[364px] mb-5  w-[100%] 2xl:w-[35rem] -z-50"
               sx={{ backgroundColor: "porcelain" }}
             />
           </Box>
 
-          <Box>
+          <Box className="">
             <TextField
               inputProps={{ readOnly: true }}
               required={true}
@@ -145,7 +146,7 @@ const Profile = () => {
               label="Email"
               variant="filled"
               InputProps={{ disableUnderline: true }}
-              className="  w-[100%] mb-10 rounded -z-50"
+              className="  w-[100%] rounded -z-50"
               sx={{ backgroundColor: "porcelain" }}
             />
           </Box>
