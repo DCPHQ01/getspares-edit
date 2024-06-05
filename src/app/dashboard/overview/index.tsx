@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 // import Cards from "../../../../../app/dashboard/overview/cards";
-import Cards from "../../../app/dashboard/components/ui/cards";
+import Cards from "../../../components/cards";
 import PeriodRadios from "../../../app/dashboard/components/ui/periodradios";
 import Table from "../../../app/dashboard/components/table";
 
@@ -25,58 +25,44 @@ function Index({ header, subheader, overviewRoles }: IProps) {
   const { user } = useAppSelector((state) => state.user);
   console.log("dashboard ", user);
 
-  let decoded: JwtPayload | null = null;
-  try {
-    if (
-      user?.access_token &&
-      typeof user.access_token === "string" &&
-      user.access_token.split(".").length === 3
-    ) {
-      decoded = JWT.jwtDecode(user.access_token);
-    }
-  } catch (error) {
-    console.error("Failed to decode token:", error);
-  }
-
-  const userRole = decoded?.resource_access["e-meca"]?.roles[0];
-  console.log("name ", decoded);
-  const name = decoded?.given_name;
+  const userDetails = JSON.parse(sessionStorage.getItem("userDetails") || "");
+  const name = userDetails?.firstName;
 
   const role: any = overviewRoles;
-  const cardProps = [
-    {
-      total: "number of parts ordered",
-      amount: 2250,
-      percentage: 32,
-      onClick: () => {
-        console.log("View total number of parts ordered");
-      },
-    },
-    {
-      total: "number of agents",
-      amount: 1475,
-      percentage: 10,
-      onClick: () => {
-        console.log("View total number of agents");
-      },
-    },
-    {
-      total: "transaction value",
-      amount: 1250,
-      percentage: 59,
-      onClick: () => {
-        console.log("View total transaction value");
-      },
-    },
-    {
-      total: "number of vendors",
-      amount: 1280,
-      percentage: 43,
-      onClick: () => {
-        console.log("View total number of vendors");
-      },
-    },
-  ];
+  // const cardProps = [
+  //   {
+  //     total: "number of parts ordered",
+  //     amount: 2250,
+  //     percentage: 32,
+  //     onClick: () => {
+  //       console.log("View total number of parts ordered");
+  //     },
+  //   },
+  //   {
+  //     total: "number of agents",
+  //     amount: 1475,
+  //     percentage: 10,
+  //     onClick: () => {
+  //       console.log("View total number of agents");
+  //     },
+  //   },
+  //   {
+  //     total: "transaction value",
+  //     amount: 1250,
+  //     percentage: 59,
+  //     onClick: () => {
+  //       console.log("View total transaction value");
+  //     },
+  //   },
+  //   {
+  //     total: "number of vendors",
+  //     amount: 1280,
+  //     percentage: 43,
+  //     onClick: () => {
+  //       console.log("View total number of vendors");
+  //     },
+  //   },
+  // ];
   return (
     <>
       <div id="welcomeSection" className={`flex justify-between items-center`}>
@@ -106,16 +92,7 @@ function Index({ header, subheader, overviewRoles }: IProps) {
         </div>
       </div>
       <div id="cardContainer" className={`mt-[1rem] flex gap-5 w-full`}>
-        {cardProps.map((card, index) => (
-          <div id={`card_${index}`} key={index}>
-            <Cards
-              amount={card.amount}
-              percentage={card.percentage}
-              total={card.total}
-              onClick={card.onClick}
-            />
-          </div>
-        ))}
+        <Cards />
       </div>
       <div id="sectionHeader" className={`mt-[3.25rem] flex justify-between`}>
         <div>

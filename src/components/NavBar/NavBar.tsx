@@ -17,8 +17,8 @@ import Link from "next/link";
 import Button from "@mui/material/Button";
 import { JwtPayload as BaseJwtPayload } from "jsonwebtoken";
 import * as JWT from "jwt-decode";
-import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import { clearUser } from "../../../redux/features/users/userSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { clearUser } from "../../redux/features/users/userSlice";
 
 const navData = [
   {

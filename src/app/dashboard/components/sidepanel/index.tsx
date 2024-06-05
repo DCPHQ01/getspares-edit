@@ -114,6 +114,8 @@ function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
       title: "Logout",
       size: 18,
       onClick: () => {
+        sessionStorage.clear();
+        sessionStorage.remove("userDetails");
         dispatch(setUser({}));
         router.push("/");
       },

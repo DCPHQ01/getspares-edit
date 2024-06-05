@@ -70,7 +70,7 @@ function ResponsiveDrawer({ active, setActive }: SideBarProps) {
   }
 
   useEffect(() => {
-    dispatch(setCurrentStep(details[currentPage].id));
+    dispatch(setCurrentStep(0));
     setActive(true);
   }, []);
   return (

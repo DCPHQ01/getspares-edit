@@ -5,7 +5,7 @@ import { MdChevronLeft, MdClear } from "react-icons/md";
 import TopBar from "../TopBar/page";
 import Link from "next/link";
 // import NavBar from "@/app/reusables/NavBar/page";
-import NavBar from "../../app/reusables/NavBar/page";
+import NavBar from "../../components/NavBar/NavBar";
 import { Nunito_Sans } from "next/font/google";
 // import MobileNav from "../../app/reusables/mobileNav/page";
 

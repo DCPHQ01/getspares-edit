@@ -1,11 +1,10 @@
 "use client";
-// import Products from "./products/page"
-import Products from "./products/[name]/page";
+import Product from "./products/page";
 
 export default function Category() {
   return (
     <section id="categoryContainer">
-      <Products />
+      <Product />
     </section>
   );
 }

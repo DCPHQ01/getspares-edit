@@ -48,7 +48,7 @@ import {
 } from "../../redux/features/product/productsQuery";
 import TopBarWhileInside from "../reusables/TopBarWhileInside/page";
 import TopBar from "../reusables/TopBar/page";
-import TruncateText from "../utils/page";
+import TruncateText from "../../components/utils/utils";
 
 interface State extends SnackbarOrigin {
   open: boolean;

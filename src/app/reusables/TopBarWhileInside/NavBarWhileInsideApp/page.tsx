@@ -15,8 +15,8 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { clearUser } from "../../../../redux/features/users/userSlice";
-import MobileNav from "../../mobileNav/page";
-import NavBar from "../../NavBar/page";
+import MobileNav from "../../../../components/mobileNav/MobileNav";
+import NavBar from "../../../../components/NavBar/NavBar";
 
 interface JwtPayload extends BaseJwtPayload {
   role?: string;
