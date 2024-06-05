@@ -5,71 +5,39 @@ import CalledPagesPageTwoPages from "../../../../components/calledPages/pageTwo/
 import CalledPagesPageThreePages from "../../../../components/calledPages/pageThree/page";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
+import { RootState } from "../../../../redux";
+import { setStep } from "../../../../redux/features/company/companySlice";
 
 const number = [1, 2, 3];
 
 const Dashboard = () => {
-  const [step, setStep] = useState<number>(1);
-  const [activeTab, setActiveTab] = useState<boolean>(false); // Default active tab is 'company'
-  const goToNextPage = () => {
-    setStep(step + 1);
-  };
+  // const step = company.step;
+  const dispatch = useAppDispatch();
+  const [activeTab, setActiveTab] = useState<boolean>(false);
+  const currentPage = useAppSelector(
+    (state: RootState) => state.company.currentStep
+  );
 
-  useEffect(() => {
-    setActiveTab(true);
-  }, [step]);
-  const goToPreviousPage = () => {
-    // Navigate to the previous page if it's available
-    setStep(step - 1);
-  };
-
-  const togglePages = (step: number) => {
-    switch (step) {
+  const togglePages = (steps: number) => {
+    switch (steps) {
       case 1:
-        return (
-          <CalledPagesPageOnePages
-            setStep={setStep}
-            step={step}
-            setActive={setActiveTab}
-            active={activeTab}
-          />
-        );
+        return <CalledPagesPageOnePages />;
       case 2:
-        return (
-          <CalledPagesPageTwoPages
-            setStep={setStep}
-            step={step}
-            setActive={setActiveTab}
-            active={activeTab}
-          />
-        );
+        return <CalledPagesPageTwoPages />;
       case 3:
-        return (
-          <CalledPagesPageThreePages
-            setStep={setStep}
-            step={step}
-            setActive={setActiveTab}
-            active={activeTab}
-          />
-        );
+        return <CalledPagesPageThreePages />;
       default:
-        return (
-          <CalledPagesPageOnePages
-            setStep={setStep}
-            step={step}
-            setActive={setActiveTab}
-            active={activeTab}
-          />
-        );
+        return <CalledPagesPageOnePages />;
     }
   };
   return (
     <div className="flex w-full" id="vendorVend1">
       <div className="hidden md:flex w-[32%]" id="vendorVend2">
-        <AddCompanySidebar step={step} setStep={setStep} />
+        <AddCompanySidebar active={activeTab} setActive={setActiveTab} />
       </div>
       <div id="vendorVend3" className="w-[64%]">
-        {togglePages(step)}
+        {togglePages(currentPage + 1)}
       </div>
 
       <div
@@ -82,7 +50,7 @@ const Dashboard = () => {
             key={index}
             className={`
             ${
-              step - 1 === index && activeTab
+              currentPage === index && activeTab
                 ? "w-1/3 bg-blue-800 rounded-lg h-3"
                 : "bg-gray-500 rounded-lg h-3 w-1/3"
             }`}

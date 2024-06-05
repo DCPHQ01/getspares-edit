@@ -11,25 +11,18 @@ import {
   TextareaAutosize,
 } from "@mui/base/TextareaAutosize";
 
-interface ChildProps {
-  step: number;
-  active: boolean;
-  setStep: React.Dispatch<React.SetStateAction<number>>;
-  setActive: React.Dispatch<React.SetStateAction<boolean>>;
-}
 import formLogo from "@/assets/images/formLogo.jpg";
 import { useAppSelector } from "../../../redux";
 import { useAppDispatch } from "../../../redux/hooks";
 import { RootState } from "../../../redux";
-import { setCompanyForm } from "../../../redux/features/company/companySlice";
+import {
+  setCompanyForm,
+  setCurrentStep,
+} from "../../../redux/features/company/companySlice";
 import { FaUpload } from "react-icons/fa";
 import Link from "next/link";
 
-const CalledPagesPageOnePages: React.FC<ChildProps> = ({
-  step,
-  setStep,
-  setActive,
-}: any) => {
+const CalledPagesPageOnePages = () => {
   const [website, setWebsite] = useState("");
   const [fullName, setFullName] = useState("");
   const [message, setMessage] = useState("");
@@ -108,13 +101,9 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
   };
   const router = useRouter();
 
-  const goToNextPage = () => {
-    setStep(step + 1);
-  };
-
   const dispatch = useAppDispatch();
 
-  const { company } = useAppSelector((state: RootState) => state);
+  const company = useAppSelector((state: RootState) => state.company);
   console.log("company ", company.companyForm);
 
   const [formImage, setFormImage] = useState<string | null>(null);
@@ -129,11 +118,19 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
       reader.readAsDataURL(file);
     }
   };
+
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleImageClick = () => {
     fileInputRef.current?.click();
   };
+
+  // const step = useAppSelector((state) => state.company.step);
+  const currentStep = useAppSelector((state) => state.company.currentStep);
+  const handleNextPage = () => {
+    dispatch(setCurrentStep(1));
+  };
+
   return (
     <>
       <div className="" style={{ width: "85%", margin: "auto" }} id="pageone1">
@@ -150,9 +147,9 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
 
                 <form method="dialog" id="pageone7">
                   <button
-                    className="text-sm font-semibold skip "
+                    className="text-sm font-semibold skip cursor-pointer"
                     id="skip1"
-                    onClick={goToNextPage}
+                    onClick={handleNextPage}
                   >
                     Skip
                   </button>
@@ -165,7 +162,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
             <Box
               component="form"
               id="pageone8"
-              className="flex gap-x-16 flex-col flex-col-reverse lg:flex-row lg:items-start   "
+              className="flex gap-x-16 flex-col-reverse lg:flex-row lg:items-start   "
               noValidate
               onSubmit={handleSubmit}
               autoComplete="off"
@@ -196,6 +193,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                   />
                 </Box>
                 <Box>
+                  <p>Description</p>
                   <TextareaAutosize
                     required={true}
                     value={company.companyForm.description}
@@ -285,6 +283,8 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                       onChange={handleImageChange}
                       ref={fileInputRef}
                       className="hidden w-full px-3 py-2 "
+                      title="Upload Image"
+                      placeholder="Choose an image"
                     />
                   </div>
 
@@ -302,8 +302,9 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                       >
                         <Link href="/modalPage">
                           <button
-                            id="cancelbtn"
-                            className="btn btn-sm btn-circle btn-ghost font-bold w-3 h-3 "
+                            type="button"
+                            id="cancelbtnDiv"
+                            className="btn btn-sm btn-circle btn-ghost font-bold w-3 h-3 cursor-pointer"
                           >
                             ✕
                           </button>
@@ -320,7 +321,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                     </div>
                   ) : (
                     <div
-                      id="prevImgState"
+                      id="prevImgStateDiv"
                       onClick={handleImageClick}
                       className="w-full px-3 py-2 border rounded-md flex flex-col items-center justify-center cursor-pointer border-none"
                     >
@@ -337,11 +338,11 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
               </Box>
             </Box>
             <div className="">
-              <div onClick={goToNextPage} className="nextbtn-wrapper">
+              <div className="nextbtn-wrapper" onClick={handleNextPage}>
                 <button
                   type="submit"
                   id="thirdFormSubmit"
-                  className="nextbtn w-96 mt-40 mb-6 "
+                  className="nextbtn w-96 mt-40 mb-6 cursor-pointer"
                 >
                   Next
                 </button>
@@ -361,13 +362,18 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                   Double-check all the information you provided
                 </sub>
                 <form method="dialog" id="pageoneSkip">
-                  <button className="text-sm font-semibold skip " id="skipbtn2">
+                  <button
+                    type="button"
+                    className="text-sm font-semibold skip cursor-pointer"
+                    id="skipbtn2"
+                    onClick={handleNextPage}
+                  >
                     Skip
                   </button>
                 </form>
               </div>
               <div
-                className="form-display flex flex-col flex-col-reverse mt-8"
+                className="form-display flex flex-col-reverse mt-8"
                 id="pageone13"
               >
                 <form
@@ -375,10 +381,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                   onSubmit={handleSubmit}
                   className="companyInputWrap"
                 >
-                  <div
-                    className="flex flex-col flex-col-reverse"
-                    id="pageone14"
-                  >
+                  <div className="flex flex-col-reverse" id="pageone14">
                     <div>
                       <input
                         required={true}
@@ -482,6 +485,8 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                             onChange={handleImageChange}
                             ref={fileInputRef}
                             className="hidden w-full px-3 py-2 "
+                            title="Upload Image"
+                            placeholder="Choose an image"
                           />
                         </div>
 
@@ -499,7 +504,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                               <Link href="/modalPage">
                                 <button
                                   id="cancelbtn"
-                                  className="btn btn-sm btn-circle btn-ghost font-bold w-3 h-3 "
+                                  className="btn btn-sm btn-circle btn-ghost font-bold w-3 h-3 cursor-pointer"
                                 >
                                   ✕
                                 </button>
@@ -533,12 +538,11 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                     </Box>
                   </div>
 
-                  <div className="nextbtn nextmobile cursor-pointer ">
-                    <button
-                      onClick={goToNextPage}
-                      type="submit"
-                      id="firstFormSubit2"
-                    >
+                  <div
+                    className="nextbtn nextmobile cursor-pointer"
+                    onClick={handleNextPage}
+                  >
+                    <button type="submit" id="firstFormSubit2">
                       Next
                     </button>
                   </div>

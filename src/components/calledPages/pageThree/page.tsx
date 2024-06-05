@@ -7,46 +7,25 @@ import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
 import * as React from "react";
 import Alert from "@mui/material/Alert";
 
-interface ChildProps {
+import { useAppSelector } from "../../../redux";
+import { useAppDispatch } from "../../../redux/hooks";
+import { RootState } from "../../../redux";
+import { setCurrentStep } from "../../../redux/features/company/companySlice";
+
+interface CalledPagesPageThreePagesProps {
   step: number;
   setStep: React.Dispatch<React.SetStateAction<number>>;
 }
 
-import { useAppSelector } from "../../../redux";
-import { useAppDispatch } from "../../../redux/hooks";
-import { RootState } from "../../../redux";
-
-const CalledPagesPageThreePages = ({
-  step,
-  setStep,
-  active,
-  setActive,
-}: any) => {
-  // const router = useRouter();
-  const goToPreviousPage = () => {
-    // Navigate to the previous page if it's available
-    setStep(step - 1);
-  };
-  // const [state, setState] = React.useState<State>({
-  //   open: false,
-  //   vertical: "top",
-  //   horizontal: "center",
-  // });
-  // const { vertical, horizontal, open } = state;
-
-  // const handleClick = (newState: SnackbarOrigin) => () => {
-  //   setState({ ...newState, open: true });
-  // };
-  console.log("step ", step);
-  console.log("active ", active);
-  // const handleClose = () => {
-  //   setState({ ...state, open: false });
-  // };
-
+const CalledPagesPageThreePages = () => {
   const dispatch = useAppDispatch();
 
-  const { company } = useAppSelector((state: RootState) => state);
+  const company = useAppSelector((state: RootState) => state.company);
   console.log("company ", company.companyForm);
+
+  const handlePreviousPage = () => {
+    dispatch(setCurrentStep(1));
+  };
 
   return (
     <div className="" style={{ width: "85%", margin: "auto" }} id="pageThree1">
@@ -63,9 +42,9 @@ const CalledPagesPageThreePages = ({
               </sub>
               <form method="dialog" id="pageThree7">
                 <button
-                  onClick={goToPreviousPage}
-                  className="text-sm font-semibold skip "
+                  className="text-sm font-semibold skip cursor-pointer"
                   id="skip3"
+                  onClick={handlePreviousPage}
                 >
                   Back
                 </button>
@@ -76,7 +55,7 @@ const CalledPagesPageThreePages = ({
           <Box
             component="form"
             id="pageThree8"
-            className="flex gap-x-16 flex-col flex-col-reverse lg:flex-row lg:items-start   "
+            className="flex gap-x-16 flex-col-reverse lg:flex-row lg:items-start   "
             noValidate
             // onSubmit={handleSubmit}
             autoComplete="off"
@@ -181,9 +160,7 @@ const CalledPagesPageThreePages = ({
                   name="number"
                   placeholder="09000000000"
                   InputProps={{ disableUnderline: true }}
-                  // className="lg:w-[100%] w-[100%]"
                   className="  w-full lg:w-[364px]  mb-10 2xl:w-[35rem]"
-                  // sx={{ backgroundColor: "porcelain" }}
                 />
               </Box>
               <Box>
@@ -300,7 +277,7 @@ const CalledPagesPageThreePages = ({
           </Box>
 
           <div className="">
-            <div className="nextbtn-wrapper">
+            <div className="nextbtn-wrapper cursor-pointer">
               <button
                 // onClick={handleClick({
                 //   vertical: "top",
@@ -340,9 +317,9 @@ const CalledPagesPageThreePages = ({
                 </sub>
                 <form method="dialog">
                   <button
-                    onClick={goToPreviousPage}
-                    className="text-sm font-semibold skip "
+                    className="text-sm font-semibold skip cursor-pointer"
                     id="skip8"
+                    onClick={handlePreviousPage}
                   >
                     Back
                   </button>
@@ -452,20 +429,15 @@ const CalledPagesPageThreePages = ({
               </form>
 
               <div className="" id="inputName4">
-                <div className="">
-                  <div className="">
-                    <input
-                      readOnly={true}
-                      type="image"
-                      // onChange={handleOnchange}
-                      // value={value.date}
-                      className=" inputImage imagetext"
-                      id="previewImageId11"
-
-                      // placeholder="Add logo by clicking or drag and drop"
-                    />
-                  </div>
-                </div>
+                <input
+                  readOnly={true}
+                  type="image"
+                  alt="Add logo by clicking or drag and drop"
+                  // onChange={handleOnchange}
+                  // value={value.date}
+                  className=" inputImage imagetext"
+                  id="previewImageId11"
+                />
                 {/* <div className="">
                   <p>Company logo</p>
                 </div> */}
@@ -488,7 +460,7 @@ const CalledPagesPageThreePages = ({
                   //   horizontal: "center",
                   // })}
                   id="thirdFormSubmit2"
-                  className="nextbtn nextbtnMobile h-12  mt-6 mb-20"
+                  className="nextbtn nextbtnMobile h-12  mt-6 mb-20 cursor-pointer"
                 >
                   Save
                 </button>
@@ -530,6 +502,3 @@ const CalledPagesPageThreePages = ({
 };
 
 export default CalledPagesPageThreePages;
-// function useEffect(arg0: () => void, arg1: any[]) {
-//   throw new Error("Function not implemented.");
-// }
