@@ -139,11 +139,11 @@ const InventoryTable = () => {
     <div id="tableContainer">
       <div
         id="mecaAdminTable"
-        className={`my-[1.25rem] w-full max-h-[30rem] overflow-y-auto scrollbar-none ${styles.table}`}
+        className={`my-[1.25rem] w-full max-h-[34rem] overflow-y-auto scrollbar-none ${styles.table}`}
       >
         <table id="adminTable" className={`w-full`}>
           <thead>
-            <tr>
+            <tr className="truncate">
               <th id="companyNameHeader">Product name</th>
               <th id="dateTimeJoinedHeader">Vendors</th>
               <th id="totalItemsSoldHeader">Quantity sold</th>
@@ -164,7 +164,7 @@ const InventoryTable = () => {
                       id={`avatar_${index}`}
                     />
                     <div id={`companyDetails_${index}`}>
-                      <div>{d.name}</div>
+                      <div className="truncate">{d.name}</div>
                     </div>
                   </div>
                 </td>
@@ -180,8 +180,11 @@ const InventoryTable = () => {
                       id={`avatar_${index}`}
                     />
                     <div id={`companyDetails_${index}`}>
-                      <div>{d.name}</div>
-                      <div className={`text-[#4B5565]`} id={`email_${index}`}>
+                      <div className="truncate">{d.name}</div>
+                      <div
+                        className={`text-[#4B5565] truncate`}
+                        id={`email_${index}`}
+                      >
                         {d.email}
                       </div>
                     </div>
@@ -195,7 +198,7 @@ const InventoryTable = () => {
                   {d.sale}
                 </td>
                 <td
-                  className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
+                  className={`text-[0.88rem] py-[1rem] px-[3.13rem] truncate`}
                   id={`transactionValue_${index}`}
                 >
                   {d.vale}

@@ -18,6 +18,6 @@ export enum roles {
 }
 
 // export const userRole = roles.MECA_ADMIN;
-// export const userRole = roles.VENDOR_ADMIN;
+export const userRole = roles.VENDOR_ADMIN;
 // export const userRole = roles.AGENTS;
 // export const userRole = roles.BUYER;

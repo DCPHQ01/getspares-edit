@@ -90,13 +90,15 @@ const Profile = () => {
             className="w-[30%] h-[399px] rounded-lg 
             "
           >
-            <div className="text-center mt-6 ">
-              <Avatar
-                className="bg-mecaActiveBackgroundNavColor mb-3 relative left-40 text-mecaBluePrimaryColor w-16 h-16 text-4xl"
-                {...stringAvatar("Emeka Sons Limited")}
-              />
+            <div className=" mt-6 ">
+              <div className="flex justify-center">
+                <Avatar
+                  className="bg-mecaActiveBackgroundNavColor mb-3 text-mecaBluePrimaryColor w-16 h-16 text-4xl"
+                  {...stringAvatar("Emeka Sons Limited")}
+                />
+              </div>
 
-              <div className="relative left-20 ">
+              <div className="flex justify-center">
                 <Header
                   subtitle={``}
                   title={`Emeka & Sons Limited`}
@@ -104,11 +106,13 @@ const Profile = () => {
                 />
               </div>
 
-              <Header
-                subtitle={`emekaemeka@gmail.com`}
-                title={``}
-                amount={``}
-              />
+              <div className="flex justify-center">
+                <Header
+                  subtitle={`emekaemeka@gmail.com`}
+                  title={``}
+                  amount={``}
+                />
+              </div>
             </div>
 
             <div className="mt-5 text-sm">

@@ -4,6 +4,8 @@ body {
   -ms-overflow-style: none; /* for Internet Explorer, Edge */
   scrollbar-width: none; /* for Firefox */
   overflow-y: scroll;
+
+ 
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -32,7 +34,6 @@ body {
 ::-webkit-scrollbar-button {
   display: none;
 }
-
 
 #ratingContainerMobile {
   width: 39px;

@@ -123,7 +123,7 @@ const CalledPagesPageThreePages = () => {
                   label=""
                   variant="filled"
                   type="date"
-                  value={company.companyForm.date_founded}
+                  // value={company.companyForm.date_founded}
                   name="date"
                   placeholder=""
                   InputProps={{ disableUnderline: true }}
@@ -377,7 +377,7 @@ const CalledPagesPageThreePages = () => {
                   readOnly={true}
                   type="date"
                   name="date"
-                  value={company.companyForm.date_founded}
+                  // value={company.companyForm.date_founded}
                   id="previewDateId5"
                   placeholder="date funded 12/12/21"
                   className=" companyInput mt-6"
