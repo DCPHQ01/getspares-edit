@@ -34,8 +34,8 @@ jobs:
     - name: Install sharp
       run: npm install sharp
 
-    - name: Verify file paths
-      run: ls -R src/styles/removetocart
+    # - name: Verify file paths
+    #   run: ls -R src/styles/removetocart
 
     - name: Build Application
       run: npm run build
