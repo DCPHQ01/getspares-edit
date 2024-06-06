@@ -115,9 +115,9 @@ function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
       size: 18,
       onClick: () => {
         sessionStorage.clear();
-        sessionStorage.remove("userDetails");
+        sessionStorage.removeItem("userDetails");
         dispatch(setUser({}));
-        router.push("/");
+        router.push("/login");
       },
     },
   ];
