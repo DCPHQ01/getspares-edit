@@ -4,6 +4,8 @@ body {
   -ms-overflow-style: none; /* for Internet Explorer, Edge */
   scrollbar-width: none; /* for Firefox */
   overflow-y: scroll;
+
+ 
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -18,6 +20,8 @@ body {
   display: none;
 }
 
+ */
+
 /* Hide scrollbar for IE, Edge and Firefox */
 #mobileMenuContainer {
   -ms-overflow-style: none; /* IE and Edge */
@@ -26,6 +30,11 @@ body {
 #filterButton {
   padding: 2px, 8px, 2px, 8px;
 }
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
 #ratingContainerMobile {
   width: 39px;
   height: 18px;

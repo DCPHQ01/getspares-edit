@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import EmailVerified from "../../components/verifyEmail/EmailVerified";
 import VerifyEmail from "../../components/verifyEmail/VerifyEmail";
 import { useState } from "react";
@@ -7,13 +8,21 @@ import { useState } from "react";
 export default function New_password() {
   const [haveVerifiedEmail, setHaveVerifiedEmail] = useState(false);
 
+  const router = useRouter();
+  const routerToHomePage = () => {
+    router.push("/");
+  };
+
   return (
     <>
       <div
         className="absolute top-16 lg:left-16 left-8"
         id="eMecaResetPassword"
       >
-        <span className="font-bold lg:text-3xl text-2xl text-primary">
+        <span
+          className="font-bold lg:text-3xl text-2xl text-mecaActiveIconsNavColor"
+          onClick={routerToHomePage}
+        >
           e-meca
         </span>
       </div>

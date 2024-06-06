@@ -26,6 +26,12 @@ export default function EnterEmail({ setHaveSentEmail }: EnterEmailProps) {
     }));
   };
 
+  const handleResetPassword = () => {
+    sessionStorage.setItem("email", state.email);
+    setHaveSentEmail(true);
+    console.log("email ", state.email);
+  };
+
   const isValidEmail = (email: string) => {
     return /\S+@\S+\.\S+/.test(email);
   };
@@ -82,7 +88,7 @@ export default function EnterEmail({ setHaveSentEmail }: EnterEmailProps) {
           disabled={!isFormValid()}
           endIcon={<MdChevronRight />}
           className="bg-mecaBluePrimaryColor normal-case text-[white] text-lg font-semibold rounded-[36px] disabled:bg-mecaBgDisableColor disabled:text-[white] h-12 hover:bg-mecaBluePrimaryColor"
-          onClick={() => setHaveSentEmail(true)}
+          onClick={handleResetPassword}
         >
           Reset password
         </Button>

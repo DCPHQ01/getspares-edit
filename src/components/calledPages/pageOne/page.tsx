@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Box from "@mui/material/Box";
 import ImageComponent from "../../../components/imageComp/ImageComponent";
@@ -11,25 +11,69 @@ import {
   TextareaAutosize,
 } from "@mui/base/TextareaAutosize";
 
-interface ChildProps {
-  step: number;
-  active: boolean;
-  setStep: React.Dispatch<React.SetStateAction<number>>;
-  setActive: React.Dispatch<React.SetStateAction<boolean>>;
-}
 import formLogo from "@/assets/images/formLogo.jpg";
 import { useAppSelector } from "../../../redux";
 import { useAppDispatch } from "../../../redux/hooks";
 import { RootState } from "../../../redux";
-import { setCompanyForm } from "../../../redux/features/company/companySlice";
+import { styled } from "@mui/material/styles";
+import Stack from "@mui/material/Stack";
+import Tooltip from "@mui/material/Tooltip";
+import dayjs from "dayjs";
+import {
+  setCompanyForm,
+  setCurrentStep,
+} from "../../../redux/features/company/companySlice";
 import { FaUpload } from "react-icons/fa";
 import Link from "next/link";
+import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
-const CalledPagesPageOnePages: React.FC<ChildProps> = ({
-  step,
-  setStep,
-  setActive,
-}: any) => {
+const ProSpan = styled("span")({
+  display: "inline-block",
+  height: "1em",
+  width: "1em",
+  verticalAlign: "middle",
+  marginLeft: "0.3em",
+  marginBottom: "0.08em",
+  backgroundSize: "contain",
+  backgroundRepeat: "no-repeat",
+  backgroundImage: "url(https://mui.com/static/x/pro.svg)",
+});
+function Label({
+  componentName,
+  valueType,
+  isProOnly,
+}: {
+  componentName: string;
+  valueType: string;
+  isProOnly?: boolean;
+}) {
+  const content = (
+    <span>
+      <strong>{componentName}</strong>
+    </span>
+  );
+  if (isProOnly) {
+    return (
+      <Stack direction="row" spacing={0.5} component="span">
+        <Tooltip title="Included on Pro package">
+          <a
+            href="https://mui.com/x/introduction/licensing/#pro-plan"
+            aria-label="Included on Pro package"
+          >
+            <ProSpan />
+          </a>
+        </Tooltip>
+        {content}
+      </Stack>
+    );
+  }
+
+  return content;
+}
+const CalledPagesPageOnePages = () => {
   const [website, setWebsite] = useState("");
   const [fullName, setFullName] = useState("");
   const [message, setMessage] = useState("");
@@ -108,32 +152,78 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
   };
   const router = useRouter();
 
-  const goToNextPage = () => {
-    setStep(step + 1);
-  };
-
   const dispatch = useAppDispatch();
 
-  const { company } = useAppSelector((state: RootState) => state);
+  const company = useAppSelector((state: RootState) => state.company);
   console.log("company ", company.companyForm);
 
-  const [formImage, setFormImage] = useState<string | null>(null);
+  const [formImage, setFormImage] = useState<string | null>(() => {
+    if (typeof window !== "undefined") {
+      const storedImage = sessionStorage.getItem("companyImage");
+      return storedImage ? storedImage : null;
+    }
+    return null;
+  });
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setFormImage(reader.result as string);
+        const result = reader.result as string;
+        setFormImage(result);
+        sessionStorage.setItem("companyImage", result);
       };
       reader.readAsDataURL(file);
     }
   };
+
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleImageClick = () => {
     fileInputRef.current?.click();
   };
+
+  // const step = useAppSelector((state) => state.company.step);
+  const currentStep = useAppSelector((state) => state.company.currentStep);
+  const handleNextPage = () => {
+    dispatch(setCurrentStep(1));
+  };
+
+  let companyName = "";
+  if (typeof window !== "undefined") {
+    const userDetails = sessionStorage.getItem("userDetails");
+
+    if (userDetails) {
+      const parsedDetails = JSON.parse(userDetails);
+      if (
+        parsedDetails.companyDetails &&
+        parsedDetails.companyDetails.length > 0
+      ) {
+        companyName = parsedDetails.companyDetails[0].name;
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const userDetails = sessionStorage.getItem("userDetails");
+      if (userDetails) {
+        const parsedDetails = JSON.parse(userDetails);
+        if (
+          parsedDetails.companyDetails &&
+          parsedDetails.companyDetails.length > 0
+        ) {
+          dispatch(
+            setCompanyForm({ ...company.companyForm, name: companyName })
+          );
+        }
+      }
+    }
+  }, [dispatch]);
+
+  console.log("Company name: ", companyName);
+
   return (
     <>
       <div className="" style={{ width: "85%", margin: "auto" }} id="pageone1">
@@ -150,9 +240,9 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
 
                 <form method="dialog" id="pageone7">
                   <button
-                    className="text-sm font-semibold skip "
+                    className="text-sm font-semibold skip cursor-pointer"
                     id="skip1"
-                    onClick={goToNextPage}
+                    onClick={handleNextPage}
                   >
                     Skip
                   </button>
@@ -165,7 +255,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
             <Box
               component="form"
               id="pageone8"
-              className="flex gap-x-16 flex-col flex-col-reverse lg:flex-row lg:items-start   "
+              className="flex gap-x-16 flex-col-reverse lg:flex-row lg:items-start   "
               noValidate
               onSubmit={handleSubmit}
               autoComplete="off"
@@ -196,6 +286,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                   />
                 </Box>
                 <Box>
+                  <p>Description</p>
                   <TextareaAutosize
                     required={true}
                     value={company.companyForm.description}
@@ -247,34 +338,42 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                     className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem]"
                     sx={{ backgroundColor: "porcelain" }}
                   />
-                  {/* {errors.website && (
-                    <p className="error-color">{errors.website}</p>
-                  )} */}
+                  {errors.website && (
+                    <p className="error-color -mt-8">{errors.website}</p>
+                  )}
                 </Box>
-                {/* <Box>
-                  <TextField
-                    required={true}
-                    value={company.companyForm.date_founded}
-                    onChange={(e) =>
-                      dispatch(
-                        setCompanyForm({
-                          ...company.companyForm,
-                          date_founded: e.target.value,
-                        })
-                      )
-                    }
-                    onBlur={validateDate}
-                    id="filledbasic"
-                    label=""
-                    variant="filled"
-                    type="date"
-                    name="date"
-                    placeholder=""
-                    InputProps={{ disableUnderline: true }}
-                    className="lg:w-[364px] w-[100%] 2xl:w-[35rem]"
-                    sx={{ backgroundColor: "porcelain" }}
-                  />
-                </Box> */}
+                <Box>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DemoContainer components={["DatePicker"]}>
+                      <DemoItem
+                        label={
+                          <Label
+                            componentName="Date Founded"
+                            valueType="date"
+                          />
+                        }
+                      >
+                        <DatePicker
+                          sx={{ width: "356px" }}
+                          onChange={(date) => {
+                            const formattedDate = date
+                              ? date.format("YYYY-MM-DD")
+                              : null;
+                            console.log(formattedDate);
+                            if (formattedDate) {
+                              sessionStorage.setItem(
+                                "date_founded",
+                                formattedDate
+                              );
+                            } else {
+                              sessionStorage.removeItem("date_founded");
+                            }
+                          }}
+                        />
+                      </DemoItem>
+                    </DemoContainer>
+                  </LocalizationProvider>
+                </Box>
               </Box>
               <Box>
                 <div className="inputImage imagetext h-[283px] w-[316px] pt-6">
@@ -285,6 +384,8 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                       onChange={handleImageChange}
                       ref={fileInputRef}
                       className="hidden w-full px-3 py-2 "
+                      title="Upload Image"
+                      placeholder="Choose an image"
                     />
                   </div>
 
@@ -302,8 +403,9 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                       >
                         <Link href="/modalPage">
                           <button
-                            id="cancelbtn"
-                            className="btn btn-sm btn-circle btn-ghost font-bold w-3 h-3 "
+                            type="button"
+                            id="cancelbtnDiv"
+                            className="btn btn-sm btn-circle btn-ghost font-bold w-3 h-3 cursor-pointer"
                           >
                             ✕
                           </button>
@@ -320,7 +422,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                     </div>
                   ) : (
                     <div
-                      id="prevImgState"
+                      id="prevImgStateDiv"
                       onClick={handleImageClick}
                       className="w-full px-3 py-2 border rounded-md flex flex-col items-center justify-center cursor-pointer border-none"
                     >
@@ -337,11 +439,11 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
               </Box>
             </Box>
             <div className="">
-              <div onClick={goToNextPage} className="nextbtn-wrapper">
+              <div className="nextbtn-wrapper" onClick={handleNextPage}>
                 <button
                   type="submit"
                   id="thirdFormSubmit"
-                  className="nextbtn w-96 mt-40 mb-6 "
+                  className="nextbtn w-96 mt-40 mb-6 cursor-pointer"
                 >
                   Next
                 </button>
@@ -361,13 +463,18 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                   Double-check all the information you provided
                 </sub>
                 <form method="dialog" id="pageoneSkip">
-                  <button className="text-sm font-semibold skip " id="skipbtn2">
+                  <button
+                    type="button"
+                    className="text-sm font-semibold skip cursor-pointer"
+                    id="skipbtn2"
+                    onClick={handleNextPage}
+                  >
                     Skip
                   </button>
                 </form>
               </div>
               <div
-                className="form-display flex flex-col flex-col-reverse mt-8"
+                className="form-display flex flex-col-reverse mt-8"
                 id="pageone13"
               >
                 <form
@@ -375,10 +482,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                   onSubmit={handleSubmit}
                   className="companyInputWrap"
                 >
-                  <div
-                    className="flex flex-col flex-col-reverse"
-                    id="pageone14"
-                  >
+                  <div className="flex flex-col-reverse" id="pageone14">
                     <div>
                       <input
                         required={true}
@@ -450,7 +554,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                         <p className="error-color">{errors.website}</p>
                       )} */}
                       <br></br>
-                      <input
+                      {/* <input
                         required={true}
                         value={company.companyForm.date_founded}
                         onChange={(e) =>
@@ -467,7 +571,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                         id="dateid2"
                         placeholder="date funded 12/12/21"
                         className=" companyInput mb-4"
-                      />
+                      /> */}
                       {/* {errors.date && (
                         <p className="error-color">{errors.date}</p>
                       )} */}
@@ -482,6 +586,8 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                             onChange={handleImageChange}
                             ref={fileInputRef}
                             className="hidden w-full px-3 py-2 "
+                            title="Upload Image"
+                            placeholder="Choose an image"
                           />
                         </div>
 
@@ -499,7 +605,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                               <Link href="/modalPage">
                                 <button
                                   id="cancelbtn"
-                                  className="btn btn-sm btn-circle btn-ghost font-bold w-3 h-3 "
+                                  className="btn btn-sm btn-circle btn-ghost font-bold w-3 h-3 cursor-pointer"
                                 >
                                   ✕
                                 </button>
@@ -533,12 +639,11 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                     </Box>
                   </div>
 
-                  <div className="nextbtn nextmobile cursor-pointer ">
-                    <button
-                      onClick={goToNextPage}
-                      type="submit"
-                      id="firstFormSubit2"
-                    >
+                  <div
+                    className="nextbtn nextmobile cursor-pointer"
+                    onClick={handleNextPage}
+                  >
+                    <button type="submit" id="firstFormSubit2">
                       Next
                     </button>
                   </div>

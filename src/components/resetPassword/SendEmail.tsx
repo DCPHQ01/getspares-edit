@@ -6,10 +6,19 @@ import { useRouter } from "next/navigation";
 export default function SendEmail() {
   const router = useRouter();
 
+  const emailSet = sessionStorage.getItem("email");
+
   return (
     <>
-      <div className="border border-mecaBorderColor p-4 rounded-xl" id="keyIconDiv">
-        <MdOutlineMail size={24} className="text-mecaGoBackArrow" id="keyIcon" />
+      <div
+        className="border border-mecaBorderColor p-4 rounded-xl"
+        id="keyIconDiv"
+      >
+        <MdOutlineMail
+          size={24}
+          className="text-mecaGoBackArrow"
+          id="keyIcon"
+        />
       </div>
       <h2
         className="text-mecaDarkBlueBackgroundOverlay font-bold text-center text-3xl pt-4"
@@ -22,7 +31,7 @@ export default function SendEmail() {
         id="checkEmailText"
       >
         We sent a password reset link to
-        <span className="font-bold">Camoly@gmail.com</span>
+        <span className="font-bold">{emailSet}</span>
       </p>
 
       <Button
@@ -34,7 +43,7 @@ export default function SendEmail() {
         Open email app
       </Button>
       <span className="flex items-center gap-1 text-mecaGrayBodyText text-sm my-6">
-        Didn’t receive the email?
+        Didn’t receive the link?
         <Link
           href="#"
           id="resendEmailLink"

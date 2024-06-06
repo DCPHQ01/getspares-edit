@@ -99,11 +99,15 @@ export default function ProductDescription() {
   const segments = searchParams.split("/");
   // console.log(segments, " segments");
   const searches = segments[3];
-  const id = Number(segments[4]);
+  const id = segments[4];
   // console.log(searches, " searches");
 
   const handleClick = (newState: SnackbarOrigin) => () => {
-    dispatch(addToCart({ id }));
+    dispatch(
+      addToCart({
+        id,
+      })
+    );
     setState({ ...newState, open: true });
 
     setTimeout(() => {

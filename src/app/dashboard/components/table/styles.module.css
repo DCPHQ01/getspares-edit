@@ -1,0 +1,21 @@
+.table th {
+  /* position: sticky; */
+  top: 0;
+  padding: 12px 24px;
+  text-align: left;
+  background-color: #eef2f6;
+  color: #364152;
+  font-size: 14px;
+}
+
+.table tr:nth-child(even) {
+  background-color: #fcfcfd;
+}
+
+.table td {
+  /*padding: 16px 0;*/
+  font-size: 14px;
+}
+.css-i9fmh8-MuiBackdrop-root-MuiModal-backdrop.css-i9fmh8-MuiBackdrop-root-MuiModal-backdrop {
+  background-color: red !important;
+}

@@ -3,30 +3,82 @@ import { useEffect, useState } from "react";
 import {
   MdExpandLess,
   MdExpandMore,
+  MdLogout,
   MdMenu,
+  MdOutlineAccountCircle,
   MdOutlineShoppingCart,
   MdSearch,
 } from "react-icons/md";
-
+import { JwtPayload as BaseJwtPayload } from "jsonwebtoken";
+import * as JWT from "jwt-decode";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useAppSelector } from "../../../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
+import { clearUser } from "../../../../redux/features/users/userSlice";
+import MobileNav from "../../../../components/mobileNav/MobileNav";
+import NavBar from "../../../../components/NavBar/NavBar";
 
+interface JwtPayload extends BaseJwtPayload {
+  role?: string;
+}
 export default function NavBarWhileInsideApp() {
   const router = useRouter();
   const handleStartShopping = () => {
     router.push("/signup");
   };
+  const handleLogin = () => {
+    router.push("/login");
+  };
+  const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.user);
 
   const { cart } = useAppSelector((state) => state.product);
+
+  const [toggleProfile, setToggleProfile] = useState(false);
+  const [openNavOptions, setOpenNavOptions] = useState(false);
+  const [tokens, setTokens] = useState("");
+  const profile = () => {
+    setToggleProfile(!toggleProfile);
+  };
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setTokens((sessionStorage.getItem("token") as string | null) ?? "");
+    }
+  }, []);
+
+  let decoded: JwtPayload | null = null;
+  try {
+    if (
+      tokens &&
+      typeof tokens === "string" &&
+      tokens.split(".").length === 3
+    ) {
+      decoded = JWT.jwtDecode(tokens);
+    }
+  } catch (error) {
+    console.error("Failed to decode token:", error);
+  }
+
+  const handleDashboard = () => {
+    router.push("/dashboard");
+  };
+  const logOut = () => {
+    sessionStorage.clear();
+    sessionStorage.removeItem("userDetails");
+    dispatch(clearUser());
+    router.push("/login");
+  };
+  const name = decoded?.given_name;
 
   return (
     <nav className="w-full bg-white" id="navbarContainer">
       {/* mobile and tab */}
-
+      <div className="flex lg:hidden">
+        <NavBar open={openNavOptions} setOpen={setOpenNavOptions} />
+      </div>
       {/* desktop */}
       <div
-        className="hidden lg:flex flex-col border-b-2 border-b-mecaBottomBorder px-10"
+        className="hidden lg:flex z-[2000] flex-col border-b-2 border-b-mecaBottomBorder px-10"
         id="menuContainerDesktop"
       >
         <div
@@ -59,7 +111,7 @@ export default function NavBarWhileInsideApp() {
             className="w-[28%] h-8 flex justify-end items-center gap-x-4"
             id="cartDesktop"
           >
-            <Link href="/removetoCart">
+            <Link href="/cart">
               <div
                 className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1 cursor-pointer"
                 id="textCart"
@@ -75,22 +127,75 @@ export default function NavBarWhileInsideApp() {
               </div>
             </Link>
 
-            <button
-              type="button"
-              className="w-[20%] h-full border border-mecaBluePrimaryColor bg-white text-mecaBluePrimaryColor text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
-              id="startShoppingBtn"
-              onClick={handleStartShopping}
-            >
-              Login
-            </button>
-            <button
-              type="button"
-              className="w-[40%] h-full bg-mecaBluePrimaryColor text-white text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
-              id="startShoppingBtn"
-              onClick={handleStartShopping}
-            >
-              Create an account
-            </button>
+            <div className="w-full flex items-center h-full">
+              {!tokens ? (
+                <div className="w-full flex items-center h-full gap-4">
+                  <button
+                    type="button"
+                    className="w-[28%] h-full border border-mecaBluePrimaryColor bg-white text-mecaBluePrimaryColor text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
+                    id="startShoppingBtnMainNavBar"
+                    onClick={handleLogin}
+                  >
+                    Login
+                  </button>
+                  <button
+                    type="button"
+                    className="w-[52%] h-full bg-mecaBluePrimaryColor text-white text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
+                    id="startShoppingBtn"
+                    onClick={handleStartShopping}
+                  >
+                    Create an account
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={profile}
+                  className="flex gap-2 "
+                  type="button"
+                  id="profileBtnMainNav"
+                >
+                  <MdOutlineAccountCircle className="w-8 h-8 text-mecaProfileColor" />
+                  <p className="mt-2 font-normal text-mecaDarkBlueBackgroundOverlay text-sm">
+                    Hi, {name}
+                  </p>
+                  <MdExpandLess className="text-mecaGoBackArrow w-5 h-5 mt-2" />
+                </button>
+              )}
+              {toggleProfile && (
+                <div
+                  className="w-52 h-24 rounded-lg p-1 bg-white absolute top-28 right-6 "
+                  style={{ boxShadow: "0px 2px 8px 0px #63636333" }}
+                >
+                  <button
+                    onClick={profile}
+                    className="flex gap-2 w-48 m-auto  h-10 p-2 pt-3 hover:bg-mecaActiveBackgroundNavColor hover:text-mecaActiveIconsNavColor"
+                  >
+                    <MdOutlineAccountCircle className="text-mecaProfileColor w-6 h-6 " />
+                    <span
+                      className="w-24 h-6 flex gap-1 font-normal text-base text-mecaDarkBlueBackgroundOverlay hover:text-mecaActiveIconsNavColor"
+                      onClick={handleDashboard}
+                    >
+                      <span>My</span>
+                      <span>Dashboard</span>
+                    </span>
+                  </button>
+                  <div className="mt-1">
+                    <button
+                      onClick={profile}
+                      className="flex gap-2 m-auto w-48 h-10 p-2 pt-3 hover:bg-mecaActiveBackgroundNavColor hover:text-mecaActiveIconsNavColor"
+                    >
+                      <MdLogout className="text-mecaProfileColor w-6 h-6 " />
+                      <span
+                        className="h-6 font-normal text-base text-mecaDarkBlueBackgroundOverlay hover:text-mecaActiveIconsNavColor"
+                        onClick={logOut}
+                      >
+                        Logout
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

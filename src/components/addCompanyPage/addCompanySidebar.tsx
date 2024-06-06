@@ -7,26 +7,33 @@ import connectorwrap from "../../assets/images/connectorwrap.svg";
 import locationwrap from "../../assets/images/locationwrap.svg";
 import previewwrap from "../../assets/images/previewwrap.svg";
 import { useEffect, useState } from "react";
-import { title } from "process";
 
 import React from "react";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { RootState } from "../../redux";
+import { setCurrentStep } from "../../redux/features/company/companySlice";
 
 // import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { useSelector } from "react-redux";
 
 const drawerWidth = 240;
-
-function ResponsiveDrawer({ step, setStep }: any) {
+interface SideBarProps {
+  active: boolean;
+  setActive: (active: boolean) => void;
+}
+function ResponsiveDrawer({ active, setActive }: SideBarProps) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
+  const currentPage = useAppSelector(
+    (state: RootState) => state.company.currentStep
+  );
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const [activeTab, setActiveTab] = useState<number | null>(null);
+  // const [activeTab, setActiveTab] = useState<number | null>(null);
 
   const handleTabClick = (index: number) => {
-    setActiveTab(index === activeTab ? null : index);
+    // setActiveTab(index === activeTab ? null : index);
   };
 
   const details = [
@@ -49,9 +56,10 @@ function ResponsiveDrawer({ step, setStep }: any) {
       image: previewwrap,
     },
   ];
+  const dispatch = useAppDispatch();
   const handleToggle = (step: number) => {
     console.log("step ", step);
-    setStep(step);
+    dispatch(setCurrentStep(step - 1));
   };
 
   interface dataObject {
@@ -62,7 +70,8 @@ function ResponsiveDrawer({ step, setStep }: any) {
   }
 
   useEffect(() => {
-    setActiveTab(details[step - 1].id);
+    dispatch(setCurrentStep(0));
+    setActive(true);
   }, []);
   return (
     <div className="relative md:flex h-[800px] p-4 w-full" id="sidebar">
@@ -96,7 +105,9 @@ function ResponsiveDrawer({ step, setStep }: any) {
                   id="sidebardiv6"
                   onClick={() => handleTabClick(item.id)}
                   className={`text-gray-400 flex flex-col -mt-4 lg:-mt-10 ${
-                    activeTab === item.id ? "text-gray-800" : "`text-gray-800"
+                    active && item.id === currentPage + 1
+                      ? "text-gray-800"
+                      : "`text-gray-800"
                   }`}
                   // sx="flex flex-col -mt-4 lg:-mt-10"
                 >

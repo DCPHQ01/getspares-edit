@@ -18,10 +18,10 @@ import {
   RadioGroup,
 } from "@mui/material";
 import TopBar from "../../../../app/reusables/TopBar/page";
-import Switches from "../../../../app/reusables/switch/page";
+import Switches from "../../../../components/switch/Switches";
 import Footer from "../../../../components/footer/Footer";
-import TruncateText from "../../../utils/page";
-import Filter from "../filters/page";
+import TruncateText from "../../../../components/utils/utils";
+import Filter from "../../../../components/filters/Filter";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 interface ItemsDataProps {
@@ -105,10 +105,9 @@ export default function Products() {
   };
 
   const searchParams = usePathname()!;
-  const search = searchParams;
   const segments = searchParams.split("/");
   const searches = segments[3];
-  const searchWords = segments[3].replace(/([A-Z])/g, " $1").trim();
+  const searchWords = segments[3]?.replace(/([A-Z])/g, " $1")?.trim();
   // const searchWords = search ? search.replace(/([A-Z])/g, " $1").trim() : "";
 
   const handleProductDescription = (id: number) => {

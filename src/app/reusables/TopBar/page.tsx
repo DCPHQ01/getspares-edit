@@ -8,9 +8,9 @@ import {
   MdSearch,
 } from "react-icons/md";
 import Header from "./../Header/page";
-import NavBar from "./../NavBar/page";
+import NavBar from "../../../components/NavBar/NavBar";
 import { useState } from "react";
-import MobileNav from "../mobileNav/page";
+import MobileNav from "../../../components/mobileNav/MobileNav";
 
 export default function TopBar() {
   const [open, setOpen] = useState(true);
