@@ -1,3 +1,4 @@
+"use client";
 import BuyerCartMobile from "./BuyerCartMobile";
 import BuyerOrderMobile from "./BuyerOrderMobile";
 import BuyerOverviewMobile from "./BuyerOverviewMobile";

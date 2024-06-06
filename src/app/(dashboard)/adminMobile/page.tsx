@@ -1,3 +1,4 @@
+"use client";
 import { useAppSelector } from "../../../redux";
 import { sidePanel } from "../../dashboard/components/utils/utils";
 import AgentsMobile from "./AgentsMobile";
@@ -5,7 +6,7 @@ import BuyersMobile from "./BuyersMobile";
 import CategoryMobile from "./CategoryMobile";
 import InventoryMobile from "./InventoryMobile";
 import OverviewMobile from "./OverviewMobile";
-import Profile from "./Profile";
+import Profiles from "./Profiles";
 import VendorsMobile from "./VendorsMobile";
 
 const AdminMobilePage = () => {
@@ -25,7 +26,7 @@ const AdminMobilePage = () => {
     case sidePanel.CATEGORY:
       return <CategoryMobile />;
     case sidePanel.PROFILE:
-      return <Profile />;
+      return <Profiles />;
     default:
       return null;
   }

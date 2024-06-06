@@ -1,3 +1,4 @@
+"use client";
 import AgentOrder from "./AgentOrder";
 import AgentOverview from "./AgentOverview";
 import AgentVendors from "./AgentVendors";

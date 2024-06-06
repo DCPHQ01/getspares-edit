@@ -1,3 +1,4 @@
+"use client";
 import React, { useRef, useState } from "react";
 import Header from "../../dashboard/components/ui/header";
 import SearchBox from "../../dashboard/components/ui/searchbox";
@@ -8,7 +9,15 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { MdAdd, MdArrowBack, MdArrowForward, MdChevronLeft, MdChevronRight, MdClose, MdPhotoLibrary } from "react-icons/md";
+import {
+  MdAdd,
+  MdArrowBack,
+  MdArrowForward,
+  MdChevronLeft,
+  MdChevronRight,
+  MdClose,
+  MdPhotoLibrary,
+} from "react-icons/md";
 import { TextField } from "@mui/material";
 
 const style = {

@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import "../../../../../styles/Profile.css";
+import "../../../../../styles/profile.css";
 import Header from "../../../../dashboard/components/ui/header";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
