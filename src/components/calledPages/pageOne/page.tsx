@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Box from "@mui/material/Box";
 import ImageComponent from "../../../components/imageComp/ImageComponent";
@@ -15,13 +15,64 @@ import formLogo from "@/assets/images/formLogo.jpg";
 import { useAppSelector } from "../../../redux";
 import { useAppDispatch } from "../../../redux/hooks";
 import { RootState } from "../../../redux";
+import { styled } from "@mui/material/styles";
+import Stack from "@mui/material/Stack";
+import Tooltip from "@mui/material/Tooltip";
+import dayjs from "dayjs";
 import {
   setCompanyForm,
   setCurrentStep,
 } from "../../../redux/features/company/companySlice";
 import { FaUpload } from "react-icons/fa";
 import Link from "next/link";
+import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
+const ProSpan = styled("span")({
+  display: "inline-block",
+  height: "1em",
+  width: "1em",
+  verticalAlign: "middle",
+  marginLeft: "0.3em",
+  marginBottom: "0.08em",
+  backgroundSize: "contain",
+  backgroundRepeat: "no-repeat",
+  backgroundImage: "url(https://mui.com/static/x/pro.svg)",
+});
+function Label({
+  componentName,
+  valueType,
+  isProOnly,
+}: {
+  componentName: string;
+  valueType: string;
+  isProOnly?: boolean;
+}) {
+  const content = (
+    <span>
+      <strong>{componentName}</strong>
+    </span>
+  );
+  if (isProOnly) {
+    return (
+      <Stack direction="row" spacing={0.5} component="span">
+        <Tooltip title="Included on Pro package">
+          <a
+            href="https://mui.com/x/introduction/licensing/#pro-plan"
+            aria-label="Included on Pro package"
+          >
+            <ProSpan />
+          </a>
+        </Tooltip>
+        {content}
+      </Stack>
+    );
+  }
+
+  return content;
+}
 const CalledPagesPageOnePages = () => {
   const [website, setWebsite] = useState("");
   const [fullName, setFullName] = useState("");
@@ -106,14 +157,22 @@ const CalledPagesPageOnePages = () => {
   const company = useAppSelector((state: RootState) => state.company);
   console.log("company ", company.companyForm);
 
-  const [formImage, setFormImage] = useState<string | null>(null);
+  const [formImage, setFormImage] = useState<string | null>(() => {
+    if (typeof window !== "undefined") {
+      const storedImage = sessionStorage.getItem("companyImage");
+      return storedImage ? storedImage : null;
+    }
+    return null;
+  });
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setFormImage(reader.result as string);
+        const result = reader.result as string;
+        setFormImage(result);
+        sessionStorage.setItem("companyImage", result);
       };
       reader.readAsDataURL(file);
     }
@@ -130,6 +189,40 @@ const CalledPagesPageOnePages = () => {
   const handleNextPage = () => {
     dispatch(setCurrentStep(1));
   };
+
+  let companyName = "";
+  if (typeof window !== "undefined") {
+    const userDetails = sessionStorage.getItem("userDetails");
+
+    if (userDetails) {
+      const parsedDetails = JSON.parse(userDetails);
+      if (
+        parsedDetails.companyDetails &&
+        parsedDetails.companyDetails.length > 0
+      ) {
+        companyName = parsedDetails.companyDetails[0].name;
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const userDetails = sessionStorage.getItem("userDetails");
+      if (userDetails) {
+        const parsedDetails = JSON.parse(userDetails);
+        if (
+          parsedDetails.companyDetails &&
+          parsedDetails.companyDetails.length > 0
+        ) {
+          dispatch(
+            setCompanyForm({ ...company.companyForm, name: companyName })
+          );
+        }
+      }
+    }
+  }, [dispatch]);
+
+  console.log("Company name: ", companyName);
 
   return (
     <>
@@ -245,34 +338,42 @@ const CalledPagesPageOnePages = () => {
                     className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem]"
                     sx={{ backgroundColor: "porcelain" }}
                   />
-                  {/* {errors.website && (
-                    <p className="error-color">{errors.website}</p>
-                  )} */}
+                  {errors.website && (
+                    <p className="error-color -mt-8">{errors.website}</p>
+                  )}
                 </Box>
-                {/* <Box>
-                  <TextField
-                    required={true}
-                    value={company.companyForm.date_founded}
-                    onChange={(e) =>
-                      dispatch(
-                        setCompanyForm({
-                          ...company.companyForm,
-                          date_founded: e.target.value,
-                        })
-                      )
-                    }
-                    onBlur={validateDate}
-                    id="filledbasic"
-                    label=""
-                    variant="filled"
-                    type="date"
-                    name="date"
-                    placeholder=""
-                    InputProps={{ disableUnderline: true }}
-                    className="lg:w-[364px] w-[100%] 2xl:w-[35rem]"
-                    sx={{ backgroundColor: "porcelain" }}
-                  />
-                </Box> */}
+                <Box>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DemoContainer components={["DatePicker"]}>
+                      <DemoItem
+                        label={
+                          <Label
+                            componentName="Date Founded"
+                            valueType="date"
+                          />
+                        }
+                      >
+                        <DatePicker
+                          sx={{ width: "356px" }}
+                          onChange={(date) => {
+                            const formattedDate = date
+                              ? date.format("YYYY-MM-DD")
+                              : null;
+                            console.log(formattedDate);
+                            if (formattedDate) {
+                              sessionStorage.setItem(
+                                "date_founded",
+                                formattedDate
+                              );
+                            } else {
+                              sessionStorage.removeItem("date_founded");
+                            }
+                          }}
+                        />
+                      </DemoItem>
+                    </DemoContainer>
+                  </LocalizationProvider>
+                </Box>
               </Box>
               <Box>
                 <div className="inputImage imagetext h-[283px] w-[316px] pt-6">

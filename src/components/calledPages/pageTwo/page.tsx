@@ -88,7 +88,7 @@ const CalledPagesPageTwoPages = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   // const [addressError, setAddressError] = useState("");
   // const [phoneError, setPhoneError] = useState("");
-  const [image, setImage] = useState<File | null>(null);
+  // const [image, setImage] = useState<File | null>(null);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   const addressRegex = /^.{5,}$/; // Example: Address should be at least 5 characters
@@ -131,16 +131,16 @@ const CalledPagesPageTwoPages = () => {
     }
   };
 
-  const validateImage = () => {
-    if (!image) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        image: "Image is required",
-      }));
-    } else {
-      setErrors((prevErrors) => ({ ...prevErrors, image: "" }));
-    }
-  };
+  // const validateImage = () => {
+  //   if (!image) {
+  //     setErrors((prevErrors) => ({
+  //       ...prevErrors,
+  //       image: "Image is required",
+  //     }));
+  //   } else {
+  //     setErrors((prevErrors) => ({ ...prevErrors, image: "" }));
+  //   }
+  // };
   // const router = useRouter();
   const [input2, setInput2] = useState("");
 
@@ -149,7 +149,7 @@ const CalledPagesPageTwoPages = () => {
     handleAddressChange();
     handlePhoneChange();
     handleEmailChange();
-    validateImage();
+    // validateImage();
 
     if (!Object.values(errors).some((error) => error)) {
       console.log("Form submitted successfully");
@@ -184,6 +184,8 @@ const CalledPagesPageTwoPages = () => {
   const handleImageClick = () => {
     fileInputRef.current?.click();
   };
+
+  const companyImage = sessionStorage.getItem("companyImage") || "";
 
   return (
     <div className="" style={{ width: "85%", margin: "auto" }} id="pageTwo1">
@@ -306,12 +308,6 @@ const CalledPagesPageTwoPages = () => {
                         }
                         // className="mr-2"
                       />
-                      {/* <button
-                        onClick={handleSaveAddress}
-                        className="px-4 py-2 bg-blue-500 text-white rounded"
-                      >
-                        Save Address
-                      </button> */}
                     </div>
                   ))}
 
@@ -328,7 +324,7 @@ const CalledPagesPageTwoPages = () => {
 
             <Box>
               <div className="inputImage imagetext h-[283px] w-[316px] pt-6">
-                <div className="">
+                {/* <div className="">
                   <input
                     type="file"
                     accept="image/*"
@@ -338,12 +334,12 @@ const CalledPagesPageTwoPages = () => {
                     title="Upload Image"
                     placeholder="Choose an image"
                   />
-                </div>
+                </div> */}
 
                 {/* {formImage && (
                   
                   )} */}
-                {formImage ? (
+                {/* {formImage ? (
                   <div className="">
                     <form
                       method="dialog"
@@ -370,21 +366,24 @@ const CalledPagesPageTwoPages = () => {
                       />
                     </div>
                   </div>
-                ) : (
-                  <div
-                    id="prevImgState"
-                    onClick={handleImageClick}
-                    className="w-full px-3 py-2 border rounded-md flex flex-col items-center justify-center cursor-pointer border-none"
-                  >
-                    <MdPhotoLibrary className="text-gray-600 text-7xl relative top-12" />
-                    <div className="text-gray-600 text-base  text-center relative top-16">
-                      <p className="font-bold">Add logo</p>
-                      <p className="font-normal">
-                        by clicking or drag and drop
-                      </p>
-                    </div>
-                  </div>
-                )}
+                ) : ( */}
+                <div
+                  id="prevImgState"
+                  onClick={handleImageClick}
+                  className="h-[237px] w-[237px] m-auto"
+                >
+                  <img
+                    src={companyImage}
+                    alt="Uploaded"
+                    className="w-full h-full object-cover rounded-full"
+                  />
+                  {/* <MdPhotoLibrary className="text-gray-600 text-7xl relative top-12" /> */}
+                  {/* <div className="text-gray-600 text-base  text-center relative top-16">
+                    <p className="font-bold">Add logo</p>
+                    <p className="font-normal">by clicking or drag and drop</p>
+                  </div> */}
+                </div>
+                {/* )} */}
               </div>
             </Box>
           </Box>

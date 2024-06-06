@@ -78,7 +78,7 @@ export default function NavBarWhileInsideApp() {
       </div>
       {/* desktop */}
       <div
-        className="hidden lg:flex flex-col border-b-2 border-b-mecaBottomBorder px-10"
+        className="hidden lg:flex z-[2000] flex-col border-b-2 border-b-mecaBottomBorder px-10"
         id="menuContainerDesktop"
       >
         <div

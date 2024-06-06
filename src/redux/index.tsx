@@ -8,12 +8,14 @@ import dashboardSlice from "../redux/features/dashboard/dashboardSlice";
 import productSlice from "./features/product/productSlice";
 import { productsQuery } from "./features/product/productsQuery";
 import { userQuery } from "./features/users/userQuery";
+import { companyQuery } from "./features/company/companyQuery";
 
 export const store = configureStore({
   reducer: {
     [authQuery.reducerPath]: authQuery.reducer,
     [productsQuery.reducerPath]: productsQuery.reducer,
     [userQuery.reducerPath]: userQuery.reducer,
+    [companyQuery.reducerPath]: companyQuery.reducer,
     user: userSlice,
     company: companySlice,
     product: productSlice,
@@ -24,6 +26,7 @@ export const store = configureStore({
       authQuery.middleware,
       productsQuery.middleware,
       userQuery.middleware,
+      companyQuery.middleware,
     ]),
 });
 

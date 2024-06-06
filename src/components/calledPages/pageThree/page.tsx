@@ -27,6 +27,8 @@ const CalledPagesPageThreePages = () => {
     dispatch(setCurrentStep(1));
   };
 
+  const companyImage = sessionStorage.getItem("companyImage") || "";
+
   return (
     <div className="" style={{ width: "85%", margin: "auto" }} id="pageThree1">
       <div className="pageWrapper" id="pageThree2">
@@ -261,8 +263,15 @@ const CalledPagesPageThreePages = () => {
             </Box>
 
             <Box>
-              <div className="inputImage imagetext h-[283px] w-[316px]">
-                <TextField
+              <div className="inputImage imagetext flex justify-center items-center h-[283px] w-[316px]">
+                <div className="h-[237px] w-[237px] m-auto">
+                  <img
+                    src={companyImage}
+                    alt="Uploaded"
+                    className="w-full h-full object-cover rounded-full"
+                  />
+                </div>
+                {/* <TextField
                   inputProps={{ readOnly: true }}
                   required={true}
                   type="file"
@@ -271,7 +280,7 @@ const CalledPagesPageThreePages = () => {
                   sx={{ backgroundColor: "porcelain" }}
                   id="secondImageid5"
                   // placeholder="Add logo by clicking or drag and drop"
-                />
+                /> */}
               </div>
             </Box>
           </Box>
