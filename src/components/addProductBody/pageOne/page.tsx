@@ -222,7 +222,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                       <TextareaAutosize
                         required={true}
                         value={inputs.input3}
-                        onChange={handleChange}
+                        onChange={() => handleChange}
                         onBlur={validateMessage}
                         id="filledbasic"
                         aria-label="Description"
