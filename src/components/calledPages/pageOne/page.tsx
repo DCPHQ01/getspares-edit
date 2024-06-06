@@ -554,7 +554,7 @@ const CalledPagesPageOnePages = () => {
                         <p className="error-color">{errors.website}</p>
                       )} */}
                       <br></br>
-                      <input
+                      {/* <input
                         required={true}
                         value={company.companyForm.date_founded}
                         onChange={(e) =>
@@ -571,7 +571,7 @@ const CalledPagesPageOnePages = () => {
                         id="dateid2"
                         placeholder="date funded 12/12/21"
                         className=" companyInput mb-4"
-                      />
+                      /> */}
                       {/* {errors.date && (
                         <p className="error-color">{errors.date}</p>
                       )} */}
