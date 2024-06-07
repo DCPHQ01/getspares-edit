@@ -76,7 +76,7 @@ const CalledPagesPageThreePages = ({
           <Box
             component="form"
             id="pageThree8"
-            className="flex gap-x-16 flex-col flex-col-reverse lg:flex-row lg:items-start   "
+            className="flex gap-x-16 flex-col-reverse lg:flex-row lg:items-start   "
             noValidate
             // onSubmit={handleSubmit}
             autoComplete="off"
@@ -455,6 +455,7 @@ const CalledPagesPageThreePages = ({
                 <div className="">
                   <div className="">
                     <input
+                      title="Company logo"
                       readOnly={true}
                       type="image"
                       // onChange={handleOnchange}
