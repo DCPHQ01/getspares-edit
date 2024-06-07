@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Header from "../../components/ui/header";
-import Cards from "../../components/ui/cards";
+import Cards from "../../../../components/cards";
 import PeriodRadios from "../../components/ui/periodradios";
 import OverviewTable from "../../components/table/agentAdmin/overviewTable";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";

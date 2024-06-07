@@ -21,18 +21,21 @@ interface Address {
   state: string;
 }
 
-interface ChildProps {
+import { useAppSelector } from "../../../redux";
+import { useAppDispatch } from "../../../redux/hooks";
+import { RootState } from "../../../redux";
+import {
+  setCompanyForm,
+  setCurrentStep,
+} from "../../../redux/features/company/companySlice";
+import { MdPhotoLibrary } from "react-icons/md";
+
+interface CalledPagesPageTwoPagesProps {
   step: number;
   setStep: React.Dispatch<React.SetStateAction<number>>;
 }
 
-import { useAppSelector } from "../../../redux";
-import { useAppDispatch } from "../../../redux/hooks";
-import { RootState } from "../../../redux";
-import { setCompanyForm } from "../../../redux/features/company/companySlice";
-import { MdPhotoLibrary } from "react-icons/md";
-
-const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
+const CalledPagesPageTwoPages = () => {
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [inputValues, setInputValues] = useState<string[]>([""]);
 
@@ -78,17 +81,6 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
   };
 
   // const router = useRouter();
-  console.log("step ", step);
-  console.log("active ", active);
-  const goToNextPage = () => {
-    setStep(step + 1);
-    // setActive(active);
-  };
-
-  const goToPreviousPage = () => {
-    // Navigate to the previous page if it's available
-    setStep(step - 1);
-  };
 
   // const [emailError, setEmailError] = useState("");
   const [email, setEmail] = useState("");
@@ -96,7 +88,7 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   // const [addressError, setAddressError] = useState("");
   // const [phoneError, setPhoneError] = useState("");
-  const [image, setImage] = useState<File | null>(null);
+  // const [image, setImage] = useState<File | null>(null);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   const addressRegex = /^.{5,}$/; // Example: Address should be at least 5 characters
@@ -139,17 +131,16 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
     }
   };
 
-  const validateImage = () => {
-    if (!image) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        image: "Image is required",
-      }));
-    } else {
-      setErrors((prevErrors) => ({ ...prevErrors, image: "" }));
-    }
-  };
-
+  // const validateImage = () => {
+  //   if (!image) {
+  //     setErrors((prevErrors) => ({
+  //       ...prevErrors,
+  //       image: "Image is required",
+  //     }));
+  //   } else {
+  //     setErrors((prevErrors) => ({ ...prevErrors, image: "" }));
+  //   }
+  // };
   // const router = useRouter();
   const [input2, setInput2] = useState("");
 
@@ -158,7 +149,7 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
     handleAddressChange();
     handlePhoneChange();
     handleEmailChange();
-    validateImage();
+    // validateImage();
 
     if (!Object.values(errors).some((error) => error)) {
       console.log("Form submitted successfully");
@@ -167,8 +158,14 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
 
   const dispatch = useAppDispatch();
 
-  const { company } = useAppSelector((state: RootState) => state);
-  console.log("company ", company.companyForm);
+  const handleNextPage = () => {
+    dispatch(setCurrentStep(2));
+  };
+  const handlePreviousPage = () => {
+    dispatch(setCurrentStep(0));
+  };
+
+  const company = useAppSelector((state: RootState) => state.company);
 
   const [formImage, setFormImage] = useState<string | null>(null);
 
@@ -188,6 +185,8 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
     fileInputRef.current?.click();
   };
 
+  const companyImage = sessionStorage.getItem("companyImage") || "";
+
   return (
     <div className="" style={{ width: "85%", margin: "auto" }} id="pageTwo1">
       <div className="pageWrapper" id="pageTwo2">
@@ -200,7 +199,11 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
               <sub className="text-xs font-normal">Provide details</sub>
 
               <form method="dialog" id="pageTwo6">
-                <button className="text-sm font-semibold skip " id="skipper1">
+                <button
+                  className="text-sm font-semibold skip "
+                  id="skipper1"
+                  onClick={handleNextPage}
+                >
                   Skip
                 </button>
               </form>
@@ -210,7 +213,7 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
           <Box
             id="pageTwo7"
             component="form"
-            className="flex gap-x-16 flex-col flex-col-reverse lg:flex-row lg:items-start   "
+            className="flex gap-x-16 flex-col-reverse lg:flex-row lg:items-start   "
             noValidate
             onSubmit={handleSubmit}
             autoComplete="off"
@@ -305,12 +308,6 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                         }
                         // className="mr-2"
                       />
-                      {/* <button
-                        onClick={handleSaveAddress}
-                        className="px-4 py-2 bg-blue-500 text-white rounded"
-                      >
-                        Save Address
-                      </button> */}
                     </div>
                   ))}
 
@@ -327,20 +324,22 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
 
             <Box>
               <div className="inputImage imagetext h-[283px] w-[316px] pt-6">
-                <div className="">
+                {/* <div className="">
                   <input
                     type="file"
                     accept="image/*"
                     onChange={handleImageChange}
                     ref={fileInputRef}
                     className="hidden w-full px-3 py-2 "
+                    title="Upload Image"
+                    placeholder="Choose an image"
                   />
-                </div>
+                </div> */}
 
                 {/* {formImage && (
                   
                   )} */}
-                {formImage ? (
+                {/* {formImage ? (
                   <div className="">
                     <form
                       method="dialog"
@@ -351,7 +350,7 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                     >
                       <Link href="/modalPage">
                         <button
-                          id="cancelbtn"
+                          id="cancelbtnDiv"
                           className="btn btn-sm btn-circle btn-ghost font-bold w-3 h-3 "
                         >
                           ✕
@@ -367,35 +366,46 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                       />
                     </div>
                   </div>
-                ) : (
-                  <div
-                    id="prevImgState"
-                    onClick={handleImageClick}
-                    className="w-full px-3 py-2 border rounded-md flex flex-col items-center justify-center cursor-pointer border-none"
-                  >
-                    <MdPhotoLibrary className="text-gray-600 text-7xl relative top-12" />
-                    <div className="text-gray-600 text-base  text-center relative top-16">
-                      <p className="font-bold">Add logo</p>
-                      <p className="font-normal">
-                        by clicking or drag and drop
-                      </p>
-                    </div>
-                  </div>
-                )}
+                ) : ( */}
+                <div
+                  id="prevImgState"
+                  onClick={handleImageClick}
+                  className="h-[237px] w-[237px] m-auto"
+                >
+                  <img
+                    src={companyImage}
+                    alt="Uploaded"
+                    className="w-full h-full object-cover rounded-full"
+                  />
+                  {/* <MdPhotoLibrary className="text-gray-600 text-7xl relative top-12" /> */}
+                  {/* <div className="text-gray-600 text-base  text-center relative top-16">
+                    <p className="font-bold">Add logo</p>
+                    <p className="font-normal">by clicking or drag and drop</p>
+                  </div> */}
+                </div>
+                {/* )} */}
               </div>
             </Box>
           </Box>
 
           <div className="flex gap-x-5 justify-between mt-40 mb-6 ">
             <div
-              onClick={goToPreviousPage}
-              className="previousbtn"
+              className="previousbtn cursor-pointer"
+              onClick={handlePreviousPage}
               id="firstPreviousbtn9"
             >
               <button type="submit">Previous</button>
             </div>
-            <div onClick={goToNextPage} className="nextbtn " id="pageTwo12">
-              <button type="submit" id="secondFormSubmit">
+            <div
+              className="nextbtn cursor-pointer"
+              id="pageTwo12"
+              onClick={handleNextPage}
+            >
+              <button
+                type="submit"
+                id="secondFormSubmit"
+                className="cursor-pointer"
+              >
                 Next
               </button>
             </div>
@@ -414,15 +424,17 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                 </sub>
                 <form method="dialog" id="pageTwo18">
                   <button
-                    className="text-sm font-semibold skip "
+                    type="button"
+                    className="text-sm font-semibold skip cursor-pointer"
                     id="skipper34"
+                    onClick={handleNextPage}
                   >
                     Skip
                   </button>
                 </form>
               </div>
               <Box
-                className="form-display flex flex-col flex-col-reverse mt-8"
+                className="form-display flex flex-col-reverse mt-8"
                 id="pageTwo19"
               >
                 <form onSubmit={handleSubmit} id="pageTwo20">
@@ -553,6 +565,8 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                         onChange={handleImageChange}
                         ref={fileInputRef}
                         className="hidden w-full px-3 py-2 "
+                        title="Upload Image"
+                        placeholder="Choose an image"
                       />
                     </div>
 
@@ -614,13 +628,16 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
 
               <div className="flex gap-x-5 justify-between mt-40">
                 <div
-                  onClick={goToPreviousPage}
-                  className="previousbtn"
+                  className="previousbtn cursor-pointer"
                   id="seondPreviousbtn4"
+                  onClick={handlePreviousPage}
                 >
                   <button type="submit">Previous</button>
                 </div>
-                <div onClick={goToNextPage} className="nextbtn nextmobile ">
+                <div
+                  className="nextbtn nextmobile cursor-pointer"
+                  onClick={handleNextPage}
+                >
                   <button type="submit" id="secondFormSubmitNext">
                     Next
                   </button>

@@ -44,7 +44,7 @@ import { useRouter } from "next/navigation";
 import { useAppSelector } from "../../../../../redux/hooks";
 import Header from "../../../components/ui/header";
 import Searchbox from "../../../components/ui/searchbox";
-import TruncateText from "../../../../utils/page";
+import TruncateText from "../../../../../components/utils/utils";
 
 interface State extends SnackbarOrigin {
   open: boolean;
@@ -381,6 +381,7 @@ const BuyerCartMobile = () => {
                                         {isInputVisible ? (
                                           <div className="flex gap-x-2">
                                             <input
+                                              title="quantity"
                                               type="number"
                                               min="10"
                                               value={quantity}

@@ -1,19 +1,20 @@
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import { createApi } from "@reduxjs/toolkit/query/react";
+import customFetchBase from "../../customFetchBaseQuery";
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export const productsQuery = createApi({
   reducerPath: "productsQuery",
-  baseQuery: fetchBaseQuery({ baseUrl }),
+  baseQuery: customFetchBase,
   endpoints: (builder) => ({
     getProducts: builder.query({
-      query: () => "api/v1/product",
+      query: () => "/product",
     }),
     getAProduct: builder.query({
-      query: (id: string) => `api/v1/product/${id}`,
+      query: (id: string) => `/product/${id}`,
     }),
     getProductDecription: builder.query({
-      query: (productId: string) => `api/v1/product/detail/${productId}`,
+      query: (productId: string) => `/product/detail/${productId}`,
     }),
     createProduct: builder.mutation({
       query: (body: {
@@ -23,7 +24,7 @@ export const productsQuery = createApi({
         quantity: number;
         category: string;
       }) => ({
-        url: "api/v1/product/create-product",
+        url: "/product/create-product",
         method: "POST",
         body,
       }),
@@ -36,14 +37,14 @@ export const productsQuery = createApi({
         quantity: number;
         category: string;
       }) => ({
-        url: "api/v1/product/edit-product",
+        url: "/product/edit-product",
         method: "POST",
         body,
       }),
     }),
     deleteProduct: builder.mutation({
       query: (id: string) => ({
-        url: `api/v1/product/${id}`,
+        url: `/product/${id}`,
         method: "DELETE",
       }),
     }),
@@ -51,9 +52,9 @@ export const productsQuery = createApi({
       query: (body: {
         productId: string;
         buyerId: string;
-        quantity: number;
+        quantity?: number;
       }) => ({
-        url: "api/v1/cart/AddProductToCart",
+        url: "/cart/AddProductToCart",
         method: "POST",
         body,
       }),
@@ -64,17 +65,19 @@ export const productsQuery = createApi({
         buyerId: string;
         quantity?: number;
       }) => ({
-        url: "api/v1/cart/removeItemFromCart",
+        url: "/cart/removeItemFromCart",
         method: "POST",
         body,
       }),
     }),
     viewCart: builder.query({
-      query: (buyerId: string) =>
-        `/api/v1/cart/viewCartItems?buyerId=${buyerId}`,
+      query: (buyerId: string) => ({
+        url: `/cart/viewCartItems?buyerId=${buyerId}`,
+        method: "GET",
+      }),
     }),
     getCategory: builder.query({
-      query: () => "api/v1/product/category",
+      query: () => "/product/category",
     }),
   }),
 });

@@ -15,6 +15,8 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { clearUser } from "../../../../redux/features/users/userSlice";
+import MobileNav from "../../../../components/mobileNav/MobileNav";
+import NavBar from "../../../../components/NavBar/NavBar";
 
 interface JwtPayload extends BaseJwtPayload {
   role?: string;
@@ -24,24 +26,34 @@ export default function NavBarWhileInsideApp() {
   const handleStartShopping = () => {
     router.push("/signup");
   };
+  const handleLogin = () => {
+    router.push("/login");
+  };
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.user);
 
   const { cart } = useAppSelector((state) => state.product);
 
   const [toggleProfile, setToggleProfile] = useState(false);
+  const [openNavOptions, setOpenNavOptions] = useState(false);
+  const [tokens, setTokens] = useState("");
   const profile = () => {
     setToggleProfile(!toggleProfile);
   };
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setTokens((sessionStorage.getItem("token") as string | null) ?? "");
+    }
+  }, []);
 
   let decoded: JwtPayload | null = null;
   try {
     if (
-      user?.access_token &&
-      typeof user.access_token === "string" &&
-      user.access_token.split(".").length === 3
+      tokens &&
+      typeof tokens === "string" &&
+      tokens.split(".").length === 3
     ) {
-      decoded = JWT.jwtDecode(user.access_token);
+      decoded = JWT.jwtDecode(tokens);
     }
   } catch (error) {
     console.error("Failed to decode token:", error);
@@ -51,18 +63,22 @@ export default function NavBarWhileInsideApp() {
     router.push("/dashboard");
   };
   const logOut = () => {
+    sessionStorage.clear();
+    sessionStorage.removeItem("userDetails");
     dispatch(clearUser());
-    router.push("/");
+    router.push("/login");
   };
   const name = decoded?.given_name;
 
   return (
     <nav className="w-full bg-white" id="navbarContainer">
       {/* mobile and tab */}
-
+      <div className="flex lg:hidden">
+        <NavBar open={openNavOptions} setOpen={setOpenNavOptions} />
+      </div>
       {/* desktop */}
       <div
-        className="hidden lg:flex flex-col border-b-2 border-b-mecaBottomBorder px-10"
+        className="hidden lg:flex z-[2000] flex-col border-b-2 border-b-mecaBottomBorder px-10"
         id="menuContainerDesktop"
       >
         <div
@@ -112,13 +128,13 @@ export default function NavBarWhileInsideApp() {
             </Link>
 
             <div className="w-full flex items-center h-full">
-              {!user?.access_token ? (
+              {!tokens ? (
                 <div className="w-full flex items-center h-full gap-4">
                   <button
                     type="button"
                     className="w-[28%] h-full border border-mecaBluePrimaryColor bg-white text-mecaBluePrimaryColor text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
                     id="startShoppingBtnMainNavBar"
-                    onClick={handleStartShopping}
+                    onClick={handleLogin}
                   >
                     Login
                   </button>

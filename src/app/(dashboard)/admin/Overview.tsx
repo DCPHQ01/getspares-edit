@@ -1,10 +1,15 @@
 "use client";
 import React from "react";
 import Header from "../../dashboard/components/ui/header";
-import Cards from "../../dashboard/components/ui/cards";
+import Cards from "../../../components/cards";
 import PeriodRadios from "../../dashboard/components/ui/periodradios";
 import OverviewTable from "../../dashboard/components/table/mecaadmin/overview";
-import { MdArrowBack, MdArrowForward, MdChevronLeft, MdChevronRight } from "react-icons/md";
+import {
+  MdArrowBack,
+  MdArrowForward,
+  MdChevronLeft,
+  MdChevronRight,
+} from "react-icons/md";
 
 function Overview() {
   return (

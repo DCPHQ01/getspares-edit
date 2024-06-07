@@ -1,9 +1,18 @@
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { LoginResponse } from "../models/loginResponse";
+import { LoginResponse } from "../../../models/loginResponse";
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+// const getToken = () => {
+//   if (typeof window !== "undefined") {
+//     return JSON.parse(sessionStorage.getItem("token") || "{}");
+//   }
+//   return {};
+// };
 
-export const baseQuery = createApi({
+// let token = getToken();
+// console.log("token for basequery ", token);
+
+export const authQuery = createApi({
   reducerPath: "baseQuery",
   baseQuery: fetchBaseQuery({ baseUrl }),
   endpoints: (builder) => ({
@@ -15,7 +24,7 @@ export const baseQuery = createApi({
         lastName: string;
         roleName: string;
       }) => ({
-        url: "api/v1/auth/signup",
+        url: "/auth/signup",
         method: "POST",
         body,
       }),
@@ -29,7 +38,7 @@ export const baseQuery = createApi({
         roleName: string;
         companyName: string;
       }) => ({
-        url: "api/v1/auth/signup",
+        url: "/auth/signup",
         method: "POST",
         body,
       }),
@@ -43,14 +52,14 @@ export const baseQuery = createApi({
         roleName: string;
         companyName: string;
       }) => ({
-        url: "api/v1/auth/signup",
+        url: "/auth/signup",
         method: "POST",
         body,
       }),
     }),
     verifyEmail: builder.mutation({
       query: (body: { email: string; otpCode: string }) => ({
-        url: "api/v1/auth/verify-email",
+        url: "/auth/verify-email",
         method: "POST",
         body,
       }),
@@ -58,7 +67,7 @@ export const baseQuery = createApi({
     login: builder.mutation<LoginResponse, { email: string; password: string }>(
       {
         query: ({ email, password }) => ({
-          url: "api/v1/auth/login",
+          url: "/auth/login",
           method: "POST",
           body: {
             email,
@@ -67,6 +76,24 @@ export const baseQuery = createApi({
         }),
       }
     ),
+    resetOtp: builder.mutation({
+      query: (body: { email: string }) => ({
+        url: "/auth/resetOtp",
+        method: "POST",
+        body,
+      }),
+    }),
+    resetPassword: builder.mutation({
+      query: (body: {
+        email: string;
+        otpCode: string;
+        newPassword: string;
+      }) => ({
+        url: "/auth/resetPassword",
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
@@ -76,4 +103,6 @@ export const {
   useRegisterVendorMutation,
   useVerifyEmailMutation,
   useLoginMutation,
-} = baseQuery;
+  useResetOtpMutation,
+  useResetPasswordMutation,
+} = authQuery;

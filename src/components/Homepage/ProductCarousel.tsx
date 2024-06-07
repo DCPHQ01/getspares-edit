@@ -7,7 +7,7 @@ import Tractor from "../../assets/images/tractor.png";
 import Bulldozer from "../../assets/images/bulldozer.png";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useGetCategoryQuery } from "../../redux/productsQuery";
+import { useGetCategoryQuery } from "../../redux/features/product/productsQuery";
 
 interface CardProps {
   image: StaticImageData;
@@ -77,7 +77,7 @@ export default function ProductCarousel() {
         />
         <span
           className="absolute lg:bottom-16 bottom-8 lg:left-16 left-6 flex flex-col lg:gap-10 gap-6"
-          is="subContainer"
+          id="subContainer"
         >
           <p
             className="text-white lg:text-3xl text-xl font-bold"

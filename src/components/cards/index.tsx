@@ -1,5 +1,5 @@
 import React from "react";
-import Card from "../../../../../components/cards/card";
+import Card from "./card";
 
 function Index() {
   const cardProps = [
@@ -37,12 +37,9 @@ function Index() {
     },
   ];
   return (
-    <div
-      id="cardContainer"
-      className={`lg:mt-[1rem] mb-[1rem]  gap-4 lg:flex justify-between w-full`}
-    >
+    <div id="cardContainer" className={`mt-[1rem] flex justify-between w-full`}>
       {cardProps.map((card, index) => (
-        <div id={`card_${index}`} key={index} className="">
+        <div id={`card_${index}`} key={index}>
           <Card
             amount={card.amount}
             percentage={card.percentage}

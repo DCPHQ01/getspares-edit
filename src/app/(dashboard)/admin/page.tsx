@@ -37,6 +37,7 @@ import { clearUser, setUser } from "../../../redux/features/users/userSlice";
 import { useRouter } from "next/navigation";
 // import { roles, sidePanel, userRole } from "../../utils/utils";
 import { roles, userRole } from "../../dashboard/components/utils/utils";
+import withAuth from "../../withAuth";
 
 function Page({ sidePanelRoles }: { sidePanelRoles?: any }) {
   const SidePanelButton = () => {
@@ -305,4 +306,4 @@ function Page({ sidePanelRoles }: { sidePanelRoles?: any }) {
   );
 }
 
-export default Page;
+export default withAuth(Page);

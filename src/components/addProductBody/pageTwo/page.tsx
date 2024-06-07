@@ -190,22 +190,61 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
   const { company } = useAppSelector((state: RootState) => state);
   console.log("company ", company.companyForm);
 
-  const [formImage, setFormImage] = useState<string | null>(null);
+  // const [formImage, setFormImage] = useState([]);
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  // const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = event.target.files?.[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       setFormImage(reader.result as string);
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
+
+  const [formImage, setFormImage] = useState<string[]>([]);
+
+  // const handleImageUpload = (newImage: string) => {
+  //   setFormImage([newImage, ...formImage]);
+  // };
+  const handleImageUpload: React.ChangeEventHandler<HTMLInputElement> = (
+    event
+  ) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setFormImage(reader.result as string);
+        setFormImage([reader.result as string, ...formImage]);
       };
       reader.readAsDataURL(file);
     }
   };
+
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleImageClick = () => {
     fileInputRef.current?.click();
+  };
+
+  const handleImageRemove = (index: number) => {
+    const newImages = [...formImage];
+    newImages.splice(index, 1);
+    setFormImage(newImages);
+  };
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const handleViewPreviousImages = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex > 0 ? prevIndex - 1 : prevIndex
+    );
+  };
+
+  const handleViewNextImages = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex < formImage.length - 1 ? prevIndex + 1 : prevIndex
+    );
   };
 
   return (
@@ -241,16 +280,6 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                       style={{ backgroundColor: "#EFF2F3" }}
                       className=" h-60 w-[27rem] mb-5 mt-10 pt-6"
                     >
-                      <div className="">
-                        <input
-                          type="file"
-                          multiple
-                          accept="image/*"
-                          onChange={handleImageChange}
-                          ref={fileInputRef}
-                          className="hidden w-full px-3 py-2 "
-                        />
-                      </div>
                       <div className="flex flex-col  items-center justify-center">
                         <div className="border rounded-full mt-12 h-16 w-[60px] flex justify-center">
                           <div
@@ -265,21 +294,39 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                           </div>
                         </div>
                       </div>
+
                       {formImage && (
-                        <div className="w-20 h-16 absolute -bottom-16 bg-mecaProfileColor ">
-                          <MdClose className="absolute right-0 cursor-pointer" />
-                          <div className="w-11  h-10 m-auto  ">
-                            <div className="mt-3 h-10 w-11">
-                              <img
-                                src={formImage}
-                                alt="Uploaded"
-                                className="w-full h-full object-cover "
+                        <div className="flex absolute -bottom-16">
+                          {formImage.slice(0, 4).map((image, index) => (
+                            <div
+                              key={index}
+                              className="w-20 h-16 bg-mecaProfileColor m-2 relative"
+                            >
+                              <MdClose
+                                size={14}
+                                className="absolute right-0 cursor-pointer"
+                                onClick={() => handleImageRemove(index)}
                               />
+                              <div className="w-11 h-10 m-auto">
+                                <div className="mt-3 h-10 w-11 relative">
+                                  <img
+                                    src={image}
+                                    alt={`Uploaded ${index}`}
+                                    className="w-full h-full object-cover"
+                                  />
+                                  {index === 3 && formImage.length > 4 && (
+                                    <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                                      <p className="text-white text-2xl">{`${
+                                        formImage.length - 4
+                                      }+`}</p>
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
                             </div>
-                          </div>
+                          ))}
                         </div>
                       )}
-
                       <div className="text-gray-600 text-base mt-2 text-center">
                         <p className="font-bold">Add logo</p>
                         <p className="font-normal">
@@ -332,20 +379,22 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                   >
                     <div className="">
                       <input
+                        title="image uploader"
                         type="file"
                         multiple
                         accept="image/*"
-                        onChange={handleImageChange}
+                        // onChange={handleImageChange}
+                        onChange={handleImageUpload}
                         ref={fileInputRef}
                         className="hidden w-full px-3 py-2 "
                       />
                     </div>
 
-                    {formImage ? (
+                    {/* {formImage && formImage.length > 0 ? (
                       <div className="flex justify-center">
                         <div className="rounded-full   ">
                           <img
-                            src={formImage}
+                            src={formImage[0]}
                             alt="Uploaded"
                             className="h-[283px] w-[28rem] object-cover"
                           />
@@ -361,6 +410,50 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                           >
                             <MdPhotoLibrary
                               className="text-gray-600 text-7xl w-10 m-auto pb-6 "
+                              style={{ backgroundColor: "porcelain" }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    )} */}
+                    {formImage && formImage.length > 0 ? (
+                      <div className="relative flex justify-center">
+                        <div className="rounded-full">
+                          <img
+                            src={formImage[currentImageIndex]}
+                            alt="Uploaded"
+                            className="h-[283px] w-[28rem] object-cover"
+                          />
+                        </div>
+                        <div className="absolute w-[84%] h-full space-x-4 flex justify-between items-center mt-4">
+                          <button
+                            type="button"
+                            title="icon button"
+                            onClick={handleViewPreviousImages}
+                            className="bg-white w-[32px] h-[32px] rounded-full text-white p-2"
+                          >
+                            <MdChevronLeft className="text-black" />
+                          </button>
+                          <button
+                            type="button"
+                            title="icon button"
+                            onClick={handleViewNextImages}
+                            className="bg-white w-[32px] h-[32px] rounded-full text-white p-2"
+                          >
+                            <MdChevronRight className="text-black" />
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col items-center justify-center">
+                        <div className="border rounded-full mt-20 h-32 w-32 flex justify-center">
+                          <div
+                            id="prevImgState"
+                            onClick={handleImageClick}
+                            className="w-full px-2 py-2 rounded-md pt-9 cursor-pointer border-none"
+                          >
+                            <MdPhotoLibrary
+                              className="text-gray-600 text-7xl w-10 m-auto pb-6"
                               style={{ backgroundColor: "porcelain" }}
                             />
                           </div>

@@ -3,24 +3,30 @@ import { useSelector, type TypedUseSelectorHook } from "react-redux";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import userSlice from "./features/users/userSlice";
 import companySlice from "./features/company/companySlice";
-import { baseQuery } from "./baseQuery";
+import { authQuery } from "./features/users/authQuery";
 import dashboardSlice from "../redux/features/dashboard/dashboardSlice";
 import productSlice from "./features/product/productSlice";
-import { productsQuery } from "./productsQuery";
+import { productsQuery } from "./features/product/productsQuery";
+import { userQuery } from "./features/users/userQuery";
+import { companyQuery } from "./features/company/companyQuery";
 
 export const store = configureStore({
   reducer: {
-    [baseQuery.reducerPath]: baseQuery.reducer,
+    [authQuery.reducerPath]: authQuery.reducer,
     [productsQuery.reducerPath]: productsQuery.reducer,
+    [userQuery.reducerPath]: userQuery.reducer,
+    [companyQuery.reducerPath]: companyQuery.reducer,
     user: userSlice,
     company: companySlice,
     product: productSlice,
     dashboard: dashboardSlice,
   },
-  middleware: (getDefaultMiddleware) =>
+  middleware: (getDefaultMiddleware: any) =>
     getDefaultMiddleware().concat([
-      baseQuery.middleware,
+      authQuery.middleware,
       productsQuery.middleware,
+      userQuery.middleware,
+      companyQuery.middleware,
     ]),
 });
 

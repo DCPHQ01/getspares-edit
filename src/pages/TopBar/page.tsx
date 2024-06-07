@@ -8,12 +8,12 @@ import {
   MdSearch,
 } from "react-icons/md";
 import Header from "../../app/reusables/Header/page";
-import NavBar from "../../app/reusables/NavBar/page";
+import NavBar from "../../components/NavBar/NavBar";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 // import MobileNav from "../mobileNav/page";
 // import MobileNav from "@/app/reusables/mobileNav/page";
-import MobileNav from "../../app/reusables/mobileNav/page";
+import MobileNav from "../../components/mobileNav/MobileNav";
 
 const TopBar = () => {
   const [open, setOpen] = useState(false);

@@ -1,3 +1,4 @@
+"use client";
 import AgentVendorMobile from "./AgentVendorMobile";
 import InventoryVendorMobile from "./InventoryVendorMobile";
 import OrderVendorMobile from "./OrderVendorMobile";
@@ -23,7 +24,6 @@ const VendorMobilePage = () => {
     case sidePanel.PROFILE:
       return <Profile />;
   }
-
 };
 
 export default VendorMobilePage;

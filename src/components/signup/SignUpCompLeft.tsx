@@ -20,8 +20,9 @@ import {
   useRegisterAgentMutation,
   useRegisterBuyerMutation,
   useRegisterVendorMutation,
-} from "../../redux/baseQuery";
+} from "../../redux/features/users/authQuery";
 import { useRouter } from "next/navigation";
+import { ColorRing } from "react-loader-spinner";
 
 const nunito = Nunito_Sans({
   subsets: ["latin"],
@@ -424,7 +425,19 @@ const SignUpComponentLeft = () => {
                     disabled={isLoading}
                     disableElevation
                   >
-                    {isLoading ? "Loading..." : "Register"}
+                    {isLoading ? (
+                      <ColorRing
+                        visible={true}
+                        height="40"
+                        width="40"
+                        ariaLabel="color-ring-loading"
+                        wrapperStyle={{}}
+                        wrapperClass="color-ring-wrapper"
+                        colors={["#ffff", "#ffff", "#ffff", "#ffff", "#ffff"]}
+                      />
+                    ) : (
+                      "Register"
+                    )}
                   </Button>
                 </div>
               </form>

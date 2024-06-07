@@ -45,10 +45,10 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   useRemoveProductFromCartMutation,
   useViewCartQuery,
-} from "../../redux/productsQuery";
+} from "../../redux/features/product/productsQuery";
 import TopBarWhileInside from "../reusables/TopBarWhileInside/page";
 import TopBar from "../reusables/TopBar/page";
-import TruncateText from "../utils/page";
+import TruncateText from "../../components/utils/utils";
 
 interface State extends SnackbarOrigin {
   open: boolean;
@@ -86,7 +86,9 @@ const cardCartItems = [
     quantityAmount: "10",
     icon1: <MdOutlineExpandMore />,
     icondropdown: <MdKeyboardArrowDown />,
-    delete: <MdDeleteOutline className="w-[18px] h-[18px]" />,
+    delete: (
+      <MdDeleteOutline className="w-[18px] h-[18px] hover:text-mecaErrorInputColor" />
+    ),
     // icon2: <MdMoreVert />,
     icondot: <MdCircle />,
     remove: "Remove",
@@ -103,7 +105,9 @@ const cardCartItems = [
     quantityAmount: "100",
     icon1: <MdOutlineExpandMore />,
     icondropdown: <MdKeyboardArrowDown />,
-    delete: <MdDeleteOutline className="w-[18px] h-[18px]" />,
+    delete: (
+      <MdDeleteOutline className="w-[18px] h-[18px] hover:text-mecaErrorInputColor" />
+    ),
     remove: "Remove",
     // icon2: <MdMoreVert />,
     icondot: <MdCircle />,
@@ -119,7 +123,9 @@ const cardCartItems = [
     quantity: "Quantity",
     quantityAmount: "5",
     icon1: <MdOutlineExpandMore />,
-    delete: <MdDeleteOutline className="w-[18px] h-[18px]" />,
+    delete: (
+      <MdDeleteOutline className="w-[18px] h-[18px] hover:text-mecaErrorInputColor" />
+    ),
     remove: "Remove",
     icondropdown: <MdKeyboardArrowDown />,
     // icon2: <MdMoreVert />,
@@ -135,7 +141,9 @@ const cardCartItems = [
     quantity: "Quantity",
     quantityAmount: "5",
     icon1: <MdOutlineExpandMore />,
-    delete: <MdDeleteOutline className="w-[18px] h-[18px]" />,
+    delete: (
+      <MdDeleteOutline className="w-[18px] h-[18px] hover:text-mecaErrorInputColor" />
+    ),
     remove: "Remove",
     icondropdown: <MdKeyboardArrowDown />,
     // icon2: <MdMoreVert />,
@@ -186,7 +194,7 @@ const RemoveToCartPage = () => {
   };
 
   const { cart } = useAppSelector((state) => state.product);
-  console.log("cart ", cart);
+  // console.log("cart ", cart);
   const [OpenA, setOpenA] = useState(false);
   const handleNav = () => {
     setOpenA(!OpenA);
@@ -209,40 +217,111 @@ const RemoveToCartPage = () => {
 
   const [carts, setCarts] = useState(cardCartItems);
 
+  // let buyersId: string;
+  // if (typeof window !== "undefined") {
+  //   const userDetails = JSON.parse(
+  //     sessionStorage.getItem("userDetails") || "{}"
+  //   );
+  //   buyersId = userDetails.buyersId;
+  // }
+
+  let userId = "";
+  if (typeof window !== "undefined") {
+    const userDetails = JSON.parse(
+      sessionStorage.getItem("userDetails") || "{}"
+    );
+    userId = userDetails.userId;
+  }
+
+  console.log("User ID: ", userId);
+
   const removeFromCart = async (productId: string) => {
     try {
-      // await removeProductFromCart(productId, buyersId);
+      await removeProductFromCart({ productId, buyerId: userId });
     } catch (error) {
       console.error("Failed to remove item from cart", error);
       return error;
     }
-    // setCarts((prevCart) => prevCart.filter((item) => item.id !== id));
   };
   const router = useRouter();
-
-  // const [showButton, setShowButton] = useState(false);
-
   return (
     <div>
       <div className="w-full flex flex-col z-[2000]">
         {/* <HeaderPage /> */}
-        <TopBar />
+        <TopBarWhileInside />
       </div>
 
       <div className="">
-      {/* mobile and tab */}
-      <div
-            className="w-full h-[60px] border-b-2 border-b-mecaBottomBorder px-4 flex justify-between items-center lg:hidden"
-            id="contentContainerCartMobile"
-          >
-            <p className="text-mecaActiveIconsNavColor text-xl font-nunito font-bold">
-              e-meca
-            </p>
-            <div className="flex items-center gap-x-2" id="menuSearchCart">
-              <MdSearch size={18} />
+        {/* mobile and tab */}
+        <div
+          className="w-full h-[60px] border-b-2 border-b-mecaBottomBorder px-4 flex justify-between items-center lg:hidden"
+          id="contentContainerCartMobile"
+        >
+          <p className="text-mecaActiveIconsNavColor text-xl font-nunito font-bold">
+            e-meca
+          </p>
+          <div className="flex items-center gap-x-2" id="menuSearchCart">
+            <MdSearch size={18} />
 
+            <div
+              className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1"
+              id="textCart"
+            >
+              <MdOutlineShoppingCart
+                size={18}
+                className="text-mecaBluePrimaryColor"
+              />
+              <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
+                {cart.length}
+              </p>
+            </div>
+
+            <Link
+              href="/reusables/mobileNav"
+              id="mobileMenuBtn"
+              onClick={() => setOpenA(!OpenA)}
+            >
+              <MdMenu size={18} />
+            </Link>
+          </div>
+        </div>
+        {/* desktop */}
+        <div
+          className="hidden lg:flex flex-col border-b-2 border-b-mecaBottomBorder px-10"
+          id="menuContainerDesktop"
+        >
+          <div
+            className="w-full h-[83px] flex justify-between bg-white items-center"
+            id="desktopNavContentContainer"
+          >
+            <div className="w-[20%]" id="mecaLogoDesktop">
+              <p
+                className="text-mecaActiveIconsNavColor text-3xl font-nunito font-bold cursor-pointer"
+                onClick={() => router.push("/")}
+              >
+                e-meca
+              </p>
+            </div>
+            <div
+              className="w-1/3 flex items-center gap-x-2 relative"
+              id="searchDesktop"
+            >
+              <MdSearch
+                size={24}
+                className="absolute left-1 text-mecaGoBackArrow"
+              />
+              <input
+                id="inputSearchDesktop"
+                placeholder="Search for anything"
+                className="bg-mecaSearchColor w-[580px] h-[44px] rounded-full px-9 outline-none"
+              />
+            </div>
+            <div
+              className="w-[28%] h-8 flex justify-end items-center gap-x-2"
+              id="cartDesktop"
+            >
               <div
-                className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1"
+                className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1 cursor-pointer"
                 id="textCart"
               >
                 <MdOutlineShoppingCart
@@ -254,73 +333,16 @@ const RemoveToCartPage = () => {
                 </p>
               </div>
 
-              <Link
-                href="/reusables/mobileNav"
-                id="mobileMenuBtn"
-                onClick={() => setOpenA(!OpenA)}
+              <button
+                className="w-[40%] h-full bg-mecaBluePrimaryColor text-white text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
+                id="startShoppingBtn"
               >
-                <MdMenu size={18} />
-              </Link>
+                Start shopping
+              </button>
+              <p className="text-sm font-nunito font-medium">Need Help?</p>
             </div>
           </div>
-      {/* desktop */}
-      <div
-            className="hidden lg:flex flex-col border-b-2 border-b-mecaBottomBorder px-10"
-            id="menuContainerDesktop"
-          >
-            <div
-              className="w-full h-[83px] flex justify-between bg-white items-center"
-              id="desktopNavContentContainer"
-            >
-              <div className="w-[20%]" id="mecaLogoDesktop">
-                <p
-                  className="text-mecaActiveIconsNavColor text-3xl font-nunito font-bold cursor-pointer"
-                  onClick={() => router.push("/")}
-                >
-                  e-meca
-                </p>
-              </div>
-              <div
-                className="w-1/3 flex items-center gap-x-2 relative"
-                id="searchDesktop"
-              >
-                <MdSearch
-                  size={24}
-                  className="absolute left-1 text-mecaGoBackArrow"
-                />
-                <input
-                  id="inputSearchDesktop"
-                  placeholder="Search for anything"
-                  className="bg-mecaSearchColor w-[580px] h-[44px] rounded-full px-9 outline-none"
-                />
-              </div>
-              <div
-                className="w-[28%] h-8 flex justify-end items-center gap-x-2"
-                id="cartDesktop"
-              >
-                <div
-                  className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1 cursor-pointer"
-                  id="textCart"
-                >
-                  <MdOutlineShoppingCart
-                    size={18}
-                    className="text-mecaBluePrimaryColor"
-                  />
-                  <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
-                    {cart.length}
-                  </p>
-                </div>
-
-                <button
-                  className="w-[40%] h-full bg-mecaBluePrimaryColor text-white text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
-                  id="startShoppingBtn"
-                >
-                  Start shopping
-                </button>
-                <p className="text-sm font-nunito font-medium">Need Help?</p>
-              </div>
-            </div>
-          </div>
+        </div>
       </div>
 
       <div className="">
@@ -332,7 +354,7 @@ const RemoveToCartPage = () => {
           <div className="w-[85%]" style={{ margin: "0px auto" }}>
             <div style={{ width: "100%" }} className={nunito.className}>
               <div
-                className="flex mt-56 items-center gap-4"
+                className="flex mt-24 items-center gap-4"
                 id="breadCrumbsDivDesktop"
               >
                 <Link href="/">
@@ -350,7 +372,6 @@ const RemoveToCartPage = () => {
                   Shopping Cart
                 </h1>
               </div>
-              
               <div className="flex gap-x-6">
                 <div className="" style={{ width: "70%" }}>
                   {carts.length === 0 ? (
@@ -460,16 +481,16 @@ const RemoveToCartPage = () => {
                                           boxShadow:
                                             "0px 2px 8px 0px #63636333",
                                         }}
-                                        className=" h-12 w-24 cursor-pointer bg-white rounded  absolute "
+                                        className="px-1 h-12 w-24 cursor-pointer bg-white rounded absolute "
                                         onClick={() =>
                                           removeFromCart(cardCartItem.id)
                                         }
                                       >
-                                        <div className="flex hover:shadow-#63636333-500  gap-x-2 w-20  h-9 m-auto  hover:bg-mecaTableTextErrorBackgroundColor hover:text-mecaErrorInputColor">
+                                        <div className="flex hover:shadow-xl items-center gap-x-2 w-20 h-9 m-auto hover:bg-mecaTableTextErrorBackgroundColor hover:text-mecaErrorInputColor">
                                           <div className="mt-2">
                                             {cardCartItem.delete}
                                           </div>
-                                          <div className="text-sm font-normal mt-1">
+                                          <div className="text-sm font-normal mt-1 hover:text-red-600">
                                             {cardCartItem.remove}
                                           </div>
                                         </div>
@@ -655,6 +676,7 @@ const RemoveToCartPage = () => {
                                       <div className="relative bottom-4">
                                         <form>
                                           <select
+                                            defaultValue="1"
                                             title="quantity"
                                             className="w-16 h-9 rounded border-2 p-2 border-mecaVerificationCodeColor mt-2"
                                             name="categoria"
@@ -714,16 +736,16 @@ const RemoveToCartPage = () => {
                                           boxShadow:
                                             "0px 2px 8px 0px #63636333",
                                         }}
-                                        className="absolute right-1 top-7 h-[34px] w-[100px] cursor-pointer bg-white rounded"
+                                        className="absolute right-1 top-7 h-[34px] w-[100px] cursor-pointer bg-white rounded hover:text-mecaErrorInputColor px-1"
                                         onClick={() =>
                                           removeFromCart(cardCartItem.id)
                                         }
                                       >
-                                        <div className="px-1 flex items-center hover:shadow-xl gap-x-1 w-full h-full m-auto hover:bg-mecaTableTextErrorBackgroundColor hover:text-mecaErrorInputColor">
+                                        <div className="flex items-center hover:shadow-xl gap-x-1 w-full h-full m-auto hover:bg-red-300">
                                           <div className="">
                                             {cardCartItem.delete}
                                           </div>
-                                          <div className="text-sm font-normal">
+                                          <div className="text-sm font-normal hover:text-blue-500">
                                             {cardCartItem.remove}
                                           </div>
                                         </div>
@@ -745,7 +767,10 @@ const RemoveToCartPage = () => {
                   <div className="h-64 bg-mecaSearchColor  rounded-lg pt-5">
                     <div className="w-[90%] m-auto">
                       {itemSelected.map((itemSelect) => (
-                        <div className={nunito.className}>
+                        <div
+                          className={nunito.className}
+                          key={itemSelect.count}
+                        >
                           <div className="flex justify-between">
                             <div className="flex font-normal text-sm">
                               <p> item</p>

@@ -1,27 +1,30 @@
-"use client"
-import React from 'react';
-import { useRouter } from 'next/navigation'
-import {sidePanel, roles, userRole} from "./components/utils/utils";
+"use client";
+import React from "react";
+import { useRouter } from "next/navigation";
+import { roles } from "./components/utils/utils";
 import Vendors from "./actors/vendoradmin";
 import Agents from "./actors/agent";
 import Buyer from "./actors/buyer";
+import withAuth from "../withAuth";
+import { useUserRole } from "../hooks/useUserRole";
 
 function Page() {
-    const role:any = userRole;
-    const router = useRouter()
-    switch (role) {
-        case roles.MECA_ADMIN:
-            router.push("/admin")
-            break;
-        case roles.VENDOR_ADMIN:
-            return <Vendors/>;
-        case roles.AGENTS:
-            return <Agents/>;
-        case roles.BUYER:
-            return <Buyer/>;
-        default:
-            return null;
-    }
+  const userRole = useUserRole();
+  const role: any = userRole;
+  const router = useRouter();
+  switch (role) {
+    case roles.MECA_ADMIN:
+      router.push("/admin");
+      break;
+    case roles.VENDOR_ADMIN:
+      return <Vendors />;
+    case roles.AGENTS:
+      return <Agents />;
+    case roles.BUYER:
+      return <Buyer />;
+    default:
+      return null;
+  }
   // return (
   //     <div>
   //
@@ -30,7 +33,7 @@ function Page() {
   // );
 }
 
-export default Page;
+export default withAuth(Page);
 // "use client";
 // import React from "react";
 // import SidePanel from "./activities/sidepanel";
