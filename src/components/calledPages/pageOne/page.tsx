@@ -10,8 +10,7 @@ import {
   TextareaAutosize as BaseTextareaAutosize,
   TextareaAutosize,
 } from "@mui/base/TextareaAutosize";
-
-import formLogo from "@/assets/images/formLogo.jpg";
+import formLogo from "../../../assets/images/formLogo.jpg";
 import { useAppSelector } from "../../../redux";
 import { useAppDispatch } from "../../../redux/hooks";
 import { RootState } from "../../../redux";

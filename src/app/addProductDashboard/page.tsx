@@ -51,10 +51,10 @@ const Dashboard = () => {
       case 3:
         return (
           <CalledPagesPageThreePages
-            setStep={setStep}
-            step={step}
-            setActive={setActiveTab}
-            active={activeTab}
+          // setStep={setStep}
+          // step={step}
+          // setActive={setActiveTab}
+          // active={activeTab}
           />
         );
 
