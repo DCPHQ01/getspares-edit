@@ -28,9 +28,7 @@ import { setCompanyForm } from "../../../redux/features/company/companySlice";
 import { FaUpload } from "react-icons/fa";
 import Link from "next/link";
 
-const CalledPagesPageFourPages = (
-  ) => {
-
+const CalledPagesPageFourPages = () => {
   return (
     <>
       <div className="" style={{ width: "48%" }} id="pageone1">
@@ -53,7 +51,6 @@ const CalledPagesPageFourPages = (
                   id="pageone8"
                   className="flex gap-x-16 flex-col-reverse lg:flex-row lg:items-start   "
                   noValidate
-              
                   autoComplete="off"
                 >
                   <Box>
@@ -69,16 +66,12 @@ const CalledPagesPageFourPages = (
                         InputProps={{ disableUnderline: true }}
                         className=" w-[29.4rem] mb-5 "
                         sx={{ backgroundColor: "porcelain" }}
-                       
                       />
                     </Box>
 
                     <Box>
                       <TextField
                         required={true}
-                       
-                       
-                       
                         type="url"
                         id="filledbasic"
                         label="Color"
@@ -151,10 +144,9 @@ const CalledPagesPageFourPages = (
                     <div className="">
                       <p>Product name</p>
                       <input
-                      title="inputPreview"
+                        title="inputPreview"
                         readOnly={true}
                         className="scrollbar-none p-2 pl-0 border-white bg-white placeholder:text-black"
-                     
                       />
                     </div>
                     <div className="">
@@ -163,7 +155,6 @@ const CalledPagesPageFourPages = (
                         title="inputPreview2"
                         readOnly={true}
                         className="scrollbar-none p-2 pl-0 bg-white border-white placeholder:text-black"
-                      
                       />
                     </div>
                   </div>
@@ -173,7 +164,6 @@ const CalledPagesPageFourPages = (
                       title="descriptionPreview"
                       readOnly={true}
                       className="scrollbar-none border-white pl-0  w-full h-32 p-2 bg-white placeholder:text-black"
-                    
                     />
                   </div>
                 </div>
