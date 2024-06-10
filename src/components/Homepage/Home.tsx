@@ -70,12 +70,6 @@ const responsives = {
 };
 
 export default function Home() {
-  useEffect(() => {
-    if (typeof window !== "undefined" && !sessionStorage.getItem("token")) {
-      redirect("/login");
-    }
-  }, []);
-
   const CustomDot = ({ onClick, active }: CustomDotProps) => {
     return (
       <li onClick={() => onClick()}>
