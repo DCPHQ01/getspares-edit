@@ -147,104 +147,176 @@ const CalledPagesPageFourPages: React.FC<ChildProps> = ({
     fileInputRef.current?.click();
   };
 
+  const [inputs, setInputs] = useState<{ [key: string]: string }>({
+    input1: "",
+    input2: "",
+    input3: "",
+  });
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setInputs((prev) => ({ ...prev, [name]: value }));
+  };
+
   return (
     <>
       <div className="" style={{ width: "48%" }} id="pageone1">
         <div className="pageWrapper" id="pageone2">
           <div className="hidden md:flex flex-col mt-[4.5rem]" id="pageone3">
-            <div className="mb-10 pageHeader w-94" id="pageone4">
-              <header className="font-bold text-lg" id="pageone5">
-                Specifications
-              </header>
+            <div className="flex gap-x-10 justify-between ">
+              <div className="">
+                <div className="mb-10 pageHeader w-94" id="pageone4">
+                  <header className="font-bold text-lg" id="pageone5">
+                    Specifications
+                  </header>
 
-              <hr className="w-[80%]"></hr>
-            </div>
+                  <hr className="w-[80%]"></hr>
+                </div>
 
-            {/* here */}
+                {/* here */}
 
-            <Box
-              component="form"
-              id="pageone8"
-              className="flex gap-x-16 flex-col flex-col-reverse lg:flex-row lg:items-start   "
-              noValidate
-              onSubmit={handleSubmit}
-              autoComplete="off"
-            >
-              <Box>
-                <Box>
-                  <TextField
-                    required={true}
-                    id="filledbasic"
-                    label="Quantity in a pack"
-                    variant="filled"
-                    type="text"
-                    name="fullName"
-                    placeholder="12"
-                    InputProps={{ disableUnderline: true }}
-                    className=" w-[29.4rem] mb-5 "
-                    sx={{ backgroundColor: "porcelain" }}
-                    value={company.companyForm.name}
-                    onChange={(e) =>
-                      dispatch(
-                        setCompanyForm({
-                          ...company.companyForm,
-                          name: e.target.value,
-                        })
-                      )
-                    }
-                    onBlur={validateFullName}
-                  />
-                </Box>
-
-                <Box>
-                  <TextField
-                    required={true}
-                    value={company.companyForm.website}
-                    onChange={(e) =>
-                      dispatch(
-                        setCompanyForm({
-                          ...company.companyForm,
-                          website: e.target.value,
-                        })
-                      )
-                    }
-                    onBlur={validateWebsite}
-                    type="url"
-                    id="filledbasic"
-                    label="Color"
-                    variant="filled"
-                    name="website"
-                    placeholder="Select color"
-                    InputProps={{ disableUnderline: true }}
-                    className="w-[29.4rem] mb-5 "
-                    sx={{ backgroundColor: "porcelain" }}
-                  />
-                </Box>
-              </Box>
-            </Box>
-            <div className="flex justify-between">
-              <div onClick={goToPreviousPage} id="firstPreviousbtn9">
-                <button
-                  type="submit"
-                  className="w-[116px] flex justify-center gap-x-3 pt-2 h-10 font-semibold border rounded-full text-mecaBluePrimaryColor border-mecaBluePrimaryColor mt-6 mb-6 "
+                <Box
+                  component="form"
+                  id="pageone8"
+                  className="flex gap-x-16 flex-col flex-col-reverse lg:flex-row lg:items-start   "
+                  noValidate
+                  onSubmit={handleSubmit}
+                  autoComplete="off"
                 >
-                  <span>
-                    <MdChevronLeft className="mt-1 " />
-                  </span>
-                  <p> Previous</p>
-                </button>
+                  <Box>
+                    <Box>
+                      <TextField
+                        required={true}
+                        id="filledbasic"
+                        label="Quantity in a pack"
+                        variant="filled"
+                        type="text"
+                        name="fullName"
+                        placeholder="12"
+                        InputProps={{ disableUnderline: true }}
+                        className=" w-[29.4rem] mb-5 "
+                        sx={{ backgroundColor: "porcelain" }}
+                        value={company.companyForm.name}
+                        onChange={(e) =>
+                          dispatch(
+                            setCompanyForm({
+                              ...company.companyForm,
+                              name: e.target.value,
+                            })
+                          )
+                        }
+                        onBlur={validateFullName}
+                      />
+                    </Box>
+
+                    <Box>
+                      <TextField
+                        required={true}
+                        value={company.companyForm.website}
+                        onChange={(e) =>
+                          dispatch(
+                            setCompanyForm({
+                              ...company.companyForm,
+                              website: e.target.value,
+                            })
+                          )
+                        }
+                        onBlur={validateWebsite}
+                        type="url"
+                        id="filledbasic"
+                        label="Color"
+                        variant="filled"
+                        name="website"
+                        placeholder="Select color"
+                        InputProps={{ disableUnderline: true }}
+                        className="w-[29.4rem] mb-5 "
+                        sx={{ backgroundColor: "porcelain" }}
+                      />
+                    </Box>
+                  </Box>
+                </Box>
+
+                <div className="flex  justify-between w-[100%] mt-32">
+                  <div onClick={goToPreviousPage} id="firstPreviousbtn9">
+                    <button
+                      type="submit"
+                      className="w-[116px] flex justify-center gap-x-3 pt-2 h-10 font-semibold border rounded-full text-mecaBluePrimaryColor border-mecaBluePrimaryColor mb-6 "
+                    >
+                      <span>
+                        <MdChevronLeft className="mt-1 " />
+                      </span>
+                      <p> Previous</p>
+                    </button>
+                  </div>
+                  <div onClick={goToNextPage} className="">
+                    <button
+                      type="submit"
+                      id="thirdFormSubmit"
+                      className="w-[116px] flex justify-center gap-x-3 pt-2 h-10 font-semibold border rounded-full text-mecaBluePrimaryColor border-mecaBluePrimaryColor  mb-6 "
+                    >
+                      <p>Next </p>
+                      <span>
+                        <MdChevronRight className="mt-1 " />
+                      </span>
+                    </button>
+                  </div>
+                </div>
               </div>
-              <div onClick={goToNextPage} className="">
-                <button
-                  type="submit"
-                  id="thirdFormSubmit"
-                  className="w-[116px] flex justify-center gap-x-3 pt-2 h-10 font-semibold border rounded-full text-mecaBluePrimaryColor border-mecaBluePrimaryColor mt-6 mb-6 "
-                >
-                  <p>Next </p>
-                  <span>
-                    <MdChevronRight className="mt-1 " />
-                  </span>
-                </button>
+
+              <div className="">
+                <div className="mb-10 pageHeader w-[100%]" id="pageone4">
+                  <header className="font-bold text-lg" id="pageone5">
+                    Product preview
+                  </header>
+
+                  <hr className="w-[95%]"></hr>
+                </div>
+                <Box>
+                  <div className="inputImage imagetext  h-[283px] w-[25.1rem]">
+                    <div className="flex flex-col  items-center justify-center">
+                      <div className="border  rounded-full mt-20 h-32 w-32 flex justify-center ">
+                        <div
+                          id="prevImgState"
+                          // onClick={handleImageClick}
+                          className="w-full px-2 py-2  rounded-md pt-9 cursor-pointer border-none"
+                        >
+                          <MdPhotoLibrary
+                            className="text-gray-600 text-7xl w-10 m-auto pb-6 "
+                            style={{ backgroundColor: "porcelain" }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Box>
+                <div className="">
+                  <div className="flex justify-between">
+                    <div className="">
+                      <p>Product name</p>
+                      <input
+                        readOnly={true}
+                        className="scrollbar-none p-2 pl-0 border-white bg-white placeholder:text-black"
+                        value={inputs.input1}
+                      />
+                    </div>
+                    <div className="">
+                      <p className="flex justify-end mr-6">Price</p>
+                      <input
+                        readOnly={true}
+                        className="scrollbar-none p-2 pl-0 bg-white border-white placeholder:text-black"
+                        value={inputs.input2}
+                      />
+                    </div>
+                  </div>
+                  <div className="mt-8">
+                    <p>Description</p>
+                    <textarea
+                      readOnly={true}
+                      className="scrollbar-none border-white pl-0  w-full h-32 p-2 bg-white placeholder:text-black"
+                      value={inputs.input3}
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>

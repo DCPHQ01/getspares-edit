@@ -336,6 +336,32 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                     </div>
                   </Box>
                 </Box>
+
+                <div className="flex  justify-between w-[100%] mt-32 ">
+                  <div onClick={goToPreviousPage} id="firstPreviousbtn9">
+                    <button
+                      type="submit"
+                      className="w-[116px] flex justify-center gap-x-3 pt-2 h-10 font-semibold border rounded-full text-mecaBluePrimaryColor border-mecaBluePrimaryColor mb-6 "
+                    >
+                      <span>
+                        <MdChevronLeft className="mt-1 " />
+                      </span>
+                      <p> Previous</p>
+                    </button>
+                  </div>
+                  <div onClick={goToNextPage} className="">
+                    <button
+                      type="submit"
+                      id="thirdFormSubmit"
+                      className="w-[116px] flex justify-center gap-x-3 pt-2 h-10 font-semibold border rounded-full text-mecaBluePrimaryColor border-mecaBluePrimaryColor  mb-6 "
+                    >
+                      <p>Next </p>
+                      <span>
+                        <MdChevronRight className="mt-1 " />
+                      </span>
+                    </button>
+                  </div>
+                </div>
               </div>
 
               <div className="">
@@ -452,32 +478,7 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
               </div>
             </div>
           </div>
-
-          <div className="flex  justify-between w-[84%]">
-            <div onClick={goToPreviousPage} id="firstPreviousbtn9">
-              <button
-                type="submit"
-                className="w-[116px] flex justify-center gap-x-3 pt-2 h-10 font-semibold border rounded-full text-mecaBluePrimaryColor border-mecaBluePrimaryColor mb-6 "
-              >
-                <span>
-                  <MdChevronLeft className="mt-1 " />
-                </span>
-                <p> Previous</p>
-              </button>
-            </div>
-            <div onClick={goToNextPage} className="">
-              <button
-                type="submit"
-                id="thirdFormSubmit"
-                className="w-[116px] flex justify-center gap-x-3 pt-2 h-10 font-semibold border rounded-full text-mecaBluePrimaryColor border-mecaBluePrimaryColor  mb-6 "
-              >
-                <p>Next </p>
-                <span>
-                  <MdChevronRight className="mt-1 " />
-                </span>
-              </button>
-            </div>
-          </div>
+          
         </div>
 
         {/* mobile */}

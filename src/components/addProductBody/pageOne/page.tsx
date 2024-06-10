@@ -158,7 +158,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
         <div className="pageWrapper" id="pageone2">
           <div className="hidden md:flex flex-col mt-[4.5rem]" id="pageone3">
             <div className="flex gap-x-10 justify-between">
-              <div className="">
+              <div className=" ">
                 <div className="mb-10 pageHeader w-94" id="pageone4">
                   <header className="font-bold text-lg" id="pageone5">
                     Basic information
@@ -222,8 +222,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                       <TextareaAutosize
                         required={true}
                         value={inputs.input3}
-                        onChange={() => handleChange}
-                        onBlur={validateMessage}
+                        onChange={handleChange}
                         id="filledbasic"
                         aria-label="Description"
                         name="input3"
@@ -283,13 +282,14 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                   </Box>
                 </Box>
               </div>
+
               <div className="">
                 <div className="mb-10 pageHeader w-[100%]" id="pageone4">
                   <header className="font-bold text-lg" id="pageone5">
                     Product preview
                   </header>
 
-                  <hr className="w-[100%]"></hr>
+                  <hr className="w-[95%]"></hr>
                 </div>
                 <Box>
                   <div className="inputImage imagetext  h-[283px] w-[25.1rem]">
@@ -320,7 +320,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                       />
                     </div>
                     <div className="">
-                      <p>Price</p>
+                      <p className="flex justify-end mr-6">Price</p>
                       <input
                         readOnly={true}
                         className="scrollbar-none p-2 pl-0 bg-white border-white placeholder:text-black"
@@ -330,7 +330,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                   </div>
                   <div className="mt-8">
                     <p>Description</p>
-                    <input
+                    <textarea
                       readOnly={true}
                       className="scrollbar-none border-white pl-0  w-full h-32 p-2 bg-white placeholder:text-black"
                       value={inputs.input3}
