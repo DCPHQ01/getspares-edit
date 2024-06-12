@@ -4,12 +4,12 @@ import { link } from "fs";
 import connectorwrap from "../../assets/images/connectorwrap.svg";
 import locationwrap from "../../assets/images/locationwrap.svg";
 import previewwrap from "../../assets/images/previewwrap.svg";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 
 import React from "react";
 
 import { MdCheckCircle } from "react-icons/md";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 function ResponsiveDrawer({ step, setStep }: any) {
   // const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -19,13 +19,30 @@ function ResponsiveDrawer({ step, setStep }: any) {
   // const handleTabClick = (index: number) => {
   //   setActiveTab(index === activeTab ? null : index);
   // };
-  const [activeTab, setActiveTab] = useState(0);
+
+  const pathname = usePathname();
+  const [activeTab, setActiveTab] = useState("");
 
   const router = useRouter();
 
-  useEffect(() => {
-    setActiveTab(details[step - 1].id);
-  }, []);
+  const basicInfoData =
+    typeof window !== "undefined" && window.sessionStorage
+      ? JSON.parse(sessionStorage.getItem("basicInfoValues") || "{}")
+      : {};
+
+  const imagesData =
+    typeof window !== "undefined" && window.sessionStorage
+      ? JSON.parse(sessionStorage.getItem("clickedImage") || "[]")
+      : [];
+
+  const specsData =
+    typeof window !== "undefined" && window.sessionStorage
+      ? JSON.parse(sessionStorage.getItem("specInfo") || "{}")
+      : {};
+  const detailsData =
+    typeof window !== "undefined" && window.sessionStorage
+      ? JSON.parse(sessionStorage.getItem("detailsInfo") || "{}")
+      : {};
 
   const details = [
     {
@@ -33,7 +50,13 @@ function ResponsiveDrawer({ step, setStep }: any) {
       title: "Basic information",
       description: "Provide the name, description, logo etc",
       image: connectorwrap,
-      isCompleted: false,
+      isCompleted:
+        !pathname?.includes("basicInfo") &&
+        !!basicInfoData?.price &&
+        !!basicInfoData?.productCategory &&
+        !!basicInfoData?.productName &&
+        !!basicInfoData?.quantity &&
+        !!basicInfoData?.productDescription,
       link: "/basicInfo",
     },
     {
@@ -41,7 +64,7 @@ function ResponsiveDrawer({ step, setStep }: any) {
       title: "Images",
       description: "Provide addresses, contacts & email",
       image: locationwrap,
-      isCompleted: false,
+      isCompleted: !pathname?.includes("addImages") && imagesData?.length < 0,
       link: "/addImages",
     },
 
@@ -50,7 +73,10 @@ function ResponsiveDrawer({ step, setStep }: any) {
       title: "Specifications",
       description: "On your mark, get ready, lets go live",
       image: previewwrap,
-      isCompleted: false,
+      isCompleted:
+        !pathname?.includes("specifications") &&
+        !!specsData?.quantity &&
+        !!specsData?.color,
       link: "/specifications",
     },
 
@@ -59,12 +85,16 @@ function ResponsiveDrawer({ step, setStep }: any) {
       title: "Technical details",
       description: "On your mark, get ready, lets go live",
       image: previewwrap,
-      isCompleted: false,
+      isCompleted:
+        !pathname?.includes("details") &&
+        !!detailsData?.brand &&
+        !!detailsData?.model &&
+        !!detailsData?.countryOfOrigin &&
+        !!detailsData?.manufacturerParts,
       link: "/details",
     },
   ];
   const handleToggle = (step: number, link: string) => {
-    console.log("step ", step);
     setStep(step);
     router.push(`/addProductDashboard/${link}`);
   };
@@ -74,21 +104,29 @@ function ResponsiveDrawer({ step, setStep }: any) {
     title: string;
     description: string;
     image: any;
-    isCompleted: boolean;
+    isCompleted: boolean | undefined;
     link: string;
   }
 
-  useEffect(() => {
-    setActiveTab(details[step - 1].id);
+  useLayoutEffect(() => {
+    if (pathname === "/addProductDashboard") {
+      router.push("/addProductDashboard/basicInfo");
+    }
   }, []);
+
+  useEffect(() => {
+    const activeDetail = details.find(
+      (detail) => `/addProductDashboard${detail.link}` === pathname
+    );
+    if (activeDetail) {
+      setActiveTab(activeDetail.title);
+    }
+  }, [pathname]);
 
   return (
     <div className="relative md:flex h-[800px] w-full" id="side">
       <div className="hidden md:flex gap-x-4 w-full h-1/2  " id="sidebardiv2">
-        <div
-          className="flex flex-col justify-center  gap-y-12"
-          id="sidebardiv3"
-        >
+        <div className="flex flex-col justify-center gap-y-12" id="sidebardiv3">
           <div
             className="flex flex-col justify-center h-full w-[200px]"
             id="sidebardiv4"
@@ -104,7 +142,7 @@ function ResponsiveDrawer({ step, setStep }: any) {
                   id="sidebardiv6"
                   // onClick={() => handleTabClick(item.id)}
                   className={`text-gray-400 flex flex-col h-10 py-2 px-4   ${
-                    activeTab === item.id
+                    activeTab === item.title
                       ? "text-mecaAddProductSidebarList text-base font-semibold bg-mecaSearchColor"
                       : "`text-mecaAddProductSidebarList font-normal text-sm"
                   }`}
@@ -117,7 +155,7 @@ function ResponsiveDrawer({ step, setStep }: any) {
                     {item.title}
                   </p>
                 </div>
-                {item.isCompleted && (
+                {item.isCompleted === true && (
                   <div
                     id="iconCompletedDiv"
                     className="flex justify-start w-[28px] h-full items-center"

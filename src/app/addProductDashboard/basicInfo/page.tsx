@@ -26,18 +26,14 @@ const CalledPagesPageOnePages = () => {
     quantity: "",
   });
 
-  // const handleBasicInfoChange = (e: any) => {
-  //   setBasicInfoValues({
-  //     ...basicInfoValues,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
   useEffect(() => {
-    const savedData = localStorage.getItem("basicInfoValues");
+    const savedData = sessionStorage.getItem("basicInfoValues");
     if (savedData) {
       setBasicInfoValues(JSON.parse(savedData));
     }
   }, []);
+
+  const router = useRouter();
 
   const handleBasicInfoChange = (e: any) => {
     const { name, value } = e.target;
@@ -46,15 +42,61 @@ const CalledPagesPageOnePages = () => {
       const formattedValue = numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       setBasicInfoValues((prevValues) => {
         const newValues = { ...prevValues, [name]: formattedValue };
-        localStorage.setItem("basicInfoValues", JSON.stringify(newValues));
+        sessionStorage.setItem("basicInfoValues", JSON.stringify(newValues));
         return newValues;
       });
     } else {
       setBasicInfoValues((prevValues) => {
         const newValues = { ...prevValues, [name]: value };
-        localStorage.setItem("basicInfoValues", JSON.stringify(newValues));
+        sessionStorage.setItem("basicInfoValues", JSON.stringify(newValues));
         return newValues;
       });
+    }
+  };
+
+  const [errors, setErrors] = useState({
+    productName: "",
+    productCategory: "",
+    productDescription: "",
+    price: "",
+    quantity: "",
+  });
+
+  const handleNextPage = () => {
+    let newErrors = {
+      productName: "",
+      productCategory: "",
+      productDescription: "",
+      price: "",
+      quantity: "",
+    };
+
+    if (!basicInfoValues.productName) {
+      newErrors.productName = "Product name is required";
+    }
+    if (!basicInfoValues.productCategory) {
+      newErrors.productCategory = "Product category is required";
+    }
+    if (!basicInfoValues.productDescription) {
+      newErrors.productDescription = "Product description is required";
+    }
+    if (!basicInfoValues.price) {
+      newErrors.price = "Product price is required";
+    }
+    if (!basicInfoValues.quantity) {
+      newErrors.quantity = "Quantity is required";
+    }
+
+    setErrors(newErrors);
+
+    if (
+      !newErrors.productName &&
+      !newErrors.productCategory &&
+      !newErrors.productDescription &&
+      !newErrors.price &&
+      !newErrors.quantity
+    ) {
+      router.push("/addProductDashboard/addImages");
     }
   };
 
@@ -79,95 +121,101 @@ const CalledPagesPageOnePages = () => {
                 <Box
                   component="form"
                   id="pageone8"
-                  className="flex gap-x-16 flex-col  lg:flex-row lg:items-start"
+                  className="flex flex-col gap-y-4 lg:items-start"
                   noValidate
                   autoComplete="off"
                 >
                   <Box>
-                    <Box>
-                      <TextField
-                        required={true}
-                        id="productName"
-                        label="Product name"
-                        variant="filled"
-                        type="text"
-                        name="productName"
-                        placeholder="Enter name"
-                        InputProps={{ disableUnderline: true }}
-                        className=" w-[29.4rem] mb-5 "
-                        value={basicInfoValues.productName}
-                        onChange={handleBasicInfoChange}
-                      />
-                    </Box>
+                    <TextField
+                      required={true}
+                      id="productName"
+                      label="Product name"
+                      variant="filled"
+                      type="text"
+                      name="productName"
+                      placeholder="Enter name"
+                      InputProps={{ disableUnderline: true }}
+                      className=" w-[29.4rem] mb-5 "
+                      value={basicInfoValues.productName}
+                      onChange={handleBasicInfoChange}
+                      error={!!errors.productName}
+                      helperText={errors.productName || ""}
+                    />
+                  </Box>
 
-                    <Box>
-                      <TextField
-                        required={true}
-                        type="url"
-                        id="productCategory"
-                        label="Product category"
-                        variant="filled"
-                        name="productCategory"
-                        placeholder="Select category"
-                        InputProps={{ disableUnderline: true }}
-                        className="w-[29.4rem] mb-5 "
-                        sx={{ backgroundColor: "porcelain" }}
-                        onChange={handleBasicInfoChange}
-                        value={basicInfoValues.productCategory}
-                      />
-                    </Box>
-                    <Box>
-                      <TextareaAutosize
-                        required={true}
-                        id="productDescription"
-                        aria-label="Description"
-                        name="productDescription"
-                        placeholder="Say something about the product"
-                        className="w-[29.4rem] mb-5"
-                        style={{
-                          backgroundColor: "#EFF2F3",
-                          height: "223px",
-                          borderColor: "none",
-                          padding: "20px",
-                        }}
-                        value={basicInfoValues.productDescription}
-                        onChange={handleBasicInfoChange}
-                      />
-                    </Box>
+                  <Box>
+                    <TextField
+                      required={true}
+                      type="url"
+                      id="productCategory"
+                      label="Product category"
+                      variant="filled"
+                      name="productCategory"
+                      placeholder="Select category"
+                      InputProps={{ disableUnderline: true }}
+                      className="w-[29.4rem] mb-5 "
+                      sx={{ backgroundColor: "porcelain" }}
+                      onChange={handleBasicInfoChange}
+                      value={basicInfoValues.productCategory}
+                      error={!!errors.productCategory}
+                      helperText={errors.productCategory || ""}
+                    />
+                  </Box>
+                  <Box>
+                    <TextareaAutosize
+                      required={true}
+                      id="productDescription"
+                      aria-label="Description"
+                      name="productDescription"
+                      placeholder="Say something about the product"
+                      className="w-[29.4rem] mb-5"
+                      style={{
+                        backgroundColor: "#EFF2F3",
+                        height: "223px",
+                        borderColor: "none",
+                        padding: "20px",
+                      }}
+                      value={basicInfoValues.productDescription}
+                      onChange={handleBasicInfoChange}
+                    />
+                  </Box>
 
-                    <Box>
-                      <TextField
-                        required={true}
-                        id="productPrice"
-                        type="text"
-                        label="Product price"
-                        variant="filled"
-                        name="price"
-                        placeholder="$ 2000.00"
-                        InputProps={{ disableUnderline: true }}
-                        className="w-[29.4rem] mb-5"
-                        sx={{ backgroundColor: "porcelain" }}
-                        value={basicInfoValues.price}
-                        onChange={handleBasicInfoChange}
-                      />
-                    </Box>
+                  <Box>
+                    <TextField
+                      required={true}
+                      id="productPrice"
+                      type="text"
+                      label="Product price"
+                      variant="filled"
+                      name="price"
+                      placeholder="$ 2000.00"
+                      InputProps={{ disableUnderline: true }}
+                      className="w-[29.4rem] mb-5"
+                      sx={{ backgroundColor: "porcelain" }}
+                      value={basicInfoValues.price}
+                      onChange={handleBasicInfoChange}
+                      error={!!errors.price}
+                      helperText={errors.price || ""}
+                    />
+                  </Box>
 
-                    <Box>
-                      <TextField
-                        required={true}
-                        type="url"
-                        id="quantityAvailable"
-                        label="Quantity availability"
-                        variant="filled"
-                        name="quantity"
-                        value={basicInfoValues.quantity}
-                        onChange={handleBasicInfoChange}
-                        placeholder="Enter value"
-                        InputProps={{ disableUnderline: true }}
-                        className="w-[29.4rem] mb-5 outline-none"
-                        sx={{ backgroundColor: "porcelain" }}
-                      />
-                    </Box>
+                  <Box>
+                    <TextField
+                      required={true}
+                      type="url"
+                      id="quantityAvailable"
+                      label="Quantity availability"
+                      variant="filled"
+                      name="quantity"
+                      value={basicInfoValues.quantity}
+                      onChange={handleBasicInfoChange}
+                      placeholder="Enter value"
+                      InputProps={{ disableUnderline: true }}
+                      className="w-[29.4rem] mb-5 outline-none"
+                      sx={{ backgroundColor: "porcelain" }}
+                      error={!!errors.quantity}
+                      helperText={errors.quantity || ""}
+                    />
                   </Box>
                 </Box>
               </div>
@@ -200,23 +248,27 @@ const CalledPagesPageOnePages = () => {
                 </Box>
                 <div className="">
                   <div className="flex justify-between">
-                    <div className="" id="productNamePreviewDiv">
-                      <p>Product name</p>
-                      <input
-                        title="input1"
-                        readOnly={true}
-                        value={basicInfoValues.productName}
-                        className="scrollbar-none p-2 pl-0 border-white bg-white placeholder:text-black outline-none"
-                      />
+                    <div className="flex flex-col w-[280px] justify-center h-[40px] px-2">
+                      {basicInfoValues.productName ? (
+                        <p className="capitalize font-bold text-lg text-mecaDarkBlueBackgroundOverlay">
+                          {basicInfoValues.productName}
+                        </p>
+                      ) : (
+                        <p className="capitalize font-bold text-lg text-mecaDarkBlueBackgroundOverlay">
+                          product name
+                        </p>
+                      )}
                     </div>
-                    <div className="">
-                      <p className="flex justify-end mr-6">Price</p>
-                      <input
-                        title="input2"
-                        readOnly={true}
-                        value={basicInfoValues.price}
-                        className="scrollbar-none p-2 pl-0 bg-white border-white placeholder:text-black outline-none"
-                      />
+                    <div className="flex flex-col items-end justify-center w-[120px] h-[40px]">
+                      {basicInfoValues.price ? (
+                        <p className="capitalize font-normal text-sm text-mecaDarkBlueBackgroundOverlay">
+                          ₦{basicInfoValues.price}
+                        </p>
+                      ) : (
+                        <p className="capitalize font-normal text-sm text-mecaDarkBlueBackgroundOverlay">
+                          price
+                        </p>
+                      )}
                     </div>
                   </div>
                   <div className="mt-8">
@@ -238,6 +290,7 @@ const CalledPagesPageOnePages = () => {
               <div className=" ">
                 <div className="w-[100%] m-auto">
                   <button
+                    onClick={handleNextPage}
                     type="submit"
                     id="thirdFormSubmit"
                     className="w-[116px] flex justify-center gap-x-3 pt-2 h-10 font-semibold border rounded-full text-mecaBluePrimaryColor border-mecaBluePrimaryColor mt-5 mb-6 "
