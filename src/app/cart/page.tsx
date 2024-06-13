@@ -209,6 +209,7 @@ const RemoveToCartPage = () => {
 
   const handleSucessClick = (newState: SnackbarOrigin) => () => {
     setState({ ...newState, open: true });
+    router.push('/dashboard/actors/buyer/:id'); 
   };
 
   const handleSucessClose = () => {
