@@ -235,7 +235,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                 </p>
               </div>
             </Link>
-            <div className="w-full flex items-center h-full">
+            <div className="relative w-full flex items-center h-full">
               {!tokens ? (
                 <div className="w-full flex items-center h-full gap-4">
                   <button

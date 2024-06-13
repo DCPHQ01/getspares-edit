@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Box from "@mui/material/Box";
 import ImageComponent from "../../../components/imageComp/ImageComponent";
@@ -12,190 +12,75 @@ import {
   MdPhotoLibrary,
 } from "react-icons/md";
 
-import {
-  TextareaAutosize as BaseTextareaAutosize,
-  TextareaAutosize,
-} from "@mui/base/TextareaAutosize";
-
-interface ChildProps {
-  step: number;
-  active: boolean;
-  setStep: React.Dispatch<React.SetStateAction<number>>;
-  setActive: React.Dispatch<React.SetStateAction<boolean>>;
-}
-import formLogo from "@/assets/images/formLogo.jpg";
-import { useAppSelector } from "../../../redux";
-import { useAppDispatch } from "../../../redux/hooks";
-import { RootState } from "../../../redux";
-import { setCompanyForm } from "../../../redux/features/company/companySlice";
-import { FaUpload } from "react-icons/fa";
-import Link from "next/link";
-import { MenuItem } from "@mui/material";
-
-const CalledPagesPageFourPages: React.FC<ChildProps> = ({
-  step,
-  setStep,
-  setActive,
-}: any) => {
-  const [website, setWebsite] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [message, setMessage] = useState("");
-  const [date, setDate] = useState("");
-  const [image, setImage] = useState<File | null>(null);
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
-
-  const validateWebsite = () => {
-    const websiteRegex =
-      /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w.-]*)*\/?$/;
-    if (!websiteRegex.test(website)) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        website: "Invalid website address",
-      }));
-    } else {
-      setErrors((prevErrors) => ({ ...prevErrors, website: "" }));
-    }
-  };
-  const validateFullName = () => {
-    if (!fullName.trim()) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        fullName: "Full name is required",
-      }));
-    } else {
-      setErrors((prevErrors) => ({ ...prevErrors, fullName: "" }));
-    }
-  };
-
-  const validateMessage = () => {
-    if (!message.trim()) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        message: "Message is required",
-      }));
-    } else {
-      setErrors((prevErrors) => ({ ...prevErrors, message: "" }));
-    }
-  };
-
-  const validateDate = () => {
-    // You can implement your own validation logic for the date field
-    if (!date.trim()) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        date: "Date is required",
-      }));
-    } else {
-      setErrors((prevErrors) => ({ ...prevErrors, date: "" }));
-    }
-  };
-
-  const validateImage = () => {
-    if (!image) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        image: "Image is required",
-      }));
-    } else {
-      setErrors((prevErrors) => ({ ...prevErrors, image: "" }));
-    }
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    validateWebsite();
-    validateFullName();
-    validateMessage();
-    validateDate();
-    validateImage();
-
-    if (!Object.values(errors).some((error) => error)) {
-      console.log("Form submitted successfully");
-    }
-  };
-  const router = useRouter();
-
-  const goToNextPage = () => {
-    setStep(step + 1);
-    // setActive(active);
-  };
-
-  const goToPreviousPage = () => {
-    // Navigate to the previous page if it's available
-    setStep(step - 1);
-  };
-
-  const dispatch = useAppDispatch();
-
-  const { company } = useAppSelector((state: RootState) => state);
-  console.log("company ", company.companyForm);
-
-  const [formImage, setFormImage] = useState<string | null>(null);
-
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setFormImage(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-
-  const handleImageClick = () => {
-    fileInputRef.current?.click();
-  };
-
-  const [inputs, setInputs] = useState<{ [key: string]: string }>({
-    input1: "",
-    input2: "",
-    input3: "",
+const CalledPagesPageFourPages = () => {
+  const [productName, setProductName] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
+  const [images, setImages] = useState<string[]>([]);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [specifications, setSpecifications] = useState({
+    quantity: "",
+    color: "",
   });
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setInputs((prev) => ({ ...prev, [name]: value }));
+  useEffect(() => {
+    const storedBasicInfoValues = sessionStorage.getItem("basicInfoValues");
+
+    const parsedBasicInfoValues =
+      storedBasicInfoValues && JSON.parse(storedBasicInfoValues);
+
+    if (parsedBasicInfoValues) {
+      setProductName(parsedBasicInfoValues.productName);
+      setPrice(parsedBasicInfoValues.price);
+      setDescription(parsedBasicInfoValues.productDescription);
+    }
+  }, []);
+
+  useEffect(() => {
+    const savedImages = sessionStorage.getItem("clickedImage");
+
+    if (savedImages) {
+      setImages(JSON.parse(savedImages));
+    }
+  }, []);
+  const handleViewPreviousImages = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex > 0 ? prevIndex - 1 : images.length - 1
+    );
   };
 
-  const currencies = [
-    {
-      value: "select",
-      label: "12",
-    },
-    {
-      value: "6",
-      label: "6",
-    },
-    {
-      value: "24",
-      label: "24",
-    },
-    {
-      value: "32",
-      label: "32",
-    },
-  ];
+  const router = useRouter();
 
-  const color = [
-    {
-      value: "red",
-      label: "red",
-    },
-    {
-      value: "black",
-      label: "black",
-    },
-    {
-      value: "white",
-      label: "white",
-    },
-    {
-      value: "green",
-      label: "green",
-    },
-  ];
+  const handleViewNextImages = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex < images.length - 1 ? prevIndex + 1 : 0
+    );
+  };
+  const handlePreviousPage = () => {
+    router.push("/addProductDashboard/addImages");
+  };
+  const handleNextPage = () => {
+    router.push("/addProductDashboard/details");
+    sessionStorage.setItem("specInfo", JSON.stringify(specifications));
+  };
+
+  const handleSpecChange = (e: any) => {
+    const { name, value } = e.target;
+
+    setSpecifications((prevValues) => {
+      const newValues = { ...prevValues, [name]: value };
+      sessionStorage.setItem("specInfo", JSON.stringify(newValues));
+      return newValues;
+    });
+  };
+
+  useEffect(() => {
+    const savedData = sessionStorage.getItem("specInfo");
+    if (savedData) {
+      setSpecifications(JSON.parse(savedData));
+    }
+  }, []);
+
   return (
     <>
       <div className="" style={{ width: "48%" }} id="pageone1">
@@ -210,114 +95,53 @@ const CalledPagesPageFourPages: React.FC<ChildProps> = ({
 
                   <hr className="w-[80%]"></hr>
                 </div>
-
-                {/* here */}
-
                 <Box
                   component="form"
                   id="pageone8"
-                  className="flex gap-x-16 flex-col flex-col-reverse lg:flex-row lg:items-start   "
+                  className="flex gap-y-4 flex-col-reverse lg:items-start   "
                   noValidate
-                  onSubmit={handleSubmit}
                   autoComplete="off"
                 >
                   <Box>
-                    <Box>
-                      {/* <TextField
-                        required={true}
-                        id="filledbasic"
-                        label="Quantity in a pack"
-                        variant="filled"
-                        type="text"
-                        name="fullName"
-                        placeholder="12"
-                        InputProps={{ disableUnderline: true }}
-                        className=" w-[29.4rem] mb-5 "
-                        sx={{ backgroundColor: "porcelain" }}
-                        value={company.companyForm.name}
-                        onChange={(e) =>
-                          dispatch(
-                            setCompanyForm({
-                              ...company.companyForm,
-                              name: e.target.value,
-                            })
-                          )
-                        }
-                        onBlur={validateFullName}
-                      /> */}
+                    <TextField
+                      required={true}
+                      id="filledbasic"
+                      label="Quantity in a pack"
+                      variant="filled"
+                      type="text"
+                      name="quantity"
+                      placeholder="12"
+                      InputProps={{ disableUnderline: true }}
+                      className=" w-[29.4rem] mb-5 "
+                      sx={{ backgroundColor: "porcelain" }}
+                      value={specifications.quantity}
+                      onChange={handleSpecChange}
+                    />
+                  </Box>
 
-                      <TextField
-                        className="w-[29.4rem] mb-5 "
-                        sx={{
-                          backgroundColor: "porcelain",
-                          borderBottom: "porcelain",
-                        }}
-                        id="filled-select-currency"
-                        select
-                        placeholder="12"
-                        label="Quantity in a pack"
-                        defaultValue="select"
-                        variant="filled"
-                      >
-                        {currencies.map((option) => (
-                          <MenuItem key={option.value} value={option.value}>
-                            {option.label}
-                          </MenuItem>
-                        ))}
-                      </TextField>
-                    </Box>
-
-                    <Box>
-                      {/* <TextField
-                        required={true}
-                        value={company.companyForm.website}
-                        onChange={(e) =>
-                          dispatch(
-                            setCompanyForm({
-                              ...company.companyForm,
-                              website: e.target.value,
-                            })
-                          )
-                        }
-                        onBlur={validateWebsite}
-                        type="url"
-                        id="filledbasic"
-                        label="Color"
-                        variant="filled"
-                        name="website"
-                        placeholder="Select color"
-                        InputProps={{ disableUnderline: true }}
-                        className="w-[29.4rem] mb-5 "
-                        sx={{ backgroundColor: "porcelain" }}
-                      /> */}
-
-                      <TextField
-                        className="w-[29.4rem] mb-5 "
-                        sx={{
-                          backgroundColor: "porcelain",
-                          borderBottom: "porcelain",
-                        }}
-                        id="filled-select-currency"
-                        select
-                        placeholder="red"
-                        label="Select color"
-                        defaultValue="red"
-                        variant="filled"
-                      >
-                        {color.map((option) => (
-                          <MenuItem key={option.value} value={option.value}>
-                            {option.label}
-                          </MenuItem>
-                        ))}
-                      </TextField>
-                    </Box>
+                  <Box>
+                    <TextField
+                      required={true}
+                      type="url"
+                      id="filledbasic"
+                      label="Color"
+                      variant="filled"
+                      name="color"
+                      placeholder="Select color"
+                      InputProps={{ disableUnderline: true }}
+                      className="w-[29.4rem] mb-5 "
+                      sx={{ backgroundColor: "porcelain" }}
+                      value={specifications.color}
+                      onChange={handleSpecChange}
+                    />
                   </Box>
                 </Box>
 
                 <div className="flex  justify-between w-[100%] mt-32">
-                  <div onClick={goToPreviousPage} id="firstPreviousbtn9">
+                  <div id="firstPreviousbtn9">
                     <button
                       type="submit"
+                      onClick={handlePreviousPage}
                       className="w-[116px] flex justify-center gap-x-3 pt-2 h-10 font-semibold border rounded-full text-mecaBluePrimaryColor border-mecaBluePrimaryColor mb-6 "
                     >
                       <span>
@@ -326,9 +150,10 @@ const CalledPagesPageFourPages: React.FC<ChildProps> = ({
                       <p> Previous</p>
                     </button>
                   </div>
-                  <div onClick={goToNextPage} className="">
+                  <div className="">
                     <button
                       type="submit"
+                      onClick={handleNextPage}
                       id="thirdFormSubmit"
                       className="w-[116px] flex justify-center gap-x-3 pt-2 h-10 font-semibold border rounded-full text-mecaBluePrimaryColor border-mecaBluePrimaryColor  mb-6 "
                     >
@@ -351,48 +176,86 @@ const CalledPagesPageFourPages: React.FC<ChildProps> = ({
                 </div>
                 <Box>
                   <div className="inputImage imagetext  h-[283px] w-[25.1rem]">
-                    <div className="flex flex-col  items-center justify-center">
-                      <div className="border  rounded-full mt-20 h-32 w-32 flex justify-center ">
-                        <div
-                          id="prevImgState"
-                          // onClick={handleImageClick}
-                          className="w-full px-2 py-2  rounded-md pt-9 cursor-pointer border-none"
-                        >
-                          <MdPhotoLibrary
-                            className="text-gray-600 text-7xl w-10 m-auto pb-6 "
-                            style={{ backgroundColor: "porcelain" }}
+                    {images && images.length > 0 ? (
+                      <div className="relative flex justify-center">
+                        <div className="rounded-full">
+                          <img
+                            src={images[currentImageIndex]}
+                            alt="Uploaded"
+                            className="h-[283px] w-[28rem] object-cover"
                           />
                         </div>
+                        <div className="absolute w-[84%] h-full space-x-4 flex justify-between items-center mt-4">
+                          <button
+                            type="button"
+                            title="icon button"
+                            onClick={handleViewPreviousImages}
+                            className="bg-white w-[32px] h-[32px] rounded-full text-white p-2"
+                          >
+                            <MdChevronLeft className="text-black" />
+                          </button>
+                          <button
+                            type="button"
+                            title="icon button"
+                            onClick={handleViewNextImages}
+                            className="bg-white w-[32px] h-[32px] rounded-full text-white p-2"
+                          >
+                            <MdChevronRight className="text-black" />
+                          </button>
+                        </div>
                       </div>
-                    </div>
+                    ) : (
+                      <div className="flex flex-col items-center justify-center">
+                        <div className="border rounded-full mt-20 h-32 w-32 flex justify-center">
+                          <div
+                            id="prevImgState"
+                            className="w-full px-2 py-2 rounded-md pt-9 cursor-pointer border-none"
+                          >
+                            <MdPhotoLibrary
+                              className="text-gray-600 text-7xl w-10 m-auto pb-6"
+                              style={{ backgroundColor: "porcelain" }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </Box>
                 <div className="">
-                  <div className="flex justify-between">
-                    <div className="">
-                      <p>Product name</p>
-                      <input
+                  <div className="w-full">
+                    <div className="flex justify-between">
+                      <div className="flex flex-col w-[280px] justify-center h-[40px] px-2">
+                        {productName ? (
+                          <p className="capitalize font-bold text-lg text-mecaDarkBlueBackgroundOverlay">
+                            {productName}
+                          </p>
+                        ) : (
+                          <p className="capitalize font-bold text-lg text-mecaDarkBlueBackgroundOverlay">
+                            Product Name
+                          </p>
+                        )}
+                      </div>
+                      <div className="flex flex-col items-end justify-center w-[120px] h-[40px]">
+                        {price ? (
+                          <p className="capitalize font-normal text-sm text-mecaDarkBlueBackgroundOverlay">
+                            ₦{price}
+                          </p>
+                        ) : (
+                          <p className="capitalize font-normal text-sm text-mecaDarkBlueBackgroundOverlay">
+                            price
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                    <div className="mt-8 w-full h-32">
+                      <p>Description</p>
+                      <textarea
+                        title="textArea"
+                        value={description}
                         readOnly={true}
-                        className="scrollbar-none p-2 pl-0 border-white bg-white placeholder:text-black"
-                        value={inputs.input1}
+                        className="scrollbar-none border-white pl-0 w-full h-32 p-2 bg-white placeholder:text-black outline-none"
                       />
                     </div>
-                    <div className="">
-                      <p className="flex justify-end mr-6">Price</p>
-                      <input
-                        readOnly={true}
-                        className="scrollbar-none p-2 pl-0 bg-white border-white placeholder:text-black"
-                        value={inputs.input2}
-                      />
-                    </div>
-                  </div>
-                  <div className="mt-8">
-                    <p>Description</p>
-                    <textarea
-                      readOnly={true}
-                      className="scrollbar-none border-white pl-0  w-full h-32 p-2 bg-white placeholder:text-black"
-                      value={inputs.input3}
-                    />
                   </div>
                 </div>
               </div>
