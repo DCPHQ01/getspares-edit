@@ -23,7 +23,7 @@ function VendorAgents() {
         <div className={`flex justify-between items-center my-[1.5rem]`}>
           <Tabs tabs={tabs} />
           <div className={`flex gap-3`}>
-            <SortButton />
+            {/* <SortButton /> */}
             <SearchBox />
           </div>
         </div>

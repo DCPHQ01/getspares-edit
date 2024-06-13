@@ -5,11 +5,12 @@ import Categories from "../../components/ui/categories";
 import VendorInventoryTable from "../../components/table/vendoradmin/vendorInventoryTable";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import Link from "next/link";
+import ViewItemDetails from "../../components/table/vendoradmin/[viewDetailsInventory]/page"
 
 function VendorInventory() {
   return (
     <>
-      <div className={`flex justify-between items-center`}>
+    <div className={`flex justify-between items-center`}>
         <Header
           subtitle={`Keep track of how each item is performing.`}
           title={`Inventory`}
