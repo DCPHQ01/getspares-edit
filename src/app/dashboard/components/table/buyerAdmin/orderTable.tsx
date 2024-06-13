@@ -3,7 +3,8 @@ import styles from "../styles.module.css";
 import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
 import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
-
+// import BasicTabs from "./FeedBackTab";
+// import ProductReview from "./ProductReview";
 const data = [
   {
     avatar: image1,
@@ -90,6 +91,17 @@ const data = [
 ];
 
 const OrderTable = () => {
+  // const tabs = [
+  //   {
+  //     label: 'Details',
+  //     content: <div>Content for Item One</div>,
+  //   },
+  //   {
+  //     label: 'Reviews',
+  //     content: <ProductReview/> ,
+  //   }
+  // ];
+
   return (
     <div id="tableContainer">
       <div
@@ -108,7 +120,7 @@ const OrderTable = () => {
           </thead>
           <tbody>
             {data.map((d, index) => (
-              <tr key={index} id={`row_${index}`} className="cursor-pointer truncate">
+              <tr  key={index} id={`row_${index}`} className="cursor-pointer truncate">
                 <td id={`companyData_${index}`}>
                   <div
                     className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
@@ -172,6 +184,9 @@ const OrderTable = () => {
         </table>
       </div>
     </div>
+    // <div>
+    //   <BasicTabs tabs={tabs}/>
+    // </div>
   );
 };
 
