@@ -24,7 +24,7 @@ function VendorOverview() {
           </Link>
         </div>
         <Cards />
-        <div
+        {/* <div
           className={`flex justify-between items-center mt-[3.25rem] mb-[1.25rem]`}
         >
           <Header
@@ -32,17 +32,17 @@ function VendorOverview() {
             title={`Top performing vendors`}
           />
           <PeriodRadios />
-        </div>
+        </div> */}
         <OverviewTable />
 
-        <div className="flex justify-between mt-10 text-mecaBluePrimaryColor font-bold text-lg">
+        {/* <div className="flex justify-between mt-10 text-mecaBluePrimaryColor font-bold text-lg">
           <button className="flex gap-x-2">
             <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
           </button>
           <button className="flex gap-x-2">
             <MdChevronRight className="mt-1 text-2xl" /> <span>Next</span>
           </button>
-        </div>
+        </div> */}
       </div>
     </>
   );

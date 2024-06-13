@@ -158,12 +158,12 @@ const CategoryTable = () => {
                   >
                     <div className="flex gap-3">
                       <div className="">
-                        <Image
+                        {/* <Image
                           src={d.avatar}
                           className="object-contain"
                           alt="Avatar"
                           id={`avatar_${index}`}
-                        />
+                        /> */}
                       </div>
                       <div className="">
                         <div className="truncate"> {d.created}</div>

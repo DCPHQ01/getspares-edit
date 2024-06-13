@@ -2,7 +2,12 @@ import React from "react";
 import Header from "../../dashboard/components/ui/header";
 import SearchBox from "../../dashboard/components/ui/searchbox";
 import BuyerTable from "../../dashboard/components/table/mecaadmin/buyerTable";
-import { MdArrowBack, MdArrowForward, MdChevronLeft, MdChevronRight } from "react-icons/md";
+import {
+  MdArrowBack,
+  MdArrowForward,
+  MdChevronLeft,
+  MdChevronRight,
+} from "react-icons/md";
 
 function Buyers() {
   return (
@@ -18,10 +23,10 @@ function Buyers() {
 
       <BuyerTable />
 
-      <div className=" flex justify-between mt-10 mb-10 font-bold text-lg">
-        <button className="flex gap-x-2 border border-[#EAECF0]  rounded-md h-[36px] w-[36px] pl-1">
+      <div className=" flex justify-end mt-10 mb-10 font-bold text-lg">
+        {/* <button className="flex gap-x-2 border border-[#EAECF0]  rounded-md h-[36px] w-[36px] pl-1">
           <MdChevronLeft className="mt-1 text-2xl" />
-        </button>
+        </button> */}
         <button className="flex gap-x-2 border border-[#EAECF0] rounded-md h-[36px] w-[36px] pl-1">
           <MdChevronRight className="mt-1 text-2xl" />
         </button>
