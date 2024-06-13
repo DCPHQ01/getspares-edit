@@ -46,6 +46,7 @@ const Checkout = () => {
     setShowAddressSelection(!showAddressSelection);
   };
   return (
+    // add screen
     <Box>
       <HeaderPage/>
       <NavBarWhileInsideApp/>
