@@ -12,10 +12,11 @@ export const companyQuery = createApi({
         description: string;
         website: string;
         cac: string;
-        date_founded: string;
+        // date_founded: string;
         email: string;
         phoneNumber: string;
-        address: [];
+        location: string[];
+        imageUrl: string;
       }) => ({
         url: "/company",
         method: "PATCH",
