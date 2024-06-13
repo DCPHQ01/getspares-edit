@@ -3,7 +3,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import MobileDropdownViewPage from "../../pages/MobileDropdownView/page";
 // import Filter from "../../../components/filters/Filter";
-import { MdChevronRight, MdClear, MdExpandMore } from "react-icons/md";
+import {
+  MdChevronRight,
+  MdClear,
+  MdExpandMore,
+  MdLogout,
+} from "react-icons/md";
 import { useState } from "react";
 
 const mobileNavData = [
@@ -56,6 +61,13 @@ const mobileNavData = [
     icon2: <MdChevronRight size={24} className="text-mecaGoBackArrow" />,
     link: "",
   },
+
+  {
+    id: 8,
+    title: "logout",
+    icon: <MdLogout size={24} className="text-mecaGoBackArrow" />,
+    link: "/login",
+  },
 ];
 interface MobileNavProps {
   handleNav?: () => void;
@@ -96,7 +108,7 @@ export default function MobileNav({ handleNav }: MobileNavProps) {
       >
         {mobileNavData.map((data) => (
           <div
-            className="flex justify-between items-center"
+            className="flex justify-between items-center cursor-pointer"
             id="navDatum"
             key={data.id}
           >

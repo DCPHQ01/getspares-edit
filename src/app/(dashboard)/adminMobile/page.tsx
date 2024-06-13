@@ -6,13 +6,13 @@ import BuyersMobile from "./BuyersMobile";
 import CategoryMobile from "./CategoryMobile";
 import InventoryMobile from "./InventoryMobile";
 import OverviewMobile from "./OverviewMobile";
-import Profiles from "./Profiles";
+import Profile from "./Profile";
 import VendorsMobile from "./VendorsMobile";
 
 const AdminMobilePage = () => {
-  const clicked = useAppSelector((state) => state.dashboard.sidePanelButton);
+  const mecaAdmin = useAppSelector((state) => state.dashboard.sidePanelButton);
 
-  switch (clicked) {
+  switch (mecaAdmin) {
     case sidePanel.OVERVIEW:
       return <OverviewMobile />;
     case sidePanel.VENDORS:
@@ -26,18 +26,8 @@ const AdminMobilePage = () => {
     case sidePanel.CATEGORY:
       return <CategoryMobile />;
     case sidePanel.PROFILE:
-      return <Profiles />;
-    default:
-      return null;
+      return <Profile />;
   }
-  // return <div>
-  //   <AgentsMobile/>
-  //   <BuyersMobile />
-  //   <CategoryMobile />
-  //   <InventoryMobile/>
-  //   <OverviewMobile/>
-  //   <VendorsMobile />
-  // </div>;
 };
 
 export default AdminMobilePage;

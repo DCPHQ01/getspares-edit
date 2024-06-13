@@ -1,14 +1,12 @@
 "use client";
-// import AddCompanySidebar from "../../../../components/addCompanyPage/addCompanySidebar";
 import AddProductSideBar from "../../components/addProductPage/addProductSideBar";
-import CalledPagesPageOnePages from "../../components/addProductBody/pageOne/page";
-import CalledPagesPageTwoPages from "../../components/addProductBody/pageTwo/page";
-import CalledPagesPageThreePages from "../../components/addProductBody/pageThree/page";
+import CalledPagesPageOnePages from "./basicInfo/page";
+import CalledPagesPageTwoPages from "./addImages/page";
+import CalledPagesPageFourPages from "./specifications/page";
+import CalledPagesPageFivePages from "./details/page";
 import React, { useState } from "react";
 
 // import AddProductToggle from "./addProducttoggle";
-import CalledPagesPageFivePages from "../../components/addProductBody/pageFive/page";
-import CalledPagesPageFourPages from "../../components/addProductBody/pageFour/page";
 import AddProductImage from "./addProductImage";
 
 const number = [1, 2, 3];
@@ -23,7 +21,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       case 2:
         return <CalledPagesPageTwoPages />;
       case 3:
-        return <CalledPagesPageThreePages />;
+        // return <CalledPagesPageThreePages />;
 
       case 4:
         return <CalledPagesPageFourPages />;

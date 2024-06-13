@@ -153,7 +153,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
   };
   useEffect(() => setActive(1), []);
   return (
-    <nav className="w-full bg-white" id="navbarContainer">
+    <nav className="w-full bg-white relative" id="navbarContainer">
       {/* mobile and tab */}
       <div
         className="w-full h-[60px] border-b-2 z-50 border-b-mecaBottomBorder px-4 flex justify-between items-center lg:hidden"
@@ -258,7 +258,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
               ) : (
                 <button
                   onClick={profile}
-                  className="flex gap-2 "
+                  className="flex gap-2"
                   type="button"
                   id="profileBtnMainNav"
                 >
@@ -269,6 +269,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                   <MdExpandLess className="text-mecaGoBackArrow w-5 h-5 mt-2" />
                 </button>
               )}
+
               {toggleProfile && (
                 <div
                   className="w-52 h-24 rounded-lg p-1 bg-white absolute top-2 right-6 "
@@ -307,6 +308,40 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
             </div>
           </div>
         </div>
+        {toggleProfile && (
+          <div
+            className="w-52 h-24 rounded-lg p-1 bg-white absolute right-40 top-16"
+            style={{ boxShadow: "0px 2px 8px 0px #63636333" }}
+          >
+            <button
+              onClick={profile}
+              className="flex gap-2 w-48 m-auto  h-10 p-2 pt-3 hover:bg-mecaActiveBackgroundNavColor hover:text-mecaActiveIconsNavColor"
+            >
+              <MdOutlineAccountCircle className="text-mecaProfileColor w-6 h-6 " />
+              <span
+                className="w-24 h-6 flex gap-1 font-normal text-base text-mecaDarkBlueBackgroundOverlay hover:text-mecaActiveIconsNavColor"
+                onClick={handleDashboard}
+              >
+                <span>My</span>
+                <span>Dashboard</span>
+              </span>
+            </button>
+            <div className="mt-1">
+              <button
+                onClick={profile}
+                className="flex gap-2 m-auto w-48 h-10 p-2 pt-3 hover:bg-mecaActiveBackgroundNavColor hover:text-mecaActiveIconsNavColor"
+              >
+                <MdLogout className="text-mecaProfileColor w-6 h-6 " />
+                <span
+                  className="h-6 font-normal text-base text-mecaDarkBlueBackgroundOverlay hover:text-mecaActiveIconsNavColor"
+                  onClick={logOut}
+                >
+                  Logout
+                </span>
+              </button>
+            </div>
+          </div>
+        )}
       </div>
       <div
         className="hidden w-full h-20 lg:flex justify-center items-center"
@@ -363,6 +398,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
           </div>
         ))}
       </div>
+
       {isCategoryOptionOpened && (
         <div className="flex justify-center">
           <div className="absolute z-50">
