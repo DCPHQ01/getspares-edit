@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Box from "@mui/material/Box";
 import ImageComponent from "../../../components/imageComp/ImageComponent";
@@ -12,24 +12,74 @@ import {
   MdPhotoLibrary,
 } from "react-icons/md";
 
-import {
-  TextareaAutosize as BaseTextareaAutosize,
-  TextareaAutosize,
-} from "@mui/base/TextareaAutosize";
+const CalledPagesPageFourPages = () => {
+  const [productName, setProductName] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
+  const [images, setImages] = useState<string[]>([]);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [specifications, setSpecifications] = useState({
+    quantity: "",
+    color: "",
+  });
 
-interface ChildProps {
-  step: number;
-}
-import formLogo from "@/assets/images/formLogo.jpg";
-import { useAppSelector } from "../../../redux";
-import { useAppDispatch } from "../../../redux/hooks";
-import { RootState } from "../../../redux";
-import { setCompanyForm } from "../../../redux/features/company/companySlice";
-import { FaUpload } from "react-icons/fa";
-import Link from "next/link";
+  useEffect(() => {
+    const storedBasicInfoValues = sessionStorage.getItem("basicInfoValues");
 
-const CalledPagesPageFourPages = (
-  ) => {
+    const parsedBasicInfoValues =
+      storedBasicInfoValues && JSON.parse(storedBasicInfoValues);
+
+    if (parsedBasicInfoValues) {
+      setProductName(parsedBasicInfoValues.productName);
+      setPrice(parsedBasicInfoValues.price);
+      setDescription(parsedBasicInfoValues.productDescription);
+    }
+  }, []);
+
+  useEffect(() => {
+    const savedImages = sessionStorage.getItem("clickedImage");
+
+    if (savedImages) {
+      setImages(JSON.parse(savedImages));
+    }
+  }, []);
+  const handleViewPreviousImages = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex > 0 ? prevIndex - 1 : images.length - 1
+    );
+  };
+
+  const router = useRouter();
+
+  const handleViewNextImages = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex < images.length - 1 ? prevIndex + 1 : 0
+    );
+  };
+  const handlePreviousPage = () => {
+    router.push("/addProductDashboard/addImages");
+  };
+  const handleNextPage = () => {
+    router.push("/addProductDashboard/details");
+    sessionStorage.setItem("specInfo", JSON.stringify(specifications));
+  };
+
+  const handleSpecChange = (e: any) => {
+    const { name, value } = e.target;
+
+    setSpecifications((prevValues) => {
+      const newValues = { ...prevValues, [name]: value };
+      sessionStorage.setItem("specInfo", JSON.stringify(newValues));
+      return newValues;
+    });
+  };
+
+  useEffect(() => {
+    const savedData = sessionStorage.getItem("specInfo");
+    if (savedData) {
+      setSpecifications(JSON.parse(savedData));
+    }
+  }, []);
 
   return (
     <>
@@ -45,51 +95,45 @@ const CalledPagesPageFourPages = (
 
                   <hr className="w-[80%]"></hr>
                 </div>
-
-                {/* here */}
-
                 <Box
                   component="form"
                   id="pageone8"
-                  className="flex gap-x-16 flex-col-reverse lg:flex-row lg:items-start   "
+                  className="flex gap-y-4 flex-col-reverse lg:items-start   "
                   noValidate
-              
                   autoComplete="off"
                 >
                   <Box>
-                    <Box>
-                      <TextField
-                        required={true}
-                        id="filledbasic"
-                        label="Quantity in a pack"
-                        variant="filled"
-                        type="text"
-                        name="fullName"
-                        placeholder="12"
-                        InputProps={{ disableUnderline: true }}
-                        className=" w-[29.4rem] mb-5 "
-                        sx={{ backgroundColor: "porcelain" }}
-                       
-                      />
-                    </Box>
+                    <TextField
+                      required={true}
+                      id="filledbasic"
+                      label="Quantity in a pack"
+                      variant="filled"
+                      type="text"
+                      name="quantity"
+                      placeholder="12"
+                      InputProps={{ disableUnderline: true }}
+                      className=" w-[29.4rem] mb-5 "
+                      sx={{ backgroundColor: "porcelain" }}
+                      value={specifications.quantity}
+                      onChange={handleSpecChange}
+                    />
+                  </Box>
 
-                    <Box>
-                      <TextField
-                        required={true}
-                       
-                       
-                       
-                        type="url"
-                        id="filledbasic"
-                        label="Color"
-                        variant="filled"
-                        name="website"
-                        placeholder="Select color"
-                        InputProps={{ disableUnderline: true }}
-                        className="w-[29.4rem] mb-5 "
-                        sx={{ backgroundColor: "porcelain" }}
-                      />
-                    </Box>
+                  <Box>
+                    <TextField
+                      required={true}
+                      type="url"
+                      id="filledbasic"
+                      label="Color"
+                      variant="filled"
+                      name="color"
+                      placeholder="Select color"
+                      InputProps={{ disableUnderline: true }}
+                      className="w-[29.4rem] mb-5 "
+                      sx={{ backgroundColor: "porcelain" }}
+                      value={specifications.color}
+                      onChange={handleSpecChange}
+                    />
                   </Box>
                 </Box>
 
@@ -97,6 +141,7 @@ const CalledPagesPageFourPages = (
                   <div id="firstPreviousbtn9">
                     <button
                       type="submit"
+                      onClick={handlePreviousPage}
                       className="w-[116px] flex justify-center gap-x-3 pt-2 h-10 font-semibold border rounded-full text-mecaBluePrimaryColor border-mecaBluePrimaryColor mb-6 "
                     >
                       <span>
@@ -108,6 +153,7 @@ const CalledPagesPageFourPages = (
                   <div className="">
                     <button
                       type="submit"
+                      onClick={handleNextPage}
                       id="thirdFormSubmit"
                       className="w-[116px] flex justify-center gap-x-3 pt-2 h-10 font-semibold border rounded-full text-mecaBluePrimaryColor border-mecaBluePrimaryColor  mb-6 "
                     >
@@ -130,51 +176,86 @@ const CalledPagesPageFourPages = (
                 </div>
                 <Box>
                   <div className="inputImage imagetext  h-[283px] w-[25.1rem]">
-                    <div className="flex flex-col  items-center justify-center">
-                      <div className="border  rounded-full mt-20 h-32 w-32 flex justify-center ">
-                        <div
-                          id="prevImgState"
-                          // onClick={handleImageClick}
-                          className="w-full px-2 py-2  rounded-md pt-9 cursor-pointer border-none"
-                        >
-                          <MdPhotoLibrary
-                            className="text-gray-600 text-7xl w-10 m-auto pb-6 "
-                            style={{ backgroundColor: "porcelain" }}
+                    {images && images.length > 0 ? (
+                      <div className="relative flex justify-center">
+                        <div className="rounded-full">
+                          <img
+                            src={images[currentImageIndex]}
+                            alt="Uploaded"
+                            className="h-[283px] w-[28rem] object-cover"
                           />
                         </div>
+                        <div className="absolute w-[84%] h-full space-x-4 flex justify-between items-center mt-4">
+                          <button
+                            type="button"
+                            title="icon button"
+                            onClick={handleViewPreviousImages}
+                            className="bg-white w-[32px] h-[32px] rounded-full text-white p-2"
+                          >
+                            <MdChevronLeft className="text-black" />
+                          </button>
+                          <button
+                            type="button"
+                            title="icon button"
+                            onClick={handleViewNextImages}
+                            className="bg-white w-[32px] h-[32px] rounded-full text-white p-2"
+                          >
+                            <MdChevronRight className="text-black" />
+                          </button>
+                        </div>
                       </div>
-                    </div>
+                    ) : (
+                      <div className="flex flex-col items-center justify-center">
+                        <div className="border rounded-full mt-20 h-32 w-32 flex justify-center">
+                          <div
+                            id="prevImgState"
+                            className="w-full px-2 py-2 rounded-md pt-9 cursor-pointer border-none"
+                          >
+                            <MdPhotoLibrary
+                              className="text-gray-600 text-7xl w-10 m-auto pb-6"
+                              style={{ backgroundColor: "porcelain" }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </Box>
                 <div className="">
-                  <div className="flex justify-between">
-                    <div className="">
-                      <p>Product name</p>
-                      <input
-                      title="inputPreview"
+                  <div className="w-full">
+                    <div className="flex justify-between">
+                      <div className="flex flex-col w-[280px] justify-center h-[40px] px-2">
+                        {productName ? (
+                          <p className="capitalize font-bold text-lg text-mecaDarkBlueBackgroundOverlay">
+                            {productName}
+                          </p>
+                        ) : (
+                          <p className="capitalize font-bold text-lg text-mecaDarkBlueBackgroundOverlay">
+                            Product Name
+                          </p>
+                        )}
+                      </div>
+                      <div className="flex flex-col items-end justify-center w-[120px] h-[40px]">
+                        {price ? (
+                          <p className="capitalize font-normal text-sm text-mecaDarkBlueBackgroundOverlay">
+                            ₦{price}
+                          </p>
+                        ) : (
+                          <p className="capitalize font-normal text-sm text-mecaDarkBlueBackgroundOverlay">
+                            price
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                    <div className="mt-8 w-full h-32">
+                      <p>Description</p>
+                      <textarea
+                        title="textArea"
+                        value={description}
                         readOnly={true}
-                        className="scrollbar-none p-2 pl-0 border-white bg-white placeholder:text-black"
-                     
+                        className="scrollbar-none border-white pl-0 w-full h-32 p-2 bg-white placeholder:text-black outline-none"
                       />
                     </div>
-                    <div className="">
-                      <p className="flex justify-end mr-6">Price</p>
-                      <input
-                        title="inputPreview2"
-                        readOnly={true}
-                        className="scrollbar-none p-2 pl-0 bg-white border-white placeholder:text-black"
-                      
-                      />
-                    </div>
-                  </div>
-                  <div className="mt-8">
-                    <p>Description</p>
-                    <textarea
-                      title="descriptionPreview"
-                      readOnly={true}
-                      className="scrollbar-none border-white pl-0  w-full h-32 p-2 bg-white placeholder:text-black"
-                    
-                    />
                   </div>
                 </div>
               </div>

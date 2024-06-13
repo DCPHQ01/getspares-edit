@@ -235,7 +235,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                 </p>
               </div>
             </Link>
-            <div className="w-full flex items-center h-full">
+            <div className="relative w-full flex items-center h-full">
               {!tokens ? (
                 <div className="w-full flex items-center h-full gap-4">
                   <button
@@ -271,10 +271,11 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
               )}
               {toggleProfile && (
                 <div
-                  className="w-52 h-24 rounded-lg p-1 bg-white absolute top-28 right-6 "
+                  className="w-52 h-24 rounded-lg p-1 bg-white absolute top-2 right-6 "
                   style={{ boxShadow: "0px 2px 8px 0px #63636333" }}
                 >
                   <button
+                    id="profileBtn"
                     onClick={profile}
                     className="flex gap-2 w-48 m-auto  h-10 p-2 pt-3 hover:bg-mecaActiveBackgroundNavColor hover:text-mecaActiveIconsNavColor"
                   >
