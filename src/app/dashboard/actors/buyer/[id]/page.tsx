@@ -9,7 +9,6 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import Footer from '../../../../../components/footer/Footer';
 import NavBarWhileInsideApp from '../../../../reusables/TopBarWhileInside/NavBarWhileInsideApp/page';
-import Carousel from 'react-multi-carousel';
 
 const nunito = Nunito_Sans({
   subsets: ["latin"],
