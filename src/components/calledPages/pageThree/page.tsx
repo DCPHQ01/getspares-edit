@@ -3,14 +3,15 @@
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { TextareaAutosize } from "@mui/base/TextareaAutosize";
-import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
 import * as React from "react";
-import Alert from "@mui/material/Alert";
 
 import { useAppSelector } from "../../../redux";
 import { useAppDispatch } from "../../../redux/hooks";
 import { RootState } from "../../../redux";
 import { setCurrentStep } from "../../../redux/features/company/companySlice";
+import { useUpdateCompanyMutation } from "../../../redux/features/company/companyQuery";
+import { useRouter } from "next/navigation";
+import { paths } from "../../../path/paths";
 
 interface CalledPagesPageThreePagesProps {
   step: number;
@@ -19,15 +20,36 @@ interface CalledPagesPageThreePagesProps {
 
 const CalledPagesPageThreePages = () => {
   const dispatch = useAppDispatch();
+  const [updateCompanyDetails, {  isError }] = useUpdateCompanyMutation();
+  const router = useRouter()
 
   const company = useAppSelector((state: RootState) => state.company);
-  console.log("company ", company.companyForm);
 
   const handlePreviousPage = () => {
     dispatch(setCurrentStep(1));
   };
 
   const companyImage = sessionStorage.getItem("companyImage") || "";
+
+  async function handleSave() {
+    try {
+      const data = await updateCompanyDetails({
+        name: company.companyForm.name,
+        description: company.companyForm.description,
+        website: company.companyForm.website,
+        cac: company.companyForm.cac,
+        email: company.companyForm.email,
+        phoneNumber: company.companyForm.phoneNumber,
+        location: company.companyForm.address,
+        imageUrl: companyImage,
+      });
+      console.log(data, "data");
+      if (data?.error?.status === 200) router.push(paths.dashboard());
+
+    } catch (error) {
+      console.log(error, "error");
+    }
+  }
 
   return (
     <div className="" style={{ width: "85%", margin: "auto" }} id="pageThree1">
@@ -295,6 +317,7 @@ const CalledPagesPageThreePages = () => {
                 type="submit"
                 id="thirdFormSubmit6"
                 className="nextbtn w-96 mt-40 mb-6 "
+                onClick={handleSave}
               >
                 Save
               </button>
