@@ -257,9 +257,7 @@ const VendorInventoryTable = () => {
                     /> */}
                     <div id={`companyDetails_${index}`}>
                       <div>{d.TransactionValue}</div>
-                      {/* <div className={`text-[#4B5565]`} id={`email_${index}`}>
-                        {d.email}
-                      </div> */}
+                     
                     </div>
                   </div>
                 </td>
