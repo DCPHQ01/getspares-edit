@@ -245,10 +245,10 @@ export default function Login() {
           </FormControl>
           <Button
             id="loginBtn"
-            className="bg-mecaBluePrimaryColor normal-case text-[white] text-lg font-semibold rounded-[36px] disabled:bg-mecaBgDisableColor disabled:text-[white] h-12 hover:bg-mecaBluePrimaryColor"
+            className="bg-mecaBluePrimaryColor normal-case text-[white] text-lg font-semibold rounded-[36px]   h-12 hover:bg-mecaBluePrimaryColor"
             variant="contained"
             endIcon={!isLoading ? <MdChevronRight /> : ""}
-            disabled={!isFormValid}
+            // disabled={!isFormValid}
             disableElevation
             onClick={handleSubmit}
           >

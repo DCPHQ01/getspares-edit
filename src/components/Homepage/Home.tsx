@@ -70,12 +70,6 @@ const responsives = {
 };
 
 export default function Home() {
-  useEffect(() => {
-    if (typeof window !== "undefined" && !sessionStorage.getItem("token")) {
-      redirect("/login");
-    }
-  }, []);
-
   const CustomDot = ({ onClick, active }: CustomDotProps) => {
     return (
       <li onClick={() => onClick()}>
@@ -280,7 +274,7 @@ export default function Home() {
             alt="logo of manufacturers"
             width={416}
             height={286}
-            className="lg:block hidden"
+            You have divergent branches and need to specify how to reconcile t           className="lg:block hidden"
           />
           <Image
             id="homepageHomeContainer24"

@@ -10,8 +10,7 @@ import {
   TextareaAutosize as BaseTextareaAutosize,
   TextareaAutosize,
 } from "@mui/base/TextareaAutosize";
-
-import formLogo from "@/assets/images/formLogo.jpg";
+import formLogo from "../../../assets/images/formLogo.jpg";
 import { useAppSelector } from "../../../redux";
 import { useAppDispatch } from "../../../redux/hooks";
 import { RootState } from "../../../redux";
@@ -227,6 +226,7 @@ const CalledPagesPageOnePages = () => {
   return (
     <>
       <div className="" style={{ width: "85%", margin: "auto" }} id="pageone1">
+        {/* desktop */}
         <div className="pageWrapper" id="pageone2">
           <div className="hidden md:flex flex-col mt-8" id="pageone3">
             <div className="mb-16 pageHeader w-94" id="pageone4">
@@ -238,7 +238,7 @@ const CalledPagesPageOnePages = () => {
                   Provide details
                 </sub>
 
-                <form method="dialog" id="pageone7">
+                {/* <form method="dialog" id="pageone7">
                   <button
                     className="text-sm font-semibold skip cursor-pointer"
                     id="skip1"
@@ -246,7 +246,7 @@ const CalledPagesPageOnePages = () => {
                   >
                     Skip
                   </button>
-                </form>
+                </form> */}
               </div>
             </div>
 
@@ -342,7 +342,7 @@ const CalledPagesPageOnePages = () => {
                     <p className="error-color -mt-8">{errors.website}</p>
                   )}
                 </Box>
-                <Box>
+                {/* <Box>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DemoContainer components={["DatePicker"]}>
                       <DemoItem
@@ -373,7 +373,7 @@ const CalledPagesPageOnePages = () => {
                       </DemoItem>
                     </DemoContainer>
                   </LocalizationProvider>
-                </Box>
+                </Box> */}
               </Box>
               <Box>
                 <div className="inputImage imagetext h-[283px] w-[316px] pt-6">
@@ -389,9 +389,6 @@ const CalledPagesPageOnePages = () => {
                     />
                   </div>
 
-                  {/* {formImage && (
-                  
-                  )} */}
                   {formImage ? (
                     <div className="">
                       <form
@@ -451,6 +448,8 @@ const CalledPagesPageOnePages = () => {
             </div>
           </div>
         </div>
+
+        {/* mobile */}
 
         <div className="absolute  w-11/12" id="pageone9">
           <div className="md:hidden m-auto" id="pageone10">
