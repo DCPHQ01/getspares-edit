@@ -30,6 +30,7 @@ import { RootState } from "../../../redux";
 import { setCompanyForm } from "../../../redux/features/company/companySlice";
 import { FaUpload } from "react-icons/fa";
 import Link from "next/link";
+import { MenuItem } from "@mui/material";
 
 const CalledPagesPageFourPages: React.FC<ChildProps> = ({
   step,
@@ -158,6 +159,43 @@ const CalledPagesPageFourPages: React.FC<ChildProps> = ({
     setInputs((prev) => ({ ...prev, [name]: value }));
   };
 
+  const currencies = [
+    {
+      value: "select",
+      label: "12",
+    },
+    {
+      value: "6",
+      label: "6",
+    },
+    {
+      value: "24",
+      label: "24",
+    },
+    {
+      value: "32",
+      label: "32",
+    },
+  ];
+
+  const color = [
+    {
+      value: "red",
+      label: "red",
+    },
+    {
+      value: "black",
+      label: "black",
+    },
+    {
+      value: "white",
+      label: "white",
+    },
+    {
+      value: "green",
+      label: "green",
+    },
+  ];
   return (
     <>
       <div className="" style={{ width: "48%" }} id="pageone1">
@@ -185,7 +223,7 @@ const CalledPagesPageFourPages: React.FC<ChildProps> = ({
                 >
                   <Box>
                     <Box>
-                      <TextField
+                      {/* <TextField
                         required={true}
                         id="filledbasic"
                         label="Quantity in a pack"
@@ -206,11 +244,31 @@ const CalledPagesPageFourPages: React.FC<ChildProps> = ({
                           )
                         }
                         onBlur={validateFullName}
-                      />
+                      /> */}
+
+                      <TextField
+                        className="w-[29.4rem] mb-5 "
+                        sx={{
+                          backgroundColor: "porcelain",
+                          borderBottom: "porcelain",
+                        }}
+                        id="filled-select-currency"
+                        select
+                        placeholder="12"
+                        label="Quantity in a pack"
+                        defaultValue="select"
+                        variant="filled"
+                      >
+                        {currencies.map((option) => (
+                          <MenuItem key={option.value} value={option.value}>
+                            {option.label}
+                          </MenuItem>
+                        ))}
+                      </TextField>
                     </Box>
 
                     <Box>
-                      <TextField
+                      {/* <TextField
                         required={true}
                         value={company.companyForm.website}
                         onChange={(e) =>
@@ -231,7 +289,27 @@ const CalledPagesPageFourPages: React.FC<ChildProps> = ({
                         InputProps={{ disableUnderline: true }}
                         className="w-[29.4rem] mb-5 "
                         sx={{ backgroundColor: "porcelain" }}
-                      />
+                      /> */}
+
+                      <TextField
+                        className="w-[29.4rem] mb-5 "
+                        sx={{
+                          backgroundColor: "porcelain",
+                          borderBottom: "porcelain",
+                        }}
+                        id="filled-select-currency"
+                        select
+                        placeholder="red"
+                        label="Select color"
+                        defaultValue="red"
+                        variant="filled"
+                      >
+                        {color.map((option) => (
+                          <MenuItem key={option.value} value={option.value}>
+                            {option.label}
+                          </MenuItem>
+                        ))}
+                      </TextField>
                     </Box>
                   </Box>
                 </Box>

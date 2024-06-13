@@ -30,6 +30,7 @@ import { RootState } from "../../../redux";
 import { setCompanyForm } from "../../../redux/features/company/companySlice";
 import { FaUpload } from "react-icons/fa";
 import Link from "next/link";
+import { MenuItem } from "@mui/material";
 
 const CalledPagesPageFivePages: React.FC<ChildProps> = ({
   step,
@@ -157,6 +158,25 @@ const CalledPagesPageFivePages: React.FC<ChildProps> = ({
     const { name, value } = event.target;
     setInputs((prev) => ({ ...prev, [name]: value }));
   };
+
+  const dimension = [
+    {
+      value: "medium",
+      label: "Medium",
+    },
+    {
+      value: "small",
+      label: "Small",
+    },
+    {
+      value: "large",
+      label: "Large",
+    },
+    {
+      value: "x-large",
+      label: "X-Large",
+    },
+  ];
   return (
     <>
       <div className="" style={{ width: "48%" }} id="pageone1">
@@ -309,7 +329,7 @@ const CalledPagesPageFivePages: React.FC<ChildProps> = ({
                     </Box>
 
                     <Box>
-                      <TextField
+                      {/* <TextField
                         required={true}
                         id="filledbasic"
                         label="Dimension"
@@ -330,7 +350,27 @@ const CalledPagesPageFivePages: React.FC<ChildProps> = ({
                           )
                         }
                         onBlur={validateFullName}
-                      />
+                      /> */}
+
+                      <TextField
+                        className="w-[29.4rem] mb-5 "
+                        sx={{
+                          backgroundColor: "porcelain",
+                          borderBottom: "red",
+                        }}
+                        id="filled-select-currency"
+                        select
+                        placeholder="Medium"
+                        label="Dimensions"
+                        defaultValue="medium"
+                        variant="filled"
+                      >
+                        {dimension.map((option) => (
+                          <MenuItem key={option.value} value={option.value}>
+                            {option.label}
+                          </MenuItem>
+                        ))}
+                      </TextField>
                     </Box>
 
                     <Box>

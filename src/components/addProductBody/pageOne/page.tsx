@@ -30,6 +30,7 @@ import { RootState } from "../../../redux";
 import { setCompanyForm } from "../../../redux/features/company/companySlice";
 import { FaUpload } from "react-icons/fa";
 import Link from "next/link";
+import { MenuItem } from "@mui/material";
 
 const CalledPagesPageOnePages: React.FC<ChildProps> = ({
   step,
@@ -152,6 +153,25 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
     setInputs((prev) => ({ ...prev, [name]: value }));
   };
 
+  const currencies = [
+    {
+      value: "select",
+      label: "Select Category",
+    },
+    {
+      value: "bulldozer",
+      label: "Bulldozer",
+    },
+    {
+      value: "tractor",
+      label: "Tractor",
+    },
+    {
+      value: "lift",
+      label: "Forklift",
+    },
+  ];
+
   return (
     <>
       <div className="" style={{ width: "80%" }} id="pageone1">
@@ -194,7 +214,7 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                       />
                     </Box>
 
-                    <Box>
+                    {/* <Box>
                       <TextField
                         required={true}
                         value={company.companyForm.website}
@@ -212,12 +232,30 @@ const CalledPagesPageOnePages: React.FC<ChildProps> = ({
                         label="Product category"
                         variant="filled"
                         name="website"
-                        placeholder="Select category"
                         InputProps={{ disableUnderline: true }}
-                        className="w-[29.4rem] mb-5 "
-                        sx={{ backgroundColor: "porcelain" }}
                       />
-                    </Box>
+                    </Box> */}
+
+                    <TextField
+                      className="w-[29.4rem] mb-5 "
+                      sx={{
+                        backgroundColor: "porcelain",
+                        borderBottom: "porcelain",
+                      }}
+                      id="filled-select-currency"
+                      select
+                      placeholder="Select category"
+                      label="Product category"
+                      defaultValue="select"
+                      variant="filled"
+                    >
+                      {currencies.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+
                     <Box>
                       <TextareaAutosize
                         required={true}

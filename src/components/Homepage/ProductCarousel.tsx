@@ -105,7 +105,7 @@ export default function ProductCarousel() {
         id="carouselContainer"
       >
         <p className="text-3xl font-semibold" id="carouselTitle">
-          Shop
+          Categories
         </p>
         <span className="flex gap-8" id="carouselButtonSpan">
           <div

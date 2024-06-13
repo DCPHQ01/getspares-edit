@@ -28,6 +28,7 @@ import {
   MdYard,
 } from "react-icons/md";
 import AgentDashboardMobilePage from "./AgentDashboardMobile/page";
+import { useUserRole } from "../../../hooks/useUserRole";
 
 
 function Index() {
@@ -52,7 +53,7 @@ function Index() {
    const dispatch = useAppDispatch();
    const [activeButton, setActiveButton] = useState(0);
 
-   const role = userRole;
+ const role = useUserRole();
 
    const router = useRouter();
 

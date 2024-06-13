@@ -3,7 +3,7 @@
 import AddProductSideBar from "../../components/addProductPage/addProductSideBar";
 import CalledPagesPageOnePages from "../../components/addProductBody/pageOne/page";
 import CalledPagesPageTwoPages from "../../components/addProductBody/pageTwo/page";
-import CalledPagesPageThreePages from "../../components/addProductBody/pageThree/page";
+// import CalledPagesPageThreePages from "../../components/addProductBody/pageThree/page";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import AddProductToggle from "./addProducttoggle";
@@ -46,15 +46,6 @@ const Dashboard = () => {
             step={step}
             setActive={setActiveTab}
             active={activeTab}
-          />
-        );
-      case 3:
-        return (
-          <CalledPagesPageThreePages
-          // setStep={setStep}
-          // step={step}
-          // setActive={setActiveTab}
-          // active={activeTab}
           />
         );
 

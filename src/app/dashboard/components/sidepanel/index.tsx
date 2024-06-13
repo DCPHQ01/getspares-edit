@@ -27,7 +27,10 @@ function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
   //   const names = decoded;
 
   const dispatch = useAppDispatch();
-  const [activeButton, setActiveButton] = useState(0);
+  const [activeButton, setActiveButton] = useState<number | null>(0);
+  const [bottomActiveBtn, setBottomActiveButton] = useState<number | null>(
+    null
+  );
 
   const userRole = useUserRole();
   const role = userRole;
@@ -40,6 +43,12 @@ function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
   };
 
   // console.log(roles, " roles");
+
+  const profileBtn = () => {
+    handleButtonClick(sidePanel.PROFILE);
+    setActiveButton(null);
+    setBottomActiveButton(0);
+  };
 
   const buttons = [
     {
@@ -105,9 +114,7 @@ function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
       icon: <MdPersonPin />,
       title: "Profile",
       size: 18,
-      onClick: () => {
-        handleButtonClick(sidePanel.PROFILE);
-      },
+      onClick: profileBtn,
     },
     {
       icon: <MdLogout />,
@@ -125,6 +132,7 @@ function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
   const handleButtonClick = (panel: any, index?: any) => {
     setActiveButton(index);
     dispatch(dashboardActions.setNavButton(panel));
+    setBottomActiveButton(null);
   };
 
   const filteredButtons = buttons.filter((button) =>
@@ -166,7 +174,9 @@ function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
             <button
               key={index}
               id={`bottomButton_${index}`}
-              className={`flex items-center text-[#364152] rounded-full hover:bg-[#EFF4FF] hover:text-[#0852C0] w-[13rem] py-[0.5rem] px-[0.75rem] gap-4 mb-[1rem]`}
+              className={`flex items-center text-[#364152] rounded-full hover:bg-[#EFF4FF] hover:text-[#0852C0] w-[13rem] py-[0.5rem] px-[0.75rem] gap-4 mb-[1rem] ${
+                bottomActiveBtn === index ? "bg-[#EFF4FF] text-[#0852C0]" : ""
+              }`}
               onClick={btn.onClick}
             >
               <span>{React.cloneElement(btn.icon, { size: btn.size })}</span>

@@ -57,12 +57,6 @@ function ResponsiveDrawer({ step, setStep }: any) {
       image: previewwrap,
     },
 
-    {
-      id: 3,
-      title: "Preview",
-      description: "On your mark, get ready, lets go live",
-      image: previewwrap,
-    },
   ];
   const handleToggle = (step: number) => {
     console.log("step ", step);

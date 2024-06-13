@@ -11,16 +11,10 @@ import { useAppSelector } from "../../../redux";
 import { sidePanel } from "../../dashboard/components/utils/utils";
 import Profile from "./Profile";
 import AdminMobilePage from "../adminMobile/page";
-import AdminMobileHeader from "../adminMobile/AdminMobileHeader";
-import router from "next/router";
+
 import {
   MdClose,
   MdMenu,
-  MdOutlineShoppingCart,
-  MdSearch,
-} from "react-icons/md";
-
-import {
   MdBusinessCenter,
   MdCategory,
   MdDashboard,
@@ -31,18 +25,26 @@ import {
   MdShoppingCart,
   MdYard,
 } from "react-icons/md";
+
 import { useAppDispatch } from "../../../redux/hooks";
 import { dashboardActions } from "../../../redux/features/dashboard/dashboardSlice";
 import { clearUser, setUser } from "../../../redux/features/users/userSlice";
 import { useRouter } from "next/navigation";
 // import { roles, sidePanel, userRole } from "../../utils/utils";
-import { roles, userRole } from "../../dashboard/components/utils/utils";
+import { roles } from "../../dashboard/components/utils/utils";
 import withAuth from "../../withAuth";
+import { useUserRole } from "../../hooks/useUserRole";
 
-function Page({ sidePanelRoles }: { sidePanelRoles?: any }) {
+function Page() {
+  const [activeButton, setActiveButton] = useState<number | null>(0);
+  const [bottomActiveBtn, setBottomActiveButton] = useState<number | null>(
+    null
+  );
   const SidePanelButton = () => {
-    const clicked = useAppSelector((state) => state.dashboard.sidePanelButton);
-    switch (clicked) {
+    const mecaAdmin = useAppSelector(
+      (state) => state.dashboard.sidePanelButton
+    );
+    switch (mecaAdmin) {
       case sidePanel.OVERVIEW:
         return <Overview />;
       case sidePanel.VENDORS:
@@ -63,15 +65,20 @@ function Page({ sidePanelRoles }: { sidePanelRoles?: any }) {
   };
 
   const dispatch = useAppDispatch();
-  const [activeButton, setActiveButton] = useState(0);
 
-  const role = userRole;
+  const role = useUserRole();
 
   const router = useRouter();
 
   const logOut = () => {
     dispatch(clearUser());
     router.push("/");
+  };
+
+  const profileBtn = () => {
+    handleButtonClick(sidePanel.PROFILE);
+    setActiveButton(null);
+    setBottomActiveButton(0);
   };
 
   const buttons = [
@@ -138,17 +145,17 @@ function Page({ sidePanelRoles }: { sidePanelRoles?: any }) {
       icon: <MdPersonPin />,
       title: "Profile",
       size: 18,
-      onClick: () => {
-        handleButtonClick(sidePanel.PROFILE);
-      },
+      onClick: profileBtn,
     },
     {
       icon: <MdLogout />,
       title: "Logout",
       size: 18,
       onClick: () => {
+        sessionStorage.clear();
+        sessionStorage.removeItem("userDetails");
         dispatch(setUser({}));
-        router.push("/");
+        router.push("/login");
       },
     },
   ];
@@ -156,6 +163,7 @@ function Page({ sidePanelRoles }: { sidePanelRoles?: any }) {
   const handleButtonClick = (panel: any, index?: any) => {
     setActiveButton(index);
     dispatch(dashboardActions.setNavButton(panel));
+    setBottomActiveButton(null);
   };
 
   const filteredButtons = buttons.filter((button) =>
@@ -198,7 +206,7 @@ function Page({ sidePanelRoles }: { sidePanelRoles?: any }) {
                     </p>
 
                     <div onClick={handleMecaMobileOpen} id="mobileMenuBtn">
-                      <MdMenu size={18} />
+                      <MdMenu size={18} className="cursor-pointer" />
                     </div>
                   </div>
 
@@ -223,7 +231,7 @@ function Page({ sidePanelRoles }: { sidePanelRoles?: any }) {
                             onClick={handleMecaMobileOpen}
                             id="mobileMenuBtn"
                           >
-                            <MdClose size={18} />
+                            <MdClose size={18} className="cursor-pointer" />
                           </div>
                         </div>
                       </div>
@@ -277,7 +285,11 @@ function Page({ sidePanelRoles }: { sidePanelRoles?: any }) {
                               <button
                                 key={index}
                                 id={`bottomButton_${index}`}
-                                className={`flex  items-center text-[#364152] rounded-full hover:bg-[#EFF4FF] hover:text-[#0852C0] w-[13rem] py-[0.5rem] px-[0.75rem] gap-4 mb-[1rem]`}
+                                className={`flex items-center text-[#364152] rounded-full hover:bg-[#EFF4FF] hover:text-[#0852C0] w-[13rem] py-[0.5rem] px-[0.75rem] gap-4 mb-[1rem] ${
+                                  bottomActiveBtn === index
+                                    ? "bg-[#EFF4FF] text-[#0852C0]"
+                                    : ""
+                                }`}
                                 onClick={btn.onClick}
                               >
                                 <span>

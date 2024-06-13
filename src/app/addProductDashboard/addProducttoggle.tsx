@@ -1,7 +1,7 @@
 "use client";
 import CalledPagesPageOnePages from "../../components/addProductBody/pageOne/page";
 import CalledPagesPageTwoPages from "../../components/addProductBody/pageTwo/page";
-import CalledPagesPageThreePages from "../../components/addProductBody/pageThree/page";
+// import CalledPagesPageThreePages from "../../components/addProductBody/pageThree/page";
 import { useEffect, useState } from "react";
 import CalledPagesPageFourPages from "../../components/addProductBody/pageFour/page";
 import CalledPagesPageFivePages from "../../components/addProductBody/pageFive/page";
@@ -41,15 +41,6 @@ const AddProductToggle = () => {
             step={step}
             setActive={setActiveTab}
             active={activeTab}
-          />
-        );
-      case 3:
-        return (
-          <CalledPagesPageThreePages
-            // setStep={setStep}
-            // step={step}
-            // setActive={setActiveTab}
-            // active={activeTab}
           />
         );
 
