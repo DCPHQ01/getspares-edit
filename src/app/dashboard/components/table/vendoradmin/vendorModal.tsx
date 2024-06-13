@@ -4,10 +4,9 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import CancelIcon from '@mui/icons-material/Cancel';
 import tractor from "../../../../../assets/images/tractors.png"
-import buildozer from "../../../../../assets/images/bulldozer.png"
 import Image from 'next/image';
 import {BsArrowLeftCircleFill, BsArrowRightCircleFill} from "react-icons/bs"
-import Cat from "../../../../../assets/images/cat.jpg"
+
 
 interface VendorModalProps {
     open: boolean;
@@ -72,8 +71,7 @@ const VendorModal: React.FC<VendorModalProps> = ({open,handleClose}) => {
               padding: '24px',
               borderRadius: '8px',
               boxShadow: 24,
-              // width:"100%",
-              // height: "50%"
+              
              
              
                }}>
@@ -82,7 +80,7 @@ const VendorModal: React.FC<VendorModalProps> = ({open,handleClose}) => {
                 {
                   images.map((item, idx)=>{
                     return <div 
-                    // className="w-full"
+                    
                     >
                      
                       <Image 
