@@ -29,6 +29,7 @@ import {
   MdShoppingCart,
   MdYard,
 } from "react-icons/md";
+import { useUserRole } from "../../../hooks/useUserRole";
 
 function Index() {
   const SidePanelButton = () => {
@@ -52,101 +53,113 @@ function Index() {
   };
 
   const dispatch = useAppDispatch();
-  const [activeButton, setActiveButton] = useState(0);
+   const [activeButton, setActiveButton] = useState<number | null>(0);
+   const [bottomActiveBtn, setBottomActiveButton] = useState<number | null>(
+     null
+   );
 
-  const role = userRole;
+   const userRole = useUserRole();
+   const role = userRole;
 
-  const router = useRouter();
+   const router = useRouter();
 
-  const logOut = () => {
-    dispatch(clearUser());
-    router.push("/");
-  };
+   const logOut = () => {
+     dispatch(clearUser());
+     router.push("/");
+   };
 
-  const buttons = [
-    {
-      icon: <MdDashboard />,
-      title: "Overview",
-      size: 18,
-      panel: sidePanel.OVERVIEW,
-      role: [roles.MECA_ADMIN, roles.VENDOR_ADMIN, roles.AGENTS, roles.BUYER],
-    },
-    {
-      icon: <MdYard />,
-      title: "Vendors",
-      size: 18,
-      panel: sidePanel.VENDORS,
-      role: [roles.MECA_ADMIN, roles.AGENTS],
-    },
-    {
-      icon: <MdLocalPolice />,
-      title: "Agents",
-      size: 18,
-      panel: sidePanel.AGENTS,
-      role: [roles.MECA_ADMIN, roles.VENDOR_ADMIN],
-    },
-    {
-      icon: <MdBusinessCenter />,
-      title: "Buyers",
-      size: 18,
-      panel: sidePanel.BUYERS,
-      role: [roles.MECA_ADMIN],
-    },
-    {
-      icon: <MdBusinessCenter />,
-      title: "Orders",
-      size: 18,
-      panel: sidePanel.ORDERS,
-      role: [roles.VENDOR_ADMIN, roles.AGENTS, roles.BUYER],
-    },
-    {
-      icon: <MdShoppingCart />,
-      title: "Cart",
-      size: 18,
-      panel: sidePanel.CART,
-      role: [roles.BUYER],
-    },
-    {
-      icon: <MdInventory2 />,
-      title: "Inventory",
-      size: 18,
-      panel: sidePanel.INVENTORY,
-      role: [roles.MECA_ADMIN, roles.VENDOR_ADMIN],
-    },
-    {
-      icon: <MdCategory />,
-      title: "Category",
-      size: 18,
-      panel: sidePanel.CATEGORY,
-      role: [roles.MECA_ADMIN],
-    },
-  ];
+   // console.log(roles, " roles");
 
-  const bottomButton = [
-    {
-      icon: <MdPersonPin />,
-      title: "Profile",
-      size: 18,
-      onClick: () => {
-        handleButtonClick(sidePanel.PROFILE);
-      },
-    },
-    {
-      icon: <MdLogout />,
-      title: "Logout",
-      size: 18,
-      onClick: () => {
-        dispatch(setUser({}));
-        router.push("/");
-      },
-    },
-  ];
+   const profileBtn = () => {
+     handleButtonClick(sidePanel.PROFILE);
+     setActiveButton(null);
+     setBottomActiveButton(0);
+   };
 
-  const handleButtonClick = (panel: any, index?: any) => {
-    setActiveButton(index);
-    dispatch(dashboardActions.setNavButton(panel));
-  };
+   const buttons = [
+     {
+       icon: <MdDashboard />,
+       title: "Overview",
+       size: 18,
+       panel: sidePanel.OVERVIEW,
+       role: [roles.MECA_ADMIN, roles.VENDOR_ADMIN, roles.AGENTS, roles.BUYER],
+     },
+     {
+       icon: <MdYard />,
+       title: "Vendors",
+       size: 18,
+       panel: sidePanel.VENDORS,
+       role: [roles.MECA_ADMIN, roles.AGENTS],
+     },
+     {
+       icon: <MdLocalPolice />,
+       title: "Agents",
+       size: 18,
+       panel: sidePanel.AGENTS,
+       role: [roles.MECA_ADMIN, roles.VENDOR_ADMIN],
+     },
+     {
+       icon: <MdBusinessCenter />,
+       title: "Buyers",
+       size: 18,
+       panel: sidePanel.BUYERS,
+       role: [roles.MECA_ADMIN],
+     },
+     {
+       icon: <MdBusinessCenter />,
+       title: "Orders",
+       size: 18,
+       panel: sidePanel.ORDERS,
+       role: [roles.VENDOR_ADMIN, roles.AGENTS, roles.BUYER],
+     },
+     {
+       icon: <MdShoppingCart />,
+       title: "Cart",
+       size: 18,
+       panel: sidePanel.CART,
+       role: [roles.BUYER],
+     },
+     {
+       icon: <MdInventory2 />,
+       title: "Inventory",
+       size: 18,
+       panel: sidePanel.INVENTORY,
+       role: [roles.MECA_ADMIN, roles.VENDOR_ADMIN],
+     },
+     {
+       icon: <MdCategory />,
+       title: "Category",
+       size: 18,
+       panel: sidePanel.CATEGORY,
+       role: [roles.MECA_ADMIN],
+     },
+   ];
 
+   const bottomButton = [
+     {
+       icon: <MdPersonPin />,
+       title: "Profile",
+       size: 18,
+       onClick: profileBtn,
+     },
+     {
+       icon: <MdLogout />,
+       title: "Logout",
+       size: 18,
+       onClick: () => {
+         sessionStorage.clear();
+         sessionStorage.removeItem("userDetails");
+         dispatch(setUser({}));
+         router.push("/login");
+       },
+     },
+   ];
+
+   const handleButtonClick = (panel: any, index?: any) => {
+     setActiveButton(index);
+     dispatch(dashboardActions.setNavButton(panel));
+     setBottomActiveButton(null);
+   };
   const filteredButtons = buttons.filter((button) =>
     button.role.includes(role)
   );
@@ -187,7 +200,7 @@ function Index() {
                     </p>
 
                     <div onClick={handleVendorMobileOpen} id="mobileMenuBtn">
-                      <MdMenu size={18} />
+                      <MdMenu size={18} className="cursor-pointer" />
                     </div>
                   </div>
 
@@ -212,7 +225,7 @@ function Index() {
                             onClick={handleVendorMobileOpen}
                             id="mobileMenuBtn"
                           >
-                            <MdClose size={18} />
+                            <MdClose size={18} className="cursor-pointer" />
                           </div>
                         </div>
                       </div>
@@ -266,7 +279,11 @@ function Index() {
                               <button
                                 key={index}
                                 id={`bottomButton_${index}`}
-                                className={`flex  items-center text-[#364152] rounded-full hover:bg-[#EFF4FF] hover:text-[#0852C0] w-[13rem] py-[0.5rem] px-[0.75rem] gap-4 mb-[1rem]`}
+                                className={`flex items-center text-[#364152] rounded-full hover:bg-[#EFF4FF] hover:text-[#0852C0] w-[13rem] py-[0.5rem] px-[0.75rem] gap-4 mb-[1rem] ${
+                                  bottomActiveBtn === index
+                                    ? "bg-[#EFF4FF] text-[#0852C0]"
+                                    : ""
+                                }`}
                                 onClick={btn.onClick}
                               >
                                 <span>

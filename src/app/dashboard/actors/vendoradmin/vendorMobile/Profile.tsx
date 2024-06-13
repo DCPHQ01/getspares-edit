@@ -10,6 +10,7 @@ import Addbutton from "../../../components/ui/addbutton";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
+import "../../../../../styles/addCompanyPageStyle/addCompanyModal.css";
 
 const style = {
   position: "absolute" as "absolute",
@@ -66,7 +67,7 @@ const Profile = () => {
       <div className="">
         <div className="flex gap-x-2 mb-12">
           <Avatar
-            className="bg-mecaActiveBackgroundNavColor text-mecaBluePrimaryColor w-16 h-16 text-4xl "
+            className="bg-mecaActiveBackgroundNavColor text-mecaBluePrimaryColor w-16 h-16 text-4xl -z-50"
             {...stringAvatar("Emeka Sons Limited")}
           />
           <Header
@@ -76,14 +77,22 @@ const Profile = () => {
           />
         </div>
         <div onClick={handleViewAdminProfile} className="">
-          <Addbutton title={`View Admin`} />
+          <button
+            id="addButton"
+            className={`bg-[#095AD3] lg:w-[250px] w-[100%] text-white rounded-full py-[0.58rem] px-[1.5rem] 
+        `}
+          >
+            <div className={`flex text-white items-center justify-center`}>
+              <span className="ml-5">View Admin</span>
+            </div>
+          </button>
         </div>
         <Modal
-          className="bg-gray-600"
+          className=""
           open={viewAdminProfile}
           onClick={handleClose}
-          aria-labelledby="child-modal-title"
-          aria-describedby="child-modal-description"
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
         >
           <Box
             sx={{ ...style }}
