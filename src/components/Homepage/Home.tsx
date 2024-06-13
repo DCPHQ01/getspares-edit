@@ -274,7 +274,7 @@ export default function Home() {
             alt="logo of manufacturers"
             width={416}
             height={286}
-            You have divergent branches and need to specify how to reconcile t           className="lg:block hidden"
+            className="lg:block hidden"
           />
           <Image
             id="homepageHomeContainer24"
