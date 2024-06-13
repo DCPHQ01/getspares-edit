@@ -7,11 +7,17 @@ import CalledPagesPageTwoPages from "../../components/addProductBody/pageTwo/pag
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import AddProductToggle from "./addProducttoggle";
+=======
+import CalledPagesPageThreePages from "../../components/addProductBody/pageThree/page";
+import React, { useState } from "react";
+
+// import AddProductToggle from "./addProducttoggle";
 import CalledPagesPageFivePages from "../../components/addProductBody/pageFive/page";
 import CalledPagesPageFourPages from "../../components/addProductBody/pageFour/page";
 import AddProductImage from "./addProductImage";
 
 const number = [1, 2, 3];
+
 
 const Dashboard = () => {
   const [step, setStep] = useState<number>(1);
@@ -95,6 +101,10 @@ const Dashboard = () => {
       </div>
     </div>
   );
+
+const Page = () => {
+  return <main></main>;
+
 };
 
-export default Dashboard;
+export default Page;

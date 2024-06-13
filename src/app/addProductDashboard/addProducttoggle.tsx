@@ -1,3 +1,4 @@
+
 "use client";
 import CalledPagesPageOnePages from "../../components/addProductBody/pageOne/page";
 import CalledPagesPageTwoPages from "../../components/addProductBody/pageTwo/page";
@@ -5,7 +6,7 @@ import CalledPagesPageTwoPages from "../../components/addProductBody/pageTwo/pag
 import { useEffect, useState } from "react";
 import CalledPagesPageFourPages from "../../components/addProductBody/pageFour/page";
 import CalledPagesPageFivePages from "../../components/addProductBody/pageFive/page";
-
+        
 const number = [1, 2, 3];
 
 const AddProductToggle = () => {
@@ -22,6 +23,7 @@ const AddProductToggle = () => {
     // Navigate to the previous page if it's available
     setStep(step - 1);
   };
+
 
   const togglePages = (step: number) => {
     switch (step) {
@@ -41,6 +43,36 @@ const AddProductToggle = () => {
             step={step}
             setActive={setActiveTab}
             active={activeTab}
+          />
+        );
+
+  const togglePages = (step: number) => {
+    switch (step) {
+      case 1:
+        return (
+          <CalledPagesPageOnePages
+            setStep={setStep}
+            step={step}
+            setActive={setActiveTab}
+            active={activeTab}
+          />
+        );
+      case 2:
+        return (
+          <CalledPagesPageTwoPages
+            setStep={setStep}
+            step={step}
+            setActive={setActiveTab}
+            active={activeTab}
+          />
+        );
+      case 3:
+        return (
+          <CalledPagesPageThreePages
+            // setStep={setStep}
+            // step={step}
+            // setActive={setActiveTab}
+            // active={activeTab}
           />
         );
 
@@ -74,6 +106,7 @@ const AddProductToggle = () => {
         );
     }
   };
+
 
   return (
     <div

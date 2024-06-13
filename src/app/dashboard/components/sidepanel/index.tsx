@@ -154,8 +154,9 @@ function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
         <div id="buttonContainer" className={`mx-[2rem] mt-[3.25rem]`}>
           {filteredButtons.map((btn, index) => (
             <button
+              type="button"
               key={index}
-              id={`button_${index}`}
+              id={`button_${index}2`}
               className={`flex items-center text-[#364152] rounded-full hover:bg-[#EFF4FF] hover:text-[#0852C0] w-full py-[0.5rem] px-[0.75rem] gap-4 mb-[1rem] ${
                 activeButton === index ? "bg-[#EFF4FF] text-[#0852C0]" : ""
               }`}

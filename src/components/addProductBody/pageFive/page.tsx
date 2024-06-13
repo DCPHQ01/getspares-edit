@@ -12,6 +12,7 @@ import {
   MdPhotoLibrary,
 } from "react-icons/md";
 
+
 import {
   TextareaAutosize as BaseTextareaAutosize,
   TextareaAutosize,
@@ -177,6 +178,9 @@ const CalledPagesPageFivePages: React.FC<ChildProps> = ({
       label: "X-Large",
     },
   ];
+
+const CalledPagesPageFivePages = () => {
+
   return (
     <>
       <div className="" style={{ width: "48%" }} id="pageone1">
@@ -197,9 +201,8 @@ const CalledPagesPageFivePages: React.FC<ChildProps> = ({
                 <Box
                   component="form"
                   id="pageone8"
-                  className="flex gap-x-16 flex-col flex-col-reverse lg:flex-row lg:items-start   "
+                  className="flex gap-x-16 flex-col-reverse lg:flex-row lg:items-start   "
                   noValidate
-                  onSubmit={handleSubmit}
                   autoComplete="off"
                 >
                   <Box>
@@ -215,32 +218,12 @@ const CalledPagesPageFivePages: React.FC<ChildProps> = ({
                         InputProps={{ disableUnderline: true }}
                         className=" w-[29.4rem] mb-5 "
                         sx={{ backgroundColor: "porcelain" }}
-                        value={company.companyForm.name}
-                        onChange={(e) =>
-                          dispatch(
-                            setCompanyForm({
-                              ...company.companyForm,
-                              name: e.target.value,
-                            })
-                          )
-                        }
-                        onBlur={validateFullName}
                       />
                     </Box>
 
                     <Box>
                       <TextField
                         required={true}
-                        value={company.companyForm.website}
-                        onChange={(e) =>
-                          dispatch(
-                            setCompanyForm({
-                              ...company.companyForm,
-                              website: e.target.value,
-                            })
-                          )
-                        }
-                        onBlur={validateWebsite}
                         type="url"
                         id="filledbasic"
                         label="Manufacturer part number"
@@ -265,16 +248,6 @@ const CalledPagesPageFivePages: React.FC<ChildProps> = ({
                         InputProps={{ disableUnderline: true }}
                         className=" w-[29.4rem] mb-5 "
                         sx={{ backgroundColor: "porcelain" }}
-                        value={company.companyForm.name}
-                        onChange={(e) =>
-                          dispatch(
-                            setCompanyForm({
-                              ...company.companyForm,
-                              name: e.target.value,
-                            })
-                          )
-                        }
-                        onBlur={validateFullName}
                       />
                     </Box>
 
@@ -290,16 +263,6 @@ const CalledPagesPageFivePages: React.FC<ChildProps> = ({
                         InputProps={{ disableUnderline: true }}
                         className=" w-[29.4rem] mb-5 "
                         sx={{ backgroundColor: "porcelain" }}
-                        value={company.companyForm.name}
-                        onChange={(e) =>
-                          dispatch(
-                            setCompanyForm({
-                              ...company.companyForm,
-                              name: e.target.value,
-                            })
-                          )
-                        }
-                        onBlur={validateFullName}
                       />
                     </Box>
 
@@ -315,16 +278,6 @@ const CalledPagesPageFivePages: React.FC<ChildProps> = ({
                         InputProps={{ disableUnderline: true }}
                         className=" w-[29.4rem] mb-5 "
                         sx={{ backgroundColor: "porcelain" }}
-                        value={company.companyForm.name}
-                        onChange={(e) =>
-                          dispatch(
-                            setCompanyForm({
-                              ...company.companyForm,
-                              name: e.target.value,
-                            })
-                          )
-                        }
-                        onBlur={validateFullName}
                       />
                     </Box>
 
@@ -340,6 +293,7 @@ const CalledPagesPageFivePages: React.FC<ChildProps> = ({
                         InputProps={{ disableUnderline: true }}
                         className=" w-[29.4rem] mb-5 "
                         sx={{ backgroundColor: "porcelain" }}
+
                         value={company.companyForm.name}
                         onChange={(e) =>
                           dispatch(
@@ -371,6 +325,9 @@ const CalledPagesPageFivePages: React.FC<ChildProps> = ({
                           </MenuItem>
                         ))}
                       </TextField>
+
+                      />
+
                     </Box>
 
                     <Box>
@@ -385,22 +342,12 @@ const CalledPagesPageFivePages: React.FC<ChildProps> = ({
                         InputProps={{ disableUnderline: true }}
                         className=" w-[29.4rem] mb-5 "
                         sx={{ backgroundColor: "porcelain" }}
-                        value={company.companyForm.name}
-                        onChange={(e) =>
-                          dispatch(
-                            setCompanyForm({
-                              ...company.companyForm,
-                              name: e.target.value,
-                            })
-                          )
-                        }
-                        onBlur={validateFullName}
                       />
                     </Box>
                   </Box>
                 </Box>
                 <div className="flex justify-between w-[100%] mt-32">
-                  <div onClick={goToPreviousPage} id="firstPreviousbtn9">
+                  <div id="firstPreviousbtn9">
                     <button
                       type="submit"
                       className="w-[116px] flex justify-center gap-x-3 pt-2 h-10 font-semibold border rounded-full text-mecaBluePrimaryColor border-mecaBluePrimaryColor mt-6 mb-6 "
@@ -411,7 +358,7 @@ const CalledPagesPageFivePages: React.FC<ChildProps> = ({
                       <p> Previous</p>
                     </button>
                   </div>
-                  <div onClick={goToNextPage} className="">
+                  <div className="">
                     <button
                       type="submit"
                       id="thirdFormSubmit"
@@ -457,26 +404,26 @@ const CalledPagesPageFivePages: React.FC<ChildProps> = ({
                     <div className="">
                       <p>Product name</p>
                       <input
+                        title="inputPreview"
                         readOnly={true}
                         className="scrollbar-none p-2 pl-0 border-white bg-white placeholder:text-black"
-                        value={inputs.input1}
                       />
                     </div>
                     <div className="">
                       <p className="flex justify-end mr-6">Price</p>
                       <input
+                        title="inputPreview2"
                         readOnly={true}
                         className="scrollbar-none p-2 pl-0 bg-white border-white placeholder:text-black"
-                        value={inputs.input2}
                       />
                     </div>
                   </div>
                   <div className="mt-8">
                     <p>Description</p>
                     <textarea
+                      title="descriptionPreview"
                       readOnly={true}
                       className="scrollbar-none border-white pl-0  w-full h-32 p-2 bg-white placeholder:text-black"
-                      value={inputs.input3}
                     />
                   </div>
                 </div>
