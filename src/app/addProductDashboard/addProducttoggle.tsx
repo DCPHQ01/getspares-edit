@@ -90,35 +90,10 @@ const AddProductToggle = () => {
                 ? "w-1/3 bg-blue-800 rounded-lg h-3"
                 : "bg-gray-500 rounded-lg h-3 w-1/3"
             }`}
-            // className="w-1/3 bg-blue-800 rounded-lg h-3"
             id="switchedButton1"
           ></div>
         ))}
       </div>
-
-      {/* <div
-          className={`
-            ${
-              activeTab
-                ? "w-1/3 bg-blue-800 rounded-lg h-3"
-                : "bg-gray-500 rounded-lg h-3 w-1/3"
-            }`}
-          // onClick={() => setActiveTab(step)}
-          // className="h-3 w-1/3 bg-blue-800 rounded-lg"
-          id="switchedButton2"
-        ></div> */}
-      {/* <div
-          className={`
-            ${
-              activeTab
-                ? "w-1/3 bg-blue-800 rounded-lg h-3"
-                : "bg-gray-500 rounded-lg h-3 w-1/3"
-            }`}
-          // onClick={() => setActiveTab("preview")}
-          // className="h-3 w-1/3 bg-blue-800 rounded-lg"
-          id="switchedButton3"
-        ></div> */}
-      {/* </div> */}
     </div>
   );
 };
