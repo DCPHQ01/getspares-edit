@@ -167,7 +167,6 @@ const data = [
     sale: 67,
     vale: "₦ 700,000,00",
     category: "Bumper",
-    // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
     date: "30 Aug 2022",
     time: "04:00PM",
   },
