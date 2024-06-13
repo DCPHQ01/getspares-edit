@@ -96,17 +96,10 @@ const data = [
 const OrderTable = () => {
   const router = useRouter();
 
-  // const handleRowClick =(obj: any)=>{
-  //   const {name, id} = obj;
-  //   router.push('/category/products/${name}/${id}')
-  // }
-
   const [renderDetails,setRenderDetails] = useState(false)
 
   const handleDetails = () => {
     setRenderDetails(!renderDetails)
-    // const {name, id} = obj;
-    // router.push('/category/products/${name}/${id}')
   }
   return (
     <div>
