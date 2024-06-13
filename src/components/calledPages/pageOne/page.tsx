@@ -226,6 +226,7 @@ const CalledPagesPageOnePages = () => {
   return (
     <>
       <div className="" style={{ width: "85%", margin: "auto" }} id="pageone1">
+        {/* desktop */}
         <div className="pageWrapper" id="pageone2">
           <div className="hidden md:flex flex-col mt-8" id="pageone3">
             <div className="mb-16 pageHeader w-94" id="pageone4">
@@ -447,6 +448,8 @@ const CalledPagesPageOnePages = () => {
             </div>
           </div>
         </div>
+
+        {/* mobile */}
 
         <div className="absolute  w-11/12" id="pageone9">
           <div className="md:hidden m-auto" id="pageone10">

@@ -2,20 +2,18 @@
 import React, { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Box from "@mui/material/Box";
-import ImageComponent from "../../../components/imageComp/ImageComponent";
 import TextField from "@mui/material/TextField";
 import {
-  MdArrowForward,
-  MdArrowRight,
   MdChevronLeft,
   MdChevronRight,
   MdPhotoLibrary,
 } from "react-icons/md";
 
-import {
-  TextareaAutosize as BaseTextareaAutosize,
-  TextareaAutosize,
-} from "@mui/base/TextareaAutosize";
+import { useAppSelector } from "../../../redux";
+import { useAppDispatch } from "../../../redux/hooks";
+import { RootState } from "../../../redux";
+import { setCompanyForm } from "../../../redux/features/company/companySlice";
+import { MenuItem } from "@mui/material";
 
 interface ChildProps {
   step: number;
@@ -23,14 +21,6 @@ interface ChildProps {
   setStep: React.Dispatch<React.SetStateAction<number>>;
   setActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
-import formLogo from "@/assets/images/formLogo.jpg";
-import { useAppSelector } from "../../../redux";
-import { useAppDispatch } from "../../../redux/hooks";
-import { RootState } from "../../../redux";
-import { setCompanyForm } from "../../../redux/features/company/companySlice";
-import { FaUpload } from "react-icons/fa";
-import Link from "next/link";
-import { MenuItem } from "@mui/material";
 
 const CalledPagesPageFivePages: React.FC<ChildProps> = ({
   step,

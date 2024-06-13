@@ -4,6 +4,7 @@ import CalledPagesPageTwoPages from "../../components/addProductBody/pageTwo/pag
 import { useEffect, useState } from "react";
 import CalledPagesPageFourPages from "../../components/addProductBody/pageFour/page";
 import CalledPagesPageFivePages from "../../components/addProductBody/pageFive/page";
+import CalledPagesPageThreePages from "../../components/calledPages/pageThree/page";
 
 const number = [1, 2, 3];
 
@@ -39,6 +40,16 @@ const AddProductToggle = () => {
             step={step}
             setActive={setActiveTab}
             active={activeTab}
+          />
+        );
+
+      case 2:
+        return (
+          <CalledPagesPageThreePages
+            // setStep={setStep}
+            // step={step}
+            // setActive={setActiveTab}
+            // active={activeTab}
           />
         );
 
