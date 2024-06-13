@@ -5,16 +5,13 @@ import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
 import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
 import Stack from "@mui/material/Stack";
-import VendorModal from "./VendorModal";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PreviewIcon from '@mui/icons-material/Preview';
 import EditIcon from '@mui/icons-material/Edit';
-// import DeleteIcon from '@mui/icons-material/Delete';
 import {Menu,MenuItem, IconButton} from '@mui/material'
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import { useRouter } from "next/navigation"
 import { title } from "process";
-// import "react-tabs/style/react-tabs.css";
 import ViewItemDetails from "./[viewDetailsInventory]/page";
 const option = [
   {icon: <PreviewIcon sx={{color:"gray"}}/>, title: "View Details", id: 1},
