@@ -1,9 +1,7 @@
-// import { Typography } from "@mui/material";
 import * as React from 'react';
 import Rating from '@mui/material/Rating';
 import ProgressBar from './ProgressBar';
 import { IoStarSharp } from "react-icons/io5";
-import { MdDescription } from 'react-icons/md';
 import ReviewModal from './ReviewModal';
 import { Button } from '@mui/material';
 import ViewAllComments from './ViewAllComments';
