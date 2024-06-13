@@ -18,10 +18,10 @@ function Buyers() {
 
       <BuyerTable />
 
-      <div className="flex justify-between mt-10 text-mecaBluePrimaryColor font-bold text-lg">
-        <button className="flex gap-x-2">
+      <div className="flex justify-end mt-10 text-mecaBluePrimaryColor font-bold text-lg">
+        {/* <button className="flex gap-x-2">
           <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
-        </button>
+        </button> */}
         <button className="flex gap-x-2">
           <MdChevronRight className="mt-1 text-2xl" /> <span>Next</span>
         </button>

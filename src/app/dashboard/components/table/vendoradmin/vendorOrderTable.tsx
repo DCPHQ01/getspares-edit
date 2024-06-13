@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useState} from "react";
 import styles from "../styles.module.css";
 import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
 import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
+import Details from "../../../../category/products/viewDetails/[details]/page";
 
 const data = [
   {
@@ -90,6 +91,13 @@ const data = [
 ];
 
 const VendorOrderTable = () => {
+  const [renderDetails,setRenderDetails] = useState(false)
+
+  const handleDetails = () => {
+    setRenderDetails(!renderDetails)
+    // const {name, id} = obj;
+    // router.push('/category/products/${name}/${id}')
+  }
   return (
     <div id="tableContainer">
       <div
@@ -108,7 +116,10 @@ const VendorOrderTable = () => {
           </thead>
           <tbody>
             {data.map((d, index) => (
-              <tr key={index} id={`row_${index}`} className="cursor-pointer truncate">
+              <tr key={index} id={`row_${index}`} 
+              className="cursor-pointer truncate"
+              onClick={handleDetails}
+              >
                 <td id={`companyData_${index}`}>
                   <div
                     className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
@@ -171,6 +182,11 @@ const VendorOrderTable = () => {
           </tbody>
         </table>
       </div>
+      {renderDetails && (
+      <div className="absolute top-0 bg-white lg:w-[83%] w-[100%] ml-0 lg:h-[100vh]">
+        <Details />
+      </div>
+    )}
     </div>
   );
 };

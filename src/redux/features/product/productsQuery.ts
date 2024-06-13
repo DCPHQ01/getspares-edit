@@ -77,7 +77,7 @@ export const productsQuery = createApi({
       }),
     }),
     getCategory: builder.query({
-      query: () => "/product/category",
+      query: () => "/category/categories",
     }),
   }),
 });

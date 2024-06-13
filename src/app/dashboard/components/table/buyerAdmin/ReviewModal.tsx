@@ -92,7 +92,7 @@ const ReviewModal: React.FC<ReviewModalProps> = ({ openModal, setOpenModal }) =>
                 </div>
                 <div className={`flex justify-between gap-36`}>
                     <button className={`w-[130px] h-[44px] text-[#095AD3] border-[2px] rounded-full border-[#095AD3]`}>Cancel</button>
-                    <button className={`w-[130px] h-[44px] text-[#095AD3] text-white rounded-full bg-[#095AD3]`}>Save</button>
+                    <button onClick={closeModal} className={`w-[130px] h-[44px] text-[#095AD3] text-white rounded-full bg-[#095AD3]`}>Save</button>
                 </div>
             </div>
         </Dialog>
