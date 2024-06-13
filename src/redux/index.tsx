@@ -9,6 +9,7 @@ import productSlice from "./features/product/productSlice";
 import { productsQuery } from "./features/product/productsQuery";
 import { userQuery } from "./features/users/userQuery";
 import { companyQuery } from "./features/company/companyQuery";
+import { mecaAdminQuery } from "./features/dashboard/mecaAdminQuery";
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     [productsQuery.reducerPath]: productsQuery.reducer,
     [userQuery.reducerPath]: userQuery.reducer,
     [companyQuery.reducerPath]: companyQuery.reducer,
+    [mecaAdminQuery.reducerPath]: mecaAdminQuery.reducer,
     user: userSlice,
     company: companySlice,
     product: productSlice,
@@ -27,6 +29,7 @@ export const store = configureStore({
       productsQuery.middleware,
       userQuery.middleware,
       companyQuery.middleware,
+      mecaAdminQuery.middleware,
     ]),
 });
 
