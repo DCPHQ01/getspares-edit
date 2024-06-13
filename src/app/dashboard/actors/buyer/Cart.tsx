@@ -254,9 +254,12 @@ const Cart = () => {
     horizontal: "center",
   });
   const { vertical, horizontal, open } = state;
+  const router = useRouter();
 
   const handleSucessClick = (newState: SnackbarOrigin) => () => {
     setState({ ...newState, open: true });
+    router.push('/dashboard/actors/buyer/:id');  
+
   };
 
   const handleSucessClose = () => {
@@ -268,7 +271,6 @@ const Cart = () => {
   const removeFromCart = (id: string) => {
     setCarts((prevCart) => prevCart.filter((item) => item.id !== id));
   };
-  const router = useRouter();
 
   const [showButton, setShowButton] = useState(false);
 
