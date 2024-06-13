@@ -1,8 +1,12 @@
-import React from "react";
+"use client"
+
+import React, { useState } from "react";
 import styles from "../styles.module.css";
 import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
 import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
+import { useRouter } from 'next/navigation'
+import Details from "../../../../category/products/viewDetails/[details]/page";
 
 const data = [
   {
@@ -90,7 +94,15 @@ const data = [
 ];
 
 const OrderTable = () => {
+  const router = useRouter();
+
+  const [renderDetails,setRenderDetails] = useState(false)
+
+  const handleDetails = () => {
+    setRenderDetails(!renderDetails)
+  }
   return (
+    <div>
     <div id="tableContainer">
       <div
         id="mecaAdminTable"
@@ -108,7 +120,10 @@ const OrderTable = () => {
           </thead>
           <tbody>
             {data.map((d, index) => (
-              <tr key={index} id={`row_${index}`} className="cursor-pointer truncate">
+              <tr key={index} id={`row_${index}`} 
+                className="cursor-pointer truncate"
+                onClick={handleDetails}
+              >
                 <td id={`companyData_${index}`}>
                   <div
                     className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
@@ -142,13 +157,13 @@ const OrderTable = () => {
                 <td id={`companyData_${index}`}>
                   <div
                     className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
-                  >
+                    >
                     <Image
                       src={d.avatar}
                       className="object-contain"
                       alt="Avatar"
                       id={`avatar_${index}`}
-                    />
+                      />
                     <div id={`companyDetails_${index}`}>
                       <div>{d.name}</div>
                       <div className={`text-[#4B5565]`} id={`email_${index}`}>
@@ -172,6 +187,14 @@ const OrderTable = () => {
         </table>
       </div>
     </div>
+    {renderDetails && (
+      <div className="absolute top-0 bg-white lg:w-[83%] w-[100%] ml-0 lg:h-[100vh]">
+        <Details />
+      </div>
+    )}
+   
+    </div>
+
   );
 };
 

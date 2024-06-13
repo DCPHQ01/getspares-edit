@@ -16,6 +16,8 @@ import {
   TextareaAutosize as BaseTextareaAutosize,
   TextareaAutosize,
 } from "@mui/base/TextareaAutosize";
+import { MenuItem, Select } from "@mui/material";
+import { useGetCategoryQuery } from "../../../redux/features/product/productsQuery";
 
 const CalledPagesPageOnePages = () => {
   const [basicInfoValues, setBasicInfoValues] = useState({
@@ -25,6 +27,8 @@ const CalledPagesPageOnePages = () => {
     price: "",
     quantity: "",
   });
+
+  const { data: getCategoriesData } = useGetCategoryQuery({});
 
   useEffect(() => {
     const savedData = sessionStorage.getItem("basicInfoValues");
@@ -53,6 +57,8 @@ const CalledPagesPageOnePages = () => {
       });
     }
   };
+
+  console.log("category data ", getCategoriesData)
 
   const [errors, setErrors] = useState({
     productName: "",
@@ -144,8 +150,21 @@ const CalledPagesPageOnePages = () => {
                   </Box>
 
                   <Box>
-                    <TextField
-                      required={true}
+                    <Select
+                      id="productCategory"
+                      variant="filled"
+                      name="productCategory"
+                      placeholder="Select category"
+                      className="w-[29.4rem] mb-5 "
+                      sx={{ backgroundColor: "porcelain" }}
+                      value={basicInfoValues.productCategory}
+                      label="Category"
+                      onChange={handleBasicInfoChange}
+                    >
+                      {<MenuItem value={30}>Thirty</MenuItem>}
+                    </Select>
+                    {/* <TextField
+                      // required={true}
                       type="url"
                       id="productCategory"
                       label="Product category"
@@ -159,7 +178,7 @@ const CalledPagesPageOnePages = () => {
                       value={basicInfoValues.productCategory}
                       error={!!errors.productCategory}
                       helperText={errors.productCategory || ""}
-                    />
+                    /> */}
                   </Box>
                   <Box>
                     <TextareaAutosize
