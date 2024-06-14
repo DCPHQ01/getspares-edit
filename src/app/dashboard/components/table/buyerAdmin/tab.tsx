@@ -2,6 +2,8 @@ import * as React from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import ProductReview from "./ProductReview";
+
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -113,7 +115,7 @@ export default function BasicTabs() {
           </Box>
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
-          REVIEWS
+          <ProductReview/>
         </CustomTabPanel>
       </Box>
     </div>
