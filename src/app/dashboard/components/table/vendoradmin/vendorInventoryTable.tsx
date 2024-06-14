@@ -331,7 +331,7 @@ const VendorInventoryTable = () => {
 
       {routInventory && (
         <div className="z-50">
-          <div className="absolute   top-0 bg-white lg:w-[85%] w-[100%] h-[100vh] z-50 sm:left-0 lg:left-auto">
+          <div className="absolute top-0 bg-white lg:w-[85%] w-[100%] h-[100vh] z-50 sm:left-0 lg:left-auto">
             <ViewItemDetails />
           </div>
         </div>
