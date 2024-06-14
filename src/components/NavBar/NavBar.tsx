@@ -387,25 +387,24 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                 </p>
               )}
             </div>
-
-            {/* {item.id === 2 && isCategoryOptionOpened && (
-              <div className="flex justify-center">
-                <div className="absolute top-56 z-50">
-                  <DropdownPage />
-                </div>
-              </div>
-            )} */}
           </div>
         ))}
+        {isCategoryOptionOpened && (
+          <div className="flex justify-center">
+            <div className="absolute left-96 top-40 z-50">
+              <DropdownPage  />
+            </div>
+          </div>
+        )}
       </div>
 
-      {isCategoryOptionOpened && (
+      {/* {isCategoryOptionOpened && (
         <div className="flex justify-center">
           <div className="absolute z-50">
             <DropdownPage />
           </div>
         </div>
-      )}
+      )} */}
     </nav>
   );
 }

@@ -146,12 +146,18 @@ const VendorInventoryTable = () => {
               <th id="companyNameHeader">Product name</th>
               <th id="dateTimeJoinedHeader">Vendors</th>
               <th id="totalItemsSoldHeader">Quantity sold</th>
-              <th id="transactionValueHeader">Transaction value</th>
+              <th id="transactionValueHeader" style={{ paddingLeft: "2rem" }}>
+                Transaction value
+              </th>
             </tr>
           </thead>
           <tbody>
             {data.map((d, index) => (
-              <tr key={index} id={`row_${index}`} className="cursor-pointer truncate">
+              <tr
+                key={index}
+                id={`row_${index}`}
+                className="cursor-pointer truncate"
+              >
                 <td id={`companyData_${index}`}>
                   <div
                     className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
@@ -162,7 +168,7 @@ const VendorInventoryTable = () => {
                       alt="Avatar"
                       id={`avatar_${index}`}
                     />
-                    <div id={`companyDetails_${index}`}>
+                    <div className="mt-2" id={`companyDetails_${index}`}>
                       <div>{d.name}</div>
                     </div>
                   </div>

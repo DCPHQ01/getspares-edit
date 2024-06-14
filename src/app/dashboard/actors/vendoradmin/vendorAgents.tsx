@@ -22,17 +22,9 @@ function VendorAgents() {
       <div className={`flex justify-between items-center my-[1.5rem]`}>
         <Tabs tabs={tabs} />
         <div className={`flex gap-3`}>
-          {/* <SortButton /> */}
           <SearchBox />
         </div>
       </div>
-      {/* <div className={`flex justify-between items-center gap-3`}>
-        <Header
-          subtitle={`A quick glance on agents performance`}
-          title={`Top performing agents`}
-        />
-        <PeriodRadios />
-      </div> */}
 
       <VendorAgentTable />
 
@@ -41,7 +33,10 @@ function VendorAgents() {
             <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
           </button> */}
         <button className="flex gap-x-2">
-          <MdChevronRight className="mt-1 text-2xl" /> <span>Next</span>
+          Next
+          <span>
+            <MdChevronRight className="mt-[4px] text-2xl" />{" "}
+          </span>
         </button>
       </div>
     </>

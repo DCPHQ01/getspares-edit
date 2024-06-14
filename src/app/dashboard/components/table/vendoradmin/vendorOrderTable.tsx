@@ -94,21 +94,31 @@ const VendorOrderTable = () => {
     <div id="tableContainer">
       <div
         id="mecaAdminTable"
-        className={`my-[1.25rem] w-full max-h-[34rem] overflow-y-auto scrollbar-none ${styles.table}`}
+        className={` w-full max-h-[34rem] overflow-y-auto scrollbar-none ${styles.table}`}
       >
         <table id="adminTable" className={`w-full`}>
           <thead>
             <tr className="truncate">
               <th id="companyNameHeader">Product</th>
-              <th id="totalItemsSoldHeader">Order ID</th>
-              <th id="transactionValueHeader">Transaction value</th>
-              <th id="dateTimeJoinedHeader">Buyers</th>
+              <th id="totalItemsSoldHeader" style={{ paddingLeft: "4rem" }}>
+                Order ID
+              </th>
+              <th id="transactionValueHeader" style={{ paddingLeft: "2rem" }}>
+                Transaction value
+              </th>
+              <th id="dateTimeJoinedHeader" style={{ paddingLeft: "5rem" }}>
+                Buyers
+              </th>
               <th id="dateTimeJoinedHeader">Date & time ordered</th>
             </tr>
           </thead>
           <tbody>
             {data.map((d, index) => (
-              <tr key={index} id={`row_${index}`} className="cursor-pointer truncate">
+              <tr
+                key={index}
+                id={`row_${index}`}
+                className="cursor-pointer truncate"
+              >
                 <td id={`companyData_${index}`}>
                   <div
                     className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
@@ -119,7 +129,7 @@ const VendorOrderTable = () => {
                       alt="Avatar"
                       id={`avatar_${index}`}
                     />
-                    <div id={`companyDetails_${index}`}>
+                    <div className="mt-2" id={`companyDetails_${index}`}>
                       <div>{d.name}</div>
                     </div>
                   </div>

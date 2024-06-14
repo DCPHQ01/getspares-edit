@@ -153,7 +153,9 @@ function Overview() {
           <tr className="truncate">
             <th id="itemNameHeader">Item name</th>
             <th id="totalSoldHeader">Total sold</th>
-            <th id="transactionValueHeader">Transaction value</th>
+            <th id="transactionValueHeader" style={{ paddingLeft: "2.3rem" }}>
+              Transaction value
+            </th>
             <th id="dateTimeJoinedHeader">Date & time joined</th>
           </tr>
         </thead>
