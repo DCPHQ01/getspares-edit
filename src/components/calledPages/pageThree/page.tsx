@@ -44,7 +44,7 @@ const CalledPagesPageThreePages = () => {
         imageUrl: companyImage,
       });
       console.log(data, "data");
-      if (data?.error?.status === 200) router.push(paths.dashboard());
+      // if (data?.error?.status === 200) router.push(paths.dashboard());
 
     } catch (error) {
       console.log(error, "error");
