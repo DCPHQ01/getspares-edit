@@ -9,7 +9,7 @@ import Link from "next/link";
 function VendorInventory() {
   return (
     <>
-      <div className={`flex justify-between items-center`}>
+    <div className={`flex justify-between items-center`}>
         <Header
           subtitle={`Keep track of how each item is performing.`}
           title={`Inventory`}

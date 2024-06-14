@@ -83,25 +83,10 @@ const AddCompanyModal = () => {
               className="modalbtn gap-y-3 text-lg font-semibold"
               id="confirmpageButton2"
             >
-              <form
-                method="dialog"
-                id="confirmpageForm2"
-                className={nunito_sans.className}
-              >
-                <Link href="/dashboard">
-                  <button
-                    id="laterbtn"
-                    className="btn w-40 font-semibold text-lg text-mecaBluePrimaryColor min-h-12 rounded-full maybe-later"
-                  >
-                    Maybe later
-                  </button>
-                </Link>
-              </form>
-
-              <Link id="continuebtnLink" href="/modalPage/vendor">
+              <Link id="continuebtnLink" href="/modalPage/vendor" className="btn bg-mecaBluePrimaryColor  text-white  font-semibold rounded-full w-full">
                 <button
                   id="continuebtn"
-                  className="btn bg-mecaBluePrimaryColor  text-white  font-semibold rounded-full w-40 min-h-12"
+                  className="w-full h-12"
                 >
                   Continue
                 </button>
