@@ -19,6 +19,7 @@ import {
 } from "react-icons/md";
 import Link from "next/link";
 import { TextField } from "@mui/material";
+import { useAddCategoryMutation } from "../../../redux/features/dashboard/mecaAdminQuery";
 
 const style = {
   position: "absolute" as "absolute",
@@ -38,7 +39,9 @@ function Category() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const [formImage, setFormImage] = useState<string | null>(null);
+  const [formImage, setFormImage] = useState<string>("");
+  const [categoryName, setCategoryName] = useState<string>("");
+  const [categoryData, { isError, isLoading }] = useAddCategoryMutation();
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -54,6 +57,21 @@ function Category() {
 
   const handleImageClick = () => {
     fileInputRef.current?.click();
+  };
+
+  const handleSumbit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    try {
+      const response = await categoryData({
+        name: categoryName,
+        image: "string",
+      });
+      if ("data" in response) {
+        console.log(response.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -99,6 +117,7 @@ function Category() {
               <div className=" h-[283px] w-[316px] pt-6">
                 <div className="">
                   <input
+                    title="image inputs"
                     type="file"
                     accept="image/*"
                     onChange={handleImageChange}
@@ -106,10 +125,6 @@ function Category() {
                     className="hidden w-full px-3 py-2 "
                   />
                 </div>
-
-                {/* {formImage && (
-                  
-                  )} */}
                 {formImage ? (
                   <div className="w-20 h-20 m-auto">
                     <img
@@ -136,19 +151,22 @@ function Category() {
                 <TextField
                   required={true}
                   id="filledbasic"
-                  label="Name"
+                  label="category name"
                   variant="filled"
                   type="text"
-                  name="fullName"
+                  name="categoryName"
                   placeholder="Enter name"
                   InputProps={{ disableUnderline: true }}
-                  className="w-[21rem] mb-10 mt-10"
-                  sx={{ backgroundColor: "porcelain" }}
+                  className="w-[21rem] mt-10"
+                  value={categoryName}
+                  onChange={(e) => setCategoryName(e.target.value)}
+                  sx={{ backgroundColor: "porcelain", marginTop: "1rem" }}
                 />
 
                 <button
                   id="addButton"
-                  className={`bg-[#095AD3]  w-[21rem] text-white rounded-full py-[0.38rem] px-[1.5rem] 
+                  onClick={handleSumbit}
+                  className={`bg-[#095AD3] mt-8 w-[21rem] text-white rounded-full py-[0.38rem] px-[1.5rem] 
         `}
                 >
                   <div

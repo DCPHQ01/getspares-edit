@@ -1,19 +1,43 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import styles from "../styles.module.css";
 import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
 import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
 import Stack from "@mui/material/Stack";
-// import "react-tabs/style/react-tabs.css";
+import { MdMoreVert, MdPreview, MdEdit, MdDeleteOutline } from "react-icons/md";
+import { Menu, MenuItem, IconButton } from "@mui/material";
+import { useRouter } from "next/navigation";
+import { title } from "process";
+import ViewItemDetails from "./[viewDetailsInventory]/page";
+const option = [
+  {
+    icon: <MdPreview style={{ color: "gray" }} />,
+    title: "View Details",
+    id: 1,
+  },
+  { icon: <MdEdit style={{ color: "gray" }} />, title: "Edit", id: 2 },
+  {
+    icon: <MdDeleteOutline style={{ color: "gray" }} />,
+    title: "Delete",
+    id: 3,
+  },
+];
+
+interface Option {
+  icon: JSX.Element;
+  title: string;
+}
 
 const data = [
   {
     avatar: image1,
-    name: "Ebuka & Sons International",
+    name: "CaterpillarEngine1v2",
     email: "Ebukainternional.com",
+    TransactionValue: 123,
     sale: 12,
     vale: "₦ 200,000.00",
+    category: "Bumper",
     rating: (
       <Stack spacing={1}>
         {/* <Rating name="half-rating" defaultValue={2.5} precision={0.5} /> */}
@@ -24,10 +48,12 @@ const data = [
   },
   {
     avatar: image2,
-    name: "Ebuka & Sons International",
+    name: "CaterpillarEngine1v2",
     email: "ebuka&sons@gmail.com",
+    TransactionValue: 123,
     sale: 83,
     vale: "₦ 1,000,000.00",
+    category: "Air filters",
     rating: (
       <Stack spacing={1}>
         {/* <Rating name="half-rating" defaultValue={2.5} precision={0.5} /> */}
@@ -38,20 +64,24 @@ const data = [
   },
   {
     avatar: image1,
-    name: "Ebuka & Sons International",
+    name: "CaterpillarEngine1v2",
     email: "ebuka&sons@gmail.com",
+    TransactionValue: 123,
     sale: 45,
     vale: "₦ 600,000.00",
+    category: "Bonnets",
     // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
     date: "12 May 2024",
     time: "08:45PM",
   },
   {
     avatar: image2,
-    name: "Ebuka & Sons International",
+    name: "CaterpillarEngine1v2",
     email: "ebuka&sons@gmail.com",
+    TransactionValue: 123,
     sale: 10,
     vale: "₦ 120,000.00",
+    category: "Tractor parts",
     // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
 
     date: "02 Sep 2022",
@@ -59,31 +89,24 @@ const data = [
   },
   {
     avatar: image1,
-    name: "Ebuka & Sons International",
+    name: "CaterpillarEngine1v2",
     email: "ebuka&sons@gmail.com",
+    TransactionValue: 123,
     sale: 67,
     vale: "₦ 700,000,00",
+    category: "Brakes",
     // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
     date: "30 Aug 2022",
     time: "04:00PM",
   },
   {
     avatar: image1,
-    name: "Ebuka & Sons International",
+    name: "CaterpillarEngine1v2",
     email: "ebuka&sons@gmail.com",
+    TransactionValue: 123,
     sale: 67,
     vale: "₦ 700,000,00",
-    // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
-    date: "30 Aug 2022",
-    time: "04:00PM",
-  },
-
-  {
-    avatar: image1,
-    name: "Ebuka & Sons International",
-    email: "ebuka&sons@gmail.com",
-    sale: 67,
-    vale: "₦ 700,000,00",
+    category: "Axles",
     // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
     date: "30 Aug 2022",
     time: "04:00PM",
@@ -91,10 +114,12 @@ const data = [
 
   {
     avatar: image1,
-    name: "Ebuka & Sons International",
+    name: "CaterpillarEngine1v2",
     email: "ebuka&sons@gmail.com",
+    TransactionValue: 123,
     sale: 67,
     vale: "₦ 700,000,00",
+    category: "Tractor parts",
     // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
     date: "30 Aug 2022",
     time: "04:00PM",
@@ -102,10 +127,12 @@ const data = [
 
   {
     avatar: image1,
-    name: "Ebuka & Sons International",
+    name: "CaterpillarEngine1v2",
     email: "ebuka&sons@gmail.com",
+    TransactionValue: 123,
     sale: 67,
     vale: "₦ 700,000,00",
+    category: "Bumper",
     // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
     date: "30 Aug 2022",
     time: "04:00PM",
@@ -113,10 +140,12 @@ const data = [
 
   {
     avatar: image1,
-    name: "Ebuka & Sons International",
+    name: "CaterpillarEngine1v2",
     email: "ebuka&sons@gmail.com",
+    TransactionValue: 123,
     sale: 67,
     vale: "₦ 700,000,00",
+    category: "Bonnets",
     // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
     date: "30 Aug 2022",
     time: "04:00PM",
@@ -124,16 +153,62 @@ const data = [
 
   {
     avatar: image1,
-    name: "Ebuka & Sons International",
+    name: "CaterpillarEngine1v2",
     email: "ebuka&sons@gmail.com",
+    TransactionValue: 123,
     sale: 67,
     vale: "₦ 700,000,00",
+    category: "Axles",
     // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
+    date: "30 Aug 2022",
+    time: "04:00PM",
+  },
+
+  {
+    avatar: image1,
+    name: "CaterpillarEngine1v2",
+    email: "ebuka&sons@gmail.com",
+    TransactionValue: 123,
+    sale: 67,
+    vale: "₦ 700,000,00",
+    category: "Bumper",
     date: "30 Aug 2022",
     time: "04:00PM",
   },
 ];
+
 const VendorInventoryTable = () => {
+  const [open, setOpen] = React.useState<boolean>(false);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const openOption = Boolean(anchorEl);
+  const router = useRouter();
+
+  const handleOptionClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  // const handleMenuItemClick = (title: string, id: number) => {
+  //   if (title === "View Details") {
+  //     router.push(`/vendoradmin/${id}`);
+  //   }
+  //   handleOptionClose();
+  // };
+
+  const [routInventory, setRoutInventory] = useState(false);
+  const handleRoutInventory = (id: number) => {
+    if (id === 1) {
+      setRoutInventory(!routInventory);
+    }
+    handleOptionClose();
+  };
+
   return (
     <div id="tableContainer">
       <div
@@ -143,8 +218,8 @@ const VendorInventoryTable = () => {
         <table id="adminTable" className={`w-full`}>
           <thead>
             <tr className="truncate">
-              <th id="companyNameHeader">Product name</th>
-              <th id="dateTimeJoinedHeader">Vendors</th>
+              <th id="companyNameHeader">Item name</th>
+              <th id="transactionValueHeader">Transaction Value</th>
               <th id="totalItemsSoldHeader">Quantity sold</th>
               <th id="transactionValueHeader" style={{ paddingLeft: "2rem" }}>
                 Transaction value
@@ -167,6 +242,7 @@ const VendorInventoryTable = () => {
                       className="object-contain"
                       alt="Avatar"
                       id={`avatar_${index}`}
+                      onClick={handleOpen}
                     />
                     <div className="mt-2" id={`companyDetails_${index}`}>
                       <div>{d.name}</div>
@@ -176,19 +252,16 @@ const VendorInventoryTable = () => {
 
                 <td id={`companyData_${index}`}>
                   <div
-                    className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
+                    className={`flex gap-3 text-[0.88rem] py-[1rem] px-[3.25rem]`}
                   >
-                    <Image
+                    {/* <Image
                       src={d.avatar}
                       className="object-contain"
                       alt="Avatar"
                       id={`avatar_${index}`}
-                    />
+                    /> */}
                     <div id={`companyDetails_${index}`}>
-                      <div>{d.name}</div>
-                      <div className={`text-[#4B5565]`} id={`email_${index}`}>
-                        {d.email}
-                      </div>
+                      <div>{d.TransactionValue}</div>
                     </div>
                   </div>
                 </td>
@@ -200,16 +273,69 @@ const VendorInventoryTable = () => {
                   {d.sale}
                 </td>
                 <td
-                  className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
+                  className={`text-[0.88rem] py-[1rem] px-[2rem] `}
                   id={`transactionValue_${index}`}
                 >
-                  {d.vale}
+                  <span className="c pl-2 pr-2 border border-solid border-gray-400 rounded-xl pt-1 pb-1">
+                    {d.category}
+                  </span>
+                </td>
+                <td
+                  className={`text-[0.88rem] py-[1rem] px-[3rem] flex relative`}
+                  id={`transactionValue_${index}`}
+                >
+                  <div>
+                    {d.date}
+                    <br />
+                    {d.time}
+                  </div>
+
+                  <div className="absolute right-0 ">
+                    <IconButton onClick={handleClick}>
+                      <MdMoreVert />
+                    </IconButton>
+                  </div>
+                  <Menu
+                    id="menu"
+                    MenuListProps={{ "aria-labelledby": "long-button" }}
+                    anchorEl={anchorEl}
+                    open={openOption}
+                    onClose={handleOptionClose}
+                    PaperProps={{
+                      style: {
+                        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                        borderRadius: "15px",
+                        backgroundColor: "#FFFFFF",
+                      },
+                    }}
+                  >
+                    {option.map((opt) => (
+                      <MenuItem
+                        key={opt.title}
+                        selected={opt.id === 1}
+                        onClick={() => handleRoutInventory(opt.id)}
+                      >
+                        {opt.icon}{" "}
+                        <span className=" ml-3 text-gray-500 text-sm">
+                          {opt.title}
+                        </span>
+                      </MenuItem>
+                    ))}
+                  </Menu>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
+      {routInventory && (
+        <div className="z-50">
+          <div className="absolute   top-0 bg-white lg:w-[85%] w-[100%] h-[100vh] z-50 sm:left-0 lg:left-auto">
+            <ViewItemDetails />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
