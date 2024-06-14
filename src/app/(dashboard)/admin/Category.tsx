@@ -20,6 +20,7 @@ import {
 import Link from "next/link";
 import { TextField } from "@mui/material";
 import { useAddCategoryMutation } from "../../../redux/features/dashboard/mecaAdminQuery";
+import { ColorRing } from "react-loader-spinner";
 
 const style = {
   position: "absolute" as "absolute",
@@ -42,7 +43,7 @@ function Category() {
 
   const [formImage, setFormImage] = useState<string>("");
   const [categoryName, setCategoryName] = useState<string>("");
-  const [categoryData, { isError, isLoading }] = useAddCategoryMutation();
+  const [categoryData, { isLoading }] = useAddCategoryMutation();
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -171,11 +172,23 @@ function Category() {
                   className={`bg-[#095AD3] mt-8 w-[21rem] text-white rounded-full py-[0.38rem] px-[1.5rem] 
         `}
                 >
-                  <div
-                    className={`flex text-white items-center justify-center`}
-                  >
-                    Create category
-                  </div>
+                  {isLoading ? (
+                    <ColorRing
+                      visible={true}
+                      height="40"
+                      width="40"
+                      ariaLabel="color-ring-loading"
+                      wrapperStyle={{}}
+                      wrapperClass="color-ring-wrapper"
+                      colors={["#ffff", "#ffff", "#ffff", "#ffff", "#ffff"]}
+                    />
+                  ) : (
+                    <div
+                      className={`flex text-white items-center justify-center`}
+                    >
+                      Create category
+                    </div>
+                  )}
                 </button>
               </div>
             </div>
