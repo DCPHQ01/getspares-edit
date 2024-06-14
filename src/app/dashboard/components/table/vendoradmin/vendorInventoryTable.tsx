@@ -176,7 +176,7 @@ const VendorInventoryTable = () => {
   //   if (title === "View Details") {
   //     router.push(`/vendoradmin/${id}`);
   //   }
-  //   handleOptionClose();
+  
   // };
 
 
