@@ -7,7 +7,6 @@ import TextField from "@mui/material/TextField";
 import { MdPhotoLibrary } from "react-icons/md";
 
 import {
-  TextareaAutosize as BaseTextareaAutosize,
   TextareaAutosize,
 } from "@mui/base/TextareaAutosize";
 import formLogo from "../../../assets/images/formLogo.jpg";
@@ -75,6 +74,7 @@ function Label({
 const CalledPagesPageOnePages = () => {
   const [website, setWebsite] = useState("");
   const [fullName, setFullName] = useState("");
+  const [cacNumber, setCacNumber] = useState("");
   const [message, setMessage] = useState("");
   const [date, setDate] = useState("");
   const [image, setImage] = useState<File | null>(null);
@@ -102,6 +102,18 @@ const CalledPagesPageOnePages = () => {
       setErrors((prevErrors) => ({ ...prevErrors, fullName: "" }));
     }
   };
+
+  function validateCac() {
+    if (!cacNumber.trim()) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        cac: "CAC number is required",
+      }));
+    } else {
+      setErrors((prevErrors) => ({ ...prevErrors, cac: "" }));
+    }
+  }
+
 
   const validateMessage = () => {
     if (!message.trim()) {
@@ -283,6 +295,30 @@ const CalledPagesPageOnePages = () => {
                       )
                     }
                     onBlur={validateFullName}
+                  />
+                </Box>
+                <Box>
+                  <TextField
+                    required={true}
+                    id="filledbasic"
+                    label="C.A.C number or Business registration number"
+                    variant="filled"
+                    type="text"
+                    name="cacNumber"
+                    placeholder="Enter number"
+                    InputProps={{ disableUnderline: true }}
+                    className="lg:w-[364px] w-[100%] mb-10 2xl:w-[35rem]"
+                    sx={{ backgroundColor: "porcelain" }}
+                    value={company.companyForm.cac}
+                    onChange={(e) =>
+                      dispatch(
+                        setCompanyForm({
+                          ...company.companyForm,
+                          cac: e.target.value.toUpperCase(),
+                        })
+                      )
+                    }
+                    onBlur={validateCac}
                   />
                 </Box>
                 <Box>
