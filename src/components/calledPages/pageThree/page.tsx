@@ -20,7 +20,7 @@ interface CalledPagesPageThreePagesProps {
 
 const CalledPagesPageThreePages = () => {
   const dispatch = useAppDispatch();
-  const [updateCompanyDetails, {  isError }] = useUpdateCompanyMutation();
+  const [updateCompanyDetails] = useUpdateCompanyMutation();
   const router = useRouter()
 
   const company = useAppSelector((state: RootState) => state.company);
@@ -40,13 +40,15 @@ const CalledPagesPageThreePages = () => {
         cac: company.companyForm.cac,
         email: company.companyForm.email,
         phoneNumber: company.companyForm.phoneNumber,
-        location: company.companyForm.address,
+        location: company.companyForm.address.join(', '),
         imageUrl: companyImage,
       });
-      console.log(data, "data");
-      // if (data?.error?.status === 200) router.push(paths.dashboard());
-
+      if (data?.error) {
+        return
+      }
+      router.push(paths.toDashboard());
     } catch (error) {
+      //todo: handle error in a better way
       console.log(error, "error");
     }
   }
@@ -137,22 +139,22 @@ const CalledPagesPageThreePages = () => {
                   sx={{ backgroundColor: "porcelain" }}
                 />
               </Box>
-              <Box>
-                <TextField
-                  inputProps={{ readOnly: true }}
-                  required={true}
-                  id="filledbasic8"
-                  label=""
-                  variant="filled"
-                  type="date"
-                  // value={company.companyForm.date_founded}
-                  name="date"
-                  placeholder=""
-                  InputProps={{ disableUnderline: true }}
-                  className="lg:w-[364px] w-[100%] 2xl:w-[35rem] mb-10"
-                  sx={{ backgroundColor: "porcelain" }}
-                />
-              </Box>
+              {/*<Box>*/}
+              {/*  <TextField*/}
+              {/*    inputProps={{ readOnly: true }}*/}
+              {/*    required={true}*/}
+              {/*    id="filledbasic8"*/}
+              {/*    label=""*/}
+              {/*    variant="filled"*/}
+              {/*    type="date"*/}
+              {/*    // value={company.companyForm.date_founded}*/}
+              {/*    name="date"*/}
+              {/*    placeholder=""*/}
+              {/*    InputProps={{ disableUnderline: true }}*/}
+              {/*    className="lg:w-[364px] w-[100%] 2xl:w-[35rem] mb-10"*/}
+              {/*    sx={{ backgroundColor: "porcelain" }}*/}
+              {/*  />*/}
+              {/*</Box>*/}
 
               <Box>
                 <TextField

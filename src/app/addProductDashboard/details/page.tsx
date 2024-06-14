@@ -90,8 +90,6 @@ const CalledPagesPageFivePages = () => {
                   <hr className="w-[80%]"></hr>
                 </div>
 
-                {/* here */}
-
                 <Box
                   component="form"
                   id="pageone8"
@@ -216,16 +214,19 @@ const CalledPagesPageFivePages = () => {
                 </Box>
                 <div className="flex w-full justify-center mt-32">
                   <div id="firstPreviousbtn9 flex justify-center">
-                    <button
-                      type="submit"
-                      onClick={handlePreviousPage}
-                      className="w-[116px] flex justify-center gap-x-3 pt-2 h-10 font-semibold border rounded-full text-mecaBluePrimaryColor border-mecaBluePrimaryColor mt-6 mb-6 "
-                    >
-                      <span>
-                        <MdChevronLeft className="mt-1 " />
-                      </span>
-                      <p> Back</p>
-                    </button>
+                    <div className="w-[100%] m-auto">
+                      <button
+                        onClick={handlePreviousPage}
+                        type="submit"
+                        id="thirdFormSubmit"
+                        className="w-[116px] flex justify-center gap-x-3 pt-2 h-10 font-semibold border rounded-full text-mecaBluePrimaryColor border-mecaBluePrimaryColor mt-5 mb-6 "
+                      >
+                        <p> Back</p>
+                        <span>
+                          <MdChevronLeft className="mt-1 " />
+                        </span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

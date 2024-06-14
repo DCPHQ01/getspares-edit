@@ -32,7 +32,10 @@ function Inventory() {
             <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
           </button> */}
           <button className="flex gap-x-2">
-            <MdChevronRight className="mt-1 text-2xl" /> <span>Next</span>
+            Next
+            <span>
+              <MdChevronRight className="mt-[2px] text-2xl" />{" "}
+            </span>
           </button>
         </div>
       </>
