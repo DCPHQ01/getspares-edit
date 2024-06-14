@@ -90,8 +90,6 @@ const CalledPagesPageFivePages = () => {
                   <hr className="w-[80%]"></hr>
                 </div>
 
-                {/* here */}
-
                 <Box
                   component="form"
                   id="pageone8"
