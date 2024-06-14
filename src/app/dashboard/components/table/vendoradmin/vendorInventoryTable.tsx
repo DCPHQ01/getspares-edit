@@ -33,11 +33,6 @@ const data = [
     sale: 12,
     vale: "₦ 200,000.00",
     category: "Bumper",
-    rating: (
-      <Stack spacing={1}>
-        {/* <Rating name="half-rating" defaultValue={2.5} precision={0.5} /> */}
-      </Stack>
-    ),
     date: "24 June 2022",
     time: "12:00PM",
   },
@@ -49,11 +44,6 @@ const data = [
     sale: 83,
     vale: "₦ 1,000,000.00",
     category: "Air filters",
-    rating: (
-      <Stack spacing={1}>
-        {/* <Rating name="half-rating" defaultValue={2.5} precision={0.5} /> */}
-      </Stack>
-    ),
     date: "30 June 2023",
     time: "06:00PM",
   },
@@ -65,7 +55,6 @@ const data = [
     sale: 45,
     vale: "₦ 600,000.00",
     category: "Bonnets",
-    // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
     date: "12 May 2024",
     time: "08:45PM",
   },
@@ -77,8 +66,6 @@ const data = [
     sale: 10,
     vale: "₦ 120,000.00",
     category: "Tractor parts",
-    // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
-
     date: "02 Sep 2022",
     time: "11:15AM",
   },
@@ -90,7 +77,6 @@ const data = [
     sale: 67,
     vale: "₦ 700,000,00",
     category: "Brakes",
-    // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
     date: "30 Aug 2022",
     time: "04:00PM",
   },
@@ -102,7 +88,6 @@ const data = [
     sale: 67,
     vale: "₦ 700,000,00",
     category: "Axles",
-    // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
     date: "30 Aug 2022",
     time: "04:00PM",
   },
@@ -115,7 +100,6 @@ const data = [
     sale: 67,
     vale: "₦ 700,000,00",
     category: "Tractor parts",
-    // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
     date: "30 Aug 2022",
     time: "04:00PM",
   },
@@ -128,7 +112,6 @@ const data = [
     sale: 67,
     vale: "₦ 700,000,00",
     category: "Bumper",
-    // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
     date: "30 Aug 2022",
     time: "04:00PM",
   },
@@ -141,7 +124,6 @@ const data = [
     sale: 67,
     vale: "₦ 700,000,00",
     category: "Bonnets",
-    // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
     date: "30 Aug 2022",
     time: "04:00PM",
   },
@@ -154,7 +136,6 @@ const data = [
     sale: 67,
     vale: "₦ 700,000,00",
     category: "Axles",
-    // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
     date: "30 Aug 2022",
     time: "04:00PM",
   },
@@ -207,6 +188,10 @@ const VendorInventoryTable = () => {
     handleOptionClose();
   }
 
+  const navigateTo = ()=>{
+    setRoutInventory(!routInventory)
+  }
+
 
   return (
     <div id="tableContainer">
@@ -226,9 +211,12 @@ const VendorInventoryTable = () => {
           </thead>
           <tbody>
             {data.map((d, index) => (
-              <tr key={index} id={`row_${index}`} className="cursor-pointer truncate">
+              <tr key={index} id={`row_${index}`} className="cursor-pointer truncate hover:bg-gray-50"
+              >
+               {/* <tr> */}
                 <td id={`companyData_${index}`}>
                   <div
+                   onClick={navigateTo}
                     className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
                   >
                     <Image
@@ -236,7 +224,7 @@ const VendorInventoryTable = () => {
                       className="object-contain"
                       alt="Avatar"
                       id={`avatar_${index}`}
-                      onClick={handleOpen}
+                     
                     />
                     <div id={`companyDetails_${index}`}>
                       <div>{d.name}</div>
@@ -244,8 +232,11 @@ const VendorInventoryTable = () => {
                   </div>
                 </td>
 
-                <td id={`companyData_${index}`}>
+                <td
+                onClick={navigateTo}
+                 id={`companyData_${index}`}>
                   <div
+                    
                     className={`flex gap-3 text-[0.88rem] py-[1rem] px-[3.25rem]`}
                   >
                     {/* <Image
@@ -262,12 +253,14 @@ const VendorInventoryTable = () => {
                 </td>
 
                 <td
+                 onClick={navigateTo}
                   className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
                   id={`itemsSold_${index}`}
                 >
                   {d.sale}
                 </td>
                 <td
+                onClick={navigateTo}
                   className={`text-[0.88rem] py-[1rem] px-[2rem] `}
                   id={`transactionValue_${index}`}
                 > 
@@ -278,10 +271,14 @@ const VendorInventoryTable = () => {
                   className={`text-[0.88rem] py-[1rem] px-[3rem] flex relative`}
                   id={`transactionValue_${index}`}
                 > 
-                  <div>{d.date}<br/>
+                  <div 
+                  onClick={navigateTo}
+                  >
+                    {d.date}<br/>
                   {d.time}
                   </div>
                   
+                 
                   <div className="absolute right-0 ">
                    <IconButton onClick={handleClick}>
                     <MoreVertIcon/>
@@ -318,8 +315,8 @@ const VendorInventoryTable = () => {
                       )) 
                     }
                   </Menu>
-                
-                </td>
+                  </td>
+               
               </tr>
             ))}
           </tbody>
