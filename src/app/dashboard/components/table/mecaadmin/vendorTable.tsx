@@ -148,8 +148,12 @@ const VendorTable = () => {
             <tr className="truncate">
               <th id="companyNameHeader">Company name</th>
               <th id="totalItemsSoldHeader">Total items sold</th>
-              <th id="transactionValueHeader">Transaction value</th>
-              <th id="transactionRatings">Ratings</th>
+              <th id="transactionValueHeader" style={{ paddingLeft: "2.3rem" }}>
+                Transaction value
+              </th>
+              <th id="transactionRatings" style={{ paddingLeft: "5.5rem" }}>
+                Ratings
+              </th>
               <th id="dateTimeJoinedHeader">Date & time joined</th>
             </tr>
           </thead>
@@ -193,7 +197,7 @@ const VendorTable = () => {
                   className={`text-[0.88rem] py-[1rem] px-[3.13rem] truncate`}
                   id={`transactionRatings_${index}`}
                 >
-                  <div>
+                  <div  className="flex gap-1">
                     <Stack spacing={1}>
                       <Rating
                         name="half-rating"
@@ -201,7 +205,7 @@ const VendorTable = () => {
                         precision={0.5}
                       />
                     </Stack>
-                    <p>2k</p>
+                    <p className="mt-[2px]">2k</p>
                   </div>
                 </td>
 

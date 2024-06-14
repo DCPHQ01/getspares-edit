@@ -149,7 +149,12 @@ const AgentTable = () => {
               <tr className="truncate">
                 <th id="companyNameHeader">Full name</th>
                 <th id="totalItemsSoldHeader">Quantity sold</th>
-                <th id="transactionValueHeader">Transaction value</th>
+                <th
+                  id="transactionValueHeader"
+                  style={{ paddingLeft: "2.3rem" }}
+                >
+                  Transaction value
+                </th>
                 <th id="dateTimeJoinedHeader">Date & time added</th>
               </tr>
             </thead>
