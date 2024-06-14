@@ -43,18 +43,18 @@ export default function Details() {
   const id = segments[4];
   const router = useRouter();
 
-  const handleClick = () => {
-    dispatch(
-      addToCart({
-        id,
-      })
-    );
-    setState({ ...state, open: true });
+  // const handleClick = () => {
+  //   dispatch(
+  //     addToCart({
+  //       id,
+  //     })
+  //   );
+  //   setState({ ...state, open: true });
 
-    setTimeout(() => {
-      setState({ ...state, open: false });
-    }, 3000);
-  };
+  //   setTimeout(() => {
+  //     setState({ ...state, open: false });
+  //   }, 3000);
+  // };
 
   const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
   const handleImageClick = (index: number) => {
@@ -71,49 +71,25 @@ export default function Details() {
 
   return (
     <div className="relative pt-12">
-      <div id="mainContainer" className="container px-2">
-        <div
-          className="flex flex-col space-y-8 w-full"
-          id="productDescriptionContentContainer"
-        >
-          <div
-            id="productDescriptionBreadcrumbs"
-            className="flex items-center gap-x-2"
-          >
+      <div id="mainContainer" className="container px-4 md:px-8 lg:px-16">
+        <div className="flex flex-col space-y-8 w-full" id="productDescriptionContentContainer">
+          <div id="productDescriptionBreadcrumbs" className="flex items-center gap-x-2">
             <Link href="/dashboard">
               <button className="text-lg cursor-pointer font-nunito font-normal text-mecaDarkBlueBackgroundOverlay">
                 Caterpillar engine v1
               </button>
             </Link>
             <MdChevronRight size={20} />
-            <p className="text-lg font-nunito font-normal text-mecaGoBackArrow">
-              View details
-            </p>
+            <p className="text-lg font-nunito font-normal text-mecaGoBackArrow">View details</p>
           </div>
 
           <div className="flex flex-col">
-            <div
-              id="productDescriptionDetails"
-              className="w-full lg:flex justify-between"
-            >
-              <div
-                id="productImage"
-                className="lg:w-[56%] w-full h-auto flex flex-col gap-y-4"
-              >
-                <div
-                  id="imageDiv"
-                  className="w-full h-auto bg-mecaSearchColor flex justify-center items-center"
-                >
-                  <Image
-                    src={images[selectedImageIndex].src}
-                    alt={images[selectedImageIndex].alt}
-                    className="max-w-full max-h-full"
-                  />
+            <div id="productDescriptionDetails" className="w-full lg:flex gap-16 justify-between">
+              <div id="productImage" className="lg:w-1/2 w-full flex flex-col gap-y-4">
+                <div id="imageDiv" className="w-full bg-mecaSearchColor flex justify-start items-center">
+                  <Image src={images[selectedImageIndex].src} alt={images[selectedImageIndex].alt} className="max-w-full max-h-full" />
                 </div>
-                <div
-                  id="otherImagesDiv"
-                  className="w-full flex flex-wrap gap-2 justify-center lg:justify-start"
-                >
+                <div id="otherImagesDiv" className="w-full flex flex-wrap gap-5 justify-center lg:justify-start">
                   {(showAllImages ? images : firstImages).map((image, i) => (
                     <div
                       className={`w-1/6 h-24 cursor-pointer rounded-lg flex justify-center items-center bg-mecaSearchColor relative ${
@@ -122,70 +98,41 @@ export default function Details() {
                       key={i}
                       onClick={() => handleImageClick(i)}
                     >
-                      <Image
-                        src={image.src}
-                        alt={image.alt}
-                        className="h-full w-full object-cover"
-                      />
+                      <Image src={image.src} alt={image.alt} className="h-full w-full object-cover" />
                       {!showAllImages && i === firstImages.length - 1 && remainingImages.length > 0 && (
                         <div
                           id="moreImages"
                           className="absolute rounded-lg inset-0 flex justify-center items-center bg-mecaDarkBlueBackgroundOverlay bg-opacity-50"
                           onClick={() => setShowAllImages(true)}
                         >
-                          <p className="text-white text-3xl font-nunito font-semibold">
-                            +{remainingImages.length}
-                          </p>
+                          <p className="text-white text-3xl font-nunito font-semibold">+{remainingImages.length}</p>
                         </div>
                       )}
                     </div>
                   ))}
                 </div>
               </div>
-              <div
-                id="productDetails"
-                className="lg:w-[42%] w-full flex flex-col h-auto mt-8 lg:mt-0"
-              >
-                <div
-                  id="titleCompanyDiv"
-                  className="w-full flex flex-col gap-y-4"
-                >
-                  <h2 className="text-2xl text-mecaDarkBlueBackgroundOverlay font-normal font-nunito">
-                    E46 Engine 1996 Model
-                  </h2>
+              <div id="productDetails" className="lg:w-1/2 w-full flex flex-col h-auto mt-8 lg:mt-0">
+                <div id="titleCompanyDiv" className="w-full flex flex-col gap-y-4">
+                  <h2 className="text-2xl text-mecaDarkBlueBackgroundOverlay font-normal font-nunito">Catapillar engine V</h2>
                   <div id="aboutProduct" className="w-full mt-3">
-                    <p className="text-lg font-nunito font-normal text-mecaGrayBodyText">
-                      For a 1996 BMW model, you would be looking at engines from
-                      the E36 generation. These engines varied depending on the
-                      specific model and trim level but generally included
-                      inline-four, inline-six, and V8 options. They are known
-                      for their performance, reliability, and smooth operation
-                      typical of BMW engines.
+                    <p className="text-sm font-nunito font-normal text-mecaGrayBodyText">
+                      For a 1996 BMW model, you would be looking at engines from the E36 generation. These engines varied depending on the specific model and trim level but generally included inline-four, inline-six, and V8 options. They are known for their performance, reliability, and smooth operation typical of BMW engines.
                     </p>
                   </div>
                   <div id="priceButtonDiv" className="flex flex-col mt-6">
                     <div id="priceDiv" className="flex gap-x-6 items-center">
-                      <p className="text-mecaDarkBlueBackgroundOverlay text-3xl font-extrabold">
-                        ₦97,500.00
-                      </p>
-                      <div
-                        id="inStockBtn"
-                        className="w-[68px] h-[22px] bg-mecaSuccess rounded-full flex justify-center items-center"
-                      >
-                        <p className="text-mecaIconSuccessColor text-sm font-normal">
-                          In stock
-                        </p>
+                      <p className="text-mecaDarkBlueBackgroundOverlay text-3xl font-extrabold">₦97,500.00</p>
+                      <div id="inStockBtn" className="w-[68px] h-[22px] bg-mecaSuccess rounded-full flex justify-center items-center">
+                        <p className="text-mecaIconSuccessColor text-sm font-normal">In stock</p>
                       </div>
                     </div>
-                    <div
-                      id="buttonDiv"
-                      className="w-full h-full mt-4 flex flex-col gap-y-4"
-                    ></div>
+                    <div id="buttonDiv" className="w-full h-full mt-4 flex flex-col gap-y-4">
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-
             <BasicTabs />
           </div>
         </div>
