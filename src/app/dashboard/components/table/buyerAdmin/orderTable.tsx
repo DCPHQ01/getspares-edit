@@ -7,6 +7,8 @@ import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
 import { useRouter } from 'next/navigation'
 import Details from "../../../../category/products/viewDetails/[details]/page";
+import BasicTabs from "./FeedBackTab";
+
 
 const data = [
   {
@@ -92,6 +94,8 @@ const data = [
     time: "04:00PM",
   },
 ];
+
+
 
 const OrderTable = () => {
  
