@@ -1,4 +1,3 @@
-import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import { createApi } from "@reduxjs/toolkit/query/react";
 import customFetchBase from "../../customFetchBaseQuery";
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
@@ -13,10 +12,11 @@ export const companyQuery = createApi({
         description: string;
         website: string;
         cac: string;
-        date_founded: string;
+        // date_founded: string;
         email: string;
         phoneNumber: string;
-        address: [];
+        location: string[];
+        imageUrl: string;
       }) => ({
         url: "/company",
         method: "PATCH",
