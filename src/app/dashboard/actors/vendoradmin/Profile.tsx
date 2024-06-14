@@ -75,14 +75,22 @@ const Profile = () => {
           />
         </div>
         <div onClick={handleViewAdminProfile} className="">
-          <Addbutton title={`View Admin`} />
+          <button
+            id="addButton"
+            className={`bg-[#095AD3] lg:w-[250px] w-[100%] text-white rounded-full py-[0.58rem] px-[1.5rem] 
+        `}
+          >
+            <div className={`flex text-white items-center justify-center`}>
+              <span className="ml-5">View Admin</span>
+            </div>
+          </button>
         </div>
         <Modal
-          className="bg-gray-600"
+          className=""
           open={viewAdminProfile}
           onClick={handleClose}
-          aria-labelledby="child-modal-title"
-          aria-describedby="child-modal-description"
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
         >
           <Box
             sx={{ ...style }}

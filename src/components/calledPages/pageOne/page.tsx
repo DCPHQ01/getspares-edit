@@ -7,7 +7,6 @@ import TextField from "@mui/material/TextField";
 import { MdPhotoLibrary } from "react-icons/md";
 
 import {
-  TextareaAutosize as BaseTextareaAutosize,
   TextareaAutosize,
 } from "@mui/base/TextareaAutosize";
 import formLogo from "../../../assets/images/formLogo.jpg";
@@ -75,6 +74,7 @@ function Label({
 const CalledPagesPageOnePages = () => {
   const [website, setWebsite] = useState("");
   const [fullName, setFullName] = useState("");
+  const [cacNumber, setCacNumber] = useState("");
   const [message, setMessage] = useState("");
   const [date, setDate] = useState("");
   const [image, setImage] = useState<File | null>(null);
@@ -102,6 +102,18 @@ const CalledPagesPageOnePages = () => {
       setErrors((prevErrors) => ({ ...prevErrors, fullName: "" }));
     }
   };
+
+  function validateCac() {
+    if (!cacNumber.trim()) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        cac: "CAC number is required",
+      }));
+    } else {
+      setErrors((prevErrors) => ({ ...prevErrors, cac: "" }));
+    }
+  }
+
 
   const validateMessage = () => {
     if (!message.trim()) {
@@ -226,6 +238,7 @@ const CalledPagesPageOnePages = () => {
   return (
     <>
       <div className="" style={{ width: "85%", margin: "auto" }} id="pageone1">
+        {/* desktop */}
         <div className="pageWrapper" id="pageone2">
           <div className="hidden md:flex flex-col mt-8" id="pageone3">
             <div className="mb-16 pageHeader w-94" id="pageone4">
@@ -237,7 +250,7 @@ const CalledPagesPageOnePages = () => {
                   Provide details
                 </sub>
 
-                <form method="dialog" id="pageone7">
+                {/* <form method="dialog" id="pageone7">
                   <button
                     className="text-sm font-semibold skip cursor-pointer"
                     id="skip1"
@@ -245,7 +258,7 @@ const CalledPagesPageOnePages = () => {
                   >
                     Skip
                   </button>
-                </form>
+                </form> */}
               </div>
             </div>
 
@@ -282,6 +295,30 @@ const CalledPagesPageOnePages = () => {
                       )
                     }
                     onBlur={validateFullName}
+                  />
+                </Box>
+                <Box>
+                  <TextField
+                    required={true}
+                    id="filledbasic"
+                    label="C.A.C number or Business registration number"
+                    variant="filled"
+                    type="text"
+                    name="cacNumber"
+                    placeholder="Enter number"
+                    InputProps={{ disableUnderline: true }}
+                    className="lg:w-[364px] w-[100%] mb-10 2xl:w-[35rem]"
+                    sx={{ backgroundColor: "porcelain" }}
+                    value={company.companyForm.cac}
+                    onChange={(e) =>
+                      dispatch(
+                        setCompanyForm({
+                          ...company.companyForm,
+                          cac: e.target.value.toUpperCase(),
+                        })
+                      )
+                    }
+                    onBlur={validateCac}
                   />
                 </Box>
                 <Box>
@@ -341,7 +378,7 @@ const CalledPagesPageOnePages = () => {
                     <p className="error-color -mt-8">{errors.website}</p>
                   )}
                 </Box>
-                <Box>
+                {/* <Box>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DemoContainer components={["DatePicker"]}>
                       <DemoItem
@@ -372,7 +409,7 @@ const CalledPagesPageOnePages = () => {
                       </DemoItem>
                     </DemoContainer>
                   </LocalizationProvider>
-                </Box>
+                </Box> */}
               </Box>
               <Box>
                 <div className="inputImage imagetext h-[283px] w-[316px] pt-6">
@@ -388,9 +425,6 @@ const CalledPagesPageOnePages = () => {
                     />
                   </div>
 
-                  {/* {formImage && (
-                  
-                  )} */}
                   {formImage ? (
                     <div className="">
                       <form
@@ -450,6 +484,8 @@ const CalledPagesPageOnePages = () => {
             </div>
           </div>
         </div>
+
+        {/* mobile */}
 
         <div className="absolute  w-11/12" id="pageone9">
           <div className="md:hidden m-auto" id="pageone10">

@@ -96,7 +96,7 @@ const AddProductImage = () => {
 
       <div className="bg-white h-">
         <div className="pt-[3rem]  mb-3 w-[80%] m-auto flex justify-between">
-          <h1 className="text-xl font-semibold">Add new Product</h1>
+          <h1 className="text-xl font-semibold">Add new product</h1>
 
           <button
             onClick={handleAddProduct}

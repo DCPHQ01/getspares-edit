@@ -154,7 +154,9 @@ export default function Login() {
   }, []);
 
   return (
-    <div className={nunito.className}>
+    <div 
+    className={nunito.className}
+    >
       <div className="absolute top-16  lg:left-16 left-8" id="eMecaLogin">
         <span
           className="font-bold lg:text-3xl text-2xl text-mecaActiveIconsNavColor"
@@ -243,10 +245,10 @@ export default function Login() {
           </FormControl>
           <Button
             id="loginBtn"
-            className="bg-mecaBluePrimaryColor normal-case text-[white] text-lg font-semibold rounded-[36px] disabled:bg-mecaBgDisableColor disabled:text-[white] h-12 hover:bg-mecaBluePrimaryColor"
+            className="bg-mecaBluePrimaryColor normal-case text-[white] text-lg font-semibold rounded-[36px]   h-12 hover:bg-mecaBluePrimaryColor"
             variant="contained"
             endIcon={!isLoading ? <MdChevronRight /> : ""}
-            disabled={!isFormValid}
+            // disabled={!isFormValid}
             disableElevation
             onClick={handleSubmit}
           >

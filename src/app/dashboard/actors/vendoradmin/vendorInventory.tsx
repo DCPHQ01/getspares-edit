@@ -9,7 +9,7 @@ import Link from "next/link";
 function VendorInventory() {
   return (
     <>
-      <div className={`flex justify-between items-center`}>
+    <div className={`flex justify-between items-center`}>
         <Header
           subtitle={`Keep track of how each item is performing.`}
           title={`Inventory`}
@@ -27,10 +27,10 @@ function VendorInventory() {
       <div className="">
         <VendorInventoryTable />
 
-        <div className="flex justify-between mt-10 text-mecaBluePrimaryColor font-bold text-lg">
-          <button className="flex gap-x-2">
+        <div className="flex justify-end mt-10 text-mecaBluePrimaryColor font-bold text-lg">
+          {/* <button className="flex gap-x-2">
             <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
-          </button>
+          </button> */}
           <button className="flex gap-x-2">
             <MdChevronRight className="mt-1 text-2xl" /> <span>Next</span>
           </button>

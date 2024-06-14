@@ -95,6 +95,9 @@ export default function ProductDescription() {
   };
 
   const searchParams = usePathname()!;
+  // console.log('====================================');
+  // console.log(searchParams);
+  // console.log('====================================');
   const search = searchParams;
   const segments = searchParams.split("/");
   // console.log(segments, " segments");
@@ -139,7 +142,7 @@ export default function ProductDescription() {
             </p>
             <MdChevronRight size={20} />
             <p className="text-[12px] font-nunito font-normal text-mecaGoBackArrow">
-              E46 Engine 1996 Model
+            {/* View details */}
             </p>
           </div>
           <div
@@ -162,7 +165,7 @@ export default function ProductDescription() {
               >
                 {firstImages.map((image, i) => (
                   <div
-                    className="w-[30%] h-[88px] cursor-pointer rounded-lg flex justify-center items-center bg-mecaSearchColor relative" // Add relative here
+                    className="w-[30%] h-[88px] cursor-pointer rounded-lg flex justify-center items-center bg-mecaSearchColor relative"
                     key={i}
                   >
                     <Image
@@ -170,12 +173,11 @@ export default function ProductDescription() {
                       alt="tractor parts"
                       className="h-full w-full"
                     />
-                    {/* Show the overlay on the last image */}
                     {i === firstImages.length - 1 &&
                       remainingImages.length > 0 && (
                         <div
                           id="moreImages"
-                          className="absolute rounded-lg inset-0 flex justify-center items-center bg-mecaDarkBlueBackgroundOverlay bg-opacity-50" // Add absolute here and adjust as needed
+                          className="absolute rounded-lg inset-0 flex justify-center items-center bg-mecaDarkBlueBackgroundOverlay bg-opacity-50"
                         >
                           <p className="text-white text-3xl font-nunito font-semibold">
                             +{remainingImages.length}

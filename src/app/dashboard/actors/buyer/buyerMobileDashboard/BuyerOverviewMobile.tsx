@@ -25,14 +25,14 @@ function BuyerOverviewMobile() {
 
       <OverviewTable />
 
-      <div className=" flex justify-between mt-10 mb-10 font-bold text-lg">
+      {/* <div className=" flex justify-between mt-10 mb-10 font-bold text-lg">
         <button className="flex gap-x-2 border border-[#EAECF0]  rounded-md h-[36px] w-[36px] pl-1">
           <MdChevronLeft className="mt-1 text-2xl" />
         </button>
         <button className="flex gap-x-2 border border-[#EAECF0] rounded-md h-[36px] w-[36px] pl-1">
           <MdChevronRight className="mt-1 text-2xl" />
         </button>
-      </div>
+      </div> */}
     </>
   );
 }
