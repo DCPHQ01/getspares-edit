@@ -15,7 +15,7 @@ import { useRouter } from "next/navigation";
 import BasicTabs from "../../../../dashboard/components/table/buyerAdmin/FeedBackTab";
 import ProductReview from "../../../../dashboard/components/table/buyerAdmin/ProductReview";
 import DetailsTable from "../../../../dashboard/components/table/buyerAdmin/tab";
-
+import BuyerModal from "../../../../dashboard/components/table/vendoradmin/vendorModal";
 interface State {
   open: boolean;
 }
@@ -32,9 +32,15 @@ const images = [
 ];
 
 export default function Details() {
+
+  const [opens, setOpens] = React.useState<boolean>(false);
   const [state, setState] = React.useState<State>({
     open: false,
   });
+
+  const handleOpen = () => setOpens(true);
+  const handleClose = () => setOpens(false);
+
   const [showAllImages, setShowAllImages] = useState(false);
   const tabs = [
     {
@@ -99,7 +105,7 @@ export default function Details() {
           <div className="flex flex-col">
             <div id="productDescriptionDetails" className="w-full lg:flex gap-16 justify-between">
               <div id="productImage" className="lg:w-1/2 w-full flex flex-col gap-y-4">
-                <div id="imageDiv" className="w-full bg-mecaSearchColor flex justify-start items-center">
+                <div id="imageDiv" className="w-full bg-mecaSearchColor flex justify-start items-center" onClick={handleOpen}>
                   <Image src={images[selectedImageIndex].src} alt={images[selectedImageIndex].alt} className="max-w-full max-h-full" />
                 </div>
                 <div id="otherImagesDiv" className="w-full flex flex-wrap gap-5 justify-center lg:justify-start">
@@ -149,6 +155,9 @@ export default function Details() {
             <BasicTabs tabs={tabs}/>
           </div>
         </div>
+      </div>
+      <div>
+        <BuyerModal open={opens} handleClose={handleClose} />
       </div>
     </div>
   );
