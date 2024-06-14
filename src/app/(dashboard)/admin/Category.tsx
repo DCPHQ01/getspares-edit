@@ -69,8 +69,7 @@ function Category() {
         <button
           id="addButton"
           onClick={handleOpen}
-          className={`bg-[#095AD3] lg:w-[15%] w-[100%] text-white rounded-full py-[0.38rem] px-[1.5rem] 
-        `}
+          className={`bg-[#095AD3] lg:w-[15%] w-[100%] text-white rounded-full py-[0.38rem] px-[1.5rem] `}
         >
           <div className={`flex text-white items-center justify-center`}>
             <MdAdd size={20} className="mr-1" />
