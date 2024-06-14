@@ -1,6 +1,7 @@
 import Image from "next/image";
 import addProduct from "../../assets/images/addProduct.svg";
-
+import { MdChevronLeft, MdChevronRight } from "react-icons/md";
+import Link from "next/link";
 const AddProductImage = () => {
   return (
     <div className=" z-50 fixed top-0  h-40 w-[100%]">
@@ -12,6 +13,12 @@ const AddProductImage = () => {
             id="add product"
             alt="mobile spear part image"
           />
+
+          <Link href="/dashboard">
+            <button className="absolute flex z-50 text-white text-normal cursor-pointer pl-5 pt-5 top-0">
+              <MdChevronLeft className="mt-1" /> <span>Back</span>
+            </button>
+          </Link>
         </div>
       </div>
 

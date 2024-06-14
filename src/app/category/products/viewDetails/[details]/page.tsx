@@ -9,9 +9,11 @@ import * as React from "react";
 import { usePathname } from "next/navigation";
 import { useAppDispatch } from "../../../../../redux/hooks";
 import { addToCart } from "../../../../../redux/features/product/productSlice";
-import BasicTabs from "../../../../dashboard/components/table/buyerAdmin/tab";
+// import BasicTabs from "../../../../dashboard/components/table/buyerAdmin/tab";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import BasicTabs from "../../../../dashboard/components/table/buyerAdmin/FeedBackTab";
+import ProductReview from "../../../../dashboard/components/table/buyerAdmin/ProductReview";
 
 interface State {
   open: boolean;
@@ -33,6 +35,16 @@ export default function Details() {
     open: false,
   });
   const [showAllImages, setShowAllImages] = useState(false);
+  const tabs = [
+    {
+      label: 'Details',
+      content: <div>Content for Item One</div>,
+    },
+    {
+      label: 'Reviews',
+      content: <ProductReview/>,
+    },
+  ];
 
   const { open } = state;
   const dispatch = useAppDispatch();
@@ -185,8 +197,7 @@ export default function Details() {
                 </div>
               </div>
             </div>
-
-            <BasicTabs />
+            <BasicTabs tabs={tabs}/>
           </div>
         </div>
       </div>

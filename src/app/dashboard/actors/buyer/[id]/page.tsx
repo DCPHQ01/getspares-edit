@@ -4,11 +4,24 @@ import HeaderPage from '../../../../reusables/Header/page';
 import Link from 'next/link';
 import {  MdChevronRight } from "react-icons/md";
 import { Nunito_Sans } from "next/font/google";
-import { Box, Button, Card, CardContent, Divider, FilledInput, FormControl, FormControlLabel, FormLabel, InputLabel, SnackbarOrigin } from '@mui/material';
+import { Box, Button, Card, CardContent, Divider, FilledInput, FormControl, FormControlLabel, FormLabel, InputLabel, Modal, SnackbarOrigin, Typography } from '@mui/material';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import Footer from '../../../../../components/footer/Footer';
 import NavBarWhileInsideApp from '../../../../reusables/TopBarWhileInside/NavBarWhileInsideApp/page';
+
+
+const style = {
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 const nunito = Nunito_Sans({
   subsets: ["latin"],
@@ -30,6 +43,9 @@ const itemSelected = [
 const Checkout = () => {
   const [deliveryMode, setDeliveryMode] = useState('delivery');
   const [showAddressSelection, setShowAddressSelection] = useState(false);
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const handleDeliveryModeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDeliveryMode(event.target.value);
   };
@@ -48,9 +64,13 @@ const Checkout = () => {
   return (
     // add screen
     <Box>
-      <HeaderPage/>
-      <NavBarWhileInsideApp/>
-      <div className="w-[85%]" style={{ margin: "0px auto" }}>
+      <div className='fixed top-0 left-0 right-0 z-10'>
+        <HeaderPage/>
+        <div className='px-2'>
+          <NavBarWhileInsideApp />
+        </div>
+      </div>
+      <div className="w-[95%] m-auto mt-[8%]">
         <div style={{ width: "100%" }} className={nunito.className}>
           <div
             className="flex mt-16 items-center gap-4"
@@ -77,7 +97,7 @@ const Checkout = () => {
             </h1>
           </div>
           <div className='flex flex-col lg:flex-row gap-x-6'>
-            <Card className='rounded-lg lg:w-[55%] mt-6' style={{ border: '2px solid #FFFFF', boxShadow: "0px 0px 0px 1px #12376914" }}>
+            <Card className='rounded-lg lg:w-[70%] mt-6' style={{ border: '2px solid #FFFFF', boxShadow: "0px 0px 0px 1px #12376914" }}>
               <CardContent>
                 <p className={`${nunito.className} text-lg font-semibold p-4`}>Basic Information</p>
                 <Divider />
@@ -201,7 +221,7 @@ const Checkout = () => {
                   </>
                 )}
                 </div>
-                <div className='flex justify-end px-4'>
+                {/* <div className='flex justify-end px-4'>
                   <Button
                     sx={{
                       padding: '10px 24px',
@@ -223,7 +243,7 @@ const Checkout = () => {
                   >
                     Save & Continue
                   </Button>
-                </div>
+                </div> */}
               </CardContent>
             </Card>
             <Card className="mt-6 lg:h-[64%] lg:w-[30%]">
@@ -257,6 +277,24 @@ const Checkout = () => {
                       Checkout
                     </button>
                   </div>
+                  {/* <div>
+                    <Button onClick={handleOpen}>Open modal</Button>
+                    <Modal
+                      open={open}
+                      onClose={handleClose}
+                      aria-labelledby="modal-modal-title"
+                      aria-describedby="modal-modal-description"
+                    >
+                      <Box sx={style}>
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                          Text in a modal
+                        </Typography>
+                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                          Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                        </Typography>
+                      </Box>
+                    </Modal>
+                  </div> */}
                 </div>
               </CardContent>
             </Card>

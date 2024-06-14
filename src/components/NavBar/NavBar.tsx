@@ -272,7 +272,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
 
               {toggleProfile && (
                 <div
-                  className="w-52 h-24 rounded-lg p-1 bg-white absolute top-2 right-6 "
+                  className="w-52 h-24 rounded-lg p-1 bg-white absolute top-12 right-24 "
                   style={{ boxShadow: "0px 2px 8px 0px #63636333" }}
                 >
                   <button
@@ -308,7 +308,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
             </div>
           </div>
         </div>
-        {toggleProfile && (
+        {/* {toggleProfile && (
           <div
             className="w-52 h-24 rounded-lg p-1 bg-white absolute right-40 top-16"
             style={{ boxShadow: "0px 2px 8px 0px #63636333" }}
@@ -341,7 +341,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
               </button>
             </div>
           </div>
-        )}
+        )} */}
       </div>
       <div
         className="hidden w-full h-20 lg:flex justify-center items-center"
@@ -387,25 +387,24 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                 </p>
               )}
             </div>
-
-            {/* {item.id === 2 && isCategoryOptionOpened && (
-              <div className="flex justify-center">
-                <div className="absolute top-56 z-50">
-                  <DropdownPage />
-                </div>
-              </div>
-            )} */}
           </div>
         ))}
+        {isCategoryOptionOpened && (
+          <div className="flex justify-center">
+            <div className="absolute left-96 top-40 z-50">
+              <DropdownPage  />
+            </div>
+          </div>
+        )}
       </div>
 
-      {isCategoryOptionOpened && (
+      {/* {isCategoryOptionOpened && (
         <div className="flex justify-center">
           <div className="absolute z-50">
             <DropdownPage />
           </div>
         </div>
-      )}
+      )} */}
     </nav>
   );
 }

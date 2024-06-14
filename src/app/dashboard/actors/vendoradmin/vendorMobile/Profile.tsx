@@ -151,8 +151,10 @@ const Profile = () => {
 
       <div className="lg:flex justify-between mt-5">
         <div className="">
-          <p>Company profile</p>
-          <span>Update company description or address.</span>
+          <p className="text-lg font-semibold">Company profile</p>
+          <span className="text-sm text-mecaGrayBodyText">
+            Update company description or address.
+          </span>
         </div>
 
         <div className="border-2 lg:w-[60%] mt-10 w-[100%] h-screen p-5 rounded-xl overflow-auto scrollbar-none">

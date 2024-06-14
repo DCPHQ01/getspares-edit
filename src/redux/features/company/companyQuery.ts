@@ -15,7 +15,7 @@ export const companyQuery = createApi({
         // date_founded: string;
         email: string;
         phoneNumber: string;
-        location: string[];
+        location: string;
         imageUrl: string;
       }) => ({
         url: "/company",

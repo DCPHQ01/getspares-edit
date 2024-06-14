@@ -90,7 +90,7 @@ export default function Index() {
               value="last7days"
               sx={{ "& .MuiFormControlLabel-label": { fontSize: "0.88rem" } }}
               control={<BpRadio />}
-              label="Last 7 days"
+              label="This month"
             />
           </div>
           <div
@@ -103,20 +103,7 @@ export default function Index() {
               value="last30days"
               sx={{ "& .MuiFormControlLabel-label": { fontSize: "0.88rem" } }}
               control={<BpRadio />}
-              label="Last 30 days"
-            />
-          </div>
-          <div
-            id={`last1year`}
-            className={`border py-[0.5rem] px-[1rem] rounded-tr-[0.625rem] rounded-br-[0.625rem]  ${
-              selectedValue === "last1year" ? "bg-[#EEF2F6]" : ""
-            }`}
-          >
-            <FormControlLabel
-              value="last1year"
-              sx={{ "& .MuiFormControlLabel-label": { fontSize: "0.88rem" } }}
-              control={<BpRadio />}
-              label="Last 1 year"
+              label="This year"
             />
           </div>
         </div>

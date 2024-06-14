@@ -29,7 +29,6 @@ const style = {
   width: 400,
   height: 450,
   bgcolor: "background.paper",
-  border: "2px solid #000",
   boxShadow: 24,
   borderRadius: "20px",
   p: 4,
@@ -87,11 +86,10 @@ function Category() {
         <button
           id="addButton"
           onClick={handleOpen}
-          className={`bg-[#095AD3] lg:w-[28%] w-[100%] text-white rounded-full py-[0.38rem] px-[1.5rem] 
-        `}
+          className={`bg-[#095AD3] lg:w-[15%] w-[100%] text-white rounded-full py-[0.38rem] px-[1.5rem] `}
         >
           <div className={`flex text-white items-center justify-center`}>
-            <MdAdd size={20} className="mr-2" />
+            <MdAdd size={20} className="mr-1" />
             <span> Create </span>
           </div>
         </button>
@@ -106,8 +104,10 @@ function Category() {
             <div className="">
               <div className="flex justify-between">
                 <div className="">
-                  <p>Create category</p>
-                  <p>Create category for your product items</p>
+                  <p className="text-lg font-semibold">Create category</p>
+                  <p className="text-sm text-mecaGrayBodyText">
+                    Create category for your product items
+                  </p>
                 </div>
                 <div className="cursor-pointer ">
                   <MdClose className="text-2xl" onClick={handleClose} />
@@ -144,9 +144,7 @@ function Category() {
                 )}
 
                 <div className="text-gray-600 text-base mt-2 text-center">
-                  <p className="font-bold text-mecaBluePrimaryColor">
-                    Add logo
-                  </p>
+                  <p className="font-bold">Add image</p>
                   <p className="font-normal">by clicking or drag and drop</p>
                 </div>
 
@@ -172,9 +170,11 @@ function Category() {
         `}
                 >
                   <div
+                    onClick={handleClose}
                     className={`flex text-white items-center justify-center`}
                   >
-                    Create category
+                    <MdAdd className="mr-1" size={18} />
+                    Create
                   </div>
                 </button>
               </div>
@@ -182,18 +182,24 @@ function Category() {
           </Box>
         </Modal>
       </div>
-      <div className={`flex justify-between items-center mb-[1.25rem]`}>
+      <div
+        className={`flex flex-row-reverse justify-between items-center mb-[1.25rem]`}
+      >
         <SearchBox placeholder={`Search for category`} />
         <PeriodRadios />
       </div>
 
       <CategoryTable />
+
       <div className="flex justify-end mt-10 text-mecaBluePrimaryColor font-bold text-lg">
         {/* <button className="flex gap-x-2">
-          <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
-        </button> */}
+            <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
+          </button> */}
         <button className="flex gap-x-2">
-          <MdChevronRight className="mt-1 text-2xl" /> <span>Next</span>
+          Next
+          <span>
+            <MdChevronRight className="mt-[2px] text-2xl" />{" "}
+          </span>
         </button>
       </div>
     </>
