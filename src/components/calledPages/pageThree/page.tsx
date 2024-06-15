@@ -12,6 +12,7 @@ import { setCurrentStep } from "../../../redux/features/company/companySlice";
 import { useUpdateCompanyMutation } from "../../../redux/features/company/companyQuery";
 import { useRouter } from "next/navigation";
 import { paths } from "../../../path/paths";
+import { useGetUserDetailsMutation } from "../../../redux/features/users/userQuery";
 
 interface CalledPagesPageThreePagesProps {
   step: number;
@@ -21,6 +22,8 @@ interface CalledPagesPageThreePagesProps {
 const CalledPagesPageThreePages = () => {
   const dispatch = useAppDispatch();
   const [updateCompanyDetails] = useUpdateCompanyMutation();
+  const [getUserData] = useGetUserDetailsMutation({});
+
   const router = useRouter()
 
   const company = useAppSelector((state: RootState) => state.company);
@@ -30,15 +33,17 @@ const CalledPagesPageThreePages = () => {
   };
 
   const companyImage = sessionStorage.getItem("companyImage") || "";
-
   async function handleSave() {
+    const res =  await getUserData('');
+
     try {
       const data = await updateCompanyDetails({
+        id: res.data.companyDetails[0].id,
         name: company.companyForm.name,
         description: company.companyForm.description,
-        website: company.companyForm.website,
+        websiteUrl: company.companyForm.website,
         cac: company.companyForm.cac,
-        email: company.companyForm.email,
+        companyEmail: company.companyForm.email,
         phoneNumber: company.companyForm.phoneNumber,
         location: company.companyForm.address.join(', '),
         imageUrl: companyImage,

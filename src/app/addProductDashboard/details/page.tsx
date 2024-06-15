@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { MdChevronLeft, MdChevronRight, MdPhotoLibrary } from "react-icons/md";
+import { paths } from "../../../path/paths";
 
 const CalledPagesPageFivePages = () => {
   const [productName, setProductName] = useState("");
@@ -66,7 +67,7 @@ const CalledPagesPageFivePages = () => {
   };
 
   const handlePreviousPage = () => {
-    router.push("/addProductDashboard/specifications");
+    router.push(paths.toAddProductDashboardSpecifications());
   };
 
   useEffect(() => {

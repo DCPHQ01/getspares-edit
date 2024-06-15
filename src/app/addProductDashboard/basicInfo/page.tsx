@@ -18,6 +18,7 @@ import {
 } from "@mui/base/TextareaAutosize";
 import { MenuItem, Select } from "@mui/material";
 import { useGetCategoryQuery } from "../../../redux/features/product/productsQuery";
+import { paths } from "../../../path/paths";
 
 const CalledPagesPageOnePages = () => {
   const [basicInfoValues, setBasicInfoValues] = useState({
@@ -102,7 +103,7 @@ const CalledPagesPageOnePages = () => {
       !newErrors.price &&
       !newErrors.quantity
     ) {
-      router.push("/addProductDashboard/addImages");
+      router.push(paths.toAddProductDashboardAddImages());
     }
   };
 

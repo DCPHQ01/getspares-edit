@@ -16,6 +16,7 @@ import { clearUser, setUser } from "../../../../redux/features/users/userSlice";
 import { useRouter } from "next/navigation";
 import { roles, sidePanel } from "../utils/utils";
 import { useUserRole } from "../../../hooks/useUserRole";
+import { paths } from "../../../../path/paths";
 
 function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
   //   const { user } = useAppSelector((state) => state.user);
@@ -39,7 +40,7 @@ function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
 
   const logOut = () => {
     dispatch(clearUser());
-    router.push("/");
+    router.push(paths.toHome());
   };
 
   // console.log(roles, " roles");
@@ -124,7 +125,7 @@ function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
         sessionStorage.clear();
         sessionStorage.removeItem("userDetails");
         dispatch(setUser({}));
-        router.push("/login");
+        router.push(paths.toLogin());
       },
     },
   ];

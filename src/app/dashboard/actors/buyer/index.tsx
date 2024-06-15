@@ -28,6 +28,7 @@ import {
   MdShoppingCart,
   MdYard,
 } from "react-icons/md";
+import { paths } from "../../../../path/paths";
 
 function Index() {
   const SidePanelButton = () => {
@@ -61,7 +62,7 @@ function Index() {
 
   const logOut = () => {
     dispatch(clearUser());
-    router.push("/");
+    router.push(paths.toHome());
   };
 
   // console.log(roles, " roles");
@@ -146,7 +147,7 @@ function Index() {
         sessionStorage.clear();
         sessionStorage.removeItem("userDetails");
         dispatch(setUser({}));
-        router.push("/login");
+        router.push(paths.toLogin());
       },
     },
   ];
@@ -191,7 +192,7 @@ function Index() {
                   >
                     <p
                       className="text-mecaActiveIconsNavColor text-xl font-nunito font-bold cursor-pointer"
-                      onClick={() => router.push("/")}
+                      onClick={() => router.push(paths.toHome())}
                     >
                       e-meca
                     </p>
@@ -216,7 +217,7 @@ function Index() {
                         >
                           <p
                             className="text-mecaActiveIconsNavColor text-xl font-nunito font-bold cursor-pointer"
-                            onClick={() => router.push("/")}
+                            onClick={() => router.push(paths.toHome())}
                           >
                             e-meca
                           </p>
