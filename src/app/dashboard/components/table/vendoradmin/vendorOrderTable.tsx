@@ -126,6 +126,7 @@ const VendorOrderTable = () => {
                 key={index}
                 id={`row_${index}`}
                 className="cursor-pointer truncate"
+                onClick={handleDetails}
               >
                 <td id={`companyData_${index}`}>
                   <div

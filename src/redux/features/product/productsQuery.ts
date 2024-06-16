@@ -20,9 +20,30 @@ export const productsQuery = createApi({
       query: (body: {
         name: string;
         description: string;
-        price: number;
+        price: {
+          amount: number;
+          currency: string;
+        };
+        categoryName: string;
+        companyName: string;
+        productImages: string[];
+        productInformation: {
+          manufacturer: string;
+          brand: string;
+          model: string;
+          itemWeight: string;
+          productionDimension: string;
+          countryOfOrigin: string;
+          itemModelNumber: string;
+          manufacturerPartNumber: string;
+          voltage: string;
+        };
+        productSpecification: {
+          color: string;
+          quantityInPack: number;
+        };
+        availabilityStatus: "IN_STOCK";
         quantity: number;
-        category: string;
       }) => ({
         url: "/product/create-product",
         method: "POST",
