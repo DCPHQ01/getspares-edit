@@ -212,21 +212,18 @@ const CalledPagesPageFivePages = () => {
                     />
                   </Box>
                 </Box>
-                <div className="flex w-full justify-center mt-32">
+                <div className="flex w-full justify-center mt-8">
                   <div id="firstPreviousbtn9 flex justify-center">
-                    <div className="w-[100%] m-auto">
-                      <button
-                        onClick={handlePreviousPage}
-                        type="submit"
-                        id="thirdFormSubmit"
-                        className="w-[116px] flex justify-center gap-x-3 pt-2 h-10 font-semibold border rounded-full text-mecaBluePrimaryColor border-mecaBluePrimaryColor mt-5 mb-6 "
-                      >
-                        <p> Back</p>
-                        <span>
-                          <MdChevronLeft className="mt-1 " />
-                        </span>
-                      </button>
-                    </div>
+                    <button
+                      type="submit"
+                      onClick={handlePreviousPage}
+                      className="w-[116px] flex justify-center gap-x-3 pt-2 h-10 font-semibold border rounded-full text-mecaBluePrimaryColor border-mecaBluePrimaryColor"
+                    >
+                      <span>
+                        <MdChevronLeft className="mt-1" />
+                      </span>
+                      <p> Back</p>
+                    </button>
                   </div>
                 </div>
               </div>
