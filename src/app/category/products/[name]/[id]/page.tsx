@@ -95,15 +95,10 @@ export default function ProductDescription() {
   };
 
   const searchParams = usePathname()!;
-  // console.log('====================================');
-  // console.log(searchParams);
-  // console.log('====================================');
   const search = searchParams;
   const segments = searchParams.split("/");
-  // console.log(segments, " segments");
   const searches = segments[3];
   const id = segments[4];
-  // console.log(searches, " searches");
 
   const handleClick = (newState: SnackbarOrigin) => () => {
     dispatch(
@@ -142,7 +137,6 @@ export default function ProductDescription() {
             </p>
             <MdChevronRight size={20} />
             <p className="text-[12px] font-nunito font-normal text-mecaGoBackArrow">
-            {/* View details */}
             </p>
           </div>
           <div
