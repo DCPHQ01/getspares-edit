@@ -51,7 +51,7 @@ const CalledPagesPageThreePages = () => {
       if (data?.error) {
         return
       }
-      // router.push(paths.toDashboard());
+      router.push(paths.toDashboard());
       console.log(data);
     } catch (error) {
       //todo: handle error in a better way
