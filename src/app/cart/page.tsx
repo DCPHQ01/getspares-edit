@@ -279,7 +279,7 @@ const RemoveToCartPage = () => {
             </div>
 
             <Link
-              href="/reusables/mobileNav"
+              href={paths.toReusableMobileNav()}
               id="mobileMenuBtn"
               onClick={() => setOpenA(!OpenA)}
             >
@@ -359,7 +359,7 @@ const RemoveToCartPage = () => {
                 className="flex mt-24 items-center gap-4"
                 id="breadCrumbsDivDesktop"
               >
-                <Link href="/">
+                <Link href={paths.toHome()}>
                   <p className="font-nunito text-sm font-medium text-mecaDarkBlueBackgroundOverlay hover:text-black hover:font-bold">
                     Home
                   </p>
@@ -594,7 +594,7 @@ const RemoveToCartPage = () => {
                 className="flex items-center gap-4 mt-52"
                 id="breadCrumbsDiv"
               >
-                <Link href="/">
+                <Link href={paths.toHome()}>
                   <p className="font-nunito text-sm font-medium text-mecaDarkBlueBackgroundOverlay  hover:text-black hover:font-bold">
                     Home
                   </p>

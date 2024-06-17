@@ -9,6 +9,7 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import Footer from '../../../../../components/footer/Footer';
 import NavBarWhileInsideApp from '../../../../reusables/TopBarWhileInside/NavBarWhileInsideApp/page';
+import { paths } from "../../../../../path/paths";
 
 
 const style = {
@@ -75,13 +76,13 @@ const Checkout = () => {
           <div
             className="flex mt-16 items-center gap-4"
             id="breadCrumbsDivDesktop">
-            <Link href="/">
+            <Link href={paths.toHome()}>
               <p className="font-nunito text-sm font-medium text-mecaDarkBlueBackgroundOverlay hover:text-black hover:font-bold">
                 Home
               </p>
             </Link>
             <MdChevronRight size={20} />
-            <Link href="/cart">
+            <Link href={paths.toCart()}>
               <p className="font-nunito text-sm font-medium text-mecaDarkBlueBackgroundOverlay hover:text-black hover:font-bold">
                 Shopping Cart
               </p>

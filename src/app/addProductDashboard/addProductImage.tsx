@@ -1,7 +1,7 @@
 import Image from "next/image";
 import addProduct from "../../assets/images/addProduct.svg";
 import { useCreateProductMutation } from "../../redux/features/product/productsQuery";
-
+import { paths } from "../../path/paths";
 const AddProductImage = () => {
   const [addProductdata, { isLoading }] = useCreateProductMutation();
 

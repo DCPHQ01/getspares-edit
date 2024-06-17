@@ -7,6 +7,7 @@ import OverviewTable from "../../components/table/vendoradmin/overview";
 import Addbutton from "../../components/ui/addbutton";
 import Link from "next/link";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
+import { paths } from "../../../../path/paths";
 
 function VendorOverview() {
   const userName = JSON.parse(sessionStorage.getItem("userDetails") || "");
@@ -19,7 +20,7 @@ function VendorOverview() {
             subtitle={`Take a quick glance on what is happening with meca`}
             name={usersFirstName}
           />
-          <Link href="/modalPage" className="font-semibold">
+          <Link href={paths.toModalPage()} className="font-semibold">
             <Addbutton title={`Update Company`} />
           </Link>
         </div>
