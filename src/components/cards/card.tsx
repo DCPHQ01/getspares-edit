@@ -1,12 +1,12 @@
 import React from "react";
 
-interface IProps {
+interface CardProps {
   total: string;
   amount: number;
   percentage: number;
   onClick: () => void;
 }
-function Card({ total, amount, percentage, onClick }: IProps) {
+function Card({ total, amount, percentage, onClick }: CardProps) {
   return (
     <div
       id="cardsContainer"

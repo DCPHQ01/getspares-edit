@@ -223,7 +223,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
           >
             <Link href="/cart">
               <div
-                className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1 cursor-pointer"
+                className="w-[49px] relative left-[19rem]  h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1 cursor-pointer"
                 id="textCart"
               >
                 <MdOutlineShoppingCart
@@ -237,7 +237,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
             </Link>
             <div className="relative w-full flex items-center h-full">
               {!tokens ? (
-                <div className="w-full flex items-center h-full gap-4">
+                <div className="w-full  flex items-center h-full gap-4">
                   <button
                     type="button"
                     className="w-[28%] h-full border border-mecaBluePrimaryColor bg-white text-mecaBluePrimaryColor text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
@@ -258,7 +258,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
               ) : (
                 <button
                   onClick={profile}
-                  className="flex gap-2"
+                  className="flex gap-2 relative left-[19.2rem]"
                   type="button"
                   id="profileBtnMainNav"
                 >

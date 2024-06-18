@@ -3,6 +3,7 @@ import styles from "../styles.module.css";
 import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
 import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const data = [
   {
@@ -51,7 +52,39 @@ const data = [
     time: "04:00PM",
   },
 ];
+// type VendorData = {
+//   avatar: string | null;
+//   name: string;
+//   email: string;
+//   sale: number;
+//   value: string;
+//   date: string;
+//   time: string;
+// };
 function Overview() {
+  console.log("Data passed to OverviewTable:", data);
+
+  // const transformedData: VendorData[] = data?.map((vendor: any) => {
+  //   console.log("Processing vendor:", vendor);
+  //   const avatar = vendor?.imageUrl || ""; // Provide a default value for avatar
+  //   const name = vendor?.companyName || "Unknown";
+  //   const sale = vendor?.totalItemSold || 0;
+  //   const value = vendor?.transactionValue ? `₦ ${vendor.transactionValue.toLocaleString()}` : "";
+  //   const date = vendor?.dateAndTimeJoined ? new Date(vendor.dateAndTimeJoined).toLocaleDateString() : "";
+  //   const time = vendor?.dateAndTimeJoined ? new Date(vendor.dateAndTimeJoined).toLocaleTimeString() : "";
+
+  //   return {
+  //     avatar,
+  //     name,
+  //     email: "info@example.com", // Assuming email is not provided
+  //     sale,
+  //     value,
+  //     date,
+  //     time,
+  //   };
+  // });
+
+ 
   return (
     <div
       id="mecaAdminTable"
@@ -67,18 +100,26 @@ function Overview() {
           </tr>
         </thead>
         <tbody>
-          {data.map((d, index) => (
+        {data?.map((d, index) =>  (
             <tr key={index} id={`row_${index}`} className="cursor-pointer">
               <td id={`companyData_${index}`}>
                 <div
                   className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem] `}
                 >
+                {d.avatar ? (
                   <Image
                     src={d.avatar}
                     alt="Avatar"
                     id={`avatar_${index}`}
                     className="object-cover"
                   />
+                ) : (
+                  <AccountCircleIcon
+                    id={`avatar_${index}`}
+                    className="object-cover"
+                    style={{ fontSize: 40, color: 'gray' }} // Adjust size as needed
+                  />
+                )}
                   <div id={`companyDetails_${index}`}>
                     <div className="truncate">{d.name}</div>
                     <div
