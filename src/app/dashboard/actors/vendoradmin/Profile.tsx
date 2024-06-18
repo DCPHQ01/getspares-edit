@@ -77,11 +77,11 @@ const Profile = () => {
         <div onClick={handleViewAdminProfile} className="">
           <button
             id="addButton"
-            className={`bg-[#095AD3] lg:w-[250px] w-[100%] text-white rounded-full py-[0.58rem] px-[1.5rem] 
+            className={`bg-[#095AD3] lg:w-[200px] w-[100%] text-white rounded-full py-[0.58rem] px-[1.5rem] 
         `}
           >
             <div className={`flex text-white items-center justify-center`}>
-              <span className="ml-5">View Admin</span>
+              <span className="">View Admin</span>
             </div>
           </button>
         </div>
@@ -150,8 +150,8 @@ const Profile = () => {
 
       <div className="flex justify-between mt-5">
         <div className="">
-          <p>Company profile</p>
-          <span>Update company description or address.</span>
+          <p className="text-lg font-semibold">Company profile</p>
+          <span className="text-sm text-mecaGrayBodyText">Update company description or address.</span>
         </div>
 
         <div className="border-2 w-[60%] h-screen p-5 rounded-xl overflow-auto scrollbar-none">

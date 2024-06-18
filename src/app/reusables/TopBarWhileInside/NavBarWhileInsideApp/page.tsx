@@ -17,6 +17,7 @@ import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { clearUser } from "../../../../redux/features/users/userSlice";
 import MobileNav from "../../../../components/mobileNav/MobileNav";
 import NavBar from "../../../../components/NavBar/NavBar";
+import { paths } from "../../../../path/paths";
 
 interface JwtPayload extends BaseJwtPayload {
   role?: string;
@@ -24,10 +25,10 @@ interface JwtPayload extends BaseJwtPayload {
 export default function NavBarWhileInsideApp() {
   const router = useRouter();
   const handleStartShopping = () => {
-    router.push("/signup");
+    router.push(paths.toSignUp());
   };
   const handleLogin = () => {
-    router.push("/login");
+    router.push(paths.toLogin());
   };
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.user);
@@ -60,13 +61,13 @@ export default function NavBarWhileInsideApp() {
   }
 
   const handleDashboard = () => {
-    router.push("/dashboard");
+    router.push(paths.toDashboard());
   };
   const logOut = () => {
     sessionStorage.clear();
     sessionStorage.removeItem("userDetails");
     dispatch(clearUser());
-    router.push("/login");
+    router.push(paths.toLogin());
   };
   const name = decoded?.given_name;
 
@@ -88,7 +89,7 @@ export default function NavBarWhileInsideApp() {
           <div className="w-[20%]" id="mecaLogoDesktop">
             <p
               className="text-mecaActiveIconsNavColor text-3xl font-nunito font-bold cursor-pointer"
-              onClick={() => router.push("/")}
+              onClick={() => router.push(paths.toHome())}
             >
               e-meca
             </p>

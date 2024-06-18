@@ -10,6 +10,7 @@ import React from "react";
 
 import { MdCheckCircle } from "react-icons/md";
 import { usePathname, useRouter } from "next/navigation";
+import { paths } from "../../path/paths";
 
 function ResponsiveDrawer({ step, setStep }: any) {
   // const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -110,7 +111,7 @@ function ResponsiveDrawer({ step, setStep }: any) {
 
   useLayoutEffect(() => {
     if (pathname === "/addProductDashboard") {
-      router.push("/addProductDashboard/basicInfo");
+      router.push(paths.toAddProductDashboardBasicInfo());
     }
   }, []);
 

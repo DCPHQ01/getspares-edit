@@ -26,7 +26,7 @@ function Index() {
   const DropdownMenu = () => {
     return (
       <div
-        className={`absolute mt-2 w-[17rem] p-1 shadow-[0_2px_8px_0_rgba(0,0,0,0.2)] rounded-[8px] bg-white `}
+        className={`absolute mt-2 w-[17rem] cursor-pointer p-1 shadow-[0_2px_8px_0_rgba(0,0,0,0.2)] rounded-[8px] bg-white `}
       >
         <div className={`mx-auto p-[0.75rem] `}>
           {items.map((item, index) => (
@@ -59,7 +59,7 @@ function Index() {
   return (
     <div className="relative inline-block -z-50">
       <button
-        className={`bg-[#F8FAFC] border   border-[#CDD5DF] inline-block rounded-full px-3 py-2 mb-[0.5rem]`}
+        className={`bg-[#F8FAFC] border cursor-pointer border-[#CDD5DF] inline-block rounded-full px-3 py-2 mb-[0.5rem]`}
         onClick={handleButtonClicked}
       >
         <div className={`flex items-center gap-2 `}>

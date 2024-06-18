@@ -10,7 +10,7 @@ function Card({ total, amount, percentage, onClick }: CardProps) {
   return (
     <div
       id="cardsContainer"
-      className={`border border-[#EAECF0] lg:w-[19.3vw] lg:h-[90%] h-[90%] rounded-[0.75rem] mb-5 `}
+      className={`border border-[#EAECF0] lg:w-[18.5vw] lg:h-[90%] h-[90%] rounded-[0.75rem] mb-5 `}
     >
       <div id="cardContent" className={`m-[24px]`}>
         <p id="totalText" className={`text-[14px] text-[#4B5565] pb-[8px]`}>

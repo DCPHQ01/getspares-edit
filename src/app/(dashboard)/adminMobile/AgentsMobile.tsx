@@ -21,13 +21,7 @@ function Agents() {
       <div className={`my-[1.25rem] lg:`}>
         <SearchBox placeholder={`Search for agent`} />
       </div>
-      <div className={`justify-between items-center mb-[1.25rem] hidden`}>
-        <Header
-          subtitle={`A quick glance on agents with highest sales on meca`}
-          title={`Top performing agents`}
-        />
-        <PeriodRadios />
-      </div>
+   
 
       <div className="">
         <AgentTable />

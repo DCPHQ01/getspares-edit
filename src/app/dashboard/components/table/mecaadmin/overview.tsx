@@ -95,7 +95,9 @@ function Overview() {
           <tr className="truncate">
             <th id="companyNameHeader">Company name</th>
             <th id="totalItemsSoldHeader">Total items sold</th>
-            <th id="transactionValueHeader">Transaction value</th>
+            <th id="transactionValueHeader" style={{ paddingLeft: "2.5rem" }}>
+              Transaction value
+            </th>
             <th id="dateTimeJoinedHeader">Date & time joined</th>
           </tr>
         </thead>

@@ -41,6 +41,7 @@ import {
   MdPhotoLibrary,
 } from "react-icons/md";
 import { useRouter } from "next/navigation";
+import { paths } from "../../../path/paths";
 
 const CalledPagesPageTwoPages = () => {
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
@@ -236,10 +237,10 @@ const CalledPagesPageTwoPages = () => {
   };
 
   const handlePreviousPage = () => {
-    router.push("/addProductDashboard/basicInfo");
+    router.push(paths.toAddProductDashboardBasicInfo());
   };
   const handleNextPage = () => {
-    router.push("/addProductDashboard/specifications");
+    router.push(paths.toAddProductDashboardSpecifications());
     sessionStorage.setItem("clickedImage", JSON.stringify(images));
   };
   useEffect(() => {

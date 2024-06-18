@@ -147,7 +147,9 @@ const InventoryTable = () => {
               <th id="companyNameHeader">Product name</th>
               <th id="dateTimeJoinedHeader">Vendors</th>
               <th id="totalItemsSoldHeader">Quantity sold</th>
-              <th id="transactionValueHeader">Transaction value</th>
+              <th id="transactionValueHeader" style={{ paddingLeft: "2.3rem" }}>
+                Transaction value
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -164,7 +166,7 @@ const InventoryTable = () => {
                       id={`avatar_${index}`}
                     />
                     <div id={`companyDetails_${index}`}>
-                      <div className="truncate">{d.name}</div>
+                      <div className="truncate  mt-2">{d.name}</div>
                     </div>
                   </div>
                 </td>
@@ -180,7 +182,7 @@ const InventoryTable = () => {
                       id={`avatar_${index}`}
                     />
                     <div id={`companyDetails_${index}`}>
-                      <div className="truncate">{d.name}</div>
+                      <div className="truncate ">{d.name}</div>
                       <div
                         className={`text-[#4B5565] truncate`}
                         id={`email_${index}`}
@@ -198,7 +200,7 @@ const InventoryTable = () => {
                   {d.sale}
                 </td>
                 <td
-                  className={`text-[0.88rem] py-[1rem] px-[3.13rem] truncate`}
+                  className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
                   id={`transactionValue_${index}`}
                 >
                   {d.vale}
