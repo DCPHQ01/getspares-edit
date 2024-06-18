@@ -11,6 +11,7 @@ import {
   MdChevronRight,
   MdPhotoLibrary,
 } from "react-icons/md";
+import { paths } from "../../../path/paths";
 
 const CalledPagesPageFourPages = () => {
   const [productName, setProductName] = useState("");
@@ -57,10 +58,10 @@ const CalledPagesPageFourPages = () => {
     );
   };
   const handlePreviousPage = () => {
-    router.push("/addProductDashboard/addImages");
+    router.push(paths.toAddProductDashboardAddImages());
   };
   const handleNextPage = () => {
-    router.push("/addProductDashboard/details");
+    router.push(paths.toAddProductDashboardDetails());
     sessionStorage.setItem("specInfo", JSON.stringify(specifications));
   };
 

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import router from "next/router";
 import { MdMenu, MdOutlineShoppingCart, MdSearch } from "react-icons/md";
+import { paths } from "../../../path/paths";
 
 interface NavBarProps {
   open: boolean;
@@ -16,7 +17,7 @@ export default function AdminMobileHeader({ open, setOpen }: NavBarProps) {
       >
         <p
           className="text-mecaActiveIconsNavColor text-xl font-nunito font-bold cursor-pointer"
-          onClick={() => router.push("/")}
+          onClick={() => router.push(paths.toHome())}
         >
           e-meca
         </p>

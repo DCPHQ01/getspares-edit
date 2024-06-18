@@ -23,6 +23,7 @@ import {
 } from "../../redux/features/users/authQuery";
 import { useRouter } from "next/navigation";
 import { ColorRing } from "react-loader-spinner";
+import { paths } from "../../path/paths";
 
 const nunito = Nunito_Sans({
   subsets: ["latin"],
@@ -110,7 +111,7 @@ const SignUpComponentLeft = () => {
           );
           if (response?.data?.message === "SignUp Successfully") {
             // alert(VendorData.message);
-            router.push("/verify-email");
+            router.push(paths.toVerifyEmail());
           } else if (
             response?.data?.message === "User Already Exists" ||
             response?.data.error?.data?.status === 400
@@ -129,10 +130,10 @@ const SignUpComponentLeft = () => {
           console.log("data response ", response?.data);
           if (response?.data?.message === "SignUp Successfully") {
             // alert(AgentData.message);
-            router.push("/verify-email");
+            router.push(paths.toVerifyEmail());
           } else if (response?.data?.message === "User Already Exists") {
             // alert(AgentData.message);
-            router.push("/verify-email");
+            router.push(paths.toVerifyEmail());
           } else {
             alert("Registration failed. Please try again.");
           }
@@ -145,7 +146,7 @@ const SignUpComponentLeft = () => {
         if ("data" in response) {
           console.log("data response ", response?.data);
           if (response?.data?.message === "SignUp Successfully") {
-            router.push("/verify-email");
+            router.push(paths.toVerifyEmail());
           } else if (
             response?.data?.message === "User Already Exists" ||
             response?.data.error?.data?.status === 400
@@ -164,7 +165,7 @@ const SignUpComponentLeft = () => {
     }
   };
   const routerToHomePage = () => {
-    router.push("/");
+    router.push(paths.toHome());
   };
   return (
     <div className={nunito.className}>
