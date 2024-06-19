@@ -53,11 +53,13 @@ const Profile = () => {
 
       <div className="lg:flex flex-col justify-between mt-5 ">
         <div className="">
-          <p>Personal info</p>
-          <span>Update your photo and personal details.</span>
+          <p className="text-lg font-semibold">Personal info</p>
+          <span className="text-sm text-mecaGrayBodyText">
+            Update your photo and personal details.
+          </span>
         </div>
 
-        <div className="border-2 lg:w-[60%] w-[100%] mt-10 mb-10 h-[100%] p-5 rounded-xl">
+        <div className="border-2 lg:w-[60%] w-[100%] mt-5 mb-5 h-full p-5 rounded-xl">
           <Box className="mt-10 gap-x-4">
             <TextField
               inputProps={{ readOnly: true }}
@@ -66,7 +68,7 @@ const Profile = () => {
               label="First name"
               variant="filled"
               InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] rounded -z-50"
+              className="lg:w-[364px]  w-[100%] mb-5 2xl:w-[35rem] rounded -z-50"
               sx={{ backgroundColor: "porcelain" }}
             />
 
@@ -78,60 +80,7 @@ const Profile = () => {
               label="Last name"
               variant="filled"
               InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] -z-50"
-              sx={{ backgroundColor: "porcelain" }}
-            />
-          </Box>
-          <Box className=" gap-x-4">
-            <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              type="url"
-              id="filledbasic7"
-              label="Phone number"
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] rounded -z-50"
-              sx={{ backgroundColor: "porcelain" }}
-            />
-
-            <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              type="url"
-              id="filledbasic7"
-              label="Gender"
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] rounded -z-50"
-              sx={{ backgroundColor: "porcelain" }}
-            />
-          </Box>
-
-          <Box className="gap-x-4">
-            <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              type="url"
-              id="filledbasic7"
-              label="Date account was created"
-              variant="filled"
-              //   value={company.companyForm.website}
-              name="website"
-              InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] rounded -z-50"
-              sx={{ backgroundColor: "porcelain" }}
-            />
-
-            <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              type="url"
-              id="filledbasic7"
-              label="Last active"
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] -z-50"
+              className="lg:w-[364px]  w-[100%] mb-5 2xl:w-[35rem] -z-50"
               sx={{ backgroundColor: "porcelain" }}
             />
           </Box>
@@ -145,7 +94,7 @@ const Profile = () => {
               label="Email"
               variant="filled"
               InputProps={{ disableUnderline: true }}
-              className="  w-[100%] mb-10 rounded -z-50"
+              className="  w-[100%] mb-5 rounded -z-50"
               sx={{ backgroundColor: "porcelain" }}
             />
           </Box>

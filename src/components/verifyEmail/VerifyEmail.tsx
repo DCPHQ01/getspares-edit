@@ -6,6 +6,7 @@ import {
   useResetOtpMutation,
 } from "../../redux/features/users/authQuery";
 import { Snackbar } from "@mui/material";
+import { paths } from "../../path/paths";
 
 interface VerifyEmailProps {
   setHaveVerifiedEmail: React.Dispatch<React.SetStateAction<boolean>>;
@@ -177,7 +178,7 @@ export default function VerifyEmail({
         </Link>
       </span>
       <Link
-        href="/login"
+        href={paths.toLogin()}
         id="loginLink"
         className="text-mecaGoBackText flex items-center text-sm gap-4"
       >

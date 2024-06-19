@@ -8,6 +8,7 @@ import Bulldozer from "../../assets/images/bulldozer.png";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useGetCategoryQuery } from "../../redux/features/product/productsQuery";
+import { paths } from "../../path/paths";
 
 interface CardProps {
   image: StaticImageData;
@@ -65,7 +66,7 @@ export default function ProductCarousel() {
       <div
         className="relative cursor-pointer"
         id="productContainer"
-        onClick={() => router.push(`/category/products/${urlType}`)}
+        onClick={() => router.push(paths.toCategoryProducts(urlType))}
       >
         <Image
           src={image}

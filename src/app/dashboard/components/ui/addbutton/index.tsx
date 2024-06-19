@@ -14,7 +14,7 @@ function Index({ title, long }: IProps) {
         <div className={`flex text-white items-center justify-center`}>
           <MdAdd size={18} />
 
-          <span className="ml-5">  {title}</span>
+          <span className="ml-1">  {title}</span>
         </div>
       </button>
     </>

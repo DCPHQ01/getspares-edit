@@ -3,12 +3,13 @@ import { useRouter } from "next/navigation";
 import EnterEmail from "../../components/resetPassword/EnterEmail";
 import SendEmail from "../../components/resetPassword/SendEmail";
 import { useState } from "react";
+import { paths } from "../../path/paths";
 
 export default function ResetPassword() {
   const router = useRouter();
   const [haveSentEmail, setHaveSentEmail] = useState(false);
   const routerToHomePage = () => {
-    router.push("/");
+    router.push(paths.toHome());
   };
   return (
     <div>

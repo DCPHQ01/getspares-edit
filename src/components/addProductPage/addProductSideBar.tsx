@@ -10,6 +10,7 @@ import React from "react";
 
 import { MdCheckCircle } from "react-icons/md";
 import { usePathname, useRouter } from "next/navigation";
+import { paths } from "../../path/paths";
 
 function ResponsiveDrawer({ step, setStep }: any) {
   // const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -110,7 +111,7 @@ function ResponsiveDrawer({ step, setStep }: any) {
 
   useLayoutEffect(() => {
     if (pathname === "/addProductDashboard") {
-      router.push("/addProductDashboard/basicInfo");
+      router.push(paths.toAddProductDashboardBasicInfo());
     }
   }, []);
 
@@ -140,13 +141,11 @@ function ResponsiveDrawer({ step, setStep }: any) {
               >
                 <div
                   id="sidebardiv6"
-                  // onClick={() => handleTabClick(item.id)}
                   className={`text-gray-400 flex flex-col h-10 py-2 px-4   ${
                     activeTab === item.title
                       ? "text-mecaAddProductSidebarList text-base font-semibold bg-mecaSearchColor"
                       : "`text-mecaAddProductSidebarList font-normal text-sm"
                   }`}
-                  // sx="flex flex-col -mt-4 lg:-mt-10"
                 >
                   <p
                     className="font-bold    text-base font-nunito_sans "

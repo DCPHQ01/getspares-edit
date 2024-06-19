@@ -16,6 +16,9 @@ import {
   TextareaAutosize as BaseTextareaAutosize,
   TextareaAutosize,
 } from "@mui/base/TextareaAutosize";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { useGetCategoryQuery } from "../../../redux/features/product/productsQuery";
+import { paths } from "../../../path/paths";
 
 const CalledPagesPageOnePages = () => {
   const [basicInfoValues, setBasicInfoValues] = useState({
@@ -25,6 +28,8 @@ const CalledPagesPageOnePages = () => {
     price: "",
     quantity: "",
   });
+
+  const { data: getCategoriesData } = useGetCategoryQuery({});
 
   useEffect(() => {
     const savedData = sessionStorage.getItem("basicInfoValues");
@@ -37,6 +42,7 @@ const CalledPagesPageOnePages = () => {
 
   const handleBasicInfoChange = (e: any) => {
     const { name, value } = e.target;
+
     if (name === "price") {
       const numericValue = value.replace(/[^0-9]/g, "");
       const formattedValue = numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -53,6 +59,8 @@ const CalledPagesPageOnePages = () => {
       });
     }
   };
+
+  console.log("category data ", getCategoriesData);
 
   const [errors, setErrors] = useState({
     productName: "",
@@ -96,7 +104,7 @@ const CalledPagesPageOnePages = () => {
       !newErrors.price &&
       !newErrors.quantity
     ) {
-      router.push("/addProductDashboard/addImages");
+      router.push(paths.toAddProductDashboardAddImages());
     }
   };
 
@@ -143,42 +151,55 @@ const CalledPagesPageOnePages = () => {
                     />
                   </Box>
 
-                  <Box>
-                    <TextField
-                      required={true}
-                      type="url"
-                      id="productCategory"
-                      label="Product category"
-                      variant="filled"
-                      name="productCategory"
-                      placeholder="Select category"
-                      InputProps={{ disableUnderline: true }}
-                      className="w-[29.4rem] mb-5 "
-                      sx={{ backgroundColor: "porcelain" }}
-                      onChange={handleBasicInfoChange}
+                  <FormControl
+                    variant="filled"
+                    sx={{
+                      borderBottom: "none",
+                      width: "470px",
+                    }}
+                  >
+                    <InputLabel id="demo-simple-select-filled-label">
+                      Category
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-filled-label"
+                      id="demo-simple-select-filled"
                       value={basicInfoValues.productCategory}
-                      error={!!errors.productCategory}
-                      helperText={errors.productCategory || ""}
-                    />
-                  </Box>
-                  <Box>
-                    <TextareaAutosize
-                      required={true}
-                      id="productDescription"
-                      aria-label="Description"
-                      name="productDescription"
-                      placeholder="Say something about the product"
-                      className="w-[29.4rem] mb-5"
-                      style={{
-                        backgroundColor: "#EFF2F3",
-                        height: "223px",
-                        borderColor: "none",
-                        padding: "20px",
-                      }}
-                      value={basicInfoValues.productDescription}
+                      name="productCategory"
                       onChange={handleBasicInfoChange}
-                    />
-                  </Box>
+                      renderValue={(selected) => {
+                        if (!basicInfoValues.productCategory) {
+                          return <p>Select a category</p>;
+                        }
+                        return selected;
+                      }}
+                    >
+                      {getCategoriesData?.map(
+                        (category: {
+                          id: number;
+                          name: string;
+                        }): JSX.Element => (
+                          <MenuItem value={category.name}>
+                            {category.name}
+                          </MenuItem>
+                        )
+                      )}
+                    </Select>
+                  </FormControl>
+
+                  <TextField
+                    required={true}
+                    id="productDescription"
+                    aria-label="Description"
+                    name="productDescription"
+                    label="Description"
+                    placeholder="Say something about the product"
+                    className="w-[29.4rem] mb-5 outline-none"
+                    variant="filled"
+                    minRows={8}
+                    value={basicInfoValues.productDescription}
+                    onChange={handleBasicInfoChange}
+                  />
 
                   <Box>
                     <TextField

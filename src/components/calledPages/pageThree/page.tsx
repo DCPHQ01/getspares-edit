@@ -3,14 +3,16 @@
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { TextareaAutosize } from "@mui/base/TextareaAutosize";
-import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
 import * as React from "react";
-import Alert from "@mui/material/Alert";
 
 import { useAppSelector } from "../../../redux";
 import { useAppDispatch } from "../../../redux/hooks";
 import { RootState } from "../../../redux";
 import { setCurrentStep } from "../../../redux/features/company/companySlice";
+import { useUpdateCompanyMutation } from "../../../redux/features/company/companyQuery";
+import { useRouter } from "next/navigation";
+import { paths } from "../../../path/paths";
+import { useGetUserDetailsMutation } from "../../../redux/features/users/userQuery";
 
 interface CalledPagesPageThreePagesProps {
   step: number;
@@ -19,15 +21,42 @@ interface CalledPagesPageThreePagesProps {
 
 const CalledPagesPageThreePages = () => {
   const dispatch = useAppDispatch();
+  const [updateCompanyDetails] = useUpdateCompanyMutation();
+  const [getUserData] = useGetUserDetailsMutation({});
+
+  const router = useRouter()
 
   const company = useAppSelector((state: RootState) => state.company);
-  console.log("company ", company.companyForm);
 
   const handlePreviousPage = () => {
     dispatch(setCurrentStep(1));
   };
 
   const companyImage = sessionStorage.getItem("companyImage") || "";
+  async function handleSave() {
+    const res =  await getUserData('');
+
+    try {
+      const data = await updateCompanyDetails({
+        id: res.data.companyDetails[0].id,
+        name: company.companyForm.name,
+        description: company.companyForm.description,
+        websiteUrl: company.companyForm.website,
+        cac: company.companyForm.cac,
+        companyEmail: company.companyForm.email,
+        phoneNumber: company.companyForm.phoneNumber,
+        location: company.companyForm.address.join(', '),
+        imageUrl: companyImage,
+      });
+      if (data?.error) {
+        return
+      }
+      router.push(paths.toDashboard());
+    } catch (error) {
+      //todo: handle error in a better way
+      console.log(error, "error");
+    }
+  }
 
   return (
     <div className="" style={{ width: "85%", margin: "auto" }} id="pageThree1">
@@ -115,22 +144,22 @@ const CalledPagesPageThreePages = () => {
                   sx={{ backgroundColor: "porcelain" }}
                 />
               </Box>
-              <Box>
-                <TextField
-                  inputProps={{ readOnly: true }}
-                  required={true}
-                  id="filledbasic8"
-                  label=""
-                  variant="filled"
-                  type="date"
-                  // value={company.companyForm.date_founded}
-                  name="date"
-                  placeholder=""
-                  InputProps={{ disableUnderline: true }}
-                  className="lg:w-[364px] w-[100%] 2xl:w-[35rem] mb-10"
-                  sx={{ backgroundColor: "porcelain" }}
-                />
-              </Box>
+              {/*<Box>*/}
+              {/*  <TextField*/}
+              {/*    inputProps={{ readOnly: true }}*/}
+              {/*    required={true}*/}
+              {/*    id="filledbasic8"*/}
+              {/*    label=""*/}
+              {/*    variant="filled"*/}
+              {/*    type="date"*/}
+              {/*    // value={company.companyForm.date_founded}*/}
+              {/*    name="date"*/}
+              {/*    placeholder=""*/}
+              {/*    InputProps={{ disableUnderline: true }}*/}
+              {/*    className="lg:w-[364px] w-[100%] 2xl:w-[35rem] mb-10"*/}
+              {/*    sx={{ backgroundColor: "porcelain" }}*/}
+              {/*  />*/}
+              {/*</Box>*/}
 
               <Box>
                 <TextField
@@ -295,6 +324,7 @@ const CalledPagesPageThreePages = () => {
                 type="submit"
                 id="thirdFormSubmit6"
                 className="nextbtn w-96 mt-40 mb-6 "
+                onClick={handleSave}
               >
                 Save
               </button>

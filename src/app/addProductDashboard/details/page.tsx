@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { MdChevronLeft, MdChevronRight, MdPhotoLibrary } from "react-icons/md";
+import { paths } from "../../../path/paths";
 
 const CalledPagesPageFivePages = () => {
   const [productName, setProductName] = useState("");
@@ -66,7 +67,7 @@ const CalledPagesPageFivePages = () => {
   };
 
   const handlePreviousPage = () => {
-    router.push("/addProductDashboard/specifications");
+    router.push(paths.toAddProductDashboardSpecifications());
   };
 
   useEffect(() => {
@@ -89,8 +90,6 @@ const CalledPagesPageFivePages = () => {
 
                   <hr className="w-[80%]"></hr>
                 </div>
-
-                {/* here */}
 
                 <Box
                   component="form"
@@ -214,15 +213,15 @@ const CalledPagesPageFivePages = () => {
                     />
                   </Box>
                 </Box>
-                <div className="flex w-full justify-center mt-32">
+                <div className="flex w-full justify-center mt-8">
                   <div id="firstPreviousbtn9 flex justify-center">
                     <button
                       type="submit"
                       onClick={handlePreviousPage}
-                      className="w-[116px] flex justify-center gap-x-3 pt-2 h-10 font-semibold border rounded-full text-mecaBluePrimaryColor border-mecaBluePrimaryColor mt-6 mb-6 "
+                      className="w-[116px] flex justify-center gap-x-3 pt-2 h-10 font-semibold border rounded-full text-mecaBluePrimaryColor border-mecaBluePrimaryColor"
                     >
                       <span>
-                        <MdChevronLeft className="mt-1 " />
+                        <MdChevronLeft className="mt-1" />
                       </span>
                       <p> Back</p>
                     </button>

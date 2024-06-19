@@ -12,18 +12,20 @@ function Buyers() {
         title={`Buyers`}
         amount={`433,112`}
       />
-      <div className={`my-[1.25rem]`}>
-        <SearchBox placeholder={`Search for buyers`} />
+      <div className={`my-[1.25rem] flex justify-end`}>
+        <SearchBox placeholder={`Search for agent`} />
       </div>
-
       <BuyerTable />
 
       <div className="flex justify-end mt-10 text-mecaBluePrimaryColor font-bold text-lg">
         {/* <button className="flex gap-x-2">
-          <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
-        </button> */}
+            <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
+          </button> */}
         <button className="flex gap-x-2">
-          <MdChevronRight className="mt-1 text-2xl" /> <span>Next</span>
+          Next
+          <span>
+            <MdChevronRight className="mt-[2px] text-2xl" />{" "}
+          </span>
         </button>
       </div>
     </>

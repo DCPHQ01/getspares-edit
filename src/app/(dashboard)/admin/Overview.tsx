@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../dashboard/components/ui/header";
 import Cards from "../../../components/cards";
 import PeriodRadios from "../../dashboard/components/ui/periodradios";
@@ -10,14 +10,33 @@ import {
   MdChevronLeft,
   MdChevronRight,
 } from "react-icons/md";
+import { useGetOverviewMecaAdminQuery } from "../../../redux/features/dashboard/mecaAdminQuery";
 
 function Overview() {
+  const [roles, setRoles] = useState("");
+  const [name, setName] = useState("");
+  useEffect(() => {
+    const role =
+      typeof window !== "undefined" && window.sessionStorage
+        ? JSON.parse(sessionStorage.getItem("userDetails") || "{}")
+        : [];
+    setRoles(role.role);
+    setName(role.firstName);
+  }, []);
+
+  console.log("roles ", roles);
+  const { data } = useGetOverviewMecaAdminQuery({
+    roleName: roles,
+    pageNumber: 1,
+    pageSize: 10,
+  });
+  console.log("data here ", data);
   return (
     <>
       <div>
         <Header
           subtitle={`Take a quick glance on what is happening with meca`}
-          name={` Sam`}
+          name={`, ${name}`}
         />
         <Cards />
         <div

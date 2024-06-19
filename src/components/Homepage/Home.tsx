@@ -16,6 +16,7 @@ import { useEffect } from "react";
 import { useAppDispatch } from "../../redux/hooks";
 import { setUser, setUserDetails } from "../../redux/features/users/userSlice";
 import { redirect } from "next/navigation";
+import { useGetTopProductQuery } from "../../redux/features/users/authQuery";
 
 interface CustomDotProps {
   onClick: () => void;
@@ -85,7 +86,8 @@ export default function Home() {
       </button>
     );
   };
-
+  const { data: productData, isLoading } = useGetTopProductQuery({});
+  console.log("data ", productData);
   return (
     <main className="container mx-auto px-5 mt-8" id="mainContainer">
       <div id="heroCarousel">

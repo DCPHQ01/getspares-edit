@@ -22,9 +22,8 @@ function Vendors() {
         />
         {/* <AddButton title={`Add vendor`}/> */}
       </div>
-      <div className={`flex gap-2 mt-[1.25rem]`}>
+      <div className={`flex justify-end gap-2 mt-[1.25rem]`}>
         <SearchBox placeholder={`Search for vendor`} />
-        <SortButton />
       </div>
 
       <VendorTable />
@@ -34,7 +33,12 @@ function Vendors() {
             <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
           </button> */}
         <button className="flex gap-x-2">
-          <MdChevronRight className="mt-1 text-2xl" /> <span>Next</span>
+          
+          Next
+          <span>
+         
+            <MdChevronRight className="mt-[2px] text-2xl" />{" "}
+          </span>
         </button>
       </div>
     </>

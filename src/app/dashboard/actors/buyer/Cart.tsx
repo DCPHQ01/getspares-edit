@@ -45,6 +45,7 @@ import { useAppSelector } from "../../../../redux/hooks";
 import Header from "../../components/ui/header";
 import Searchbox from "../../components/ui/searchbox";
 import TruncateText from "../../../../components/utils/utils";
+import { paths } from "../../../../path/paths";
 
 interface State extends SnackbarOrigin {
   open: boolean;
@@ -254,9 +255,12 @@ const Cart = () => {
     horizontal: "center",
   });
   const { vertical, horizontal, open } = state;
+  const router = useRouter();
 
   const handleSucessClick = (newState: SnackbarOrigin) => () => {
     setState({ ...newState, open: true });
+    router.push(paths.toDashboardActorsBuyer());
+
   };
 
   const handleSucessClose = () => {
@@ -268,7 +272,6 @@ const Cart = () => {
   const removeFromCart = (id: string) => {
     setCarts((prevCart) => prevCart.filter((item) => item.id !== id));
   };
-  const router = useRouter();
 
   const [showButton, setShowButton] = useState(false);
 

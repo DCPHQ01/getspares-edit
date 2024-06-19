@@ -32,6 +32,7 @@ import {
 } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import { useGetUserDetailsMutation } from "../../../redux/features/users/userQuery";
+import { paths } from "../../../path/paths";
 
 interface JwtPayload extends BaseJwtPayload {
   role?: string;
@@ -120,16 +121,16 @@ export default function Login() {
         console.log(decoded, " decoded");
         switch (decoded?.resource_access["e-meca"]?.roles[0]) {
           case "MECA_ADMIN":
-            router.push("/admin");
+            router.push(paths.toAdmin());
             break;
           case "VENDOR_ADMIN":
-            router.push("/dashboard");
+            router.push(paths.toDashboard());
             break;
           case "AGENT":
-            router.push("/dashboard");
+            router.push(paths.toDashboard());
             break;
           case "BUYER":
-            router.push("/");
+            router.push(paths.toHome());
             break;
           default:
             alert("Unknown role. Please try again.");
@@ -143,7 +144,7 @@ export default function Login() {
   };
 
   const routerToHomePage = () => {
-    router.push("/");
+    router.push(paths.toHome());
   };
 
   useEffect(() => {
@@ -154,7 +155,9 @@ export default function Login() {
   }, []);
 
   return (
-    <div className={nunito.className}>
+    <div 
+    className={nunito.className}
+    >
       <div className="absolute top-16  lg:left-16 left-8" id="eMecaLogin">
         <span
           className="font-bold lg:text-3xl text-2xl text-mecaActiveIconsNavColor"

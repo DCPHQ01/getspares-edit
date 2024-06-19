@@ -49,6 +49,7 @@ import {
 import TopBarWhileInside from "../reusables/TopBarWhileInside/page";
 import TopBar from "../reusables/TopBar/page";
 import TruncateText from "../../components/utils/utils";
+import { paths } from "../../path/paths";
 
 interface State extends SnackbarOrigin {
   open: boolean;
@@ -209,6 +210,7 @@ const RemoveToCartPage = () => {
 
   const handleSucessClick = (newState: SnackbarOrigin) => () => {
     setState({ ...newState, open: true });
+    router.push(paths.toDashboardActorsBuyer());
   };
 
   const handleSucessClose = () => {
@@ -297,7 +299,7 @@ const RemoveToCartPage = () => {
             <div className="w-[20%]" id="mecaLogoDesktop">
               <p
                 className="text-mecaActiveIconsNavColor text-3xl font-nunito font-bold cursor-pointer"
-                onClick={() => router.push("/")}
+                onClick={() => router.push(paths.toHome())}
               >
                 e-meca
               </p>

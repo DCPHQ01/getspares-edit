@@ -19,6 +19,7 @@ import { JwtPayload as BaseJwtPayload } from "jsonwebtoken";
 import * as JWT from "jwt-decode";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { clearUser } from "../../redux/features/users/userSlice";
+import { paths } from "../../path/paths";
 
 const navData = [
   {
@@ -102,10 +103,10 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
   const dispatch = useAppDispatch();
 
   const handleStartShopping = () => {
-    router.push("/signup");
+    router.push(paths.toSignUp());
   };
   const handleLogin = () => {
-    router.push("/login");
+    router.push(paths.toLogin());
   };
   const [isCategoryOptionOpened, setIsCategoryOptionOpen] = useState(false);
 
@@ -117,7 +118,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
     return isCategoryOptionOpened;
   };
   const handleDashboard = () => {
-    router.push("/dashboard");
+    router.push(paths.toDashboard());
   };
   const [toggleProfile, setToggleProfile] = useState(false);
   const [tokens, setTokens] = useState("");
@@ -149,7 +150,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
     sessionStorage.clear();
     sessionStorage.removeItem("userDetails");
     dispatch(clearUser());
-    router.push("/login");
+    router.push(paths.toLogin());
   };
   useEffect(() => setActive(1), []);
   return (
@@ -161,7 +162,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
       >
         <p
           className="text-mecaActiveIconsNavColor text-xl font-nunito font-bold cursor-pointer"
-          onClick={() => router.push("/")}
+          onClick={() => router.push(paths.toHome())}
         >
           e-meca
         </p>
@@ -198,7 +199,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
           <div className="w-[20%]" id="mecaLogoDesktop">
             <p
               className="text-mecaActiveIconsNavColor text-3xl font-nunito font-bold cursor-pointer"
-              onClick={() => router.push("/")}
+              onClick={() => router.push(paths.toHome())}
             >
               e-meca
             </p>
@@ -272,7 +273,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
 
               {toggleProfile && (
                 <div
-                  className="w-52 h-24 rounded-lg p-1 bg-white absolute top-2 right-6 "
+                  className="w-52 h-24 rounded-lg p-1 bg-white absolute top-12 right-24 "
                   style={{ boxShadow: "0px 2px 8px 0px #63636333" }}
                 >
                   <button
@@ -308,7 +309,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
             </div>
           </div>
         </div>
-        {toggleProfile && (
+        {/* {toggleProfile && (
           <div
             className="w-52 h-24 rounded-lg p-1 bg-white absolute right-40 top-16"
             style={{ boxShadow: "0px 2px 8px 0px #63636333" }}
@@ -341,7 +342,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
               </button>
             </div>
           </div>
-        )}
+        )} */}
       </div>
       <div
         className="hidden w-full h-20 lg:flex justify-center items-center"
@@ -387,25 +388,24 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                 </p>
               )}
             </div>
-
-            {/* {item.id === 2 && isCategoryOptionOpened && (
-              <div className="flex justify-center">
-                <div className="absolute top-56 z-50">
-                  <DropdownPage />
-                </div>
-              </div>
-            )} */}
           </div>
         ))}
+        {isCategoryOptionOpened && (
+          <div className="flex justify-center">
+            <div className="absolute left-96 top-40 z-50">
+              <DropdownPage  />
+            </div>
+          </div>
+        )}
       </div>
 
-      {isCategoryOptionOpened && (
+      {/* {isCategoryOptionOpened && (
         <div className="flex justify-center">
           <div className="absolute z-50">
             <DropdownPage />
           </div>
         </div>
-      )}
+      )} */}
     </nav>
   );
 }
