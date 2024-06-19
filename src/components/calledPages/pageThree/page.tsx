@@ -24,7 +24,7 @@ const CalledPagesPageThreePages = () => {
   const [updateCompanyDetails] = useUpdateCompanyMutation();
   const [getUserData] = useGetUserDetailsMutation({});
 
-  const router = useRouter()
+  const router = useRouter();
 
   const company = useAppSelector((state: RootState) => state.company);
 
@@ -34,23 +34,23 @@ const CalledPagesPageThreePages = () => {
 
   const companyImage = sessionStorage.getItem("companyImage") || "";
   async function handleSave() {
-    const res =  await getUserData('');
+    const res = await getUserData("");
 
     try {
       const data = await updateCompanyDetails({
-        id: res.data.companyDetails[0].id,
+        id: "id",
         name: company.companyForm.name,
         description: company.companyForm.description,
         websiteUrl: company.companyForm.website,
         cac: company.companyForm.cac,
         companyEmail: company.companyForm.email,
         phoneNumber: company.companyForm.phoneNumber,
-        location: company.companyForm.address.join(', '),
+        location: company.companyForm.address.join(", "),
         imageUrl: companyImage,
       });
-      if (data?.error) {
-        return
-      }
+      // if (data?.error) {
+      //   return;
+      // }
       router.push(paths.toDashboard());
     } catch (error) {
       //todo: handle error in a better way
@@ -144,22 +144,6 @@ const CalledPagesPageThreePages = () => {
                   sx={{ backgroundColor: "porcelain" }}
                 />
               </Box>
-              {/*<Box>*/}
-              {/*  <TextField*/}
-              {/*    inputProps={{ readOnly: true }}*/}
-              {/*    required={true}*/}
-              {/*    id="filledbasic8"*/}
-              {/*    label=""*/}
-              {/*    variant="filled"*/}
-              {/*    type="date"*/}
-              {/*    // value={company.companyForm.date_founded}*/}
-              {/*    name="date"*/}
-              {/*    placeholder=""*/}
-              {/*    InputProps={{ disableUnderline: true }}*/}
-              {/*    className="lg:w-[364px] w-[100%] 2xl:w-[35rem] mb-10"*/}
-              {/*    sx={{ backgroundColor: "porcelain" }}*/}
-              {/*  />*/}
-              {/*</Box>*/}
 
               <Box>
                 <TextField
@@ -206,89 +190,9 @@ const CalledPagesPageThreePages = () => {
                   name="address"
                   placeholder="371, Borno way, Lagos Nigeria"
                   InputProps={{ disableUnderline: true }}
-                  // className="lg:w-[100%] w-[100%]"
                   className="  w-full lg:w-[364px]  mb-10 2xl:w-[35rem]"
-                  // sx={{ backgroundColor: "porcelain" }}
                 />
               </Box>
-
-              {/* <Box>
-                <TextField
-                  inputProps={{ readOnly: true }}
-                  type="text"
-                  required={true}
-                  id="filledbasic12"
-                  label="Address 2"
-                  variant="filled"
-                  name="address"
-                  placeholder="371, Borno way, Lagos Nigeria"
-                  InputProps={{ disableUnderline: true }}
-                  // className="lg:w-[100%] w-[100%]"
-                  className="  w-full lg:w-[364px] mb-10 2xl:w-[35rem]"
-                  // sx={{ backgroundColor: "porcelain" }}
-                />
-              </Box> */}
-
-              {/* <Box>
-                <TextField
-                  inputProps={{ readOnly: true }}
-                  type="text"
-                  required={true}
-                  id="filledbasic14"
-                  label="Address 3"
-                  variant="filled"
-                  name="address"
-                  placeholder="371, Borno way, Lagos Nigeria"
-                  InputProps={{ disableUnderline: true }}
-                  // className="lg:w-[100%] w-[100%]"/
-                  className="  w-full lg:w-[364px]  mb-6 2xl:w-[35rem]"
-                  // sx={{ backgroundColor: "porcelain" }}
-                />
-              </Box> */}
-
-              {/* <Box>
-                {" "}
-                <div>
-                  {addresses.map((address, index) => (
-                    <div key={index}>
-                      <p>{address.streetNumber}</p>
-                      <p>{address.town}</p>
-                      <p>{address.city}</p>
-                      <p>{address.state}</p>
-                    </div>
-                  ))}
-                  {inputValues.map((inputValue, index) => (
-                    <div key={index} className="mb-4">
-                      <input
-                        type="text"
-                        placeholder="Enter address (Street Number, Town, City, State)"
-                        value={inputValue}
-                        onChange={(e) =>
-                          handleInputChange(index, e.target.value)
-                        }
-                        className="mr-2"
-                      />
-                      <button
-                        onClick={handleSaveAddress}
-                        className="px-4 py-2 bg-blue-500 text-white rounded"
-                      >
-                        Save Address
-                      </button>
-                    </div>
-                  ))}
-
-                  <button
-                    onClick={handleAddAddress}
-                    className="add-address"
-                    id="addAnotherid"
-                  >
-                    Add another address
-                  </button> 
-                   <button className="px-4 py-2 bg-green-500 text-white rounded">
-                    Add Address
-                  </button>
-                </div>
-              </Box> */}
             </Box>
 
             <Box>
