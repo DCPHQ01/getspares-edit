@@ -62,9 +62,7 @@ function Overview() {
     },
   ];
 
-  console.log("Transformed cardsData:", cardsData);
-
- 
+  console.log("Transformed cardsData:", cardsData); 
   
   
   return (

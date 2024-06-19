@@ -15,7 +15,7 @@ function Overview() {
           subtitle={`Take a quick glance on what is happening with meca`}
           name={`Sam`}
         />
-        {/* <Cards cardProps={}/> */}
+        <Cards cardProps={}/>
         <div
           className={`flex justify-between items-center mt-[3.25rem] mb-[1.25rem]`}
         >
