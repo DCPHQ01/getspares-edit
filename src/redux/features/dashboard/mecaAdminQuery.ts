@@ -13,7 +13,19 @@ export const mecaAdminQuery = createApi({
         body,
       }),
     }),
+    getOverviewMecaAdmin: builder.query({
+      query: (params: {
+        roleName: string;
+        pageNumber: number;
+        pageSize: number;
+      }) => ({
+        url: "/dashboard/meca-admin-dashboard-overview",
+        method: "POST",
+        body: params,
+      }),
+    }),
   }),
 });
 
-export const { useAddCategoryMutation } = mecaAdminQuery;
+export const { useAddCategoryMutation, useGetOverviewMecaAdminQuery } =
+  mecaAdminQuery;
