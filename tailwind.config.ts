@@ -25,6 +25,7 @@ const config: Config = {
         mecaSuccessBackgroundColor: "#ECFDF3",
         mecaIconSuccessColor: "#079455",
         mecaDarkBlueBackgroundOverlay: "#101828",
+        mecaGrayBackgroundColor: "#F8FAFC",
         mecaActiveIconsNavColor: "#0852C0",
         mecaActiveBackgroundNavColor: "#EFF4FF",
         mecaTableTextSuccessColor: "#067647",
