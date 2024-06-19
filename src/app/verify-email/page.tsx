@@ -4,13 +4,14 @@ import { useRouter } from "next/navigation";
 import EmailVerified from "../../components/verifyEmail/EmailVerified";
 import VerifyEmail from "../../components/verifyEmail/VerifyEmail";
 import { useState } from "react";
+import { paths } from "../../path/paths";
 
 export default function New_password() {
   const [haveVerifiedEmail, setHaveVerifiedEmail] = useState(false);
 
   const router = useRouter();
   const routerToHomePage = () => {
-    router.push("/");
+    router.push(paths.toHome());
   };
 
   return (

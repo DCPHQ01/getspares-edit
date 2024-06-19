@@ -3,6 +3,8 @@ import { Button } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { MdChevronRight } from "react-icons/md";
 
+import { paths } from "../../path/paths";
+
 export default function ResetConfirmation() {
   const router = useRouter();
 
@@ -25,7 +27,7 @@ export default function ResetConfirmation() {
         id="resetPasswordBtn"
         variant="contained"
         className="bg-mecaBluePrimaryColor text-[white] text-lg my-8 font-semibold rounded-[36px] h-12 w-full hover:bg-mecaBluePrimaryColor"
-        onClick={() => router.push("/login")}
+        onClick={() => router.push(paths.toLogin())}
         endIcon={<MdChevronRight />}
       >
         Login

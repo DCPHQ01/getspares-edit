@@ -9,7 +9,8 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import Footer from '../../../../../components/footer/Footer';
 import NavBarWhileInsideApp from '../../../../reusables/TopBarWhileInside/NavBarWhileInsideApp/page';
-
+// import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
+import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -18,9 +19,12 @@ const style = {
   transform: 'translate(-50%, -50%)',
   width: 400,
   bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
+  border: 'none',
+  borderRadius: '8px',
+  // boxShadow: 24,
   p: 4,
+  opacity: 1,
+  gap: 12,
 };
 
 const nunito = Nunito_Sans({
@@ -270,31 +274,39 @@ const Checkout = () => {
                     </div>
                   ))}
                   <div>
-                    <button
-                      onClick={handleSucessClick}
-                      className="w-full h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer"
-                    >
-                      Checkout
-                    </button>
-                  </div>
-                  {/* <div>
-                    <Button onClick={handleOpen}>Open modal</Button>
+                    <Button disableRipple className="w-full hover:bg-mecaBluePrimaryColor h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer normal-case hover:opacity-90" 
+                    onClick={handleOpen}
+                     >Checkout</Button>
                     <Modal
                       open={open}
                       onClose={handleClose}
                       aria-labelledby="modal-modal-title"
                       aria-describedby="modal-modal-description"
+                      sx={{backdropFilter: 'blur(5px)'}}
                     >
                       <Box sx={style}>
-                        <Typography id="modal-modal-title" variant="h6" component="h2">
-                          Text in a modal
-                        </Typography>
-                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                          Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                        </Typography>
+                        <CheckOutlinedIcon sx={{ background: '#B2CCFF', color: '#095AD3', borderRadius: '28px', border: '8px solid #B2CCFF', fontSize: '40px', }}/>
+                        <div className='flex flex-col gap-3'>
+                          <p id="modal-modal-title" className='text-lg font-semibold mt-5'>
+                            Order successful!
+                          </p>
+                            <p id="modal-modal-description" className='text-sm font-normal text-mecaCheckoutMessage'>
+                              Thank you for your purchase. Your order has been 
+                              placed successfully. A confirmation email with your 
+                              order details will be sent shortly.
+                            </p>
+                        </div>
+                          <div className='mt-4'>
+                            <button
+                              onClick={handleSucessClick}
+                              className="w-full h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer"
+                            >
+                              Go to Marketplace
+                            </button>
+                          </div>
                       </Box>
                     </Modal>
-                  </div> */}
+                  </div>
                 </div>
               </CardContent>
             </Card>

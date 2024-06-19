@@ -37,10 +37,10 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       <AddProductImage />
 
       <div className=" flex w-[80%] m-auto ">
-        <div className="hidden mt-48 md:flex w-[34%] fixed " id="vendorVend2">
+        <div className="hidden mt-4 md:flex w-[34%] fixed " id="vendorVend2">
           <AddProductSideBar step={step} setStep={setStep} />
         </div>
-        <div id="vendorVend3" className="w-[70%] absolute mt-56   right-0">
+        <div id="vendorVend3" className="w-[70%] absolute mt-16 right-0">
           {/* {togglePages(step)} */}
           {children}
         </div>

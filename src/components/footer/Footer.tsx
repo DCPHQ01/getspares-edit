@@ -3,6 +3,7 @@ import { Button, FilledInput, InputLabel } from "@mui/material";
 import { ChangeEvent, useState } from "react";
 import RightSideList from "./footerList";
 import { useRouter } from "next/navigation";
+import { paths } from "../../path/paths";
 
 export default function Footer() {
   const [state, setState] = useState({
@@ -37,7 +38,7 @@ export default function Footer() {
       <div id="mecaFooterLogo">
         <p
           className="text-mecaActiveIconsNavColor text-5xl font-nunito font-bold cursor-pointer"
-          onClick={() => router.push("/")}
+          onClick={() => router.push(paths.toHome())}
         >
           e-meca
         </p>

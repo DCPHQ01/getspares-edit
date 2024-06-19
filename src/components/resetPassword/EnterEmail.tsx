@@ -6,6 +6,7 @@ import {
   MdOutlineVpnKey,
   MdChevronRight,
 } from "react-icons/md";
+import { paths } from "../../path/paths";
 
 interface EnterEmailProps {
   setHaveSentEmail: React.Dispatch<React.SetStateAction<boolean>>;
@@ -94,7 +95,7 @@ export default function EnterEmail({ setHaveSentEmail }: EnterEmailProps) {
         </Button>
       </FormControl>
       <Link
-        href="/login"
+        href={paths.toLogin()}
         id="loginLink"
         className="text-mecaGoBackText flex items-center text-sm gap-4 mt-6"
       >

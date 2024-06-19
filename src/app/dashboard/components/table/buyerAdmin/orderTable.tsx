@@ -98,8 +98,6 @@ const data = [
 
 
 const OrderTable = () => {
- 
-
   const router = useRouter();
 
   const [renderDetails,setRenderDetails] = useState(false)
@@ -194,7 +192,7 @@ const OrderTable = () => {
       </div>
     </div>
     {renderDetails && (
-      <div className="absolute top-0 bg-white lg:w-[83%] w-[100%] ml-0 lg:h-[100vh]">
+      <div className="absolute left-0 top-0 bg-white lg:w-[85%] w-[100%] lg:ml-[15%] pl-0 lg:pl-20 lg:h-[100vh]">
         <Details />
       </div>
     )}

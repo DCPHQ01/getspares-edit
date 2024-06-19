@@ -34,7 +34,7 @@ function a11yProps(index: number) {
   };
 }
 
-export default function BasicTabs() {
+export default function DetailsTable() {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -42,15 +42,8 @@ export default function BasicTabs() {
   };
 
   return (
-    <div className='pt-14'>
 
       <Box sx={{ width: '100%'}}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider'}}>
-          <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-            <Tab label="Details" sx={{ textTransform: "none", fontSize: "28px"}} {...a11yProps(0)} />
-            <Tab label="Reviews" sx={{ textTransform: "none", fontSize: "28px" }} {...a11yProps(1)} />
-          </Tabs>
-        </Box>
         <CustomTabPanel value={value} index={0}>
           <Box
             sx={{
@@ -118,6 +111,5 @@ export default function BasicTabs() {
           <ProductReview/>
         </CustomTabPanel>
       </Box>
-    </div>
   );
 }

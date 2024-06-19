@@ -95,15 +95,12 @@ export default function ProductDescription() {
   };
 
   const searchParams = usePathname()!;
-  // console.log('====================================');
-  // console.log(searchParams);
-  // console.log('====================================');
+
   const search = searchParams;
   const segments = searchParams.split("/");
-  // console.log(segments, " segments");
+
   const searches = segments[3];
   const id = segments[4];
-  // console.log(searches, " searches");
 
   const handleClick = (newState: SnackbarOrigin) => () => {
     dispatch(
@@ -142,7 +139,7 @@ export default function ProductDescription() {
             </p>
             <MdChevronRight size={20} />
             <p className="text-[12px] font-nunito font-normal text-mecaGoBackArrow">
-            {/* View details */}
+              {/* View details */}
             </p>
           </div>
           <div
@@ -297,44 +294,7 @@ export default function ProductDescription() {
                     >
                       Buy now
                     </button>
-                    {/* <div className="mt-4" id="accordionForProductDescription">
-                      <Accordion>
-                        <AccordionSummary
-                          expandIcon={
-                            <MdExpandMore size={28} className="text-black" />
-                          }
-                          aria-controls="panel1a-content"
-                          id="panel1a-header"
-                        >
-                          <p className="text-mecaDarkBlueBackgroundOverlay text-lg">
-                            Shipping & Returns
-                          </p>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Suspendisse malesuada lacus ex, sit amet blandit
-                          leo lobortis eget.
-                        </AccordionDetails>
-                      </Accordion>
-                      <Accordion>
-                        <AccordionSummary
-                          expandIcon={
-                            <MdExpandMore size={28} className="text-black" />
-                          }
-                          aria-controls="panel2-content"
-                          id="panel2-header"
-                        >
-                          <p className="text-mecaDarkBlueBackgroundOverlay text-lg">
-                            Delivery
-                          </p>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Suspendisse malesuada lacus ex, sit amet blandit
-                          leo lobortis eget.
-                        </AccordionDetails>
-                      </Accordion>
-                    </div> */}
+
                     <Snackbar
                       anchorOrigin={{ vertical, horizontal }}
                       open={open}
@@ -388,7 +348,7 @@ export default function ProductDescription() {
             </span>
           </div>
           <div id="carouselProductDescription">
-            <Carousel
+            {/* <Carousel
               partialVisible={true}
               draggable={false}
               responsive={responsive}
@@ -402,7 +362,7 @@ export default function ProductDescription() {
               <Card image={HomeImage1} />
               <Card image={HomeImage2} />
               <Card image={HomeImage1} />
-            </Carousel>
+            </Carousel> */}
           </div>
         </div>
         <div
@@ -434,7 +394,7 @@ export default function ProductDescription() {
             </span>
           </div>
           <div id="carousel">
-            <Carousel
+            {/* <Carousel
               partialVisible={true}
               draggable={false}
               responsive={responsive}
@@ -448,7 +408,7 @@ export default function ProductDescription() {
               <Card image={HomeImage1} />
               <Card image={HomeImage2} />
               <Card image={HomeImage1} />
-            </Carousel>
+            </Carousel> */}
           </div>
         </div>
       </div>

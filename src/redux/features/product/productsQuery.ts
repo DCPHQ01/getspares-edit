@@ -7,9 +7,12 @@ export const productsQuery = createApi({
   reducerPath: "productsQuery",
   baseQuery: customFetchBase,
   endpoints: (builder) => ({
-    getProducts: builder.query({
-      query: () => "/product",
-    }),
+    // getTopProduct: builder.query({
+    //   query: () => "/product/top",
+    // }),
+    // getRecentProduct: builder.query({
+    //   query: () => "/product/recent",
+    // }),
     getAProduct: builder.query({
       query: (id: string) => `/product/${id}`,
     }),
@@ -19,10 +22,31 @@ export const productsQuery = createApi({
     createProduct: builder.mutation({
       query: (body: {
         name: string;
+        price: {
+          amount: Number;
+          currency: string;
+        };
         description: string;
-        price: number;
+        categoryName: string;
+        productCondition: "NEW";
+        productImages: string[];
+        productInformation: {
+          manufacturer: string;
+          brand: string;
+          model: string;
+          itemWeight: string;
+          productionDimension: string;
+          countryOfOrigin: string;
+          itemModelNumber: string;
+          manufacturerPartNumber: string;
+        };
+        productSpecification: {
+          color: string;
+          quantityInPack: Number;
+        };
         quantity: number;
-        category: string;
+        tags: string[];
+        companyName: string;
       }) => ({
         url: "/product/create-product",
         method: "POST",
@@ -83,7 +107,8 @@ export const productsQuery = createApi({
 });
 
 export const {
-  useGetProductsQuery,
+  // useGetTopProductQuery,
+  // useGetRecentProductQuery,
   useGetAProductQuery,
   useGetProductDecriptionQuery,
   useCreateProductMutation,

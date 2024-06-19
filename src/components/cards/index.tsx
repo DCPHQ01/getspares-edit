@@ -48,12 +48,12 @@ const Index:React.FC<CardProps> = ({cardField}) => {
   ];
   return (
     <div id="cardContainer" className={`mt-[1rem] flex justify-between w-full`}>
-      {cardProps.map((card, index) => (
+      {cardProps?.map((card ,index) => (
         <div id={`card_${index}`} key={index}>
           <Card
+            total={card.total}
             amount={card.amount}
             percentage={card.percentage}
-            total={card.total}
             onClick={card.onClick}
           />
         </div>

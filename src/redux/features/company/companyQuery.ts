@@ -8,12 +8,13 @@ export const companyQuery = createApi({
   endpoints: (builder) => ({
     updateCompany: builder.mutation({
       query: (body: {
+        id: string;
         name: string;
         description: string;
-        website: string;
+        websiteUrl: string;
         cac: string;
         // date_founded: string;
-        email: string;
+        companyEmail: string;
         phoneNumber: string;
         location: string;
         imageUrl: string;

@@ -15,6 +15,7 @@ import {
   InputAdornment,
   InputLabel,
 } from "@mui/material";
+import { paths } from "../../path/paths";
 
 interface CreateNewPasswordProps {
   setHavePasswordReset: React.Dispatch<React.SetStateAction<boolean>>;
@@ -170,7 +171,7 @@ export default function CreateNewPassword({
         </Button>
       </FormControl>
       <Link
-        href="/login"
+        href={paths.toLogin()}
         id="loginLink"
         className="text-mecaGoBackText flex items-center text-sm gap-4 mt-6"
       >

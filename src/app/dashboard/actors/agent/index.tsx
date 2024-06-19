@@ -29,6 +29,7 @@ import {
 } from "react-icons/md";
 import AgentDashboardMobilePage from "./AgentDashboardMobile/page";
 import { useUserRole } from "../../../hooks/useUserRole";
+import { paths } from "../../../../path/paths";
 
 
 function Index() {
@@ -59,7 +60,7 @@ function Index() {
 
    const logOut = () => {
      dispatch(clearUser());
-     router.push("/");
+     router.push(paths.toHome());
    };
 
    const buttons = [
@@ -136,7 +137,7 @@ function Index() {
        size: 18,
        onClick: () => {
          dispatch(setUser({}));
-         router.push("/");
+         router.push(paths.toHome());
        },
      },
    ];
@@ -180,7 +181,7 @@ function Index() {
                   >
                     <p
                       className="text-mecaActiveIconsNavColor text-xl font-nunito font-bold cursor-pointer"
-                      onClick={() => router.push("/")}
+                      onClick={() => router.push(paths.toHome())}
                     >
                       e-meca
                     </p>
@@ -202,7 +203,7 @@ function Index() {
                         >
                           <p
                             className="text-mecaActiveIconsNavColor text-xl font-nunito font-bold cursor-pointer"
-                            onClick={() => router.push("/")}
+                            onClick={() => router.push(paths.toHome())}
                           >
                             e-meca
                           </p>

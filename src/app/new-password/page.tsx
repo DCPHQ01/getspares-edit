@@ -4,12 +4,13 @@ import { useRouter } from "next/navigation";
 import CreateNewPassword from "../../components/resetPassword/CreateNewPassword";
 import ResetConfirmation from "../../components/resetPassword/ResetConfirmation";
 import { useState } from "react";
+import { paths } from "../../path/paths";
 
 export default function New_password() {
   const router = useRouter();
   const [havePasswordReset, setHavePasswordReset] = useState(false);
   const routerToHomePage = () => {
-    router.push("/");
+    router.push(paths.toHome());
   };
   return (
     <>
