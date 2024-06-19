@@ -20,7 +20,7 @@ const CalledPagesPageFourPages = () => {
   const [images, setImages] = useState<string[]>([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [specifications, setSpecifications] = useState({
-    quantity: "",
+    quantityInPack: "",
     color: "",
   });
 
@@ -106,16 +106,16 @@ const CalledPagesPageFourPages = () => {
                   <Box>
                     <TextField
                       required={true}
-                      id="filledbasic"
+                      id="quantityInPack"
                       label="Quantity in a pack"
                       variant="filled"
                       type="text"
-                      name="quantity"
+                      name="quantityInPack"
                       placeholder="12"
                       InputProps={{ disableUnderline: true }}
                       className=" w-[29.4rem] mb-5 "
                       sx={{ backgroundColor: "porcelain" }}
-                      value={specifications.quantity}
+                      value={specifications.quantityInPack}
                       onChange={handleSpecChange}
                     />
                   </Box>

@@ -1,6 +1,8 @@
 import Image from "next/image";
 import addProduct from "../../assets/images/addProduct.svg";
 import { useCreateProductMutation } from "../../redux/features/product/productsQuery";
+import { ColorRing } from "react-loader-spinner";
+
 import { paths } from "../../path/paths";
 const AddProductImage = () => {
   const [addProductdata, { isLoading }] = useCreateProductMutation();
@@ -30,51 +32,38 @@ const AddProductImage = () => {
       : {};
 
   const priceWithoutCommas = basicInfoData?.price?.replace(/,/g, "");
-
-  console.log(priceWithoutCommas, "basicInfoData");
-  console.log(
-    basicInfoData,
-    " basicInfo ",
-    userDetails,
-    " user details ",
-    detailsData,
-    " details data ",
-    specsData,
-    " specs data ",
-    "basicInfoData"
-  );
-
+  // console.log("company name ", userDetails.companyDetails[0].name);
   const handleAddProduct = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     try {
       const response = await addProductdata({
         name: basicInfoData.productName,
-        description: basicInfoData.productDescription,
         price: {
-          amount: Number(priceWithoutCommas),
+          amount: priceWithoutCommas,
           currency: "NGN",
         },
+        description: basicInfoData.productDescription,
         categoryName: basicInfoData.productCategory,
-        companyName: userDetails.companyDetails[0].name,
-        productImages: ["string", "string"],
+        productCondition: "NEW",
+        productImages: ["string"],
         productInformation: {
           manufacturer: detailsData.manufacturer,
           brand: detailsData.brand,
           model: detailsData.model,
           itemWeight: detailsData.weight,
           productionDimension: detailsData.dimension,
-          countryOfOrigin: detailsData.country,
-          itemModelNumber: "",
+          countryOfOrigin: detailsData.countryOfOrigin,
+          itemModelNumber: "string",
           manufacturerPartNumber: detailsData.manufacturerParts,
-          voltage: "",
         },
         productSpecification: {
           color: specsData.color,
-          quantityInPack: +specsData.quantity,
+          quantityInPack: +specsData.quantityInPack,
         },
-        availabilityStatus: "IN_STOCK",
-        quantity: 1,
+        quantity: +basicInfoData.quantity,
+        tags: ["string"],
+        companyName: userDetails.companyDetails[0].name,
       });
       if ("data" in response) {
         console.log(response.data);
@@ -100,9 +89,21 @@ const AddProductImage = () => {
 
           <button
             onClick={handleAddProduct}
-            className="text-base bg-mecaBluePrimaryColor text-white w-40 h-10 rounded-full font-semibold"
+            className="text-base flex justify-center items-center bg-mecaBluePrimaryColor text-white w-40 h-10 rounded-full font-semibold"
           >
-            Publish now
+            {isLoading ? (
+              <ColorRing
+                visible={true}
+                height="40"
+                width="40"
+                ariaLabel="color-ring-loading"
+                wrapperStyle={{}}
+                wrapperClass="color-ring-wrapper"
+                colors={["#ffff", "#ffff", "#ffff", "#ffff", "#ffff"]}
+              />
+            ) : (
+              "Publish now"
+            )}
           </button>
         </div>
         <hr className="w-[80%] m-auto "></hr>

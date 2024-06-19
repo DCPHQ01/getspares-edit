@@ -93,7 +93,7 @@ function Index({ header, subheader, overviewRoles }: IProps) {
         </div>
       </div>
       <div id="cardContainer" className={`mt-[1rem] flex gap-5 w-full`}>
-        <Cards />
+        {/* <Cards /> */}
       </div>
       <div id="sectionHeader" className={`mt-[3.25rem] flex justify-between`}>
         <div>

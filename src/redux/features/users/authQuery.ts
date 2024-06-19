@@ -94,10 +94,18 @@ export const authQuery = createApi({
         body,
       }),
     }),
+    getTopProduct: builder.query({
+      query: () => "/product/top",
+    }),
+    getRecentProduct: builder.query({
+      query: () => "/product/recent",
+    }),
   }),
 });
 
 export const {
+  useGetTopProductQuery,
+  useGetRecentProductQuery,
   useRegisterBuyerMutation,
   useRegisterAgentMutation,
   useRegisterVendorMutation,
