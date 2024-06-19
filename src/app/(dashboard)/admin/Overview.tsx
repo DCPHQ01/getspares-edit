@@ -70,7 +70,7 @@ function Overview() {
       <div>
         <Header
           subtitle={`Take a quick glance on what is happening with meca`}
-          name={` Sam`}
+          name={`, ${name}`}
         />
         <Cards cardProps={cardsData}/>
         <div

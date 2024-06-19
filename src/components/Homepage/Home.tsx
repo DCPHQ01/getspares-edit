@@ -16,6 +16,7 @@ import { useEffect } from "react";
 import { useAppDispatch } from "../../redux/hooks";
 import { setUser, setUserDetails } from "../../redux/features/users/userSlice";
 import { redirect } from "next/navigation";
+import { useGetTopProductQuery } from "../../redux/features/users/authQuery";
 
 interface CustomDotProps {
   onClick: () => void;
@@ -85,7 +86,8 @@ export default function Home() {
       </button>
     );
   };
-
+  const { data: productData, isLoading } = useGetTopProductQuery({});
+  console.log("data ", productData);
   return (
     <main className="container mx-auto px-5 mt-8" id="mainContainer">
       <div id="heroCarousel">
@@ -132,19 +134,9 @@ export default function Home() {
           </button>
         </span>
         <div id="carouselContainer">
-          <Carousel
-            partialVisible={true}
-            draggable={false}
-            responsive={responsive}
-            ssr={true}
-            infinite
-            autoPlay={true}
-            itemClass="lg:pr-8 pr-4"
-          >
             <Card image={HomeImage1} />
             <Card image={HomeImage2} />
             <Card image={HomeImage1} />
-          </Carousel>
         </div>
       </div>
       <ProductCarousel />
@@ -163,20 +155,12 @@ export default function Home() {
             View more
           </button>
         </span>
-        <div id="newProductsCarousel">
-          <Carousel
-            partialVisible={true}
-            draggable={false}
-            responsive={responsive}
-            ssr={true}
-            infinite
-            autoPlay={true}
-            itemClass="lg:pr-8 pr-4"
-          >
-            <Card image={HomeImage2} />
-            <Card image={HomeImage1} />
-            <Card image={HomeImage2} />
-          </Carousel>
+        <div id="newProductsCarousel" className={'flex gap-5'}>
+
+          <Card image={HomeImage2} />
+          <Card image={HomeImage1} />
+          <Card image={HomeImage2} />
+          <Card image={HomeImage2} />
         </div>
       </div>
       <div
@@ -208,7 +192,7 @@ export default function Home() {
           <div className="mt-4" id="homeImage3ButtonContainer">
             <Button
               id="exploreEnginesBtn"
-              className="bg-white normal-case text-mecaBluePrimaryColor lg:text-lg text-sm font-semibold rounded-[36px] disabled:bg-mecaBgDisableColor disabled:text-white hover:bg-white lg:my-6 py-[10px] px-6"
+              className="bg-white normal-case text-mecaBluePrimaryColor lg:text-lg text-sm  rounded-[436px] disabled:bg-mecaBgDisableColor disabled:text-white hover:bg-white lg:my-6 py-[10px] px-6"
               variant="contained"
               endIcon={<MdChevronRight />}
               disableElevation
@@ -224,28 +208,10 @@ export default function Home() {
       >
         <div className="lg:w-3/5" id="modelsLeftSide">
           <span className="flex flex-wrap gap-4" id="modelsLeftSideSpan">
-            {/* <button className="font-bold text-sm bg-white py-1 px-[10px] rounded-[20px]">
-              40+ <span className="font-normal">makes</span>
-            </button> */}
             <CardBtn no="40" text="makes" />
             <CardBtn no="1129" text="models" />
             <CardBtn no="2306" text="types" />
             <CardBtn no="3000" text="auto parts" />
-            {/* <button className="font-bold text-sm bg-white py-1 px-[10px] rounded-[20px]">
-              1129+ <span className="font-normal">models</span>
-            </button>
-            <button
-              type="button"
-              className="font-bold text-sm bg-white py-1 px-[10px] rounded-[20px]"
-            >
-              2306+ <span className="font-normal">types</span>
-            </button>
-            <button
-              type="button"
-              className="font-bold text-sm bg-white py-1 px-[10px] rounded-[20px]"
-            >
-              3000+ <span className="font-normal">auto parts</span>
-            </button> */}
           </span>
           <h2
             id="homepageHomeContainer20"
