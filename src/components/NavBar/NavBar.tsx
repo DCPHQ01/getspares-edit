@@ -12,7 +12,7 @@ import {
 } from "react-icons/md";
 import IconButton from "@mui/material/IconButton";
 import DropdownPage from "./dropdown/page";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import Button from "@mui/material/Button";
 import { JwtPayload as BaseJwtPayload } from "jsonwebtoken";
@@ -205,7 +205,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
             </p>
           </div>
           <div
-            className="w-1/3 flex items-center gap-x-2 relative"
+            className="w-1/3 flex items-center gap-x-1 relative"
             id="searchDesktop"
           >
             <MdSearch
@@ -224,11 +224,11 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
           >
             <Link href="/cart">
               <div
-                className="w-[49px] relative left-[19rem]  h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1 cursor-pointer"
+                className="w-[49px] relative h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-2 cursor-pointer"
                 id="textCart"
               >
                 <MdOutlineShoppingCart
-                  size={18}
+                  size={14}
                   className="text-mecaBluePrimaryColor"
                 />
                 <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
@@ -393,7 +393,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
         {isCategoryOptionOpened && (
           <div className="flex justify-center">
             <div className="absolute left-96 top-40 z-50">
-              <DropdownPage  />
+              <DropdownPage />
             </div>
           </div>
         )}

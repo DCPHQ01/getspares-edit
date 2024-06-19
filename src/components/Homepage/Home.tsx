@@ -29,7 +29,7 @@ interface CardProps {
 
 interface ProductType {
   id: string;
-  productName: string;
+  name: string;
   image: string | null;
   price: number | 0;
 }
@@ -149,7 +149,7 @@ export default function Home() {
                   isLoading={isLoading}
                   image={HomeImage1}
                   id={product.id}
-                  productName={product.productName}
+                  productName={product.name}
                   price={product.price}
                 />
               )
@@ -182,7 +182,7 @@ export default function Home() {
                   isLoading={isLoadingRecent}
                   image={HomeImage2}
                   id={recentProduct.id}
-                  productName={recentProduct.productName}
+                  productName={recentProduct.name}
                   price={recentProduct.price}
                 />
               )

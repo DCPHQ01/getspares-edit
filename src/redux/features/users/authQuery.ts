@@ -100,10 +100,14 @@ export const authQuery = createApi({
     getRecentProduct: builder.query({
       query: () => "/product/recent",
     }),
+    getRelatedProduct: builder.query({
+      query: (productId) => `product/related?productId=${productId}`,
+    }),
   }),
 });
 
 export const {
+  useGetRelatedProductQuery,
   useGetTopProductQuery,
   useGetRecentProductQuery,
   useRegisterBuyerMutation,
