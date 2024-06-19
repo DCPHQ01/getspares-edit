@@ -21,9 +21,20 @@ interface CardData {
 }
 
 function Overview() {
+ 
   const { data: mecaAdminOverviewData, isLoading, isError} = useGetMecaAdminOverviewQuery({roleName: "MECA_ADMIN", pageNumber: 0, pageSize: 0});
   console.log("data for meca admin", mecaAdminOverviewData);
   console.log("Fetched data for meca admin:", mecaAdminOverviewData);
+  const [roles, setRoles] = useState('');
+  const [name, setName] = useState("");
+  useEffect(() => {
+    const role =
+      typeof window !== "undefined" && window.sessionStorage
+        ? JSON.parse(sessionStorage.getItem("userDetails") || "{}")
+        : [];
+    setRoles(role.role);
+    setName(role.firstName);
+  }, []);
 
   // const topPerformingVendorContent = mecaAdminOverviewData?.data.topPerformingVendor?.content;
   // console.log("Top Performing Vendor Content:", topPerformingVendorContent);
