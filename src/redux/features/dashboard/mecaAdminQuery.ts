@@ -13,7 +13,13 @@ export const mecaAdminQuery = createApi({
         body,
       }),
     }),
+    getViewAllMecaAdminCategory: builder.query({
+      query: ({ page, size }: { page:number; size: number }) => ({
+        url: `/category/all?page=${page}&size=${size}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useAddCategoryMutation } = mecaAdminQuery;
+export const { useAddCategoryMutation, useGetViewAllMecaAdminCategoryQuery } = mecaAdminQuery;

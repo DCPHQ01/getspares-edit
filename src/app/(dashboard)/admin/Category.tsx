@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Header from "../../dashboard/components/ui/header";
 import SearchBox from "../../dashboard/components/ui/searchbox";
 import PeriodRadios from "../../dashboard/components/ui/periodradios";
@@ -8,6 +8,18 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import { useGetViewAllMecaAdminCategoryQuery } from "../../../redux/features/dashboard/mecaAdminQuery";
+
+interface category{
+  id: string;
+  name: string;
+  imageUrl: string;
+  productInCategory:number;
+  createdBy: string;
+  dateCreated: string;
+  email: string
+}
+
 import {
   MdAdd,
   MdArrowBack,
@@ -36,6 +48,21 @@ const style = {
 };
 
 function Category() {
+
+  const {data, isError} = useGetViewAllMecaAdminCategoryQuery({
+    page: 1, 
+    size: 10
+  })
+  const [categoryList, setCategoryList] = useState<category[]>([]);
+  
+  useEffect(() => {
+    if (data) {
+      setCategoryList(data.data);
+    }
+  }, [data]);
+  console.log( "THIS IS CATEGORY", categoryList)
+  
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -200,7 +227,7 @@ function Category() {
         <PeriodRadios />
       </div>
 
-      <CategoryTable />
+      <CategoryTable categoryList={categoryList.content}/>
 
       <div className="flex justify-end mt-10 text-mecaBluePrimaryColor font-bold text-lg">
         {/* <button className="flex gap-x-2">
