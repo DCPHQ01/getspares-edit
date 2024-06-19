@@ -7,12 +7,12 @@ export const productsQuery = createApi({
   reducerPath: "productsQuery",
   baseQuery: customFetchBase,
   endpoints: (builder) => ({
-    getTopProduct: builder.query({
-      query: () => "/product/top",
-    }),
-    getRecentProduct: builder.query({
-      query: () => "/product/recent",
-    }),
+    // getTopProduct: builder.query({
+    //   query: () => "/product/top",
+    // }),
+    // getRecentProduct: builder.query({
+    //   query: () => "/product/recent",
+    // }),
     getAProduct: builder.query({
       query: (id: string) => `/product/${id}`,
     }),
@@ -107,8 +107,8 @@ export const productsQuery = createApi({
 });
 
 export const {
-  useGetTopProductQuery,
-  useGetRecentProductQuery,
+  // useGetTopProductQuery,
+  // useGetRecentProductQuery,
   useGetAProductQuery,
   useGetProductDecriptionQuery,
   useCreateProductMutation,
