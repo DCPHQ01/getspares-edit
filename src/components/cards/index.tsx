@@ -44,8 +44,8 @@ type CardProps = {
 };
 
 
-function Index({ cardProps }: { cardProps: CardProps[]  }) {
-  console.log("Received cardProps:", cardProps); // Debug log
+function Index({ cardProps }: { cardProps: CardProps[] }) {
+  console.log("Received cardProps:", cardProps);
 
  
   

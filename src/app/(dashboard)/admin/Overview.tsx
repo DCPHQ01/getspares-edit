@@ -25,9 +25,6 @@ function Overview() {
   console.log("data for meca admin", mecaAdminOverviewData);
   console.log("Fetched data for meca admin:", mecaAdminOverviewData);
 
-
-  console.log("Entire mecaAdminOverviewData object:", JSON.stringify(mecaAdminOverviewData, null, 2));
-
   // const topPerformingVendorContent = mecaAdminOverviewData?.data.topPerformingVendor?.content;
   // console.log("Top Performing Vendor Content:", topPerformingVendorContent);
     const cardsData: CardData[] = [
