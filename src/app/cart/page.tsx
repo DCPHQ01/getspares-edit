@@ -706,13 +706,7 @@ const RemoveToCartPage = () => {
                                 </div>
 
                                 <div className="">
-                                  <div
-                                  // style={{
-                                  //   position: "relative",
-                                  //   left: "40px",
-                                  //   cursor: "pointer",
-                                  // }}
-                                  >
+                                  <div>
                                     <MdMoreVert
                                       onClick={() =>
                                         toggleButton(cardCartItem.id)
@@ -855,9 +849,9 @@ const RemoveToCartPage = () => {
             autoPlay={true}
             itemClass="lg:pr-8 pr-4"
           >
-            <Cards image={HomeImage1} />
+            {/* <Cards image={HomeImage1} />
             <Cards image={HomeImage2} />
-            <Cards image={HomeImage1} />
+            <Cards image={HomeImage1} /> */}
           </Carousel>
         </div>
       </div>
