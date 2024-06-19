@@ -3,7 +3,8 @@ import Header from "../../dashboard/components/ui/header";
 import AddButton from "../../dashboard/components/ui/addbutton";
 import SearchBox from "../../dashboard/components/ui/searchbox";
 import SortButton from "../../dashboard/components/ui/sortbutton";
-import VendorTable from "../../dashboard/components/table//vendorTable";
+// import VendorTable from "../../dashboard/components/table//vendorTable";
+import VendorTable from "../../dashboard/components/table/mecaadmin/vendorTable";
 
 import {
   MdArrowBack,
@@ -11,7 +12,9 @@ import {
   MdChevronLeft,
   MdChevronRight,
 } from "react-icons/md";
-import { useGetDashboardVendorQuery } from "../../../redux/features/dashboard/Query";
+// import { useGetDashboardVendorQuery } from "../../../redux/features/dashboard/Query";
+import { useGetMecaAdminDashboardVendorQuery } from "../../../redux/features/dashboard/mecaAdminQuery";
+
 
 
 interface Vendor {
@@ -25,7 +28,7 @@ interface Vendor {
 }
 
 function Vendors() {
-  const { data, isLoading, isError } = useGetDashboardVendorQuery({ page: 1, size: 10 });
+  const { data, isLoading, isError } = useGetMecaAdminDashboardVendorQuery({ page: 1, size: 10 });
   const [vendorList, setVendorList] = useState<Vendor[]>([]);
    
   useEffect(()=> {
