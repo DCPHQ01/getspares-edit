@@ -133,10 +133,10 @@ export default function Home() {
             <p id="btnText">View more</p>
           </button>
         </span>
-        <div id="carouselContainer">
-            <Card image={HomeImage1} />
-            <Card image={HomeImage2} />
-            <Card image={HomeImage1} />
+        <div id="carouselContainer" className="flex gap-x-5">
+          <Card image={HomeImage1} />
+          <Card image={HomeImage2} />
+          <Card image={HomeImage1} />
         </div>
       </div>
       <ProductCarousel />
@@ -155,8 +155,7 @@ export default function Home() {
             View more
           </button>
         </span>
-        <div id="newProductsCarousel" className={'flex gap-5'}>
-
+        <div id="newProductsCarousel" className={"flex gap-5"}>
           <Card image={HomeImage2} />
           <Card image={HomeImage1} />
           <Card image={HomeImage2} />
