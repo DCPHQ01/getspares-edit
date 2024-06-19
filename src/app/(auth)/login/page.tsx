@@ -99,6 +99,7 @@ export default function Login() {
 
       if (response.access_token) {
         let token = response.access_token;
+        console.log("The token: ",token)
 
         console.log(token, " token");
         let decoded: JwtPayload = JWT.jwtDecode(token);

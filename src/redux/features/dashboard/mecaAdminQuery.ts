@@ -13,7 +13,13 @@ export const mecaAdminQuery = createApi({
         body,
       }),
     }),
+    getMecaAdminDashboardVendor: builder.query({
+      query: ({ page, size }: { page: number; size: number }) => ({
+        url: `/dashboard/meca-vendor?page=${page}&size=${size}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useAddCategoryMutation } = mecaAdminQuery;
+export const { useAddCategoryMutation,useGetMecaAdminDashboardVendorQuery } = mecaAdminQuery;
