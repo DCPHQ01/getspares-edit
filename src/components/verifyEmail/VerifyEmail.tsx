@@ -44,7 +44,9 @@ export default function VerifyEmail({
 
     const nextIndex = index + 1;
     if (nextIndex < otp.length) {
-      const nextInput = document.getElementsByName("otp")[nextIndex];
+      const nextInput = document.getElementsByName("otp")[
+        nextIndex
+      ] as HTMLInputElement;
       if (nextInput) {
         (nextInput as HTMLInputElement).focus();
       }
@@ -52,29 +54,9 @@ export default function VerifyEmail({
     } else {
       setIsDisabled(false);
     }
-    // if (isNaN(Number(element.value))) return;
-    // const maxLength = 1;
-    // if (element.value.length > maxLength) {
-    //   element.value = element.value.slice(0, maxLength);
-    // }
-
-    // setOtp((prevOtp) =>
-    //   prevOtp.map((d, idx) => (idx === index ? element.value : d))
-    // );
-
-    // const nextIndex = index + 1;
-    // if (nextIndex < otp.length) {
-    //   const nextInput = inputs.current[nextIndex];
-    //   if (nextInput) {
-    //     nextInput.focus();
-    //   }
-    //   setIsDisabled(true);
-    // } else {
-    //   setIsDisabled(false);
-    // }
   };
 
-  const handlePaste = (event: React.ClipboardEvent<HTMLInputElement>) => {
+  const handlePaste = (event: React.ClipboardEvent<HTMLInputElement>): void => {
     event.preventDefault();
     const paste = event.clipboardData.getData("text").slice(0, length);
     const newOtp = Array(length).fill("");
@@ -92,9 +74,6 @@ export default function VerifyEmail({
     event: React.KeyboardEvent<HTMLInputElement>,
     index: number
   ) => {
-    // if (event.key === "Backspace" && !otp[index] && index > 0) {
-    //   inputsRef.current[index - 1].focus();
-    // }
     if (event.key === "Backspace" && !otp[index] && index > 0) {
       inputsRef.current[index - 1].focus();
     }
