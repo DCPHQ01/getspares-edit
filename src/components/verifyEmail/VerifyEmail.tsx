@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { MdOutlineArrowBack, MdOutlineMail } from "react-icons/md";
 import Link from "next/link";
 import {
@@ -22,6 +22,8 @@ export default function VerifyEmail({
 
   const [userEmail, setUserEmail] = useState("");
   const [emailError, setEmailError] = useState("");
+  const length = 6;
+  const inputsRef = useRef<HTMLInputElement[]>([]);
 
   useEffect(() => {
     const storedEmail = sessionStorage.getItem("userEmail");
@@ -31,27 +33,74 @@ export default function VerifyEmail({
   }, []);
 
   const handleChangeOtp = (element: HTMLInputElement, index: number): void => {
+    // if (isNaN(Number(element.value))) return;
+    // const maxLength = 1;
+    // if (element.value.length > maxLength) {
+    //   element.value = element.value.slice(0, maxLength);
+    // }
+    // setOtp((prevOtp: string[]) =>
+    //   prevOtp.map((d, idx) => (idx === index ? element.value : d))
+    // );
+
+    // const nextIndex = index + 1;
+    // if (nextIndex < otp.length) {
+    //   const nextInput = document.getElementsByName("otp")[nextIndex];
+    //   if (nextInput) {
+    //     (nextInput as HTMLInputElement).focus();
+    //   }
+    //   setIsDisabled(true);
+    // } else {
+    //   setIsDisabled(false);
+    // }
     if (isNaN(Number(element.value))) return;
     const maxLength = 1;
     if (element.value.length > maxLength) {
       element.value = element.value.slice(0, maxLength);
     }
-    setOtp((prevOtp: string[]) =>
+
+    setOtp((prevOtp) =>
       prevOtp.map((d, idx) => (idx === index ? element.value : d))
     );
 
     const nextIndex = index + 1;
     if (nextIndex < otp.length) {
-      const nextInput = document.getElementsByName("otp")[nextIndex];
+      const nextInput = inputs.current[nextIndex];
       if (nextInput) {
-        (nextInput as HTMLInputElement).focus();
+        nextInput.focus();
       }
       setIsDisabled(true);
     } else {
       setIsDisabled(false);
     }
   };
+
+  const handlePaste = (event) => {
+    event.preventDefault();
+    const paste = event.clipboardData.getData("text").slice(0, length);
+    const newOtp = Array(length).fill("");
+    for (let i = 0; i < paste.length; i++) {
+      if (i < length) {
+        newOtp[i] = paste[i];
+      }
+    }
+    setOtp(newOtp);
+    inputsRef.current[Math.min(paste.length - 1, length - 1)].focus();
+    setIsDisabled(false);
+  };
+
+  const handleKeyDown = (event, index) => {
+    // if (event.key === "Backspace" && !otp[index] && index > 0) {
+    //   inputsRef.current[index - 1].focus();
+    // }
+    if (event.key === "Backspace" && !otp[index] && index > 0) {
+      inputsRef.current[index - 1].focus();
+    }
+  };
   console.log(otp.join(""));
+
+  useEffect(() => {
+    inputsRef.current[0].focus();
+  }, []);
 
   const [verifyEmail] = useVerifyEmailMutation();
   const [resetOtp] = useResetOtpMutation();
@@ -136,7 +185,11 @@ export default function VerifyEmail({
         <div className="flex flex-1 gap-2 h-16 m-auto">
           {otp.map((data, index) => {
             return (
-              <Fragment key={index}>
+              <div
+                className="flex flex-1 gap-2"
+                key={index}
+                onPaste={handlePaste}
+              >
                 <input
                   className="w-16 lg:text-5xl text-xl text-center text-mecaVerificationCodeColor placeholder:text-transparent font-semibold rounded-lg outline-none border border-mecaBorderColor"
                   type="text"
@@ -145,13 +198,15 @@ export default function VerifyEmail({
                   onChange={(e) => handleChangeOtp(e.target, index)}
                   title="OTP"
                   placeholder="Enter OTP"
+                  onKeyDown={(e) => handleKeyDown(e, index)}
+                  ref={(el) => (inputsRef.current[index] = el)}
                 />
                 {index === 2 && (
                   <span className="text-mecaVerificationCodeColor text-5xl flex items-center">
                     -
                   </span>
                 )}
-              </Fragment>
+              </div>
             );
           })}
         </div>

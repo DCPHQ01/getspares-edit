@@ -60,7 +60,7 @@ const userAgent: UserAgent = {
 
 const SignUpComponentLeft = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [userType, setUserType] = useState("vendor");
+  const [userType, setUserType] = useState("buyer");
   const [userBuyerDetails, setUserBuyerDetails] = useState<User>(userBuyer);
   const [userVendorDetails, setUserVendorDetails] =
     useState<UserVendor>(userVendor);
@@ -167,6 +167,7 @@ const SignUpComponentLeft = () => {
   const routerToHomePage = () => {
     router.push(paths.toHome());
   };
+
   return (
     <div className={nunito.className}>
       <div
@@ -406,15 +407,6 @@ const SignUpComponentLeft = () => {
                   id="checkbox"
                 /> */}
 
-                  <div id="forgotPassworddiv" className="flex justify-end">
-                    <Link
-                      href="/forgot-password"
-                      id="forgotPasswordLink"
-                      className="text-mecaBluePrimaryColor no-underline py-4"
-                    >
-                      Forgot password
-                    </Link>
-                  </div>
                 </div>
                 <div id="clickRegisterDiv">
                   <Button

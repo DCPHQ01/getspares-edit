@@ -30,8 +30,9 @@ interface CardProps {
 interface ProductType {
   id: string;
   name: string;
-  image: string | null;
-  price: number | 0;
+  image: string;
+  price: string;
+  categoryName?: string;
 }
 const responsive = {
   superLargeDesktop: {
@@ -151,6 +152,7 @@ export default function Home() {
                   id={product.id}
                   productName={product.name}
                   price={product.price}
+                  categoryName={product.categoryName}
                 />
               )
           )}
@@ -184,6 +186,7 @@ export default function Home() {
                   id={recentProduct.id}
                   productName={recentProduct.name}
                   price={recentProduct.price}
+                  categoryName={recentProduct.categoryName}
                 />
               )
           )}

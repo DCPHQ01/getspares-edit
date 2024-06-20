@@ -205,18 +205,20 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
             </p>
           </div>
           <div
-            className="w-1/3 flex items-center gap-x-1 relative"
+            className="flex-grow flex justify-center items-center gap-x-2 relative"
             id="searchDesktop"
           >
-            <MdSearch
-              size={24}
-              className="absolute left-1 text-mecaGoBackArrow"
-            />
-            <input
-              id="inputSearchDesktop"
-              placeholder="Search for anything"
-              className="bg-mecaSearchColor w-[580px] h-[44px] rounded-full px-9 outline-none"
-            />
+            <div className="relative w-full max-w-[580px]">
+              <MdSearch
+                size={24}
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-mecaGoBackArrow"
+              />
+              <input
+                id="inputSearchDesktop"
+                placeholder="Search for anything"
+                className="bg-mecaSearchColor w-full h-[44px] rounded-full pl-12 pr-4 outline-none"
+              />
+            </div>
           </div>
           <div
             className="w-[28%] h-8 flex justify-end items-center gap-x-2"
