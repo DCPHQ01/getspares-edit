@@ -33,45 +33,45 @@ export default function VerifyEmail({
   }, []);
 
   const handleChangeOtp = (element: HTMLInputElement, index: number): void => {
-    // if (isNaN(Number(element.value))) return;
-    // const maxLength = 1;
-    // if (element.value.length > maxLength) {
-    //   element.value = element.value.slice(0, maxLength);
-    // }
-    // setOtp((prevOtp: string[]) =>
-    //   prevOtp.map((d, idx) => (idx === index ? element.value : d))
-    // );
-
-    // const nextIndex = index + 1;
-    // if (nextIndex < otp.length) {
-    //   const nextInput = document.getElementsByName("otp")[nextIndex];
-    //   if (nextInput) {
-    //     (nextInput as HTMLInputElement).focus();
-    //   }
-    //   setIsDisabled(true);
-    // } else {
-    //   setIsDisabled(false);
-    // }
     if (isNaN(Number(element.value))) return;
     const maxLength = 1;
     if (element.value.length > maxLength) {
       element.value = element.value.slice(0, maxLength);
     }
-
-    setOtp((prevOtp) =>
+    setOtp((prevOtp: string[]) =>
       prevOtp.map((d, idx) => (idx === index ? element.value : d))
     );
 
     const nextIndex = index + 1;
     if (nextIndex < otp.length) {
-      const nextInput = inputs.current[nextIndex];
+      const nextInput = document.getElementsByName("otp")[nextIndex];
       if (nextInput) {
-        nextInput.focus();
+        (nextInput as HTMLInputElement).focus();
       }
       setIsDisabled(true);
     } else {
       setIsDisabled(false);
     }
+    // if (isNaN(Number(element.value))) return;
+    // const maxLength = 1;
+    // if (element.value.length > maxLength) {
+    //   element.value = element.value.slice(0, maxLength);
+    // }
+
+    // setOtp((prevOtp) =>
+    //   prevOtp.map((d, idx) => (idx === index ? element.value : d))
+    // );
+
+    // const nextIndex = index + 1;
+    // if (nextIndex < otp.length) {
+    //   const nextInput = inputs.current[nextIndex];
+    //   if (nextInput) {
+    //     nextInput.focus();
+    //   }
+    //   setIsDisabled(true);
+    // } else {
+    //   setIsDisabled(false);
+    // }
   };
 
   const handlePaste = (event) => {
