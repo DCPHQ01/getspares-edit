@@ -100,15 +100,25 @@ const Order = () => {
           <thead>
             <tr className="truncate">
               <th id="companyNameHeader">Products</th>
-              <th id="totalItemsSoldHeader">Order ID</th>
-              <th id="transactionValueHeader">Transaction value</th>
-              <th id="dateTimeJoinedHeader">Vendor</th>
+              <th id="totalItemsSoldHeader" style={{ paddingLeft: "4.5rem" }}>
+                Order ID
+              </th>
+              <th id="transactionValueHeader" style={{ paddingLeft: "2.2rem" }}>
+                Transaction value
+              </th>
+              <th id="dateTimeJoinedHeader" style={{ paddingLeft: "5rem" }}>
+                Vendor
+              </th>
               <th id="dateTimeJoinedHeader">Date & time ordered</th>
             </tr>
           </thead>
           <tbody>
             {data.map((d, index) => (
-              <tr key={index} id={`row_${index}`} className="cursor-pointer truncate">
+              <tr
+                key={index}
+                id={`row_${index}`}
+                className="cursor-pointer truncate"
+              >
                 <td id={`companyData_${index}`}>
                   <div
                     className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}

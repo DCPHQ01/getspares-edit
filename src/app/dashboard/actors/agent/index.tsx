@@ -15,7 +15,6 @@ import { clearUser, setUser } from "../../../../redux/features/users/userSlice";
 import { useRouter } from "next/navigation";
 import { roles, userRole } from "../../../dashboard/components/utils/utils";
 
-
 import {
   MdBusinessCenter,
   MdCategory,
@@ -30,12 +29,12 @@ import {
 import AgentDashboardMobilePage from "./AgentDashboardMobile/page";
 import { useUserRole } from "../../../hooks/useUserRole";
 
-
 function Index() {
   const SidePanelButton = () => {
     const agentmobile = useAppSelector(
       (state) => state.dashboard.sidePanelButton
     );
+    console.log(agentmobile);
     switch (agentmobile) {
       case sidePanel.OVERVIEW:
         return <Overview />;
@@ -50,110 +49,112 @@ function Index() {
     }
   };
 
-   const dispatch = useAppDispatch();
-   const [activeButton, setActiveButton] = useState(0);
+  const dispatch = useAppDispatch();
+  const [activeButton, setActiveButton] = useState(0);
 
- const role = useUserRole();
+  const role = useUserRole();
 
-   const router = useRouter();
+  // console.log("role =>", role);
 
-   const logOut = () => {
-     dispatch(clearUser());
-     router.push("/");
-   };
+  const router = useRouter();
 
-   const buttons = [
-     {
-       icon: <MdDashboard />,
-       title: "Overview",
-       size: 18,
-       panel: sidePanel.OVERVIEW,
-       role: [roles.MECA_ADMIN, roles.VENDOR_ADMIN, roles.AGENTS, roles.BUYER],
-     },
-     {
-       icon: <MdYard />,
-       title: "Vendors",
-       size: 18,
-       panel: sidePanel.VENDORS,
-       role: [roles.MECA_ADMIN, roles.AGENTS],
-     },
-     {
-       icon: <MdLocalPolice />,
-       title: "Agents",
-       size: 18,
-       panel: sidePanel.AGENTS,
-       role: [roles.MECA_ADMIN, roles.VENDOR_ADMIN],
-     },
-     {
-       icon: <MdBusinessCenter />,
-       title: "Buyers",
-       size: 18,
-       panel: sidePanel.BUYERS,
-       role: [roles.MECA_ADMIN],
-     },
-     {
-       icon: <MdBusinessCenter />,
-       title: "Orders",
-       size: 18,
-       panel: sidePanel.ORDERS,
-       role: [roles.VENDOR_ADMIN, roles.AGENTS, roles.BUYER],
-     },
-     {
-       icon: <MdShoppingCart />,
-       title: "Cart",
-       size: 18,
-       panel: sidePanel.CART,
-       role: [roles.BUYER],
-     },
-     {
-       icon: <MdInventory2 />,
-       title: "Inventory",
-       size: 18,
-       panel: sidePanel.INVENTORY,
-       role: [roles.MECA_ADMIN, roles.VENDOR_ADMIN],
-     },
-     {
-       icon: <MdCategory />,
-       title: "Category",
-       size: 18,
-       panel: sidePanel.CATEGORY,
-       role: [roles.MECA_ADMIN],
-     },
-   ];
+  const logOut = () => {
+    dispatch(clearUser());
+    router.push("/");
+  };
 
-   const bottomButton = [
-     {
-       icon: <MdPersonPin />,
-       title: "Profile",
-       size: 18,
-       onClick: () => {
-         handleButtonClick(sidePanel.PROFILE);
-       },
-     },
-     {
-       icon: <MdLogout />,
-       title: "Logout",
-       size: 18,
-       onClick: () => {
-         dispatch(setUser({}));
-         router.push("/");
-       },
-     },
-   ];
+  const buttons = [
+    {
+      icon: <MdDashboard />,
+      title: "Overview",
+      size: 18,
+      panel: sidePanel.OVERVIEW,
+      role: [roles.MECA_ADMIN, roles.VENDOR_ADMIN, roles.AGENTS, roles.BUYER],
+    },
+    {
+      icon: <MdYard />,
+      title: "Vendors",
+      size: 18,
+      panel: sidePanel.VENDORS,
+      role: [roles.MECA_ADMIN, roles.AGENTS],
+    },
+    {
+      icon: <MdLocalPolice />,
+      title: "Agents",
+      size: 18,
+      panel: sidePanel.AGENTS,
+      role: [roles.MECA_ADMIN, roles.VENDOR_ADMIN],
+    },
+    {
+      icon: <MdBusinessCenter />,
+      title: "Buyers",
+      size: 18,
+      panel: sidePanel.BUYERS,
+      role: [roles.MECA_ADMIN],
+    },
+    {
+      icon: <MdBusinessCenter />,
+      title: "Orders",
+      size: 18,
+      panel: sidePanel.ORDERS,
+      role: [roles.VENDOR_ADMIN, roles.AGENTS, roles.BUYER],
+    },
+    {
+      icon: <MdShoppingCart />,
+      title: "Cart",
+      size: 18,
+      panel: sidePanel.CART,
+      role: [roles.BUYER],
+    },
+    {
+      icon: <MdInventory2 />,
+      title: "Inventory",
+      size: 18,
+      panel: sidePanel.INVENTORY,
+      role: [roles.MECA_ADMIN, roles.VENDOR_ADMIN],
+    },
+    {
+      icon: <MdCategory />,
+      title: "Category",
+      size: 18,
+      panel: sidePanel.CATEGORY,
+      role: [roles.MECA_ADMIN],
+    },
+  ];
 
-   const handleButtonClick = (panel: any, index?: any) => {
-     setActiveButton(index);
-     dispatch(dashboardActions.setNavButton(panel));
-   };
+  const bottomButton = [
+    {
+      icon: <MdPersonPin />,
+      title: "Profile",
+      size: 18,
+      onClick: () => {
+        handleButtonClick(sidePanel.PROFILE);
+      },
+    },
+    {
+      icon: <MdLogout />,
+      title: "Logout",
+      size: 18,
+      onClick: () => {
+        dispatch(setUser({}));
+        router.push("/");
+      },
+    },
+  ];
 
-   const filteredButtons = buttons.filter((button) =>
-     button.role.includes(role)
-   );
-   const [agentMobileOpen, setAgentMobileOpen] = useState(false);
+  const handleButtonClick = (panel: any, index?: any) => {
+    setActiveButton(index);
+    dispatch(dashboardActions.setNavButton(panel));
+  };
 
-   const handleAgentMobileOpen = () => {
-     setAgentMobileOpen(!agentMobileOpen);
-   };
+  const filteredButtons = buttons.filter((button) =>
+    button.role.includes(role)
+  );
+  const [agentMobileOpen, setAgentMobileOpen] = useState(false);
+
+  const handleAgentMobileOpen = () => {
+    setAgentMobileOpen(!agentMobileOpen);
+  };
 
   return (
     <>
@@ -165,8 +166,6 @@ function Index() {
           <SidePanelButton />
         </div>
       </div>
-
-      {/* mobile */}
 
       <div className="lg:hidden w-full" id="contentContainerAddToCartMobile">
         <div className="w-[100%] fixed top-0">

@@ -37,6 +37,7 @@ const Profile = () => {
   return (
     <div>
       <Header subtitle={``} title={`Profile`} amount={``} />
+
       <div className="flex gap-x-2 mb-12">
         <Avatar
           className="bg-mecaActiveBackgroundNavColor -z-50 text-mecaBluePrimaryColor w-16 h-16 text-4xl"
@@ -53,8 +54,10 @@ const Profile = () => {
 
       <div className=" justify-between mt-5">
         <div className="">
-          <p>Personal info</p>
-          <span>Update your photo and personal details.</span>
+          <p className="font-semibold text-lg">Personal info</p>
+          <span className="text-sm text-mecaGrayBodyText">
+            Update your photo and personal details.
+          </span>
         </div>
 
         <div className="border-2 w-[100%] mt-10 h-[100%] p-5 rounded-xl ">

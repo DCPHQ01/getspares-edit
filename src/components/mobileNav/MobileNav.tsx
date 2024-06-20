@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import MobileDropdownViewPage from "../../pages/MobileDropdownView/page";
 // import Filter from "../../../components/filters/Filter";
+import MobileDropdownBrandPage from "../../pages/MobileDropdownBrand/page";
 import {
   MdChevronRight,
   MdClear,
@@ -25,6 +26,8 @@ const mobileNavData = [
     icon1: <MdExpandMore size={24} className="text-mecaGoBackArrow" />,
     icon2: <MdChevronRight size={24} className="text-mecaGoBackArrow" />,
     link: "",
+    mobileNavHeader: <MobileDropdownViewPage />
+    
   },
   {
     id: 3,
@@ -32,6 +35,7 @@ const mobileNavData = [
     icon: <MdExpandMore size={24} className="text-mecaGoBackArrow" />,
     icon2: <MdChevronRight size={24} className="text-mecaGoBackArrow" />,
     link: "",
+    mobileNavHeader: <MobileDropdownBrandPage />
   },
   {
     id: 4,
@@ -120,19 +124,26 @@ export default function MobileNav({ handleNav }: MobileNavProps) {
             </p>
 
             <p
-              onClick={data.id === 2 ? toggleModal : undefined}
+              onClick={data.id === 2 || data.id === 3 ? toggleModal : undefined}
               // onClick={toggleModal}
             >
               {data.icon2}
             </p>
           </div>
         ))}
-        <div
-          className=" absolute top-0 "
-          style={{ width: "98%", margin: "0px auto" }}
-        >
-          {isModalOpen && <MobileDropdownViewPage />}
-        </div>
+
+        {mobileNavData.map(
+          (data) =>
+            data.id && (
+              <div
+              key={data.id}
+                className=" absolute top-0 "
+                style={{ width: "98%", margin: "0px auto" }}
+              >
+                {data.mobileNavHeader}
+              </div>
+            )
+        )}
       </div>
     </div>
   );

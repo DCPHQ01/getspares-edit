@@ -7,7 +7,6 @@ import OverviewTable from "../../../components/table/agentAdmin/overviewTable";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 function AgentOverview() {
-  // @ts-ignore
   return (
     <>
       <div>

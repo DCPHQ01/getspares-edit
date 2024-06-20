@@ -82,7 +82,7 @@ export default function Index() {
         <div className={`flex w-[100%] -z-50`}>
           <div
             id={`last7days`}
-            className={`border py-[0.5rem] px-[1rem] rounded-tl-[0.625rem] rounded-bl-[0.6235rem] ${
+            className={`border py-[0.5rem] px-[1rem] rounded-tl-[0.625rem] rounded-bl-[0.6235rem]  ${
               selectedValue === "last7days" ? "bg-[#EEF2F6]" : ""
             }`}
           >
@@ -95,7 +95,7 @@ export default function Index() {
           </div>
           <div
             id={`last30days`}
-            className={`border py-[0.5rem] px-[1rem] ${
+            className={`border py-[0.5rem] px-[1rem] rounded-tr-[0.6235rem] rounded-br-[0.6235rem] ${
               selectedValue === "last30days" ? "bg-[#EEF2F6]" : ""
             }`}
           >

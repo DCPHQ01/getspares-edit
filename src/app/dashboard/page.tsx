@@ -11,6 +11,9 @@ import { useUserRole } from "../hooks/useUserRole";
 function Page() {
   const userRole = useUserRole();
   const role: any = userRole;
+
+  console.log("role from main page=>", role);
+
   const router = useRouter();
   switch (role) {
     case roles.MECA_ADMIN:

@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useRef, useState } from "react";
 import Header from "../../dashboard/components/ui/header";
 import SearchBox from "../../dashboard/components/ui/searchbox";

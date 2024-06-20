@@ -19,6 +19,7 @@ import { JwtPayload as BaseJwtPayload } from "jsonwebtoken";
 import * as JWT from "jwt-decode";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { clearUser } from "../../redux/features/users/userSlice";
+import BrandPage from "./brand/page";
 
 const navData = [
   {
@@ -34,6 +35,7 @@ const navData = [
     icon: <MdExpandMore size={18} />,
     icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
     link: "",
+    dropdownComponent: <DropdownPage />,
   },
   {
     id: 3,
@@ -41,6 +43,7 @@ const navData = [
     icon: <MdExpandMore size={18} />,
     icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
     link: "",
+    dropdownComponent: <BrandPage />,
   },
   {
     id: 4,
@@ -151,7 +154,14 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
     dispatch(clearUser());
     router.push("/login");
   };
+
   useEffect(() => setActive(1), []);
+
+  const [toggleCategory, setToggleCategory] = useState(false);
+  const handleToggleCategory = () => {
+    setToggleCategory(!toggleCategory);
+  };
+
   return (
     <nav className="w-full bg-white relative" id="navbarContainer">
       {/* mobile and tab */}
@@ -308,7 +318,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
             </div>
           </div>
         </div>
-        {toggleProfile && (
+        {/* {toggleProfile && (
           <div
             className="w-52 h-24 rounded-lg p-1 bg-white absolute right-40 top-16"
             style={{ boxShadow: "0px 2px 8px 0px #63636333" }}
@@ -341,7 +351,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
               </button>
             </div>
           </div>
-        )}
+        )} */}
       </div>
       <div
         className="hidden w-full h-20 lg:flex justify-center items-center"
@@ -367,11 +377,11 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
               {item.title}
             </p>
             <div
-              onClick={
-                item.id === 2 || item.id === 3
-                  ? () => toggle(item.id)
-                  : () => {}
-              }
+            // onClick={
+            //   item.id === 2 || item.id === 3
+            //     ? () => toggle(item.id)
+            //     : () => {}
+            // }
             >
               {isCategoryOptionOpened && item.id === active ? (
                 <p>{item.icon2}</p>
@@ -389,22 +399,18 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
             </div>
           </div>
         ))}
-        {isCategoryOptionOpened && (
-          <div className="flex justify-center">
-            <div className="absolute left-96 top-40 z-50">
-              <DropdownPage  />
-            </div>
-          </div>
+
+        {navData.map(
+          (item) =>
+            active === item.id && (
+              <div className="flex justify-center" key={item.id}>
+                <div className="absolute left-96 top-40 z-50">
+                  {item.dropdownComponent}
+                </div>
+              </div>
+            )
         )}
       </div>
-
-      {/* {isCategoryOptionOpened && (
-        <div className="flex justify-center">
-          <div className="absolute z-50">
-            <DropdownPage />
-          </div>
-        </div>
-      )} */}
     </nav>
   );
 }

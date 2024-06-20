@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import CancelIcon from '@mui/icons-material/Cancel';
+import { MdCancel } from 'react-icons/md';
 import tractor from "../../../../../assets/images/tractors.png"
 import Image from 'next/image';
 import {BsArrowLeftCircleFill, BsArrowRightCircleFill} from "react-icons/bs"
@@ -56,7 +56,7 @@ const VendorModal: React.FC<VendorModalProps> = ({open,handleClose}) => {
             <div >
             <div className=' relative h-10 mt-10 lg:left-[31%]'>
               <IconButton style={{ position: 'absolute', right: 0 }} onClick={handleClose}>
-                <CancelIcon sx={{color:"white",zIndex:"4px",fontSize:"2.2rem"}}/>
+                <MdCancel style={{color:"white",zIndex:"4px",fontSize:"2.2rem"}}/>
               </IconButton>
               </div>
              

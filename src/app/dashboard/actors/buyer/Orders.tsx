@@ -11,7 +11,9 @@ function Orders() {
         title={`Orders`}
         amount={`430,607`}
       />
-      <Searchbox />
+      <div className="flex justify-end">
+        <Searchbox />
+      </div>
 
       <OrderTable />
     </div>

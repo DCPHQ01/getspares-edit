@@ -19,7 +19,7 @@ function stringToColor(string: string) {
     const value = (hash >> (i * 8)) & 0xff;
     color += `00${value.toString(16)}`.slice(-2);
   }
-  /* eslint-enable no-bitwise */
+
 
   return color;
 }
@@ -53,8 +53,10 @@ const Profile = () => {
 
       <div className="flex justify-between mt-5">
         <div className="">
-          <p>Personal info</p>
-          <span>Update your photo and personal details.</span>
+          <p className="font-semibold text-lg">Personal info</p>
+          <span className="text-sm text-mecaGrayBodyText">
+            Update your photo and personal details.
+          </span>
         </div>
 
         <div className="border-2 w-[60%] h-96 p-5 rounded-xl ">
