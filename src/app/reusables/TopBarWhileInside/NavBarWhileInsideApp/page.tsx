@@ -129,7 +129,7 @@ export default function NavBarWhileInsideApp() {
             className="ml-auto flex justify-end items-center gap-x-4"
             id="cartDesktop"
           >
-            <Link href="/cart">
+            <Link href={paths.toCart()}>
               <div
                 className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1 cursor-pointer"
                 id="textCart"
