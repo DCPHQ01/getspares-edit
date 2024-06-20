@@ -8,6 +8,7 @@ import Addbutton from "../../components/ui/addbutton";
 import Link from "next/link";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { useGetMecaVendorOverviewQuery } from "../../../../redux/features/dashboard/mecaVendorQuery";
+import { paths } from "../../../../path/paths";
 
 
 interface VendorOverview {
