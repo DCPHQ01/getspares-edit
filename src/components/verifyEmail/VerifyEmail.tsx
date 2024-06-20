@@ -88,7 +88,10 @@ export default function VerifyEmail({
     setIsDisabled(false);
   };
 
-  const handleKeyDown = (event, index) => {
+  const handleKeyDown = (
+    event: React.KeyboardEvent<HTMLInputElement>,
+    index: number
+  ) => {
     // if (event.key === "Backspace" && !otp[index] && index > 0) {
     //   inputsRef.current[index - 1].focus();
     // }
