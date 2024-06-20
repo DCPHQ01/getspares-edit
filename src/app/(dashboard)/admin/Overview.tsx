@@ -30,11 +30,17 @@ interface VendorData {
 };
 
 function Overview() { 
-  const [activityPeriod, setActivityPeriod] = useState("monthly");
-  
+  const [activityPeriod, setActivityPeriod] = useState("monthly");  
   const { data: mecaAdminOverviewData,  isLoading: isOverviewLoading,
     isError: isOverviewError,} = useGetMecaAdminOverviewQuery({});
   console.log("data for meca admin", mecaAdminOverviewData);
+  const [adminOverview, setAdminOverview] = useState(mecaAdminOverviewData?.data ?? { 
+    totalNumberOfPartOrdered: 0,
+    totalNumberOfAgent: 0,
+    totalTransactionValue: 0,
+    totalNumberOfVendor: 0,
+  });
+  console.log("data for meca admin", adminOverview);
 
   const [role, setRoles] = useState('');
   const [name, setName] = useState("");
@@ -69,42 +75,47 @@ function Overview() {
       setActivityPeriod(newPeriod);
     };
 
-    const cardsData: CardData[] = [
-    {
-      total: "Total Parts Ordered",
-      amount:  0,
-      percentage: 0, 
-      onClick: () => {
-        console.log("View Total Parts Ordered");
-      },
-    },
-    {
-      total: "Number of Agents",
-      amount:  0,
-      percentage: 0,
-      onClick: () => {
-        console.log("View Number of Agents");
-      },
-    },
-    {
-      total: "Transaction Value",
-      amount:  0,
-      percentage: 0,
-      onClick: () => {
-        console.log("View Transaction Value");
-      },
-    },
-    {
-      total: "Number of Vendors",
-      amount:  0,
-      percentage: 0, 
-      onClick: () => {
-        console.log("View Number of Vendors");
-      },
-    },
-  ];
-  console.log("Transformed cardsData:", cardsData); 
-
+  //   const cardsData: CardData[] = [
+  //   {
+  //     total: "Total Parts Ordered",
+  //     amount:  0,
+  //     percentage: 0, 
+  //     onClick: () => {
+  //       console.log("View Total Parts Ordered");
+  //     },
+  //   },
+  //   {
+  //     total: "Number of Agents",
+  //     amount:  0,
+  //     percentage: 0,
+  //     onClick: () => {
+  //       console.log("View Number of Agents");
+  //     },
+  //   },
+  //   {
+  //     total: "Transaction Value",
+  //     amount:  0,
+  //     percentage: 0,
+  //     onClick: () => {
+  //       console.log("View Transaction Value");
+  //     },
+  //   },
+  //   {
+  //     total: "Number of Vendors",
+  //     amount:  0,
+  //     percentage: 0, 
+  //     onClick: () => {
+  //       console.log("View Number of Vendors");
+  //     },
+  //   },
+  // ];
+  // console.log("Transformed cardsData:", cardsData); 
+  // const { 
+  //   totalNumberOfPartOrdered,
+  //   totalNumberOfAgent,
+  //   totalTransactionValue,
+  //   totalNumberOfVendor
+  // } = mecaAdminOverviewData?.data ?? {};
   
   return (
     <>
@@ -113,7 +124,8 @@ function Overview() {
           subtitle={`Take a quick glance on what is happening with meca`}
           name={`, ${name}`}
         />
-        {/* <Cards cardProps={cardsData}/> */}
+        {/* cardProps={cardsData} */}
+         <Cards cardField={adminOverview}  /> 
         <div
           className={`flex justify-between items-center mt-[3.25rem] mb-[1.25rem]`}
         >
