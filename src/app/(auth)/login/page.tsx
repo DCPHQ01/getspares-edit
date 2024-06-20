@@ -100,6 +100,7 @@ export default function Login() {
 
       if (response.access_token) {
         let token = response.access_token;
+        console.log("The token: ",token)
 
         console.log(token, " token");
         let decoded: JwtPayload = JWT.jwtDecode(token);
@@ -278,7 +279,7 @@ export default function Login() {
         <span className="flex items-center gap-1 text-meca-gray-600 text-sm mt-6">
           New on Meca?
           <Link
-            href="/signup"
+            href={paths.toSignUp()}
             id="resendEmailLink"
             className="text-mecaBluePrimaryColor font-bold"
           >

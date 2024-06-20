@@ -1,118 +1,31 @@
 "use client";
 import React from "react";
 import styles from "../styles.module.css";
-import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
-import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
+import { AccountCircle } from '@mui/icons-material';
 
-const data = [
-  {
-    avatar: image1,
-    name: "Meca for meca inside meca to meca about meca through me...",
-    email: "Samimmanuel@gmail.com",
-    sale: 12,
-    created: "Adebayo Emmanuel...",
-    date: "24 June 2022",
-    time: "12:00PM",
-  },
-  {
-    avatar: image2,
-    name: "Caterpillar Engine IV2 ",
-    email: "Samimmanuel@gmail.com",
-    sale: 83,
-    created: "Adebayo Emmanuel...",
-    date: "30 June 2023",
-    time: "06:00PM",
-  },
-  {
-    avatar: image1,
-    name: "Meca for meca inside meca to meca about meca through me...",
-    email: "Samimmanuel@gmail.com",
-    sale: 12,
-    created: "Adebayo Emmanuel...",
-    date: "24 June 2022",
-    time: "12:00PM",
-  },
-  {
-    avatar: image2,
-    name: "Caterpillar Engine IV2 ",
-    email: "Samimmanuel@gmail.com",
-    sale: 83,
-    created: "Adebayo Emmanuel...",
-    date: "30 June 2023",
-    time: "06:00PM",
-  },
-  {
-    avatar: image1,
-    name: "Meca for meca inside meca to meca about meca through me...",
-    email: "Samimmanuel@gmail.com",
-    sale: 12,
-    created: "Adebayo Emmanuel...",
-    date: "24 June 2022",
-    time: "12:00PM",
-  },
-  {
-    avatar: image2,
-    name: "Caterpillar Engine IV2 ",
-    email: "Samimmanuel@gmail.com",
-    sale: 83,
-    created: "Adebayo Emmanuel...",
-    date: "30 June 2023",
-    time: "06:00PM",
-  },
+interface Category {
+  id: string;
+  name: string;
+  imageUrl?: string;
+  productsInCategory: number;
+  createdBy: string;
+  dateCreated: string;
+  email: string;
+}
 
-  {
-    avatar: image1,
-    name: "Meca for meca inside meca to meca about meca through me...",
-    email: "Samimmanuel@gmail.com",
-    sale: 12,
-    created: "Adebayo Emmanuel...",
-    date: "24 June 2022",
-    time: "12:00PM",
-  },
+interface CategoryTableProps {
+  categoryList: Category[];
+}
 
-  {
-    avatar: image2,
-    name: "Caterpillar Engine IV2 ",
-    email: "Samimmanuel@gmail.com",
-    sale: 83,
-    created: "Adebayo Emmanuel...",
-    date: "30 June 2023",
-    time: "06:00PM",
-  },
+const splitDateTime = (dateTime: string) => {
+  const [date, timeWithMilliseconds] = dateTime.split('T');
+  const time = timeWithMilliseconds.split('.')[0]; 
+  return { date, time };
+};
 
-  {
-    avatar: image1,
-    name: "Meca for meca inside meca to meca about meca through me...",
-    email: "Samimmanuel@gmail.com",
-    sale: 12,
-    created: "Adebayo Emmanuel...",
-    date: "24 June 2022",
-    time: "12:00PM",
-  },
-
-  {
-    avatar: image2,
-    name: "Caterpillar Engine IV2 ",
-    email: "Samimmanuel@gmail.com",
-    sale: 83,
-    created: "Adebayo Emmanuel...",
-    date: "30 June 2023",
-    time: "06:00PM",
-  },
-
-  {
-    avatar: image1,
-    name: "Meca for meca inside meca to meca about meca through me...",
-    email: "Samimmanuel@gmail.com",
-    sale: 12,
-    created: "Adebayo Emmanuel...",
-    date: "24 June 2022",
-    time: "12:00PM",
-  },
-];
-
-const CategoryTable = () => {
+const CategoryTable: React.FC<CategoryTableProps> = ({ categoryList }) => {
+  
   return (
     <div id="tableContainer">
       <div
@@ -131,72 +44,76 @@ const CategoryTable = () => {
             </tr>
           </thead>
           <tbody>
-            {data.map((d, index) => (
-              <tr key={index} id={`row_${index}`} className="cursor-pointer">
-                <td id={`companyData_${index}`}>
-                  <div
-                    className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
-                  >
-                    <Image
-                      src={d.avatar}
-                      className="object-contain"
-                      alt="Avatar"
-                      id={`avatar_${index}`}
-                    />
-                    <div id={`companyDetails_${index}`}>
-                      <div className="truncate mt-2">{d.name}</div>
-                    </div>
-                  </div>
-                </td>
-                <td
-                  className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
-                  id={`itemsSold_${index}`}
-                >
-                  {d.sale}
-                </td>
-                <td
-                  className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
-                  id={`transactionValue_${index}`}
-                >
-                  <div className="flex gap-3">
-                    <div className="">
-                      {/* <Image
-                          src={d.avatar}
+            {Array.isArray(categoryList) && categoryList?.map((d, index) => {
+              const { date, time } = splitDateTime(d.dateCreated);
+              return (
+                <tr key={index} id={`row_${index}`} className="cursor-pointer">
+                  <td id={`companyData_${index}`}>
+                    <div
+                      className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
+                    >
+                      {d.imageUrl ? (
+                        <Image
+                          src={d.imageUrl}
                           className="object-contain"
                           alt="Avatar"
                           id={`avatar_${index}`}
-                        /> */}
-                    </div>
-                    <div className="">
-                      <div className="truncate"> {d.created}</div>
-                      <div
-                        className={`text-[#4B5565] truncate`}
-                        id={`email_${index}`}
-                      >
-                        {d.email}
+                        />
+                      ) : (
+                        <AccountCircle style={{ fontSize: 50 }} className="text-gray-400" />
+                      )}
+                      <div id={`companyDetails_${index}`}>
+                        <div className="truncate mt-2">{d.name}</div>
                       </div>
                     </div>
-                  </div>
-                </td>
-
-                <td id={`dateJoined_${index}`}>
-                  <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
-                    <div id={`date_${index}`}>{d.date}</div>
-                    <div
-                      className={`text-[#4B5565] truncate`}
-                      id={`time_${index}`}
-                    >
-                      {d.time}
+                  </td>
+                  <td
+                    className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
+                    id={`itemsSold_${index}`}
+                  >
+                    {d.productsInCategory}
+                  </td>
+                  <td
+                    className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
+                    id={`transactionValue_${index}`}
+                  >
+                    <div className="flex gap-3">
+                      <div className="">
+                       
+                      </div>
+                      <div className="">
+                        <div className="truncate">
+                          {d.createdBy}
+                        </div>
+                        <div
+                          className={`text-[#4B5565] truncate`}
+                          id={`email_${index}`}
+                        >
+                          {d.email}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </td>
-              </tr>
-            ))}
+                  </td>
+                  <td id={`dateJoined_${index}`}>
+                    <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
+                      <div id={`date_${index}`}>
+                        {date}
+                      </div>
+                      <div
+                        className={`text-[#4B5565] truncate`}
+                        id={`time_${index}`}
+                      >
+                        {time}
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
     </div>
   );
 };
-
 export default CategoryTable;

@@ -406,7 +406,6 @@ const SignUpComponentLeft = () => {
                   className="text-sm text-mecaGrayBodyText flex"
                   id="checkbox"
                 /> */}
-
                 </div>
                 <div id="clickRegisterDiv">
                   <Button
@@ -440,7 +439,7 @@ const SignUpComponentLeft = () => {
               >
                 <span>Not new here?</span>
                 <Link
-                  href="/login"
+                  href={paths.toLogin()}
                   id="loginBtn1"
                   className="text-mecaBluePrimaryColor pl-1 normal-case no-underline"
                 >

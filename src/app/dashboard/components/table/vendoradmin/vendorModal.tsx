@@ -34,7 +34,7 @@ const VendorModal: React.FC<VendorModalProps> = ({open,handleClose}) => {
 
     
   return (
-    <div>
+    <div id='modal'>
         <Modal
           open={open}
           onClose={handleClose}
@@ -53,14 +53,14 @@ const VendorModal: React.FC<VendorModalProps> = ({open,handleClose}) => {
             
           }}
         >  
-            <div >
-            <div className=' relative h-10 mt-10 lg:left-[31%]'>
+            <div id='container'>
+            <div id='iconbutton' className=' relative h-10 mt-10 lg:left-[31%]'>
               <IconButton style={{ position: 'absolute', right: 0 }} onClick={handleClose}>
                 <CancelIcon sx={{color:"white",zIndex:"4px",fontSize:"2.2rem"}}/>
               </IconButton>
               </div>
              
-            <div className="p-6 lg:max-w-7xl max-w-2xl mx-auto">
+            <div id='box' className="p-6 lg:max-w-7xl max-w-2xl mx-auto">
             
             <BsArrowLeftCircleFill className="absolute w-8 h-8 text-white drop-shadow-md left-10 bottom-[50%] cursor-pointer z-50" onClick={previousSlide}/>
              <Box
