@@ -12,11 +12,10 @@ import { MdChevronRight } from "react-icons/md";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Indicator from "../../assets/icons/indicatorRectangle";
-import { useEffect } from "react";
-import { useAppDispatch } from "../../redux/hooks";
-import { setUser, setUserDetails } from "../../redux/features/users/userSlice";
-import { redirect } from "next/navigation";
-import { useGetTopProductQuery } from "../../redux/features/users/authQuery";
+import {
+  useGetRecentProductQuery,
+  useGetTopProductQuery,
+} from "../../redux/features/users/authQuery";
 
 interface CustomDotProps {
   onClick: () => void;
@@ -28,6 +27,12 @@ interface CardProps {
   text: string;
 }
 
+interface ProductType {
+  id: string;
+  productName: string;
+  image: string | null;
+  price: number | 0;
+}
 const responsive = {
   superLargeDesktop: {
     breakpoint: { max: 4000, min: 3000 },
@@ -87,6 +92,8 @@ export default function Home() {
     );
   };
   const { data: productData, isLoading } = useGetTopProductQuery({});
+  const { data: recentProductData, isLoading: isLoadingRecent } =
+    useGetRecentProductQuery({});
   console.log("data ", productData);
   return (
     <main className="container mx-auto px-5 mt-8" id="mainContainer">
@@ -127,16 +134,28 @@ export default function Home() {
             Trending
           </p>
           <button
+            type="button"
             className="font-medium lg:text-xl text-sm underline"
             id="viewMoreBtn"
           >
             <p id="btnText">View more</p>
           </button>
         </span>
-        <div id="carouselContainer">
-            <Card image={HomeImage1} />
-            <Card image={HomeImage2} />
-            <Card image={HomeImage1} />
+        <div id="carouselContainer" className="flex gap-x-5">
+          {productData?.data.map(
+            (product: ProductType, index: number) =>
+              index < 3 && (
+                <Card
+                  isLoading={isLoading}
+                  image={HomeImage1}
+                  id={product.id}
+                  productName={product.productName}
+                  price={product.price}
+                />
+              )
+          )}
+          {/* <Card image={HomeImage2} />
+          <Card image={HomeImage1} /> */}
         </div>
       </div>
       <ProductCarousel />
@@ -155,12 +174,19 @@ export default function Home() {
             View more
           </button>
         </span>
-        <div id="newProductsCarousel" className={'flex gap-5'}>
-
-          <Card image={HomeImage2} />
-          <Card image={HomeImage1} />
-          <Card image={HomeImage2} />
-          <Card image={HomeImage2} />
+        <div id="newProductsCarousel" className={"flex gap-5"}>
+          {recentProductData?.data.map(
+            (recentProduct: ProductType, index: number) =>
+              index < 3 && (
+                <Card
+                  isLoading={isLoadingRecent}
+                  image={HomeImage2}
+                  id={recentProduct.id}
+                  productName={recentProduct.productName}
+                  price={recentProduct.price}
+                />
+              )
+          )}
         </div>
       </div>
       <div

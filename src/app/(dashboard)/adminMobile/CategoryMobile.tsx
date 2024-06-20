@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Header from "../../dashboard/components/ui/header";
 import SearchBox from "../../dashboard/components/ui/searchbox";
 import PeriodRadios from "../../dashboard/components/ui/periodradios";
@@ -9,6 +9,18 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import { useGetViewAllMecaAdminCategoryQuery } from "../../../redux/features/dashboard/mecaAdminQuery";
+
+interface category{
+  id: string;
+  name: string;
+  imageUrl: string;
+  productsInCategory:number;
+  createdBy: string;
+  dateCreated: string;
+  email: string
+}
+
 import {
   MdAdd,
   MdArrowBack,
@@ -18,8 +30,8 @@ import {
   MdClose,
   MdPhotoLibrary,
 } from "react-icons/md";
-import { TextField } from "@mui/material";
 
+import { TextField } from "@mui/material";
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
@@ -34,11 +46,27 @@ const style = {
   p: 4,
 };
 function Category() {
+  const { data, isError } = useGetViewAllMecaAdminCategoryQuery({
+    page: 1,
+    size: 10,
+  });
+  const [categoryList, setCategoryList] = useState<category[]>([]);
+  useEffect (()=>{
+    if (data) {
+      setCategoryList(data.data);
+    }
+  }, [data]);
+  console.log( "THIS IS CATEGORY", categoryList)
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const [formImage, setFormImage] = useState<string | null>(null);
+  const [categoryName, setCategoryName] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(false);
+    // const [categoryData, { isLoading }] = useAddCategoryMutation();
+
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -160,7 +188,7 @@ function Category() {
         {/* <PeriodRadios /> */}
       </div>
 
-      <CategoryTable />
+      <CategoryTable categoryList={categoryList}/>
 
       <div className=" flex justify-end mt-10 mb-10 font-bold text-lg">
         {/* <button className="flex gap-x-2 border border-[#EAECF0]  rounded-md h-[36px] w-[36px] pl-1">

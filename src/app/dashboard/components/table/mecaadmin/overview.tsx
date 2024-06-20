@@ -106,7 +106,7 @@ function Overview({ data }: { data: any }) {
                   <AccountCircleIcon
                     id={`avatar_${index}`}
                     className="object-cover"
-                    style={{ fontSize: 40, color: 'gray' }} // Adjust size as needed
+                    style={{ fontSize: 40, color: 'gray' }}
                   />
                 )}
                   <div id={`companyDetails_${index}`}>

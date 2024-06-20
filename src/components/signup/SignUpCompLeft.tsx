@@ -408,7 +408,7 @@ const SignUpComponentLeft = () => {
 
                   <div id="forgotPassworddiv" className="flex justify-end">
                     <Link
-                      href="/forgot-password"
+                      href={paths.toForgotPassword()}
                       id="forgotPasswordLink"
                       className="text-mecaBluePrimaryColor no-underline py-4"
                     >
@@ -448,7 +448,7 @@ const SignUpComponentLeft = () => {
               >
                 <span>Not new here?</span>
                 <Link
-                  href="/login"
+                  href={paths.toLogin()}
                   id="loginBtn1"
                   className="text-mecaBluePrimaryColor pl-1 normal-case no-underline"
                 >

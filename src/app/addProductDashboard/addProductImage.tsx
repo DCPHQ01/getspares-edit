@@ -3,6 +3,7 @@ import addProduct from "../../assets/images/addProduct.svg";
 import { useCreateProductMutation } from "../../redux/features/product/productsQuery";
 import { ColorRing } from "react-loader-spinner";
 
+import { paths } from "../../path/paths";
 const AddProductImage = () => {
   const [addProductdata, { isLoading }] = useCreateProductMutation();
 

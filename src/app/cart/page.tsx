@@ -279,7 +279,7 @@ const RemoveToCartPage = () => {
             </div>
 
             <Link
-              href="/reusables/mobileNav"
+              href={paths.toReusableMobileNav()}
               id="mobileMenuBtn"
               onClick={() => setOpenA(!OpenA)}
             >
@@ -359,7 +359,7 @@ const RemoveToCartPage = () => {
                 className="flex mt-24 items-center gap-4"
                 id="breadCrumbsDivDesktop"
               >
-                <Link href="/">
+                <Link href={paths.toHome()}>
                   <p className="font-nunito text-sm font-medium text-mecaDarkBlueBackgroundOverlay hover:text-black hover:font-bold">
                     Home
                   </p>
@@ -594,7 +594,7 @@ const RemoveToCartPage = () => {
                 className="flex items-center gap-4 mt-52"
                 id="breadCrumbsDiv"
               >
-                <Link href="/">
+                <Link href={paths.toHome()}>
                   <p className="font-nunito text-sm font-medium text-mecaDarkBlueBackgroundOverlay  hover:text-black hover:font-bold">
                     Home
                   </p>
@@ -706,13 +706,7 @@ const RemoveToCartPage = () => {
                                 </div>
 
                                 <div className="">
-                                  <div
-                                  // style={{
-                                  //   position: "relative",
-                                  //   left: "40px",
-                                  //   cursor: "pointer",
-                                  // }}
-                                  >
+                                  <div>
                                     <MdMoreVert
                                       onClick={() =>
                                         toggleButton(cardCartItem.id)
@@ -846,7 +840,7 @@ const RemoveToCartPage = () => {
               More Products Like This
             </p>
           </div>
-          <Carousel
+          {/* <Carousel
             partialVisible={true}
             draggable={false}
             responsive={responsive}
@@ -854,11 +848,11 @@ const RemoveToCartPage = () => {
             infinite
             autoPlay={true}
             itemClass="lg:pr-8 pr-4"
-          >
-            <Cards image={HomeImage1} />
+          > */}
+          {/* <Cards image={HomeImage1} />
             <Cards image={HomeImage2} />
-            <Cards image={HomeImage1} />
-          </Carousel>
+            <Cards image={HomeImage1} /> */}
+          {/* </Carousel> */}
         </div>
       </div>
 

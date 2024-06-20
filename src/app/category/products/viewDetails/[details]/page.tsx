@@ -16,6 +16,8 @@ import BasicTabs from "../../../../dashboard/components/table/buyerAdmin/FeedBac
 import ProductReview from "../../../../dashboard/components/table/buyerAdmin/ProductReview";
 import DetailsTable from "../../../../dashboard/components/table/buyerAdmin/tab";
 import BuyerModal from "../../../../dashboard/components/table/vendoradmin/vendorModal";
+import { paths } from "../../../../../path/paths";
+
 interface State {
   open: boolean;
 }
@@ -93,7 +95,7 @@ export default function Details() {
       <div id="mainContainer" className="container px-4 md:px-8 lg:px-16">
         <div className="flex flex-col space-y-8 w-full" id="productDescriptionContentContainer">
           <div id="productDescriptionBreadcrumbs" className="flex items-center gap-x-2">
-            <Link href="/dashboard">
+            <Link href={paths.toDashboard()}>
               <button className="text-lg cursor-pointer font-nunito font-normal text-mecaDarkBlueBackgroundOverlay">
                 Caterpillar engine v1
               </button>

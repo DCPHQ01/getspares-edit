@@ -13,7 +13,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import BasicTabs from '../BasicTabs';
 import DetailImageModal from "../vendorModal"
-
+import { paths } from '../../../../../../path/paths';
 
 interface State {
   open: boolean;
@@ -46,7 +46,7 @@ const ViewItemDetails = () => {
   const router = useRouter();
 
   const onClick = () => {
-    router.push("/dashboard")
+    router.push(paths.toDashboard())
   }
 
   const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
@@ -72,7 +72,7 @@ const ViewItemDetails = () => {
           id="productDescriptionBreadcrumbs"
           className="flex items-center gap-x-2"
         >
-          {/* <Link href="/dashboard"> */}
+          {/* <Link href={paths.toDashboard()}> */}
             <button className="text-lg cursor-pointer font-nunito font-normal text-mecaDarkBlueBackgroundOverlay"
             onClick={onClick}
             >
