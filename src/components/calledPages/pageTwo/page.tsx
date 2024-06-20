@@ -29,6 +29,7 @@ import {
   setCurrentStep,
 } from "../../../redux/features/company/companySlice";
 import { MdPhotoLibrary } from "react-icons/md";
+import { paths } from "../../../path/paths";
 
 interface CalledPagesPageTwoPagesProps {
   step: number;
@@ -580,7 +581,7 @@ const CalledPagesPageTwoPages = () => {
                           className="absolute right-0 pr-4"
                           // className={nunito_sans.className}
                         >
-                          <Link href="/modalPage">
+                          <Link href={paths.toModalPage()}>
                             <button
                               id="cancelbtn"
                               className="btn btn-sm btn-circle btn-ghost font-bold w-3 h-3 "

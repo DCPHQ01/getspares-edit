@@ -40,6 +40,12 @@
 paths` object provides a centralized way to manage and use route paths in the application, making the code more maintainable and less prone to errors.
  */
 export const paths = {
+  toReusableMobileNav: () => "/reusables/mobileNav",
+  toAddProductDashboard: () => "/addProductDashboard",
+  toModalPageVendor: () => "/modalPage/vendor",
+  toCart: () => '/cart',
+  toForgotPassword: () => '/forgot-password',
+  toModalPage: () => '/modalPage',
   toMailTo: (email: string) => `mailto:${email}`,
   toDashboardActorsBuyer: () => '/dashboard/actors/buyer/:id',
   toAddProductDashboardDetails: () => "/addProductDashboard/details",
@@ -50,44 +56,7 @@ export const paths = {
   toSignUp: () => "/signup",
   toVerifyEmail: () => "/verify-email",
   toCategoryProducts: (urlType: string) => `/category/products/${urlType}`,
-  /**
-   * Returns the route to the dashboard page.
-   * @function toDashboard
-   * @memberof paths
-   * @returns {string} - "/dashboard"
-   */
   toDashboard: () => "/dashboard",
-
-  /**
-   * Returns the route to the home page.
-   * @function toHome
-   * @memberof paths
-   * @returns {string} - "/"
-   */
   toHome: () => "/",
-
-  /**
-   * Returns the route to the profile page.
-   * @function toProfile
-   * @memberof paths
-   * @returns {string} - "/profile"
-   */
-  toProfile: () => "/profile",
-
-  /**
-   * Returns the route to the login page.
-   * @function toLogin
-   * @memberof paths
-   * @returns {string} - "/login"
-   */
   toLogin: () => "/login",
-
-  /**
-   * Returns the route to the register page.
-   * @function toRegister
-   * @memberof paths
-   * @returns {string} - "/register"
-   */
-  toRegister: () => "/register",
-
 };
