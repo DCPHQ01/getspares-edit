@@ -14,12 +14,24 @@ export const mecaAdminQuery = createApi({
       }),
     }),
     getMecaAdminOverview: builder.query({
-      query: ({ roleName, pageNumber, pageSize }) => ({
-        url: `/dashboard/meca-overview?roleName=${roleName}&pageNumber=${pageNumber}&pageSize=${pageSize}`,
+      query: () => ({
+        url: "/dashboard/meca-overview",
+        method: "GET",
+      }),
+    }),
+    getTopPerformingVendors: builder.query({
+      query: ({ activityPeriod }) => ({
+        url: `/dashboard/meca-performer?activityPeriod=${activityPeriod}`,
+        method: "GET",
+      }),
+    }),
+    getMecaAdminBuyer: builder.query({
+      query: ({ page, size }) => ({
+        url: `/dashboard/meca-buyers?page=${page}&size=${size}`,
         method: "GET",
       }),
     }),
   }),
 });
 
-export const { useAddCategoryMutation, useGetMecaAdminOverviewQuery } = mecaAdminQuery;
+export const { useAddCategoryMutation, useGetMecaAdminOverviewQuery, useGetTopPerformingVendorsQuery, useGetMecaAdminBuyerQuery } = mecaAdminQuery;

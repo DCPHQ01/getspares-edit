@@ -45,9 +45,7 @@ type CardProps = {
 
 
 function Index({ cardProps }: { cardProps: CardProps[] }) {
-  console.log("Received cardProps:", cardProps);
-
- 
+  console.log("Received cardProps:", cardProps); 
   
   return (
     <div id="cardContainer" className={`mt-[1rem] flex justify-between w-full`}>

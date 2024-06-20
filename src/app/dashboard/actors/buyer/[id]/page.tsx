@@ -68,13 +68,13 @@ const Checkout = () => {
   return (
     // add screen
     <Box>
-      <div className='fixed top-0 left-0 right-0 z-10'>
+      <div id='topHeader' className='fixed top-0 left-0 right-0 z-10'>
         <HeaderPage/>
         <div className='px-2'>
           <NavBarWhileInsideApp />
         </div>
       </div>
-      <div className="w-[95%] m-auto mt-[8%]">
+      <div id='checkoutContent' className="w-[95%] m-auto mt-[8%]">
         <div style={{ width: "100%" }} className={nunito.className}>
           <div
             className="flex mt-16 items-center gap-4"
