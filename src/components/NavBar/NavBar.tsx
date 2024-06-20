@@ -19,6 +19,7 @@ import { JwtPayload as BaseJwtPayload } from "jsonwebtoken";
 import * as JWT from "jwt-decode";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { clearUser } from "../../redux/features/users/userSlice";
+import { paths } from "../../path/paths";
 
 const navData = [
   {
@@ -102,10 +103,10 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
   const dispatch = useAppDispatch();
 
   const handleStartShopping = () => {
-    router.push("/signup");
+    router.push(paths.toSignUp());
   };
   const handleLogin = () => {
-    router.push("/login");
+    router.push(paths.toLogin());
   };
   const [isCategoryOptionOpened, setIsCategoryOptionOpen] = useState(false);
 
@@ -117,7 +118,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
     return isCategoryOptionOpened;
   };
   const handleDashboard = () => {
-    router.push("/dashboard");
+    router.push(paths.toDashboard());
   };
   const [toggleProfile, setToggleProfile] = useState(false);
   const [tokens, setTokens] = useState("");
@@ -149,7 +150,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
     sessionStorage.clear();
     sessionStorage.removeItem("userDetails");
     dispatch(clearUser());
-    router.push("/login");
+    router.push(paths.toLogin());
   };
   useEffect(() => setActive(1), []);
   return (
@@ -161,7 +162,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
       >
         <p
           className="text-mecaActiveIconsNavColor text-xl font-nunito font-bold cursor-pointer"
-          onClick={() => router.push("/")}
+          onClick={() => router.push(paths.toHome())}
         >
           e-meca
         </p>
@@ -198,7 +199,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
           <div className="w-[20%]" id="mecaLogoDesktop">
             <p
               className="text-mecaActiveIconsNavColor text-3xl font-nunito font-bold cursor-pointer"
-              onClick={() => router.push("/")}
+              onClick={() => router.push(paths.toHome())}
             >
               e-meca
             </p>
@@ -223,7 +224,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
           >
             <Link href="/cart">
               <div
-                className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1 cursor-pointer"
+                className="w-[49px] relative left-[19rem]  h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1 cursor-pointer"
                 id="textCart"
               >
                 <MdOutlineShoppingCart
@@ -237,7 +238,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
             </Link>
             <div className="relative w-full flex items-center h-full">
               {!tokens ? (
-                <div className="w-full flex items-center h-full gap-4">
+                <div className="w-full  flex items-center h-full gap-4">
                   <button
                     type="button"
                     className="w-[28%] h-full border border-mecaBluePrimaryColor bg-white text-mecaBluePrimaryColor text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
@@ -258,7 +259,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
               ) : (
                 <button
                   onClick={profile}
-                  className="flex gap-2"
+                  className="flex gap-2 relative left-[19.2rem]"
                   type="button"
                   id="profileBtnMainNav"
                 >

@@ -49,6 +49,7 @@ import {
 import TopBarWhileInside from "../reusables/TopBarWhileInside/page";
 import TopBar from "../reusables/TopBar/page";
 import TruncateText from "../../components/utils/utils";
+import { paths } from "../../path/paths";
 
 interface State extends SnackbarOrigin {
   open: boolean;
@@ -209,7 +210,7 @@ const RemoveToCartPage = () => {
 
   const handleSucessClick = (newState: SnackbarOrigin) => () => {
     setState({ ...newState, open: true });
-    router.push('/dashboard/actors/buyer/:id'); 
+    router.push(paths.toDashboardActorsBuyer());
   };
 
   const handleSucessClose = () => {
@@ -298,7 +299,7 @@ const RemoveToCartPage = () => {
             <div className="w-[20%]" id="mecaLogoDesktop">
               <p
                 className="text-mecaActiveIconsNavColor text-3xl font-nunito font-bold cursor-pointer"
-                onClick={() => router.push("/")}
+                onClick={() => router.push(paths.toHome())}
               >
                 e-meca
               </p>
@@ -705,13 +706,7 @@ const RemoveToCartPage = () => {
                                 </div>
 
                                 <div className="">
-                                  <div
-                                  // style={{
-                                  //   position: "relative",
-                                  //   left: "40px",
-                                  //   cursor: "pointer",
-                                  // }}
-                                  >
+                                  <div>
                                     <MdMoreVert
                                       onClick={() =>
                                         toggleButton(cardCartItem.id)
@@ -845,7 +840,7 @@ const RemoveToCartPage = () => {
               More Products Like This
             </p>
           </div>
-          <Carousel
+          {/* <Carousel
             partialVisible={true}
             draggable={false}
             responsive={responsive}
@@ -853,11 +848,11 @@ const RemoveToCartPage = () => {
             infinite
             autoPlay={true}
             itemClass="lg:pr-8 pr-4"
-          >
-            <Cards image={HomeImage1} />
+          > */}
+          {/* <Cards image={HomeImage1} />
             <Cards image={HomeImage2} />
-            <Cards image={HomeImage1} />
-          </Carousel>
+            <Cards image={HomeImage1} /> */}
+          {/* </Carousel> */}
         </div>
       </div>
 

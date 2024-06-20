@@ -10,6 +10,7 @@ import {
   MdLogout,
 } from "react-icons/md";
 import { useState } from "react";
+import { paths } from "../../path/paths";
 
 const mobileNavData = [
   {
@@ -89,7 +90,7 @@ export default function MobileNav({ handleNav }: MobileNavProps) {
       >
         <p
           className="text-mecaActiveIconsNavColor text-xl font-nunito font-bold cursor-pointer"
-          onClick={() => router.push("/")}
+          onClick={() => router.push(paths.toHome())}
         >
           e-meca
         </p>

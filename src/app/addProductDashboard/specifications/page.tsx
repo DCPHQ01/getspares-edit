@@ -11,6 +11,7 @@ import {
   MdChevronRight,
   MdPhotoLibrary,
 } from "react-icons/md";
+import { paths } from "../../../path/paths";
 
 const CalledPagesPageFourPages = () => {
   const [productName, setProductName] = useState("");
@@ -19,7 +20,7 @@ const CalledPagesPageFourPages = () => {
   const [images, setImages] = useState<string[]>([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [specifications, setSpecifications] = useState({
-    quantity: "",
+    quantityInPack: "",
     color: "",
   });
 
@@ -57,10 +58,10 @@ const CalledPagesPageFourPages = () => {
     );
   };
   const handlePreviousPage = () => {
-    router.push("/addProductDashboard/addImages");
+    router.push(paths.toAddProductDashboardAddImages());
   };
   const handleNextPage = () => {
-    router.push("/addProductDashboard/details");
+    router.push(paths.toAddProductDashboardDetails());
     sessionStorage.setItem("specInfo", JSON.stringify(specifications));
   };
 
@@ -105,16 +106,16 @@ const CalledPagesPageFourPages = () => {
                   <Box>
                     <TextField
                       required={true}
-                      id="filledbasic"
+                      id="quantityInPack"
                       label="Quantity in a pack"
                       variant="filled"
                       type="text"
-                      name="quantity"
+                      name="quantityInPack"
                       placeholder="12"
                       InputProps={{ disableUnderline: true }}
                       className=" w-[29.4rem] mb-5 "
                       sx={{ backgroundColor: "porcelain" }}
-                      value={specifications.quantity}
+                      value={specifications.quantityInPack}
                       onChange={handleSpecChange}
                     />
                   </Box>

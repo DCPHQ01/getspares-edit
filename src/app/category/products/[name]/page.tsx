@@ -25,6 +25,7 @@ import Filter from "../../../../components/filters/Filter";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import FilterFixedPage from "../../filterFixedPage";
 import SideFilter from "../../sideFilter";
+import TopBarWhileInside from "../../../reusables/TopBarWhileInside/page";
 
 interface ItemsDataProps {
   id: number;
@@ -216,7 +217,7 @@ export default function Products() {
       {/* mobile and Tab */}
       {!isFilterOpen ? (
         <div className="flex flex-col lg:hidden" id="ProductMobileDivContainer">
-          <TopBar />
+          <TopBarWhileInside />
           <div
             className="px-4 flex flex-col gap-y-4 lg:hidden"
             id="productCategoryContentDiv"
@@ -330,7 +331,7 @@ export default function Products() {
       {/* desktop */}
       <div className="hidden lg:flex flex-col" id="desktopDiv">
         <div className="">
-          <TopBar />
+          <TopBarWhileInside />
         </div>
         <div className="">
           <FilterFixedPage />

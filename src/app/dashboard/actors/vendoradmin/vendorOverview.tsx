@@ -23,7 +23,7 @@ function VendorOverview() {
             <Addbutton title={`Update Company`} />
           </Link>
         </div>
-        <Cards />
+        {/* <Cards /> */}
 
         <OverviewTable />
       </div>

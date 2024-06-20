@@ -13,6 +13,12 @@ export const mecaAdminQuery = createApi({
         body,
       }),
     }),
+    getMecaAdminOverview: builder.query({
+      query: ({ roleName, pageNumber, pageSize }) => ({
+        url: `/dashboard/meca-overview?roleName=${roleName}&pageNumber=${pageNumber}&pageSize=${pageSize}`,
+        method: "GET",
+      }),
+    }),
     getViewAllMecaAdminCategory: builder.query({
       query: ({ page, size }: { page:number; size: number }) => ({
         url: `/category/all?page=${page}&size=${size}`,
@@ -22,4 +28,4 @@ export const mecaAdminQuery = createApi({
   }),
 });
 
-export const { useAddCategoryMutation, useGetViewAllMecaAdminCategoryQuery } = mecaAdminQuery;
+export const { useAddCategoryMutation, useGetViewAllMecaAdminCategoryQuery, useGetMecaAdminOverviewQuery } = mecaAdminQuery;
