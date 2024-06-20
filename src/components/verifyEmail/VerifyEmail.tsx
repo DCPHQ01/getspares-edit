@@ -66,7 +66,7 @@ export default function VerifyEmail({
       }
     }
     setOtp(newOtp);
-    inputsRef.current[Math.min(paste.length - 1, length - 1)].focus();
+    inputsRef.current[Math.min(paste.length - 1, length - 1)]?.focus();
     setIsDisabled(false);
   };
 
@@ -75,13 +75,13 @@ export default function VerifyEmail({
     index: number
   ) => {
     if (event.key === "Backspace" && !otp[index] && index > 0) {
-      inputsRef.current[index - 1].focus();
+      inputsRef.current[index - 1]?.focus();
     }
   };
   console.log(otp.join(""));
 
   useEffect(() => {
-    inputsRef.current[0].focus();
+    inputsRef.current[0]?.focus();
   }, []);
 
   const [verifyEmail] = useVerifyEmailMutation();
@@ -181,7 +181,9 @@ export default function VerifyEmail({
                   title="OTP"
                   placeholder="Enter OTP"
                   onKeyDown={(e) => handleKeyDown(e, index)}
-                  ref={(el) => (inputsRef.current[index] = el)}
+                  ref={(el) => {
+                    inputsRef.current[index] = el as HTMLInputElement;
+                  }}
                 />
                 {index === 2 && (
                   <span className="text-mecaVerificationCodeColor text-5xl flex items-center">
