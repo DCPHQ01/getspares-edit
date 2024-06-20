@@ -74,7 +74,7 @@ export default function VerifyEmail({
     // }
   };
 
-  const handlePaste = (event) => {
+  const handlePaste = (event: React.ClipboardEvent<HTMLInputElement>) => {
     event.preventDefault();
     const paste = event.clipboardData.getData("text").slice(0, length);
     const newOtp = Array(length).fill("");
