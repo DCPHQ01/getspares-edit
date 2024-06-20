@@ -11,12 +11,6 @@ interface CardProps {
      cardField: CardProp;
 }
 
-<<<<<<< HEAD
-
-function Index({ cardProps }: { cardProps: CardProps[] }) {
-  console.log("Received cardProps:", cardProps); 
-  
-=======
 const Index:React.FC<CardProps> = ({cardField}) => {
   const cardProps = [
     {
@@ -52,7 +46,6 @@ const Index:React.FC<CardProps> = ({cardField}) => {
       },
     },
   ];
->>>>>>> 7c710c5ee0bac1ae30f80ac807e0b5f24ac2379d
   return (
     <div id="cardContainer" className={`mt-[1rem] flex justify-between w-full`}>
       {cardProps?.map((card ,index) => (

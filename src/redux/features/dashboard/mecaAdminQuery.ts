@@ -13,7 +13,6 @@ export const mecaAdminQuery = createApi({
         body,
       }),
     }),
-<<<<<<< HEAD
     getMecaAdminOverview: builder.query({
       query: () => ({
         url: "/dashboard/meca-overview",
@@ -29,7 +28,9 @@ export const mecaAdminQuery = createApi({
     getMecaAdminBuyer: builder.query({
       query: ({ page, size }) => ({
         url: `/dashboard/meca-buyers?page=${page}&size=${size}`,
-=======
+        method:"GET"
+      }),
+    }),
     getMecaAdminDashboardVendor: builder.query({
       query: ({ page, size }: { page: number; size: number }) => ({
         url: `/dashboard/meca-vendor?page=${page}&size=${size}`,
@@ -39,16 +40,12 @@ export const mecaAdminQuery = createApi({
     getViewAllMecaAdminCategory: builder.query({
       query: ({ page, size }: { page:number; size: number }) => ({
         url: `/category/all?page=${page}&size=${size}`,
->>>>>>> 7c710c5ee0bac1ae30f80ac807e0b5f24ac2379d
         method: "GET",
       }),
     }),
   }),
 });
 
-<<<<<<< HEAD
-export const { useAddCategoryMutation, useGetMecaAdminOverviewQuery, useGetTopPerformingVendorsQuery, useGetMecaAdminBuyerQuery } = mecaAdminQuery;
-=======
-export const { useAddCategoryMutation,useGetMecaAdminDashboardVendorQuery,useGetViewAllMecaAdminCategoryQuery } = mecaAdminQuery;
+export const { useAddCategoryMutation, useGetMecaAdminOverviewQuery, useGetTopPerformingVendorsQuery, useGetMecaAdminBuyerQuery,useGetMecaAdminDashboardVendorQuery,useGetViewAllMecaAdminCategoryQuery  } = mecaAdminQuery;
 
->>>>>>> 7c710c5ee0bac1ae30f80ac807e0b5f24ac2379d
+
