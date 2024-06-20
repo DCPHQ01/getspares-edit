@@ -17,8 +17,9 @@ import {
   TextareaAutosize,
 } from "@mui/base/TextareaAutosize";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import { useGetCategoryQuery } from "../../../redux/features/product/productsQuery";
+
 import { paths } from "../../../path/paths";
+import { useGetCategoryQuery } from "../../../redux/features/users/authQuery";
 
 const CalledPagesPageOnePages = () => {
   const [basicInfoValues, setBasicInfoValues] = useState({
