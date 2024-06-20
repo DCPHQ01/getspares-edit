@@ -27,6 +27,7 @@ import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { paths } from "../../../path/paths";
 
 const ProSpan = styled("span")({
   display: "inline-block",
@@ -434,7 +435,7 @@ const CalledPagesPageOnePages = () => {
 
                         // className={nunito_sans.className}
                       >
-                        <Link href="/modalPage">
+                        <Link href={paths.toModalPage()}>
                           <button
                             type="button"
                             id="cancelbtnDiv"
@@ -637,7 +638,7 @@ const CalledPagesPageOnePages = () => {
                               className="absolute right-0 pr-4"
                               // className={nunito_sans.className}
                             >
-                              <Link href="/modalPage">
+                              <Link href={paths.toModalPage()}>
                                 <button
                                   id="cancelbtn"
                                   className="btn btn-sm btn-circle btn-ghost font-bold w-3 h-3 cursor-pointer"

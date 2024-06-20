@@ -17,6 +17,7 @@ interface VendorOverview {
   totalItemSold: number;
   itemName: string;
 }
+import { paths } from "../../../../../path/paths";
 
 function OverviewVendorMobile() {
   const { data, isLoading, isError} = useGetMecaVendorOverviewQuery({});
@@ -46,7 +47,7 @@ function OverviewVendorMobile() {
             name={`Ayodeji`}
           />
           <div className="mt-5 mb-5">
-            <Link href="/modalPage">
+            <Link href={paths.toModalPage()}>
               <Addbutton title={` Update Company`} />
             </Link>
           </div>

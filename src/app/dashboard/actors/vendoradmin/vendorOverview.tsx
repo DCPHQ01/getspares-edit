@@ -51,7 +51,7 @@ function VendorOverview() {
             subtitle={`Take a quick glance on what is happening with meca`}
             name={usersFirstName}
           />
-          <Link href="/modalPage" className="font-semibold">
+          <Link href={paths.toModalPage()} className="font-semibold">
             <Addbutton title={`Update Company`} />
           </Link>
         </div>
