@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import MecaAdminOverview from "./mecaadmin/overview";
 import VendorAdminOverview from "./vendoradmin/overview";
 import { useAppSelector } from "../../../../redux/hooks";
@@ -14,6 +14,19 @@ interface JwtPayload {
     };
   };
 }
+
+interface VendorOverview {
+  dateJoined: string;
+  imageUrl?: string ; 
+  transactionValue:number;
+  totalItemSold: number;
+  itemName: string;
+  
+}
+
+
+const [topPerformingProduct, setTopPerformingProduct] = useState<VendorOverview[]>([])
+
 function Index() {
   const userRole = useUserRole();
   const role: any = userRole;
@@ -22,7 +35,7 @@ function Index() {
     case roles.MECA_ADMIN:
       return <MecaAdminOverview />;
     case roles.VENDOR_ADMIN:
-      return <VendorAdminOverview />;
+      return <VendorAdminOverview topPerformingProduct={topPerformingProduct}/>;
     default:
       return null;
   }
