@@ -95,15 +95,10 @@ export default function ProductDescription() {
   };
 
   const searchParams = usePathname()!;
-<<<<<<< HEAD
-  const search = searchParams;
-  const segments = searchParams.split("/");
-=======
 
   const search = searchParams;
   const segments = searchParams.split("/");
 
->>>>>>> 32345f347cd48dbdd3a76e5baea971ea7c5c32c5
   const searches = segments[3];
   const id = segments[4];
 
@@ -144,10 +139,7 @@ export default function ProductDescription() {
             </p>
             <MdChevronRight size={20} />
             <p className="text-[12px] font-nunito font-normal text-mecaGoBackArrow">
-<<<<<<< HEAD
-=======
               {/* View details */}
->>>>>>> 32345f347cd48dbdd3a76e5baea971ea7c5c32c5
             </p>
           </div>
           <div
