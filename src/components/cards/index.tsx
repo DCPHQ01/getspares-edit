@@ -1,57 +1,54 @@
 import React from "react";
 import Card from "./card";
 
-// const cardProps = [
-//   {
-//     total: "number of parts ordered",
-//     amount: 2250,
-//     percentage: 32,
-//     onClick: () => {
-//       console.log("View total number of parts ordered");
-//     },
-//   },
-//   {
-//     total: "number of agents",
-//     amount: 1475,
-//     percentage: 10,
-//     onClick: () => {
-//       console.log("View total number of agents");
-//     },
-//   },
-//   {
-//     total: "transaction value",
-//     amount: 1250,
-//     percentage: 59,
-//     onClick: () => {
-//       console.log("View total transaction value");
-//     },
-//   },
-//   {
-//     total: "number of vendors",
-//     amount: 1280,
-//     percentage: 43,
-//     onClick: () => {
-//       console.log("View total number of vendors");
-//     },
-//   },
-// ];
+interface CardProp {
+  totalNumberOfAgents: number
+  totalNumberOfProductsSold: number
+  totalOrderValue: number
+}
 
-type CardProps = {
-  total: string;
-  amount: number;
-  percentage: number;
-  onClick: () => void;
-};
+interface CardProps {
+     cardField: CardProp;
+}
 
-
-function Index({ cardProps }: { cardProps: CardProps[] }) {
-  console.log("Received cardProps:", cardProps);
-
- 
-  
+const Index:React.FC<CardProps> = ({cardField}) => {
+  const cardProps = [
+    {
+      total: "number of parts ordered",
+      amount: 2250,
+      percentage: 32,
+      onClick: () => {
+        console.log("View total number of parts ordered");
+      },
+    },
+    {
+      total: "number of agents",
+      amount: cardField.totalNumberOfAgents,
+      percentage: 10,
+      onClick: () => {
+        console.log("View total number of agents");
+      },
+    },
+    {
+      total: "transaction value",
+      amount: cardField.totalOrderValue,
+      percentage: 59,
+      onClick: () => {
+        console.log("View total transaction value");
+      },
+    },
+    {
+      total: "total number of Product sold",
+      amount: cardField.totalNumberOfProductsSold,
+      percentage: 43,
+      onClick: () => {
+        console.log("View total number of vendors");
+      },
+    },
+  ];
   return (
     <div id="cardContainer" className={`mt-[1rem] flex justify-between w-full`}>
-      {cardProps?.map((card: CardProps, index: number) => (
+      {cardProps?.map((card ,index) => (
         <div id={`card_${index}`} key={index}>
           <Card
             total={card.total}

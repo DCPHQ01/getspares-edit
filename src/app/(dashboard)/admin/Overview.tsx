@@ -10,7 +10,7 @@ import {
   MdChevronLeft,
   MdChevronRight,
 } from "react-icons/md";
-import { useGetMecaAdminOverviewQuery } from "../../../redux/features/dashboard/mecaAdminQuery";
+// import { useGetMecaAdminOverviewQuery } from "../../../redux/features/dashboard/mecaAdminQuery";
 import cardsData from "./Overview";
 
 interface CardData {
@@ -22,9 +22,9 @@ interface CardData {
 
 function Overview() {
  
-  const { data: mecaAdminOverviewData, isLoading, isError} = useGetMecaAdminOverviewQuery({roleName: "MECA_ADMIN", pageNumber: 0, pageSize: 0});
-  console.log("data for meca admin", mecaAdminOverviewData);
-  console.log("Fetched data for meca admin:", mecaAdminOverviewData);
+  // const { data: mecaAdminOverviewData, isLoading, isError} = useGetMecaAdminOverviewQuery({roleName: "MECA_ADMIN", pageNumber: 0, pageSize: 0});
+  // console.log("data for meca admin", mecaAdminOverviewData);
+  // console.log("Fetched data for meca admin:", mecaAdminOverviewData);
   const [roles, setRoles] = useState('');
   const [name, setName] = useState("");
   useEffect(() => {
@@ -41,7 +41,7 @@ function Overview() {
     const cardsData: CardData[] = [
     {
       total: "Total Parts Ordered",
-      amount: mecaAdminOverviewData?.data?.totalNumberOfPartOrdered ?? 0,
+      amount:  0,
       percentage: 0, 
       onClick: () => {
         console.log("View Total Parts Ordered");
@@ -49,7 +49,7 @@ function Overview() {
     },
     {
       total: "Number of Agents",
-      amount: mecaAdminOverviewData?.data?.totalNumberOfAgent ?? 0,
+      amount:  0,
       percentage: 0,
       onClick: () => {
         console.log("View Number of Agents");
@@ -57,7 +57,7 @@ function Overview() {
     },
     {
       total: "Transaction Value",
-      amount: mecaAdminOverviewData?.data?.totalTransactionValue ?? 0,
+      amount:  0,
       percentage: 0,
       onClick: () => {
         console.log("View Transaction Value");
@@ -65,7 +65,7 @@ function Overview() {
     },
     {
       total: "Number of Vendors",
-      amount: mecaAdminOverviewData?.data?.totalNumberOfVendor ?? 0,
+      amount:  0,
       percentage: 0, 
       onClick: () => {
         console.log("View Number of Vendors");
@@ -83,7 +83,7 @@ function Overview() {
           subtitle={`Take a quick glance on what is happening with meca`}
           name={`, ${name}`}
         />
-        <Cards cardProps={cardsData}/>
+        {/* <Cards cardProps={cardsData}/> */}
         <div
           className={`flex justify-between items-center mt-[3.25rem] mb-[1.25rem]`}
         >

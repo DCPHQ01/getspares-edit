@@ -25,6 +25,7 @@ const splitDateTime = (dateTime: string) => {
 };
 
 const CategoryTable: React.FC<CategoryTableProps> = ({ categoryList }) => {
+  
   return (
     <div id="tableContainer">
       <div
@@ -43,7 +44,7 @@ const CategoryTable: React.FC<CategoryTableProps> = ({ categoryList }) => {
             </tr>
           </thead>
           <tbody>
-            {categoryList?.map((d, index) => {
+            {Array.isArray(categoryList) && categoryList?.map((d, index) => {
               const { date, time } = splitDateTime(d.dateCreated);
               return (
                 <tr key={index} id={`row_${index}`} className="cursor-pointer">
@@ -78,12 +79,7 @@ const CategoryTable: React.FC<CategoryTableProps> = ({ categoryList }) => {
                   >
                     <div className="flex gap-3">
                       <div className="">
-                        {/* <Image
-                          src={d.imageUrl}
-                          className="object-contain"
-                          alt="Avatar"
-                          id={`avatar_${index}`}
-                        /> */}
+                       
                       </div>
                       <div className="">
                         <div className="truncate">

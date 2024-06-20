@@ -1,8 +1,9 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import styles from "../styles.module.css";
 import image1 from "../../../../../assets/dashboardAssets/Avatar2.png";
 import image2 from "../../../../../assets/dashboardAssets/Avatar3.png";
 import Image from "next/image";
+import { AccountCircle } from "@mui/icons-material";
 
 const data = [
   {
@@ -142,7 +143,20 @@ const data = [
   },
 ];
 
-function Overview() {
+interface VendorOverview {
+  dateJoined: string;
+  imageUrl?: string ; 
+  transactionValue:number;
+  totalItemSold: number;
+  itemName: string;
+  
+}
+
+interface VendorTableProps {
+  topPerformingProduct: VendorOverview[];
+}
+
+const Overview: React.FC<VendorTableProps> = ({topPerformingProduct}) => {
   return (
     <div
       id="vendorAdminTable"
@@ -160,33 +174,42 @@ function Overview() {
           </tr>
         </thead>
         <tbody>
-          {data.map((d, index) => (
+          {topPerformingProduct?.map((d, index) => (
             <tr key={index} id={`row_${index}`} className="truncate">
               <td>
                 <div
                   className={`flex gap-3 items-center text-[0.88rem] py-[1rem] px-[1.5rem]`}
                 >
-                  <Image src={d.avatar} alt="Avatar" id={`avatar_${index}`} />
-                  <p id={`itemName_${index}`}>{d.name}</p>
+                  {d.imageUrl ? (
+                        <Image
+                          src={d.imageUrl}
+                          className="object-contain"
+                          alt="Avatar"
+                          id={`avatar_${index}`}
+                        />
+                      ) : (
+                        <AccountCircle style={{ fontSize: 50 }} className=" text-gray-400" />
+                      )}
+                  <p id={`itemName_${index}`}>{d.itemName}</p>
                 </div>
               </td>
               <td
                 className={`text-[0.88rem] py-[1rem] px-[3.125rem]`}
                 id={`totalSold_${index}`}
               >
-                {d.sale}
+                {d.totalItemSold}
               </td>
               <td
                 className={`text-[0.88rem] py-[1rem] px-[3.125rem]`}
                 id={`transactionValue_${index}`}
               >
-                {d.value}
+                {d.transactionValue}
               </td>
               <td>
                 <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
-                  <div id={`date_${index}`}>{d.date}</div>
+                  <div id={`date_${index}`}>{d.dateJoined}</div>
                   <div className={`text-[#4B5565]`} id={`time_${index}`}>
-                    {d.time}
+                    {/* {d.time} */}
                   </div>
                 </div>
               </td>

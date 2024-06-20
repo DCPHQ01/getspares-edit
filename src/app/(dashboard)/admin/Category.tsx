@@ -45,13 +45,13 @@ function Category() {
   const [categoryData, { isLoading }] = useAddCategoryMutation();
 
   useEffect(() => {
-    if (data) {
+    if (data && Array.isArray(data.data.content)) {
       const list = data.data.content
       setCategoryList(list);
     }
   }, [data]);
 
-  console.log("The datas: ", categoryList);
+  console.log("The datas: ", data);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
