@@ -46,7 +46,7 @@ function Category() {
 
   useEffect(() => {
     if (data && Array.isArray(data.data.content)) {
-      const list = data.data.content
+      const list = data.data.content;
       setCategoryList(list);
     }
   }, [data]);
@@ -78,10 +78,12 @@ function Category() {
     try {
       const response = await categoryData({ 
         name: categoryName, 
-        image: formImage, 
+        image: "string", 
       });
       if ("data" in response) {
         console.log(response.data.data);
+        setCategoryList((prev) => [...prev, response.data.data]);
+        handleClose();
       }
     } catch (error) {
       console.log(error);
