@@ -8,6 +8,10 @@ import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 function AgentOverview() {
   // @ts-ignore
+  const [activityPeriod, setActivityPeriod] = useState("monthly"); 
+  const handlePeriodChange = (newPeriod: string) => {
+    setActivityPeriod(newPeriod);
+  };
   return (
     <>
       <div>
@@ -26,7 +30,7 @@ function AgentOverview() {
             title={`Recently sold parts`}
           />
           <div className="mt-5">
-            <PeriodRadios />
+            <PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange}/>
           </div>
         </div>
 
