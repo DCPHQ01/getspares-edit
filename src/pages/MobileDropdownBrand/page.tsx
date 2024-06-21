@@ -86,9 +86,12 @@ const MobileDropdownBrandPage = () => {
   return (
     <div className={nunito.className}>
       {open && (
-        <div className="w-full h-screen bg-white" id="mobiledropviewcontainer1">
+        <div
+          className="w-[98%] h-screen bg-white z-[2000] left-1 px-2   fixed top-0 overflow-hidden cursor-pointer"
+          id="mobiledropviewcontainer1"
+        >
           <div
-            className="w-full h-[60px] border-b-2 border-b-mecaBottomBorder px-4 items-center lg:hidden "
+            className="w-[100%]  h-[60px] border-b-2 border-b-mecaBottomBorder items-center lg:hidden "
             id="mobiledropviewcontainer2"
             style={{
               display: "flex",
@@ -97,15 +100,12 @@ const MobileDropdownBrandPage = () => {
           >
             {/* <div className="" id="mobiledropviewcontainer3"> */}
             <div
-              className="text-xl font-nunito font-bold"
+              className="font-nunito font-bold"
               id="mobiledropviewcontainer4"
-              style={{ display: "flex", gap: "20px" }}
+              style={{ display: "flex", gap: "10px" }}
             >
-              <div className="">
-                <MdChevronLeft />
-              </div>
-
-              <span> Brand</span>
+              <MdChevronLeft className="mt-[5px] text-lg" />
+              <span className="text-lg"> Brand</span>
             </div>
 
             {/* <Link href="../app/reusables/NavBar/page"> */}
@@ -113,8 +113,7 @@ const MobileDropdownBrandPage = () => {
               onClick={handleNav}
               id="mobiledropviewcontainer5"
               size={20}
-              className="text-mecaGoBackArrow"
-              style={{ marginTop: "15px" }}
+              className="text-mecaGoBackArrow cursor-pointer"
             />
             {/* </Link> */}
             {/* </div> */}
@@ -131,7 +130,6 @@ const MobileDropdownBrandPage = () => {
               style={{
                 flexDirection: "column",
                 display: "flex",
-                lineHeight: "3rem",
                 color: "black",
                 textDecoration: "none",
                 cursor: "pointer",

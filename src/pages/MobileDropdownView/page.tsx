@@ -4,10 +4,8 @@ import { useEffect, useState } from "react";
 import { MdChevronLeft, MdClear } from "react-icons/md";
 import TopBar from "../TopBar/page";
 import Link from "next/link";
-// import NavBar from "@/app/reusables/NavBar/page";
 import NavBar from "../../components/NavBar/NavBar";
 import { Nunito_Sans } from "next/font/google";
-// import MobileNav from "../../app/reusables/mobileNav/page";
 
 const nunito = Nunito_Sans({
   subsets: ["latin"],
@@ -86,52 +84,43 @@ const MobileDropdownViewPage = () => {
   return (
     <div className={nunito.className}>
       {open && (
-        <div className="w-full h-screen bg-white" id="mobiledropviewcontainer1">
+        <div
+          className="w-[98%] h-screen bg-white z-[2000] left-1 px-2   fixed top-0 overflow-hidden"
+          id="mobiledropviewcontainer1"
+        >
           <div
-            className="w-full h-[60px] border-b-2 border-b-mecaBottomBorder px-4 items-center lg:hidden "
+            className="w-[100%]  h-[60px] border-b-2 border-b-mecaBottomBorder items-center lg:hidden "
             id="mobiledropviewcontainer2"
             style={{
               display: "flex",
               justifyContent: "space-between",
             }}
           >
-            {/* <div className="" id="mobiledropviewcontainer3"> */}
             <div
-              className="text-xl font-nunito font-bold"
+              className=" font-nunito font-bold"
               id="mobiledropviewcontainer4"
-              style={{ display: "flex", gap: "20px" }}
+              style={{ display: "flex", gap: "10px" }}
             >
-              <div className="">
-                <MdChevronLeft />
-              </div>
+              <MdChevronLeft className="mt-[5px] text-lg" />
 
-              <span> Category</span>
+              <span className="text-lg"> Category</span>
             </div>
 
-            {/* <Link href="../app/reusables/NavBar/page"> */}
             <MdClear
               onClick={handleNav}
               id="mobiledropviewcontainer5"
               size={20}
-              className="text-mecaGoBackArrow"
-              style={{ marginTop: "15px" }}
+              className="text-mecaGoBackArrow cursor-pointer"
             />
-            {/* </Link> */}
-            {/* </div> */}
           </div>
-          <hr id="mobiledropviewcontainer6" className=""></hr>
-          <div
-            id="mobiledropviewcontainer7"
-            className="gap-y-8
-           px-4 mt-4"
-          >
+          <hr id="mobiledropviewcontainer6" className="w-full"></hr>
+          <div id="mobiledropviewcontainer7" className="gap-y-8 px-4 mt-4">
             <div
               id="mobiledropviewcontainer8"
               className=" leading-10 cursor-pointer "
               style={{
                 flexDirection: "column",
                 display: "flex",
-                lineHeight: "3rem",
                 color: "black",
                 textDecoration: "none",
                 cursor: "pointer",

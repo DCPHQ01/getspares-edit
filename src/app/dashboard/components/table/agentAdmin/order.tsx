@@ -99,19 +99,19 @@ const Order = () => {
         <table id="adminTable" className={`w-full`}>
           <thead>
             <tr className="truncate">
-              <th id="companyNameHeader">Products</th>
-              <th id="totalItemsSoldHeader" style={{ paddingLeft: "4.5rem" }}>
+              <th id="totalItemsSoldHeader" style={{ paddingLeft: "4rem" }}>
                 Order ID
               </th>
-              <th id="transactionValueHeader" style={{ paddingLeft: "2.2rem" }}>
-                Transaction value
+              <th id="transactionValueHeader" style={{ paddingLeft: "4rem" }}>
+                Amount
               </th>
-              <th id="dateTimeJoinedHeader" style={{ paddingLeft: "5rem" }}>
-                Vendor
+              <th id="dateTimeJoinedHeader" style={{ paddingLeft: "2rem" }}>
+                Buyers
               </th>
               <th id="dateTimeJoinedHeader">Date & time ordered</th>
             </tr>
           </thead>
+
           <tbody>
             {data.map((d, index) => (
               <tr
@@ -119,22 +119,6 @@ const Order = () => {
                 id={`row_${index}`}
                 className="cursor-pointer truncate"
               >
-                <td id={`companyData_${index}`}>
-                  <div
-                    className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
-                  >
-                    <Image
-                      src={d.avatar}
-                      className="object-contain"
-                      alt="Avatar"
-                      id={`avatar_${index}`}
-                    />
-                    <div id={`companyDetails_${index}`}>
-                      <div>{d.name}</div>
-                    </div>
-                  </div>
-                </td>
-
                 <td
                   className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
                   id={`itemsSold_${index}`}
@@ -153,17 +137,8 @@ const Order = () => {
                   <div
                     className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
                   >
-                    <Image
-                      src={d.avatar}
-                      className="object-contain"
-                      alt="Avatar"
-                      id={`avatar_${index}`}
-                    />
                     <div id={`companyDetails_${index}`}>
                       <div>{d.name}</div>
-                      <div className={`text-[#4B5565]`} id={`email_${index}`}>
-                        {d.email}
-                      </div>
                     </div>
                   </div>
                 </td>

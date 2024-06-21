@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styles from "../styles.module.css";
 import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
 import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
@@ -91,13 +91,13 @@ const data = [
 ];
 
 const VendorOrderTable = () => {
-  const [renderDetails,setRenderDetails] = useState(false)
+  const [renderDetails, setRenderDetails] = useState(false);
 
   const handleDetails = () => {
-    setRenderDetails(!renderDetails)
+    setRenderDetails(!renderDetails);
     // const {name, id} = obj;
     // router.push('/category/products/${name}/${id}')
-  }
+  };
   return (
     <div id="tableContainer">
       <div
@@ -107,14 +107,13 @@ const VendorOrderTable = () => {
         <table id="adminTable" className={`w-full`}>
           <thead>
             <tr className="truncate">
-              <th id="companyNameHeader">Product</th>
               <th id="totalItemsSoldHeader" style={{ paddingLeft: "4rem" }}>
                 Order ID
               </th>
-              <th id="transactionValueHeader" style={{ paddingLeft: "2rem" }}>
-                Transaction value
+              <th id="transactionValueHeader" style={{ paddingLeft: "4rem" }}>
+                Amount
               </th>
-              <th id="dateTimeJoinedHeader" style={{ paddingLeft: "5rem" }}>
+              <th id="dateTimeJoinedHeader" style={{ paddingLeft: "2rem" }}>
                 Buyers
               </th>
               <th id="dateTimeJoinedHeader">Date & time ordered</th>
@@ -127,7 +126,7 @@ const VendorOrderTable = () => {
                 id={`row_${index}`}
                 className="cursor-pointer truncate"
               >
-                <td id={`companyData_${index}`}>
+                {/* <td id={`companyData_${index}`}>
                   <div
                     className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
                   >
@@ -141,7 +140,7 @@ const VendorOrderTable = () => {
                       <div>{d.name}</div>
                     </div>
                   </div>
-                </td>
+                </td> */}
 
                 <td
                   className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
@@ -161,17 +160,17 @@ const VendorOrderTable = () => {
                   <div
                     className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
                   >
-                    <Image
+                    {/* <Image
                       src={d.avatar}
                       className="object-contain"
                       alt="Avatar"
                       id={`avatar_${index}`}
-                    />
+                    /> */}
                     <div id={`companyDetails_${index}`}>
                       <div>{d.name}</div>
-                      <div className={`text-[#4B5565]`} id={`email_${index}`}>
+                      {/* <div className={`text-[#4B5565]`} id={`email_${index}`}>
                         {d.email}
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </td>
@@ -190,10 +189,10 @@ const VendorOrderTable = () => {
         </table>
       </div>
       {renderDetails && (
-      <div className="absolute top-0 bg-white lg:w-[83%] w-[100%] ml-0 lg:h-[100vh]">
-        <Details />
-      </div>
-    )}
+        <div className="absolute top-0 bg-white lg:w-[83%] w-[100%] ml-0 lg:h-[100vh]">
+          <Details />
+        </div>
+      )}
     </div>
   );
 };

@@ -15,7 +15,7 @@ function Vendors() {
           title={`Vendors`}
           amount={`567,098`}
         />
-        <Addbutton title={`Add vendor`} />
+        {/* <Addbutton title={`Add vendor`} /> */}
       </div>
       <div className={`flex justify-between items-center`}>
         <PeriodRadios />

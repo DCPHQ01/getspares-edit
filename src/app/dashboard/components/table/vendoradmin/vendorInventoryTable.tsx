@@ -222,7 +222,10 @@ const VendorInventoryTable = () => {
               <th id="transactionValueHeader">Transaction Value</th>
               <th id="totalItemsSoldHeader">Quantity sold</th>
               <th id="transactionValueHeader" style={{ paddingLeft: "2rem" }}>
-                Transaction value
+                Category
+              </th>
+              <th id="transactionValueHeader" style={{ paddingLeft: "2rem" }}>
+                Date and time added
               </th>
             </tr>
           </thead>

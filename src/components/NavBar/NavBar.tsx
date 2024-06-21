@@ -20,6 +20,7 @@ import * as JWT from "jwt-decode";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { clearUser } from "../../redux/features/users/userSlice";
 import BrandPage from "./brand/page";
+import { TRACE_OUTPUT_VERSION } from "next/dist/shared/lib/constants";
 
 const navData = [
   {
@@ -92,7 +93,7 @@ interface JwtPayload extends BaseJwtPayload {
   role?: string;
 }
 export default function NavBar({ open, setOpen }: NavBarProps) {
-  const [active, setActive] = useState(1);
+  const [active, setActive] = useState<number | null>(1);
   const handleClick = (id: number) => {
     setActive(id);
   };
@@ -145,6 +146,12 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
   } catch (error) {
     console.error("Failed to decode token:", error);
   }
+
+  const [pressed, setPressed] = useState(false);
+
+  const dropDownClicked = () => {
+    setActive(null);
+  };
 
   const name = decoded?.given_name;
 
@@ -318,40 +325,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
             </div>
           </div>
         </div>
-        {/* {toggleProfile && (
-          <div
-            className="w-52 h-24 rounded-lg p-1 bg-white absolute right-40 top-16"
-            style={{ boxShadow: "0px 2px 8px 0px #63636333" }}
-          >
-            <button
-              onClick={profile}
-              className="flex gap-2 w-48 m-auto  h-10 p-2 pt-3 hover:bg-mecaActiveBackgroundNavColor hover:text-mecaActiveIconsNavColor"
-            >
-              <MdOutlineAccountCircle className="text-mecaProfileColor w-6 h-6 " />
-              <span
-                className="w-24 h-6 flex gap-1 font-normal text-base text-mecaDarkBlueBackgroundOverlay hover:text-mecaActiveIconsNavColor"
-                onClick={handleDashboard}
-              >
-                <span>My</span>
-                <span>Dashboard</span>
-              </span>
-            </button>
-            <div className="mt-1">
-              <button
-                onClick={profile}
-                className="flex gap-2 m-auto w-48 h-10 p-2 pt-3 hover:bg-mecaActiveBackgroundNavColor hover:text-mecaActiveIconsNavColor"
-              >
-                <MdLogout className="text-mecaProfileColor w-6 h-6 " />
-                <span
-                  className="h-6 font-normal text-base text-mecaDarkBlueBackgroundOverlay hover:text-mecaActiveIconsNavColor"
-                  onClick={logOut}
-                >
-                  Logout
-                </span>
-              </button>
-            </div>
-          </div>
-        )} */}
+   
       </div>
       <div
         className="hidden w-full h-20 lg:flex justify-center items-center"
@@ -405,7 +379,9 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
             active === item.id && (
               <div className="flex justify-center" key={item.id}>
                 <div className="absolute left-96 top-40 z-50">
-                  {item.dropdownComponent}
+                  <div onClick={dropDownClicked}>
+                    {item.dropdownComponent}
+                  </div>
                 </div>
               </div>
             )
