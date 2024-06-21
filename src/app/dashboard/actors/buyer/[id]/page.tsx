@@ -12,6 +12,8 @@ import NavBarWhileInsideApp from '../../../../reusables/TopBarWhileInside/NavBar
 // import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import { paths } from "../../../../../path/paths";
+import { useRouter } from 'next/router';
+
 
 
 const style = {
@@ -52,6 +54,7 @@ const Checkout = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
   const handleDeliveryModeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDeliveryMode(event.target.value);
   };
@@ -67,6 +70,15 @@ const Checkout = () => {
   const handleAddressSelectionToggle = () => {
     setShowAddressSelection(!showAddressSelection);
   };
+
+  // const handleOpenToken = () => {
+  //   const token = sessionStorage.getItem('token');
+  //   if (token) {
+  //     setOpen(true); 
+  //   } else {
+  //     router.push(paths.toHome()); 
+  //   }
+  // };
   return (
     // add screen
     <Box>
@@ -282,6 +294,8 @@ const Checkout = () => {
                     <Modal
                       open={open}
                       onClose={handleClose}
+                      // open={open}
+                      // onClose={() => setOpen(false)}
                       aria-labelledby="modal-modal-title"
                       aria-describedby="modal-modal-description"
                       sx={{backdropFilter: 'blur(5px)'}}

@@ -13,6 +13,7 @@ import {
 import { useGetMecaAdminOverviewQuery, useGetTopPerformingVendorsQuery } from "../../../redux/features/dashboard/mecaAdminQuery";
 import cardsData from "./Overview";
 
+
 interface CardData {
   total: string;
   amount: number;
@@ -133,7 +134,7 @@ function Overview() {
             subtitle={`A quick glance on vendors with highest sales on meca`}
             title={`Top performing vendors`}
           />
-          <PeriodRadios /> 
+          <PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange}/> 
         </div>
         <OverviewTable data={topVendors}  />
         
