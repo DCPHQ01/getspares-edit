@@ -226,11 +226,11 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
           >
             <Link href={paths.toCart()}>
               <div
-                className="w-[49px] relative h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-2 cursor-pointer"
+                className="w-[49px] h-[28px] ml-8 flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1 cursor-pointer"
                 id="textCart"
               >
                 <MdOutlineShoppingCart
-                  size={14}
+                  size={18}
                   className="text-mecaBluePrimaryColor"
                 />
                 <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
@@ -238,12 +238,12 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                 </p>
               </div>
             </Link>
-            <div className="relative w-full flex items-center h-full">
+            <div className="w-full flex items-center h-full">
               {!tokens ? (
-                <div className="w-full  flex items-center h-full gap-4">
+                <div className="w-full flex justify-end items-center h-full gap-4">
                   <button
                     type="button"
-                    className="w-[28%] h-full border border-mecaBluePrimaryColor bg-white text-mecaBluePrimaryColor text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
+                    className="w-[28%] xl:w-[38%] h-full border border-mecaBluePrimaryColor bg-white text-mecaBluePrimaryColor text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
                     id="startShoppingBtnMainNavBar"
                     onClick={handleLogin}
                   >
@@ -251,7 +251,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                   </button>
                   <button
                     type="button"
-                    className="w-[52%] h-full bg-mecaBluePrimaryColor text-white text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
+                    className="w-[58%] xl:w-[52%] h-full bg-mecaBluePrimaryColor text-white text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
                     id="startShoppingBtn"
                     onClick={handleStartShopping}
                   >
@@ -261,7 +261,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
               ) : (
                 <button
                   onClick={profile}
-                  className="flex gap-2 relative left-[19.2rem]"
+                  className="flex gap-2"
                   type="button"
                   id="profileBtnMainNav"
                 >

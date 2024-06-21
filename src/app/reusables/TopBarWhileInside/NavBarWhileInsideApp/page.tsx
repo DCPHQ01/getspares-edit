@@ -137,7 +137,6 @@ export default function NavBarWhileInsideApp() {
                 <MdOutlineShoppingCart
                   size={18}
                   className="text-mecaBluePrimaryColor"
-                  // onClick={routs}
                 />
                 <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
                   {cart.length}
@@ -168,7 +167,7 @@ export default function NavBarWhileInsideApp() {
               ) : (
                 <button
                   onClick={profile}
-                  className="flex gap-2 "
+                  className="flex gap-2"
                   type="button"
                   id="profileBtnMainNav"
                 >

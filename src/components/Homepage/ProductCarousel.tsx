@@ -105,14 +105,14 @@ export default function ProductCarousel() {
         <span className="flex gap-8" id="carouselButtonSpan">
           <div
             id="previousBtn"
-            className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay"
+            className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay cursor-pointer"
             onClick={handlePrevious}
           >
             <MdChevronLeft size={30} />
           </div>
           <div
             id="nextBtn"
-            className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay"
+            className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay cursor-pointer"
             onClick={handleNext}
           >
             <MdChevronRight size={30} />
