@@ -149,7 +149,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
   const logOut = () => {
     sessionStorage.clear();
     sessionStorage.removeItem("userDetails");
-    dispatch(clearUser());
+    // dispatch(clearUser());
     router.push(paths.toLogin());
   };
   useEffect(() => setActive(1), []);
