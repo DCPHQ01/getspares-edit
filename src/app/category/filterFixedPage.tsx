@@ -195,10 +195,9 @@ const FilterFixedPage = () => {
     },
   ];
   return (
-    <div className="bg-white z-50 w-[100%]  fixed top-0 ">
-      {" "}
+    <div className="z-50 w-full h-28 bg-red-400">
       <div
-        className="flex items-center gap-2 mt-56 px-8"
+        className="flex items-center gap-2 mt-24 px-8"
         id="breadCrumbsDivDesktop"
       >
         <p className="font-nunito text-sm font-medium text-mecaDarkBlueBackgroundOverlay">

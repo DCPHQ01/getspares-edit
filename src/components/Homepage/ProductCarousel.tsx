@@ -7,12 +7,16 @@ import Tractor from "../../assets/images/tractor.png";
 import Bulldozer from "../../assets/images/bulldozer.png";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useGetCategoryQuery } from "../../redux/features/product/productsQuery";
 import { paths } from "../../path/paths";
+import { useGetCategoryQuery } from "../../redux/features/users/authQuery";
 
 interface CardProps {
   image: StaticImageData;
   type: string;
+}
+
+interface DataProps {
+  name: string;
 }
 
 const responsive = {
@@ -39,11 +43,7 @@ const responsive = {
 export default function ProductCarousel() {
   const carouselRef = useRef<Carousel>(null);
 
-  const {
-    data: categoryData,
-    error: categoryError,
-    isLoading,
-  } = useGetCategoryQuery({}, {});
+  const { data: categoryData, isLoading } = useGetCategoryQuery({});
 
   const handleNext = () => {
     if (carouselRef.current) carouselRef.current.next(0);
@@ -54,15 +54,9 @@ export default function ProductCarousel() {
   };
 
   const Card: React.FC<CardProps> = ({ image, type }) => {
-    const urlType = type.replace(/\s+/g, "");
+    const urlType = type?.replace(/\s+/g, "");
     const router = useRouter();
     return (
-      // <Link
-      //   href={{
-      //     pathname: "/category/products/?",
-      //     query: { type: encodeURIComponent(urlType) },
-      //   }}
-      // >
       <div
         className="relative cursor-pointer"
         id="productContainer"
@@ -137,9 +131,9 @@ export default function ProductCarousel() {
           ref={carouselRef}
           itemClass="lg:pr-8"
         >
-          <Card image={Tractor} type="Tractor Parts" />
-          <Card image={Bulldozer} type="Bulldozer Parts" />
-          <Card image={Bulldozer} type="Bulldozer Parts" />
+          {(categoryData?.data || []).map((data: DataProps) => (
+            <Card image={Tractor} type={data.name} />
+          ))}
         </Carousel>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import Image, { StaticImageData } from "next/image";
+import { useRouter } from "next/navigation";
 import { MdStar } from "react-icons/md";
 import { ColorRing } from "react-loader-spinner";
 
@@ -6,8 +7,9 @@ interface CardProps {
   image: StaticImageData;
   productName: string;
   id: string;
-  price: number;
+  price: string;
   isLoading?: boolean;
+  categoryName?: string;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -16,9 +18,27 @@ const Card: React.FC<CardProps> = ({
   price,
   productName,
   isLoading,
+  categoryName,
 }) => {
+  const searches = categoryName?.replace(/ /g, "-");
+  const router = useRouter();
+  const handleProductDescription = (id: string) => {
+    router.push(`/category/products/${searches}/${id}`);
+  };
+
+  const formatPrice = (price: string) => {
+    const numericPrice = parseFloat(price?.replace(/[^0-9.-]+/g, ""));
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "NGN",
+    }).format(numericPrice);
+  };
   return (
-    <div className="flex flex-col items-center w-full" id="CardContainer">
+    <div
+      className="flex flex-col items-center w-full"
+      id="CardContainer"
+      onClick={() => handleProductDescription(id)}
+    >
       {isLoading && (
         <ColorRing
           visible={true}
@@ -66,7 +86,7 @@ const Card: React.FC<CardProps> = ({
           className="lg:text-lg text-sm font-bold bg-mecaGrayBackgroundColor rounded-[32px] py-2 px-3"
           id="cardBtn2"
         >
-          ₦{price === null ? 0 : price}
+          {price === null ? 0 : formatPrice(price)}
         </button>
       </span>
     </div>

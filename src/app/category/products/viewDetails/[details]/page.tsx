@@ -91,7 +91,7 @@ export default function Details() {
   const remainingImages = images.slice(5);
 
   return (
-    <div className="relative pt-12">
+    <div className="relative pt-12" id="detailsDiv">
       <div id="mainContainer" className="container px-4 md:px-8 lg:px-16">
         <div className="flex flex-col space-y-8 w-full" id="productDescriptionContentContainer">
           <div id="productDescriptionBreadcrumbs" className="flex items-center gap-x-2">
