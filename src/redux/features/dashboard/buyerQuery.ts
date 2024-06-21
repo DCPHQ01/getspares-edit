@@ -6,16 +6,15 @@ export const buyerQuery = createApi({
   reducerPath: "buyerQuery",
   baseQuery: customFetchBase,
   endpoints: (builder) => ({
-   checkout: builder.mutation({
-    query: (body: { location: string, otherInformation: string, phoneNumber: string }) => ({
-        url: "/checkout",
-        method: "POST",
-        body,
+    checkout: builder.mutation({
+        query: (body: { location: string, otherInformation: string, phoneNumber: string }) => ({
+            url: "/order",
+            method: "POST",
+            body,
         }),
-
     })
-   })
-  });
+    })
+});
 
 export const {   } = buyerQuery;
 
