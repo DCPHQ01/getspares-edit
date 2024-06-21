@@ -9,7 +9,8 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { useGetViewAllMecaAdminCategoryQuery } from "../../../redux/features/dashboard/mecaAdminQuery";
+import { ColorRing } from "react-loader-spinner";
+import { useGetViewAllMecaAdminCategoryQuery, useAddCategoryMutation } from "../../../redux/features/dashboard/mecaAdminQuery";
 
 interface category{
   id: string;
@@ -51,6 +52,7 @@ function Category() {
     size: 10,
   });
   const [categoryList, setCategoryList] = useState<category[]>([]);
+  const [categoryName, setCategoryName] = useState<string>("");
   useEffect(() => {
     if (data && Array.isArray(data.data.content)) {
       const list = data.data.content;
@@ -64,6 +66,8 @@ function Category() {
   const handleClose = () => setOpen(false);
 
   const [formImage, setFormImage] = useState<string | null>(null);
+  const [categoryData, { isLoading }] = useAddCategoryMutation();
+
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -79,6 +83,23 @@ function Category() {
 
   const handleImageClick = () => {
     fileInputRef.current?.click();
+  };
+
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    try {
+      const response = await categoryData({ 
+        name: categoryName, 
+        image: "string", 
+      });
+      if ("data" in response) {
+        console.log(response.data.data);
+        setCategoryList((prev) => [...prev, response.data.data]);
+        handleClose();
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -161,15 +182,28 @@ function Category() {
 
                 <button
                   id="addButton"
-                  className={`bg-[#095AD3]  w-[21rem] text-white rounded-full py-[0.38rem] px-[1.5rem] 
-        `}
+                  className="bg-[#095AD3]  w-[21rem] text-white rounded-full py-[0.38rem] px-[1.5rem]"
+                  onClick={handleSubmit}
                 >
-                  <div
+                  {isLoading ? (
+                  <ColorRing
+                    visible
+                    height="40"
+                    width="40"
+                    ariaLabel="color-ring-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="color-ring-wrapper"
+                    colors={["#ffff", "#ffff", "#ffff", "#ffff", "#ffff"]}
+                  />
+                ) : (
+                  <div className="flex text-white items-center justify-center" id="addCategory">Create category</div>
+                )}
+                  {/* <div
                     className={`flex text-white items-center justify-center`}
                   >
                     <MdAdd size={18} />
                     Create category
-                  </div>
+                  </div> */}
                 </button>
               </div>
             </div>
