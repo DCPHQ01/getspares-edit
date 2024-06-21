@@ -33,7 +33,7 @@ function Overview() {
             <PeriodRadios />
           </div>
         </div>
-        <OverviewTable />
+        {/* <OverviewTable /> */}
 
         {/* <div className=" flex justify-between mt-10 mb-10 font-bold text-lg">
           <button className="flex gap-x-2 border border-[#EAECF0]  rounded-md h-[36px] w-[36px] pl-1">
