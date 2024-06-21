@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../../../components/ui/header";
 import Addbutton from "../../../components/ui/addbutton";
 import PeriodRadios from "../../../components/ui/periodradios";
@@ -7,6 +7,10 @@ import VendorTable from "../../../components/table/agentAdmin/vendorTable";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 function AgentVendors() {
+  const [activityPeriod, setActivityPeriod] = useState("monthly"); 
+  const handlePeriodChange = (newPeriod: string) => {
+    setActivityPeriod(newPeriod);
+  };
   return (
     <>
       <div className={`items-center justify-between mb-[1.5rem]`}>
@@ -20,7 +24,7 @@ function AgentVendors() {
         </div>
       </div>
       <div className={`flex flex-col-reverse`}>
-        <PeriodRadios />
+        <PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange} />
         <div className="mb-5">
           <Searchbox />
         </div>
