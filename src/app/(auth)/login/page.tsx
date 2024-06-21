@@ -100,6 +100,7 @@ export default function Login() {
 
       if (response.access_token) {
         let token = response.access_token;
+        console.log("The token: ",token)
 
         console.log(token, " token");
         let decoded: JwtPayload = JWT.jwtDecode(token);
@@ -155,9 +156,7 @@ export default function Login() {
   }, []);
 
   return (
-    <div 
-    className={nunito.className}
-    >
+    <div className={nunito.className}>
       <div className="absolute top-16  lg:left-16 left-8" id="eMecaLogin">
         <span
           className="font-bold lg:text-3xl text-2xl text-mecaActiveIconsNavColor"
@@ -268,10 +267,19 @@ export default function Login() {
             )}
           </Button>
         </FormControl>
+        <div id="forgotPassworddiv" className="w-full flex justify-end">
+          <Link
+            href="/forgot-password"
+            id="forgotPasswordLink"
+            className="text-mecaBluePrimaryColor no-underline py-4"
+          >
+            Forgot password
+          </Link>
+        </div>
         <span className="flex items-center gap-1 text-meca-gray-600 text-sm mt-6">
           New on Meca?
           <Link
-            href="/signup"
+            href={paths.toSignUp()}
             id="resendEmailLink"
             className="text-mecaBluePrimaryColor font-bold"
           >

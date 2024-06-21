@@ -198,7 +198,7 @@ const SideFilter = () => {
     },
   ];
   return (
-    <div className="pl-8 -mt-3 bg-white z-50 h-full fixed">
+    <div className="pl-8 h-full">
       {" "}
       <div>
         <p className="text-lg font-medium text-nunito text-mecaDarkBlueBackgroundOverlay">

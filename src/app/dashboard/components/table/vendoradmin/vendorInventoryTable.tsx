@@ -175,12 +175,7 @@ const VendorInventoryTable = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  // const handleMenuItemClick = (title: string, id: number) => {
-  //   if (title === "View Details") {
-  //     router.push(`/vendoradmin/${id}`);
-  //   }
   
-  // };
 
   const [routInventory, setRoutInventory] = useState(false);
   const handleRoutInventory = (id: number) => {

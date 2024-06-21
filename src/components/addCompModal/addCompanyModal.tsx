@@ -84,7 +84,7 @@ const AddCompanyModal = () => {
               className="modalbtn gap-y-3 text-lg font-semibold"
               id="confirmpageButton2"
             >
-              <Link id="continuebtnLink" href="/modalPage/vendor" className="btn bg-mecaBluePrimaryColor  text-white  font-semibold rounded-full w-full">
+              <Link id="continuebtnLink" href={paths.toModalPageVendor()} className="btn bg-mecaBluePrimaryColor  text-white  font-semibold rounded-full w-full">
                 <button
                   id="continuebtn"
                   className="w-full h-12"

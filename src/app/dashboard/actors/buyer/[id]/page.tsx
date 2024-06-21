@@ -11,6 +11,8 @@ import Footer from '../../../../../components/footer/Footer';
 import NavBarWhileInsideApp from '../../../../reusables/TopBarWhileInside/NavBarWhileInsideApp/page';
 // import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
+import { paths } from "../../../../../path/paths";
+
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -68,24 +70,24 @@ const Checkout = () => {
   return (
     // add screen
     <Box>
-      <div className='fixed top-0 left-0 right-0 z-10'>
+      <div id='topHeader' className='fixed top-0 left-0 right-0 z-10'>
         <HeaderPage/>
         <div className='px-2'>
           <NavBarWhileInsideApp />
         </div>
       </div>
-      <div className="w-[95%] m-auto mt-[8%]">
+      <div id='checkoutContent' className="w-[95%] m-auto mt-[8%]">
         <div style={{ width: "100%" }} className={nunito.className}>
           <div
             className="flex mt-16 items-center gap-4"
             id="breadCrumbsDivDesktop">
-            <Link href="/">
+            <Link href={paths.toHome()}>
               <p className="font-nunito text-sm font-medium text-mecaDarkBlueBackgroundOverlay hover:text-black hover:font-bold">
                 Home
               </p>
             </Link>
             <MdChevronRight size={20} />
-            <Link href="/cart">
+            <Link href={paths.toCart()}>
               <p className="font-nunito text-sm font-medium text-mecaDarkBlueBackgroundOverlay hover:text-black hover:font-bold">
                 Shopping Cart
               </p>
@@ -274,7 +276,7 @@ const Checkout = () => {
                     </div>
                   ))}
                   <div>
-                    <Button disableRipple className="w-full hover:bg-mecaBluePrimaryColor h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer normal-case hover:opacity-90" 
+                    <Button disableRipple className="w-full hover:bg-mecaBluePrimaryColor h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer normal-case hover:opacity-90"
                     onClick={handleOpen}
                      >Checkout</Button>
                     <Modal
@@ -291,8 +293,8 @@ const Checkout = () => {
                             Order successful!
                           </p>
                             <p id="modal-modal-description" className='text-sm font-normal text-mecaCheckoutMessage'>
-                              Thank you for your purchase. Your order has been 
-                              placed successfully. A confirmation email with your 
+                              Thank you for your purchase. Your order has been
+                              placed successfully. A confirmation email with your
                               order details will be sent shortly.
                             </p>
                         </div>

@@ -21,7 +21,7 @@ interface CalledPagesPageThreePagesProps {
 
 const CalledPagesPageThreePages = () => {
   const dispatch = useAppDispatch();
-  const [updateCompanyDetails] = useUpdateCompanyMutation();
+  const [updateCompanyDetails, {isLoading, isError}] = useUpdateCompanyMutation();
   const [getUserData] = useGetUserDetailsMutation({});
 
   const router = useRouter();
@@ -52,11 +52,13 @@ const CalledPagesPageThreePages = () => {
       //   return;
       // }
       router.push(paths.toDashboard());
+      console.log(data);
     } catch (error) {
       //todo: handle error in a better way
       console.log(error, "error");
     }
   }
+  console.log(isLoading, "isLoading", isError, "isError");
 
   return (
     <div className="" style={{ width: "85%", margin: "auto" }} id="pageThree1">
@@ -229,6 +231,7 @@ const CalledPagesPageThreePages = () => {
                 id="thirdFormSubmit6"
                 className="nextbtn w-96 mt-40 mb-6 "
                 onClick={handleSave}
+                disabled={isLoading}
               >
                 Save
               </button>
