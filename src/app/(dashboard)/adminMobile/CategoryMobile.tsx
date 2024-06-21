@@ -51,9 +51,10 @@ function Category() {
     size: 10,
   });
   const [categoryList, setCategoryList] = useState<category[]>([]);
-  useEffect (()=>{
-    if (data) {
-      setCategoryList(data.data);
+  useEffect(() => {
+    if (data && Array.isArray(data.data.content)) {
+      const list = data.data.content;
+      setCategoryList(list);
     }
   }, [data]);
   console.log( "THIS IS CATEGORY", categoryList)
@@ -63,10 +64,6 @@ function Category() {
   const handleClose = () => setOpen(false);
 
   const [formImage, setFormImage] = useState<string | null>(null);
-  const [categoryName, setCategoryName] = useState<string>("");
-  const [isLoading, setIsLoading] = useState(false);
-    // const [categoryData, { isLoading }] = useAddCategoryMutation();
-
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -126,10 +123,6 @@ function Category() {
                     className="hidden w-full px-3 py-2 "
                   />
                 </div>
-
-                {/* {formImage && (
-                  
-                  )} */}
                 {formImage ? (
                   <div className="w-20 h-20 m-auto">
                     <img

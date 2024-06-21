@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import styles from "../styles.module.css";
-import Image from "next/image"
 import { AccountCircle } from '@mui/icons-material';
 
 interface Category {
