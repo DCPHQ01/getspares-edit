@@ -5,6 +5,7 @@ import SearchBox from "../../dashboard/components/ui/searchbox";
 import SortButton from "../../dashboard/components/ui/sortbutton";
 // import VendorTable from "../../dashboard/components/table//vendorTable";
 import VendorTable from "../../dashboard/components/table/mecaadmin/vendorTable";
+import { ClipLoader } from 'react-spinners';
 
 import {
   MdArrowBack,
@@ -12,7 +13,7 @@ import {
   MdChevronLeft,
   MdChevronRight,
 } from "react-icons/md";
-// import { useGetDashboardVendorQuery } from "../../../redux/features/dashboard/Query";
+
 import { useGetMecaAdminDashboardVendorQuery } from "../../../redux/features/dashboard/mecaAdminQuery";
 
 
@@ -52,8 +53,8 @@ function Vendors() {
       <div className={`flex justify-end gap-2 mt-[1.25rem]`}>
         <SearchBox placeholder={`Search for vendor`} />
       </div>
-
-      <VendorTable vendorList={vendorList}/>
+        <VendorTable vendorList={vendorList} isLoading={isLoading}/>
+      
 
       <div className="flex justify-end mt-10 text-mecaBluePrimaryColor font-bold text-lg">
         {/* <button className="flex gap-x-2">
