@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Header from "../../dashboard/components/ui/header";
 import Cards from "../../dashboard/components/ui/cards/index";
 import PeriodRadios from "../../dashboard/components/ui/periodradios";
@@ -12,6 +12,10 @@ import {
 } from "react-icons/md";
 
 function Overview() {
+  const [activityPeriod, setActivityPeriod] = useState("monthly"); 
+  const handlePeriodChange = (newPeriod: string) => {
+    setActivityPeriod(newPeriod);
+  };
   return (
     <>
       <div>
@@ -30,7 +34,7 @@ function Overview() {
             title={`Top performing vendors`}
           />
           <div className="mt-5">
-            <PeriodRadios />
+            <PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange}/>
           </div>
         </div>
         {/* <OverviewTable /> */}
