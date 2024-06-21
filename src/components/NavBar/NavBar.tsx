@@ -12,7 +12,7 @@ import {
 } from "react-icons/md";
 import IconButton from "@mui/material/IconButton";
 import DropdownPage from "./dropdown/page";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import Button from "@mui/material/Button";
 import { JwtPayload as BaseJwtPayload } from "jsonwebtoken";
@@ -205,18 +205,20 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
             </p>
           </div>
           <div
-            className="w-1/3 flex items-center gap-x-2 relative"
+            className="flex-grow flex justify-center items-center gap-x-2 relative"
             id="searchDesktop"
           >
-            <MdSearch
-              size={24}
-              className="absolute left-1 text-mecaGoBackArrow"
-            />
-            <input
-              id="inputSearchDesktop"
-              placeholder="Search for anything"
-              className="bg-mecaSearchColor w-[580px] h-[44px] rounded-full px-9 outline-none"
-            />
+            <div className="relative w-full max-w-[580px]">
+              <MdSearch
+                size={24}
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-mecaGoBackArrow"
+              />
+              <input
+                id="inputSearchDesktop"
+                placeholder="Search for anything"
+                className="bg-mecaSearchColor w-full h-[44px] rounded-full pl-12 pr-4 outline-none"
+              />
+            </div>
           </div>
           <div
             className="w-[28%] h-8 flex justify-end items-center gap-x-2"
@@ -224,11 +226,11 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
           >
             <Link href={paths.toCart()}>
               <div
-                className="w-[49px] relative left-[19rem]  h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1 cursor-pointer"
+                className="w-[49px] relative h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-2 cursor-pointer"
                 id="textCart"
               >
                 <MdOutlineShoppingCart
-                  size={18}
+                  size={14}
                   className="text-mecaBluePrimaryColor"
                 />
                 <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
@@ -393,7 +395,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
         {isCategoryOptionOpened && (
           <div className="flex justify-center">
             <div className="absolute left-96 top-40 z-50">
-              <DropdownPage  />
+              <DropdownPage />
             </div>
           </div>
         )}
