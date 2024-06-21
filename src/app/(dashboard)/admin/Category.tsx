@@ -76,7 +76,10 @@ function Category() {
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
-      const response = await categoryData({ name: categoryName, image: "string" });
+      const response = await categoryData({ 
+        name: categoryName, 
+        image: formImage, 
+      });
       if ("data" in response) {
         console.log(response.data.data);
       }
