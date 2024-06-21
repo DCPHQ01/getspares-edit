@@ -1,59 +1,60 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import styles from "../styles.module.css";
 import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
 import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { useGetTopPerformingVendorsQuery } from "../../../../../redux/features/dashboard/mecaAdminQuery";
 
-const data = [
-  {
-    avatar: image1,
-    name: "Ebuka & Sons International",
-    email: "ebuka&sons@gmail.com",
-    sale: 12,
-    value: "₦ 200,000.00",
-    date: "24 June 2022",
-    time: "12:00PM",
-  },
-  {
-    avatar: image2,
-    name: "Ebuka & Sons International",
-    email: "ebuka&sons@gmail.com",
-    sale: 83,
-    value: "₦ 1,000,000.00",
-    date: "30 June 2023",
-    time: "06:00PM",
-  },
-  {
-    avatar: image1,
-    name: "Ebuka & Sons International",
-    email: "ebuka&sons@gmail.com",
-    sale: 45,
-    value: "₦ 600,000.00",
-    date: "12 May 2024",
-    time: "08:45PM",
-  },
-  {
-    avatar: image2,
-    name: "Ebuka & Sons International",
-    email: "ebuka&sons@gmail.com",
-    sale: 10,
-    value: "₦ 120,000.00",
-    date: "02 Sep 2022",
-    time: "11:15AM",
-  },
-  {
-    avatar: image1,
-    name: "Ebuka & Sons International",
-    email: "ebuka&sons@gmail.com",
-    sale: 67,
-    value: "₦ 700,000,00",
-    date: "30 Aug 2022",
-    time: "04:00PM",
-  },
-];
-// type VendorData = {
-//   avatar: string | null;
+// const datas = [
+//   {
+//     avatar: image1,
+//     name: "Ebuka & Sons International",
+//     email: "ebuka&sons@gmail.com",
+//     sale: 12,
+//     value: "₦ 200,000.00",
+//     date: "24 June 2022",
+//     time: "12:00PM",
+//   },
+//   {
+//     avatar: image2,
+//     name: "Ebuka & Sons International",
+//     email: "ebuka&sons@gmail.com",
+//     sale: 83,
+//     value: "₦ 1,000,000.00",
+//     date: "30 June 2023",
+//     time: "06:00PM",
+//   },
+//   {
+//     avatar: image1,
+//     name: "Ebuka & Sons International",
+//     email: "ebuka&sons@gmail.com",
+//     sale: 45,
+//     value: "₦ 600,000.00",
+//     date: "12 May 2024",
+//     time: "08:45PM",
+//   },
+//   {
+//     avatar: image2,
+//     name: "Ebuka & Sons International",
+//     email: "ebuka&sons@gmail.com",
+//     sale: 10,
+//     value: "₦ 120,000.00",
+//     date: "02 Sep 2022",
+//     time: "11:15AM",
+//   },
+//   {
+//     avatar: image1,
+//     name: "Ebuka & Sons International",
+//     email: "ebuka&sons@gmail.com",
+//     sale: 67,
+//     value: "₦ 700,000,00",
+//     date: "30 Aug 2022",
+//     time: "04:00PM",
+//   },
+// ];
+// interface VendorData {
+//   avatar?: string;
 //   name: string;
 //   email: string;
 //   sale: number;
@@ -61,28 +62,14 @@ const data = [
 //   date: string;
 //   time: string;
 // };
-function Overview() {
-  console.log("Data passed to OverviewTable:", data);
 
-  // const transformedData: VendorData[] = data?.map((vendor: any) => {
-  //   console.log("Processing vendor:", vendor);
-  //   const avatar = vendor?.imageUrl || ""; // Provide a default value for avatar
-  //   const name = vendor?.companyName || "Unknown";
-  //   const sale = vendor?.totalItemSold || 0;
-  //   const value = vendor?.transactionValue ? `₦ ${vendor.transactionValue.toLocaleString()}` : "";
-  //   const date = vendor?.dateAndTimeJoined ? new Date(vendor.dateAndTimeJoined).toLocaleDateString() : "";
-  //   const time = vendor?.dateAndTimeJoined ? new Date(vendor.dateAndTimeJoined).toLocaleTimeString() : "";
+// interface OverviewTableProps {
+//   data: VendorData[];
+//   isLoading?: boolean;
+//   isError?: boolean;
+// }
 
-  //   return {
-  //     avatar,
-  //     name,
-  //     email: "info@example.com", // Assuming email is not provided
-  //     sale,
-  //     value,
-  //     date,
-  //     time,
-  //   };
-  // });
+function Overview({ data }: { data: any }) {
 
  
   return (
@@ -102,7 +89,7 @@ function Overview() {
           </tr>
         </thead>
         <tbody>
-        {data?.map((d, index) =>  (
+        {data?.map((d: any, index: number) =>  (
             <tr key={index} id={`row_${index}`} className="cursor-pointer">
               <td id={`companyData_${index}`}>
                 <div
@@ -164,3 +151,6 @@ function Overview() {
 }
 
 export default Overview;
+
+
+
