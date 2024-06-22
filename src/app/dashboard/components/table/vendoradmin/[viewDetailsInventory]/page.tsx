@@ -13,6 +13,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import BasicTabs from '../BasicTabs';
 import DetailImageModal from "../vendorModal"
+import { paths } from '../../../../../../path/paths';
 
 interface State {
   open: boolean;
@@ -44,6 +45,10 @@ const ViewItemDetails = () => {
   const id = segments[4];
   const router = useRouter();
 
+  const onClick = () => {
+    router.push(paths.toDashboard())
+  }
+
   const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
   const handleImageClick = (index: number) => {
     setSelectedImageIndex(index);
@@ -57,7 +62,7 @@ const ViewItemDetails = () => {
 
   return (
 
-    <div className="relative h-[100%]">
+    <div className="relative h-[100%] top-14">
     <div id="mainContainer" className="container mx-auto px-2">
       <div
         className="flex flex-col space-y-8 w-full"
@@ -67,11 +72,13 @@ const ViewItemDetails = () => {
           id="productDescriptionBreadcrumbs"
           className="flex items-center gap-x-2"
         >
-          <Link href="/dashboard">
-            <button className="text-lg cursor-pointer font-nunito font-normal text-mecaDarkBlueBackgroundOverlay">
+          {/* <Link href={paths.toDashboard()}> */}
+            <button className="text-lg cursor-pointer font-nunito font-normal text-mecaDarkBlueBackgroundOverlay"
+            onClick={onClick}
+            >
               Caterpillar engine v1
             </button>
-          </Link>
+          {/* </Link> */}
           <MdChevronRight size={20} />
           <p className="text-lg font-nunito font-normal text-mecaGoBackArrow">
             View details

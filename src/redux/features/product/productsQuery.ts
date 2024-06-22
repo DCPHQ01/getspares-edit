@@ -7,22 +7,37 @@ export const productsQuery = createApi({
   reducerPath: "productsQuery",
   baseQuery: customFetchBase,
   endpoints: (builder) => ({
-    getProducts: builder.query({
-      query: () => "/product",
-    }),
-    getAProduct: builder.query({
-      query: (id: string) => `/product/${id}`,
-    }),
     getProductDecription: builder.query({
       query: (productId: string) => `/product/detail/${productId}`,
     }),
     createProduct: builder.mutation({
       query: (body: {
         name: string;
+        price: {
+          amount: Number;
+          currency: string;
+        };
         description: string;
-        price: number;
+        categoryName: string;
+        productCondition: "NEW";
+        productImages: string[];
+        productInformation: {
+          manufacturer: string;
+          brand: string;
+          model: string;
+          itemWeight: string;
+          productionDimension: string;
+          countryOfOrigin: string;
+          itemModelNumber: string;
+          manufacturerPartNumber: string;
+        };
+        productSpecification: {
+          color: string;
+          quantityInPack: Number;
+        };
         quantity: number;
-        category: string;
+        tags: string[];
+        companyName: string;
       }) => ({
         url: "/product/create-product",
         method: "POST",
@@ -76,15 +91,10 @@ export const productsQuery = createApi({
         method: "GET",
       }),
     }),
-    getCategory: builder.query({
-      query: () => "/category/categories",
-    }),
   }),
 });
 
 export const {
-  useGetProductsQuery,
-  useGetAProductQuery,
   useGetProductDecriptionQuery,
   useCreateProductMutation,
   useUpdateProductMutation,
@@ -92,5 +102,4 @@ export const {
   useAddProductToCartMutation,
   useRemoveProductFromCartMutation,
   useViewCartQuery,
-  useGetCategoryQuery,
 } = productsQuery;

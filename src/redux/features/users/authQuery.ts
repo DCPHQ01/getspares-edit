@@ -94,10 +94,29 @@ export const authQuery = createApi({
         body,
       }),
     }),
+    getTopProduct: builder.query({
+      query: () => "/product/top",
+    }),
+    getRecentProduct: builder.query({
+      query: () => "/product/recent",
+    }),
+    getRelatedProduct: builder.query({
+      query: (productId) => `product/related/${productId}`,
+    }),
+    getAProduct: builder.query({
+      query: (productId: string) => `/product/detail/${productId}`,
+    }),
+    getCategory: builder.query({
+      query: () => "/category/categories",
+    }),
   }),
 });
 
 export const {
+  useGetAProductQuery,
+  useGetRelatedProductQuery,
+  useGetTopProductQuery,
+  useGetRecentProductQuery,
   useRegisterBuyerMutation,
   useRegisterAgentMutation,
   useRegisterVendorMutation,
@@ -105,4 +124,5 @@ export const {
   useLoginMutation,
   useResetOtpMutation,
   useResetPasswordMutation,
+  useGetCategoryQuery,
 } = authQuery;

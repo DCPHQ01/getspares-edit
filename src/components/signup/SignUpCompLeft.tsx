@@ -23,6 +23,7 @@ import {
 } from "../../redux/features/users/authQuery";
 import { useRouter } from "next/navigation";
 import { ColorRing } from "react-loader-spinner";
+import { paths } from "../../path/paths";
 
 const nunito = Nunito_Sans({
   subsets: ["latin"],
@@ -59,7 +60,7 @@ const userAgent: UserAgent = {
 
 const SignUpComponentLeft = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [userType, setUserType] = useState("vendor");
+  const [userType, setUserType] = useState("buyer");
   const [userBuyerDetails, setUserBuyerDetails] = useState<User>(userBuyer);
   const [userVendorDetails, setUserVendorDetails] =
     useState<UserVendor>(userVendor);
@@ -110,7 +111,7 @@ const SignUpComponentLeft = () => {
           );
           if (response?.data?.message === "SignUp Successfully") {
             // alert(VendorData.message);
-            router.push("/verify-email");
+            router.push(paths.toVerifyEmail());
           } else if (
             response?.data?.message === "User Already Exists" ||
             response?.data.error?.data?.status === 400
@@ -129,10 +130,10 @@ const SignUpComponentLeft = () => {
           console.log("data response ", response?.data);
           if (response?.data?.message === "SignUp Successfully") {
             // alert(AgentData.message);
-            router.push("/verify-email");
+            router.push(paths.toVerifyEmail());
           } else if (response?.data?.message === "User Already Exists") {
             // alert(AgentData.message);
-            router.push("/verify-email");
+            router.push(paths.toVerifyEmail());
           } else {
             alert("Registration failed. Please try again.");
           }
@@ -145,7 +146,7 @@ const SignUpComponentLeft = () => {
         if ("data" in response) {
           console.log("data response ", response?.data);
           if (response?.data?.message === "SignUp Successfully") {
-            router.push("/verify-email");
+            router.push(paths.toVerifyEmail());
           } else if (
             response?.data?.message === "User Already Exists" ||
             response?.data.error?.data?.status === 400
@@ -164,8 +165,9 @@ const SignUpComponentLeft = () => {
     }
   };
   const routerToHomePage = () => {
-    router.push("/");
+    router.push(paths.toHome());
   };
+
   return (
     <div className={nunito.className}>
       <div
@@ -404,16 +406,6 @@ const SignUpComponentLeft = () => {
                   className="text-sm text-mecaGrayBodyText flex"
                   id="checkbox"
                 /> */}
-
-                  <div id="forgotPassworddiv" className="flex justify-end">
-                    <Link
-                      href="/forgot-password"
-                      id="forgotPasswordLink"
-                      className="text-mecaBluePrimaryColor no-underline py-4"
-                    >
-                      Forgot password
-                    </Link>
-                  </div>
                 </div>
                 <div id="clickRegisterDiv">
                   <Button
@@ -447,7 +439,7 @@ const SignUpComponentLeft = () => {
               >
                 <span>Not new here?</span>
                 <Link
-                  href="/login"
+                  href={paths.toLogin()}
                   id="loginBtn1"
                   className="text-mecaBluePrimaryColor pl-1 normal-case no-underline"
                 >

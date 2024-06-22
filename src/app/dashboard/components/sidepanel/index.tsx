@@ -37,6 +37,8 @@ import { roles, sidePanel } from "../utils/utils";
 import { useUserRole } from "../../../hooks/useUserRole";
 import featuredicons from "../../../../assets/images/Featuredicon.svg";
 import Link from "next/link";
+import { paths } from "../../../../path/paths";
+
 function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
   //   const { user } = useAppSelector((state) => state.user);
   //   console.log("dashboard ", user);
@@ -50,15 +52,17 @@ function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
   const [bottomActiveBtn, setBottomActiveButton] = useState<number | null>(
     null
   );
-
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const userRole = useUserRole();
   const role = userRole;
 
   const router = useRouter();
 
   const logOut = () => {
-    // dispatch(clearUser());
-    // router.push("/logoutModal");
+    dispatch(clearUser());
+    router.push(paths.toHome());
   };
 
   // console.log(roles, " roles");
@@ -139,9 +143,7 @@ function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
       icon: <MdLogout />,
       title: "Logout",
       size: 18,
-      onClick: () => {
-        setOpen(true);
-      },
+      onClick: handleOpen,
     },
   ];
 
@@ -161,10 +163,6 @@ function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
   const filteredButtons = buttons.filter((button) =>
     button.role.includes(role)
   );
-
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
   return (
     <div id="sidePanelContainer" className={`z-[1000]`}>

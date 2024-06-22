@@ -5,6 +5,7 @@ import Categories from "../../components/ui/categories/index";
 import VendorInventoryTable from "../../components/table/vendoradmin/vendorInventoryTable";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import Link from "next/link";
+import { paths } from "../../../../path/paths";
 
 function VendorInventory() {
   return (
@@ -15,7 +16,7 @@ function VendorInventory() {
           title={`Inventory`}
           amount={`430,607`}
         />
-        <Link className="font-semibold" href="/addProductDashboard">
+        <Link className="font-semibold" href={paths.toAddProductDashboard()}>
           <Addbutton title={`Add product`} />
         </Link>
       </div>

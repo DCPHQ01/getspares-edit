@@ -6,6 +6,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { useState } from "react";
 import Button from "@mui/material/Button";
+import { paths } from "../../path/paths";
 
 const style = {
   position: "absolute" as "absolute",
@@ -51,7 +52,7 @@ const AddCompanyModal = () => {
               id="confirmpageButton"
               className={nunito_sans.className}
             >
-              <Link href="/dashboard">
+              <Link href={paths.toDashboard()}>
                 <button
                   id="cancelbtn"
                   className="btn btn-sm btn-circle btn-ghost"
@@ -83,7 +84,7 @@ const AddCompanyModal = () => {
               className="modalbtn gap-y-3 text-lg font-semibold"
               id="confirmpageButton2"
             >
-              <Link id="continuebtnLink" href="/modalPage/vendor" className="btn bg-mecaBluePrimaryColor  text-white  font-semibold rounded-full w-full">
+              <Link id="continuebtnLink" href={paths.toModalPageVendor()} className="btn bg-mecaBluePrimaryColor  text-white  font-semibold rounded-full w-full">
                 <button
                   id="continuebtn"
                   className="w-full h-12"

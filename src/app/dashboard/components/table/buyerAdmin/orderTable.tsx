@@ -7,6 +7,8 @@ import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Details from "../../../../category/products/viewDetails/[details]/page";
+import BasicTabs from "./FeedBackTab";
+import ViewParticularOrderDetailsPage from "../../../../category/products/viewDetails/viewParticularOrderDetails/page";
 
 const data = [
   {
@@ -111,7 +113,7 @@ const OrderTable = () => {
           <table id="adminTable" className={`w-full`}>
             <thead>
               <tr className="truncate">
-                <th id="companyNameHeader">Products</th>
+                {/* <th id="companyNameHeader">Products</th> */}
                 <th id="totalItemsSoldHeader" style={{ paddingLeft: "4.5rem" }}>
                   Order ID
                 </th>
@@ -132,7 +134,7 @@ const OrderTable = () => {
                   className="cursor-pointer truncate"
                   onClick={handleDetails}
                 >
-                  <td id={`companyData_${index}`}>
+                  {/* <td id={`companyData_${index}`}>
                     <div
                       className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
                     >
@@ -146,7 +148,7 @@ const OrderTable = () => {
                         <div>{d.name}</div>
                       </div>
                     </div>
-                  </td>
+                  </td> */}
 
                   <td
                     className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
@@ -196,8 +198,10 @@ const OrderTable = () => {
         </div>
       </div>
       {renderDetails && (
-        <div className="absolute top-0 bg-white lg:w-[83%] w-[100%] ml-0 lg:h-[100vh]">
-          <Details />
+        <div className="absolute bottom-0 mt-8 ml-10 lg:left-60 right-0 lg:top-0 h-[100vh] lg:w-[84%] w-[100%]  lg:h-[100vh]">
+          <div className=" bg-white h-[100vh] w-full ">
+            <ViewParticularOrderDetailsPage />
+          </div>
         </div>
       )}
     </div>

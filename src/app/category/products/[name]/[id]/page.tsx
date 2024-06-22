@@ -34,6 +34,7 @@ import { IoCloseCircleOutline } from "react-icons/io5";
 import TopBarWhileInside from "../../../../reusables/TopBarWhileInside/page";
 import { useAppDispatch } from "../../../../../redux/hooks";
 import { addToCart } from "../../../../../redux/features/product/productSlice";
+import { useGetAProductQuery } from "../../../../../redux/features/users/authQuery";
 
 interface State extends SnackbarOrigin {
   open: boolean;
@@ -77,7 +78,13 @@ export default function ProductDescription() {
     vertical: "top",
     horizontal: "center",
   });
+  const productId = usePathname()!.split("/")[4];
 
+  const { data, isLoading } = useGetAProductQuery(productId, {
+    skip: !productId,
+  });
+
+  console.log("product id ", data?.data);
   const { vertical, horizontal, open } = state;
 
   const dispatch = useAppDispatch();
@@ -95,15 +102,12 @@ export default function ProductDescription() {
   };
 
   const searchParams = usePathname()!;
-  // console.log('====================================');
-  // console.log(searchParams);
-  // console.log('====================================');
+
   const search = searchParams;
   const segments = searchParams.split("/");
-  // console.log(segments, " segments");
+
   const searches = segments[3];
   const id = segments[4];
-  // console.log(searches, " searches");
 
   const handleClick = (newState: SnackbarOrigin) => () => {
     dispatch(
@@ -116,6 +120,14 @@ export default function ProductDescription() {
     setTimeout(() => {
       setState({ ...newState, open: false });
     }, 3000);
+  };
+
+  const formatPrice = (price: string) => {
+    const numericPrice = parseFloat(price?.replace(/[^0-9.-]+/g, ""));
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "NGN",
+    }).format(numericPrice);
   };
 
   const searchWords = segments[3].replace(/([A-Z])/g, " $1").trim();
@@ -138,11 +150,11 @@ export default function ProductDescription() {
             <MdChevronRight size={20} />
             <p className="text-[12px] font-nunito font-normal text-mecaDarkBlueBackgroundOverlay">
               {" "}
-              {searchWords}
+              {data?.data.category}
             </p>
             <MdChevronRight size={20} />
             <p className="text-[12px] font-nunito font-normal text-mecaGoBackArrow">
-            {/* View details */}
+              {data?.data.name}
             </p>
           </div>
           <div
@@ -197,7 +209,7 @@ export default function ProductDescription() {
                 className="w-full flex flex-col gap-y-4"
               >
                 <h2 className="text-2xl text-mecaDarkBlueBackgroundOverlay font-normal font-nunito">
-                  E46 Engine 1996 Model
+                  {data?.data.name}
                 </h2>
                 <div
                   id="companyDiv"
@@ -223,7 +235,7 @@ export default function ProductDescription() {
                       id="companyNameDiv"
                     >
                       <p className="text-sm font-normal font-nunito text-black">
-                        Okonkwo Machineries Store
+                        {data?.data.companyName || data?.data.company}
                       </p>
                       <div
                         id="ratings"
@@ -235,7 +247,7 @@ export default function ProductDescription() {
                           className="w-3 h-3"
                         />
                         <p className="text-[12px] text-mecaDarkBlueBackgroundOverlay font-normal font-nunito">
-                          4894 reviews
+                          4,894 reviews
                         </p>
                       </div>
                     </div>
@@ -255,25 +267,32 @@ export default function ProductDescription() {
                 </div>
                 <div id="aboutProduct" className="w-full mt-8">
                   <p className="text-sm font-nunito font-normal text-mecaGrayBodyText">
-                    For a 1996 BMW model, you would be looking at engines from
-                    the E36 generation. These engines varied depending on the
-                    specific model and trim level but generally included
-                    inline-four, inline-six, and V8 options. They are known for
-                    their performance, reliability, and smooth operation typical
-                    of BMW engines.
+                    {data?.data.description}
                   </p>
                 </div>
                 <div id="priceButtonDiv" className="flex flex-col mt-6">
                   <div id="priceDiv" className="flex gap-x-6 items-center">
                     <p className="text-mecaDarkBlueBackgroundOverlay text-3xl font-extrabold">
-                      ₦97,500.00
+                      {formatPrice(data?.data.price)}
                     </p>
                     <div
                       id="inStockBtn"
-                      className="w-[68px] h-[22px] bg-mecaSuccess rounded-full flex justify-center items-center"
+                      className={`w-[68px] h-[22px] ${
+                        data?.data.availabilityStatus === "IN_STOCK"
+                          ? "bg-mecaSuccess"
+                          : "bg-red-200"
+                      } rounded-full flex justify-center items-center`}
                     >
-                      <p className="text-mecaIconSuccessColor text-sm font-normal">
-                        In stock
+                      <p
+                        className={`${
+                          data?.data.availabilityStatus === "IN_STOCK"
+                            ? "text-mecaIconSuccessColor"
+                            : "text-mecaErrorInputColor"
+                        } text-sm font-normal`}
+                      >
+                        {data?.data.availabilityStatus === "IN_STOCK"
+                          ? "In stock"
+                          : "N/A"}
                       </p>
                     </div>
                   </div>
@@ -297,44 +316,7 @@ export default function ProductDescription() {
                     >
                       Buy now
                     </button>
-                    {/* <div className="mt-4" id="accordionForProductDescription">
-                      <Accordion>
-                        <AccordionSummary
-                          expandIcon={
-                            <MdExpandMore size={28} className="text-black" />
-                          }
-                          aria-controls="panel1a-content"
-                          id="panel1a-header"
-                        >
-                          <p className="text-mecaDarkBlueBackgroundOverlay text-lg">
-                            Shipping & Returns
-                          </p>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Suspendisse malesuada lacus ex, sit amet blandit
-                          leo lobortis eget.
-                        </AccordionDetails>
-                      </Accordion>
-                      <Accordion>
-                        <AccordionSummary
-                          expandIcon={
-                            <MdExpandMore size={28} className="text-black" />
-                          }
-                          aria-controls="panel2-content"
-                          id="panel2-header"
-                        >
-                          <p className="text-mecaDarkBlueBackgroundOverlay text-lg">
-                            Delivery
-                          </p>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Suspendisse malesuada lacus ex, sit amet blandit
-                          leo lobortis eget.
-                        </AccordionDetails>
-                      </Accordion>
-                    </div> */}
+
                     <Snackbar
                       anchorOrigin={{ vertical, horizontal }}
                       open={open}
@@ -388,7 +370,7 @@ export default function ProductDescription() {
             </span>
           </div>
           <div id="carouselProductDescription">
-            <Carousel
+            {/* <Carousel
               partialVisible={true}
               draggable={false}
               responsive={responsive}
@@ -402,7 +384,7 @@ export default function ProductDescription() {
               <Card image={HomeImage1} />
               <Card image={HomeImage2} />
               <Card image={HomeImage1} />
-            </Carousel>
+            </Carousel> */}
           </div>
         </div>
         <div
@@ -434,7 +416,7 @@ export default function ProductDescription() {
             </span>
           </div>
           <div id="carousel">
-            <Carousel
+            {/* <Carousel
               partialVisible={true}
               draggable={false}
               responsive={responsive}
@@ -448,7 +430,7 @@ export default function ProductDescription() {
               <Card image={HomeImage1} />
               <Card image={HomeImage2} />
               <Card image={HomeImage1} />
-            </Carousel>
+            </Carousel> */}
           </div>
         </div>
       </div>

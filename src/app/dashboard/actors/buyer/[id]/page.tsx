@@ -4,11 +4,30 @@ import HeaderPage from '../../../../reusables/Header/page';
 import Link from 'next/link';
 import {  MdChevronRight } from "react-icons/md";
 import { Nunito_Sans } from "next/font/google";
-import { Box, Button, Card, CardContent, Divider, FilledInput, FormControl, FormControlLabel, FormLabel, InputLabel, SnackbarOrigin } from '@mui/material';
+import { Box, Button, Card, CardContent, Divider, FilledInput, FormControl, FormControlLabel, FormLabel, InputLabel, Modal, SnackbarOrigin, Typography } from '@mui/material';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import Footer from '../../../../../components/footer/Footer';
 import NavBarWhileInsideApp from '../../../../reusables/TopBarWhileInside/NavBarWhileInsideApp/page';
+// import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
+import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
+import { paths } from "../../../../../path/paths";
+
+
+const style = {
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: 'none',
+  borderRadius: '8px',
+  // boxShadow: 24,
+  p: 4,
+  opacity: 1,
+  gap: 12,
+};
 
 const nunito = Nunito_Sans({
   subsets: ["latin"],
@@ -30,6 +49,9 @@ const itemSelected = [
 const Checkout = () => {
   const [deliveryMode, setDeliveryMode] = useState('delivery');
   const [showAddressSelection, setShowAddressSelection] = useState(false);
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const handleDeliveryModeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDeliveryMode(event.target.value);
   };
@@ -48,20 +70,24 @@ const Checkout = () => {
   return (
     // add screen
     <Box>
-      <HeaderPage/>
-      <NavBarWhileInsideApp/>
-      <div className="w-[85%]" style={{ margin: "0px auto" }}>
+      <div id='topHeader' className='fixed top-0 left-0 right-0 z-10'>
+        <HeaderPage/>
+        <div className='px-2'>
+          <NavBarWhileInsideApp />
+        </div>
+      </div>
+      <div id='checkoutContent' className="w-[95%] m-auto mt-[8%]">
         <div style={{ width: "100%" }} className={nunito.className}>
           <div
             className="flex mt-16 items-center gap-4"
             id="breadCrumbsDivDesktop">
-            <Link href="/">
+            <Link href={paths.toHome()}>
               <p className="font-nunito text-sm font-medium text-mecaDarkBlueBackgroundOverlay hover:text-black hover:font-bold">
                 Home
               </p>
             </Link>
             <MdChevronRight size={20} />
-            <Link href="/cart">
+            <Link href={paths.toCart()}>
               <p className="font-nunito text-sm font-medium text-mecaDarkBlueBackgroundOverlay hover:text-black hover:font-bold">
                 Shopping Cart
               </p>
@@ -77,7 +103,7 @@ const Checkout = () => {
             </h1>
           </div>
           <div className='flex flex-col lg:flex-row gap-x-6'>
-            <Card className='rounded-lg lg:w-[55%] mt-6' style={{ border: '2px solid #FFFFF', boxShadow: "0px 0px 0px 1px #12376914" }}>
+            <Card className='rounded-lg lg:w-[70%] mt-6' style={{ border: '2px solid #FFFFF', boxShadow: "0px 0px 0px 1px #12376914" }}>
               <CardContent>
                 <p className={`${nunito.className} text-lg font-semibold p-4`}>Basic Information</p>
                 <Divider />
@@ -201,7 +227,7 @@ const Checkout = () => {
                   </>
                 )}
                 </div>
-                <div className='flex justify-end px-4'>
+                {/* <div className='flex justify-end px-4'>
                   <Button
                     sx={{
                       padding: '10px 24px',
@@ -223,7 +249,7 @@ const Checkout = () => {
                   >
                     Save & Continue
                   </Button>
-                </div>
+                </div> */}
               </CardContent>
             </Card>
             <Card className="mt-6 lg:h-[64%] lg:w-[30%]">
@@ -250,12 +276,38 @@ const Checkout = () => {
                     </div>
                   ))}
                   <div>
-                    <button
-                      onClick={handleSucessClick}
-                      className="w-full h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer"
+                    <Button disableRipple className="w-full hover:bg-mecaBluePrimaryColor h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer normal-case hover:opacity-90"
+                    onClick={handleOpen}
+                     >Checkout</Button>
+                    <Modal
+                      open={open}
+                      onClose={handleClose}
+                      aria-labelledby="modal-modal-title"
+                      aria-describedby="modal-modal-description"
+                      sx={{backdropFilter: 'blur(5px)'}}
                     >
-                      Checkout
-                    </button>
+                      <Box sx={style}>
+                        <CheckOutlinedIcon sx={{ background: '#B2CCFF', color: '#095AD3', borderRadius: '28px', border: '8px solid #B2CCFF', fontSize: '40px', }}/>
+                        <div className='flex flex-col gap-3'>
+                          <p id="modal-modal-title" className='text-lg font-semibold mt-5'>
+                            Order successful!
+                          </p>
+                            <p id="modal-modal-description" className='text-sm font-normal text-mecaCheckoutMessage'>
+                              Thank you for your purchase. Your order has been
+                              placed successfully. A confirmation email with your
+                              order details will be sent shortly.
+                            </p>
+                        </div>
+                          <div className='mt-4'>
+                            <button
+                              onClick={handleSucessClick}
+                              className="w-full h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer"
+                            >
+                              Go to Marketplace
+                            </button>
+                          </div>
+                      </Box>
+                    </Modal>
                   </div>
                 </div>
               </CardContent>

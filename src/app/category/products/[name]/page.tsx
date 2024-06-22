@@ -25,6 +25,7 @@ import Filter from "../../../../components/filters/Filter";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import FilterFixedPage from "../../filterFixedPage";
 import SideFilter from "../../sideFilter";
+import TopBarWhileInside from "../../../reusables/TopBarWhileInside/page";
 
 interface ItemsDataProps {
   id: number;
@@ -216,12 +217,12 @@ export default function Products() {
       {/* mobile and Tab */}
       {!isFilterOpen ? (
         <div className="flex flex-col lg:hidden" id="ProductMobileDivContainer">
-          <TopBar />
+          <TopBarWhileInside />
           <div
             className="px-4 flex flex-col gap-y-4 lg:hidden"
             id="productCategoryContentDiv"
           >
-            <div className="flex items-center gap-4 mt-52" id="breadCrumbsDiv">
+            <div className="flex items-center gap-4 mt-32" id="breadCrumbsDiv">
               <p className="font-nunito text-sm font-medium text-mecaDarkBlueBackgroundOverlay">
                 Home
               </p>
@@ -329,24 +330,107 @@ export default function Products() {
       )}
       {/* desktop */}
       <div className="hidden lg:flex flex-col" id="desktopDiv">
-        <div className="">
-          <TopBar />
-        </div>
-        <div className="">
-          <FilterFixedPage />
+        <TopBarWhileInside />
+        <div
+          className="flex items-center gap-2 mt-56 px-8"
+          id="breadCrumbsDivDesktop"
+        >
+          <p className="font-nunito text-sm font-medium text-mecaDarkBlueBackgroundOverlay">
+            Home
+          </p>
+          <MdChevronRight size={20} />
+          <p className="font-nunito text-sm font-medium text-mecaGoBackArrow">
+            {searchWords}
+          </p>
         </div>
         <div
-          className="  flex gap-x-32 mt-80 mr-30 justify-between"
+          className="mt-4 flex justify-between items-center px-8"
+          id="laptopContent"
+        >
+          <p className="text-2xl text-mecaDarkBlueBackgroundOverlay font-bold font-nunito">
+            {searchWords}
+          </p>
+          <div className="flex gap-x-2 items-center" id="toggler/header">
+            <p className="text-sm text-mecaDarkBlueBackgroundOverlay font-normal font-nunito">
+              Hide filters
+            </p>
+            <Switches onClick={handleToggleFilter} />
+          </div>
+        </div>
+        <div
+          className="mt-8 px-8 flex gap-x-4 justify-between"
           id="filterDivForDesktopContainer"
         >
           <div
             className={`flex flex-col ${showFilter ? "w-[28%]" : "hidden"}`}
             id="filterSideBarContainer"
           >
-            <SideFilter />
+            <p className="text-lg font-medium text-nunito text-mecaDarkBlueBackgroundOverlay">
+              Filter by
+            </p>
+            {filterData.map((data) => (
+              <div className="-ml-4" id="navDatum" key={data.id}>
+                <Accordion
+                  defaultExpanded
+                  className="w-full"
+                  style={{ boxShadow: "none" }}
+                >
+                  <AccordionSummary
+                    expandIcon={<MdExpandMore size={28} />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                  >
+                    <p className="text-mecaGoBackText text-[16px] font-semibold font-nunito capitalize">
+                      {data.title}
+                    </p>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <div className="flex flex-col gap-y-4">
+                      <FormControl>
+                        <RadioGroup
+                          aria-labelledby="demo-radio-buttons-group-label"
+                          name="radio-buttons-group"
+                          defaultValue={data.items[0].title}
+                        >
+                          {data.items.map((item: any) => (
+                            <div
+                              className="flex items-center gap-4"
+                              key={item.id}
+                              id="checkboxItemList"
+                            >
+                              <FormControlLabel
+                                className="text-mecaGoBackText text-sm font-nunito"
+                                control={item.icon}
+                                label={`${item.title}`}
+                              />
+                            </div>
+                          ))}
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+                  </AccordionDetails>
+                </Accordion>
+              </div>
+            ))}
+            <div className="mt-8 flex flex-col justify-center gap-y-4 w-[273px] h-[100px]">
+              <button
+                type="button"
+                className="w-full h-[48px] bg-mecaBluePrimaryColor text-white font-nunito font-semibold text-sm rounded-full"
+                id="applyFilterButton"
+              >
+                Apply Filter
+              </button>
+              <button
+                type="button"
+                className="w-full h-[48px] border border-mecaBluePrimaryColor text-mecaBluePrimaryColor font-nunito font-semibold text-sm rounded-full"
+                id="clearFilterButton"
+              >
+                Cancel Filter
+              </button>
+            </div>
           </div>
           <div
-            className="flex flex-wrap -mt-3 justify-between pr-8 "
+            className="flex flex-wrap justify-between w-full"
             id="allItemsContainerDivDesktop"
           >
             {itemsData.map((item: ItemsDataProps) => (
@@ -400,10 +484,10 @@ export default function Products() {
                 </div>
               </div>
             ))}
-            <div id="footerDiv" className="mt-12 w-[100%]">
-              <Footer />
-            </div>
           </div>
+        </div>
+        <div id="footerDiv" className="mt-12">
+          <Footer />
         </div>
       </div>
     </section>

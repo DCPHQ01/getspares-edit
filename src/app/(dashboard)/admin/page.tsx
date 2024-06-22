@@ -35,6 +35,7 @@ import { useRouter } from "next/navigation";
 import { roles } from "../../dashboard/components/utils/utils";
 import withAuth from "../../withAuth";
 import { useUserRole } from "../../hooks/useUserRole";
+import { paths } from "../../../path/paths";
 
 function Page() {
   const [activeButton, setActiveButton] = useState<number | null>(0);
@@ -73,7 +74,7 @@ function Page() {
 
   const logOut = () => {
     dispatch(clearUser());
-    router.push("/");
+    router.push(paths.toHome());
   };
 
   const profileBtn = () => {
@@ -157,7 +158,7 @@ function Page() {
         sessionStorage.clear();
         sessionStorage.removeItem("userDetails");
         dispatch(setUser({}));
-        router.push("/login");
+        router.push(paths.toLogin());
       },
     },
   ];
@@ -201,7 +202,7 @@ function Page() {
                   >
                     <p
                       className="text-mecaActiveIconsNavColor text-xl font-nunito font-bold cursor-pointer"
-                      onClick={() => router.push("/")}
+                      onClick={() => router.push(paths.toHome())}
                     >
                       e-meca
                     </p>
@@ -223,7 +224,7 @@ function Page() {
                         >
                           <p
                             className="text-mecaActiveIconsNavColor text-xl font-nunito font-bold cursor-pointer"
-                            onClick={() => router.push("/")}
+                            onClick={() => router.push(paths.toHome())}
                           >
                             e-meca
                           </p>

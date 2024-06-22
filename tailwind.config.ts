@@ -25,6 +25,7 @@ const config: Config = {
         mecaSuccessBackgroundColor: "#ECFDF3",
         mecaIconSuccessColor: "#079455",
         mecaDarkBlueBackgroundOverlay: "#101828",
+        mecaGrayBackgroundColor: "#F8FAFC",
         mecaActiveIconsNavColor: "#0852C0",
         mecaActiveBackgroundNavColor: "#EFF4FF",
         mecaTableTextSuccessColor: "#067647",
@@ -46,6 +47,7 @@ const config: Config = {
         mecaBorderSuccess: "#17B26A",
         mecaProfileColor: "#D0D5DD",
         mecaAddProductSidebarList: "#364152",
+        mecaCheckoutMessage: "#72757A",
       },
       fontFamily: {
         nunito: ["var(--font-nunito_sans)"],

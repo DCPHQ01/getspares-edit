@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { MdOutlineArrowBack, MdOutlineMail } from "react-icons/md";
 import Link from "next/link";
 import {
@@ -6,6 +6,7 @@ import {
   useResetOtpMutation,
 } from "../../redux/features/users/authQuery";
 import { Snackbar } from "@mui/material";
+import { paths } from "../../path/paths";
 
 interface VerifyEmailProps {
   setHaveVerifiedEmail: React.Dispatch<React.SetStateAction<boolean>>;
@@ -21,6 +22,8 @@ export default function VerifyEmail({
 
   const [userEmail, setUserEmail] = useState("");
   const [emailError, setEmailError] = useState("");
+  const length = 6;
+  const inputsRef = useRef<HTMLInputElement[]>([]);
 
   useEffect(() => {
     const storedEmail = sessionStorage.getItem("userEmail");
@@ -41,7 +44,9 @@ export default function VerifyEmail({
 
     const nextIndex = index + 1;
     if (nextIndex < otp.length) {
-      const nextInput = document.getElementsByName("otp")[nextIndex];
+      const nextInput = document.getElementsByName("otp")[
+        nextIndex
+      ] as HTMLInputElement;
       if (nextInput) {
         (nextInput as HTMLInputElement).focus();
       }
@@ -50,7 +55,34 @@ export default function VerifyEmail({
       setIsDisabled(false);
     }
   };
+
+  const handlePaste = (event: React.ClipboardEvent<HTMLInputElement>): void => {
+    event.preventDefault();
+    const paste = event.clipboardData.getData("text").slice(0, length);
+    const newOtp = Array(length).fill("");
+    for (let i = 0; i < paste.length; i++) {
+      if (i < length) {
+        newOtp[i] = paste[i];
+      }
+    }
+    setOtp(newOtp);
+    inputsRef.current[Math.min(paste.length - 1, length - 1)]?.focus();
+    setIsDisabled(false);
+  };
+
+  const handleKeyDown = (
+    event: React.KeyboardEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    if (event.key === "Backspace" && !otp[index] && index > 0) {
+      inputsRef.current[index - 1]?.focus();
+    }
+  };
   console.log(otp.join(""));
+
+  useEffect(() => {
+    inputsRef.current[0]?.focus();
+  }, []);
 
   const [verifyEmail] = useVerifyEmailMutation();
   const [resetOtp] = useResetOtpMutation();
@@ -135,7 +167,11 @@ export default function VerifyEmail({
         <div className="flex flex-1 gap-2 h-16 m-auto">
           {otp.map((data, index) => {
             return (
-              <Fragment key={index}>
+              <div
+                className="flex flex-1 gap-2"
+                key={index}
+                onPaste={handlePaste}
+              >
                 <input
                   className="w-16 lg:text-5xl text-xl text-center text-mecaVerificationCodeColor placeholder:text-transparent font-semibold rounded-lg outline-none border border-mecaBorderColor"
                   type="text"
@@ -144,13 +180,17 @@ export default function VerifyEmail({
                   onChange={(e) => handleChangeOtp(e.target, index)}
                   title="OTP"
                   placeholder="Enter OTP"
+                  onKeyDown={(e) => handleKeyDown(e, index)}
+                  ref={(el) => {
+                    inputsRef.current[index] = el as HTMLInputElement;
+                  }}
                 />
                 {index === 2 && (
                   <span className="text-mecaVerificationCodeColor text-5xl flex items-center">
                     -
                   </span>
                 )}
-              </Fragment>
+              </div>
             );
           })}
         </div>
@@ -177,7 +217,7 @@ export default function VerifyEmail({
         </Link>
       </span>
       <Link
-        href="/login"
+        href={paths.toLogin()}
         id="loginLink"
         className="text-mecaGoBackText flex items-center text-sm gap-4"
       >

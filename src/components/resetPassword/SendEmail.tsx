@@ -2,6 +2,7 @@ import Link from "next/link";
 import { MdOutlineArrowBack, MdOutlineMail, MdNorthEast } from "react-icons/md";
 import { Button } from "@mui/material";
 import { useRouter } from "next/navigation";
+import { paths } from "../../path/paths";
 
 export default function SendEmail() {
   const router = useRouter();
@@ -37,7 +38,7 @@ export default function SendEmail() {
       <Button
         id="resetPasswordBtn"
         className="bg-mecaBluePrimaryColor normal-case text-[white] text-lg font-semibold rounded-[36px] h-12 px-24 w-full mt-6 hover:bg-mecaBluePrimaryColor"
-        onClick={() => router.push("mailto:Camoly@gmail.com")}
+        onClick={() => router.push(paths.toMailTo('camoly@gmail.com'))}
         endIcon={<MdNorthEast size={24} />}
       >
         Open email app
@@ -53,7 +54,7 @@ export default function SendEmail() {
         </Link>
       </span>
       <Link
-        href="/login"
+        href={paths.toLogin()}
         id="loginLink"
         className="text-mecaGoBackText flex items-center text-sm gap-4"
       >

@@ -28,6 +28,7 @@ import {
 } from "react-icons/md";
 import AgentDashboardMobilePage from "./AgentDashboardMobile/page";
 import { useUserRole } from "../../../hooks/useUserRole";
+import { paths } from "../../../../path/paths";
 
 function Index() {
   const SidePanelButton = () => {
@@ -56,12 +57,12 @@ function Index() {
 
   // console.log("role =>", role);
 
-  const router = useRouter();
-
   const logOut = () => {
     dispatch(clearUser());
-    router.push("/");
+    router.push(paths.toHome());
   };
+
+ 
 
   const buttons = [
     {
@@ -121,7 +122,6 @@ function Index() {
       role: [roles.MECA_ADMIN],
     },
   ];
-
   const bottomButton = [
     {
       icon: <MdPersonPin />,
@@ -137,7 +137,7 @@ function Index() {
       size: 18,
       onClick: () => {
         dispatch(setUser({}));
-        router.push("/");
+        router.push(paths.toHome());
       },
     },
   ];
@@ -179,7 +179,7 @@ function Index() {
                   >
                     <p
                       className="text-mecaActiveIconsNavColor text-xl font-nunito font-bold cursor-pointer"
-                      onClick={() => router.push("/")}
+                      onClick={() => router.push(paths.toHome())}
                     >
                       e-meca
                     </p>
@@ -201,7 +201,7 @@ function Index() {
                         >
                           <p
                             className="text-mecaActiveIconsNavColor text-xl font-nunito font-bold cursor-pointer"
-                            onClick={() => router.push("/")}
+                            onClick={() => router.push(paths.toHome())}
                           >
                             e-meca
                           </p>
