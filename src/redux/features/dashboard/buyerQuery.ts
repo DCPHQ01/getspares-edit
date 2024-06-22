@@ -12,10 +12,16 @@ export const buyerQuery = createApi({
             method: "POST",
             body,
         }),
+    }),
+    getViewAllOrders: builder.query({
+        query: ({pageNo, pageSize}) => ({
+            url: `/dashboard/allOrders?pageNo=${pageNo}&pageSize=${pageSize}`,
+            method: "GET",
+        })
     })
     })
 });
 
-export const {   } = buyerQuery;
+export const { useCheckoutMutation, useGetViewAllOrdersQuery  } = buyerQuery;
 
 

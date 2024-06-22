@@ -125,7 +125,6 @@ function Overview() {
           subtitle={`Take a quick glance on what is happening with meca`}
           name={`, ${name}`}
         />
-        {/* cardProps={cardsData} */}
          <Cards cardField={adminOverview}  /> 
         <div
           className={`flex justify-between items-center mt-[3.25rem] mb-[1.25rem]`}

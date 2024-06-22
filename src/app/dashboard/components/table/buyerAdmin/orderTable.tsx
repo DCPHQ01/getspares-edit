@@ -116,9 +116,8 @@ const OrderTable = () => {
           <thead>
             <tr className="truncate">
               <th id="companyNameHeader">Products</th>
-              <th id="totalItemsSoldHeader">Order ID</th>
               <th id="transactionValueHeader">Transaction value</th>
-              <th id="dateTimeJoinedHeader">Vendor</th>
+              <th id="dateTimeJoinedHeader">Vendor</th> 
               <th id="dateTimeJoinedHeader">Date & time ordered</th>
             </tr>
           </thead>

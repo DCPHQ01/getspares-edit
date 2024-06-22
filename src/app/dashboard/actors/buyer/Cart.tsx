@@ -259,7 +259,7 @@ const Cart = () => {
 
   const handleSucessClick = (newState: SnackbarOrigin) => () => {
     setState({ ...newState, open: true });
-    router.push(paths.toDashboardActorsBuyer());
+    router.push(paths.toCheckout());
 
   };
 

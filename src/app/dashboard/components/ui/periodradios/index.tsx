@@ -69,7 +69,7 @@ interface PeriodRadiosProps {
   onPeriodChange: (period: string) => void;
 }
 const Index: React.FC<PeriodRadiosProps> = ({ activityPeriod, onPeriodChange }) => {
-  const [selectedValue, setSelectedValue] = useState("monthly");
+  const [selectedValue, setSelectedValue] = useState("month");
 
   const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedValue(event.target.value);
@@ -87,9 +87,10 @@ const Index: React.FC<PeriodRadiosProps> = ({ activityPeriod, onPeriodChange }) 
           <FormControlLabel
             value="month"
             sx={{
-              border: selectedValue === "month" ? "1px solid #EEF2F6" : "",
+              border: `1px solid ${selectedValue === "month" ? "#9AA4B2" : "transparent"}`,
               borderRadius: "0.625rem",
               padding: "0.5rem 1rem",
+              backgroundColor: selectedValue === "month" ? "#EEF2F6" : "transparent",
             }}
             control={<BpRadio />}
             label="This month"
@@ -97,9 +98,10 @@ const Index: React.FC<PeriodRadiosProps> = ({ activityPeriod, onPeriodChange }) 
           <FormControlLabel
             value="year"
             sx={{
-              border: selectedValue === "year" ? "1px solid #EEF2F6" : "",
+              border: `1px solid ${selectedValue === "year" ? "#9AA4B2" : "transparent"}`,
               borderRadius: "0.625rem",
               padding: "0.5rem 1rem",
+              backgroundColor: selectedValue === "year" ? "#EEF2F6" : "transparent",
             }}
             control={<BpRadio />}
             label="This year"
@@ -109,6 +111,7 @@ const Index: React.FC<PeriodRadiosProps> = ({ activityPeriod, onPeriodChange }) 
     </FormControl>
   );
 }
+
 
 export default Index;
 //     <FormControl>
