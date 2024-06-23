@@ -100,13 +100,19 @@ const VendorTable = () => {
           <tr className="truncate">
             <th id="companyNameHeader">Company name</th>
             <th id="totalItemsSoldHeader">Total items sold</th>
-            <th id="transactionValueHeader">Transaction value</th>
+            <th id="transactionValueHeader" style={{ paddingLeft: "2.2rem" }}>
+              Transaction value
+            </th>
             <th id="dateTimeJoinedHeader">Date & time joined</th>
           </tr>
         </thead>
         <tbody>
           {data.map((d, index) => (
-            <tr key={index} id={`row_${index}`} className="cursor-pointer truncate">
+            <tr
+              key={index}
+              id={`row_${index}`}
+              className="cursor-pointer truncate"
+            >
               <td id={`companyData_${index}`}>
                 <div
                   className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}

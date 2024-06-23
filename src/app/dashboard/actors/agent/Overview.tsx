@@ -17,7 +17,7 @@ function Overview() {
       <div>
         <Header
           subtitle={`Take a quick glance on what is happening with meca`}
-          name={`Sam`}
+          name={` Sam`}
         />
         {/* <Cards cardProps={}/> */}
         <div
@@ -32,14 +32,14 @@ function Overview() {
 
         <OverviewTable />
 
-        <div className="flex justify-between mt-10 text-mecaBluePrimaryColor font-bold text-lg">
+        {/* <div className="flex justify-between mt-10 text-mecaBluePrimaryColor font-bold text-lg">
           <button className="flex gap-x-2">
             <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
           </button>
           <button className="flex gap-x-2">
             <MdChevronRight className="mt-1 text-2xl" /> <span>Next</span>
           </button>
-        </div>
+        </div> */}
       </div>
     </>
   );

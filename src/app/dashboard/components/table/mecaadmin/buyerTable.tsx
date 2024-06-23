@@ -89,21 +89,21 @@ import Image from "next/image";
 //   },
 // ];
 
-// type BuyerData = {
-//   avatar: string;
-//   name: string;
-//   email: string;
-//   sale: number;
-//   vale: string;
-//   date: string;
-//   time: string;
-// };
+type BuyerData = {
+  avatar: string;
+  name: string;
+  email: string;
+  sale: number;
+  vale: string;
+  date: string;
+  time: string;
+};
 
-// interface BuyerTableProps {
-//   data: BuyerData[];
-//   isLoading?: boolean;
-//   isError?: boolean;
-// }
+interface BuyerTableProps {
+  data: BuyerData[];
+  isLoading?: boolean;
+  isError?: boolean;
+}
 
 const BuyerTable = ({ data, isLoading = false, isError = false }: BuyerTableProps) => {
   return (

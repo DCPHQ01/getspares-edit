@@ -317,7 +317,9 @@ const Cart = () => {
                 title={`Cart`}
                 amount={``}
               />
-              <Searchbox />
+              <div className="flex justify-end">
+                <Searchbox />
+              </div>
             </div>
 
             <div className="flex gap-x-6">

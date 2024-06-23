@@ -63,6 +63,7 @@ const Checkout = () => {
     phoneNumber: '',
     deliveryAddress: ''
   });
+  const [savedAddress, setSavedAddress] = useState('');
 
   const router = useRouter();
   const [checkoutData, { isLoading}] = useCheckoutMutation();

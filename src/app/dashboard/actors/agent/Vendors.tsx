@@ -19,7 +19,7 @@ function Vendors() {
           title={`Vendors`}
           amount={`567,098`}
         />
-        <Addbutton title={`Add vendor`} />
+        {/* <Addbutton title={`Add vendor`} /> */}
       </div>
       <div className={`flex justify-between items-center`}>
         <PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange}/>
@@ -28,12 +28,13 @@ function Vendors() {
 
       <VendorTable />
 
-      <div className="flex justify-between mt-10 text-mecaBluePrimaryColor font-bold text-lg">
-        <button className="flex gap-x-2">
+      <div className="flex justify-end mt-10 text-mecaBluePrimaryColor font-bold text-lg">
+        {/* <button className="flex gap-x-2">
           <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
-        </button>
-        <button className="flex gap-x-2">
-          <MdChevronRight className="mt-1 text-2xl" /> <span>Next</span>
+        </button> */}
+        <button className="flex  gap-x-2">
+          <span>Next</span>
+          <MdChevronRight className="mt-[2px] text-2xl" />
         </button>
       </div>
     </>

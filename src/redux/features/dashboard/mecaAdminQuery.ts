@@ -43,6 +43,9 @@ export const mecaAdminQuery = createApi({
         method: "GET",
       }),
     }),
+
+
+    
   }),
 });
 

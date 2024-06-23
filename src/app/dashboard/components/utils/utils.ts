@@ -14,7 +14,7 @@ export enum roles {
   MECA_ADMIN = "MECA_ADMIN",
   VENDOR_ADMIN = "VENDOR_ADMIN",
   BUYER = "BUYER",
-  AGENTS = "AGENTS",
+  AGENTS = "AGENT",
 }
 
 export const userRole = roles.MECA_ADMIN;

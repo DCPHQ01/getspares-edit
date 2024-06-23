@@ -18,7 +18,7 @@ function Orders() {
       if (resultList) {
         setBuyerOrderList(resultList);
       } else {
-        console.error("Expected data.content to be an array, but got:", resultList);
+        console.error("Failed to show buyer order", resultList);
       }
     }
   }, [data]);
@@ -30,7 +30,9 @@ function Orders() {
         title={`Orders`}
         amount={`430,607`}
       />
-      <Searchbox />
+      <div className="flex justify-end">
+        <Searchbox />
+      </div>
 
       <OrderTable data={buyerOrderList} isLoading={isLoading} />
     </div>
