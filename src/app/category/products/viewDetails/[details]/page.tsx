@@ -9,7 +9,6 @@ import * as React from "react";
 import { usePathname } from "next/navigation";
 import { useAppDispatch } from "../../../../../redux/hooks";
 import { addToCart } from "../../../../../redux/features/product/productSlice";
-// import BasicTabs from "../../../../dashboard/components/table/buyerAdmin/tab";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import BasicTabs from "../../../../dashboard/components/table/buyerAdmin/FeedBackTab";
