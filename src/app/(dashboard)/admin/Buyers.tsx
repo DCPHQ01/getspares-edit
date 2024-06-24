@@ -17,11 +17,8 @@ function Buyers() {
   const [buyerList, setBuyerList] = useState([]);
   useEffect(() => {
     if (data) {
-      // Logging the structure of the received data
       console.log("Received data structure:", data);
-
-      // Assuming the data follows this structure:
-      // { data: { content: [...] } }
+    
       const resultList = data.data?.content;
       if (resultList) {
         setBuyerList(resultList);
@@ -49,7 +46,7 @@ function Buyers() {
         amount={`433,112`}
       />
       <div className={`my-[1.25rem] flex justify-end`}>
-        <SearchBox placeholder={`Search for agent`} />
+        <SearchBox placeholder={`Search for buyer`} />
       </div>
       <BuyerTable data={buyerList} isLoading={isLoading} isError={isError}/>
 

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Header from "../../../components/ui/header";
 import Cards from "../../../components/ui/cards";
 import PeriodRadios from "../../../components/ui/periodradios";
@@ -7,6 +7,11 @@ import OverviewTable from "../../../components/table/agentAdmin/overviewTable";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 function AgentOverview() {
+  // @ts-ignore
+  const [activityPeriod, setActivityPeriod] = useState("monthly"); 
+  const handlePeriodChange = (newPeriod: string) => {
+    setActivityPeriod(newPeriod);
+  };
   return (
     <>
       <div>
@@ -25,7 +30,7 @@ function AgentOverview() {
             title={`Recently sold parts`}
           />
           <div className="mt-5">
-            <PeriodRadios />
+            <PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange}/>
           </div>
         </div>
 

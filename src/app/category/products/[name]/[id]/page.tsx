@@ -17,7 +17,7 @@ import {
   MdOutlineStorefront,
 } from "react-icons/md";
 import Footer from "../../../../../components/footer/Footer";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import * as React from "react";
 import {
@@ -97,6 +97,8 @@ export default function ProductDescription() {
     if (carouselRef.current) carouselRef.current.next(0);
   };
 
+  const router = useRouter()
+
   const handlePrevious = () => {
     if (carouselRef.current) carouselRef.current.previous(0);
   };
@@ -108,6 +110,7 @@ export default function ProductDescription() {
 
   const searches = segments[3];
   const id = segments[4];
+
 
   const handleClick = (newState: SnackbarOrigin) => () => {
     dispatch(
@@ -311,6 +314,7 @@ export default function ProductDescription() {
                       Add to cart
                     </button>
                     <button
+                    onClick={()=> router.push("/cart/checkout")}
                       type="button"
                       className="w-full h-[44px] text-mecaBluePrimaryColor text-lg font-nunito font-semibold flex items-center justify-center border bg-white border-mecaBluePrimaryColor rounded-full"
                     >

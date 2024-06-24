@@ -34,82 +34,126 @@ function a11yProps(index: number) {
   };
 }
 
-export default function DetailsTable() {
+ interface productInformation {
+   manufacturer?: string | null;
+   brand?: string | null;
+   model?: string | null;
+   itemWeight?: string | null;
+   productDimension?: string | null;
+   countryOfOrigin?: string | null;
+   itemModelNumber?: string | null;
+   manufacturerPartNumber?: string | null;
+   voltage?: string | null;
+ }
+  
+ interface productInformationProps {
+   productInformation: productInformation[]
+ }
+
+const DetailsTable:React.FC<productInformation> = ({manufacturer,brand,itemWeight,productDimension,countryOfOrigin,itemModelNumber,manufacturerPartNumber,voltage}) => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
-  return (
+  
 
-      <Box sx={{ width: '100%'}}>
-        <CustomTabPanel value={value} index={0}>
+  return (
+    <Box sx={{ width: "100%" }}>
+      <CustomTabPanel value={value} index={0}>
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: {
+              xs: "1fr",
+              sm: "1fr 1fr",
+              md: "1fr 1fr 1fr",
+            },
+            gap: 2,
+            p: 2,
+          }}
+        >
           <Box
-            sx={{
-              display: 'grid',
-              gridTemplateColumns: {
-                xs: '1fr', 
-                sm: '1fr 1fr',     
-                md: '1fr 1fr 1fr', 
-              },
-              gap: 2,
-              p: 2,
-            }}
+            component="section"
+            sx={{ p: 2, border: "shadow", backgroundColor: "#EEF2F6" }}
           >
-            <Box component="section" sx={{ p: 2, border: 'shadow', backgroundColor: "#EEF2F6" }}>
-              <div className='flex flex-col'>
-                <div>Quantity Available</div>
-                <div>123</div>
-              </div>
-            </Box>
-            <Box component="section" sx={{ p: 2,  border: 'shadow', backgroundColor: "#EEF2F6" }}>
-              <div className='flex flex-col'>
-                <div>Transaction value</div>
-                <div>123,000,000,000.00</div>
-              </div>
-            </Box>
-            <Box component="section" sx={{ p: 2,  border: 'shadow', backgroundColor: "#EEF2F6" }}>
-              <div className='flex flex-col'>
-                <div>Last sold</div>
-                <div>12/12/23</div>
-              </div>
-            </Box>
-            <Box component="section" sx={{ p: 2,  border: 'shadow', backgroundColor: "#EEF2F6" }}>
-              <div className='flex flex-col'>
-                <div>Color</div>
-                <div>Black</div>
-              </div>
-            </Box>
-            <Box component="section" sx={{ p: 2,  border: 'shadow', backgroundColor: "#EEF2F6" }}>
-              <div className='flex flex-col'>
-                <div>Model</div>
-                <div>Caterpillar engine v1</div>
-              </div>
-            </Box>
-            <Box component="section" sx={{ p: 2,  border: 'shadow', backgroundColor: "#EEF2F6" }}>
-              <div className='flex flex-col'>
-              <div>Weight</div>
-              <div>4000kg</div>
-              </div>
-            </Box>
-            <Box component="section" sx={{ p: 2,  border: 'shadow', backgroundColor: "#EEF2F6" }}>
-              <div className='flex flex-col'>
-                <div>Dimensions</div>
-                <div>Medium</div>
-              </div>
-            </Box>
-            <Box component="section" sx={{ p: 2,  border: 'shadow', backgroundColor: "#EEF2F6" }}>
-              <div className='flex flex-col'>
-                <div>Country of originin a week</div>
-                <div>Germany</div>
-              </div>
-            </Box>
+            <div className="flex flex-col">
+              <div>Quantity Available</div>
+              <div>{manufacturer}</div>
+            </div>
           </Box>
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={1}>
-          <ProductReview/>
-        </CustomTabPanel>
-      </Box>
+          <Box
+            component="section"
+            sx={{ p: 2, border: "shadow", backgroundColor: "#EEF2F6" }}
+          >
+            <div className="flex flex-col">
+              <div>Manufacturer</div>
+              <div>{manufacturer}</div>
+            </div>
+          </Box>
+          <Box
+            component="section"
+            sx={{ p: 2, border: "shadow", backgroundColor: "#EEF2F6" }}
+          >
+            <div className="flex flex-col">
+              <div>Brand</div>
+              <div>{brand}</div>
+            </div>
+          </Box>
+
+          <Box
+            component="section"
+            sx={{ p: 2, border: "shadow", backgroundColor: "#EEF2F6" }}
+          >
+            <div className="flex flex-col">
+              <div>Model</div>
+              <div>{itemModelNumber}</div>
+            </div>
+          </Box>
+          <Box
+            component="section"
+            sx={{ p: 2, border: "shadow", backgroundColor: "#EEF2F6" }}
+          >
+            <div className="flex flex-col">
+              <div>Color</div>
+              <div></div>
+            </div>
+          </Box>
+
+          <Box
+            component="section"
+            sx={{ p: 2, border: "shadow", backgroundColor: "#EEF2F6" }}
+          >
+            <div className="flex flex-col">
+              <div>Weight</div>
+              <div>{itemWeight}</div>
+            </div>
+          </Box>
+          <Box
+            component="section"
+            sx={{ p: 2, border: "shadow", backgroundColor: "#EEF2F6" }}
+          >
+            <div className="flex flex-col">
+              <div>Dimensions</div>
+              <div>{productDimension}</div>
+            </div>
+          </Box>
+          <Box
+            component="section"
+            sx={{ p: 2, border: "shadow", backgroundColor: "#EEF2F6" }}
+          >
+            <div className="flex flex-col">
+              <div>Country of originin a week</div>
+              <div>{countryOfOrigin}</div>
+            </div>
+          </Box>
+        </Box>
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={1}>
+        <ProductReview />
+      </CustomTabPanel>
+    </Box>
   );
 }
+ export default  DetailsTable;

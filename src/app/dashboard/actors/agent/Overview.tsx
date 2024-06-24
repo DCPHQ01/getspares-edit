@@ -7,7 +7,11 @@ import OverviewTable from "../../components/table/agentAdmin/overviewTable";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 function Overview() {
-
+  // @ts-ignore
+  const [activityPeriod, setActivityPeriod] = useState("monthly"); 
+  const handlePeriodChange = (newPeriod: string) => {
+    setActivityPeriod(newPeriod);
+  };
   return (
     <>
       <div>
@@ -23,7 +27,7 @@ function Overview() {
             subtitle={`A quick glance on parts with highest sales on meca`}
             title={`Recently sold parts`}
           />
-          <PeriodRadios />
+          <PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange} />
         </div>
 
         <OverviewTable />
