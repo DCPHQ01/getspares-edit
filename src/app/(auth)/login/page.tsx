@@ -100,7 +100,7 @@ export default function Login() {
 
       if (response.access_token) {
         let token = response.access_token;
-        console.log("The token: ",token)
+        console.log("The token: ", token);
 
         console.log(token, " token");
         let decoded: JwtPayload = JWT.jwtDecode(token);
@@ -253,15 +253,23 @@ export default function Login() {
             onClick={handleSubmit}
           >
             {isLoading ? (
-              <ColorRing
-                visible={true}
-                height="40"
-                width="40"
-                ariaLabel="color-ring-loading"
-                wrapperStyle={{}}
-                wrapperClass="color-ring-wrapper"
-                colors={["#ffff", "#ffff", "#ffff", "#ffff", "#ffff"]}
-              />
+              <div className="w-full h-screen flex justify-center items-center">
+                <ColorRing
+                  visible={true}
+                  height="80"
+                  width="80"
+                  ariaLabel="color-ring-loading"
+                  wrapperStyle={{}}
+                  wrapperClass="color-ring-wrapper"
+                  colors={[
+                    "#00A3FF",
+                    "#FFD300",
+                    "#FF0000",
+                    "#00A3FF",
+                    "#FFD300",
+                  ]}
+                />
+              </div>
             ) : (
               "Login"
             )}

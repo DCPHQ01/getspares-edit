@@ -109,6 +109,17 @@ export const authQuery = createApi({
     getCategory: builder.query({
       query: () => "/category/categories",
     }),
+    getProductInCategory: builder.query({
+      query: (body: {
+        categoryId: string;
+        pageNumber: number;
+        pageSize: number;
+      }) => ({
+        url: "/product",
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
@@ -125,4 +136,5 @@ export const {
   useResetOtpMutation,
   useResetPasswordMutation,
   useGetCategoryQuery,
+  useGetProductInCategoryQuery,
 } = authQuery;
