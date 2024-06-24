@@ -1,17 +1,8 @@
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { LoginResponse } from "../../../models/loginResponse";
+import ResetPassword from "../../../app/forgot-password/page";
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-// const getToken = () => {
-//   if (typeof window !== "undefined") {
-//     return JSON.parse(sessionStorage.getItem("token") || "{}");
-//   }
-//   return {};
-// };
-
-// let token = getToken();
-// console.log("token for basequery ", token);
-
 export const authQuery = createApi({
   reducerPath: "baseQuery",
   baseQuery: fetchBaseQuery({ baseUrl }),
@@ -83,17 +74,6 @@ export const authQuery = createApi({
         body,
       }),
     }),
-    resetPassword: builder.mutation({
-      query: (body: {
-        email: string;
-        otpCode: string;
-        newPassword: string;
-      }) => ({
-        url: "/auth/resetPassword",
-        method: "POST",
-        body,
-      }),
-    }),
     getTopProduct: builder.query({
       query: () => "/product/top",
     }),
@@ -120,6 +100,23 @@ export const authQuery = createApi({
         body,
       }),
     }),
+    resetPasswordVerifyEmail: builder.mutation({
+      query: (email) => ({
+        url: `/auth/reset-password-verify-email?email=${email}`,
+        method: "POST",
+      }),
+    }),
+    resetPassword: builder.mutation({
+      query: (body: {
+        email: string;
+        otpCode: string;
+        newPassword: string;
+      }) => ({
+        url: "/auth/reset-password",
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
@@ -134,7 +131,8 @@ export const {
   useVerifyEmailMutation,
   useLoginMutation,
   useResetOtpMutation,
-  useResetPasswordMutation,
   useGetCategoryQuery,
   useGetProductInCategoryQuery,
+  useResetPasswordVerifyEmailMutation,
+  useResetPasswordMutation,
 } = authQuery;

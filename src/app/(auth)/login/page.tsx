@@ -256,18 +256,12 @@ export default function Login() {
               <div className="w-full h-screen flex justify-center items-center">
                 <ColorRing
                   visible={true}
-                  height="80"
-                  width="80"
+                  height="40"
+                  width="40"
                   ariaLabel="color-ring-loading"
                   wrapperStyle={{}}
                   wrapperClass="color-ring-wrapper"
-                  colors={[
-                    "#00A3FF",
-                    "#FFD300",
-                    "#FF0000",
-                    "#00A3FF",
-                    "#FFD300",
-                  ]}
+                  colors={["#ffff", "#ffff", "#ffff", "#ffff", "#ffff"]}
                 />
               </div>
             ) : (

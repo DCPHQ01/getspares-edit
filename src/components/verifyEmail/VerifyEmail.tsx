@@ -7,6 +7,7 @@ import {
 } from "../../redux/features/users/authQuery";
 import { Snackbar } from "@mui/material";
 import { paths } from "../../path/paths";
+import { ColorRing } from "react-loader-spinner";
 
 interface VerifyEmailProps {
   setHaveVerifiedEmail: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,6 +20,7 @@ export default function VerifyEmail({
   const [isDisabled, setIsDisabled] = useState(true);
   const [open, setOpen] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [userEmail, setUserEmail] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -94,17 +96,20 @@ export default function VerifyEmail({
       otpCode: otp.join(""),
     };
     console.log(data, "data");
-
+    setIsLoading(true);
     try {
       response = await verifyEmail(data);
       if ("data" in response) {
         console.log(response.data.message, " verify");
         if (response?.data?.message === "User verified successfully") {
           setHaveVerifiedEmail(true);
+          setIsLoading(false);
         } else if (response?.data?.statusCode === 400) {
           setHaveVerifiedEmail(false);
           setEmailError(response?.data?.message);
           setOpen(true);
+          setOtp(Array(6).fill(""));
+          setIsLoading(false);
         }
       }
     } catch (error: any) {
@@ -201,7 +206,19 @@ export default function VerifyEmail({
             onClick={handleSubmit}
             disabled={isDisabled}
           >
-            Verify email
+            {isLoading ? (
+              <ColorRing
+                visible={true}
+                height="40"
+                width="40"
+                ariaLabel="color-ring-loading"
+                wrapperStyle={{}}
+                wrapperClass="color-ring-wrapper"
+                colors={["#ffff", "#ffff", "#ffff", "#ffff", "#ffff"]}
+              />
+            ) : (
+              "Verify Email"
+            )}
           </button>
         </div>
       </div>

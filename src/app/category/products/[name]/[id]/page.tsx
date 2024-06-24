@@ -175,11 +175,11 @@ export default function ProductDescription() {
           </div>
           <div
             id="productDescriptionDetails"
-            className="w-full flex justify-between"
+            className="w-full flex flex-col lg:flex-row justify-between"
           >
             <div
               id="productImage"
-              className="w-[56%] h-[615px] flex flex-col gap-y-4"
+              className="w-full lg:w-[56%] h-[615px] flex flex-col gap-y-4"
             >
               <div
                 id="imageDiv"
@@ -218,7 +218,7 @@ export default function ProductDescription() {
             </div>
             <div
               id="productDetails"
-              className="w-[42%] flex flex-col h-[615px]"
+              className="w-full h-full lg:w-[42%] flex flex-col lg:h-full"
             >
               <div
                 id="titleCompanyDiv"
@@ -255,7 +255,7 @@ export default function ProductDescription() {
                       </p>
                       <div
                         id="ratings"
-                        className="w-[56%] h-[20px] rounded-full px-1 flex items-center gap-x-1 bg-mecaRatingsDiv border-mecaRatingsBorder"
+                        className="w-[56%] h-[32px] lg:h-[20px] rounded-full px-1 flex items-center gap-x-1 bg-mecaRatingsDiv border-mecaRatingsBorder"
                       >
                         <Image
                           src={ratingStar}
