@@ -1,7 +1,9 @@
 "use client";
 import React from "react";
 import styles from "../styles.module.css";
+import Image from "next/image";
 import { AccountCircle } from '@mui/icons-material';
+import dayjs from "dayjs";
 
 interface Category {
   id: string;
@@ -17,17 +19,13 @@ interface CategoryTableProps {
   categoryList: Category[];
 }
 
-const moment = require('moment');
-
-const dateTime = "2024-06-21T10:34:24.829";
-const date = moment(dateTime).format('YYYY-MM-DD');
-const time = moment(dateTime).format('HH:mm a');
-
-console.log('Date:', date); 
-console.log('Time:', time); 
+const formatDateTime = (dateTime: string) => {
+  const date = dayjs(dateTime).format("YYYY-MM-DD");
+  const time = dayjs(dateTime).format("HH:mm:ss");
+  return { date, time };
+};
 
 const CategoryTable: React.FC<CategoryTableProps> = ({ categoryList }) => {
-  
   return (
     <div id="tableContainer">
       <div
@@ -46,23 +44,19 @@ const CategoryTable: React.FC<CategoryTableProps> = ({ categoryList }) => {
             </tr>
           </thead>
           <tbody>
-            {Array.isArray(categoryList) && categoryList?.map((d, index) => {
+            {categoryList?.map((d, index) => {
+              const { date, time } = formatDateTime(d.dateCreated);
               return (
-                <tr key={index} 
-                  id={`row_${index}`} 
-                  className="cursor-pointer">
-                  <td 
-                    id={`companyData_${index}`}>
+                <tr key={index} id={`row_${index}`} className="cursor-pointer">
+                  <td id={`companyData_${index}`}>
                     <div
                       className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
                     >
-                      {d?.imageUrl ? (
-                        <img
-                          src={d?.imageUrl}
+                      {d.imageUrl ? (
+                        <Image
+                          src={d.imageUrl}
                           className="object-contain"
                           alt="Avatar"
-                          width={50}
-                          height={50}
                           id={`avatar_${index}`}
                         />
                       ) : (
@@ -85,7 +79,12 @@ const CategoryTable: React.FC<CategoryTableProps> = ({ categoryList }) => {
                   >
                     <div className="flex gap-3">
                       <div className="">
-                       
+                        {/* <Image
+                          src={d.imageUrl}
+                          className="object-contain"
+                          alt="Avatar"
+                          id={`avatar_${index}`}
+                        /> */}
                       </div>
                       <div className="">
                         <div className="truncate">
@@ -122,4 +121,5 @@ const CategoryTable: React.FC<CategoryTableProps> = ({ categoryList }) => {
     </div>
   );
 };
+
 export default CategoryTable;
