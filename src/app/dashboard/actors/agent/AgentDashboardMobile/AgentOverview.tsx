@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Header from "../../../components/ui/header";
 import Cards from "../../../components/ui/cards";
 import PeriodRadios from "../../../components/ui/periodradios";
@@ -8,6 +8,10 @@ import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 function AgentOverview() {
   // @ts-ignore
+  const [activityPeriod, setActivityPeriod] = useState("monthly"); 
+  const handlePeriodChange = (newPeriod: string) => {
+    setActivityPeriod(newPeriod);
+  };
   return (
     <>
       <div>
@@ -16,7 +20,7 @@ function AgentOverview() {
           name={`Sam`}
         />
         <div className="mt-5">
-          <Cards />
+          {/* <Cards /> */}
         </div>
         <div
           className={`justify-between items-center mt-[3.25rem] mb-[1.25rem]`}
@@ -26,7 +30,7 @@ function AgentOverview() {
             title={`Recently sold parts`}
           />
           <div className="mt-5">
-            <PeriodRadios />
+            <PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange}/>
           </div>
         </div>
 

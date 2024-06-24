@@ -1,17 +1,21 @@
 "use client";
-import React, { useState } from 'react'
-import HeaderPage from '../../../../reusables/Header/page';
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link';
 import {  MdChevronRight } from "react-icons/md";
 import { Nunito_Sans } from "next/font/google";
 import { Box, Button, Card, CardContent, Divider, FilledInput, FormControl, FormControlLabel, FormLabel, InputLabel, Modal, SnackbarOrigin, Typography } from '@mui/material';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
-import Footer from '../../../../../components/footer/Footer';
-import NavBarWhileInsideApp from '../../../../reusables/TopBarWhileInside/NavBarWhileInsideApp/page';
 // import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
-import { paths } from "../../../../../path/paths";
+import { useRouter } from 'next/navigation';
+import { ColorRing } from "react-loader-spinner";
+import Footer from '../../../components/footer/Footer';
+import HeaderPage from '../../reusables/Header/page';
+import NavBarWhileInsideApp from '../../reusables/TopBarWhileInside/NavBarWhileInsideApp/page';
+import { paths } from '../../../path/paths';
+import { useCheckoutMutation } from '../../../redux/features/dashboard/buyerQuery';
+
 
 
 const style = {
@@ -52,12 +56,24 @@ const Checkout = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+    deliveryAddress: ''
+  });
+
+  const router = useRouter();
+  const [checkoutData, { isLoading, error}] = useCheckoutMutation();
+
+
   const handleDeliveryModeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDeliveryMode(event.target.value);
   };
 
   const handleSucessClick = () => {
-    console.log('clicked')
+    paths.toHome();
   };
 
   const handleSaveCick = () => {
@@ -67,6 +83,71 @@ const Checkout = () => {
   const handleAddressSelectionToggle = () => {
     setShowAddressSelection(!showAddressSelection);
   };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value
+    });
+  };
+
+  useEffect(() => {
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      router.push(paths.toLogin());
+    } else {
+      setIsAuthenticated(true);
+      let userDetails = sessionStorage.getItem('userDetails') || '';
+      const parsedUserDetails = JSON.parse(userDetails);
+      console.log("user details:", parsedUserDetails);      
+      setFormData({
+        ...formData,
+        firstName: parsedUserDetails.firstName || '',
+        lastName: parsedUserDetails.lastName,
+        
+      });
+      console.log("Form Data:", formData);
+
+    }
+  }, [router]);
+
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (!isAuthenticated) {
+      router.push(paths.toLogin());
+      return;
+    }
+    const payload = {
+      // productId:"666877a5b48207256da90429",
+      location: formData.deliveryAddress,
+      otherInformation: "Some other information", 
+      phoneNumber: formData.phoneNumber
+    };
+    console.log("Payload: ", payload);  
+  
+    try {
+      const response = await checkoutData(payload);
+      if ("data" in response) {
+        console.log(response.data.data);
+        setOpen(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }  
+  };
+
+  if (!isAuthenticated) {
+    return null; // or a loading spinner
+  }
+
+  // const handleOpenToken = () => {
+  //   const token = sessionStorage.getItem('token');
+  //   if (token) {
+  //     setOpen(true); 
+  //   } else {
+  //     router.push(paths.toHome()); 
+  //   }
+  // };
   return (
     // add screen
     <Box>
@@ -123,6 +204,8 @@ const Checkout = () => {
                             fontWeight: '400',
                           }}
                           type='text'
+                          value={formData.firstName}
+                          onChange={handleChange}
                         />
                       </FormControl>
                       <FormControl className="w-full" variant="filled">
@@ -138,6 +221,8 @@ const Checkout = () => {
                             fontWeight: '400',
                           }}
                           type='text'
+                          value={formData.lastName}
+                          onChange={handleChange}
                         />
                       </FormControl>
                       <FormControl className="w-full" variant="filled">
@@ -153,6 +238,8 @@ const Checkout = () => {
                             fontWeight: '400',
                           }}
                           type='tel'
+                          value={formData.phoneNumber}
+                          onChange={handleChange}
                         />
                       </FormControl>
                     </div>
@@ -189,6 +276,8 @@ const Checkout = () => {
                           overflow: 'auto',
                         }}
                         type='text'
+                        value={formData.deliveryAddress}
+                        onChange={handleChange}
                       />
                     </FormControl>
                   ) : (
@@ -276,12 +365,31 @@ const Checkout = () => {
                     </div>
                   ))}
                   <div>
-                    <Button disableRipple className="w-full hover:bg-mecaBluePrimaryColor h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer normal-case hover:opacity-90"
-                    onClick={handleOpen}
-                     >Checkout</Button>
+                  <Button
+                    id="checkoutBtn"
+                    disableRipple
+                    className="w-full hover:bg-mecaBluePrimaryColor h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer normal-case hover:opacity-90"
+                    onClick={handleSubmit}
+                  >
+                    {isLoading ? (
+                      <ColorRing
+                        visible
+                        height="40"
+                        width="40"
+                        ariaLabel="color-ring-loading"
+                        wrapperStyle={{}}
+                        wrapperClass="color-ring-wrapper"
+                        colors={["#ffff", "#ffff", "#ffff", "#ffff", "#ffff"]}
+                      />
+                    ) : (
+                      "Checkout"
+                    )}
+                  </Button>
                     <Modal
+                      // open={open}
+                      // onClose={handleClose}
                       open={open}
-                      onClose={handleClose}
+                      onClose={() => setOpen(false)}
                       aria-labelledby="modal-modal-title"
                       aria-describedby="modal-modal-description"
                       sx={{backdropFilter: 'blur(5px)'}}
