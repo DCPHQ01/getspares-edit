@@ -20,7 +20,7 @@ function AgentOverview() {
           name={`Sam`}
         />
         <div className="mt-5">
-          <Cards />
+          {/* <Cards /> */}
         </div>
         <div
           className={`justify-between items-center mt-[3.25rem] mb-[1.25rem]`}
