@@ -43,12 +43,19 @@ export const mecaAdminQuery = createApi({
         method: "GET",
       }),
     }),
-
-
-    
+    getMecaAdminAgent: builder.query({
+      query:({ page, size}: {page:number; size:number}) =>({
+        url: `/agent/${page}/${size}`,
+        method: "GET",
+      })
+    })
   }),
 });
 
-export const { useAddCategoryMutation, useGetMecaAdminOverviewQuery, useGetTopPerformingVendorsQuery, useGetMecaAdminBuyerQuery,useGetMecaAdminDashboardVendorQuery,useGetViewAllMecaAdminCategoryQuery  } = mecaAdminQuery;
+export const { useAddCategoryMutation, useGetMecaAdminOverviewQuery, 
+              useGetTopPerformingVendorsQuery, useGetMecaAdminBuyerQuery,
+              useGetMecaAdminDashboardVendorQuery,useGetViewAllMecaAdminCategoryQuery, 
+              useGetMecaAdminAgentQuery  
+            } = mecaAdminQuery;
 
 
