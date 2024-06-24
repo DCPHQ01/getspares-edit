@@ -46,7 +46,7 @@ export default function Footer() {
           <div className="lg:w-1/2">
             <div className="lg:w-1/2">
               <p className="py-4 text-sm" id="footerSubText">
-                State up-to-date with information and updates about e-meca
+                Stay up-to-date with information and updates about e-meca
               </p>
               <form id="form">
                 <FormControl className="w-full mb-5" variant="filled">

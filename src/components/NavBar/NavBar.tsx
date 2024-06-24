@@ -19,6 +19,8 @@ import { JwtPayload as BaseJwtPayload } from "jsonwebtoken";
 import * as JWT from "jwt-decode";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { clearUser } from "../../redux/features/users/userSlice";
+import BrandPage from "./brand/page";
+import { TRACE_OUTPUT_VERSION } from "next/dist/shared/lib/constants";
 import { paths } from "../../path/paths";
 
 const navData = [
@@ -35,6 +37,7 @@ const navData = [
     icon: <MdExpandMore size={18} />,
     icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
     link: "",
+    dropdownComponent: <DropdownPage />,
   },
   {
     id: 3,
@@ -42,6 +45,7 @@ const navData = [
     icon: <MdExpandMore size={18} />,
     icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
     link: "",
+    dropdownComponent: <BrandPage />,
   },
   {
     id: 4,
@@ -90,7 +94,7 @@ interface JwtPayload extends BaseJwtPayload {
   role?: string;
 }
 export default function NavBar({ open, setOpen }: NavBarProps) {
-  const [active, setActive] = useState(1);
+  const [active, setActive] = useState<number | null>(1);
   const handleClick = (id: number) => {
     setActive(id);
   };
@@ -144,6 +148,12 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
     console.error("Failed to decode token:", error);
   }
 
+  const [pressed, setPressed] = useState(false);
+
+  const dropDownClicked = () => {
+    setActive(null);
+  };
+
   const name = decoded?.given_name;
 
   const logOut = () => {
@@ -152,7 +162,14 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
     dispatch(clearUser());
     router.push(paths.toLogin());
   };
+
   useEffect(() => setActive(1), []);
+
+  const [toggleCategory, setToggleCategory] = useState(false);
+  const handleToggleCategory = () => {
+    setToggleCategory(!toggleCategory);
+  };
+
   return (
     <nav className="w-full bg-white relative" id="navbarContainer">
       {/* mobile and tab */}
@@ -226,11 +243,11 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
           >
             <Link href={paths.toCart()}>
               <div
-                className="w-[49px] relative h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-2 cursor-pointer"
+                className="w-[49px] h-[28px] ml-8 flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1 cursor-pointer"
                 id="textCart"
               >
                 <MdOutlineShoppingCart
-                  size={14}
+                  size={18}
                   className="text-mecaBluePrimaryColor"
                 />
                 <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
@@ -238,12 +255,12 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                 </p>
               </div>
             </Link>
-            <div className="relative w-full flex items-center h-full">
+            <div className="w-full flex items-center h-full">
               {!tokens ? (
-                <div className="w-full  flex items-center h-full gap-4">
+                <div className="w-full flex justify-end items-center h-full gap-4">
                   <button
                     type="button"
-                    className="w-[28%] h-full border border-mecaBluePrimaryColor bg-white text-mecaBluePrimaryColor text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
+                    className="w-[28%] xl:w-[38%] h-full border border-mecaBluePrimaryColor bg-white text-mecaBluePrimaryColor text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
                     id="startShoppingBtnMainNavBar"
                     onClick={handleLogin}
                   >
@@ -251,7 +268,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                   </button>
                   <button
                     type="button"
-                    className="w-[52%] h-full bg-mecaBluePrimaryColor text-white text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
+                    className="w-[58%] xl:w-[52%] h-full bg-mecaBluePrimaryColor text-white text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
                     id="startShoppingBtn"
                     onClick={handleStartShopping}
                   >
@@ -261,7 +278,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
               ) : (
                 <button
                   onClick={profile}
-                  className="flex gap-2 relative left-[19.2rem]"
+                  className="flex gap-2"
                   type="button"
                   id="profileBtnMainNav"
                 >
@@ -311,40 +328,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
             </div>
           </div>
         </div>
-        {/* {toggleProfile && (
-          <div
-            className="w-52 h-24 rounded-lg p-1 bg-white absolute right-40 top-16"
-            style={{ boxShadow: "0px 2px 8px 0px #63636333" }}
-          >
-            <button
-              onClick={profile}
-              className="flex gap-2 w-48 m-auto  h-10 p-2 pt-3 hover:bg-mecaActiveBackgroundNavColor hover:text-mecaActiveIconsNavColor"
-            >
-              <MdOutlineAccountCircle className="text-mecaProfileColor w-6 h-6 " />
-              <span
-                className="w-24 h-6 flex gap-1 font-normal text-base text-mecaDarkBlueBackgroundOverlay hover:text-mecaActiveIconsNavColor"
-                onClick={handleDashboard}
-              >
-                <span>My</span>
-                <span>Dashboard</span>
-              </span>
-            </button>
-            <div className="mt-1">
-              <button
-                onClick={profile}
-                className="flex gap-2 m-auto w-48 h-10 p-2 pt-3 hover:bg-mecaActiveBackgroundNavColor hover:text-mecaActiveIconsNavColor"
-              >
-                <MdLogout className="text-mecaProfileColor w-6 h-6 " />
-                <span
-                  className="h-6 font-normal text-base text-mecaDarkBlueBackgroundOverlay hover:text-mecaActiveIconsNavColor"
-                  onClick={logOut}
-                >
-                  Logout
-                </span>
-              </button>
-            </div>
-          </div>
-        )} */}
+   
       </div>
       <div
         className="hidden w-full h-20 lg:flex justify-center items-center"
@@ -370,11 +354,11 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
               {item.title}
             </p>
             <div
-              onClick={
-                item.id === 2 || item.id === 3
-                  ? () => toggle(item.id)
-                  : () => {}
-              }
+            // onClick={
+            //   item.id === 2 || item.id === 3
+            //     ? () => toggle(item.id)
+            //     : () => {}
+            // }
             >
               {isCategoryOptionOpened && item.id === active ? (
                 <p>{item.icon2}</p>
@@ -392,22 +376,20 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
             </div>
           </div>
         ))}
-        {isCategoryOptionOpened && (
-          <div className="flex justify-center">
-            <div className="absolute left-96 top-40 z-50">
-              <DropdownPage />
-            </div>
-          </div>
+
+        {navData.map(
+          (item) =>
+            active === item.id && (
+              <div className="flex justify-center" key={item.id}>
+                <div className="absolute left-96 top-40 z-50">
+                  <div onClick={dropDownClicked}>
+                    {item.dropdownComponent}
+                  </div>
+                </div>
+              </div>
+            )
         )}
       </div>
-
-      {/* {isCategoryOptionOpened && (
-        <div className="flex justify-center">
-          <div className="absolute z-50">
-            <DropdownPage />
-          </div>
-        </div>
-      )} */}
     </nav>
   );
 }

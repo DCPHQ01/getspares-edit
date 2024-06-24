@@ -43,10 +43,11 @@ function Category() {
   const [formImage, setFormImage] = useState<string>("");
   const [categoryName, setCategoryName] = useState<string>("");
   const [categoryData, { isLoading }] = useAddCategoryMutation();
+  const [activityPeriod, setActivityPeriod] = useState("monthly"); 
 
   useEffect(() => {
     if (data && Array.isArray(data.data.content)) {
-      const list = data.data.content
+      const list = data.data.content;
       setCategoryList(list);
     }
   }, [data]);
@@ -76,13 +77,22 @@ function Category() {
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
-      const response = await categoryData({ name: categoryName, image: "string" });
+      const response = await categoryData({ 
+        name: categoryName, 
+        image: "string", 
+      });
       if ("data" in response) {
         console.log(response.data.data);
+        setCategoryList((prev) => [...prev, response.data.data]);
+        handleClose();
       }
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handlePeriodChange = (newPeriod: string) => {
+    setActivityPeriod(newPeriod);
   };
 
   return (
@@ -181,7 +191,7 @@ function Category() {
 
       <div className="flex flex-row-reverse justify-between items-center mb-[1.25rem]" id="searchBox">
         <SearchBox placeholder="Search for category" />
-        <PeriodRadios />
+        <PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange}/>
       </div>
 
       <CategoryTable categoryList={categoryList} />

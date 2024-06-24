@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { Nunito_Sans } from "next/font/google";
 import Carousel from "react-multi-carousel";
 import Cards from "../../components/Homepage/Card";
@@ -50,9 +50,18 @@ import TopBarWhileInside from "../reusables/TopBarWhileInside/page";
 import TopBar from "../reusables/TopBar/page";
 import TruncateText from "../../components/utils/utils";
 import { paths } from "../../path/paths";
+import { useGetRelatedProductQuery } from "../../redux/features/users/authQuery";
 
 interface State extends SnackbarOrigin {
   open: boolean;
+}
+
+interface ProductType {
+  id: string;
+  name: string;
+  image: string;
+  price: string;
+  categoryName?: string;
 }
 
 const responsive = {
@@ -180,6 +189,7 @@ const RemoveToCartPage = () => {
     }));
   };
 
+  const { data: relatedProductData, isLoading } = useGetRelatedProductQuery({});
   // const { data: cartsData, refetch } = useViewCartQuery(buyerId);
   const dispatch = useAppDispatch();
 
@@ -210,7 +220,7 @@ const RemoveToCartPage = () => {
 
   const handleSucessClick = (newState: SnackbarOrigin) => () => {
     setState({ ...newState, open: true });
-    router.push(paths.toDashboardActorsBuyer());
+    router.push(paths.toCheckout());
   };
 
   const handleSucessClose = () => {
@@ -848,11 +858,43 @@ const RemoveToCartPage = () => {
             infinite
             autoPlay={true}
             itemClass="lg:pr-8 pr-4"
-          > */}
-          {/* <Cards image={HomeImage1} />
-            <Cards image={HomeImage2} />
-            <Cards image={HomeImage1} /> */}
-          {/* </Carousel> */}
+          >
+            {relatedProductData?.data.map((product: ProductType) => (
+              <Cards
+                id={product.id}
+                image={HomeImage1}
+                productName={product.name}
+                price={product.price}
+              />
+            ))}
+          </Carousel> */}
+          <Fragment>
+            {relatedProductData &&
+            relatedProductData?.data &&
+            relatedProductData?.data.length > 0 ? (
+              <Carousel
+                partialVisible={true}
+                draggable={false}
+                responsive={responsive}
+                ssr={true}
+                infinite
+                autoPlay={true}
+                itemClass="lg:pr-8 pr-4"
+              >
+                {relatedProductData.data.map((product: ProductType) => (
+                  <Cards
+                    key={product.id}
+                    id={product.id}
+                    image={HomeImage1}
+                    productName={product.name}
+                    price={product.price}
+                  />
+                ))}
+              </Carousel>
+            ) : (
+              <p>No related products found.</p>
+            )}
+          </Fragment>
         </div>
       </div>
 

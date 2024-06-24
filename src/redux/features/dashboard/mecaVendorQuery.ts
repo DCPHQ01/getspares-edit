@@ -19,8 +19,15 @@ export const mecaVendorQuery = createApi({
             body,
     
           })
-        })
-    })
+        }),
+    getMecaVendorOrders: builder.query({
+      query:({ page, size}) => ({
+        url: `/dashboard/vendor-order?page=${page}&size=${size}`,
+        method: "GET",
+      }),
+    }),
+      
+  })
 })
 
-export const {useGetMecaVendorOverviewQuery,useGetVendorAdminInventoryMutation} = mecaVendorQuery;
+export const {useGetMecaVendorOverviewQuery, useGetMecaVendorOrdersQuery,useGetVendorAdminInventoryMutation} = mecaVendorQuery;
