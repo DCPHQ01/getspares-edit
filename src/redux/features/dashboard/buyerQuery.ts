@@ -18,10 +18,17 @@ export const buyerQuery = createApi({
             url: `/dashboard/allOrders?pageNo=${pageNo}&pageSize=${pageSize}`,
             method: "GET",
         })
-    })
-    })
+    }),
+    submitFeedback: builder.mutation({ 
+        query: ({comment, productId, orderId, rating}) => ({
+            url: "/feedback/product",
+            method: "POST",
+            body: {comment, productId, orderId, rating},
+        }),
+    }),
+})
 });
 
-export const { useCheckoutMutation, useGetViewAllOrdersQuery  } = buyerQuery;
+export const { useCheckoutMutation, useGetViewAllOrdersQuery, useSubmitFeedbackMutation  } = buyerQuery;
 
 

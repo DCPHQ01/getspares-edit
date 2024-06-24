@@ -9,99 +9,7 @@ import { useRouter } from "next/navigation";
 import Details from "../../../../category/products/viewDetails/[details]/page";
 import BasicTabs from "./FeedBackTab";
 import ViewParticularOrderDetailsPage from "../../../../category/products/viewDetails/viewParticularOrderDetails/page";
-import { ClipLoader } from 'react-spinners';
-
-// const data = [
-//   {
-//     avatar: image1,
-//     name: "Ebuka Shima Oke",
-//     email: "ebukashima@gmail.com",
-//     sale: "MCA3435656jh787",
-//     vale: "₦ 200,000.00",
-//     date: "24 June 2022",
-//     time: "12:00PM",
-//   },
-//   {
-//     avatar: image2,
-//     name: "Sanni Rabiu",
-//     email: "sannirabiu@gmail.com",
-//     sale: "MCA3435656jh787",
-//     vale: "₦ 1,000,000.00",
-//     date: "30 June 2023",
-//     time: "06:00PM",
-//   },
-//   {
-//     avatar: image1,
-//     name: "Ayodele Olakoya",
-//     email: "ayodeleola@gmail.com",
-//     sale: "MCA3435656jh787",
-//     vale: "₦ 600,000.00",
-//     date: "12 May 2024",
-//     time: "08:45PM",
-//   },
-//   {
-//     avatar: image2,
-//     name: "Ngozi Ike",
-//     email: "ngoziike.com",
-//     sale: "MCA3435656jh787",
-//     vale: "₦ 120,000.00",
-//     date: "02 Sep 2022",
-//     time: "11:15AM",
-//   },
-//   {
-//     avatar: image1,
-//     name: "Ayodele Olakoya",
-//     email: "ayodeleola@gmail.com",
-//     sale: "MCA3435656jh787",
-//     vale: "₦ 700,000,00",
-//     date: "30 Aug 2022",
-//     time: "04:00PM",
-//   },
-
-//   {
-//     avatar: image1,
-//     name: "Ebuka Shima Oke",
-//     email: "ebukashima@gmail.com",
-//     sale: "MCA3435656jh787",
-//     vale: "₦ 200,000.00",
-//     date: "24 June 2022",
-//     time: "12:00PM",
-//   },
-//   {
-//     avatar: image2,
-//     name: "Sanni Rabiu",
-//     email: "sannirabiu@gmail.com",
-//     sale: "MCA3435656jh787",
-//     vale: "₦ 1,000,000.00",
-//     date: "30 June 2023",
-//     time: "06:00PM",
-//   },
-//   {
-//     avatar: image2,
-//     name: "Ngozi Ike",
-//     email: "ngoziike.com",
-//     sale: "MCA3435656jh787",
-//     vale: "₦ 120,000.00",
-//     date: "02 Sep 2022",
-//     time: "11:15AM",
-//   },
-//   {
-//     avatar: image1,
-//     name: "Ayodele Olakoya",
-//     email: "ayodeleola@gmail.com",
-//     sale: "MCA3435656jh787",
-//     vale: "₦ 700,000,00",
-//     date: "30 Aug 2022",
-//     time: "04:00PM",
-//   },
-// ];
-
-// type BuyerOrderData = {
-//   sale: string;
-//   vale: string;
-//   date: string;
-//   time: string;
-// };
+import { ColorRing } from "react-loader-spinner";
 
 type BuyerOrderData = {
   orderId: string;
@@ -128,22 +36,6 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
     setRenderDetails(!renderDetails);
   };
 
-  // const parseDateTime = (dateTimeStr: string) => {
-  //   const [date, time] = dateTimeStr.split("T");
-  //   return {
-  //     dateCreated: date,
-  //     timeCreated: time,
-  //   };
-  // };
-
-  // const formattedData = data?.map((order) => {
-  //   const { dateCreated, timeCreated } = parseDateTime(order.dateCreated);
-  //   return {
-  //     ...order,
-  //     dateCreated,
-  //     timeCreated,
-  //   };
-  // });text-center mt-20 relative lg:left-[550px]
   return (
     <div>
       <div id="tableContainer">
@@ -169,11 +61,18 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
             </thead>
             <tbody>
               {isLoading ? (
-                <tr>
-                  <div className="flex justify-center items-center lg:left-[550px]">
-                    <ClipLoader color="123abc" size={50} />
-                    <p>Loading orders</p>
-                  </div>
+                  <tr>
+                  <td className="text-center py-4">
+                    <ColorRing
+                      visible
+                      height="40"
+                      width="40"
+                      ariaLabel="color-ring-loading"
+                      wrapperStyle={{}}
+                      wrapperClass="color-ring-wrapper"
+                      colors={["#ffff", "#ffff", "#ffff", "#ffff", "#ffff"]}
+                    />
+                  </td>
                 </tr>
               ) : (
                 data?.map((d, index) => {
@@ -236,6 +135,8 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
                   <ClipLoader color="123abc" size={50} />
                   <p>Loading orders</p>
                 </div>
+                    <ClipLoader color="123abc" size={50} />
+
               ): 
               {data?.map((d, index) => (
                 let date = '',
