@@ -47,7 +47,7 @@ function Category() {
 
   useEffect(() => {
     if (data && Array.isArray(data.data.content)) {
-      const list = data.data.content
+      const list = data.data.content;
       setCategoryList(list);
     }
   }, [data]);
@@ -77,9 +77,14 @@ function Category() {
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
-      const response = await categoryData({ name: categoryName, image: "string" });
+      const response = await categoryData({ 
+        name: categoryName, 
+        image: "string", 
+      });
       if ("data" in response) {
         console.log(response.data.data);
+        setCategoryList((prev) => [...prev, response.data.data]);
+        handleClose();
       }
     } catch (error) {
       console.log(error);

@@ -10,11 +10,11 @@ import RadioGroup from '@mui/material/RadioGroup';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import { useRouter } from 'next/navigation';
 import { ColorRing } from "react-loader-spinner";
+import Footer from '../../../components/footer/Footer';
 import HeaderPage from '../../reusables/Header/page';
 import NavBarWhileInsideApp from '../../reusables/TopBarWhileInside/NavBarWhileInsideApp/page';
-import Footer from '../../../components/footer/Footer';
-import { useCheckoutMutation } from '../../../redux/features/dashboard/buyerQuery';
 import { paths } from '../../../path/paths';
+import { useCheckoutMutation } from '../../../redux/features/dashboard/buyerQuery';
 
 
 
@@ -63,10 +63,9 @@ const Checkout = () => {
     phoneNumber: '',
     deliveryAddress: ''
   });
-  const [savedAddress, setSavedAddress] = useState('');
 
   const router = useRouter();
-  const [checkoutData, { isLoading}] = useCheckoutMutation();
+  const [checkoutData, { isLoading, error}] = useCheckoutMutation();
 
 
   const handleDeliveryModeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,7 +73,7 @@ const Checkout = () => {
   };
 
   const handleSucessClick = () => {
-    console.log('clicked')
+    paths.toHome();
   };
 
   const handleSaveCick = () => {
@@ -119,7 +118,7 @@ const Checkout = () => {
       return;
     }
     const payload = {
-    //   productId:"666877a5b48207256da90429",
+      // productId:"666877a5b48207256da90429",
       location: formData.deliveryAddress,
       otherInformation: "Some other information", 
       phoneNumber: formData.phoneNumber
@@ -134,9 +133,9 @@ const Checkout = () => {
       }
     } catch (error) {
       console.log(error);
-    }
-  
+    }  
   };
+
   if (!isAuthenticated) {
     return null; // or a loading spinner
   }
@@ -366,27 +365,31 @@ const Checkout = () => {
                     </div>
                   ))}
                   <div>
-                    <Button disableRipple className="w-full hover:bg-mecaBluePrimaryColor h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer normal-case hover:opacity-90"
+                  <Button
+                    id="checkoutBtn"
+                    disableRipple
+                    className="w-full hover:bg-mecaBluePrimaryColor h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer normal-case hover:opacity-90"
                     onClick={handleSubmit}
-                     >
-                      {/* {isLoading ? (
-                        <ColorRing
-                          visible
-                          height="40"
-                          width="40"
-                          ariaLabel="color-ring-loading"
-                          wrapperStyle={{}}
-                          wrapperClass="color-ring-wrapper"
-                          colors={["#ffff", "#ffff", "#ffff", "#ffff", "#ffff"]}
-                        />
-                      ) : ( */}
-                      Checkout
-                    </Button>
+                  >
+                    {isLoading ? (
+                      <ColorRing
+                        visible
+                        height="40"
+                        width="40"
+                        ariaLabel="color-ring-loading"
+                        wrapperStyle={{}}
+                        wrapperClass="color-ring-wrapper"
+                        colors={["#ffff", "#ffff", "#ffff", "#ffff", "#ffff"]}
+                      />
+                    ) : (
+                      "Checkout"
+                    )}
+                  </Button>
                     <Modal
-                      open={open}
-                      onClose={handleClose}
                       // open={open}
-                      // onClose={() => setOpen(false)}
+                      // onClose={handleClose}
+                      open={open}
+                      onClose={() => setOpen(false)}
                       aria-labelledby="modal-modal-title"
                       aria-describedby="modal-modal-description"
                       sx={{backdropFilter: 'blur(5px)'}}
