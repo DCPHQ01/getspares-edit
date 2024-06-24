@@ -100,9 +100,15 @@ const OverviewTable = () => {
           <thead>
             <tr className="truncate">
               <th id="companyNameHeader">Items</th>
-              <th id="totalItemsSoldHeader">Order ID</th>
-              <th id="transactionValueHeader">Transaction value</th>
-              <th id="dateTimeJoinedHeader">Vendor</th>
+              <th id="totalItemsSoldHeader" style={{ paddingLeft: "4.5rem" }}>
+                Order ID
+              </th>
+              <th id="transactionValueHeader" style={{ paddingLeft: "2rem" }}>
+                Transaction value
+              </th>
+              <th id="dateTimeJoinedHeader" style={{ paddingLeft: "5rem" }}>
+                Vendor
+              </th>
               <th id="dateTimeJoinedHeader">Date & time ordered</th>
             </tr>
           </thead>
@@ -124,7 +130,7 @@ const OverviewTable = () => {
                       id={`avatar_${index}`}
                     />
                     <div id={`companyDetails_${index}`}>
-                      <div>{d.name}</div>
+                      <div className="mt-2">{d.name}</div>
                     </div>
                   </div>
                 </td>

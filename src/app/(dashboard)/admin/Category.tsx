@@ -43,6 +43,7 @@ function Category() {
   const [formImage, setFormImage] = useState<string>("");
   const [categoryName, setCategoryName] = useState<string>("");
   const [categoryData, { isLoading }] = useAddCategoryMutation();
+  const [activityPeriod, setActivityPeriod] = useState("monthly"); 
 
   useEffect(() => {
     if (data && Array.isArray(data.data.content)) {
@@ -88,6 +89,10 @@ function Category() {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handlePeriodChange = (newPeriod: string) => {
+    setActivityPeriod(newPeriod);
   };
 
   return (
@@ -186,7 +191,7 @@ function Category() {
 
       <div className="flex flex-row-reverse justify-between items-center mb-[1.25rem]" id="searchBox">
         <SearchBox placeholder="Search for category" />
-        <PeriodRadios />
+        <PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange}/>
       </div>
 
       <CategoryTable categoryList={categoryList} />
