@@ -21,11 +21,12 @@ interface VendorOverview {
 
 function VendorOverview() {
   const { data, isLoading, isError} = useGetMecaVendorOverviewQuery({});
-  const [overView, setOverView] = useState({
+  const [overView, setOverView] = useState(data?.data ??{
     totalNumberOfAgents: 0,
     totalNumberOfProductsSold: 0,
     totalOrderValue: 0,
   });
+  console.log("data for VendorOverviews: ",overView)
   const [topPerformingProducts, setTopPerformingProducts] = useState<VendorOverview[]>([]);
   console.log("data for VendorOverview: ",data)
 

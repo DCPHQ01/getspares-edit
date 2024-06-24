@@ -4,92 +4,108 @@ import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
 import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
 
-const data = [
-  {
-    avatar: image1,
-    name: "Ebuka Shima Oke",
-    email: "ebukashima@gmail.com",
-    sale: 12,
-    vale: "₦ 200,000.00",
-    date: "24 June 2022",
-    time: "12:00PM",
-  },
-  {
-    avatar: image2,
-    name: "Sanni Rabiu",
-    email: "sannirabiu@gmail.com",
-    sale: 83,
-    vale: "₦ 1,000,000.00",
-    date: "30 June 2023",
-    time: "06:00PM",
-  },
-  {
-    avatar: image1,
-    name: "Ayodele Olakoya",
-    email: "ayodeleola@gmail.com",
-    sale: 45,
-    vale: "₦ 600,000.00",
-    date: "12 May 2024",
-    time: "08:45PM",
-  },
-  {
-    avatar: image2,
-    name: "Ngozi Ike",
-    email: "ngoziike.com",
-    sale: 10,
-    vale: "₦ 120,000.00",
-    date: "02 Sep 2022",
-    time: "11:15AM",
-  },
-  {
-    avatar: image1,
-    name: "Ayodele Olakoya",
-    email: "ayodeleola@gmail.com",
-    sale: 67,
-    vale: "₦ 700,000,00",
-    date: "30 Aug 2022",
-    time: "04:00PM",
-  },
+// const data = [
+//   {
+//     avatar: image1,
+//     name: "Ebuka Shima Oke",
+//     email: "ebukashima@gmail.com",
+//     sale: 12,
+//     vale: "₦ 200,000.00",
+//     date: "24 June 2022",
+//     time: "12:00PM",
+//   },
+//   {
+//     avatar: image2,
+//     name: "Sanni Rabiu",
+//     email: "sannirabiu@gmail.com",
+//     sale: 83,
+//     vale: "₦ 1,000,000.00",
+//     date: "30 June 2023",
+//     time: "06:00PM",
+//   },
+//   {
+//     avatar: image1,
+//     name: "Ayodele Olakoya",
+//     email: "ayodeleola@gmail.com",
+//     sale: 45,
+//     vale: "₦ 600,000.00",
+//     date: "12 May 2024",
+//     time: "08:45PM",
+//   },
+//   {
+//     avatar: image2,
+//     name: "Ngozi Ike",
+//     email: "ngoziike.com",
+//     sale: 10,
+//     vale: "₦ 120,000.00",
+//     date: "02 Sep 2022",
+//     time: "11:15AM",
+//   },
+//   {
+//     avatar: image1,
+//     name: "Ayodele Olakoya",
+//     email: "ayodeleola@gmail.com",
+//     sale: 67,
+//     vale: "₦ 700,000,00",
+//     date: "30 Aug 2022",
+//     time: "04:00PM",
+//   },
 
-  {
-    avatar: image1,
-    name: "Ebuka Shima Oke",
-    email: "ebukashima@gmail.com",
-    sale: 12,
-    vale: "₦ 200,000.00",
-    date: "24 June 2022",
-    time: "12:00PM",
-  },
-  {
-    avatar: image2,
-    name: "Sanni Rabiu",
-    email: "sannirabiu@gmail.com",
-    sale: 83,
-    vale: "₦ 1,000,000.00",
-    date: "30 June 2023",
-    time: "06:00PM",
-  },
-  {
-    avatar: image2,
-    name: "Ngozi Ike",
-    email: "ngoziike.com",
-    sale: 10,
-    vale: "₦ 120,000.00",
-    date: "02 Sep 2022",
-    time: "11:15AM",
-  },
-  {
-    avatar: image1,
-    name: "Ayodele Olakoya",
-    email: "ayodeleola@gmail.com",
-    sale: 67,
-    vale: "₦ 700,000,00",
-    date: "30 Aug 2022",
-    time: "04:00PM",
-  },
-];
+//   {
+//     avatar: image1,
+//     name: "Ebuka Shima Oke",
+//     email: "ebukashima@gmail.com",
+//     sale: 12,
+//     vale: "₦ 200,000.00",
+//     date: "24 June 2022",
+//     time: "12:00PM",
+//   },
+//   {
+//     avatar: image2,
+//     name: "Sanni Rabiu",
+//     email: "sannirabiu@gmail.com",
+//     sale: 83,
+//     vale: "₦ 1,000,000.00",
+//     date: "30 June 2023",
+//     time: "06:00PM",
+//   },
+//   {
+//     avatar: image2,
+//     name: "Ngozi Ike",
+//     email: "ngoziike.com",
+//     sale: 10,
+//     vale: "₦ 120,000.00",
+//     date: "02 Sep 2022",
+//     time: "11:15AM",
+//   },
+//   {
+//     avatar: image1,
+//     name: "Ayodele Olakoya",
+//     email: "ayodeleola@gmail.com",
+//     sale: 67,
+//     vale: "₦ 700,000,00",
+//     date: "30 Aug 2022",
+//     time: "04:00PM",
+//   },
+// ];
 
-const BuyerTable = () => {
+type BuyerData = {
+  avatar: string;
+  name: string;
+  email: string;
+  sale: number;
+  vale: string;
+  date: string;
+  time: string;
+};
+
+interface BuyerTableProps {
+  data: BuyerData[];
+  isLoading?: boolean;
+  isError?: boolean;
+}
+
+const BuyerTable = ({ data, isLoading = false, isError = false }: BuyerTableProps) => {
   return (
     <div
       id="mecaAdminTable"
@@ -109,7 +125,7 @@ const BuyerTable = () => {
           </tr>
         </thead>
         <tbody>
-          {data.map((d, index) => (
+          {data?.map((d, index) => (
             <tr key={index} id={`row_${index}`} className="cursor-pointer">
               <td id={`companyData_${index}`}>
                 <div

@@ -87,7 +87,7 @@ function Category() {
 
   return (
     <>
-      <div className="mb-[1.25rem] flex justify-between items-center">
+      <div className="mb-[1.25rem] flex justify-between items-center" id="cateParentDiv">
         <Header subtitle="Keep track of categories and their products" title="Category" amount="500,607" />
 
         <button
@@ -103,7 +103,7 @@ function Category() {
 
         <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
           <Box sx={style}>
-            <div className="flex justify-between">
+            <div className="flex justify-between" id="createCategory">
               <div>
                 <p className="text-lg font-semibold">Create category</p>
                 <p className="text-sm text-mecaGrayBodyText">Create category for your product items</p>
@@ -111,7 +111,7 @@ function Category() {
               <MdClose className="text-2xl cursor-pointer" onClick={handleClose} />
             </div>
 
-            <div className="h-[283px] w-[316px] pt-6">
+            <div className="h-[283px] w-[316px] pt-6" id="createCollection">
               <input
                 title="image inputs"
                 type="file"
@@ -122,7 +122,7 @@ function Category() {
               />
 
               {formImage ? (
-                <div className="w-20 h-20 m-auto">
+                <div className="w-20 h-20 m-auto" id="imgDiv">
                   <img src={formImage} alt="Uploaded" className="w-full h-full object-cover rounded-full" />
                 </div>
               ) : (
@@ -171,7 +171,7 @@ function Category() {
                     colors={["#ffff", "#ffff", "#ffff", "#ffff", "#ffff"]}
                   />
                 ) : (
-                  <div className="flex text-white items-center justify-center">Create category</div>
+                  <div className="flex text-white items-center justify-center" id="addCategory">Create category</div>
                 )}
               </button>
             </div>
@@ -179,14 +179,14 @@ function Category() {
         </Modal>
       </div>
 
-      <div className="flex flex-row-reverse justify-between items-center mb-[1.25rem]">
+      <div className="flex flex-row-reverse justify-between items-center mb-[1.25rem]" id="searchBox">
         <SearchBox placeholder="Search for category" />
         <PeriodRadios />
       </div>
 
       <CategoryTable categoryList={categoryList} />
 
-      <div className="flex justify-end mt-10 text-mecaBluePrimaryColor font-bold text-lg">
+      <div className="flex justify-end mt-10 text-mecaBluePrimaryColor font-bold text-lg" id="nextPagination">
         <button className="flex gap-x-2">
           Next
           <span>

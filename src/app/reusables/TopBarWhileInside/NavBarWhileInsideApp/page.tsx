@@ -79,7 +79,7 @@ export default function NavBarWhileInsideApp() {
       </div>
       {/* desktop */}
       <div
-        className="hidden lg:flex z-[2000] flex-col border-b-2 border-b-mecaBottomBorder px-10"
+        className="hidden lg:flex z-[2000] flex-col border-b-2 border-b-mecaBottomBorder px-6"
         id="menuContainerDesktop"
       >
         <div
@@ -126,12 +126,12 @@ export default function NavBarWhileInsideApp() {
             </div>
           </div>
           <div
-            className="ml-auto flex justify-end items-center gap-x-4"
+            className="w-[28%] h-8 flex justify-end items-center gap-x-4"
             id="cartDesktop"
           >
             <Link href={paths.toCart()}>
               <div
-                className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1 cursor-pointer"
+                className="w-[49px] h-[28px] ml-8 flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1 cursor-pointer"
                 id="textCart"
               >
                 <MdOutlineShoppingCart
@@ -147,10 +147,10 @@ export default function NavBarWhileInsideApp() {
 
             <div className="w-full flex items-center h-full">
               {!tokens ? (
-                <div className="w-full flex items-center h-full gap-4">
+                <div className="w-full flex justify-end items-center h-full gap-4">
                   <button
                     type="button"
-                    className="w-[28%] h-full border border-mecaBluePrimaryColor bg-white text-mecaBluePrimaryColor text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
+                    className="w-[28%] xl:w-[38%] h-full border border-mecaBluePrimaryColor bg-white text-mecaBluePrimaryColor text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
                     id="startShoppingBtnMainNavBar"
                     onClick={handleLogin}
                   >
@@ -158,7 +158,7 @@ export default function NavBarWhileInsideApp() {
                   </button>
                   <button
                     type="button"
-                    className="w-[52%] h-full bg-mecaBluePrimaryColor text-white text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
+                    className="w-[58%] xl:w-[52%] h-full bg-mecaBluePrimaryColor text-white text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
                     id="startShoppingBtn"
                     onClick={handleStartShopping}
                   >

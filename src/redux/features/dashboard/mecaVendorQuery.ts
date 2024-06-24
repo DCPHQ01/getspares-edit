@@ -11,8 +11,16 @@ export const mecaVendorQuery = createApi({
             url: "/dashboard/vendor-overview",
             method: "GET",
           }) 
+        }),
+        getVendorAdminInventory: builder.mutation({
+          query: (body: { pageNumber: number; pageSize: number })=> ({
+            url: "/product/vendor/view-all",
+            method: "POST",
+            body,
+    
+          })
         })
     })
 })
 
-export const {useGetMecaVendorOverviewQuery} = mecaVendorQuery;
+export const {useGetMecaVendorOverviewQuery,useGetVendorAdminInventoryMutation} = mecaVendorQuery;

@@ -10,6 +10,22 @@ import { Menu, MenuItem, IconButton } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { title } from "process";
 import ViewItemDetails from "./[viewDetailsInventory]/page";
+import { ClipLoader } from 'react-spinners';
+
+interface InventoryData {
+  categoryName?: string;
+  dateCreated: string;
+  itemName: string;
+  quantitySold: number;
+  price?: number;
+  
+};
+
+interface InventoryTableProps {
+  inventoryData: InventoryData[];
+  isLoading: boolean;
+}
+
 const option = [
   {
     icon: <MdPreview style={{ color: "gray" }} />,
@@ -158,7 +174,7 @@ const data = [
   },
 ];
 
-const VendorInventoryTable = () => {
+const VendorInventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isLoading}) => {
   const [open, setOpen] = React.useState<boolean>(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const openOption = Boolean(anchorEl);
@@ -203,12 +219,27 @@ const VendorInventoryTable = () => {
               <th id="transactionValueHeader">Transaction Value</th>
               <th id="totalItemsSoldHeader">Quantity sold</th>
               <th id="transactionValueHeader" style={{ paddingLeft: "2rem" }}>
-                Transaction value
+                Category
               </th>
+              <th id="dateTime">Date and Time</th>
             </tr>
           </thead>
           <tbody>
-            {data.map((d, index) => (
+            {isLoading ? (
+        <div className="text-center mt-20 relative lg:left-[550px]">
+           <ClipLoader color={'#123abc'} size={50} />
+          <p>Loading vendors...</p>
+        </div>
+      ): (inventoryData?.map((d, index) => {
+        let date = '';
+        let time = '';
+    
+        if (d.dateCreated) {
+            [date, time] = d.dateCreated.split(" ");
+        }
+    
+       
+        return (
               <tr key={index} id={`row_${index}`} className="cursor-pointer truncate hover:bg-gray-50"
               >
                {/* <tr> */}
@@ -217,15 +248,15 @@ const VendorInventoryTable = () => {
                    onClick={navigateTo}
                     className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
                   >
-                    <Image
+                    {/* <Image
                       src={d.avatar}
                       className="object-contain"
                       alt="Avatar"
                       id={`avatar_${index}`}
                      
-                    />
+                    /> */}
                     <div className="mt-2" id={`companyDetails_${index}`}>
-                      <div>{d.name}</div>
+                      <div>{d.itemName}</div>
                     </div>
                   </div>
                 </td>
@@ -244,7 +275,7 @@ const VendorInventoryTable = () => {
                       id={`avatar_${index}`}
                     /> */}
                     <div id={`companyDetails_${index}`}>
-                      <div>{d.TransactionValue}</div>
+                      <div>{d.quantitySold}</div>
                     </div>
                   </div>
                 </td>
@@ -254,7 +285,7 @@ const VendorInventoryTable = () => {
                   className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
                   id={`itemsSold_${index}`}
                 >
-                  {d.sale}
+                  {d.price}
                 </td>
                 <td
                 onClick={navigateTo}
@@ -262,7 +293,7 @@ const VendorInventoryTable = () => {
                   id={`transactionValue_${index}`}
                 >
                   <span className="c pl-2 pr-2 border border-solid border-gray-400 rounded-xl pt-1 pb-1">
-                    {d.category}
+                    {d.categoryName}
                   </span>
                 </td>
                 <td
@@ -272,8 +303,8 @@ const VendorInventoryTable = () => {
                   <div 
                   onClick={navigateTo}
                   >
-                    {d.date}<br/>
-                  {d.time}
+                    {date}<br/>
+                  {time}
                   </div>
                   
                  
@@ -312,7 +343,7 @@ const VendorInventoryTable = () => {
                   </td>
                
               </tr>
-            ))}
+            )}))}
           </tbody>
         </table>
       </div>

@@ -9,6 +9,7 @@ import Image from "next/image";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import { ClipLoader } from 'react-spinners';
+import { ColorRing } from "react-loader-spinner";
 
 
 
@@ -200,8 +201,19 @@ const VendorTable: React.FC<VendorTableProps>  = ({vendorList, isLoading}) => {
           </thead>
           <tbody>
              {isLoading ? (
-        <div className="text-center mt-20 relative lg:left-[550px]">
-           <ClipLoader color={'#123abc'} size={50} />
+        <div 
+        className="text-center mt-28 relative lg:left-[188%] lg:right[188%]"
+        >
+           <ColorRing  
+            visible={true}
+            height="40"
+            width="40"
+            ariaLabel="color-ring-loading"
+            wrapperStyle={{position: "absolute", bottom: "75%", left: "44%",}}
+            wrapperClass="color-ring-wrapper"
+            colors={["#000000", "#000000", "#000000", "#000000", "#000000"]}
+
+           />
           <p>Loading vendors...</p>
         </div>
       ) :(vendorList?.map((d, index) => {
