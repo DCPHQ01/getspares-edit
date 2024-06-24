@@ -20,8 +20,10 @@ import {
 } from "react-icons/md";
 
 function Agents() {
-  const { data, isError} = useGetMecaAdminAgentQuery({page:1, size:10 })
+  const { data, isLoading, isError} = useGetMecaAdminAgentQuery({page:1, size:10 })
   const [agentList, setAgentList] = useState<Agent[]>([]);
+  const [page, setPage] = useState(0)
+  const size = 10
   console.log("The agent list", data)
 
   useEffect(() => {
@@ -32,6 +34,18 @@ function Agents() {
   }, [data]);
 
   console.log("The datas: ", data);
+
+  const handlePreviousPage=()=>{
+    if(page > 0){
+      setPage(prevPage => prevPage + 1);
+    }
+  }
+
+  const handleNextPage=()=>{
+    // if (data.length === size) {
+      setPage(prevPage => prevPage + 1);
+    // }
+  }
 
   return (
     <>
@@ -48,17 +62,23 @@ function Agents() {
 
       <AgentTable agentList={agentList}/>
 
-      <div className="flex justify-end mt-10 text-mecaBluePrimaryColor font-bold text-lg">
-        {/* <button className="flex gap-x-2">
+      <div className="flex gap-[89%] md:gap-[85%] mt-10 text-mecaBluePrimaryColor font-bold text-lg">
+          <button className="flex gap-x-2" 
+          onClick={handlePreviousPage}
+          disabled={page === 0}
+          >
             <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
-          </button> */}
-        <button className="flex gap-x-2">
-          Next
-          <span>
-            <MdChevronRight className="mt-[2px] text-2xl" />{" "}
-          </span>
-        </button>
-      </div>
+          </button>
+          <button className="flex gap-x-2" 
+          onClick={handleNextPage}
+          // disabled={data.length === 0}
+          >
+            Next
+            <span>
+              <MdChevronRight className="mt-[2px] text-2xl" />{" "}
+            </span>
+          </button>
+        </div>
     </>
   );
 }

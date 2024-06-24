@@ -26,6 +26,8 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import FilterFixedPage from "../../filterFixedPage";
 import SideFilter from "../../sideFilter";
 import TopBarWhileInside from "../../../reusables/TopBarWhileInside/page";
+import { useGetProductInCategoryQuery } from "../../../../redux/features/users/authQuery";
+import { ColorRing } from "react-loader-spinner";
 
 interface ItemsDataProps {
   id: number;
@@ -103,6 +105,7 @@ export default function Products() {
 
   const router = useRouter();
   const [showFilter, setShowFilter] = useState(true);
+  const [categoryId, setCategoryId] = useState<string>("");
   const handleToggleFilter = () => {
     setShowFilter(!showFilter);
   };
@@ -117,6 +120,18 @@ export default function Products() {
     router.push(`/category/products/${searches}/${id}`);
   };
 
+  const { data, isLoading } = useGetProductInCategoryQuery({
+    categoryId,
+    pageNumber: 0,
+    pageSize: 100,
+  });
+  console.log("data for categories ", data?.data?.content);
+  useEffect(() => {
+    const storedCategoryId = sessionStorage.getItem("categoryId");
+    if (storedCategoryId) {
+      setCategoryId(storedCategoryId);
+    }
+  }, []);
   const filterData = [
     {
       id: 1,
@@ -433,57 +448,78 @@ export default function Products() {
             className="flex flex-wrap justify-between w-full"
             id="allItemsContainerDivDesktop"
           >
-            {itemsData.map((item: ItemsDataProps) => (
-              <div
-                className="flex flex-col w-[30.4%] cursor-pointer"
-                key={item.id}
-                onClick={() => handleProductDescription(item.id)}
-              >
+            {isLoading ? (
+              <ColorRing
+                visible={true}
+                height="40"
+                width="40"
+                ariaLabel="color-ring-loading"
+                wrapperStyle={{}}
+                wrapperClass="color-ring-wrapper"
+                colors={["#00A3FF", "#FFD300", "#00A3FF", "#FFD300", "#FF0000"]}
+              />
+            ) : data?.data?.content?.length <= 0 ? (
+              <div className="w-full flex justify-center items-center">
+                <p className="text-mecaDarkBlueBackgroundOverlay text-4xl font-nunito font-semibold">
+                  No Product Found
+                </p>
+              </div>
+            ) : (
+              data?.data?.content.map((item: ItemsDataProps) => (
                 <div
-                  className="w-full h-[194px] flex justify-center items-center bg-mecaSearchColor"
-                  id="itemImage"
+                  className="flex flex-col w-[30.4%] cursor-pointer"
+                  key={item.id}
+                  onClick={() => handleProductDescription(item.id)}
                 >
-                  <Image
-                    src={item.image}
-                    alt="tractor image"
-                    width={144}
-                    height={106}
-                  />
-                </div>
-                <div
-                  className="w-full flex flex-col gap-y-4 mt-4"
-                  id="itemContent"
-                >
-                  <div className="flex justify-between items-center">
-                    <TruncateText text={item.desc} maxLength={50} />
-                    <div
-                      id="ratingContainerDesktop"
-                      className="flex items-center gap-x-1"
-                    >
-                      <Image src={star} alt="rating" width={12} height={12} />
-                      <p className="text-[12px] text-mecaDarkBlueBackgroundOverlay">
-                        {item.rating}
-                      </p>
-                    </div>
+                  <div
+                    className="w-full h-[194px] flex justify-center items-center bg-mecaSearchColor"
+                    id="itemImage"
+                  >
+                    <Image
+                      src={item.image}
+                      alt="tractor image"
+                      width={144}
+                      height={106}
+                    />
                   </div>
                   <div
-                    id="priceContainer"
-                    className="flex items-center ml-6 mb-4"
+                    className="w-full flex flex-col gap-y-4 mt-4"
+                    id="itemContent"
                   >
-                    <p className="text-mecaDarkBlueBackgroundOverlay text-sm font-nunito font-bold text-center">
-                      {item.price}
-                    </p>
-                  </div>
-                  <div className="hidden md:flex justify-between items-center lg:hidden">
-                    <TruncateText text={item.desc} maxLength={25} />
-                    <div id="ratingContainerTab" className="flex items-center">
-                      <Image src={star} alt="rating" width={10} height={10} />
-                      <p>{item.rating}</p>
+                    <div className="flex justify-between items-center">
+                      <TruncateText text={item.desc} maxLength={50} />
+                      <div
+                        id="ratingContainerDesktop"
+                        className="flex items-center gap-x-1"
+                      >
+                        <Image src={star} alt="rating" width={12} height={12} />
+                        <p className="text-[12px] text-mecaDarkBlueBackgroundOverlay">
+                          {item.rating}
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      id="priceContainer"
+                      className="flex items-center ml-6 mb-4"
+                    >
+                      <p className="text-mecaDarkBlueBackgroundOverlay text-sm font-nunito font-bold text-center">
+                        {item.price}
+                      </p>
+                    </div>
+                    <div className="hidden md:flex justify-between items-center lg:hidden">
+                      <TruncateText text={item.desc} maxLength={25} />
+                      <div
+                        id="ratingContainerTab"
+                        className="flex items-center"
+                      >
+                        <Image src={star} alt="rating" width={10} height={10} />
+                        <p>{item.rating}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>
         <div id="footerDiv" className="mt-12">
