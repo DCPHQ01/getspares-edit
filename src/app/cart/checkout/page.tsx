@@ -56,7 +56,7 @@ const Checkout = () => {
   const [deliveryMode, setDeliveryMode] = useState('delivery');
   const [showAddressSelection, setShowAddressSelection] = useState(false);
   const [open, setOpen] = React.useState(false);
-  const [totalItemPrice, setTotalItemPrice] = useState<string | number>("");
+  const [totalItemPrice, setTotalItemPrice] = useState<string>("");
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -84,7 +84,7 @@ const Checkout = () => {
   const getAllTotalPrice = () => {
     if(cart.length !== 0){
       let total = cart.map( item => (Number(item.amount) * Number(item.quantity))).reduce( (a,b) => a+b);
-      setTotalItemPrice(Number(total))
+      setTotalItemPrice(String(total))
     }
   }
 
