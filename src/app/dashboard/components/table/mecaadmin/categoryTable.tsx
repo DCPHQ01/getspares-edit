@@ -2,6 +2,8 @@
 import React from "react";
 import styles from "../styles.module.css";
 import { AccountCircle } from '@mui/icons-material';
+import dayjs from "dayjs";
+
 
 interface Category {
   id: string;
@@ -17,14 +19,12 @@ interface CategoryTableProps {
   categoryList: Category[];
 }
 
-const moment = require('moment');
+const formatDateTime = (dateTime: string) => {
+  const date = dayjs(dateTime).format("YYYY-MM-DD");
+  const time = dayjs(dateTime).format("HH:mm:ss");
+  return { date, time };
+};
 
-const dateTime = "2024-06-21T10:34:24.829";
-const date = moment(dateTime).format('YYYY-MM-DD');
-const time = moment(dateTime).format('HH:mm a');
-
-console.log('Date:', date); 
-console.log('Time:', time); 
 
 const CategoryTable: React.FC<CategoryTableProps> = ({ categoryList }) => {
   
@@ -47,6 +47,7 @@ const CategoryTable: React.FC<CategoryTableProps> = ({ categoryList }) => {
           </thead>
           <tbody>
             {Array.isArray(categoryList) && categoryList?.map((d, index) => {
+              const {date, time} = formatDateTime(d.dateCreated);
               return (
                 <tr key={index} 
                   id={`row_${index}`} 

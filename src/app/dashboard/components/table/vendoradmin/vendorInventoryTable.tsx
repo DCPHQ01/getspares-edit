@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { title } from "process";
 import ViewItemDetails from "./[viewDetailsInventory]/page";
 import { ClipLoader } from 'react-spinners';
+import { ColorRing } from "react-loader-spinner";
 
 interface InventoryData {
   categoryName?: string;
@@ -226,8 +227,19 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isL
           </thead>
           <tbody>
             {isLoading ? (
-        <div className="text-center mt-20 relative lg:left-[550px]">
-           <ClipLoader color={'#123abc'} size={50} />
+        <div 
+        className="text-center mt-28 relative lg:left-[210%] lg:right[210%] md:left-[213%] md:right[213%] sm:left-[21"
+        >
+           <ColorRing  
+            visible={true}
+            height="40"
+            width="40"
+            ariaLabel="color-ring-loading"
+            wrapperStyle={{position: "absolute", bottom: "75%", left: "44%",}}
+            wrapperClass="color-ring-wrapper"
+            colors={["#000000", "#000000", "#000000", "#000000", "#000000"]}
+
+           />
           <p>Loading vendors...</p>
         </div>
       ): (inventoryData?.map((d, index) => {

@@ -21,19 +21,30 @@ interface InventoryData {
 function VendorInventory() {
   const [getInventory,{isLoading,isError}] = useGetVendorAdminInventoryMutation();
   const [inventory, setInventory] = useState<InventoryData[]>([]);
-
+  const [datas, setdatas] = useState();
+  const [totalPages, setTotalPages] = useState(0);
+  const [hasNext, setHasNext] = useState(false);
+  const [hasPrevious, setHasPrevious] = useState(false);
+  const [isPaginationLoading, setIsPaginationLoading] = useState(false);
+  const [page, setPage] = useState(0);
+  const size = 10;
   const fetchVendorData = async () => {
     try {
       const requestBody = {
-        pageNumber: 0,
-        pageSize: 10
+        pageNumber: page,
+        pageSize: size,
       };
 
       const resultList = await getInventory(requestBody).unwrap();
       const list = resultList.data.content
       console.log('it is Success:',list);
-
       setInventory(list)
+      const lists = resultList.data;
+      setdatas(lists);
+      setTotalPages(lists.totalPages);
+      setHasNext(lists.hasNext);
+      setHasPrevious(lists.hasPrevious);
+      setIsPaginationLoading(false)
 
     }  catch (error) {
       console.error('Failed to add vendor:', error);
@@ -47,6 +58,22 @@ function VendorInventory() {
   }, []);
 
   console.log("The Vendor Inventory: ", inventory);
+  console.log('The data success:',datas);
+
+  const handleNextPage = () => {
+    if (hasNext) {
+      setIsPaginationLoading(true)
+      setPage(prevPage => prevPage + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (hasPrevious) {
+      setIsPaginationLoading(true)
+      setPage(prevPage => prevPage - 1);
+    }
+  };
+
   return (
     <>
     <div className={`flex justify-between items-center`}>
@@ -67,11 +94,18 @@ function VendorInventory() {
       <div className="">
         <VendorInventoryTable inventoryData={inventory} isLoading={isLoading} />
 
-        <div className="flex justify-end mt-10 text-mecaBluePrimaryColor font-bold text-lg">
-          {/* <button className="flex gap-x-2">
+        <div className="flex justify-between mt-10 text-mecaBluePrimaryColor font-bold text-lg">
+          <button 
+          className={`flex gap-x-2 ${!hasPrevious ? 'text-gray-400 cursor-not-allowed' : ''}`}
+          onClick={handlePreviousPage}
+          disabled={!hasPrevious}
+          >
             <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
-          </button> */}
-          <button className="flex gap-x-2">
+          </button>
+          <button className={`flex gap-x-2 ${!hasNext ? 'text-gray-400 cursor-not-allowed' : ''}`}
+           onClick={handleNextPage}
+           disabled={!hasNext}
+          >
             Next
             <span>
               <MdChevronRight className="mt-[2px] text-2xl" />{" "}

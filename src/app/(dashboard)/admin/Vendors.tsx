@@ -83,7 +83,7 @@ function Vendors() {
         <VendorTable vendorList={vendorList} isLoading={isPaginationLoading || isLoading}/>
       
 
-      <div className="flex gap-[89%] md:gap-[85%]  mt-10 text-mecaBluePrimaryColor font-bold text-lg">
+      <div className="flex justify-between md:gap-[85%]  mt-10 text-mecaBluePrimaryColor font-bold text-lg">
         <button 
         className={`flex gap-x-2 ${!hasPrevious ? 'text-gray-400 cursor-not-allowed' : ''}`}
         onClick={handlePreviousPage}
