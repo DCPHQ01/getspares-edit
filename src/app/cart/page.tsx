@@ -64,7 +64,7 @@ const RemoveToCartPage = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
-  const [totalItemPrice, setTotalItemPrice] = useState<string | number>("");
+  const [totalItemPrice, setTotalItemPrice] = useState<string>("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
 
@@ -129,7 +129,7 @@ const RemoveToCartPage = () => {
       let total = cart.map( item => (Number(item.amount) * Number(item.quantity))).reduce( (a,b) => a+b);
 
       // let total = cart.reduce((accum,item) => accum + getPrice(item.price), 0)
-      setTotalItemPrice(Number(total))
+      setTotalItemPrice(String(total))
     }
   }
 
@@ -137,25 +137,6 @@ const RemoveToCartPage = () => {
     getAllTotalPrice()
 
   },[cart])
-
-
-
-  let userId = "";
-  if (typeof window !== "undefined") {
-    const userDetails = JSON.parse(
-      sessionStorage.getItem("userDetails") || "{}"
-    );
-    userId = userDetails.userId;
-  }
-
-  // const handleOpenToken = () => {
-  //   const token = sessionStorage.getItem('token');
-  //   if (token) {
-  //     setOpen(true);
-  //   } else {
-  //     router.push(paths.toHome());
-  //   }
-  // };
 
 
 
