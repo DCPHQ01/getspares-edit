@@ -27,7 +27,6 @@ const formatDateTime = (dateTime: string) => {
 
 
 const CategoryTable: React.FC<CategoryTableProps> = ({ categoryList }) => {
-  
   return (
     <div id="tableContainer">
       <div
@@ -46,6 +45,7 @@ const CategoryTable: React.FC<CategoryTableProps> = ({ categoryList }) => {
             </tr>
           </thead>
           <tbody>
+<<<<<<< HEAD
             {Array.isArray(categoryList) && categoryList?.map((d, index) => {
               const {date, time} = formatDateTime(d.dateCreated);
               return (
@@ -77,46 +77,78 @@ const CategoryTable: React.FC<CategoryTableProps> = ({ categoryList }) => {
                   <td
                     className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
                     id={`itemsSold_${index}`}
+=======
+            {Array.isArray(categoryList) &&
+              categoryList?.map((d, index) => {
+                const { date, time } = formatDateTime(d.dateCreated);
+                return (
+                  <tr
+                    key={index}
+                    id={`row_${index}`}
+                    className="cursor-pointer"
+>>>>>>> 2cdd6d23bb63a61ee852c207098eddc2fa3fb66a
                   >
-                    {d.productsInCategory}
-                  </td>
-                  <td
-                    className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
-                    id={`transactionValue_${index}`}
-                  >
-                    <div className="flex gap-3">
-                      <div className="">
-                       
-                      </div>
-                      <div className="">
-                        <div className="truncate">
-                          {d.createdBy}
+                    <td id={`companyData_${index}`}>
+                      <div
+                        className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
+                      >
+                        {d?.imageUrl ? (
+                          <img
+                            src={d?.imageUrl}
+                            className="object-contain"
+                            alt="Avatar"
+                            width={50}
+                            height={50}
+                            id={`avatar_${index}`}
+                          />
+                        ) : (
+                          <AccountCircle
+                            style={{ fontSize: 50 }}
+                            className="text-gray-400"
+                          />
+                        )}
+                        <div id={`companyDetails_${index}`}>
+                          <div className="truncate mt-2">{d.name}</div>
                         </div>
+                      </div>
+                    </td>
+                    <td
+                      className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
+                      id={`itemsSold_${index}`}
+                    >
+                      {d.productsInCategory}
+                    </td>
+                    <td
+                      className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
+                      id={`transactionValue_${index}`}
+                    >
+                      <div className="flex gap-3">
+                        <div className=""></div>
+                        <div className="">
+                          <div className="truncate">{d.createdBy}</div>
+                          <div
+                            className={`text-[#4B5565] truncate`}
+                            id={`email_${index}`}
+                          >
+                            {d.email}
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td id={`dateJoined_${index}`}>
+                      <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
+                        <div id={`date_${index}`}>{date}</div>
                         <div
                           className={`text-[#4B5565] truncate`}
-                          id={`email_${index}`}
+                          id={`time_${index}`}
                         >
-                          {d.email}
+                          {time}
                         </div>
                       </div>
-                    </div>
-                  </td>
-                  <td id={`dateJoined_${index}`}>
-                    <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
-                      <div id={`date_${index}`}>
-                        {date}
-                      </div>
-                      <div
-                        className={`text-[#4B5565] truncate`}
-                        id={`time_${index}`}
-                      >
-                        {time}
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              );
-            })}
+                    </td>
+                  </tr>
+                );
+              })}
           </tbody>
         </table>
       </div>

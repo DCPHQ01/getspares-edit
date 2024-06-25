@@ -53,7 +53,11 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList }) => {
             </thead>
             <tbody>
               {Array.isArray(agentList) && agentList?.map((d, index)=>{
+<<<<<<< HEAD
                 const {date, time} = formatDateTime(d.dateAdded);
+=======
+                const {date, time} = formatDateTime(d.dateAdded)
+>>>>>>> 2cdd6d23bb63a61ee852c207098eddc2fa3fb66a
                 return(
                   <tr
                   key={index}
