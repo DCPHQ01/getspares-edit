@@ -33,6 +33,6 @@ export const buyerQuery = createApi({
     })
 })
 });
-export const { useCheckoutMutation, useGetViewAllOrdersQuery, useSubmitFeedbackMutation, useGetOverviewOrderTableQuery, useGetOverviewRecentProductImageQuery  } = buyerQuery;
+export const { useCheckoutMutation, useGetViewAllOrdersQuery, useGetOverviewOrderTableQuery, useGetOverviewRecentProductImageQuery  } = buyerQuery;
 
 
