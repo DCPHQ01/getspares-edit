@@ -9,24 +9,16 @@ export type CartProduct = {
    name: string;
    amount: string;
    currency: string;
-
+   quantity:string;
    productInformation:{
       brand: string;
-
       countryOfOrigin: string;
-
       itemModelNumber: string;
-
       itemWeight: string;
-
       manufacturer: string;
-
       manufacturerPartNumber: string;
-
       model: string;
-
       productionDimension: string;
-
       voltage: string;
    } | string;
 }
