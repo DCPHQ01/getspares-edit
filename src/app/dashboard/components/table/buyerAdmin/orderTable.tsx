@@ -2,15 +2,15 @@
 
 import React, { useState } from "react";
 import styles from "../styles.module.css";
-import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
-import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
+// import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
+// import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import Details from "../../../../category/products/viewDetails/[details]/page";
-import BasicTabs from "./FeedBackTab";
+// import Details from "../../../../category/products/viewDetails/[details]/page";
+// import BasicTabs from "./FeedBackTab";
 import ViewParticularOrderDetailsPage from "../../../../category/products/viewDetails/viewParticularOrderDetails/page";
 import { ColorRing } from "react-loader-spinner";
-import AmountComponentsPage from "../../../../reusables/AmountComponents/page";
+// import AmountComponentsPage from "../../../../reusables/AmountComponents/page";
 
 type BuyerOrderData = {
   orderId: string;
