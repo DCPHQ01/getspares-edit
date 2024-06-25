@@ -7,6 +7,7 @@ import {
 } from "../../redux/features/users/authQuery";
 import { Snackbar } from "@mui/material";
 import { paths } from "../../path/paths";
+import { ColorRing } from "react-loader-spinner";
 
 interface VerifyEmailProps {
   setHaveVerifiedEmail: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,7 +20,8 @@ export default function VerifyEmail({
   const [isDisabled, setIsDisabled] = useState(true);
   const [open, setOpen] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const length = 6;
@@ -94,29 +96,76 @@ export default function VerifyEmail({
       otpCode: otp.join(""),
     };
     console.log(data, "data");
-
+    setIsLoading(true);
     try {
+      let response: any;
       response = await verifyEmail(data);
       if ("data" in response) {
         console.log(response.data.message, " verify");
         if (response?.data?.message === "User verified successfully") {
           setHaveVerifiedEmail(true);
-        } else if (response?.data?.statusCode === 400) {
+          setIsLoading(false);
+        } else if ("error" in response) {
+          const errorMessage =
+            response.message || "Verification failed. Please try again.";
           setHaveVerifiedEmail(false);
-          setEmailError(response?.data?.message);
+          setMessage(errorMessage);
           setOpen(true);
+          setOtp(Array(6).fill(""));
+          setIsLoading(false);
         }
       }
     } catch (error: any) {
-      console.log(error.message);
+      console.log(error?.data.message);
+      setMessage(
+        error?.data.message || "Verification failed. Please try again."
+      );
       setOpen(true);
       setOtp(Array(6).fill(""));
+    } finally {
+      setIsLoading(false);
     }
     setOtp(Array(6).fill(""));
+    // const data = {
+    //   email: userEmail,
+    //   otpCode: otp.join(""),
+    // };
+    // setIsLoading(true);
+    // try {
+    //   const response = await verifyEmail(data);
+    //   if ("data" in response) {
+    //     if (response.data.message === "User verified successfully") {
+    //       setHaveVerifiedEmail(true);
+    //     } else {
+    //       setMessage(
+    //         response.data.message || "Verification failed. Please try again."
+    //       );
+    //       setOpen(true);
+    //     }
+    //   } else {
+    //     setMessage(
+    //       response.error?.data?.message ||
+    //         "Verification failed. Please try again."
+    //     );
+    //     setOpen(true);
+    //   }
+    // } catch (error: any) {
+    //   setMessage(
+    //     error.data?.message || "Verification failed. Please try again."
+    //   );
+    //   setOpen(true);
+    // } finally {
+    //   setIsLoading(false);
+    //   setOtp(Array(6).fill(""));
+    // }
   };
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleFocus = () => {
+    setMessage("");
   };
 
   const resetOtpCode = async () => {
@@ -128,10 +177,13 @@ export default function VerifyEmail({
       response = await resetOtp(data);
       if ("data" in response) {
         setOtpSent(true);
+        setMessage("A new OTP has been sent to your email");
         setOpen(true);
       }
     } catch (error) {
       console.error("Failed to reset OTP", error);
+      setMessage("Failed to reset OTP. Please try again.");
+      setOpen(true);
     }
   };
   console.log("email error ", emailError);
@@ -147,6 +199,7 @@ export default function VerifyEmail({
           id="keyIcon"
         />
       </div>
+      {message && <p className="text-red-600 text-lg">{message}</p>}
       <h2
         className="text-mecaDarkBlueBackgroundOverlay font-bold text-center lg:text-3xl text-xl mt-4"
         id="checkEmailHeader"
@@ -184,6 +237,7 @@ export default function VerifyEmail({
                   ref={(el) => {
                     inputsRef.current[index] = el as HTMLInputElement;
                   }}
+                  onFocus={handleFocus}
                 />
                 {index === 2 && (
                   <span className="text-mecaVerificationCodeColor text-5xl flex items-center">
@@ -197,11 +251,23 @@ export default function VerifyEmail({
 
         <div className="lg:w-4/5 mx-auto pt-12">
           <button
-            className="w-full bg-mecaBluePrimaryColor text-[white] lg:text-lg text-sm font-semibold rounded-[36px] lg:h-12 h-8 disabled:bg-mecaBgDisableColor disabled:text-[white]"
+            className="w-full flex items-center justify-center bg-mecaBluePrimaryColor text-[white] lg:text-lg text-sm font-semibold rounded-[36px] lg:h-12 h-8 disabled:bg-mecaBgDisableColor disabled:text-[white]"
             onClick={handleSubmit}
             disabled={isDisabled}
           >
-            Verify email
+            {isLoading ? (
+              <ColorRing
+                visible={true}
+                height="40"
+                width="40"
+                ariaLabel="color-ring-loading"
+                wrapperStyle={{}}
+                wrapperClass="color-ring-wrapper"
+                colors={["#ffff", "#ffff", "#ffff", "#ffff", "#ffff"]}
+              />
+            ) : (
+              "Verify Email"
+            )}
           </button>
         </div>
       </div>
@@ -228,12 +294,12 @@ export default function VerifyEmail({
         />
         Back to log in
       </Link>
-      <Snackbar
+      {/* <Snackbar
         open={open}
         autoHideDuration={6000}
         onClose={handleClose}
-        message={otpSent ? "A new OTP has been sent to your email" : ""}
-      />
+        message={message}
+      /> */}
     </>
   );
 }
