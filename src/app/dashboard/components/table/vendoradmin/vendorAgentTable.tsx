@@ -17,7 +17,7 @@ const data = [
     vale: "₦ 200,000.00",
     rating: (
       <Stack spacing={1}>
-        {/* <Rating name="half-rating" defaultValue={2.5} precision={0.5} /> */}
+      
       </Stack>
     ),
     date: "24 June 2022",
