@@ -133,27 +133,6 @@ export default function ProductDescription() {
   const id = segments[4];
 
 
-  const handleClick = (newState: SnackbarOrigin) => () => {
-    dispatch(
-      addToCart({
-        id,
-      })
-    );
-    setState({ ...newState, open: true });
-
-    setTimeout(() => {
-      setState({ ...newState, open: false });
-    }, 3000);
-  };
-
-  const formatPrice = (price: string) => {
-    const numericPrice = parseFloat(price?.replace(/[^0-9.-]+/g, ""));
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "NGN",
-    }).format(numericPrice);
-  };
-
   const searchWords = segments[3].replace(/([A-Z])/g, " $1").trim();
 
 

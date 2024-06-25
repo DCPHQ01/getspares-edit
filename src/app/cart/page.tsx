@@ -1,41 +1,27 @@
 "use client";
-import {useEffect, useLayoutEffect, useState} from "react";
-import { Fragment, useState } from "react";
-import { Nunito_Sans } from "next/font/google";
+import {useEffect, useLayoutEffect, useState, Fragment} from "react";
 import Carousel from "react-multi-carousel";
 import Cards from "../../components/Homepage/Card";
 import "react-multi-carousel/lib/styles.css";
 import HomeImage1 from "../../assets/images/homeImage1.png";
-import HomeImage2 from "../../assets/images/homeImage2.png";
 
 import {
   MdChevronRight,
-  MdMenu,
-  MdOutlineShoppingCart,
-  MdSearch,
-  MdMoreVert,
-  MdOutlineExpandMore,
-  MdCircle,
-  MdKeyboardArrowDown,
-  MdDeleteOutline,
+
   MdCheckCircle,
 } from "react-icons/md";
-import Parts from "../../assets/images/parts.png";
-import Image from "next/image";
 import { Alert, Card } from "@mui/material";
 import Footer from "../../components/footer/Footer";
 import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
 import Link from "next/link";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import {useRemoveProductFromCartMutation,} from "../../redux/features/product/productsQuery";
 import TopBarWhileInside from "../reusables/TopBarWhileInside/page";
 import { paths } from "../../path/paths";
-import {addToCart, editCart, setCart} from "../../redux/features/product/productSlice";
 import {formatAmount} from "../../components/utils";
 import {CheckOutCard} from "../../components/cart/CheckOutCard";
 import { useGetRelatedProductQuery } from "../../redux/features/users/authQuery";
+import {useAddSingleProductToCartMutation} from "../../redux/features/cart/cartQuery";
 
 interface SnackState extends SnackbarOrigin {
   open: boolean;
@@ -72,15 +58,6 @@ const responsive = {
 
 
 
-const itemSelected =
-  {
-    count: 4,
-    totalPrice: "₦360,000.00",
-    shippingPrice: "₦0",
-    subtotal: "₦360,000.00",
-  };
-
-
 
 
 const RemoveToCartPage = () => {
@@ -88,6 +65,8 @@ const RemoveToCartPage = () => {
   const dispatch = useAppDispatch();
 
   const [totalItemPrice, setTotalItemPrice] = useState<string | number>("");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
 
   const [snackState, setSnackState] = useState<SnackState>({
     open: false,
@@ -96,26 +75,49 @@ const RemoveToCartPage = () => {
   });
   const { vertical, horizontal, open } = snackState;
   const { data: relatedProductData, isLoading } = useGetRelatedProductQuery({});
+  const [addToCart, { isLoading:cartLoading }] = useAddSingleProductToCartMutation();
+
 
 
   const { cart } = useAppSelector((state) => state.product);
 
 
 
+  useEffect(() => {
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      setIsAuthenticated(false);
+    } else {
+      setIsAuthenticated(true);
+
+    }
+  }, [router]);
 
 
 
 
 
-  const handleCheckout = (newState: SnackbarOrigin) => () => {
+  const handleCheckout = (newState: SnackbarOrigin) => async () => {
 
-    const data = cart.map((item) => {return {
-      productId:item.id,
-         quantity:item.quantity
-    }})
-    console.log(data)
-    setSnackState({ ...newState, open: true });
-    router.push(paths.toDashboardActorsBuyer());
+    if(!isAuthenticated){
+      router.push(paths.toLogin());
+    }else{
+      const data = cart.map((item) => {
+        return {
+          productId: item.id,
+          quantity: Number(item.quantity)
+        }
+      })
+      try {
+        const res = await addToCart(data).unwrap()
+        setSnackState({...newState, open: true});
+        router.push(paths.toCheckout());
+        console.log(res.data)
+      }catch(error){
+        console.log(error.data)
+      }
+
+    }
   };
 
   const handleSuccessClose = () => {
@@ -145,6 +147,15 @@ const RemoveToCartPage = () => {
     );
     userId = userDetails.userId;
   }
+
+  // const handleOpenToken = () => {
+  //   const token = sessionStorage.getItem('token');
+  //   if (token) {
+  //     setOpen(true);
+  //   } else {
+  //     router.push(paths.toHome());
+  //   }
+  // };
 
 
 
@@ -215,7 +226,7 @@ const RemoveToCartPage = () => {
                           </div>
                           <div className="flex justify-between mt-5 font-normal text-sm">
                             <p>Shipping</p>
-                            <p>{itemSelected.shippingPrice}</p>
+                            <p>{"₦0"}</p>
                           </div>
                           <hr className="mt-5"></hr>
                           <div className="flex justify-between mt-5 mb-9 font-semibold text-xl">
@@ -274,24 +285,6 @@ const RemoveToCartPage = () => {
               More Products Like This
             </p>
           </div>
-          {/* <Carousel
-            partialVisible={true}
-            draggable={false}
-            responsive={responsive}
-            ssr={true}
-            infinite
-            autoPlay={true}
-            itemClass="lg:pr-8 pr-4"
-          >
-            {relatedProductData?.data.map((product: ProductType) => (
-              <Cards
-                id={product.id}
-                image={HomeImage1}
-                productName={product.name}
-                price={product.price}
-              />
-            ))}
-          </Carousel> */}
           <Fragment>
             {relatedProductData &&
             relatedProductData?.data &&
