@@ -219,7 +219,7 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isL
           <thead>
             <tr className="truncate">
               <th id="companyNameHeader">Item name</th>
-              <th id="transactionValueHeader">Transaction Value</th>
+              <th id="transactionValueHeader">Price</th>
               <th id="totalItemsSoldHeader">Quantity sold</th>
               <th id="transactionValueHeader" style={{ paddingLeft: "2rem" }}>
                 Category
@@ -286,7 +286,7 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isL
                     /> */}
                     
                     <div id={`companyDetails_${index}`}>
-                      <div>{d.quantitySold}</div>
+                      <div>{d.categoryName}</div>
                     </div>
                   </div>
                 </td>
@@ -297,6 +297,15 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isL
                   id={`itemsSold_${index}`}
                 >
                   {d.price}
+                </td>
+                <td
+                  onClick={navigateTo}
+                  className={`text-[0.88rem] py-[1rem] px-[2rem] `}
+                  id={`transactionValue_${index}`}
+                >
+                  
+                    {d.quantitySold}
+                 
                 </td>
                 <td
                   onClick={navigateTo}
