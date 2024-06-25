@@ -75,7 +75,13 @@ const RemoveToCartPage = () => {
 
 
 
-  const handleSuccessClick = (newState: SnackbarOrigin) => () => {
+  const handleCheckout = (newState: SnackbarOrigin) => () => {
+
+    const data = cart.map((item) => {return {
+      productId:item.id,
+         quantity:item.quantity
+    }})
+    console.log(data)
     setSnackState({ ...newState, open: true });
     router.push(paths.toDashboardActorsBuyer());
   };
@@ -187,7 +193,7 @@ const RemoveToCartPage = () => {
                         </div>
                       <div className="">
                         <button
-                          onClick={handleSuccessClick({
+                          onClick={handleCheckout({
                             vertical: "top",
                             horizontal: "center",
                           })}

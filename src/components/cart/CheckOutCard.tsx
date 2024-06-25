@@ -26,6 +26,9 @@ export const CheckOutCard = ({ cardCartItem, closeDropDown }: Props) => {
    const [isInputVisible, setIsInputVisible] = useState(false);
    const [quantity, setQuantity] = useState<string | number>("");
 
+   const num = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10+']
+
+
 
 
    const { cart } = useAppSelector((state) => state.product);
@@ -84,6 +87,7 @@ export const CheckOutCard = ({ cardCartItem, closeDropDown }: Props) => {
       );
       localStorage.setItem('savedCartItems', JSON.stringify(filteredCart));
    }
+
 
    return (
       <>
@@ -185,22 +189,14 @@ export const CheckOutCard = ({ cardCartItem, closeDropDown }: Props) => {
                               <select
                                  onChange={e => handleDropdownChange(e, cardCartItem)}
                                  title="quantity"
+                                 value={cardCartItem.quantity}
                                  className="w-16 h-9 rounded border-2 p-2 border-mecaVerificationCodeColor mt-2"
                                  name="categoria"
                                  id="categoriesIdDiv"
                               >
-                                 <option value={cardCartItem.quantity} selected>
-                                    {cardCartItem.quantity}
-                                 </option>
-                                 <option value="2">2</option>
-                                 <option value="3">3</option>
-                                 <option value="4">4</option>
-                                 <option value="5">5</option>
-                                 <option value="6">6</option>
-                                 <option value="7">7</option>
-                                 <option value="8">8</option>
-                                 <option value="9">9</option>
-                                 <option value="10+">10+</option>
+                                 {num.map((obj, index) =>
+                                    <option key={index} value={obj} >{obj}</option>
+                                 )}
                               </select>
                            )}
                         </div>
