@@ -90,7 +90,6 @@ const SignUpComponentLeft = () => {
   const [registerAgent, { data: AgentData, error: AgentError }] =
     useRegisterAgentMutation();
 
-  console.log(buyerData, BuyerError);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
