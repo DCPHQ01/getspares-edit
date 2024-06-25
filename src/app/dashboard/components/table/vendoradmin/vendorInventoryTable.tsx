@@ -138,17 +138,6 @@ interface Option {
 //     time: "04:00PM",
 //   },
 
-//   {
-//     avatar: image1,
-//     name: "CaterpillarEngine1v2",
-//     email: "ebuka&sons@gmail.com",
-//     TransactionValue: 123,
-//     sale: 67,
-//     vale: "₦ 700,000,00",
-//     category: "Bonnets",
-//     date: "30 Aug 2022",
-//     time: "04:00PM",
-//   },
 
 //   {
 //     avatar: image1,
