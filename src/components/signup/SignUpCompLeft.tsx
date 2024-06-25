@@ -13,9 +13,9 @@ import {
   MdOutlineVisibility,
   MdOutlineVisibilityOff,
 } from "react-icons/md";
-import { Button, Checkbox } from "@mui/material";
+import { Button, Checkbox, Snackbar, SnackbarOrigin } from "@mui/material";
 import Link from "next/link";
-import { FormEvent, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import {
   useRegisterAgentMutation,
   useRegisterBuyerMutation,
@@ -58,6 +58,12 @@ const userAgent: UserAgent = {
   roleName: "AGENT",
 };
 
+interface State extends SnackbarOrigin {
+  open: boolean;
+}
+
+type RegisterError = string | { data: { password?: string; message?: string } };
+
 const SignUpComponentLeft = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [userType, setUserType] = useState("buyer");
@@ -67,9 +73,16 @@ const SignUpComponentLeft = () => {
   const [userAgentDetails, setUserAgentDetails] =
     useState<UserAgent>(userAgent);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [registerError, setRegisterError] = useState<RegisterError>("");
   const router = useRouter();
 
+  const [state, setState] = React.useState<State>({
+    open: false,
+    vertical: "top",
+    horizontal: "center",
+  });
+
+  const { vertical, horizontal, open } = state;
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,7 +103,7 @@ const SignUpComponentLeft = () => {
   const [registerAgent, { data: AgentData, error: AgentError }] =
     useRegisterAgentMutation();
 
-  console.log(buyerData, BuyerError);
+  console.log("registration error ", registerError);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -106,25 +119,19 @@ const SignUpComponentLeft = () => {
         if ("data" in response) {
           console.log(
             "data response ",
-            response?.data?.message,
+            response.data?.message,
             " status code ",
-            response.data.statusCode
+            response.data?.statusCode
           );
-          if (response?.data?.message === "SignUp Successfully") {
-            // alert(VendorData.message);
+          if (response.data?.message === "SignUp Successfully") {
             router.push(paths.toVerifyEmail());
-          } else if (
-            response?.data?.message === "User Already Exists" ||
-            response?.data.error?.data?.status === 400
-          ) {
-            alert(VendorData.message);
           } else {
-            alert("Registration failed. Please try again.");
+            setRegisterError(response.data);
           }
         }
         sessionStorage.setItem("userEmail", userEmail);
       } else if (userType === "agent") {
-        response = await registerAgent(userAgentDetails);
+        response = await registerAgent(userAgentDetails).unwrap();
         console.log("data response ", response);
         userEmail = userAgentDetails.email;
         if ("data" in response) {
@@ -132,29 +139,38 @@ const SignUpComponentLeft = () => {
           if (response?.data?.message === "SignUp Successfully") {
             // alert(AgentData.message);
             router.push(paths.toVerifyEmail());
+          } else {
+            setRegisterError(response?.data);
           }
         }
         sessionStorage.setItem("userEmail", userEmail);
       } else if (userType === "buyer") {
-        response = await registerBuyer(userBuyerDetails);
-        console.log("data response ", response);
+        response = await registerBuyer(userBuyerDetails).unwrap();
+
         userEmail = userBuyerDetails.email;
         if ("data" in response) {
-          console.log("data response ", response?.data);
+          console.log("data response ", response?.data?.error);
           if (response?.data?.message === "SignUp Successfully") {
             router.push(paths.toVerifyEmail());
+          } else if ("error" in response) {
+            setRegisterError(response);
           }
         }
         sessionStorage.setItem("userEmail", userEmail);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
+      setRegisterError(error);
     } finally {
       setIsLoading(false);
     }
   };
   const routerToHomePage = () => {
     router.push(paths.toHome());
+  };
+
+  const handleFocus = () => {
+    setRegisterError("");
   };
 
   return (
@@ -198,6 +214,7 @@ const SignUpComponentLeft = () => {
                   Provide your details to get started
                 </span>
               </div>
+
               <div className="py-4" id="RadioBtnSignUp">
                 <FormControl id="formcontrolMui" className={nunito.className}>
                   <RadioGroup
@@ -250,6 +267,7 @@ const SignUpComponentLeft = () => {
                     <FilledInput
                       id="firstName"
                       disableUnderline
+                      onFocus={handleFocus}
                       required
                       onChange={handleChange}
                       className="bg-mecaInputBgColor w-full rounded-t-[4px] hover:bg-mecaInputBgColor border focus-within:bg-mecaInputBgColor"
@@ -268,6 +286,7 @@ const SignUpComponentLeft = () => {
                     <FilledInput
                       id="lastName"
                       disableUnderline
+                      onFocus={handleFocus}
                       required
                       onChange={handleChange}
                       className="bg-mecaInputBgColor w-full rounded-t-[4px] hover:bg-mecaInputBgColor border focus-within:bg-mecaInputBgColor"
@@ -286,6 +305,7 @@ const SignUpComponentLeft = () => {
                     <FilledInput
                       id="email"
                       disableUnderline
+                      onFocus={handleFocus}
                       required
                       onChange={handleChange}
                       className="bg-mecaInputBgColor w-full rounded-t-[4px] hover:bg-mecaInputBgColor border focus-within:bg-mecaInputBgColor"
@@ -308,6 +328,7 @@ const SignUpComponentLeft = () => {
                       <FilledInput
                         id={userType === "vendor" ? "companyName" : ""}
                         disableUnderline
+                        onFocus={handleFocus}
                         onChange={handleChange}
                         className="bg-mecaInputBgColor w-full rounded-t-[4px] hover:bg-mecaInputBgColor border focus-within:bg-mecaInputBgColor"
                         value={
@@ -328,6 +349,7 @@ const SignUpComponentLeft = () => {
                       <FilledInput
                         id={userType === "agent" ? "companyName" : ""}
                         disableUnderline
+                        onFocus={handleFocus}
                         onChange={handleChange}
                         className="bg-mecaInputBgColor w-full rounded-t-[4px] hover:bg-mecaInputBgColor border focus-within:bg-mecaInputBgColor"
                         value={
@@ -358,6 +380,7 @@ const SignUpComponentLeft = () => {
                       id="password"
                       type={showPassword ? "text" : "password"}
                       disableUnderline
+                      onFocus={handleFocus}
                       required
                       onChange={handleChange}
                       className="bg-mecaInputBgColor border w-full hover:bg-mecaInputBgColor focus-within:bg-mecaInputBgColor"
@@ -414,6 +437,43 @@ const SignUpComponentLeft = () => {
                     )}
                   </Button>
                 </div>
+
+                {/* {registerError && (
+                  <p className="text-red-500 text-lg">
+                    {(
+                      registerError as {
+                        data: {
+                          password?: string | undefined;
+                          message?: string | undefined;
+                        };
+                      }
+                    ).data?.password ||
+                      (
+                        registerError as {
+                          data: {
+                            password?: string | undefined;
+                            message?: string | undefined;
+                          };
+                        }
+                      ).data?.message}
+                  </p>
+                )} */}
+                {typeof registerError === "string" ? (
+                  registerError
+                ) : (
+                  <>
+                    {registerError.data.password && (
+                      <p className="text-red-500 text-lg">
+                        {registerError.data.password}
+                      </p>
+                    )}
+                    {registerError.data.message && (
+                      <p className="text-red-500 text-lg">
+                        {registerError.data.message}
+                      </p>
+                    )}
+                  </>
+                )}
               </form>
               <div
                 id="notNewHerediv"
