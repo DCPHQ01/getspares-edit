@@ -1,3 +1,7 @@
+"use client";
+
+
+
 import {CartProduct} from "../../types/cart/product";
 import Image from "next/image";
 import Parts from "../../assets/images/parts.png";

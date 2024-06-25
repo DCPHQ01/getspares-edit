@@ -113,7 +113,6 @@ export default function ProductDescription() {
   const { data: relatedProductData } = useGetRelatedProductQuery(productId, {
     skip: !productId,
   });
-  console.log("related ", relatedProductData?.data);
 
   const handleNext = () => {
     if (carouselRef.current) carouselRef.current.next(0);
@@ -145,8 +144,7 @@ export default function ProductDescription() {
     let payload = {...val, quantity:'1'}
     const savedCartItems = JSON.parse(localStorage.getItem('savedCartItems'));
 
-
-    if(savedCartItems){
+    if(savedCartItems !== null){
       const i = savedCartItems.findIndex(e => e.id === payload.id);
       if (i > -1) {
         // We know that at least 1 object that matches has been found at the index i
@@ -173,7 +171,6 @@ export default function ProductDescription() {
   };
 
   const formatPrice = (price: string, currency) => {
-    // const numericPrice = parseFloat(price?.replace(/[^0-9.-]+/g, ""));
     return new Intl.NumberFormat("en-US", {
       style: 'currency',
       currency: currency ? currency : 'NGN',
