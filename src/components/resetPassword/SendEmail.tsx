@@ -10,6 +10,7 @@ import {
   useVerifyEmailMutation,
 } from "../../redux/features/users/authQuery";
 
+type RegisterError = string | { data: { message?: string } };
 export default function SendEmail() {
   const router = useRouter();
 
@@ -20,7 +21,7 @@ export default function SendEmail() {
   const [isDisabled, setIsDisabled] = useState(true);
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [otpError, setOtpError] = useState<RegisterError>("");
   const length = 6;
   const inputsRef = useRef<HTMLInputElement[]>([]);
   const [resetPasswordVerifyEmail, { isError }] =
@@ -72,8 +73,6 @@ export default function SendEmail() {
       inputsRef.current[index - 1]?.focus();
     }
   };
-  console.log(otp.join(""));
-
   useEffect(() => {
     inputsRef.current[0]?.focus();
   }, []);
@@ -93,6 +92,10 @@ export default function SendEmail() {
     }
   };
 
+  const handleFocus = () => {
+    setOtpError("");
+  };
+
   const handleSubmit = async () => {
     let response;
     const data = {
@@ -103,26 +106,33 @@ export default function SendEmail() {
 
     setIsLoading(true);
     try {
-      response = await verifyEmail(data);
+      response = await verifyEmail(data).unwrap();
       if ("data" in response) {
         console.log(response.data.message, " verify");
-        if (response?.data?.message === "User verified successfully") {
+        if (
+          response?.data?.message ===
+          "User email has been verified successfully"
+        ) {
           sessionStorage.setItem("otp", JSON.stringify(data));
-          setIsLoading(false);
           router.push(paths.toResetNewPassword());
-        } else if (response?.data?.statusCode === 400) {
+          setIsLoading(false);
+        } else {
+          // setOtpError(response?.data);
           setOpen(true);
           setOtp(Array(6).fill(""));
           setIsLoading(false);
         }
       }
     } catch (error: any) {
-      console.log(error.message);
+      setOtpError(error);
       setOpen(true);
       setOtp(Array(6).fill(""));
+      setIsLoading(false);
     }
     setOtp(Array(6).fill(""));
   };
+
+  console.log(otpError, "otp");
 
   return (
     <>
@@ -149,7 +159,15 @@ export default function SendEmail() {
         We sent a verification code to
         <span className="font-bold">{emailSet}</span>
       </p>
-
+      {typeof otpError === "string" ? (
+        otpError
+      ) : (
+        <>
+          {otpError.data.message && (
+            <p className="text-red-500 text-lg">{otpError.data.message}</p>
+          )}
+        </>
+      )}
       <div className="mt-8">
         <p className="font-semibold text-sm text-mecaGrayBodyText pb-1">
           Enter code
@@ -169,6 +187,7 @@ export default function SendEmail() {
                   value={data}
                   onChange={(e) => handleChangeOtp(e.target, index)}
                   title="OTP"
+                  onFocus={handleFocus}
                   placeholder="0"
                   onKeyDown={(e) => handleKeyDown(e, index)}
                   ref={(el) => {
