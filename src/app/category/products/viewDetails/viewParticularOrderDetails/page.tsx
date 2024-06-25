@@ -1,10 +1,9 @@
-
+"use client";
 import { MdChevronRight } from "react-icons/md";
-import Order from "../../../../dashboard/components/table/agentAdmin/order";
-
+import ViewParticularOrderTable from "../../../../dashboard/components/table/buyerAdmin/viewParticularOrderTable";
 import { useGetOrderDetailsQuery } from "../../../../../redux/features/dashboard/buyerQuery";
 import { useEffect, useState } from "react";
-import ViewParticularOrderTable from "../../../../dashboard/components/table/buyerAdmin/viewParticularOrderTable";
+
 
 interface OrderItem {
   price: number;
@@ -13,22 +12,33 @@ interface OrderItem {
   productName: string;
   quantity: number;
   avatar?: any;
-  
 }
 
 interface OrderInfo {
-  orderId: string;
   orderDate: string;
   deliveryAddress: any;
   orderItems: OrderItem[];
-};
+}
 
-const ViewParticularOrderDetailsPage = ({ orderId }: { orderId: string }) => {
-  const {data, isLoading} = useGetOrderDetailsQuery({ orderId });
+interface ViewParticularOrderDetailsPageProps {
+  orderId: string;
+}
+
+const ViewParticularOrderDetailsPage: React.FC<ViewParticularOrderDetailsPageProps> = ({ orderId }) => {
+  // const [orderId, setOrderId] = useState<string | null>(null);
+
+  // useEffect(() => {
+    // const storedOrderId = sessionStorage.getItem("selectedOrderId");
+    // console.log("Stored Order ID:", storedOrderId);
+    // if (storedOrderId) {
+  //     setOrderId(storedOrderId);
+  //   }
+  // }, []);
+  
+  const { data, isLoading } = useGetOrderDetailsQuery({ orderId });
   console.log("data for order details", data);
 
   const [orderDetails, setOrderDetails] = useState<OrderInfo>({
-    orderId: "",
     orderDate: "",
     deliveryAddress: {},
     orderItems: [],
@@ -43,15 +53,11 @@ const ViewParticularOrderDetailsPage = ({ orderId }: { orderId: string }) => {
       } else {
         console.error("Failed to show order details", resultList);
       }
-
     }
   }, [data]);
+
   console.log("The orderDetails:", orderDetails);
 
- 
-
-
- 
   return (
     <div className="">
       <div>
@@ -67,7 +73,7 @@ const ViewParticularOrderDetailsPage = ({ orderId }: { orderId: string }) => {
           <h1 className="ml-10 pt-20 text-xl">Order ID: {orderId} </h1>
         </div>
         <div className="mt-5">
-          <ViewParticularOrderTable data={orderDetails} isLoading={isLoading}/>
+          <ViewParticularOrderTable data={orderDetails} isLoading={isLoading} />
         </div>
       </div>
     </div>

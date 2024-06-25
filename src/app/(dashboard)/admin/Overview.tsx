@@ -15,12 +15,12 @@ import cardsData from "./Overview";
 import { error } from "console";
 
 
-interface CardData {
-  total: string;
-  amount: number;
-  percentage: number;
-  onClick: () => void;
-};
+// interface CardData {
+//   total: string;
+//   amount: number;
+//   percentage: number;
+//   onClick: () => void;
+// };
 interface VendorData {
   // avatar: string;
   companyName: string;
@@ -33,7 +33,8 @@ interface VendorData {
 function Overview() { 
   const [activityPeriod, setActivityPeriod] = useState("monthly");  
   const { data: mecaAdminOverviewData,  isLoading} = useGetMecaAdminOverviewQuery({});
-  console.log("data for meca admin", mecaAdminOverviewData);
+  const {data,  isLoading: isVendorsLoading, isError: isVendorsError,} = useGetTopPerformingVendorsQuery({ period: activityPeriod});
+  
   const [adminOverview, setAdminOverview] = useState(mecaAdminOverviewData?.data ?? { 
     totalNumberOfPartOrdered: 0,
     totalNumberOfAgent: 0,
@@ -42,20 +43,6 @@ function Overview() {
   });
   console.log("data for meca admin", adminOverview);
 
-  const [role, setRoles] = useState('');
-  const [name, setName] = useState("");
-  useEffect(() => {
-    const role =
-      typeof window !== "undefined" && window.sessionStorage
-        ? JSON.parse(sessionStorage.getItem("userDetails") || "{}")
-        : [];
-    setRoles(role.role);
-    setName(role.firstName);
-  }, []);
-
-  const {data,  isLoading: isVendorsLoading,
-    isError: isVendorsError,} = useGetTopPerformingVendorsQuery({ period: activityPeriod});
-  console.log("data for meca admin", data);
   const [topVendors, setTopVendors] = useState<VendorData[]>([]); 
 
   useEffect(() => {
@@ -72,6 +59,19 @@ function Overview() {
     const handlePeriodChange = (newPeriod: string) => {
       setActivityPeriod(newPeriod);
     };  
+
+
+  const [role, setRoles] = useState('');
+  const [name, setName] = useState("");
+  useEffect(() => {
+    const role =
+      typeof window !== "undefined" && window.sessionStorage
+        ? JSON.parse(sessionStorage.getItem("userDetails") || "{}")
+        : [];
+    setRoles(role.role);
+    setName(role.firstName);
+  }, []);
+
   
   return (
     <>
@@ -90,7 +90,7 @@ function Overview() {
           />
           <PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange}/> 
         </div>
-        <OverviewTable data={topVendors} isLoading={isLoading}/>
+        <OverviewTable data={topVendors} isLoading={isVendorsLoading}/>
         
 
         {/* <div className="flex justify-between mt-10 text-mecaBluePrimaryColor font-bold text-lg">

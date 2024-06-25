@@ -114,7 +114,7 @@ function Overview({data, isLoading}: OverviewTableProps) {
             </tr>
           ) : (
             data.map((d, index) => {
-              const { date, time } = formatDateTime(d.dateJoined); // Split date and time
+              const { date, time } = formatDateTime(d.dateJoined); 
 
               return (
                 <tr key={index} id={`row_${index}`} className="cursor-pointer">

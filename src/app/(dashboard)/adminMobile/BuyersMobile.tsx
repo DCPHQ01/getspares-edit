@@ -11,8 +11,8 @@ import {
 import { useGetMecaAdminBuyerQuery } from "../../../redux/features/dashboard/mecaAdminQuery";
 
 function Buyers() {
-  const [page, setPage] = useState(1);
-  const [size, setSize] = useState(5);
+  const [page, setPage] = useState(0);
+  const [size, setSize] = useState(10);
   const {data, isLoading, isError, error} = useGetMecaAdminBuyerQuery({page, size});
   console.log("data for buyers", data);
 

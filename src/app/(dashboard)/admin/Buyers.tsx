@@ -31,17 +31,17 @@ function Buyers() {
   console.log("The BuyerList:", buyerList);
 
 
-  const handlePrevious = () => {
-    if (page > 0) {
-      setPage(page - 1);
-    }
-  };
+  // const handlePrevious = () => {
+  //   if (page > 0) {
+  //     setPage(page - 1);
+  //   }
+  // };
 
-  const handleNext = () => {
-    if (data && data.data && data.data.content.length === size) {
-      setPage(page + 1);
-    }
-  };
+  // const handleNext = () => {
+  //   if (data && data.data && data.data.content.length === size) {
+  //     setPage(page + 1);
+  //   }
+  // };
 
  
   return (
