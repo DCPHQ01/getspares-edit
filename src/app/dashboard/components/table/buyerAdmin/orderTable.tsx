@@ -31,11 +31,15 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
   const router = useRouter();
 
   const [renderDetails, setRenderDetails] = useState(false);
+  const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
 
-  const handleDetails = () => {
-    setRenderDetails(!renderDetails);
+  // const handleDetails = () => {
+  //   setRenderDetails(!renderDetails);
+  // };
+
+  const handleDetails = (orderId: string) => {
+    setSelectedOrderId(orderId);
   };
-
   return (
     <div>
       <div id="tableContainer">
@@ -61,19 +65,24 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
             </thead>
             <tbody>
               {isLoading ? (
-                  <tr>
-                  <td className="text-center py-4">
-                    <ColorRing
-                      visible
-                      height="40"
-                      width="40"
-                      ariaLabel="color-ring-loading"
-                      wrapperStyle={{}}
-                      wrapperClass="color-ring-wrapper"
-                      colors={["#ffff", "#ffff", "#ffff", "#ffff", "#ffff"]}
-                    />
-                  </td>
-                </tr>
+                  // <div className="w-[ h-full flex justify-center items-center">
+                  <div className="mt-28 relative lg:left-[400px] md:right-[400px]"> 
+                  <ColorRing
+                    visible={true}
+                    height="80"
+                    width="80"
+                    ariaLabel="color-ring-loading"
+                    wrapperStyle={{position: "absolute", bottom: "75%", left: "40%"}}
+                    wrapperClass="color-ring-wrapper"
+                    colors={[
+                      "#000000",
+                      "#000000",
+                      "#000000",
+                      "#000000",
+                      "#000000",
+                    ]}
+                  />
+                </div>
               ) : (
                 data?.map((d, index) => {
                   let date = '';
@@ -88,7 +97,8 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
                       key={index}
                       id={`row_${index}`}
                       className="cursor-pointer truncate"
-                      onClick={handleDetails}
+                      // onClick={handleDetails}
+                      onClick={() => handleDetails(d.orderId)}
                     >
                       <td
                         className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
@@ -120,17 +130,28 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
           </table>
         </div>
       </div>
-      {renderDetails && (
+      {/* {renderDetails && (
         <div className="absolute bottom-0 mt-8 ml-10 lg:left-60 right-0 lg:top-0 h-[100vh] lg:w-[84%] w-[100%] lg:h-[100vh]">
           <div className="bg-white h-[100vh] w-full">
-            <ViewParticularOrderDetailsPage />
+            <ViewParticularOrderDetailsPage orderId={selectedOrderId} />
+          </div>
+        </div>
+      )} */}
+      {selectedOrderId && (
+        <div className="absolute bottom-0 mt-8 ml-10 lg:left-60 right-0 lg:top-0 h-[100vh] lg:w-[84%] w-[100%] lg:h-[100vh]">
+          <div className="bg-white h-[100vh] w-full">
+            <ViewParticularOrderDetailsPage orderId={selectedOrderId} />
           </div>
         </div>
       )}
     </div>
   );
 };
-              {/* {isLoading ? (
+              
+
+export default OrderTable;
+
+{/* {isLoading ? (
                 <div className="text-center mt-20 relative lg:left-[550px]">
                   <ClipLoader color="123abc" size={50} />
                   <p>Loading orders</p>
@@ -227,5 +248,3 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
     </div>
   );
 }; */}
-
-export default OrderTable;

@@ -19,7 +19,7 @@ interface CardData {
   onClick: () => void;
 };
 interface VendorData {
-  avatar?: string;
+  // avatar?: string;
   name: string;
   email: string;
   sale: number;
@@ -34,8 +34,7 @@ function Overview() {
     setActivityPeriod(newPeriod);
   };
 
-  const { data: mecaAdminOverviewData,  isLoading: isOverviewLoading,
-    isError: isOverviewError,} = useGetMecaAdminOverviewQuery({});
+  const { data: mecaAdminOverviewData,  isLoading} = useGetMecaAdminOverviewQuery({});
   console.log("data for meca admin", mecaAdminOverviewData);
   const [adminOverview, setAdminOverview] = useState(mecaAdminOverviewData?.data ?? { 
     totalNumberOfPartOrdered: 0,
@@ -95,7 +94,7 @@ function Overview() {
             <PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange}/>
           </div>
         </div>
-        <OverviewTable data={topVendors}/>
+        <OverviewTable data={topVendors} isLoading={isLoading}/>
 
         {/* <div className=" flex justify-between mt-10 mb-10 font-bold text-lg">
           <button className="flex gap-x-2 border border-[#EAECF0]  rounded-md h-[36px] w-[36px] pl-1">

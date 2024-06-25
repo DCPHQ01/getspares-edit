@@ -46,7 +46,7 @@ const itemSelected = [
     count: 4,
     totalPrice: "₦360,000.00",
     shippingPrice: "₦0",
-    subtotal: "₦230,000,000.98",
+    subtotal: "₦23,000,000.98",
   },
 ];
 
@@ -76,9 +76,9 @@ const Checkout = () => {
     paths.toHome();
   };
 
-  const handleSaveCick = () => {
-    console.log('clicked')
-  };
+  // const handleSaveCick = () => {
+  //   console.log('clicked')
+  // };
 
   const handleAddressSelectionToggle = () => {
     setShowAddressSelection(!showAddressSelection);
@@ -98,6 +98,7 @@ const Checkout = () => {
     } else {
       setIsAuthenticated(true);
       let userDetails = sessionStorage.getItem('userDetails') || '';
+      console.log('user details:', userDetails);
       const parsedUserDetails = JSON.parse(userDetails);
       console.log("user details:", parsedUserDetails);      
       setFormData({
@@ -118,7 +119,7 @@ const Checkout = () => {
       return;
     }
     const payload = {
-      // productId:"666877a5b48207256da90429",
+      productId:"666877a5b48207256da90429",
       location: formData.deliveryAddress,
       otherInformation: "Some other information", 
       phoneNumber: formData.phoneNumber
@@ -150,7 +151,7 @@ const Checkout = () => {
   // };
   return (
     // add screen
-    <Box>
+    <div>
       <div id='topHeader' className='fixed top-0 left-0 right-0 z-10'>
         <HeaderPage/>
         <div className='px-2'>
@@ -254,8 +255,10 @@ const Checkout = () => {
                       value={deliveryMode}
                       onChange={handleDeliveryModeChange}
                     >
+                      <div className='flex row'>
                       <FormControlLabel className="text-black text-sm font-normal" value="delivery" control={<Radio />} label="Delivery" />
                       <FormControlLabel className="text-black text-sm font-normal" value="pickup" control={<Radio />} label="Pickup" />
+                      </div>
                     </RadioGroup>
                   </FormControl>
                   {deliveryMode === 'delivery' ? (
@@ -365,13 +368,15 @@ const Checkout = () => {
                     </div>
                   ))}
                   <div>
-                  <Button
+                    {/* className="w-full hover:bg-mecaBluePrimaryColor h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer normal-case " */}
+                    {/* hover:opacity-90 */}
+                  <button
                     id="checkoutBtn"
-                    disableRipple
-                    className="w-full hover:bg-mecaBluePrimaryColor h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer normal-case hover:opacity-90"
+                    // disableRipple
                     onClick={handleSubmit}
+                     className="w-full h-11 hover:bg-mecaBluePrimaryColor bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer"
                   >
-                    {isLoading ? (
+                    {/* {isLoading ? (
                       <ColorRing
                         visible
                         height="40"
@@ -381,10 +386,10 @@ const Checkout = () => {
                         wrapperClass="color-ring-wrapper"
                         colors={["#ffff", "#ffff", "#ffff", "#ffff", "#ffff"]}
                       />
-                    ) : (
-                      "Checkout"
-                    )}
-                  </Button>
+                    ) : ( */}
+                      Checkout
+                    {/* )} */}
+                  </button>
                     <Modal
                       // open={open}
                       // onClose={handleClose}
@@ -427,7 +432,7 @@ const Checkout = () => {
         <div className="mt-14" id="contentContainerAddToCartFooter">
           <Footer />
         </div>  
-    </Box>
+    </div>
   )
 }
 

@@ -90,13 +90,13 @@ import Details from "../../../../category/products/viewDetails/[details]/page";
 //   },
 // ];
 type VendorData = {
-  avatar: string;
-  name: string;
-  email: string;
-  sale: number;
-  vale: string;
-  date: string;
-  time: string;
+  // avatar: string;
+  orderId: string;
+  amount: string;
+  buyers: number;
+  DateOrdered: string;
+  // date: string;
+  // time: string;
 };
 
 interface VendorTableProps {
@@ -162,14 +162,14 @@ const VendorOrderTable = ({data}: VendorTableProps) => {
                   className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
                   id={`itemsSold_${index}`}
                 >
-                  {d.sale}
+                  {d.orderId}
                 </td>
 
                 <td
                   className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
                   id={`transactionValue_${index}`}
                 >
-                  {d.vale}
+                  {d.amount}
                 </td>
 
                 <td id={`companyData_${index}`}>
@@ -183,7 +183,7 @@ const VendorOrderTable = ({data}: VendorTableProps) => {
                       id={`avatar_${index}`}
                     /> */}
                     <div id={`companyDetails_${index}`}>
-                      <div>{d.name}</div>
+                      <div>{d.buyers}</div>
                       {/* <div className={`text-[#4B5565]`} id={`email_${index}`}>
                         {d.email}
                       </div> */}
@@ -193,10 +193,10 @@ const VendorOrderTable = ({data}: VendorTableProps) => {
 
                 <td id={`dateJoined_${index}`}>
                   <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
-                    <div id={`date_${index}`}>{d.date}</div>
-                    <div className={`text-[#4B5565]`} id={`time_${index}`}>
+                    <div id={`date_${index}`}>{d.DateOrdered}</div>
+                    {/* <div className={`text-[#4B5565]`} id={`time_${index}`}>
                       {d.time}
-                    </div>
+                    </div> */}
                   </div>
                 </td>
               </tr>
