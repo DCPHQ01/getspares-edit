@@ -1,9 +1,8 @@
-import * as React from 'react';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
+import * as React from "react";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
 import ProductReview from "./ProductReview";
-
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -30,34 +29,45 @@ function CustomTabPanel(props: TabPanelProps) {
 function a11yProps(index: number) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
- interface productInformation {
-   manufacturer?: string | null;
-   brand?: string | null;
-   model?: string | null;
-   itemWeight?: string | null;
-   productDimension?: string | null;
-   countryOfOrigin?: string | null;
-   itemModelNumber?: string | null;
-   manufacturerPartNumber?: string | null;
-   voltage?: string | null;
- }
-  
- interface productInformationProps {
-   productInformation: productInformation[]
- }
+interface productInformation {
+  manufacturer?: string | null;
+  brand?: string | null;
+  model?: string | null;
+  itemWeight?: string | null;
+  productDimension?: string | null;
+  countryOfOrigin?: string | null;
+  itemModelNumber?: string | null;
+  manufacturerPartNumber?: string | null;
+  voltage?: string | null;
+  quantity?: number | null;
+  color?: string | null;
+}
 
-const DetailsTable:React.FC<productInformation> = ({manufacturer,brand,itemWeight,productDimension,countryOfOrigin,itemModelNumber,manufacturerPartNumber,voltage}) => {
+interface productInformationProps {
+  productInformation: productInformation[];
+}
+
+const DetailsTable: React.FC<productInformation> = ({
+  manufacturer,
+  brand,
+  itemWeight,
+  productDimension,
+  countryOfOrigin,
+  itemModelNumber,
+  manufacturerPartNumber,
+  voltage,
+  color,
+  quantity,
+}) => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
-
-  
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -80,7 +90,7 @@ const DetailsTable:React.FC<productInformation> = ({manufacturer,brand,itemWeigh
           >
             <div className="flex flex-col">
               <div>Quantity Available</div>
-              <div>{manufacturer}</div>
+              <div>{quantity}</div>
             </div>
           </Box>
           <Box
@@ -117,7 +127,7 @@ const DetailsTable:React.FC<productInformation> = ({manufacturer,brand,itemWeigh
           >
             <div className="flex flex-col">
               <div>Color</div>
-              <div></div>
+              <div>{color}</div>
             </div>
           </Box>
 
@@ -144,7 +154,7 @@ const DetailsTable:React.FC<productInformation> = ({manufacturer,brand,itemWeigh
             sx={{ p: 2, border: "shadow", backgroundColor: "#EEF2F6" }}
           >
             <div className="flex flex-col">
-              <div>Country of originin a week</div>
+              <div>Country of origin</div>
               <div>{countryOfOrigin}</div>
             </div>
           </Box>
@@ -155,5 +165,5 @@ const DetailsTable:React.FC<productInformation> = ({manufacturer,brand,itemWeigh
       </CustomTabPanel>
     </Box>
   );
-}
- export default  DetailsTable;
+};
+export default DetailsTable;

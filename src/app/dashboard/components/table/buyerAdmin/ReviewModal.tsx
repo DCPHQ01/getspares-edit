@@ -27,7 +27,11 @@ const ReviewModal: React.FC<ReviewModalProps> = ({
     setOpenModal(false);
   };
 
-  const [formData, setFormData] = useState({ description: "", rating: 0 });
+
+  const [formData, setFormData] = useState({
+    description: "",
+    rating: 0,
+  });
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
@@ -39,7 +43,7 @@ const ReviewModal: React.FC<ReviewModalProps> = ({
         comment: formData.description,
         orderId: "66770091d36d2c0f4f2a2569",
         productId: "666877a5b48207256da90429",
-        rating: formData.rating,
+        rating: 0
       }).unwrap();
       closeModal();
       if ("data" in res) {

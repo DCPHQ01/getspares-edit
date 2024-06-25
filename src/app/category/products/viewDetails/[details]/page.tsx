@@ -17,7 +17,7 @@ import DetailsTable from "../../../../dashboard/components/table/buyerAdmin/tab"
 import BuyerModal from "../../../../dashboard/components/table/vendoradmin/vendorModal";
 import { paths } from "../../../../../path/paths";
 import { useGetViewBuyersProductDetailsQuery } from "../../../../../redux/features/feedback/feedbackQuery";
-
+import AmountComponentsPage from "../../../../reusables/AmountComponents/page";
 interface State {
   open: boolean;
 }
@@ -29,23 +29,23 @@ interface viewBuyersProductDetails {
   availabilityStatus: string;
   category: string;
   companyId: string;
-  price: string;
+  amount: any;
   color: string;
   images: [string];
   company: string;
 }
 
 interface productInformation {
-    manufacturer: string;
-    brand: string;
-    model: string;
-    itemWeight: string;
-    productDimension: null;
-    countryOfOrigin: string;
-    itemModelNumber: string;
-    manufacturerPartNumber: string;
-    voltage: string;
- 
+  manufacturer: string;
+  brand: string;
+  model: string;
+  itemWeight: string;
+  productDimension: null;
+  countryOfOrigin: string;
+  itemModelNumber: string;
+  manufacturerPartNumber: string;
+  voltage: string;
+  quantity: number;
 }
 
 const images = [
@@ -61,10 +61,9 @@ const images = [
 
 export default function Details() {
   const [opens, setOpens] = React.useState<boolean>(false);
-   const [productInformations, setProductInformations] = useState<
-     productInformation
-   >();
-   console.log("Informations:: ", productInformations)
+  const [productInformations, setProductInformations] =
+    useState<productInformation>();
+  console.log("Informations:: ", productInformations);
   const [state, setState] = React.useState<State>({
     open: false,
   });
@@ -89,6 +88,7 @@ export default function Details() {
             countryOfOrigin={productInformations?.countryOfOrigin}
             manufacturerPartNumber={productInformations?.manufacturerPartNumber}
             voltage={productInformations?.voltage}
+            quantity={productInformations?.quantity}
           />{" "}
         </div>
       ),
@@ -141,19 +141,20 @@ export default function Details() {
 
   const [viewBuyerProducts, setViewBuyerProducts] =
     useState<viewBuyersProductDetails>();
- 
+
   useEffect(() => {
     if (data) {
       const viewOfProduct = data.data;
       setViewBuyerProducts(viewOfProduct);
-      const informationList = data.data.productInformation
-      setProductInformations(informationList)
+      const informationList = data.data.productInformation;
+      setProductInformations(informationList);
     }
   }, [data]);
   console.log("view ", viewBuyerProducts);
-  console.log("The productInformation: ", productInformations)
+  console.log("The productInformation: ", productInformations);
+
   return (
-    <div className="relative pt-12" id="detailsDiv">
+    <div className="relative pt-5" id="detailsDiv">
       <div id="mainContainer" className="container px-4 md:px-8 lg:px-16">
         <div
           className="flex flex-col space-y-8 w-full"
@@ -164,14 +165,14 @@ export default function Details() {
             className="flex items-center gap-x-2"
           >
             <Link href={paths.toDashboard()}>
-              <button className="text-lg cursor-pointer font-nunito font-normal text-mecaDarkBlueBackgroundOverlay">
+              <button className="text-base cursor-pointer font-nunito font-normal text-mecaDarkBlueBackgroundOverlay">
                 {viewBuyerProducts?.name}
               </button>
             </Link>
-            {/* <MdChevronRight size={20} /> */}
-            {/* <p className="text-lg font-nunito font-normal text-mecaGoBackArrow">
+            <MdChevronRight size={20} />
+            <p className="text-base font-nunito font-normal text-mecaGoBackArrow">
               View details
-            </p> */}
+            </p>
           </div>
 
           <div className="flex flex-col">
@@ -238,6 +239,9 @@ export default function Details() {
                   id="titleCompanyDiv"
                   className="w-full flex flex-col gap-y-4"
                 >
+                  <div className="border-2 text-center pb-6 w-52 h-6 rounded-full">
+                    {viewBuyerProducts?.category}
+                  </div>
                   <h2 className="text-2xl text-mecaDarkBlueBackgroundOverlay font-normal font-nunito">
                     {viewBuyerProducts?.name}
                   </h2>
@@ -249,7 +253,9 @@ export default function Details() {
                   <div id="priceButtonDiv" className="flex flex-col mt-6">
                     <div id="priceDiv" className="flex gap-x-6 items-center">
                       <p className="text-mecaDarkBlueBackgroundOverlay text-3xl font-extrabold">
-                        {viewBuyerProducts?.price}
+                        <AmountComponentsPage
+                          amount={viewBuyerProducts?.amount}
+                        />
                       </p>
                       <div
                         id="inStockBtn"
