@@ -1,4 +1,4 @@
-
+"use client";
 import { MdChevronRight } from "react-icons/md";
 import ViewParticularOrderTable from "../../../../dashboard/components/table/buyerAdmin/viewParticularOrderTable";
 import Order from "../../../../dashboard/components/table/agentAdmin/order";
