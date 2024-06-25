@@ -330,6 +330,7 @@ const VendorTable: React.FC<VendorTableProps>  = ({vendorList}) => {
                         </div>
                       </div>
                     </div>
+                    
                   </td>
                   <td
                     className={`text-[0.88rem] py-[1rem] px-[3.13rem] truncate`}

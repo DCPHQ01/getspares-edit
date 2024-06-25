@@ -2,6 +2,8 @@
 import React from "react";
 import styles from "../styles.module.css";
 import dayjs from "dayjs";
+import { AccountCircle } from '@mui/icons-material';
+import { ColorRing } from "react-loader-spinner";
 
 interface Agent {
   firstName: string;
@@ -13,6 +15,8 @@ interface Agent {
 
 interface AgentTableProps {
   agentList: Agent[];
+  isLoading?: boolean;
+  isError?: boolean
 }
 
 const formatDateTime = (dateTime: string) => {
@@ -21,7 +25,7 @@ const formatDateTime = (dateTime: string) => {
   return { date, time };
 };
 
-const AgentTable: React.FC<AgentTableProps> = ({ agentList }) => {
+const AgentTable: React.FC<AgentTableProps> = ({ agentList,isLoading }) => {
   return (
     <div>
       <div id="tableContainer">
@@ -44,7 +48,25 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList }) => {
               </tr>
             </thead>
             <tbody>
-              {agentList?.map((d, index) => {
+
+              {isLoading? ( 
+                <div 
+                className="text-center mt-28 relative lg:left-[210%] lg:right[210%] md:left-[213%] md:right[213%] sm:left-[21"
+                >
+                   <ColorRing  
+                    visible={true}
+                    height="40"
+                    width="40"
+                    ariaLabel="color-ring-loading"
+                    wrapperStyle={{position: "absolute", bottom: "75%", left: "44%",}}
+                    wrapperClass="color-ring-wrapper"
+                    colors={["#000000", "#000000", "#000000", "#000000", "#000000"]}
+        
+                   />
+                  <p>Loading Agent........</p>
+                </div>
+              ) :(
+                 agentList?.map((d, index) => {
                 const { date, time } = formatDateTime(d.dateAdded);
                 return (
                   <tr
@@ -57,6 +79,41 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList }) => {
                         className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
                       >
                         <div id={`companyDetails_${index}`}>
+                        {/* {d.imageUrl ? (
+                        <Image
+                          src={d.imageUrl}
+                          className="object-contain"
+                          alt="Avatar"
+                          id={`avatar_${index}`}
+                        />
+                      ) : (
+                        <AccountCircle style={{ fontSize: 50 }} className=" text-gray-400" 
+                        style={{ fontSize:40, color: gray}}
+                        />
+                      )} */}
+                      <div id={`companyDetails_${index}`}>
+                        <div className="truncate">{d.firstName}</div>
+                        <div
+                          className={`text-[#4B5565] truncate`}
+                          id={`email_${index}`}
+                        >
+                          {d.email}
+                        </div>
+                      </div>
+                    </div>
+                        {/* {d.imageUrl ? (
+                        <Image
+                          src={d.imageUrl}
+                          className="object-contain"
+                          alt="Avatar"
+                          width={50}
+                          height={50}
+                        />
+                      ) : (
+                        <AccountCircle style={{ fontSize: 50 }} className="text-gray-400"
+                        style={{ fontSize:40, color: gray}}
+                         />
+                      )}
                           <div className="truncate">{d.firstName}</div>
                           <div
                             className={`text-[#4B5565] truncate`}
@@ -64,7 +121,8 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList }) => {
                           >
                             {d.email}
                           </div>
-                        </div>
+                        </div> */}
+                       
                       </div>
                     </td>
                     <td
@@ -92,7 +150,7 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList }) => {
                     </td>
                   </tr>
                 );
-              })}
+              }))}
             </tbody>
           </table>
         </div>

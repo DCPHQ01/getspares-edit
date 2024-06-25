@@ -20,31 +20,36 @@ import {
 } from "react-icons/md";
 
 function Agents() {
-  const { data, isLoading, isError} = useGetMecaAdminAgentQuery({page:1, size:10 })
-  const [agentList, setAgentList] = useState<Agent[]>([]);
   const [page, setPage] = useState(0)
   const size = 10
+  const [first, setFirst] = useState(false);
+  const [last, setLast] = useState(false);
+  const { data, isLoading, isError} = useGetMecaAdminAgentQuery({page:page, size:size })
+  const [agentList, setAgentList] = useState<Agent[]>([]);
   console.log("The agent list", data)
 
   useEffect(() => {
     if (data && Array.isArray(data.data.content)) {
       const list = data.data.content;
+      const lists = data.data;
       setAgentList(list);
+      setFirst(lists.first)
+      setLast(lists.last)
     }
   }, [data]);
 
   console.log("The datas: ", data);
 
-  const handlePreviousPage=()=>{
-    if(page > 0){
+  const handleNextPage=()=>{
+    if(first){
       setPage(prevPage => prevPage + 1);
     }
   }
 
-  const handleNextPage=()=>{
-    // if (data.length === size) {
-      setPage(prevPage => prevPage + 1);
-    // }
+  const  handlePreviousPage=()=>{
+    if (last) {
+      setPage(prevPage => prevPage - 1);
+    }
   }
 
   return (
@@ -60,18 +65,18 @@ function Agents() {
         </div>
       </div>
 
-      <AgentTable agentList={agentList}/>
+      <AgentTable agentList={agentList} isLoading={isLoading}/>
 
       <div className="flex gap-[89%] md:gap-[85%] mt-10 text-mecaBluePrimaryColor font-bold text-lg">
-          <button className="flex gap-x-2" 
+          <button className={`flex gap-x-2  ${!last ? "text-gray-400 cursor-not-allowed" : ""}`}
           onClick={handlePreviousPage}
-          disabled={page === 0}
+          disabled={first}
           >
             <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
           </button>
-          <button className="flex gap-x-2" 
+          <button className={`flex gap-x-2  ${last ? "text-gray-400 cursor-not-allowed" : ""}`}
           onClick={handleNextPage}
-          // disabled={data.length === 0}
+           disabled={last}
           >
             Next
             <span>
