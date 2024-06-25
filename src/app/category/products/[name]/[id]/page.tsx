@@ -38,6 +38,7 @@ import {
   useGetAProductQuery,
   useGetRelatedProductQuery,
 } from "../../../../../redux/features/users/authQuery";
+import {CartProduct} from "../../../../../types/cart/product";
 
 interface State extends SnackbarOrigin {
   open: boolean;
@@ -147,9 +148,9 @@ export default function ProductDescription() {
     let newArr = []
     let finalArr = []
     let payload = {...val, quantity:'1'}
-    const savedCartItems = JSON.parse(localStorage.getItem('savedCartItems'));
+    const savedCartItems = JSON.parse(localStorage.getItem('savedCartItems') as string)as CartProduct[];
 
-    if(savedCartItems !== null){
+    if(savedCartItems){
       const i = savedCartItems.findIndex(e => e.id === payload.id);
       if (i > -1) {
         // We know that at least 1 object that matches has been found at the index i
