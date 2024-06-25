@@ -21,6 +21,7 @@ interface Category {
   createdBy: string;
   dateCreated: string;
   email: string;
+  option: string;
 }
 
 const style = {
