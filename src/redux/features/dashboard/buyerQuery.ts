@@ -26,9 +26,14 @@ export const buyerQuery = createApi({
             body: {comment, productId, orderId, rating},
         }),
     }),
+    getOverviewOrderTable: builder.query({
+        query: () => ({
+          url: "/product/recent",
+          method: "GET",
+      }),
+      }),
 })
 });
-
-export const { useCheckoutMutation, useGetViewAllOrdersQuery, useSubmitFeedbackMutation  } = buyerQuery;
+export const { useCheckoutMutation, useGetViewAllOrdersQuery, useSubmitFeedbackMutation, useGetOverviewOrderTableQuery  } = buyerQuery;
 
 
