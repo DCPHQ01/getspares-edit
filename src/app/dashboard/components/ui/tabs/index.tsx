@@ -1,8 +1,15 @@
 "use client";
 import React, { useState } from "react";
 
-function Index({ tabs }: { tabs: { label: string; count: string }[] }) {
-  const [activeTab, setActiveTab] = useState(tabs[0].label);
+interface TabsProps {
+  tabs: { label: string; count: number; status: string }[];
+  activeTab: string;
+  onTabChange: (status: string) => void;
+}
+
+// function Index({ tabs }: { tabs: { label: string; count: string }[] }) {
+  function Index({ tabs, activeTab, onTabChange }: TabsProps) {
+  // const [activeTab, setActiveTab] = useState(tabs[0].label);
 
   return (
     <div className={`border-b border-[#EEF2F6] inline-block`}>
@@ -11,11 +18,12 @@ function Index({ tabs }: { tabs: { label: string; count: string }[] }) {
           <button
             key={tab.label}
             className={`mx-[0.5rem] focus:outline-none ${
-              activeTab === tab.label
+              activeTab === tab.status
                 ? "border-b-2 border-blue-500 text-blue-500"
                 : ""
             }`}
-            onClick={() => setActiveTab(tab.label)}
+            // onClick={() => setActiveTab(tab.label)}
+            onClick={() => onTabChange(tab.status)}
           >
             {tab.label}({tab.count})
           </button>

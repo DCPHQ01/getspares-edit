@@ -46,7 +46,7 @@ const style = {
   borderRadius: "20px",
   p: 4,
 };
-function Category() {
+function CategoryMobile() {
   const { data, isError } = useGetViewAllMecaAdminCategoryQuery({
     page: 1,
     size: 10,
@@ -229,4 +229,4 @@ function Category() {
   );
 }
 
-export default Category;
+export default CategoryMobile;

@@ -1,12 +1,24 @@
+"use clents"
+
 import { Button, Dialog, DialogContent, DialogTitle, Divider, Rating } from "@mui/material";
 import { IoClose, IoStarSharp } from "react-icons/io5";
 import * as React from 'react';
 
+interface viewAllFeedBack {
+  comment: string;
+  createdBy: string;
+  productId: string;
+  orderId: string;
+  rating: number;
+  dateCreated: string;
+}
+
 interface ReviewModalProps {
     openModal: boolean;
     setOpenModal: (value: boolean) => void;
+    viewAllFeedBack: viewAllFeedBack[];
 }
-const ViewAllComments: React.FC<ReviewModalProps> = ({ openModal, setOpenModal }) => {
+const ViewAllComments: React.FC<ReviewModalProps> = ({ openModal, setOpenModal,viewAllFeedBack }) => {
     const [selectedRating, setSelectedRating] = React.useState<number | null>(null);
 
     const handleRatingClick = (rating: number) => {
@@ -76,15 +88,17 @@ const ViewAllComments: React.FC<ReviewModalProps> = ({ openModal, setOpenModal }
                             </Button>
                         ))}
                     </div>
-                    {listOfReviews?.map((review, index) => {
+                    {viewAllFeedBack?.map((review, index) => {
                         return (
                             <div className={`mb-6`}>
                                 <div className={`mb-1.5`}>
-                                    <div>{review.name}</div>
-                                    <Rating name="read-only" sx={{ color: "#095AD3" }} value={review.rate} readOnly />
+                                    <div>{review.createdBy}</div>
+                                    <Rating name="read-only" sx={{ color: "#095AD3" }} value={review.rating} readOnly />
                                 </div>
-                                <div className={`mb-2`}>{review?.description}</div>
-                                <div className={`text-[#9AA4B2]`}>{review.date}.{review.time}</div>
+                                <div className={`mb-2`}>{review.comment}</div>
+                                <div className={`text-[#9AA4B2]`}>{review.dateCreated}
+                                    {/* .{review.time} */}
+                                    </div>
                             </div>
                         )
                     })}

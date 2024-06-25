@@ -69,8 +69,7 @@ function Index() {
      router.push(paths.toHome());
    };
 
-   // console.log(roles, " roles");
-
+  
    const profileBtn = () => {
      handleButtonClick(sidePanel.PROFILE);
      setActiveButton(null);
