@@ -253,9 +253,7 @@ export default function Details() {
                   <div id="priceButtonDiv" className="flex flex-col mt-6">
                     <div id="priceDiv" className="flex gap-x-6 items-center">
                       <p className="text-mecaDarkBlueBackgroundOverlay text-3xl font-extrabold">
-                        <AmountComponentsPage
-                          amount={viewBuyerProducts?.amount}
-                        />
+                        {viewBuyerProducts?.amount}
                       </p>
                       <div
                         id="inStockBtn"

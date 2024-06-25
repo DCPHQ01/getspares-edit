@@ -101,7 +101,7 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
                         className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
                         id={`transactionValue_${index}`}
                       >
-                        <AmountComponentsPage amount={d.totalAmount} />
+                        {d.totalAmount}
                       </td>
 
                       <td id={`dateJoined_${index}`}>
