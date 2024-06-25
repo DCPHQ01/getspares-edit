@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import styles from "../styles.module.css";
-import Image from "next/image";
 import { AccountCircle } from '@mui/icons-material';
 
 interface Category {
@@ -18,11 +17,14 @@ interface CategoryTableProps {
   categoryList: Category[];
 }
 
-const splitDateTime = (dateTime: string) => {
-  const [date, timeWithMilliseconds] = dateTime.split('T');
-  const time = timeWithMilliseconds.split('.')[0]; 
-  return { date, time };
-};
+const moment = require('moment');
+
+const dateTime = "2024-06-21T10:34:24.829";
+const date = moment(dateTime).format('YYYY-MM-DD');
+const time = moment(dateTime).format('HH:mm a');
+
+console.log('Date:', date); 
+console.log('Time:', time); 
 
 const CategoryTable: React.FC<CategoryTableProps> = ({ categoryList }) => {
   
@@ -45,18 +47,22 @@ const CategoryTable: React.FC<CategoryTableProps> = ({ categoryList }) => {
           </thead>
           <tbody>
             {Array.isArray(categoryList) && categoryList?.map((d, index) => {
-              const { date, time } = splitDateTime(d.dateCreated);
               return (
-                <tr key={index} id={`row_${index}`} className="cursor-pointer">
-                  <td id={`companyData_${index}`}>
+                <tr key={index} 
+                  id={`row_${index}`} 
+                  className="cursor-pointer">
+                  <td 
+                    id={`companyData_${index}`}>
                     <div
                       className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
                     >
-                      {d.imageUrl ? (
-                        <Image
-                          src={d.imageUrl}
+                      {d?.imageUrl ? (
+                        <img
+                          src={d?.imageUrl}
                           className="object-contain"
                           alt="Avatar"
+                          width={50}
+                          height={50}
                           id={`avatar_${index}`}
                         />
                       ) : (

@@ -17,7 +17,7 @@ import {
   MdOutlineStorefront,
 } from "react-icons/md";
 import Footer from "../../../../../components/footer/Footer";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import * as React from "react";
 import {
@@ -34,10 +34,21 @@ import { IoCloseCircleOutline } from "react-icons/io5";
 import TopBarWhileInside from "../../../../reusables/TopBarWhileInside/page";
 import {useAppDispatch, useAppSelector} from "../../../../../redux/hooks";
 import { addToCart } from "../../../../../redux/features/product/productSlice";
-import { useGetAProductQuery } from "../../../../../redux/features/users/authQuery";
+import {
+  useGetAProductQuery,
+  useGetRelatedProductQuery,
+} from "../../../../../redux/features/users/authQuery";
 
 interface State extends SnackbarOrigin {
   open: boolean;
+}
+
+interface ProductType {
+  id: string;
+  name: string;
+  image: string;
+  price: string;
+  categoryName?: string;
 }
 
 const responsive = {
@@ -97,9 +108,16 @@ export default function ProductDescription() {
   const remainingImages = images.slice(5);
   const carouselRef = useRef<Carousel>(null);
 
+  const { data: relatedProductData } = useGetRelatedProductQuery(productId, {
+    skip: !productId,
+  });
+  console.log("related ", relatedProductData?.data);
+
   const handleNext = () => {
     if (carouselRef.current) carouselRef.current.next(0);
   };
+
+  const router = useRouter()
 
   const handlePrevious = () => {
     if (carouselRef.current) carouselRef.current.previous(0);
@@ -110,6 +128,32 @@ export default function ProductDescription() {
 
   const searchParams = usePathname()
   const segments = searchParams.split("/");
+
+  const searches = segments[3];
+  const id = segments[4];
+
+
+  const handleClick = (newState: SnackbarOrigin) => () => {
+    dispatch(
+      addToCart({
+        id,
+      })
+    );
+    setState({ ...newState, open: true });
+
+    setTimeout(() => {
+      setState({ ...newState, open: false });
+    }, 3000);
+  };
+
+  const formatPrice = (price: string) => {
+    const numericPrice = parseFloat(price?.replace(/[^0-9.-]+/g, ""));
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "NGN",
+    }).format(numericPrice);
+  };
+
   const searchWords = segments[3].replace(/([A-Z])/g, " $1").trim();
 
 
@@ -355,6 +399,7 @@ export default function ProductDescription() {
                     </button>}
 
                     <button
+                    onClick={()=> router.push("/cart/checkout")}
                       type="button"
                       className="w-full h-[44px] text-mecaBluePrimaryColor text-lg font-nunito font-semibold flex items-center justify-center border bg-white border-mecaBluePrimaryColor rounded-full"
                     >
@@ -399,14 +444,14 @@ export default function ProductDescription() {
             <span className="flex gap-8" id="carouselButtonSpanOne">
               <div
                 id="previousBtnOne"
-                className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay"
+                className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay cursor-pointer"
                 onClick={handlePrevious}
               >
                 <MdChevronLeft size={40} />
               </div>
               <div
                 id="nextBtnOne"
-                className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay"
+                className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay cursor-pointer"
                 onClick={handleNext}
               >
                 <MdChevronRight size={40} />
@@ -414,21 +459,35 @@ export default function ProductDescription() {
             </span>
           </div>
           <div id="carouselProductDescription">
-            {/* <Carousel
-              partialVisible={true}
-              draggable={false}
-              responsive={responsive}
-              ssr={true}
-              infinite
-              autoPlay={true}
-              arrows={false}
-              ref={carouselRef}
-              itemClass="lg:pr-8"
-            >
-              <Card image={HomeImage1} />
-              <Card image={HomeImage2} />
-              <Card image={HomeImage1} />
-            </Carousel> */}
+            <React.Fragment>
+              {relatedProductData &&
+              relatedProductData?.data?.content &&
+              relatedProductData?.data?.content.length > 0 ? (
+                <Carousel
+                  partialVisible={true}
+                  draggable={false}
+                  responsive={responsive}
+                  ssr={true}
+                  infinite
+                  autoPlay={true}
+                  itemClass="lg:pr-8 pr-4"
+                >
+                  {relatedProductData?.data?.content.map(
+                    (product: ProductType) => (
+                      <Card
+                        key={product.id}
+                        id={product.id}
+                        image={HomeImage1}
+                        productName={product.name}
+                        price={product.price}
+                      />
+                    )
+                  )}
+                </Carousel>
+              ) : (
+                <p>No related products found.</p>
+              )}
+            </React.Fragment>
           </div>
         </div>
         <div
@@ -445,14 +504,14 @@ export default function ProductDescription() {
             <span className="flex gap-8" id="carouselButtonSpan">
               <div
                 id="previousBtn"
-                className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay"
+                className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay cursor-pointer"
                 onClick={handlePrevious}
               >
                 <MdChevronLeft size={40} />
               </div>
               <div
                 id="nextBtn"
-                className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay"
+                className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay cursor-pointer"
                 onClick={handleNext}
               >
                 <MdChevronRight size={40} />
@@ -460,21 +519,35 @@ export default function ProductDescription() {
             </span>
           </div>
           <div id="carousel">
-            {/* <Carousel
-              partialVisible={true}
-              draggable={false}
-              responsive={responsive}
-              ssr={true}
-              infinite
-              autoPlay={true}
-              arrows={false}
-              ref={carouselRef}
-              itemClass="lg:pr-8"
-            >
-              <Card image={HomeImage1} />
-              <Card image={HomeImage2} />
-              <Card image={HomeImage1} />
-            </Carousel> */}
+            <React.Fragment>
+              {relatedProductData &&
+              relatedProductData?.data?.content &&
+              relatedProductData?.data?.content.length > 0 ? (
+                <Carousel
+                  partialVisible={true}
+                  draggable={false}
+                  responsive={responsive}
+                  ssr={true}
+                  infinite
+                  autoPlay={true}
+                  itemClass="lg:pr-8 pr-4"
+                >
+                  {relatedProductData?.data?.content.map(
+                    (product: ProductType) => (
+                      <Card
+                        key={product.id}
+                        id={product.id}
+                        image={HomeImage1}
+                        productName={product.name}
+                        price={product.price}
+                      />
+                    )
+                  )}
+                </Carousel>
+              ) : (
+                <p>No related products found.</p>
+              )}
+            </React.Fragment>
           </div>
         </div>
       </div>

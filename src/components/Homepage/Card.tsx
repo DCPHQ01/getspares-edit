@@ -35,7 +35,7 @@ const Card: React.FC<CardProps> = ({
   };
   return (
     <div
-      className="flex flex-col items-center w-full"
+      className="flex flex-col items-center w-full cursor-pointer"
       id="CardContainer"
       onClick={() => handleProductDescription(id)}
     >

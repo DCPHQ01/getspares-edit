@@ -34,6 +34,8 @@ function stringAvatar(name: string) {
 }
 
 const Profile = () => {
+
+
   return (
     <div>
       <Header subtitle={``} title={`Profile`} amount={``} />

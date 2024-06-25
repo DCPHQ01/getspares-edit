@@ -1,7 +1,20 @@
 import React from "react";
 import Card from "../../../../../components/cards/card";
 
-function Index() {
+interface CardProp {
+  totalNumberOfAgents: number
+  totalNumberOfProductsSold: number
+  totalOrderValue: number
+  totalNumberOfPartOrdered: number,
+  totalNumberOfAgent: number,
+  totalTransactionValue: number,
+  totalNumberOfVendor: number,
+}
+
+interface CardProps {
+     cardField: CardProp;
+}
+const Index:React.FC<CardProps> = ({cardField}) => {
   const cardProps = [
     {
       total: "number of parts ordered",
@@ -41,7 +54,7 @@ function Index() {
       id="cardContainer"
       className={`lg:mt-[1rem] mb-[1rem]  gap-4 lg:flex justify-between w-full`}
     >
-      {cardProps.map((card, index) => (
+      {cardProps?.map((card, index) => (
         <div id={`card_${index}`} key={index} className="">
           <Card
             amount={card.amount}

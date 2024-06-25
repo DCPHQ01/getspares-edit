@@ -1,5 +1,6 @@
 "use client";
 import {useEffect, useLayoutEffect, useState} from "react";
+import { Fragment, useState } from "react";
 import { Nunito_Sans } from "next/font/google";
 import Carousel from "react-multi-carousel";
 import Cards from "../../components/Homepage/Card";
@@ -34,11 +35,40 @@ import { paths } from "../../path/paths";
 import {addToCart, editCart, setCart} from "../../redux/features/product/productSlice";
 import {formatAmount} from "../../components/utils";
 import {CheckOutCard} from "../../components/cart/CheckOutCard";
+import { useGetRelatedProductQuery } from "../../redux/features/users/authQuery";
 
 interface SnackState extends SnackbarOrigin {
   open: boolean;
 }
 
+interface ProductType {
+  id: string;
+  name: string;
+  image: string;
+  price: string;
+  categoryName?: string;
+}
+
+const responsive = {
+  superLargeDesktop: {
+    breakpoint: { max: 4000, min: 3000 },
+    items: 3,
+    partialVisibilityGutter: 0,
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 3,
+    partialVisibilityGutter: 0,
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2,
+  },
+  module: {
+    breakpoint: { max: 464, min: 0 },
+    items: 2,
+  },
+};
 
 
 
@@ -65,6 +95,8 @@ const RemoveToCartPage = () => {
     horizontal: "center",
   });
   const { vertical, horizontal, open } = snackState;
+  const { data: relatedProductData, isLoading } = useGetRelatedProductQuery({});
+
 
   const { cart } = useAppSelector((state) => state.product);
 
@@ -250,11 +282,43 @@ const RemoveToCartPage = () => {
             infinite
             autoPlay={true}
             itemClass="lg:pr-8 pr-4"
-          > */}
-          {/* <Cards image={HomeImage1} />
-            <Cards image={HomeImage2} />
-            <Cards image={HomeImage1} /> */}
-          {/* </Carousel> */}
+          >
+            {relatedProductData?.data.map((product: ProductType) => (
+              <Cards
+                id={product.id}
+                image={HomeImage1}
+                productName={product.name}
+                price={product.price}
+              />
+            ))}
+          </Carousel> */}
+          <Fragment>
+            {relatedProductData &&
+            relatedProductData?.data &&
+            relatedProductData?.data.length > 0 ? (
+              <Carousel
+                partialVisible={true}
+                draggable={false}
+                responsive={responsive}
+                ssr={true}
+                infinite
+                autoPlay={true}
+                itemClass="lg:pr-8 pr-4"
+              >
+                {relatedProductData.data.map((product: ProductType) => (
+                  <Cards
+                    key={product.id}
+                    id={product.id}
+                    image={HomeImage1}
+                    productName={product.name}
+                    price={product.price}
+                  />
+                ))}
+              </Carousel>
+            ) : (
+              <p>No related products found.</p>
+            )}
+          </Fragment>
         </div>
       </div>
       <div className="mt-14" id="contentContainerAddToCartFooter">

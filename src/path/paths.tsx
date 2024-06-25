@@ -59,4 +59,5 @@ export const paths = {
   toDashboard: () => "/dashboard",
   toHome: () => "/",
   toLogin: () => "/login",
+  toCheckout: () => "/cart/checkout",
 };
