@@ -45,39 +45,6 @@ const CategoryTable: React.FC<CategoryTableProps> = ({ categoryList }) => {
             </tr>
           </thead>
           <tbody>
-<<<<<<< HEAD
-            {Array.isArray(categoryList) && categoryList?.map((d, index) => {
-              const {date, time} = formatDateTime(d.dateCreated);
-              return (
-                <tr key={index} 
-                  id={`row_${index}`} 
-                  className="cursor-pointer">
-                  <td 
-                    id={`companyData_${index}`}>
-                    <div
-                      className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
-                    >
-                      {d?.imageUrl ? (
-                        <img
-                          src={d?.imageUrl}
-                          className="object-contain"
-                          alt="Avatar"
-                          width={50}
-                          height={50}
-                          id={`avatar_${index}`}
-                        />
-                      ) : (
-                        <AccountCircle style={{ fontSize: 50 }} className="text-gray-400" />
-                      )}
-                      <div id={`companyDetails_${index}`}>
-                        <div className="truncate mt-2">{d.name}</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td
-                    className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
-                    id={`itemsSold_${index}`}
-=======
             {Array.isArray(categoryList) &&
               categoryList?.map((d, index) => {
                 const { date, time } = formatDateTime(d.dateCreated);
@@ -86,7 +53,6 @@ const CategoryTable: React.FC<CategoryTableProps> = ({ categoryList }) => {
                     key={index}
                     id={`row_${index}`}
                     className="cursor-pointer"
->>>>>>> 2cdd6d23bb63a61ee852c207098eddc2fa3fb66a
                   >
                     <td id={`companyData_${index}`}>
                       <div
