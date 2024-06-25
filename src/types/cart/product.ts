@@ -7,7 +7,9 @@ export type CartProduct = {
    id: string;
    images: [];
    name: string;
-   price: string;
+   amount: string;
+   currency: string;
+
    productInformation:{
       brand: string;
 
