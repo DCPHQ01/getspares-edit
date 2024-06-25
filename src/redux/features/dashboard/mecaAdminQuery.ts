@@ -43,6 +43,13 @@ export const mecaAdminQuery = createApi({
         method: "GET",
       }),
     }),
+    getMecaAdminInventory: builder.mutation({
+      query: ({ page, size,availabilityStatus }: { page:number; size: number,availabilityStatus:string })=> ({
+        url: `/product/meca-admin/view-all/${page}/${size}`,
+        method: "POST",
+        params: {availabilityStatus},
+      })
+    }),
     getMecaAdminAgent: builder.query({
       query:({ page, size}: {page:number; size:number}) =>({
         url: `/agent/${page}/${size}`,
@@ -52,7 +59,8 @@ export const mecaAdminQuery = createApi({
   }),
 });
 
-export const { useAddCategoryMutation, useGetMecaAdminOverviewQuery, 
+// export const {useGetMecaAdminInventoryMutation, useAddCategoryMutation, useGetMecaAdminOverviewQuery, useGetTopPerformingVendorsQuery, useGetMecaAdminBuyerQuery,useGetMecaAdminDashboardVendorQuery,useGetViewAllMecaAdminCategoryQuery  } = mecaAdminQuery;
+export const {useGetMecaAdminInventoryMutation,useAddCategoryMutation, useGetMecaAdminOverviewQuery, 
               useGetTopPerformingVendorsQuery, useGetMecaAdminBuyerQuery,
               useGetMecaAdminDashboardVendorQuery,useGetViewAllMecaAdminCategoryQuery, 
               useGetMecaAdminAgentQuery  

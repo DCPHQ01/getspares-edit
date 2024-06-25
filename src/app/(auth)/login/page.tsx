@@ -570,7 +570,13 @@ export default function Login() {
                   ariaLabel="color-ring-loading"
                   wrapperStyle={{}}
                   wrapperClass="color-ring-wrapper"
-                  colors={["#ffff", "#ffff", "#ffff", "#ffff", "#ffff"]}
+                  colors={[
+                    "#FFFFFF",
+                    "#FFFFFF",
+                    "#FFFFFF",
+                    "#FFFFFF",
+                    "#FFFFFF",
+                  ]}
                 />
               </div>
             ) : (
