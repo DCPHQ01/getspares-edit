@@ -254,7 +254,7 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isL
         return (
               <tr key={index} id={`row_${index}`} className="cursor-pointer truncate hover:bg-gray-50"
               >
-               {/* <tr> */}
+              
                 <td id={`companyData_${index}`}>
                   <div
                    onClick={navigateTo}
