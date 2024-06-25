@@ -31,6 +31,7 @@ const CalledPagesPageOnePages = () => {
   });
 
   const { data: getCategoriesData } = useGetCategoryQuery({});
+  console.log(getCategoriesData?.data, "get categories data");
 
   useEffect(() => {
     const savedData = sessionStorage.getItem("basicInfoValues");
@@ -175,7 +176,7 @@ const CalledPagesPageOnePages = () => {
                         return selected;
                       }}
                     >
-                      {getCategoriesData?.map(
+                      {getCategoriesData?.data.map(
                         (category: {
                           id: number;
                           name: string;
