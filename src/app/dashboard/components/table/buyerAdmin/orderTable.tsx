@@ -16,9 +16,6 @@ type BuyerOrderData = {
   orderId: string;
   totalAmount: number;
   dateCreated: string;
-  // timeCreated: string;
-  // date: string;
-  // time: string;
 };
 
 interface BuyerOrderTableProps {
