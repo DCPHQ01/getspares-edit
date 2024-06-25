@@ -84,6 +84,8 @@ const images = [
 ];
 
 export default function ProductDescription() {
+  const searchParams = usePathname()
+
   const [state, setState] = React.useState<State>({
     open: false,
     vertical: "top",
@@ -125,15 +127,6 @@ export default function ProductDescription() {
 
 
   const { cart } = useAppSelector((state) => state.product);
-
-  const searchParams = usePathname()
-  const segments = searchParams.split("/");
-
-  const searches = segments[3];
-  const id = segments[4];
-
-
-  const searchWords = segments[3].replace(/([A-Z])/g, " $1").trim();
 
 
   useEffect(() => {
