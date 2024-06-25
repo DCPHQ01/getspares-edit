@@ -10,7 +10,7 @@ export const formatAmount = (price: string) => {
         return new Intl.NumberFormat("en-US", {
             style: 'currency',
             currency: 'NGN',
-        }).format(price);
+        }).format(Number(price));
     }
     // const numericPrice = parseFloat(price?.replace(/[^0-9.-]+/g, ""));
 

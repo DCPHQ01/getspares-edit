@@ -39,7 +39,7 @@ export const CheckOutCard = ({ cardCartItem, closeDropDown }: Props) => {
 
 
 
-   const handleDropdownChange = (e: React.ChangeEvent<HTMLSelectElement>, val) => {
+   const handleDropdownChange = (e: React.ChangeEvent<HTMLSelectElement>, val:any) => {
 
       const value = e.target.value;
       if (value === "10+") {
@@ -63,7 +63,7 @@ export const CheckOutCard = ({ cardCartItem, closeDropDown }: Props) => {
       setQuantity(e.target.value);
    };
 
-   const handleUpdateQuantity = (val) => {
+   const handleUpdateQuantity = (val:any) => {
       let newCart = JSON.parse(JSON.stringify(cart))
       const targetIndex = cart.findIndex( f => f.id === val.id);
       newCart[targetIndex].quantity = quantity

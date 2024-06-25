@@ -22,6 +22,7 @@ import { clearUser } from "../../redux/features/users/userSlice";
 import BrandPage from "./brand/page";
 import { paths } from "../../path/paths";
 import { setCart} from "../../redux/features/product/productSlice";
+import {CartProduct} from "../../types/cart/product";
 
 const navData = [
   {
@@ -102,7 +103,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
   };
 
   const { cart } = useAppSelector((state) => state.product);
-  const savedCartItems = JSON.parse(localStorage.getItem('savedCartItems'));
+  const savedCartItems = JSON.parse(localStorage.getItem('savedCartItems') as string)as CartProduct[];
 
 
 

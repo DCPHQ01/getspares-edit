@@ -159,13 +159,13 @@ export default function ProductDescription() {
         newArr.push(payload)
         finalArr = newArr.concat(savedCartItems)
         localStorage.setItem('savedCartItems', JSON.stringify(finalArr));
-        dispatch(addToCart(...newArr))
+        dispatch(addToCart(newArr))
       }
 
     }else{
       newArr.push(payload)
       localStorage.setItem('savedCartItems', JSON.stringify(newArr));
-      dispatch(addToCart(...newArr))
+      dispatch(addToCart(newArr))
     }
 
 
@@ -176,11 +176,11 @@ export default function ProductDescription() {
     // }, 3000);
   };
 
-  const formatPrice = (price: string, currency) => {
+  const formatPrice = (price: string, currency: string) => {
     return new Intl.NumberFormat("en-US", {
       style: 'currency',
       currency: currency ? currency : 'NGN',
-    }).format(price);
+    }).format(Number(price));
   };
 
 
