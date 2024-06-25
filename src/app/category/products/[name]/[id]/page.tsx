@@ -8,7 +8,7 @@ import HomeImage1 from "../../../../../assets/images/homeImage1.png";
 import tractor from "../../../../../assets/images/tractors.png";
 import HomeImage2 from "../../../../../assets/images/homeImage2.png";
 import ratingStar from "../../../../../assets/images/Star.png";
-import { useRef, useState } from "react";
+import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import {
   MdCheckCircle,
   MdChevronLeft,
@@ -32,12 +32,13 @@ import {
 
 import { IoCloseCircleOutline } from "react-icons/io5";
 import TopBarWhileInside from "../../../../reusables/TopBarWhileInside/page";
-import { useAppDispatch } from "../../../../../redux/hooks";
+import {useAppDispatch, useAppSelector} from "../../../../../redux/hooks";
 import { addToCart } from "../../../../../redux/features/product/productSlice";
 import {
   useGetAProductQuery,
   useGetRelatedProductQuery,
 } from "../../../../../redux/features/users/authQuery";
+import {CartProduct} from "../../../../../types/cart/product";
 
 interface State extends SnackbarOrigin {
   open: boolean;
@@ -84,6 +85,8 @@ const images = [
 ];
 
 export default function ProductDescription() {
+  const searchParams = usePathname()
+
   const [state, setState] = React.useState<State>({
     open: false,
     vertical: "top",
@@ -91,12 +94,16 @@ export default function ProductDescription() {
   });
   const productId = usePathname()!.split("/")[4];
 
+  const [visible, setVisible] = useState(false);
+
+
   const { data, isLoading } = useGetAProductQuery(productId, {
     skip: !productId,
   });
 
-  console.log("product id ", data?.data);
   const { vertical, horizontal, open } = state;
+
+
 
   const dispatch = useAppDispatch();
 
@@ -107,7 +114,6 @@ export default function ProductDescription() {
   const { data: relatedProductData } = useGetRelatedProductQuery(productId, {
     skip: !productId,
   });
-  console.log("related ", relatedProductData?.data);
 
   const handleNext = () => {
     if (carouselRef.current) carouselRef.current.next(0);
@@ -119,37 +125,64 @@ export default function ProductDescription() {
     if (carouselRef.current) carouselRef.current.previous(0);
   };
 
-  const searchParams = usePathname()!;
 
-  const search = searchParams;
-  const segments = searchParams.split("/");
-
-  const searches = segments[3];
-  const id = segments[4];
+  const { cart } = useAppSelector((state) => state.product);
 
 
-  const handleClick = (newState: SnackbarOrigin) => () => {
-    dispatch(
-      addToCart({
-        id,
-      })
-    );
-    setState({ ...newState, open: true });
+  useEffect(() => {
+    if(cart.length !== 0){
+      let hasItem = cart.some( vendor => vendor.id === data?.data?.id )
+      setVisible(hasItem)
+    }
+  },[cart, data?.data])
 
-    setTimeout(() => {
-      setState({ ...newState, open: false });
-    }, 3000);
+
+  // useLayoutEffect(()=> {
+  //
+  // },[])
+
+
+
+
+  const handleClick = (newState: SnackbarOrigin, val:any) => () => {
+    let newArr = []
+    let finalArr = []
+    let payload = {...val, quantity:'1'}
+    const savedCartItems = JSON.parse(localStorage.getItem('savedCartItems') as string)as CartProduct[];
+
+    if(savedCartItems){
+      const i = savedCartItems.findIndex(e => e.id === payload.id);
+      if (i > -1) {
+        // We know that at least 1 object that matches has been found at the index i
+        return
+      }else {
+        newArr.push(payload)
+        finalArr = newArr.concat(savedCartItems)
+        localStorage.setItem('savedCartItems', JSON.stringify(finalArr));
+        dispatch(addToCart(newArr))
+      }
+
+    }else{
+      newArr.push(payload)
+      localStorage.setItem('savedCartItems', JSON.stringify(newArr));
+      dispatch(addToCart(newArr))
+    }
+
+
+    // setState({ ...newState, open: true });
+    //
+    // setTimeout(() => {
+    //   setState({ ...newState, open: false });
+    // }, 3000);
   };
 
-  const formatPrice = (price: string) => {
-    const numericPrice = parseFloat(price?.replace(/[^0-9.-]+/g, ""));
+  const formatPrice = (price: string, currency: string) => {
     return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "NGN",
-    }).format(numericPrice);
+      style: 'currency',
+      currency: currency ? currency : 'NGN',
+    }).format(Number(price));
   };
 
-  const searchWords = segments[3].replace(/([A-Z])/g, " $1").trim();
 
   return (
     <div className="relative">
@@ -292,7 +325,7 @@ export default function ProductDescription() {
                 <div id="priceButtonDiv" className="flex flex-col mt-6">
                   <div id="priceDiv" className="flex gap-x-6 items-center">
                     <p className="text-mecaDarkBlueBackgroundOverlay text-3xl font-extrabold">
-                      {formatPrice(data?.data.price)}
+                      {formatPrice(data?.data.amount, data?.data.currency)}
                     </p>
                     <div
                       id="inStockBtn"
@@ -319,16 +352,27 @@ export default function ProductDescription() {
                     id="buttonDiv"
                     className="w-full h-full mt-4 flex flex-col gap-y-4"
                   >
-                    <button
-                      onClick={handleClick({
-                        vertical: "top",
-                        horizontal: "center",
-                      })}
-                      type="button"
-                      className="w-full h-[44px] text-white text-lg font-nunito font-semibold flex items-center justify-center bg-mecaBluePrimaryColor rounded-full"
+                    {!visible ? <button
+                       onClick={handleClick({
+                         vertical: "top",
+                         horizontal: "center",
+                       }, data?.data)}
+                       type="button"
+                       className="w-full h-[44px] text-white text-lg font-nunito font-semibold flex items-center justify-center bg-mecaBluePrimaryColor rounded-full"
                     >
                       Add to cart
-                    </button>
+                    </button> : <button
+                       onClick={handleClick({
+                         vertical: "top",
+                         horizontal: "center",
+                       }, data?.data)}
+                       type="button"
+                       disabled
+                       className="w-full h-[44px] text-mecaBluePrimaryColor text-lg font-nunito font-semibold flex items-center justify-center rounded-full border border-mecaBluePrimaryColor"
+                    >
+                      Added to cart
+                    </button>}
+
                     <button
                     onClick={()=> router.push("/cart/checkout")}
                       type="button"

@@ -20,8 +20,9 @@ import * as JWT from "jwt-decode";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { clearUser } from "../../redux/features/users/userSlice";
 import BrandPage from "./brand/page";
-import { TRACE_OUTPUT_VERSION } from "next/dist/shared/lib/constants";
 import { paths } from "../../path/paths";
+import { setCart} from "../../redux/features/product/productSlice";
+import {CartProduct} from "../../types/cart/product";
 
 const navData = [
   {
@@ -94,17 +95,28 @@ interface JwtPayload extends BaseJwtPayload {
   role?: string;
 }
 export default function NavBar({ open, setOpen }: NavBarProps) {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
   const [active, setActive] = useState<number | null>(1);
   const handleClick = (id: number) => {
     setActive(id);
   };
 
   const { cart } = useAppSelector((state) => state.product);
+  const savedCartItems = JSON.parse(localStorage.getItem('savedCartItems') as string)as CartProduct[];
 
-  console.log(" product", cart);
 
-  const router = useRouter();
-  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if(cart.length === 0 && savedCartItems){
+      dispatch(
+         setCart(savedCartItems)
+      );
+    }
+  },[cart, savedCartItems])
+
+
+
 
   const handleStartShopping = () => {
     router.push(paths.toSignUp());
@@ -195,7 +207,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                 className="text-mecaBluePrimaryColor"
               />
               <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
-                {cart.length}
+                {cart?.length || 0}
               </p>
             </div>
           </Link>
@@ -251,7 +263,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                   className="text-mecaBluePrimaryColor"
                 />
                 <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
-                  {cart.length}
+                  {cart?.length || 0}
                 </p>
               </div>
             </Link>
@@ -328,7 +340,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
             </div>
           </div>
         </div>
-   
+
       </div>
       <div
         className="hidden w-full h-20 lg:flex justify-center items-center"
@@ -353,13 +365,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
             >
               {item.title}
             </p>
-            <div
-            // onClick={
-            //   item.id === 2 || item.id === 3
-            //     ? () => toggle(item.id)
-            //     : () => {}
-            // }
-            >
+            <div>
               {isCategoryOptionOpened && item.id === active ? (
                 <p>{item.icon2}</p>
               ) : (
