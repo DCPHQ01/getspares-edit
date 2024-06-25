@@ -4,8 +4,6 @@ import styles from "../styles.module.css";
 import { AccountCircle } from "@mui/icons-material";
 import dayjs from "dayjs";
 import Image from "next/image";
-import { AccountCircle } from '@mui/icons-material';
-import dayjs from "dayjs";
 import { ColorRing } from "react-loader-spinner";
 
 interface Category {
@@ -29,13 +27,7 @@ const formatDateTime = (dateTime: string) => {
   const time = dayjs(dateTime).format("HH:mm:ss");
   return { date, time };
 };
-}
 
-const formatDateTime = (dateTime: string) => {
-  const date = dayjs(dateTime).format("YYYY-MM-DD");
-  const time = dayjs(dateTime).format("HH:mm a");
-  return { date, time };
-};
 
 const CategoryTable: React.FC<CategoryTableProps> = ({ categoryList, isLoading }) => {
   return (
@@ -70,7 +62,7 @@ const CategoryTable: React.FC<CategoryTableProps> = ({ categoryList, isLoading }
                   colors={["#000000", "#000000", "#000000", "#000000", "#000000"]}
       
                  />
-                <p>Loading vendors...</p>
+                <p>Loading Category.....</p>
               </div>
             ) : (
                categoryList?.map((d, index) => {

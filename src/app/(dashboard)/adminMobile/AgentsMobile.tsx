@@ -18,7 +18,7 @@ import {
   MdChevronRight,
 } from "react-icons/md";
 
-function Agents() {
+function AgentsMobile() {
   const [page, setPage] = useState(0)
   const size = 10
   const [first, setFirst] = useState(false);
