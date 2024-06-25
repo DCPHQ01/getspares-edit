@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Dialog, DialogTitle, Rating, TextField } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import { IoClose } from "react-icons/io5";
@@ -22,6 +22,9 @@ const ReviewModal: React.FC<ReviewModalProps> = ({ openModal, setOpenModal }) =>
     const closeModal = () => {
         setOpenModal(false);
     };
+ 
+
+   
 
     return (
         <Dialog open={openModal} onClose={closeModal}
@@ -54,7 +57,7 @@ const ReviewModal: React.FC<ReviewModalProps> = ({ openModal, setOpenModal }) =>
                             fontWeight: "400"
                         },
                     }}
-                    defaultValue={0}
+                    defaultValue={0}                 
                     max={5}
                 />
                 <div className={`mt-8 mb-6`}>
@@ -91,8 +94,8 @@ const ReviewModal: React.FC<ReviewModalProps> = ({ openModal, setOpenModal }) =>
 
                 </div>
                 <div className={`flex justify-between gap-36`}>
-                    <button className={`w-[130px] h-[44px] text-[#095AD3] border-[2px] rounded-full border-[#095AD3]`}>Cancel</button>
-                    <button onClick={closeModal} className={`w-[130px] h-[44px] text-[#095AD3] text-white rounded-full bg-[#095AD3]`}>Save</button>
+                    <button onClick={closeModal} className={`w-[130px] h-[44px] text-[#095AD3] border-[2px] rounded-full border-[#095AD3]`}>Cancel</button>
+                    <button className={`w-[130px] h-[44px] text-[#095AD3] text-white rounded-full bg-[#095AD3]`}>Save</button>
                 </div>
             </div>
         </Dialog>

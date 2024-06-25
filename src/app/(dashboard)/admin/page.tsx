@@ -10,6 +10,7 @@ import Category from "./Category";
 import { useAppSelector } from "../../../redux";
 import { sidePanel } from "../../dashboard/components/utils/utils";
 import Profile from "./Profile";
+import LogoutModal from "../../../components/logoutModal/LogoutModal";
 import AdminMobilePage from "../adminMobile/page";
 
 import {
@@ -152,6 +153,7 @@ function Page() {
       icon: <MdLogout />,
       title: "Logout",
       size: 18,
+
       onClick: () => {
         sessionStorage.clear();
         sessionStorage.removeItem("userDetails");
@@ -188,7 +190,6 @@ function Page() {
         </div>
       </div>
       {/* mobile */}
-
       <div className="lg:hidden w-full" id="contentContainerAddToCartMobile">
         <div className="w-[100%] fixed top-0">
           <div style={{ width: "100%" }}>
@@ -237,11 +238,7 @@ function Page() {
                         </div>
                       </div>
 
-                      <div
-                        id="sidePanelContainer"
-                        className={`z-[1000]
-        `}
-                      >
+                      <div id="sidePanelContainer" className={`z-[1000] `}>
                         <div
                           id="sidePanel"
                           className={`w-[17.5rem] fixed lg:h-screen  h-[90%] `}

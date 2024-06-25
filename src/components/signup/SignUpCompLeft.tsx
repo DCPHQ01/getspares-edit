@@ -58,17 +58,6 @@ const userAgent: UserAgent = {
   roleName: "AGENT",
 };
 
-interface ApiResponse {
-  data?: {
-    message: string;
-  };
-  error?: {
-    data?: {
-      message: string;
-    };
-  };
-}
-
 const SignUpComponentLeft = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [userType, setUserType] = useState("buyer");
@@ -78,7 +67,7 @@ const SignUpComponentLeft = () => {
   const [userAgentDetails, setUserAgentDetails] =
     useState<UserAgent>(userAgent);
   const [isLoading, setIsLoading] = useState(false);
-  const [registerError, setRegisterError] = useState("");
+
   const router = useRouter();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -94,8 +83,6 @@ const SignUpComponentLeft = () => {
     }
   };
 
-  console.log("message ", registerError);
-
   const [registerVendor, { data: VendorData, error: VendorError }] =
     useRegisterVendorMutation();
   const [registerBuyer, { data: buyerData, error: BuyerError }] =
@@ -107,60 +94,67 @@ const SignUpComponentLeft = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLoading(true);
-    setRegisterError("");
+
     try {
+      setIsLoading(true);
       let userEmail = "";
       let response;
       if (userType === "vendor") {
-        response = await registerVendor(userVendorDetails);
+        response = await registerVendor(userVendorDetails).unwrap();
+        console.log("unwrap ", response);
         userEmail = userVendorDetails.email;
+        if ("data" in response) {
+          console.log(
+            "data response ",
+            response?.data?.message,
+            " status code ",
+            response.data.statusCode
+          );
+          if (response?.data?.message === "SignUp Successfully") {
+            // alert(VendorData.message);
+            router.push(paths.toVerifyEmail());
+          } else if (
+            response?.data?.message === "User Already Exists" ||
+            response?.data.error?.data?.status === 400
+          ) {
+            alert(VendorData.message);
+          } else {
+            alert("Registration failed. Please try again.");
+          }
+        }
+        sessionStorage.setItem("userEmail", userEmail);
       } else if (userType === "agent") {
         response = await registerAgent(userAgentDetails);
+        console.log("data response ", response);
         userEmail = userAgentDetails.email;
+        if ("data" in response) {
+          console.log("data response ", response?.data);
+          if (response?.data?.message === "SignUp Successfully") {
+            // alert(AgentData.message);
+            router.push(paths.toVerifyEmail());
+          }
+        }
+        sessionStorage.setItem("userEmail", userEmail);
       } else if (userType === "buyer") {
         response = await registerBuyer(userBuyerDetails);
+        console.log("data response ", response);
         userEmail = userBuyerDetails.email;
+        if ("data" in response) {
+          console.log("data response ", response?.data);
+          if (response?.data?.message === "SignUp Successfully") {
+            router.push(paths.toVerifyEmail());
+          }
+        }
+        sessionStorage.setItem("userEmail", userEmail);
       }
-      handleResponse(response, userEmail);
     } catch (error) {
-      console.error("Registration error:", error);
-      setRegisterError("Registration failed. Please try again.");
+      console.error(error);
     } finally {
       setIsLoading(false);
     }
   };
-
-  const handleResponse = (response: ApiResponse, userEmail: string) => {
-    if ("data" in response) {
-      if (response.data.message === "SignUp Successfully") {
-        sessionStorage.setItem("userEmail", userEmail);
-        router.push(paths.toVerifyEmail());
-      } else if (response.data.message === "User Already Exists") {
-        setRegisterError("User already exists.");
-      } else {
-        setRegisterError(
-          response.data.message ||
-            response.error.data?.password ||
-            "Registration failed. Please try again."
-        );
-      }
-    } else if ("error" in response) {
-      const errorMessage =
-        response.error.data?.message ||
-        response.error.data?.password ||
-        "Registration failed. Please try again.";
-      setRegisterError(errorMessage);
-    } else {
-      setRegisterError("Registration failed. Please try again.");
-    }
-  };
   const routerToHomePage = () => {
     router.push(paths.toHome());
-  };
-
-  const handleFocus = () => {
-    setRegisterError("");
   };
 
   return (
@@ -204,11 +198,6 @@ const SignUpComponentLeft = () => {
                   Provide your details to get started
                 </span>
               </div>
-              {registerError && (
-                <span className="text-mecaTableTextErrorColor text-lg mt-1">
-                  {registerError}
-                </span>
-              )}
               <div className="py-4" id="RadioBtnSignUp">
                 <FormControl id="formcontrolMui" className={nunito.className}>
                   <RadioGroup
@@ -261,7 +250,6 @@ const SignUpComponentLeft = () => {
                     <FilledInput
                       id="firstName"
                       disableUnderline
-                      onFocus={handleFocus}
                       required
                       onChange={handleChange}
                       className="bg-mecaInputBgColor w-full rounded-t-[4px] hover:bg-mecaInputBgColor border focus-within:bg-mecaInputBgColor"
@@ -281,7 +269,6 @@ const SignUpComponentLeft = () => {
                       id="lastName"
                       disableUnderline
                       required
-                      onFocus={handleFocus}
                       onChange={handleChange}
                       className="bg-mecaInputBgColor w-full rounded-t-[4px] hover:bg-mecaInputBgColor border focus-within:bg-mecaInputBgColor"
                       value={
@@ -299,7 +286,6 @@ const SignUpComponentLeft = () => {
                     <FilledInput
                       id="email"
                       disableUnderline
-                      onFocus={handleFocus}
                       required
                       onChange={handleChange}
                       className="bg-mecaInputBgColor w-full rounded-t-[4px] hover:bg-mecaInputBgColor border focus-within:bg-mecaInputBgColor"
@@ -322,7 +308,6 @@ const SignUpComponentLeft = () => {
                       <FilledInput
                         id={userType === "vendor" ? "companyName" : ""}
                         disableUnderline
-                        onFocus={handleFocus}
                         onChange={handleChange}
                         className="bg-mecaInputBgColor w-full rounded-t-[4px] hover:bg-mecaInputBgColor border focus-within:bg-mecaInputBgColor"
                         value={
@@ -343,7 +328,6 @@ const SignUpComponentLeft = () => {
                       <FilledInput
                         id={userType === "agent" ? "companyName" : ""}
                         disableUnderline
-                        onFocus={handleFocus}
                         onChange={handleChange}
                         className="bg-mecaInputBgColor w-full rounded-t-[4px] hover:bg-mecaInputBgColor border focus-within:bg-mecaInputBgColor"
                         value={
@@ -375,7 +359,6 @@ const SignUpComponentLeft = () => {
                       type={showPassword ? "text" : "password"}
                       disableUnderline
                       required
-                      onFocus={handleFocus}
                       onChange={handleChange}
                       className="bg-mecaInputBgColor border w-full hover:bg-mecaInputBgColor focus-within:bg-mecaInputBgColor"
                       value={
@@ -410,7 +393,7 @@ const SignUpComponentLeft = () => {
                   <Button
                     type="submit"
                     id="clickRegisterBtn"
-                    className="w-full h-12 text-white rounded-3xl border-none normal-case font-semibold lg:text-lg bg-mecaBluePrimaryColor disabled:bg-mecaBgDisableColor disabled:text-[white] hover:bg-mecaBluePrimaryColor"
+                    className="w-full flex justify-center items-center h-12 text-white rounded-3xl border-none normal-case font-semibold lg:text-lg bg-mecaBluePrimaryColor disabled:bg-mecaBgDisableColor disabled:text-[white] hover:bg-mecaBluePrimaryColor"
                     variant="contained"
                     endIcon={<MdChevronRight />}
                     disabled={isLoading}

@@ -52,7 +52,7 @@ function OverviewVendorMobile() {
             </Link>
           </div>
         </div>
-        <Cards />
+        {/* <Cards /> */}
         {/* <div
           className={` justify-between items-center mt-[3.25rem] mb-[1.25rem]`}
         >

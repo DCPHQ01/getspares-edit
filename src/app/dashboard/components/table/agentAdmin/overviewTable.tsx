@@ -100,13 +100,19 @@ const OverviewTable = () => {
           <tr className="truncate">
             <th id="companyNameHeader">Product name</th>
             <th id="totalItemsSoldHeader">Total sold</th>
-            <th id="transactionValueHeader">Transaction value</th>
+            <th id="transactionValueHeader" style={{ paddingLeft: "2.2rem" }}>
+              Transaction value
+            </th>
             <th id="dateTimeJoinedHeader">Date & time of transaction</th>
           </tr>
         </thead>
         <tbody>
           {data.map((d, index) => (
-            <tr key={index} id={`row_${index}`} className="cursor-pointer truncate">
+            <tr
+              key={index}
+              id={`row_${index}`}
+              className="cursor-pointer truncate"
+            >
               <td id={`companyData_${index}`}>
                 <div
                   className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}

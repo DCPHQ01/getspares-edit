@@ -64,8 +64,12 @@ function BpRadio(props: RadioProps) {
   );
 }
 
-export default function Index() {
-  const [selectedValue, setSelectedValue] = useState("last7days");
+interface PeriodRadiosProps {
+  activityPeriod: string;
+  onPeriodChange: (period: string) => void;
+}
+const Index: React.FC<PeriodRadiosProps> = ({ activityPeriod, onPeriodChange }) => {
+  const [selectedValue, setSelectedValue] = useState("month");
 
   const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedValue(event.target.value);
@@ -79,35 +83,73 @@ export default function Index() {
         aria-labelledby="period-radios"
         name="customized-radios"
       >
-        <div className={`flex w-[100%] -z-50`}>
-          <div
-            id={`last7days`}
-            className={`border py-[0.5rem] px-[1rem] rounded-tl-[0.625rem] rounded-bl-[0.6235rem] ${
-              selectedValue === "last7days" ? "bg-[#EEF2F6]" : ""
-            }`}
-          >
-            <FormControlLabel
-              value="last7days"
-              sx={{ "& .MuiFormControlLabel-label": { fontSize: "0.88rem" } }}
-              control={<BpRadio />}
-              label="This month"
-            />
-          </div>
-          <div
-            id={`last30days`}
-            className={`border py-[0.5rem] px-[1rem] ${
-              selectedValue === "last30days" ? "bg-[#EEF2F6]" : ""
-            }`}
-          >
-            <FormControlLabel
-              value="last30days"
-              sx={{ "& .MuiFormControlLabel-label": { fontSize: "0.88rem" } }}
-              control={<BpRadio />}
-              label="This year"
-            />
-          </div>
+        <div className="flex w-full">
+          <FormControlLabel
+            value="month"
+            sx={{
+              border: `1px solid ${selectedValue === "month" ? "#9AA4B2" : "transparent"}`,
+              borderRadius: "0.625rem",
+              padding: "0.5rem 1rem",
+              backgroundColor: selectedValue === "month" ? "#EEF2F6" : "transparent",
+            }}
+            control={<BpRadio />}
+            label="This month"
+          />
+          <FormControlLabel
+            value="year"
+            sx={{
+              border: `1px solid ${selectedValue === "year" ? "#9AA4B2" : "transparent"}`,
+              borderRadius: "0.625rem",
+              padding: "0.5rem 1rem",
+              backgroundColor: selectedValue === "year" ? "#EEF2F6" : "transparent",
+            }}
+            control={<BpRadio />}
+            label="This year"
+          />
         </div>
       </RadioGroup>
     </FormControl>
   );
 }
+
+
+export default Index;
+//     <FormControl>
+//       <RadioGroup
+//         value={selectedValue}
+//         onChange={handleRadioChange}
+//         aria-labelledby="period-radios"
+//         name="customized-radios"
+//       >
+//         <div className={`flex w-[100%] -z-50`}>
+//           <div
+//             id={`last7days`}
+//             className={`border py-[0.5rem] px-[1rem] rounded-tl-[0.625rem] rounded-bl-[0.6235rem] ${
+//               selectedValue === "last7days" ? "bg-[#EEF2F6]" : ""
+//             }`}
+//           >
+//             <FormControlLabel
+//               value="month"
+//               sx={{ "& .MuiFormControlLabel-label": { fontSize: "0.88rem" } }}
+//               control={<BpRadio />}
+//               label="This month"
+//             />
+//           </div>
+//           <div
+//             id={`last30days`}
+//             className={`border py-[0.5rem] px-[1rem] ${
+//               selectedValue === "last30days" ? "bg-[#EEF2F6]" : ""
+//             }`}
+//           >
+//             <FormControlLabel
+//               value="year"
+//               sx={{ "& .MuiFormControlLabel-label": { fontSize: "0.88rem" } }}
+//               control={<BpRadio />}
+//               label="This year"
+//             />
+//           </div>
+//         </div>
+//       </RadioGroup>
+//     </FormControl>
+//   );
+// }

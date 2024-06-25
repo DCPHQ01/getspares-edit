@@ -90,74 +90,74 @@ export default function VerifyEmail({
   const [resetOtp] = useResetOtpMutation();
 
   const handleSubmit = async () => {
-    // let response;
-    // const data = {
-    //   email: userEmail,
-    //   otpCode: otp.join(""),
-    // };
-    // console.log(data, "data");
-    // setIsLoading(true);
-    // try {
-    //   let response: any;
-    //   response = await verifyEmail(data);
-    //   if ("data" in response) {
-    //     console.log(response.data.message, " verify");
-    //     if (response?.data?.message === "User verified successfully") {
-    //       setHaveVerifiedEmail(true);
-    //       setIsLoading(false);
-    //     } else if ("error" in response) {
-    //       const errorMessage =
-    //         response.message || "Verification failed. Please try again.";
-    //       setHaveVerifiedEmail(false);
-    //       setMessage(errorMessage);
-    //       setOpen(true);
-    //       setOtp(Array(6).fill(""));
-    //       setIsLoading(false);
-    //     }
-    //   }
-    // } catch (error: any) {
-    //   console.log(error?.data.message);
-    //   setMessage(
-    //     error?.data.message || "Verification failed. Please try again."
-    //   );
-    //   setOpen(true);
-    //   setOtp(Array(6).fill(""));
-    // } finally {
-    //   setIsLoading(false);
-    // }
-    // setOtp(Array(6).fill(""));
+    let response;
     const data = {
       email: userEmail,
       otpCode: otp.join(""),
     };
+    console.log(data, "data");
     setIsLoading(true);
     try {
-      const response = await verifyEmail(data);
+      let response: any;
+      response = await verifyEmail(data);
       if ("data" in response) {
-        if (response.data.message === "User verified successfully") {
+        console.log(response.data.message, " verify");
+        if (response?.data?.message === "User verified successfully") {
           setHaveVerifiedEmail(true);
-        } else {
-          setMessage(
-            response.data.message || "Verification failed. Please try again."
-          );
+          setIsLoading(false);
+        } else if ("error" in response) {
+          const errorMessage =
+            response.message || "Verification failed. Please try again.";
+          setHaveVerifiedEmail(false);
+          setMessage(errorMessage);
           setOpen(true);
+          setOtp(Array(6).fill(""));
+          setIsLoading(false);
         }
-      } else {
-        setMessage(
-          response.error?.data?.message ||
-            "Verification failed. Please try again."
-        );
-        setOpen(true);
       }
     } catch (error: any) {
+      console.log(error?.data.message);
       setMessage(
-        error.data?.message || "Verification failed. Please try again."
+        error?.data.message || "Verification failed. Please try again."
       );
       setOpen(true);
+      setOtp(Array(6).fill(""));
     } finally {
       setIsLoading(false);
-      setOtp(Array(6).fill(""));
     }
+    setOtp(Array(6).fill(""));
+    // const data = {
+    //   email: userEmail,
+    //   otpCode: otp.join(""),
+    // };
+    // setIsLoading(true);
+    // try {
+    //   const response = await verifyEmail(data);
+    //   if ("data" in response) {
+    //     if (response.data.message === "User verified successfully") {
+    //       setHaveVerifiedEmail(true);
+    //     } else {
+    //       setMessage(
+    //         response.data.message || "Verification failed. Please try again."
+    //       );
+    //       setOpen(true);
+    //     }
+    //   } else {
+    //     setMessage(
+    //       response.error?.data?.message ||
+    //         "Verification failed. Please try again."
+    //     );
+    //     setOpen(true);
+    //   }
+    // } catch (error: any) {
+    //   setMessage(
+    //     error.data?.message || "Verification failed. Please try again."
+    //   );
+    //   setOpen(true);
+    // } finally {
+    //   setIsLoading(false);
+    //   setOtp(Array(6).fill(""));
+    // }
   };
 
   const handleClose = () => {

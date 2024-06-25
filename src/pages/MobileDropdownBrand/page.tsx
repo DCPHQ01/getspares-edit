@@ -4,8 +4,10 @@ import { useEffect, useState } from "react";
 import { MdChevronLeft, MdClear } from "react-icons/md";
 import TopBar from "../TopBar/page";
 import Link from "next/link";
+// import NavBar from "@/app/reusables/NavBar/page";
 import NavBar from "../../components/NavBar/NavBar";
 import { Nunito_Sans } from "next/font/google";
+// import MobileNav from "../../app/reusables/mobileNav/page";
 
 const nunito = Nunito_Sans({
   subsets: ["latin"],
@@ -17,40 +19,40 @@ const nunito = Nunito_Sans({
 const categoryMobileScreen = [
   {
     id: 1,
-    title: "AC",
+    title: "Toyota",
   },
   {
     id: 2,
-    title: "Air Filters",
+    title: "Benz",
   },
 
   {
     id: 3,
-    title: "Air Flow Meters",
+    title: "Peguot",
   },
 
   {
     id: 4,
-    title: "Alternators",
+    title: "Farari",
   },
   {
     id: 5,
-    title: "Axles",
+    title: "Camry",
   },
 
   {
     id: 6,
-    title: "Back Mirrors",
+    title: "Jeep",
   },
 
   {
     id: 7,
-    title: "Ball Joints",
+    title: "Truck",
   },
 
   {
     id: 8,
-    title: " Batteries",
+    title: "Viola",
   },
 
   {
@@ -74,7 +76,7 @@ const categoryMobileScreen = [
   },
 ];
 
-const MobileDropdownViewPage = () => {
+const MobileDropdownBrandPage = () => {
   const [open, setOpen] = useState(false);
   const handleNav = () => {
     setOpen(!open);
@@ -85,7 +87,7 @@ const MobileDropdownViewPage = () => {
     <div className={nunito.className}>
       {open && (
         <div
-          className="w-[98%] h-screen bg-white z-[2000] left-1 px-2   fixed top-0 overflow-hidden"
+          className="w-[98%] h-screen bg-white z-[2000] left-1 px-2   fixed top-0 overflow-hidden cursor-pointer"
           id="mobiledropviewcontainer1"
         >
           <div
@@ -96,25 +98,32 @@ const MobileDropdownViewPage = () => {
               justifyContent: "space-between",
             }}
           >
+            {/* <div className="" id="mobiledropviewcontainer3"> */}
             <div
-              className=" font-nunito font-bold"
+              className="font-nunito font-bold"
               id="mobiledropviewcontainer4"
               style={{ display: "flex", gap: "10px" }}
             >
               <MdChevronLeft className="mt-[5px] text-lg" />
-
-              <span className="text-lg"> Category</span>
+              <span className="text-lg"> Brand</span>
             </div>
 
+            {/* <Link href="../app/reusables/NavBar/page"> */}
             <MdClear
               onClick={handleNav}
               id="mobiledropviewcontainer5"
               size={20}
               className="text-mecaGoBackArrow cursor-pointer"
             />
+            {/* </Link> */}
+            {/* </div> */}
           </div>
-          <hr id="mobiledropviewcontainer6" className="w-full"></hr>
-          <div id="mobiledropviewcontainer7" className="gap-y-8 px-4 mt-4">
+          <hr id="mobiledropviewcontainer6" className=""></hr>
+          <div
+            id="mobiledropviewcontainer7"
+            className="gap-y-8
+           px-4 mt-4"
+          >
             <div
               id="mobiledropviewcontainer8"
               className=" leading-10 cursor-pointer "
@@ -148,4 +157,4 @@ const MobileDropdownViewPage = () => {
   );
 };
 
-export default MobileDropdownViewPage;
+export default MobileDropdownBrandPage;

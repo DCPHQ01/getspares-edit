@@ -61,4 +61,5 @@ export const paths = {
   toHome: () => "/",
   toLogin: () => "/login",
   toResetNewPassword: () => "/new-password",
+  toCheckout: () => "/cart/checkout",
 };

@@ -1,103 +1,118 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styles from "../styles.module.css";
 import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
 import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
 import Details from "../../../../category/products/viewDetails/[details]/page";
 
-const data = [
-  {
-    avatar: image1,
-    name: "Ebuka Shima Oke",
-    email: "ebukashima@gmail.com",
-    sale: "MCA3435656jh787",
-    vale: "₦ 200,000.00",
-    date: "24 June 2022",
-    time: "12:00PM",
-  },
-  {
-    avatar: image2,
-    name: "Sanni Rabiu",
-    email: "sannirabiu@gmail.com",
-    sale: "MCA3435656jh787",
-    vale: "₦ 1,000,000.00",
-    date: "30 June 2023",
-    time: "06:00PM",
-  },
-  {
-    avatar: image1,
-    name: "Ayodele Olakoya",
-    email: "ayodeleola@gmail.com",
-    sale: "MCA3435656jh787",
-    vale: "₦ 600,000.00",
-    date: "12 May 2024",
-    time: "08:45PM",
-  },
-  {
-    avatar: image2,
-    name: "Ngozi Ike",
-    email: "ngoziike.com",
-    sale: "MCA3435656jh787",
-    vale: "₦ 120,000.00",
-    date: "02 Sep 2022",
-    time: "11:15AM",
-  },
-  {
-    avatar: image1,
-    name: "Ayodele Olakoya",
-    email: "ayodeleola@gmail.com",
-    sale: "MCA3435656jh787",
-    vale: "₦ 700,000,00",
-    date: "30 Aug 2022",
-    time: "04:00PM",
-  },
+// const data = [
+//   {
+//     avatar: image1,
+//     name: "Ebuka Shima Oke",
+//     email: "ebukashima@gmail.com",
+//     sale: "MCA3435656jh787",
+//     vale: "₦ 200,000.00",
+//     date: "24 June 2022",
+//     time: "12:00PM",
+//   },
+//   {
+//     avatar: image2,
+//     name: "Sanni Rabiu",
+//     email: "sannirabiu@gmail.com",
+//     sale: "MCA3435656jh787",
+//     vale: "₦ 1,000,000.00",
+//     date: "30 June 2023",
+//     time: "06:00PM",
+//   },
+//   {
+//     avatar: image1,
+//     name: "Ayodele Olakoya",
+//     email: "ayodeleola@gmail.com",
+//     sale: "MCA3435656jh787",
+//     vale: "₦ 600,000.00",
+//     date: "12 May 2024",
+//     time: "08:45PM",
+//   },
+//   {
+//     avatar: image2,
+//     name: "Ngozi Ike",
+//     email: "ngoziike.com",
+//     sale: "MCA3435656jh787",
+//     vale: "₦ 120,000.00",
+//     date: "02 Sep 2022",
+//     time: "11:15AM",
+//   },
+//   {
+//     avatar: image1,
+//     name: "Ayodele Olakoya",
+//     email: "ayodeleola@gmail.com",
+//     sale: "MCA3435656jh787",
+//     vale: "₦ 700,000,00",
+//     date: "30 Aug 2022",
+//     time: "04:00PM",
+//   },
 
-  {
-    avatar: image1,
-    name: "Ebuka Shima Oke",
-    email: "ebukashima@gmail.com",
-    sale: "MCA3435656jh787",
-    vale: "₦ 200,000.00",
-    date: "24 June 2022",
-    time: "12:00PM",
-  },
-  {
-    avatar: image2,
-    name: "Sanni Rabiu",
-    email: "sannirabiu@gmail.com",
-    sale: "MCA3435656jh787",
-    vale: "₦ 1,000,000.00",
-    date: "30 June 2023",
-    time: "06:00PM",
-  },
-  {
-    avatar: image2,
-    name: "Ngozi Ike",
-    email: "ngoziike.com",
-    sale: "MCA3435656jh787",
-    vale: "₦ 120,000.00",
-    date: "02 Sep 2022",
-    time: "11:15AM",
-  },
-  {
-    avatar: image1,
-    name: "Ayodele Olakoya",
-    email: "ayodeleola@gmail.com",
-    sale: "MCA3435656jh787",
-    vale: "₦ 700,000,00",
-    date: "30 Aug 2022",
-    time: "04:00PM",
-  },
-];
+//   {
+//     avatar: image1,
+//     name: "Ebuka Shima Oke",
+//     email: "ebukashima@gmail.com",
+//     sale: "MCA3435656jh787",
+//     vale: "₦ 200,000.00",
+//     date: "24 June 2022",
+//     time: "12:00PM",
+//   },
+//   {
+//     avatar: image2,
+//     name: "Sanni Rabiu",
+//     email: "sannirabiu@gmail.com",
+//     sale: "MCA3435656jh787",
+//     vale: "₦ 1,000,000.00",
+//     date: "30 June 2023",
+//     time: "06:00PM",
+//   },
+//   {
+//     avatar: image2,
+//     name: "Ngozi Ike",
+//     email: "ngoziike.com",
+//     sale: "MCA3435656jh787",
+//     vale: "₦ 120,000.00",
+//     date: "02 Sep 2022",
+//     time: "11:15AM",
+//   },
+//   {
+//     avatar: image1,
+//     name: "Ayodele Olakoya",
+//     email: "ayodeleola@gmail.com",
+//     sale: "MCA3435656jh787",
+//     vale: "₦ 700,000,00",
+//     date: "30 Aug 2022",
+//     time: "04:00PM",
+//   },
+// ];
+type VendorData = {
+  avatar: string;
+  name: string;
+  email: string;
+  sale: number;
+  vale: string;
+  date: string;
+  time: string;
+};
 
-const VendorOrderTable = () => {
-  const [renderDetails,setRenderDetails] = useState(false)
+interface VendorTableProps {
+  data: VendorData[];
+  isLoading?: boolean;
+  isError?: boolean;
+}
+
+const VendorOrderTable = ({data}: VendorTableProps) => {
+  const [renderDetails, setRenderDetails] = useState(false);
 
   const handleDetails = () => {
-    setRenderDetails(!renderDetails)
+    setRenderDetails(!renderDetails);
     // const {name, id} = obj;
     // router.push('/category/products/${name}/${id}')
-  }
+  };
   return (
     <div id="tableContainer">
       <div
@@ -107,28 +122,27 @@ const VendorOrderTable = () => {
         <table id="adminTable" className={`w-full`}>
           <thead>
             <tr className="truncate">
-              <th id="companyNameHeader">Product</th>
               <th id="totalItemsSoldHeader" style={{ paddingLeft: "4rem" }}>
                 Order ID
               </th>
-              <th id="transactionValueHeader" style={{ paddingLeft: "2rem" }}>
-                Transaction value
+              <th id="transactionValueHeader" style={{ paddingLeft: "4rem" }}>
+                Amount
               </th>
-              <th id="dateTimeJoinedHeader" style={{ paddingLeft: "5rem" }}>
+              <th id="dateTimeJoinedHeader" style={{ paddingLeft: "2rem" }}>
                 Buyers
               </th>
               <th id="dateTimeJoinedHeader">Date & time ordered</th>
             </tr>
           </thead>
           <tbody>
-            {data.map((d, index) => (
+            {data?.map((d, index) => (
               <tr
                 key={index}
                 id={`row_${index}`}
                 className="cursor-pointer truncate"
                 onClick={handleDetails}
               >
-                <td id={`companyData_${index}`}>
+                {/* <td id={`companyData_${index}`}>
                   <div
                     className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
                   >
@@ -142,7 +156,7 @@ const VendorOrderTable = () => {
                       <div>{d.name}</div>
                     </div>
                   </div>
-                </td>
+                </td> */}
 
                 <td
                   className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
@@ -162,17 +176,17 @@ const VendorOrderTable = () => {
                   <div
                     className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
                   >
-                    <Image
+                    {/* <Image
                       src={d.avatar}
                       className="object-contain"
                       alt="Avatar"
                       id={`avatar_${index}`}
-                    />
+                    /> */}
                     <div id={`companyDetails_${index}`}>
                       <div>{d.name}</div>
-                      <div className={`text-[#4B5565]`} id={`email_${index}`}>
+                      {/* <div className={`text-[#4B5565]`} id={`email_${index}`}>
                         {d.email}
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </td>
@@ -191,10 +205,10 @@ const VendorOrderTable = () => {
         </table>
       </div>
       {renderDetails && (
-      <div className="absolute top-0 bg-white lg:w-[83%] w-[100%] ml-0 lg:h-[100vh]">
-        <Details />
-      </div>
-    )}
+        <div className="absolute top-0 bg-white lg:w-[83%] w-[100%] ml-0 lg:h-[100vh]">
+          <Details />
+        </div>
+      )}
     </div>
   );
 };

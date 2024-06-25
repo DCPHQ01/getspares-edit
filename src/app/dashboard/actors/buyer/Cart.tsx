@@ -259,7 +259,7 @@ const Cart = () => {
 
   const handleSucessClick = (newState: SnackbarOrigin) => () => {
     setState({ ...newState, open: true });
-    router.push(paths.toDashboardActorsBuyer());
+    router.push(paths.toCheckout());
 
   };
 
@@ -317,7 +317,9 @@ const Cart = () => {
                 title={`Cart`}
                 amount={``}
               />
-              <Searchbox />
+              <div className="flex justify-end">
+                <Searchbox />
+              </div>
             </div>
 
             <div className="flex gap-x-6">
