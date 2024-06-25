@@ -19,14 +19,14 @@ interface AgentTableProps {
 }
 
 
-const formatDateTime = (dateTime: string) =>{
-const date = dayjs(dateTime).format('YYYY-MM-DD');
-const time = dayjs(dateTime).format('HH:mm a');
-return {date, time}
-}
 
-// console.log('Date:', date); 
-// console.log('Time:', time); 
+const formatDateTime = (dateTime: string) => {
+  const date = dayjs(dateTime).format("YYYY-MM-DD");
+  const time = dayjs(dateTime).format("HH:mm:ss");
+  return { date, time };
+};
+
+
 
 const AgentTable: React.FC<AgentTableProps> = ({ agentList }) => {
 
@@ -53,7 +53,7 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList }) => {
             </thead>
             <tbody>
               {Array.isArray(agentList) && agentList?.map((d, index)=>{
-                const {date, time} = formatDateTime(d.dateAdded)
+                const {date, time} = formatDateTime(d.dateAdded);
                 return(
                   <tr
                   key={index}

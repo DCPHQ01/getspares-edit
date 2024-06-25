@@ -9,8 +9,8 @@ import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 function AgentVendorMobile() {
   const tabs = [
-    { label: "With sales ", count: "122" },
-    { label: "Without sales ", count: "122" },
+    { label: "With sales ", count: 122,status: "with_sales"  },
+    { label: "Without sales ", count: 122,status: "without_sales" },
   ];
   return (
     <>
@@ -20,7 +20,11 @@ function AgentVendorMobile() {
         amount={`430,607`}
       />
       <div className={` justify-between items-center my-[1.5rem]`}>
-        <Tabs tabs={tabs} />
+        <Tabs 
+        tabs={tabs} 
+        activeTab="with_sales"
+        onTabChange={(status) => console.log(status)}
+        />
         <div className={` flex mt-5`}>
           <div className="">{/* <SortButton /> */}</div>
 

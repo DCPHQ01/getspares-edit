@@ -10,6 +10,23 @@ import { Menu, MenuItem, IconButton } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { title } from "process";
 import ViewItemDetails from "./[viewDetailsInventory]/page";
+import { ClipLoader } from 'react-spinners';
+import { ColorRing } from "react-loader-spinner";
+
+interface InventoryData {
+  categoryName?: string;
+  dateCreated: string;
+  itemName: string;
+  quantitySold: number;
+  price?: number;
+  
+};
+
+interface InventoryTableProps {
+  inventoryData: InventoryData[];
+  isLoading: boolean;
+}
+
 const option = [
   {
     icon: <MdPreview style={{ color: "gray" }} />,
@@ -29,136 +46,136 @@ interface Option {
   title: string;
 }
 
-const data = [
-  {
-    avatar: image1,
-    name: "CaterpillarEngine1v2",
-    email: "Ebukainternional.com",
-    TransactionValue: 123,
-    sale: 12,
-    vale: "₦ 200,000.00",
-    category: "Bumper",
-    date: "24 June 2022",
-    time: "12:00PM",
-  },
-  {
-    avatar: image2,
-    name: "CaterpillarEngine1v2",
-    email: "ebuka&sons@gmail.com",
-    TransactionValue: 123,
-    sale: 83,
-    vale: "₦ 1,000,000.00",
-    category: "Air filters",
-    date: "30 June 2023",
-    time: "06:00PM",
-  },
-  {
-    avatar: image1,
-    name: "CaterpillarEngine1v2",
-    email: "ebuka&sons@gmail.com",
-    TransactionValue: 123,
-    sale: 45,
-    vale: "₦ 600,000.00",
-    category: "Bonnets",
-    date: "12 May 2024",
-    time: "08:45PM",
-  },
-  {
-    avatar: image2,
-    name: "CaterpillarEngine1v2",
-    email: "ebuka&sons@gmail.com",
-    TransactionValue: 123,
-    sale: 10,
-    vale: "₦ 120,000.00",
-    category: "Tractor parts",
-    date: "02 Sep 2022",
-    time: "11:15AM",
-  },
-  {
-    avatar: image1,
-    name: "CaterpillarEngine1v2",
-    email: "ebuka&sons@gmail.com",
-    TransactionValue: 123,
-    sale: 67,
-    vale: "₦ 700,000,00",
-    category: "Brakes",
-    date: "30 Aug 2022",
-    time: "04:00PM",
-  },
-  {
-    avatar: image1,
-    name: "CaterpillarEngine1v2",
-    email: "ebuka&sons@gmail.com",
-    TransactionValue: 123,
-    sale: 67,
-    vale: "₦ 700,000,00",
-    category: "Axles",
-    date: "30 Aug 2022",
-    time: "04:00PM",
-  },
+// const data = [
+//   {
+//     avatar: image1,
+//     name: "CaterpillarEngine1v2",
+//     email: "Ebukainternional.com",
+//     TransactionValue: 123,
+//     sale: 12,
+//     vale: "₦ 200,000.00",
+//     category: "Bumper",
+//     date: "24 June 2022",
+//     time: "12:00PM",
+//   },
+//   {
+//     avatar: image2,
+//     name: "CaterpillarEngine1v2",
+//     email: "ebuka&sons@gmail.com",
+//     TransactionValue: 123,
+//     sale: 83,
+//     vale: "₦ 1,000,000.00",
+//     category: "Air filters",
+//     date: "30 June 2023",
+//     time: "06:00PM",
+//   },
+//   {
+//     avatar: image1,
+//     name: "CaterpillarEngine1v2",
+//     email: "ebuka&sons@gmail.com",
+//     TransactionValue: 123,
+//     sale: 45,
+//     vale: "₦ 600,000.00",
+//     category: "Bonnets",
+//     date: "12 May 2024",
+//     time: "08:45PM",
+//   },
+//   {
+//     avatar: image2,
+//     name: "CaterpillarEngine1v2",
+//     email: "ebuka&sons@gmail.com",
+//     TransactionValue: 123,
+//     sale: 10,
+//     vale: "₦ 120,000.00",
+//     category: "Tractor parts",
+//     date: "02 Sep 2022",
+//     time: "11:15AM",
+//   },
+//   {
+//     avatar: image1,
+//     name: "CaterpillarEngine1v2",
+//     email: "ebuka&sons@gmail.com",
+//     TransactionValue: 123,
+//     sale: 67,
+//     vale: "₦ 700,000,00",
+//     category: "Brakes",
+//     date: "30 Aug 2022",
+//     time: "04:00PM",
+//   },
+//   {
+//     avatar: image1,
+//     name: "CaterpillarEngine1v2",
+//     email: "ebuka&sons@gmail.com",
+//     TransactionValue: 123,
+//     sale: 67,
+//     vale: "₦ 700,000,00",
+//     category: "Axles",
+//     date: "30 Aug 2022",
+//     time: "04:00PM",
+//   },
 
-  {
-    avatar: image1,
-    name: "CaterpillarEngine1v2",
-    email: "ebuka&sons@gmail.com",
-    TransactionValue: 123,
-    sale: 67,
-    vale: "₦ 700,000,00",
-    category: "Tractor parts",
-    date: "30 Aug 2022",
-    time: "04:00PM",
-  },
+//   {
+//     avatar: image1,
+//     name: "CaterpillarEngine1v2",
+//     email: "ebuka&sons@gmail.com",
+//     TransactionValue: 123,
+//     sale: 67,
+//     vale: "₦ 700,000,00",
+//     category: "Tractor parts",
+//     date: "30 Aug 2022",
+//     time: "04:00PM",
+//   },
 
-  {
-    avatar: image1,
-    name: "CaterpillarEngine1v2",
-    email: "ebuka&sons@gmail.com",
-    TransactionValue: 123,
-    sale: 67,
-    vale: "₦ 700,000,00",
-    category: "Bumper",
-    date: "30 Aug 2022",
-    time: "04:00PM",
-  },
+//   {
+//     avatar: image1,
+//     name: "CaterpillarEngine1v2",
+//     email: "ebuka&sons@gmail.com",
+//     TransactionValue: 123,
+//     sale: 67,
+//     vale: "₦ 700,000,00",
+//     category: "Bumper",
+//     date: "30 Aug 2022",
+//     time: "04:00PM",
+//   },
 
-  {
-    avatar: image1,
-    name: "CaterpillarEngine1v2",
-    email: "ebuka&sons@gmail.com",
-    TransactionValue: 123,
-    sale: 67,
-    vale: "₦ 700,000,00",
-    category: "Bonnets",
-    date: "30 Aug 2022",
-    time: "04:00PM",
-  },
+//   {
+//     avatar: image1,
+//     name: "CaterpillarEngine1v2",
+//     email: "ebuka&sons@gmail.com",
+//     TransactionValue: 123,
+//     sale: 67,
+//     vale: "₦ 700,000,00",
+//     category: "Bonnets",
+//     date: "30 Aug 2022",
+//     time: "04:00PM",
+//   },
 
-  {
-    avatar: image1,
-    name: "CaterpillarEngine1v2",
-    email: "ebuka&sons@gmail.com",
-    TransactionValue: 123,
-    sale: 67,
-    vale: "₦ 700,000,00",
-    category: "Axles",
-    date: "30 Aug 2022",
-    time: "04:00PM",
-  },
+//   {
+//     avatar: image1,
+//     name: "CaterpillarEngine1v2",
+//     email: "ebuka&sons@gmail.com",
+//     TransactionValue: 123,
+//     sale: 67,
+//     vale: "₦ 700,000,00",
+//     category: "Axles",
+//     date: "30 Aug 2022",
+//     time: "04:00PM",
+//   },
 
-  {
-    avatar: image1,
-    name: "CaterpillarEngine1v2",
-    email: "ebuka&sons@gmail.com",
-    TransactionValue: 123,
-    sale: 67,
-    vale: "₦ 700,000,00",
-    category: "Bumper",
-    date: "30 Aug 2022",
-    time: "04:00PM",
-  },
-];
+//   {
+//     avatar: image1,
+//     name: "CaterpillarEngine1v2",
+//     email: "ebuka&sons@gmail.com",
+//     TransactionValue: 123,
+//     sale: 67,
+//     vale: "₦ 700,000,00",
+//     category: "Bumper",
+//     date: "30 Aug 2022",
+//     time: "04:00PM",
+//   },
+// ];
 
-const VendorInventoryTable = () => {
+const VendorInventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isLoading}) => {
   const [open, setOpen] = React.useState<boolean>(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const openOption = Boolean(anchorEl);
@@ -182,6 +199,9 @@ const VendorInventoryTable = () => {
     } else if (id === 2) {
       router.push("/addProductDashboard");
     }
+    else if (id === 2) {
+      router.push(`/addProductDashboard`);
+    }
     handleOptionClose();
   };
 
@@ -204,32 +224,52 @@ const VendorInventoryTable = () => {
               <th id="transactionValueHeader" style={{ paddingLeft: "2rem" }}>
                 Category
               </th>
-              <th id="transactionValueHeader" style={{ paddingLeft: "2rem" }}>
-                Date and time added
-              </th>
+              <th id="dateTime">Date and Time</th>
             </tr>
           </thead>
           <tbody>
-            {data.map((d, index) => (
-              <tr
-                key={index}
-                id={`row_${index}`}
-                className="cursor-pointer truncate hover:bg-gray-50"
+            {isLoading ? (
+        <div 
+        className="text-center mt-28 relative lg:left-[210%] lg:right[210%] md:left-[213%] md:right[213%] sm:left-[21"
+        >
+           <ColorRing  
+            visible={true}
+            height="40"
+            width="40"
+            ariaLabel="color-ring-loading"
+            wrapperStyle={{position: "absolute", bottom: "75%", left: "44%",}}
+            wrapperClass="color-ring-wrapper"
+            colors={["#000000", "#000000", "#000000", "#000000", "#000000"]}
+
+           />
+          <p>Loading vendors...</p>
+        </div>
+      ): (inventoryData?.map((d, index) => {
+        let date = '';
+        let time = '';
+    
+        if (d.dateCreated) {
+            [date, time] = d.dateCreated.split(" ");
+        }
+    
+       
+        return (
+              <tr key={index} id={`row_${index}`} className="cursor-pointer truncate hover:bg-gray-50"
               >
-                {/* <tr> */}
+              
                 <td id={`companyData_${index}`}>
                   <div
                     onClick={navigateTo}
                     className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
                   >
-                    <Image
+                    {/* <Image
                       src={d.avatar}
                       className="object-contain"
                       alt="Avatar"
                       id={`avatar_${index}`}
                     />
                     <div className="mt-2" id={`companyDetails_${index}`}>
-                      <div>{d.name}</div>
+                      <div>{d.itemName}</div>
                     </div>
                   </div>
                 </td>
@@ -244,8 +284,9 @@ const VendorInventoryTable = () => {
                       alt="Avatar"
                       id={`avatar_${index}`}
                     /> */}
+                    
                     <div id={`companyDetails_${index}`}>
-                      <div>{d.TransactionValue}</div>
+                      <div>{d.quantitySold}</div>
                     </div>
                   </div>
                 </td>
@@ -255,7 +296,7 @@ const VendorInventoryTable = () => {
                   className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
                   id={`itemsSold_${index}`}
                 >
-                  {d.sale}
+                  {d.price}
                 </td>
                 <td
                   onClick={navigateTo}
@@ -263,17 +304,18 @@ const VendorInventoryTable = () => {
                   id={`transactionValue_${index}`}
                 >
                   <span className="c pl-2 pr-2 border border-solid border-gray-400 rounded-xl pt-1 pb-1">
-                    {d.category}
+                    {d.categoryName}
                   </span>
                 </td>
                 <td
                   className={`text-[0.88rem] py-[1rem] px-[3rem] flex relative`}
                   id={`transactionValue_${index}`}
-                >
-                  <div onClick={navigateTo}>
-                    {d.date}
-                    <br />
-                    {d.time}
+                > 
+                  <div 
+                  onClick={navigateTo}
+                  >
+                    {date}<br/>
+                  {time}
                   </div>
 
                   <div className="absolute right-0 ">
@@ -311,7 +353,7 @@ const VendorInventoryTable = () => {
                   </Menu>
                 </td>
               </tr>
-            ))}
+            )}))}
           </tbody>
         </table>
       </div>
