@@ -192,23 +192,22 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isL
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  
-
   const [routInventory, setRoutInventory] = useState(false);
   const handleRoutInventory = (id: number) => {
     if (id === 1) {
       setRoutInventory(!routInventory);
+    } else if (id === 2) {
+      router.push("/addProductDashboard");
     }
     else if (id === 2) {
       router.push(`/addProductDashboard`);
     }
     handleOptionClose();
-  }
+  };
 
-  const navigateTo = ()=>{
-    setRoutInventory(!routInventory)
-  }
-
+  const navigateTo = () => {
+    setRoutInventory(!routInventory);
+  };
 
   return (
     <div id="tableContainer">
@@ -260,7 +259,7 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isL
               
                 <td id={`companyData_${index}`}>
                   <div
-                   onClick={navigateTo}
+                    onClick={navigateTo}
                     className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
                   >
                     {/* <Image
@@ -268,19 +267,15 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isL
                       className="object-contain"
                       alt="Avatar"
                       id={`avatar_${index}`}
-                     
-                    /> */}
+                    />
                     <div className="mt-2" id={`companyDetails_${index}`}>
                       <div>{d.itemName}</div>
                     </div>
                   </div>
                 </td>
 
-                <td
-                onClick={navigateTo}
-                 id={`companyData_${index}`}>
+                <td onClick={navigateTo} id={`companyData_${index}`}>
                   <div
-                    
                     className={`flex gap-3 text-[0.88rem] py-[1rem] px-[3.25rem]`}
                   >
                     {/* <Image
@@ -296,14 +291,14 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isL
                 </td>
 
                 <td
-                 onClick={navigateTo}
+                  onClick={navigateTo}
                   className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
                   id={`itemsSold_${index}`}
                 >
                   {d.price}
                 </td>
                 <td
-                onClick={navigateTo}
+                  onClick={navigateTo}
                   className={`text-[0.88rem] py-[1rem] px-[2rem] `}
                   id={`transactionValue_${index}`}
                 >
@@ -321,8 +316,7 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isL
                     {date}<br/>
                   {time}
                   </div>
-                  
-                 
+
                   <div className="absolute right-0 ">
                     <IconButton onClick={handleClick}>
                       <MdMoreVert />
@@ -344,7 +338,8 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isL
                   >
                     {option.map((opt) => (
                       <MenuItem
-                        key={opt.title}
+                        key={opt.id}
+                        id={`option_${opt.id}`}
                         selected={opt.id === 1}
                         onClick={() => handleRoutInventory(opt.id)}
                       >
@@ -355,8 +350,7 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isL
                       </MenuItem>
                     ))}
                   </Menu>
-                  </td>
-               
+                </td>
               </tr>
             )}))}
           </tbody>

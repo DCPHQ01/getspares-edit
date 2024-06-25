@@ -21,8 +21,8 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { clearUser } from "../../redux/features/users/userSlice";
 import BrandPage from "./brand/page";
 import { paths } from "../../path/paths";
-import { setCart} from "../../redux/features/product/productSlice";
-import {CartProduct} from "../../types/cart/product";
+import { setCart } from "../../redux/features/product/productSlice";
+import { CartProduct } from "../../types/cart/product";
 
 const navData = [
   {
@@ -101,22 +101,23 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
   const handleClick = (id: number) => {
     setActive(id);
   };
+  const [savedCardItems, setSavedCartItems] = useState<CartProduct[]>([]);
 
   const { cart } = useAppSelector((state) => state.product);
-  const savedCartItems = JSON.parse(localStorage.getItem('savedCartItems') as string)as CartProduct[];
-
-
+  useEffect(() => {
+    const saveCartItems = JSON.parse(
+      localStorage.getItem("savedCartItems") as string
+    ) as CartProduct[];
+    if (saveCartItems) {
+      setSavedCartItems(saveCartItems);
+    }
+  }, []);
 
   useEffect(() => {
-    if(cart.length === 0 && savedCartItems){
-      dispatch(
-         setCart(savedCartItems)
-      );
+    if (cart.length === 0 && savedCardItems) {
+      dispatch(setCart(savedCardItems));
     }
-  },[cart, savedCartItems])
-
-
-
+  }, [cart, savedCardItems]);
 
   const handleStartShopping = () => {
     router.push(paths.toSignUp());
@@ -159,8 +160,6 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
   } catch (error) {
     console.error("Failed to decode token:", error);
   }
-
-  const [pressed, setPressed] = useState(false);
 
   const dropDownClicked = () => {
     setActive(null);
@@ -340,7 +339,6 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
             </div>
           </div>
         </div>
-
       </div>
       <div
         className="hidden w-full h-20 lg:flex justify-center items-center"
@@ -388,9 +386,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
             active === item.id && (
               <div className="flex justify-center" key={item.id}>
                 <div className="absolute left-96 top-40 z-50">
-                  <div onClick={dropDownClicked}>
-                    {item.dropdownComponent}
-                  </div>
+                  <div onClick={dropDownClicked}>{item.dropdownComponent}</div>
                 </div>
               </div>
             )
