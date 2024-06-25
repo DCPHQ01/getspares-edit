@@ -23,7 +23,6 @@ export const buyerQuery = createApi({
         method: "GET",
       }),
     }),
-<<<<<<< HEAD
     getOrderDetails: builder.query({
         query: ({ orderId }) => ({
             url: `/order/${orderId}`,
@@ -38,15 +37,7 @@ export const buyerQuery = createApi({
 export const { useCheckoutMutation, useGetViewAllOrdersQuery, useGetOrderDetailsQuery } = buyerQuery;
 
 
-=======
 
 
-  }),
-});
 
-export const {
-  useCheckoutMutation,
-  useGetViewAllOrdersQuery,
-//   useFeedbackMutation,
-} = buyerQuery;
->>>>>>> 2cdd6d23bb63a61ee852c207098eddc2fa3fb66a
+
