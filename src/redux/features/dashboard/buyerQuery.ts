@@ -7,28 +7,29 @@ export const buyerQuery = createApi({
   baseQuery: customFetchBase,
   endpoints: (builder) => ({
     checkout: builder.mutation({
-        query: (body: { location: string, otherInformation: string, phoneNumber: string }) => ({
-            url: "/order",
-            method: "POST",
-            body,
-        }),
+      query: (body: {
+        location: string;
+        otherInformation: string;
+        phoneNumber: string;
+      }) => ({
+        url: "/order",
+        method: "POST",
+        body,
+      }),
     }),
     getViewAllOrders: builder.query({
-        query: ({pageNo, pageSize}) => ({
-            url: `/dashboard/allOrders?pageNo=${pageNo}&pageSize=${pageSize}`,
-            method: "GET",
-        })
+      query: ({ pageNo, pageSize }) => ({
+        url: `/dashboard/allOrders?pageNo=${pageNo}&pageSize=${pageSize}`,
+        method: "GET",
+      }),
     }),
-    submitFeedback: builder.mutation({ 
-        query: ({comment, productId, orderId, rating}) => ({
-            url: "/feedback/product",
-            method: "POST",
-            body: {comment, productId, orderId, rating},
-        }),
-    }),
-})
+
+
+  }),
 });
 
-export const { useCheckoutMutation, useGetViewAllOrdersQuery, useSubmitFeedbackMutation  } = buyerQuery;
-
-
+export const {
+  useCheckoutMutation,
+  useGetViewAllOrdersQuery,
+//   useFeedbackMutation,
+} = buyerQuery;
