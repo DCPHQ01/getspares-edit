@@ -8,7 +8,7 @@ import HomeImage1 from "../../../../../assets/images/homeImage1.png";
 import tractor from "../../../../../assets/images/tractors.png";
 import HomeImage2 from "../../../../../assets/images/homeImage2.png";
 import ratingStar from "../../../../../assets/images/Star.png";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import {
   MdCheckCircle,
   MdChevronLeft,
@@ -130,10 +130,15 @@ export default function ProductDescription() {
 
   useEffect(() => {
     if(cart.length !== 0){
-      let hasMageendor = cart.some( vendor => vendor.id === data?.data?.id )
-      setVisible(hasMageendor)
+      let hasItem = cart.some( vendor => vendor.id === data?.data?.id )
+      setVisible(hasItem)
     }
   },[cart, data?.data])
+
+
+  // useLayoutEffect(()=> {
+  //
+  // },[])
 
 
 
