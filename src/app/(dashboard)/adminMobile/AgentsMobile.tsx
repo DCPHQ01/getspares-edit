@@ -1,10 +1,10 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../../dashboard/components/ui/header";
 import SearchBox from "../../dashboard/components/ui/searchbox";
 import AgentTable from "../../dashboard/components/table/mecaadmin/agentTable";
 import { useGetMecaAdminAgentQuery } from "../../../redux/features/dashboard/mecaAdminQuery";
 
-interface Agent{
+interface Agent {
   firstName: string;
   email: string;
   quantitySold: number;
@@ -28,7 +28,7 @@ function Agents() {
     size:size 
   })
   const [agentList, setAgentList] = useState<Agent[]>([]);
-  console.log("The agent mobile list", data)
+  console.log("The agent mobile list", data);
 
   useEffect(() => {
     if (data && Array.isArray(data.data.content)) {
@@ -86,4 +86,4 @@ function Agents() {
   );
 }
 
-export default Agents;
+export default AgentsMobile;
