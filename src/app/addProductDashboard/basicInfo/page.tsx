@@ -175,7 +175,7 @@ const CalledPagesPageOnePages = () => {
                         return selected;
                       }}
                     >
-                      {getCategoriesData?.map(
+                      {getCategoriesData?.data.map(
                         (category: {
                           id: number;
                           name: string;

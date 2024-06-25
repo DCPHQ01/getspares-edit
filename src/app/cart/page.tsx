@@ -180,7 +180,11 @@ const RemoveToCartPage = () => {
                           </div>
 
                           <div className=" font-normal text-sm">
-                            <p>{formatAmount(totalItemPrice)}</p>
+                            <p>
+                              {totalItemPrice
+                                ? formatAmount(totalItemPrice)
+                                : "0"}
+                            </p>
                           </div>
                         </div>
                         <div className="flex justify-between mt-5 font-normal text-sm">
@@ -190,7 +194,11 @@ const RemoveToCartPage = () => {
                         <hr className="mt-5"></hr>
                         <div className="flex justify-between mt-5 mb-9 font-semibold text-xl">
                           <p>Subtotal</p>
-                          <p>{formatAmount(totalItemPrice)}</p>
+                          <p>
+                            {totalItemPrice
+                              ? formatAmount(totalItemPrice)
+                              : "0"}
+                          </p>
                         </div>
                       </div>
                       <div className="">
