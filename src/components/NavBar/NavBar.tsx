@@ -20,6 +20,7 @@ import * as JWT from "jwt-decode";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { clearUser } from "../../redux/features/users/userSlice";
 import { paths } from "../../path/paths";
+import {addToCart, setCart} from "../../redux/features/product/productSlice";
 
 const navData = [
   {
@@ -91,16 +92,27 @@ interface JwtPayload extends BaseJwtPayload {
 }
 export default function NavBar({ open, setOpen }: NavBarProps) {
   const [active, setActive] = useState(1);
+  const router = useRouter();
+  const dispatch = useAppDispatch();
   const handleClick = (id: number) => {
     setActive(id);
   };
 
   const { cart } = useAppSelector((state) => state.product);
+  const savedCartItems = JSON.parse(localStorage.getItem('savedCartItems'));
 
-  console.log(" product", cart);
 
-  const router = useRouter();
-  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if(cart.length === 0 && savedCartItems){
+      dispatch(
+         setCart(savedCartItems)
+      );
+    }
+  },[cart, savedCartItems])
+
+
+
 
   const handleStartShopping = () => {
     router.push(paths.toSignUp());
@@ -152,6 +164,8 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
     // dispatch(clearUser());
     router.push(paths.toLogin());
   };
+
+
   useEffect(() => setActive(1), []);
   return (
     <nav className="w-full bg-white relative" id="navbarContainer">
@@ -178,7 +192,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                 className="text-mecaBluePrimaryColor"
               />
               <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
-                {cart.length}
+                {cart?.length || 0}
               </p>
             </div>
           </Link>
@@ -234,7 +248,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                   className="text-mecaBluePrimaryColor"
                 />
                 <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
-                  {cart.length}
+                  {cart?.length || 0}
                 </p>
               </div>
             </Link>

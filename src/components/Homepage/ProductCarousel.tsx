@@ -131,8 +131,8 @@ export default function ProductCarousel() {
           ref={carouselRef}
           itemClass="lg:pr-8"
         >
-          {(categoryData?.data || []).map((data: DataProps) => (
-            <Card image={Tractor} type={data.name} />
+          {(categoryData?.data || []).map((data: DataProps, index) => (
+            <Card key={index} image={Tractor} type={data.name} />
           ))}
         </Carousel>
       </div>
