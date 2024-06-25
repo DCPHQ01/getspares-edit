@@ -2,13 +2,13 @@
 import React,{useEffect,useState} from "react";
 import Header from "../../components/ui/header";
 import Cards from "../../../../components/cards";
-import PeriodRadios from "../../components/ui/periodradios";
 import OverviewTable from "../../components/table/vendoradmin/overview";
 import Addbutton from "../../components/ui/addbutton";
 import Link from "next/link";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { useGetMecaVendorOverviewQuery } from "../../../../redux/features/dashboard/mecaVendorQuery";
 import { paths } from "../../../../path/paths";
+import PeriodRadios from "../../components/ui/periodradios";
 
 
 interface VendorOverview {
