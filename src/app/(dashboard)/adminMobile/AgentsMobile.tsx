@@ -1,10 +1,10 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../../dashboard/components/ui/header";
 import SearchBox from "../../dashboard/components/ui/searchbox";
 import AgentTable from "../../dashboard/components/table/mecaadmin/agentTable";
 import { useGetMecaAdminAgentQuery } from "../../../redux/features/dashboard/mecaAdminQuery";
 
-interface Agent{
+interface Agent {
   firstName: string;
   email: string;
   quantitySold: number;
@@ -18,14 +18,13 @@ import {
   MdChevronRight,
 } from "react-icons/md";
 
-function Agents() {
-
-  const { data, isError} = useGetMecaAdminAgentQuery({
-    page:1, 
-    size:10 
-  })
+function AgentsMobile() {
+  const { data, isError } = useGetMecaAdminAgentQuery({
+    page: 1,
+    size: 10,
+  });
   const [agentList, setAgentList] = useState<Agent[]>([]);
-  console.log("The agent mobile list", data)
+  console.log("The agent mobile list", data);
 
   useEffect(() => {
     if (data && Array.isArray(data.data.content)) {
@@ -46,10 +45,9 @@ function Agents() {
       <div className={`my-[1.25rem] lg:`}>
         <SearchBox placeholder={`Search for agent`} />
       </div>
-   
 
       <div className="">
-        <AgentTable agentList={agentList}/>
+        <AgentTable agentList={agentList} />
         <div className=" flex justify-end mt-10 mb-10 font-bold text-lg">
           {/* <button className="flex gap-x-2 border border-[#EAECF0]  rounded-md h-[36px] w-[36px] pl-1">
             <MdChevronLeft className="mt-1 text-2xl" />
@@ -63,4 +61,4 @@ function Agents() {
   );
 }
 
-export default Agents;
+export default AgentsMobile;
