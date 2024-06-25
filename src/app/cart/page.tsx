@@ -113,7 +113,7 @@ const RemoveToCartPage = () => {
         setSnackState({...newState, open: true});
         router.push(paths.toCheckout());
         console.log(res.data)
-      }catch(error){
+      }catch(error:any){
         console.log(error.data)
       }
 
