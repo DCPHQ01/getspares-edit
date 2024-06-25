@@ -199,6 +199,9 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isL
     if (id === 1) {
       setRoutInventory(!routInventory);
     }
+    else if (id === 2) {
+      router.push(`/addProductDashboard`);
+    }
     handleOptionClose();
   }
 
