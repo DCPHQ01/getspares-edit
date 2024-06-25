@@ -53,15 +53,6 @@ import Details from "../../../../category/products/viewDetails/[details]/page";
 //   },
 
 //   {
-//     avatar: image1,
-//     name: "Ebuka Shima Oke",
-//     email: "ebukashima@gmail.com",
-//     sale: "MCA3435656jh787",
-//     vale: "₦ 200,000.00",
-//     date: "24 June 2022",
-//     time: "12:00PM",
-//   },
-//   {
 //     avatar: image2,
 //     name: "Sanni Rabiu",
 //     email: "sannirabiu@gmail.com",
