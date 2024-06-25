@@ -1,9 +1,10 @@
 
 import { MdChevronRight } from "react-icons/md";
-import ViewParticularOrderTable from "../../../../dashboard/components/table/buyerAdmin/viewParticularOrderTable";
 import Order from "../../../../dashboard/components/table/agentAdmin/order";
+
 import { useGetOrderDetailsQuery } from "../../../../../redux/features/dashboard/buyerQuery";
 import { useEffect, useState } from "react";
+import ViewParticularOrderTable from "../../../../dashboard/components/table/buyerAdmin/viewParticularOrderTable";
 
 interface OrderItem {
   price: number;
