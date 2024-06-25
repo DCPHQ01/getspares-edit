@@ -1,15 +1,11 @@
 "use client";
-import {useEffect, useLayoutEffect, useState, Fragment} from "react";
+import { useEffect, useLayoutEffect, useState, Fragment } from "react";
 import Carousel from "react-multi-carousel";
 import Cards from "../../components/Homepage/Card";
 import "react-multi-carousel/lib/styles.css";
 import HomeImage1 from "../../assets/images/homeImage1.png";
 
-import {
-  MdChevronRight,
-
-  MdCheckCircle,
-} from "react-icons/md";
+import { MdChevronRight, MdCheckCircle } from "react-icons/md";
 import { Alert, Card } from "@mui/material";
 import Footer from "../../components/footer/Footer";
 import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
@@ -18,10 +14,10 @@ import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import TopBarWhileInside from "../reusables/TopBarWhileInside/page";
 import { paths } from "../../path/paths";
-import {formatAmount} from "../../components/utils";
-import {CheckOutCard} from "../../components/cart/CheckOutCard";
+import { formatAmount } from "../../components/utils";
+import { CheckOutCard } from "../../components/cart/CheckOutCard";
 import { useGetRelatedProductQuery } from "../../redux/features/users/authQuery";
-import {useAddSingleProductToCartMutation} from "../../redux/features/cart/cartQuery";
+import { useAddSingleProductToCartMutation } from "../../redux/features/cart/cartQuery";
 
 interface SnackState extends SnackbarOrigin {
   open: boolean;
@@ -56,17 +52,12 @@ const responsive = {
   },
 };
 
-
-
-
-
 const RemoveToCartPage = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
   const [totalItemPrice, setTotalItemPrice] = useState<string>("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
 
   const [snackState, setSnackState] = useState<SnackState>({
     open: false,
@@ -75,48 +66,38 @@ const RemoveToCartPage = () => {
   });
   const { vertical, horizontal, open } = snackState;
   const { data: relatedProductData, isLoading } = useGetRelatedProductQuery({});
-  const [addToCart, { isLoading:cartLoading }] = useAddSingleProductToCartMutation();
-
-
+  const [addToCart, { isLoading: cartLoading }] =
+    useAddSingleProductToCartMutation();
 
   const { cart } = useAppSelector((state) => state.product);
 
-
-
   useEffect(() => {
-    const token = sessionStorage.getItem('token');
+    const token = sessionStorage.getItem("token");
     if (!token) {
       setIsAuthenticated(false);
     } else {
       setIsAuthenticated(true);
-
     }
   }, [router]);
 
-
-
-
-
   const handleCheckout = (newState: SnackbarOrigin) => async () => {
-
-    if(!isAuthenticated){
+    if (!isAuthenticated) {
       router.push(paths.toLogin());
-    }else{
+    } else {
       const data = cart.map((item) => {
         return {
           productId: item.id,
-          quantity: Number(item.quantity)
-        }
-      })
+          quantity: Number(item.quantity),
+        };
+      });
       try {
-        const res = await addToCart(data).unwrap()
-        setSnackState({...newState, open: true});
+        const res = await addToCart(data).unwrap();
+        setSnackState({ ...newState, open: true });
         router.push(paths.toCheckout());
-        console.log(res.data)
-      }catch(error:any){
-        console.log(error.data)
+        console.log(res.data);
+      } catch (error: any) {
+        console.log(error.data);
       }
-
     }
   };
 
@@ -125,21 +106,19 @@ const RemoveToCartPage = () => {
   };
 
   const getAllTotalPrice = () => {
-    if(cart.length !== 0){
-      let total = cart.map( item => (Number(item.amount) * Number(item.quantity))).reduce( (a,b) => a+b);
+    if (cart.length !== 0) {
+      let total = cart
+        .map((item) => Number(item.amount) * Number(item.quantity))
+        .reduce((a, b) => a + b);
 
       // let total = cart.reduce((accum,item) => accum + getPrice(item.price), 0)
-      setTotalItemPrice(String(total))
+      setTotalItemPrice(String(total));
     }
-  }
+  };
 
-  useLayoutEffect(()=>{
-    getAllTotalPrice()
-
-  },[cart])
-
-
-
+  useLayoutEffect(() => {
+    getAllTotalPrice();
+  }, [cart]);
 
   return (
     <div>
@@ -153,8 +132,8 @@ const RemoveToCartPage = () => {
         <div id="contentContainerAddToCartDesktop">
           <div className="w-[95%] md:w-[90%]" style={{ margin: "0px auto" }}>
             <div
-               className="flex mt-[200px] lg:mt-[150px] items-center"
-               id="breadCrumbsDivDesktop"
+              className="flex mt-[200px] lg:mt-[150px] items-center"
+              id="breadCrumbsDivDesktop"
             >
               <Link href={paths.toHome()}>
                 <p className="font-nunito text-sm font-medium text-mecaDarkBlueBackgroundOverlay hover:text-black hover:font-bold">
@@ -173,7 +152,7 @@ const RemoveToCartPage = () => {
                 </h1>
               </div>
               <div className="md:flex md:gap-x-6">
-                <div className={'w-full'}>
+                <div className={"w-full"}>
                   {cart?.length === 0 ? (
                     <p className="text-lg font-bold text-center mt-20">
                       Your Cart is Empty!
@@ -181,12 +160,11 @@ const RemoveToCartPage = () => {
                   ) : (
                     <div className="">
                       {cart?.map((cardCartItem, index) => (
-                         <CheckOutCard
-                            key={index}
-                            cardCartItem={cardCartItem}
-                            getPrice={getAllTotalPrice}
-                         />
-
+                        <CheckOutCard
+                          key={index}
+                          cardCartItem={cardCartItem}
+                          getPrice={getAllTotalPrice}
+                        />
                       ))}
                     </div>
                   )}
@@ -194,27 +172,35 @@ const RemoveToCartPage = () => {
                 <div className="mt-6 w-full md:w-[45%]">
                   <div className="h-64 bg-mecaSearchColor  rounded-lg pt-5">
                     <div className="w-[90%] m-auto">
-                        <div>
-                          <div className="flex justify-between">
-                            <div className="flex font-normal text-sm">
-                              <p> Item{cart?.length > 1 && 's'}</p>
-                              <p> ({cart?.length})</p>
-                            </div>
+                      <div>
+                        <div className="flex justify-between">
+                          <div className="flex font-normal text-sm">
+                            <p> Item{cart?.length > 1 && "s"}</p>
+                            <p> ({cart?.length})</p>
+                          </div>
 
-                            <div className=" font-normal text-sm">
-                              <p>{formatAmount(totalItemPrice)}</p>
-                            </div>
-                          </div>
-                          <div className="flex justify-between mt-5 font-normal text-sm">
-                            <p>Shipping</p>
-                            <p>{"₦0"}</p>
-                          </div>
-                          <hr className="mt-5"></hr>
-                          <div className="flex justify-between mt-5 mb-9 font-semibold text-xl">
-                            <p>Subtotal</p>
-                            <p>{formatAmount(totalItemPrice)}</p>
+                          <div className=" font-normal text-sm">
+                            <p>
+                              {totalItemPrice
+                                ? formatAmount(totalItemPrice)
+                                : "0"}
+                            </p>
                           </div>
                         </div>
+                        <div className="flex justify-between mt-5 font-normal text-sm">
+                          <p>Shipping</p>
+                          <p>{"₦0"}</p>
+                        </div>
+                        <hr className="mt-5"></hr>
+                        <div className="flex justify-between mt-5 mb-9 font-semibold text-xl">
+                          <p>Subtotal</p>
+                          <p>
+                            {totalItemPrice
+                              ? formatAmount(totalItemPrice)
+                              : "0"}
+                          </p>
+                        </div>
+                      </div>
                       <div className="">
                         <button
                           onClick={handleCheckout({
@@ -250,9 +236,7 @@ const RemoveToCartPage = () => {
                   <MdCheckCircle className="w-5 h-5" />
                 </span>
 
-                <span>
-                  Item has been removed successfully
-                </span>
+                <span>Item has been removed successfully</span>
               </div>
             </Alert>
           </Snackbar>
