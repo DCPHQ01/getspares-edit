@@ -10,6 +10,7 @@ import Details from "../../../../category/products/viewDetails/[details]/page";
 import BasicTabs from "./FeedBackTab";
 import ViewParticularOrderDetailsPage from "../../../../category/products/viewDetails/viewParticularOrderDetails/page";
 import { ColorRing } from "react-loader-spinner";
+import AmountComponentsPage from "../../../../reusables/AmountComponents/page";
 
 type BuyerOrderData = {
   orderId: string;
@@ -19,7 +20,6 @@ type BuyerOrderData = {
   // date: string;
   // time: string;
 };
-
 
 interface BuyerOrderTableProps {
   data: BuyerOrderData[];
@@ -61,7 +61,7 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
             </thead>
             <tbody>
               {isLoading ? (
-                  <tr>
+                <tr>
                   <td className="text-center py-4">
                     <ColorRing
                       visible
@@ -76,8 +76,8 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
                 </tr>
               ) : (
                 data?.map((d, index) => {
-                  let date = '';
-                  let time = '';
+                  let date = "";
+                  let time = "";
 
                   if (d.dateCreated) {
                     [date, time] = d.dateCreated.split("T");
@@ -101,13 +101,18 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
                         className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
                         id={`transactionValue_${index}`}
                       >
-                        {d.totalAmount}
+                        <AmountComponentsPage amount={d.totalAmount} />
                       </td>
 
                       <td id={`dateJoined_${index}`}>
-                        <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
+                        <div
+                          className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}
+                        >
                           <div id={`date_${index}`}>{date}</div>
-                          <div className={`text-[#4B5565]`} id={`time_${index}`}>
+                          <div
+                            className={`text-[#4B5565]`}
+                            id={`time_${index}`}
+                          >
                             {time}
                           </div>
                         </div>
@@ -130,7 +135,8 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
     </div>
   );
 };
-              {/* {isLoading ? (
+{
+  /* {isLoading ? (
                 <div className="text-center mt-20 relative lg:left-[550px]">
                   <ClipLoader color="123abc" size={50} />
                   <p>Loading orders</p>
@@ -153,8 +159,10 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
                   className="cursor-pointer truncate"
                   onClick={handleDetails}
                 >
-              } */}
-                  {/* <td id={`companyData_${index}`}>
+              } */
+}
+{
+  /* <td id={`companyData_${index}`}>
                     <div
                       className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
                     >
@@ -168,9 +176,11 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
                         <div>{d.name}</div>
                       </div>
                     </div>
-                  </td> */}
+                  </td> */
+}
 
-                  {/* <td
+{
+  /* <td
                     className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
                     id={`itemsSold_${index}`}
                   >
@@ -182,9 +192,11 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
                     id={`transactionValue_${index}`}
                   >
                     {d.totalAmount}
-                  </td> */}
+                  </td> */
+}
 
-                  {/* <td id={`companyData_${index}`}>
+{
+  /* <td id={`companyData_${index}`}>
                     <div
                       className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
                     >
@@ -201,9 +213,11 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
                         </div>
                       </div>
                     </div>
-                  </td> */}
+                  </td> */
+}
 
-                  {/* <td id={`dateJoined_${index}`}>
+{
+  /* <td id={`dateJoined_${index}`}>
                     <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
                       <div id={`date_${index}`}>{d.dateCreated}</div>
                       <div className={`text-[#4B5565]`} id={`time_${index}`}>
@@ -226,6 +240,7 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
       )}
     </div>
   );
-}; */}
+}; */
+}
 
 export default OrderTable;

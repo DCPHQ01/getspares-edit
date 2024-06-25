@@ -70,100 +70,103 @@ const DetailsTable: React.FC<productInformation> = ({
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <CustomTabPanel value={value} index={0}>
-        <Box
-          sx={{
-            display: "grid",
-            gridTemplateColumns: {
-              xs: "1fr",
-              sm: "1fr 1fr",
-              md: "1fr 1fr 1fr",
-            },
-            gap: 2,
-            p: 2,
-          }}
-        >
+    <div className="w-[100%]">
+      <Box>
+        <CustomTabPanel value={value} index={0}>
           <Box
-            component="section"
-            sx={{ p: 2, border: "shadow", backgroundColor: "#EEF2F6" }}
+            sx={{
+              display: "grid",
+              gridTemplateColumns: {
+                xs: "1fr",
+                sm: "1fr 1fr",
+                md: "1fr 1fr 1fr",
+              },
+              gap: 2,
+              p: 2,
+            }}
           >
-            <div className="flex flex-col">
-              <div>Quantity Available</div>
-              <div>{quantity}</div>
-            </div>
-          </Box>
-          <Box
-            component="section"
-            sx={{ p: 2, border: "shadow", backgroundColor: "#EEF2F6" }}
-          >
-            <div className="flex flex-col">
-              <div>Manufacturer</div>
-              <div>{manufacturer}</div>
-            </div>
-          </Box>
-          <Box
-            component="section"
-            sx={{ p: 2, border: "shadow", backgroundColor: "#EEF2F6" }}
-          >
-            <div className="flex flex-col">
-              <div>Brand</div>
-              <div>{brand}</div>
-            </div>
-          </Box>
+            <Box
+              component="section"
+              sx={{ p: 2, border: "shadow", backgroundColor: "#EEF2F6" }}
+            >
+              <div className="flex flex-col">
+                <div>Quantity Available</div>
+                <div>{quantity}</div>
+              </div>
+            </Box>
+            <Box
+              component="section"
+              sx={{ p: 2, border: "shadow", backgroundColor: "#EEF2F6" }}
+            >
+              <div className="flex flex-col">
+                <div>Manufacturer</div>
+                <div>{manufacturer}</div>
+              </div>
+            </Box>
+            <Box
+              component="section"
+              sx={{ p: 2, border: "shadow", backgroundColor: "#EEF2F6" }}
+            >
+              <div className="flex flex-col">
+                <div>Brand</div>
+                <div>{brand}</div>
+              </div>
+            </Box>
 
-          <Box
-            component="section"
-            sx={{ p: 2, border: "shadow", backgroundColor: "#EEF2F6" }}
-          >
-            <div className="flex flex-col">
-              <div>Model</div>
-              <div>{itemModelNumber}</div>
-            </div>
-          </Box>
-          <Box
-            component="section"
-            sx={{ p: 2, border: "shadow", backgroundColor: "#EEF2F6" }}
-          >
-            <div className="flex flex-col">
-              <div>Color</div>
-              <div>{color}</div>
-            </div>
-          </Box>
+            <Box
+              component="section"
+              sx={{ p: 2, border: "shadow", backgroundColor: "#EEF2F6" }}
+            >
+              <div className="flex flex-col">
+                <div>Model</div>
+                <div>{itemModelNumber}</div>
+              </div>
+            </Box>
 
-          <Box
-            component="section"
-            sx={{ p: 2, border: "shadow", backgroundColor: "#EEF2F6" }}
-          >
-            <div className="flex flex-col">
-              <div>Weight</div>
-              <div>{itemWeight}</div>
-            </div>
+            <Box
+              component="section"
+              sx={{ p: 2, border: "shadow", backgroundColor: "#EEF2F6" }}
+            >
+              <div className="flex flex-col">
+                <div>Color</div>
+                <div>{color}</div>
+              </div>
+            </Box>
+
+            <Box
+              component="section"
+              sx={{ p: 2, border: "shadow", backgroundColor: "#EEF2F6" }}
+            >
+              <div className="flex flex-col">
+                <div>Weight</div>
+                <div>{itemWeight}</div>
+              </div>
+            </Box>
+            <Box
+              component="section"
+              sx={{ p: 2, border: "shadow", backgroundColor: "#EEF2F6" }}
+            >
+              <div className="flex flex-col">
+                <div>Dimensions</div>
+                <div>{productDimension}</div>
+              </div>
+            </Box>
+            <Box
+              component="section"
+              sx={{ p: 2, border: "shadow", backgroundColor: "#EEF2F6" }}
+            >
+              <div className="flex flex-col">
+                <div>Country of origin</div>
+                <div>{countryOfOrigin}</div>
+              </div>
+            </Box>
           </Box>
-          <Box
-            component="section"
-            sx={{ p: 2, border: "shadow", backgroundColor: "#EEF2F6" }}
-          >
-            <div className="flex flex-col">
-              <div>Dimensions</div>
-              <div>{productDimension}</div>
-            </div>
-          </Box>
-          <Box
-            component="section"
-            sx={{ p: 2, border: "shadow", backgroundColor: "#EEF2F6" }}
-          >
-            <div className="flex flex-col">
-              <div>Country of origin</div>
-              <div>{countryOfOrigin}</div>
-            </div>
-          </Box>
-        </Box>
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-        <ProductReview />
-      </CustomTabPanel>
-    </Box>
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={1}>
+          <ProductReview />
+        </CustomTabPanel>
+      </Box>
+    </div>
   );
 };
 export default DetailsTable;

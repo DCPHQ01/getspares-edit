@@ -164,7 +164,7 @@ export default function Details() {
             id="productDescriptionBreadcrumbs"
             className="flex items-center gap-x-2"
           >
-            <Link href={paths.toDashboard()}>
+            <Link href="/dashboard">
               <button className="text-base cursor-pointer font-nunito font-normal text-mecaDarkBlueBackgroundOverlay">
                 {viewBuyerProducts?.name}
               </button>

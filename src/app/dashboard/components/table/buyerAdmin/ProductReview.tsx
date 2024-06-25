@@ -88,9 +88,9 @@ const ProductReview = () => {
           Give Feedback
         </button>
       </div>
-      <div className={`flex gap-16 mt-4`}>
+      <div className={`lg:flex gap-16 mt-4`}>
         <div
-          className={`border-gray-300 w-[470px] h-[344px] border bg-[#F8FAFC] rounded-lg p-3`}
+          className={`border-gray-300 lg:w-[470px] w-[100%]  h-[344px] border bg-[#F8FAFC] rounded-lg p-3`}
         >
           <div className={`w-[242px] h-[72px] flex gap-6`}>
             <div className={`text-6xl font-semibold`}>5.0</div>
@@ -109,7 +109,10 @@ const ProductReview = () => {
               <div className={`mt-0`}>
                 <IoStarSharp color="#095AD3" />
               </div>
-              <div>5 (50%)</div>
+              <div className="flex gap-x-2">
+                <div className="">5</div>
+                <div className="">(50%)</div>
+              </div>
             </div>
             <ProgressBar percentage={50} />
           </div>
@@ -118,7 +121,10 @@ const ProductReview = () => {
               <div className={`mt-0`}>
                 <IoStarSharp color="#095AD3" />
               </div>
-              <div>4 (20%)</div>
+              <div className="flex gap-x-2">
+                <div className="">4</div>
+                <div className="">(20%)</div>
+              </div>
             </div>
             <ProgressBar percentage={20} />
           </div>
@@ -127,7 +133,10 @@ const ProductReview = () => {
               <div className={`mt-0`}>
                 <IoStarSharp color="#095AD3" />
               </div>
-              <div>3 (10%)</div>
+              <div className="flex gap-x-2">
+                <div className="">3</div>
+                <div className="">(10%)</div>
+              </div>
             </div>
             <ProgressBar percentage={10} />
           </div>
@@ -136,7 +145,10 @@ const ProductReview = () => {
               <div className={`mt-0`}>
                 <IoStarSharp color="#095AD3" />
               </div>
-              <div>2 (15%)</div>
+              <div className="flex gap-x-2">
+                <div className="">2</div>
+                <div className="">(15%)</div>
+              </div>
             </div>
             <ProgressBar percentage={15} />
           </div>
@@ -145,12 +157,15 @@ const ProductReview = () => {
               <div className={`mt-0`}>
                 <IoStarSharp color="#095AD3" />
               </div>
-              <div>1 (5%)</div>
+              <div className="flex gap-x-2">
+                <div className="">1</div>
+                <div className="">(10%)</div>
+              </div>
             </div>
             <ProgressBar percentage={5} />
           </div>
         </div>
-        <div className={`w-[600px] h-[436px]`}>
+        <div className={`lg:w-[600px] w-[100%] lg:mt-0 mt-10 h-[436px]`}>
           <div className={`flex gap-2 mb-4`}>
             {[5, 4, 3, 2, 1].map((rating) => (
               <Button
