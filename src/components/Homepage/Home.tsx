@@ -147,7 +147,8 @@ export default function Home() {
             (product: ProductType, index: number) =>
               index < 3 && (
                 <Card
-                  isLoading={isLoading}
+                   key={index}
+                   isLoading={isLoading}
                   image={HomeImage1}
                   id={product.id}
                   productName={product.name}
@@ -181,6 +182,7 @@ export default function Home() {
             (recentProduct: ProductType, index: number) =>
               index < 3 && (
                 <Card
+                   key={index}
                   isLoading={isLoadingRecent}
                   image={HomeImage2}
                   id={recentProduct.id}

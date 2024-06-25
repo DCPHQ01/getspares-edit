@@ -6,7 +6,7 @@ import Image from "next/image";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { ColorRing } from "react-loader-spinner";
 import { useGetTopPerformingVendorsQuery } from "../../../../../redux/features/dashboard/mecaAdminQuery";
-
+import dayjs from "dayjs";
 // const datas = [
 //   {
 //     avatar: image1,
@@ -56,7 +56,7 @@ import { useGetTopPerformingVendorsQuery } from "../../../../../redux/features/d
 // ];
 
 interface TopVendors{
-  // avatar?: string;
+  avatar?: string;
   companyName: string;
   email?: string;
   totalItemSold: number;
@@ -73,6 +73,11 @@ interface OverviewTableProps {
 
 
 function Overview({data, isLoading}: OverviewTableProps) {
+  const formatDateTime = (dateTime: string) => {
+    const date = dayjs(dateTime).format("YYYY-MM-DD");
+    const time = dayjs(dateTime).format("HH:mm:ss");
+    return { date, time };
+  };
  
   return (
     <div
@@ -109,10 +114,13 @@ function Overview({data, isLoading}: OverviewTableProps) {
             </tr>
           ) : (
             data.map((d, index) => (
+              // const { date, time} = formatDateTime(d.dateJoined);   
+              // return (          
+
               <tr key={index} id={`row_${index}`} className="cursor-pointer">
                 <td id={`companyData_${index}`}>
                   <div className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}>
-                    {/* {d.avatar ? (
+                    {d.avatar ? (
                       <Image
                         src={d.avatar}
                         alt="Avatar"
@@ -125,7 +133,7 @@ function Overview({data, isLoading}: OverviewTableProps) {
                         className="object-cover"
                         style={{ fontSize: 40, color: 'gray' }}
                       />
-                    )} */}
+                    )}
                     <div id={`companyDetails_${index}`}>
                       <div className="truncate">{d.companyName}</div>
                       <div className={`text-[#4B5565] truncate`} id={`email_${index}`}>
@@ -143,12 +151,14 @@ function Overview({data, isLoading}: OverviewTableProps) {
                 <td id={`dateJoined_${index}`}>
                   <div className={`text-[0.88rem] py-[1rem] px-[2.75rem] truncate`}>
                     <div id={`date_${index}`}>{d.dateJoined}</div>
-                    {/* <div className={`text-[#4B5565] `} id={`time_${index}`}>
+                    <div className={`text-[#4B5565] `} id={`time_${index}`}>
                       {d.time}
-                    </div> */}
+                    </div>
                   </div>
                 </td>
               </tr>
+              // );
+            
             ))
           )}
         </tbody>

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from 'react'
+import React, {useEffect, useLayoutEffect, useState} from 'react'
 import Link from 'next/link';
 import {  MdChevronRight } from "react-icons/md";
 import { Nunito_Sans } from "next/font/google";
@@ -15,6 +15,8 @@ import HeaderPage from '../../reusables/Header/page';
 import NavBarWhileInsideApp from '../../reusables/TopBarWhileInside/NavBarWhileInsideApp/page';
 import { paths } from '../../../path/paths';
 import { useCheckoutMutation } from '../../../redux/features/dashboard/buyerQuery';
+import {useAppSelector} from "../../../redux/hooks";
+import {formatAmount} from "../../../components/utils";
 
 
 
@@ -54,9 +56,10 @@ const Checkout = () => {
   const [deliveryMode, setDeliveryMode] = useState('delivery');
   const [showAddressSelection, setShowAddressSelection] = useState(false);
   const [open, setOpen] = React.useState(false);
+  const [totalItemPrice, setTotalItemPrice] = useState<string>("");
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -65,6 +68,8 @@ const Checkout = () => {
   });
 
   const router = useRouter();
+  const { cart } = useAppSelector((state) => state.product);
+
   const [checkoutData, { isLoading, error}] = useCheckoutMutation();
 
 
@@ -72,13 +77,21 @@ const Checkout = () => {
     setDeliveryMode(event.target.value);
   };
 
-  const handleSucessClick = () => {
+  const handleRouteToMarketPlace = () => {
     paths.toHome();
   };
 
-  // const handleSaveCick = () => {
-  //   console.log('clicked')
-  // };
+  const getAllTotalPrice = () => {
+    if(cart.length !== 0){
+      let total = cart.map( item => (Number(item.amount) * Number(item.quantity))).reduce( (a,b) => a+b);
+      setTotalItemPrice(String(total))
+    }
+  }
+
+  useLayoutEffect(()=>{
+    getAllTotalPrice()
+
+  },[cart])
 
   const handleAddressSelectionToggle = () => {
     setShowAddressSelection(!showAddressSelection);
@@ -92,40 +105,26 @@ const Checkout = () => {
   };
 
   useEffect(() => {
-    const token = sessionStorage.getItem('token');
-    if (!token) {
-      router.push(paths.toLogin());
-    } else {
-      setIsAuthenticated(true);
-      let userDetails = sessionStorage.getItem('userDetails') || '';
-      console.log('user details:', userDetails);
-      const parsedUserDetails = JSON.parse(userDetails);
-      console.log("user details:", parsedUserDetails);      
-      setFormData({
-        ...formData,
-        firstName: parsedUserDetails.firstName || '',
-        lastName: parsedUserDetails.lastName,
-        
-      });
-      console.log("Form Data:", formData);
+    let userDetails = sessionStorage.getItem('userDetails') || '';
+    const parsedUserDetails = JSON.parse(userDetails);
+    console.log("user details:", parsedUserDetails);
+    setFormData({
+      ...formData,
+      firstName: parsedUserDetails.firstName || '',
+      lastName: parsedUserDetails.lastName,
 
-    }
+    });
+
   }, [router]);
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (!isAuthenticated) {
-      router.push(paths.toLogin());
-      return;
-    }
     const payload = {
-      productId:"666877a5b48207256da90429",
       location: formData.deliveryAddress,
-      otherInformation: "Some other information", 
+      otherInformation: "Some other information",
       phoneNumber: formData.phoneNumber
     };
-    console.log("Payload: ", payload);  
-  
+
     try {
       const response = await checkoutData(payload);
       if ("data" in response) {
@@ -134,34 +133,22 @@ const Checkout = () => {
       }
     } catch (error) {
       console.log(error);
-    }  
+    }
   };
 
-  if (!isAuthenticated) {
-    return null; // or a loading spinner
-  }
-
-  // const handleOpenToken = () => {
-  //   const token = sessionStorage.getItem('token');
-  //   if (token) {
-  //     setOpen(true); 
-  //   } else {
-  //     router.push(paths.toHome()); 
-  //   }
-  // };
   return (
     // add screen
-    <div>
+    <>
       <div id='topHeader' className='fixed top-0 left-0 right-0 z-10'>
         <HeaderPage/>
         <div className='px-2'>
           <NavBarWhileInsideApp />
         </div>
       </div>
-      <div id='checkoutContent' className="w-[95%] m-auto mt-[8%]">
-        <div style={{ width: "100%" }} className={nunito.className}>
+      <div id='checkoutContent' className="w-[95%] m-auto mt-[200px] lg:mt-[150px] ">
+        <div style={{ width: "100%" }}>
           <div
-            className="flex mt-16 items-center gap-4"
+            className="flex items-center gap-4"
             id="breadCrumbsDivDesktop">
             <Link href={paths.toHome()}>
               <p className="font-nunito text-sm font-medium text-mecaDarkBlueBackgroundOverlay hover:text-black hover:font-bold">
@@ -176,12 +163,12 @@ const Checkout = () => {
             </Link>
             <MdChevronRight size={20} />
             <p className="font-nunito text-sm font-medium text-mecaGoBackArrow">
-              Checkout
+              Order
             </p>
           </div>
           <div className="">
             <h1 className="text-lg font-semibold font-nunito text-mecaDarkBlueBackgroundOverlay mt-6">
-              Checkout
+              Place Order
             </h1>
           </div>
           <div className='flex flex-col lg:flex-row gap-x-6'>
@@ -245,7 +232,7 @@ const Checkout = () => {
                       </FormControl>
                     </div>
                   </FormControl>
-                  
+
                   <FormControl>
                     <FormLabel id="demo-controlled-radio-buttons-group" style={{ color: '#000000' }} className="text-black text-base font-semibold">Mode of delivery</FormLabel>
                     <RadioGroup
@@ -269,7 +256,7 @@ const Checkout = () => {
                         disableUnderline
                         placeholder='Enter delivery address'
                         multiline
-                        rows={6}
+                        minRows={4}
                         maxRows={6}
                         className='bg-mecaInputBgColor w-full rounded-t-[4px] hover:bg-mecaInputBgColor border focus-within:bg-mecaInputBgColor'
                         inputProps={{
@@ -293,7 +280,7 @@ const Checkout = () => {
                         </div>
                         <Divider />
                         <p className={`${nunito.className} font-semibold text-sm text-black mt-2`}>vendor address</p>
-                        <p className={`${nunito.className} text-gray-500`}>No 56b, Moleye by Total filling station, Alago-meji, Sabo, 
+                        <p className={`${nunito.className} text-gray-500`}>No 56b, Moleye by Total filling station, Alago-meji, Sabo,
                           Yaba,Lagos, Total Filling Station | Lagos - Yaba-(Sabo)</p>
                       </Card>
                     ) : (
@@ -305,7 +292,7 @@ const Checkout = () => {
                           gap: '10px',
                           borderRadius: '36px',
                           border: '2px solid #095AD3',
-                          opacity: 1, 
+                          opacity: 1,
                           color: '#095AD3',
                           textTransform: 'none',
                           fontSize: '14px',
@@ -344,95 +331,91 @@ const Checkout = () => {
                 </div> */}
               </CardContent>
             </Card>
-            <Card className="mt-6 lg:h-[64%] lg:w-[30%]">
-              <CardContent className="h-64 bg-mecaSearchColor rounded-lg pt-5">
+            <div className="mt-6 w-full md:w-[30%]">
+              <div className="h-64 bg-mecaSearchColor  rounded-lg pt-5">
                 <div className="w-[90%] m-auto">
-                  {itemSelected.map((itemSelect) => (
-                    <div className={nunito.className} key={itemSelect.count}>
-                      <div className="flex justify-between">
-                        <div className="flex font-normal text-sm">
-                          <p>Item</p>
-                          <p>({itemSelect.count})</p>
-                        </div>
-                        <p className="font-normal text-sm">{itemSelect.totalPrice}</p>
+                  <div>
+                    <div className="flex justify-between">
+                      <div className="flex font-normal text-sm">
+                        <p> Item{cart?.length > 1 && 's'}</p>
+                        <p> ({cart?.length})</p>
                       </div>
-                      <div className="flex justify-between mt-5 font-normal text-sm">
-                        <p>Shipping</p>
-                        <p>{itemSelect.shippingPrice}</p>
-                      </div>
-                      <hr className="mt-5" />
-                      <div className="flex justify-between mt-5 mb-9 font-semibold text-xl">
-                        <p>Subtotal</p>
-                        <p>{itemSelect.subtotal}</p>
+
+                      <div className=" font-normal text-sm">
+                        <p>{formatAmount(totalItemPrice)}</p>
                       </div>
                     </div>
-                  ))}
-                  <div>
-                    {/* className="w-full hover:bg-mecaBluePrimaryColor h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer normal-case " */}
-                    {/* hover:opacity-90 */}
-                  <button
-                    id="checkoutBtn"
-                    // disableRipple
-                    onClick={handleSubmit}
-                     className="w-full h-11 hover:bg-mecaBluePrimaryColor bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer"
-                  >
-                    {/* {isLoading ? (
-                      <ColorRing
-                        visible
-                        height="40"
-                        width="40"
-                        ariaLabel="color-ring-loading"
-                        wrapperStyle={{}}
-                        wrapperClass="color-ring-wrapper"
-                        colors={["#ffff", "#ffff", "#ffff", "#ffff", "#ffff"]}
-                      />
-                    ) : ( */}
-                      Checkout
-                    {/* )} */}
-                  </button>
-                    <Modal
-                      // open={open}
-                      // onClose={handleClose}
-                      open={open}
-                      onClose={() => setOpen(false)}
-                      aria-labelledby="modal-modal-title"
-                      aria-describedby="modal-modal-description"
-                      sx={{backdropFilter: 'blur(5px)'}}
+                    <div className="flex justify-between mt-5 font-normal text-sm">
+                      <p>Shipping</p>
+                      <p>{"₦0"}</p>
+                    </div>
+                    <hr className="mt-5"></hr>
+                    <div className="flex justify-between mt-5 mb-9 font-semibold text-xl">
+                      <p>Subtotal</p>
+                      <p>{formatAmount(totalItemPrice)}</p>
+                    </div>
+                  </div>
+                  <div className="">
+                    <button
+                       onClick={handleSubmit}
+                       className="w-full h-11 bg-mecaBluePrimaryColor flex items-center justify-center rounded-full text-white cursor-pointer"
                     >
-                      <Box sx={style}>
-                        <CheckOutlinedIcon sx={{ background: '#B2CCFF', color: '#095AD3', borderRadius: '28px', border: '8px solid #B2CCFF', fontSize: '40px', }}/>
-                        <div className='flex flex-col gap-3'>
-                          <p id="modal-modal-title" className='text-lg font-semibold mt-5'>
-                            Order successful!
-                          </p>
-                            <p id="modal-modal-description" className='text-sm font-normal text-mecaCheckoutMessage'>
-                              Thank you for your purchase. Your order has been
-                              placed successfully. A confirmation email with your
-                              order details will be sent shortly.
-                            </p>
-                        </div>
-                          <div className='mt-4'>
-                            <button
-                              onClick={handleSucessClick}
-                              className="w-full h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer"
-                            >
-                              Go to Marketplace
-                            </button>
-                          </div>
-                      </Box>
-                    </Modal>
+                      {isLoading ? (
+                         <ColorRing
+                            visible
+                            height="40"
+                            width="40"
+                            ariaLabel="color-ring-loading"
+                            wrapperStyle={{}}
+                            wrapperClass="color-cart-wrapper"
+                            colors={["#ffff", "#ffff", "#ffff", "#ffff", "#ffff"]}
+                         />
+                      ) : (
+                         "Place Order"
+                      )}
+                    </button>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
-
+              </div>
+            </div>
+            <Modal
+               // open={open}
+               // onClose={handleClose}
+               open={open}
+               onClose={() => setOpen(false)}
+               aria-labelledby="modal-modal-title"
+               aria-describedby="modal-modal-description"
+               sx={{backdropFilter: 'blur(5px)'}}
+            >
+              <Box sx={style}>
+                <CheckOutlinedIcon sx={{ background: '#B2CCFF', color: '#095AD3', borderRadius: '28px', border: '8px solid #B2CCFF', fontSize: '40px', }}/>
+                <div className='flex flex-col gap-3'>
+                  <p id="modal-modal-title" className='text-lg font-semibold mt-5'>
+                    Order successful!
+                  </p>
+                  <p id="modal-modal-description" className='text-sm font-normal text-mecaCheckoutMessage'>
+                    Thank you for your purchase. Your order has been
+                    placed successfully. A confirmation email with your
+                    order details will be sent shortly.
+                  </p>
+                </div>
+                <div className='mt-4'>
+                  <button
+                     onClick={handleRouteToMarketPlace}
+                     className="w-full h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer"
+                  >
+                    Go to Marketplace
+                  </button>
+                </div>
+              </Box>
+            </Modal>
           </div>
         </div>
       </div>
         <div className="mt-14" id="contentContainerAddToCartFooter">
           <Footer />
-        </div>  
-    </div>
+        </div>
+    </>
   )
 }
 

@@ -4,6 +4,7 @@ import Link from "next/link";
 import styles from "../styles.module.css";
 import Image from "next/image";
 import Stack from "@mui/material/Stack";
+import dayjs from "dayjs";
 
 interface Agent{
   firstName: string;
@@ -17,14 +18,15 @@ interface AgentTableProps {
   agentList: Agent[];
 }
 
-const moment = require('moment');
 
-const dateTime = "2024-06-21T10:34:24.829";
-const date = moment(dateTime).format('YYYY-MM-DD');
-const time = moment(dateTime).format('HH:mm a');
+const formatDateTime = (dateTime: string) =>{
+const date = dayjs(dateTime).format('YYYY-MM-DD');
+const time = dayjs(dateTime).format('HH:mm a');
+return {date, time}
+}
 
-console.log('Date:', date); 
-console.log('Time:', time); 
+// console.log('Date:', date); 
+// console.log('Time:', time); 
 
 const AgentTable: React.FC<AgentTableProps> = ({ agentList }) => {
 
@@ -51,6 +53,7 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList }) => {
             </thead>
             <tbody>
               {Array.isArray(agentList) && agentList?.map((d, index)=>{
+                const {date, time} = formatDateTime(d.dateAdded)
                 return(
                   <tr
                   key={index}

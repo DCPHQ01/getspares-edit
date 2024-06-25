@@ -28,8 +28,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Providers >
-        <body className={nunito.className}>{children}</body>
+      <Providers>
+        <body className={nunito.className} suppressHydrationWarning={true}>{children}</body>
       </Providers>
     </html>
   );
