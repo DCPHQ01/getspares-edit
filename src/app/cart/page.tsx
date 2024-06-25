@@ -64,11 +64,41 @@ const RemoveToCartPage = () => {
     vertical: "top",
     horizontal: "center",
   });
-  const { vertical, horizontal, open } = state;
+  const { vertical, horizontal, open } = snackState;
+  const { data: relatedProductData, isLoading } = useGetRelatedProductQuery({});
+  const [addToCart, { isLoading: cartLoading }] =
+    useAddSingleProductToCartMutation();
 
-  const handleSucessClick = (newState: SnackbarOrigin) => () => {
-    setState({ ...newState, open: true });
-    router.push(paths.toCheckout());
+  const { cart } = useAppSelector((state) => state.product);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      setIsAuthenticated(false);
+    } else {
+      setIsAuthenticated(true);
+    }
+  }, [router]);
+
+  const handleCheckout = (newState: SnackbarOrigin) => async () => {
+    if (!isAuthenticated) {
+      router.push(paths.toLogin());
+    } else {
+      const data = cart.map((item) => {
+        return {
+          productId: item.id,
+          quantity: Number(item.quantity),
+        };
+      });
+      try {
+        const res = await addToCart(data).unwrap();
+        setSnackState({ ...newState, open: true });
+        router.push(paths.toCheckout());
+        console.log(res.data);
+      } catch (error: any) {
+        console.log(error.data);
+      }
+    }
   };
 
   const handleSuccessClose = () => {
