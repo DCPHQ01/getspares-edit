@@ -16,7 +16,7 @@ interface OrderItem {
 }
 
 interface OrderInfo {
-  orderId: string;
+  orderId: number;
   orderDate: string;
   deliveryAddress: any;
   orderItems: OrderItem[];
