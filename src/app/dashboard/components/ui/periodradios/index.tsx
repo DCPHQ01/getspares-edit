@@ -51,7 +51,6 @@ const BpCheckedIcon = styled(BpIcon)({
   },
 });
 
-// Inspired by blueprintjs
 function BpRadio(props: RadioProps) {
   return (
     <Radio
