@@ -112,6 +112,7 @@ const SignUpComponentLeft = () => {
       setIsLoading(true);
       let userEmail = "";
       let response;
+<<<<<<< HEAD
       if (userType === "vendor") {
         response = await registerVendor(userVendorDetails).unwrap();
         console.log("unwrap ", response);
@@ -161,7 +162,70 @@ const SignUpComponentLeft = () => {
           }
         }
         sessionStorage.setItem("userEmail", userEmail);
+=======
+      switch (userType) {
+        case "vendor":
+          response = await registerVendor(userVendorDetails).unwrap();
+          userEmail = userVendorDetails.email;
+          break;
+        case "agent":
+          response = await registerAgent(userAgentDetails).unwrap();
+          userEmail = userAgentDetails.email;
+          break;
+        case "buyer":
+          response = await registerBuyer(userBuyerDetails).unwrap();
+          userEmail = userBuyerDetails.email;
+          break;
+>>>>>>> 716c1cdb947fe743079df9b003ce1fad0265af91
       }
+      router.push(paths.toVerifyEmail());
+      sessionStorage.setItem("userEmail", userEmail);
+      // if (userType === "vendor") {
+      //   response = await registerVendor(userVendorDetails).unwrap();
+      //   console.log("unwrap ", response);
+      //   userEmail = userVendorDetails.email;
+      //   if ("data" in response) {
+      //     console.log(
+      //       "data response ",
+      //       response.data?.message,
+      //       " status code ",
+      //       response.data?.statusCode
+      //     );
+      //     if (response.data?.message === "SignUp Successfully") {
+      //       router.push(paths.toVerifyEmail());
+      //     } else {
+      //       setRegisterError(response.data);
+      //     }
+      //   }
+      //   sessionStorage.setItem("userEmail", userEmail);
+      // } else if (userType === "agent") {
+      //   response = await registerAgent(userAgentDetails).unwrap();
+      //   console.log("data response ", response);
+      //   userEmail = userAgentDetails.email;
+      //   if ("data" in response) {
+      //     console.log("data response ", response?.data);
+      //     if (response?.data?.message === "SignUp Successfully") {
+      //       // alert(AgentData.message);
+      //       router.push(paths.toVerifyEmail());
+      //     } else {
+      //       setRegisterError(response?.data);
+      //     }
+      //   }
+      //   sessionStorage.setItem("userEmail", userEmail);
+      // } else if (userType === "buyer") {
+      //   response = await registerBuyer(userBuyerDetails).unwrap();
+
+      //   userEmail = userBuyerDetails.email;
+      //   if ("data" in response) {
+      //     console.log("data response ", response?.data?.error);
+      //     if (response?.data?.message === "SignUp Successfully") {
+      //       router.push(paths.toVerifyEmail());
+      //     } else if ("error" in response) {
+      //       setRegisterError(response);
+      //     }
+      //   }
+      //   sessionStorage.setItem("userEmail", userEmail);
+      // }
     } catch (error: any) {
       console.error(error);
       setRegisterError(error);
