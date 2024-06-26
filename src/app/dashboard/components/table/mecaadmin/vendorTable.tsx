@@ -8,7 +8,10 @@ import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
-import { useGetMecaAdminDashboardVendorQuery } from "../../../../../redux/features/dashboard/mecaAdminQuery";
+import { ClipLoader } from 'react-spinners';
+import { ColorRing } from "react-loader-spinner";
+
+
 
 interface Vendor {
   email: string;
@@ -22,6 +25,7 @@ interface Vendor {
 
 interface VendorTableProps {
   vendorList: Vendor[];
+  isLoading?: boolean;
 }
 
 
@@ -129,30 +133,10 @@ interface VendorTableProps {
 //     time: "04:00PM",
 //   },
 
-//   {
-//     avatar: image1,
-//     name: "Ebuka & Sons International",
-//     email: "ebuka&sons@gmail.com",
-//     sale: 67,
-//     vale: "₦ 700,000,00",
-//     // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
-//     date: "30 Aug 2022",
-//     time: "04:00PM",
-//   },
 
-//   {
-//     avatar: image1,
-//     name: "Ebuka & Sons International",
-//     email: "ebuka&sons@gmail.com",
-//     sale: 67,
-//     vale: "₦ 700,000,00",
-//     // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
-//     date: "30 Aug 2022",
-//     time: "04:00PM",
-//   },
 // ];
 
-const VendorTable: React.FC<VendorTableProps>  = ({vendorList}) => {
+const VendorTable: React.FC<VendorTableProps>  = ({vendorList, isLoading}) => {
 
   // const fetchVendorData = async () => {
     // try {
@@ -175,109 +159,6 @@ const VendorTable: React.FC<VendorTableProps>  = ({vendorList}) => {
     
   // };
 
-  // return (
-  //   <div id="tableContainer">
-  //     <div
-  //       id="mecaAdminTable"
-  //       className={`my-[1.25rem] w-full max-h-[34rem] overflow-y-auto scrollbar-none ${styles.table}`}
-  //     >
-  //       <table id="adminTable" className={`w-full`}>
-  //         <thead>
-  //           <tr className="truncate">
-  //             <th id="companyNameHeader">Company name</th>
-  //             <th id="totalItemsSoldHeader">Total items sold</th>
-  //             <th id="transactionValueHeader" style={{ paddingLeft: "2.3rem" }}>
-  //               Transaction value
-  //             </th>
-  //             <th id="transactionRatings" style={{ paddingLeft: "5.5rem" }}>
-  //               Ratings
-  //             </th>
-  //             <th id="dateTimeJoinedHeader">Date & time joined</th>
-  //           </tr>
-  //         </thead>
-  //         <tbody>
-  //           {vendorList?.map((d, index) => (
-              
-  //             <tr key={index} id={`row_${index}`} className="cursor-pointer">
-  //               <td id={`companyData_${index}`}>
-  //                 <div
-  //                   className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]  items-center`}
-  //                 >
-  //                   {/* <Image
-  //                     src={d.imageUrl}
-  //                     className="object-contain"
-  //                     alt="Avatar"
-  //                     id={`avatar_${index}`}
-  //                   /> */}
-  //                    {d.imageUrl ? (
-  //                     <Image
-  //                       src={d.imageUrl}
-  //                       className="object-contain"
-  //                       alt="Avatar"
-  //                       id={`avatar_${index}`}
-                        
-  //                     />
-  //                   ) : (
-  //                     <AccountCircle style={{ fontSize: 50,}} className=" text-gray-400"/>
-  //                   )}
-  //                   <div id={`companyDetails_${index}`}>
-  //                     <div className="truncate">{d.companyName}</div>
-  //                     <div
-  //                       className={`text-[#4B5565] truncate`}
-  //                       id={`email_${index}`}
-  //                     >
-  //                       {d.email}
-  //                     </div>
-  //                   </div>
-  //                 </div>
-  //               </td>
-  //               <td
-  //                 className={`text-[0.88rem] py-[1rem] px-[3.13rem] truncate`}
-  //                 id={`itemsSold_${index}`}
-  //               >
-  //                 {d.totalItemSold}
-  //               </td>
-  //               <td
-  //                 className={`text-[0.88rem] py-[1rem] px-[3.13rem] truncate`}
-  //                 id={`transactionValue_${index}`}
-  //               >
-  //                 {d.transactionValue}
-  //               </td>
-  //               <td
-  //                 className={`text-[0.88rem] py-[1rem] px-[3.13rem] truncate`}
-  //                 id={`transactionRatings_${index}`}
-  //               >
-  //                 <div  className="flex gap-1">
-  //                   <Stack spacing={1}>
-  //                     <Rating
-  //                       name="half-rating"
-  //                       defaultValue={2.5}
-  //                       precision={0.5}
-  //                     />
-  //                   </Stack>
-  //                   <p className="mt-[2px]">{d.ratings}</p>
-  //                 </div>
-  //               </td>
-
-  //               <td id={`dateJoined_${index}`}>
-  //                 <div
-  //                   className={`text-[0.88rem] py-[1rem] px-[2.75rem] truncate`}
-  //                 >
-
-  //                   <div id={`date_${index}`}>{
-  //                   d.dateAndTimeJoined}</div>
-  //                   <div className={`text-[#4B5565]`} id={`time_${index}`}>
-  //                     {/* {d.time} */}
-  //                   </div>
-  //                 </div>
-  //               </td>
-  //             </tr>
-  //           ))}
-  //         </tbody>
-  //       </table>
-  //     </div>
-  //   </div>
-  // );
   return (
     <div id="tableContainer">
       <div
@@ -299,7 +180,23 @@ const VendorTable: React.FC<VendorTableProps>  = ({vendorList}) => {
             </tr>
           </thead>
           <tbody>
-            {vendorList?.map((d, index) => {
+             {isLoading ? (
+        <div 
+        className="text-center mt-28 relative lg:left-[188%] lg:right[188%]"
+        >
+           <ColorRing  
+            visible={true}
+            height="40"
+            width="40"
+            ariaLabel="color-ring-loading"
+            wrapperStyle={{position: "absolute", bottom: "75%", left: "44%",}}
+            wrapperClass="color-ring-wrapper"
+            colors={["#000000", "#000000", "#000000", "#000000", "#000000"]}
+
+           />
+          <p>Loading vendors...</p>
+        </div>
+      ) :(vendorList?.map((d, index) => {
               const [date, time] = d.dateJoined.split("T");
               const formattedTime = time.split(".")[0]; 
 
@@ -372,7 +269,7 @@ const VendorTable: React.FC<VendorTableProps>  = ({vendorList}) => {
                   </td>
                 </tr>
               );
-            })}
+            }))}
           </tbody>
         </table>
       </div>

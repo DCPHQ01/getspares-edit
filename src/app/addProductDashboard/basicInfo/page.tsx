@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Box from "@mui/material/Box";
-import ImageComponent from "../../../components/imageComp/ImageComponent";
+// import ImageComponent from "../../../components/imageComp/ImageComponent";
 import TextField from "@mui/material/TextField";
 import {
   MdArrowForward,
@@ -31,6 +31,7 @@ const CalledPagesPageOnePages = () => {
   });
 
   const { data: getCategoriesData } = useGetCategoryQuery({});
+  console.log(getCategoriesData?.data, "get categories data");
 
   useEffect(() => {
     const savedData = sessionStorage.getItem("basicInfoValues");

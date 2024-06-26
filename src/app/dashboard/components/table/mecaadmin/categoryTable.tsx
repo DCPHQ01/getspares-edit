@@ -1,10 +1,11 @@
 "use client";
 import React from "react";
 import styles from "../styles.module.css";
-import { AccountCircle } from "@mui/icons-material";
+import { AccountCircle } from '@mui/icons-material';
 import dayjs from "dayjs";
 import Image from "next/image";
 import { ColorRing } from "react-loader-spinner";
+
 
 interface Category {
   id: string;
