@@ -3,7 +3,7 @@ import Header from "../../dashboard/components/ui/header";
 import SearchBox from "../../dashboard/components/ui/searchbox";
 import PeriodRadios from "../../dashboard/components/ui/periodradios";
 import AddButton from "../../dashboard/components/ui/addbutton";
-// import CategoryTable from "../../dashboard/components/table/mecaadmin/categoryTable";
+import CategoryTable from "../../dashboard/components/table/mecaadmin/categoryTable";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
