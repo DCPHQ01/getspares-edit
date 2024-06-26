@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useGetViewAllMecaAdminCategoryQuery, useAddCategoryMutation } from "../../../redux/features/dashboard/mecaAdminQuery";
-import { MdAdd, MdArrowForward, MdChevronRight, MdClose, MdPhotoLibrary } from "react-icons/md";
+import { MdAdd, MdArrowForward, MdChevronRight, MdClose, MdPhotoLibrary, MdChevronLeft } from "react-icons/md";
 import { TextField } from "@mui/material";
 import { ColorRing } from "react-loader-spinner";
 
@@ -21,6 +21,7 @@ interface Category {
   createdBy: string;
   dateCreated: string;
   email: string;
+  option: string;
 }
 
 const style = {
@@ -37,18 +38,26 @@ const style = {
 };
 
 function Category() {
-  const { data, isError } = useGetViewAllMecaAdminCategoryQuery({ page: 1, size: 10 });
+  const [activityPeriod, setActivityPeriod] = useState("monthly"); 
+  const [page, setPage] = useState(0)
+  const size = 10
+  const [first, setFirst] = useState(false);
+  const [last, setLast] = useState(false);
+  const { data, isError } = useGetViewAllMecaAdminCategoryQuery({ page: page, size: size, options:activityPeriod});
   const [categoryList, setCategoryList] = useState<Category[]>([]);
   const [open, setOpen] = useState(false);
   const [formImage, setFormImage] = useState<string>("");
   const [categoryName, setCategoryName] = useState<string>("");
   const [categoryData, { isLoading }] = useAddCategoryMutation();
-  const [activityPeriod, setActivityPeriod] = useState("monthly"); 
+  
 
   useEffect(() => {
     if (data && Array.isArray(data.data.content)) {
       const list = data.data.content;
+      const lists = data.data;
       setCategoryList(list);
+      setFirst(lists.first)
+      setLast(lists.last)
     }
   }, [data]);
 
@@ -94,6 +103,18 @@ function Category() {
   const handlePeriodChange = (newPeriod: string) => {
     setActivityPeriod(newPeriod);
   };
+
+  const handleNextPage=()=>{
+    if(first){
+      setPage(prevPage => prevPage + 1);
+    }
+  }
+
+  const  handlePreviousPage=()=>{
+    if (last) {
+      setPage(prevPage => prevPage - 1);
+    }
+  }
 
   return (
     <>
@@ -191,19 +212,28 @@ function Category() {
 
       <div className="flex flex-row-reverse justify-between items-center mb-[1.25rem]" id="searchBox">
         <SearchBox placeholder="Search for category" />
-        <PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange}/>
+        <PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange} />
       </div>
 
-      <CategoryTable categoryList={categoryList} />
+      <CategoryTable categoryList={categoryList} isLoading={isLoading} />
 
-      <div className="flex justify-end mt-10 text-mecaBluePrimaryColor font-bold text-lg" id="nextPagination">
-        <button className="flex gap-x-2">
-          Next
-          <span>
-            <MdChevronRight className="mt-[2px] text-2xl" />
-          </span>
-        </button>
-      </div>
+      <div className="flex gap-[89%] md:gap-[85%] mt-10 text-mecaBluePrimaryColor font-bold text-lg">
+          <button className={`flex gap-x-2  ${!last ? "text-gray-400 cursor-not-allowed" : ""}`}
+          onClick={handlePreviousPage}
+          disabled={first}
+          >
+            <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
+          </button>
+          <button className={`flex gap-x-2  ${last ? "text-gray-400 cursor-not-allowed" : ""}`}
+          onClick={handleNextPage}
+           disabled={last}
+          >
+            Next
+            <span>
+              <MdChevronRight className="mt-[2px] text-2xl" />{" "}
+            </span>
+          </button>
+        </div>
     </>
   );
 }
