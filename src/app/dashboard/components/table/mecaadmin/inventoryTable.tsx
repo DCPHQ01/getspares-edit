@@ -185,7 +185,7 @@ const InventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isLoading
             colors={["#000000", "#000000", "#000000", "#000000", "#000000"]}
 
            />
-          <p>Loading vendors...</p>
+          <p>Loading Inventory Table...</p>
         </div>
       ): (inventoryData?.map((d, index) => (
               <tr key={index} id={`row_${index}`} className="cursor-pointer">

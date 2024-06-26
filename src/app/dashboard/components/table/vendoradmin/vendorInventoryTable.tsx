@@ -241,7 +241,7 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isL
             colors={["#000000", "#000000", "#000000", "#000000", "#000000"]}
 
            />
-          <p>Loading vendors...</p>
+          <p>Loading Inventory Table...</p>
         </div>
       ): (inventoryData?.map((d, index) => {
         let date = '';
