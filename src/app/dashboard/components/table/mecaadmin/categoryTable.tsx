@@ -139,9 +139,9 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
                         <div id={`date_${index}`}>{date}</div>
                         <div
                           className={`text-[#4B5565] truncate`}
-                          id={`time_${index}`}
+                          id={`email_${index}`}
                         >
-                          {time}
+                          {d.email}
                         </div>
                       </div>
                     </td>
@@ -157,3 +157,4 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
 };
 
 export default CategoryTable;
+

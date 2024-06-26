@@ -4,6 +4,7 @@ import styles from "../styles.module.css";
 import Image from "next/image";
 import Stack from "@mui/material/Stack";
 import dayjs from "dayjs";
+import { AccountCircle } from '@mui/icons-material';
 import { ColorRing } from "react-loader-spinner";
 
 interface Agent {
@@ -26,10 +27,7 @@ const formatDateTime = (dateTime: string) => {
   return { date, time };
 };
 
-// console.log('Date:', date);
-// console.log('Time:', time);
-
-const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading }) => {
+const AgentTable: React.FC<AgentTableProps> = ({ agentList,isLoading }) => {
   return (
     <div>
       <div id="tableContainer">
@@ -52,9 +50,13 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading }) => {
               </tr>
             </thead>
             <tbody>
-              {isLoading ? (
-                <div className="text-center mt-28 relative lg:left-[210%] lg:right[210%] md:left-[213%] md:right[213%] sm:left-[21">
-                  <ColorRing
+             
+
+              {isLoading? ( 
+                <div 
+                className="text-center mt-28 relative lg:left-[210%] lg:right[210%] md:left-[213%] md:right[213%] sm:left-[21"
+                >
+                   <ColorRing  
                     visible={true}
                     height="40"
                     width="40"

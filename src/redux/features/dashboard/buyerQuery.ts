@@ -18,10 +18,10 @@ export const buyerQuery = createApi({
       }),
     }),
     getViewAllOrders: builder.query({
-      query: ({ pageNo, pageSize }) => ({
-        url: `/dashboard/allOrders?pageNo=${pageNo}&pageSize=${pageSize}`,
-        method: "GET",
-      }),
+        query: ({pageNo, pageSize}) => ({
+            url: `/dashboard/allOrders?pageNo=${pageNo}&pageSize=${pageSize}`,
+            method: "GET",
+        })
     }),
     getOverviewOrderTable: builder.query({
         query: () => ({

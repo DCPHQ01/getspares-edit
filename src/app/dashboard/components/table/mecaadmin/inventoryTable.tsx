@@ -5,7 +5,25 @@ import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
 import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
 import Stack from "@mui/material/Stack";
+import { AccountCircle } from "@mui/icons-material";
 // import "react-tabs/style/react-tabs.css";
+import { ColorRing } from "react-loader-spinner";
+
+interface InventoryData {
+  productName?: number;
+  productImage?: string;
+  vendorName:string;
+  vendorEmail: string;
+  transactionValue:number;
+  noOfItemsSold: number;
+  vendorImage: string;
+  
+}
+ 
+interface InventoryTableProps {
+  inventoryData: InventoryData[];
+  isLoading: boolean;
+}
 
 const data = [
   {
@@ -134,7 +152,7 @@ const data = [
   },
 ];
 
-const InventoryTable = () => {
+const InventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isLoading}) => {
   return (
     <div id="tableContainer">
       <div
@@ -153,20 +171,41 @@ const InventoryTable = () => {
             </tr>
           </thead>
           <tbody>
-            {data.map((d, index) => (
+            {isLoading ? (
+        <div 
+        className="text-center mt-28 relative lg:left-[144%] lg:right[144%]"
+        >
+           <ColorRing  
+            visible={true}
+            height="40"
+            width="40"
+            ariaLabel="color-ring-loading"
+            wrapperStyle={{position: "absolute", bottom: "75%", left: "44%",}}
+            wrapperClass="color-ring-wrapper"
+            colors={["#000000", "#000000", "#000000", "#000000", "#000000"]}
+
+           />
+          <p>Loading vendors...</p>
+        </div>
+      ): (inventoryData?.map((d, index) => (
               <tr key={index} id={`row_${index}`} className="cursor-pointer">
                 <td id={`companyData_${index}`}>
                   <div
                     className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
                   >
-                    <Image
-                      src={d.avatar}
-                      className="object-contain"
-                      alt="Avatar"
-                      id={`avatar_${index}`}
-                    />
+                    
+                    {d.productImage ? (
+                        <Image
+                          src={d.productImage}
+                          className="object-contain"
+                          alt="Avatar"
+                          id={`avatar_${index}`}
+                        />
+                      ) : (
+                        <AccountCircle style={{ fontSize: 50 }} className=" text-gray-400" />
+                      )}
                     <div id={`companyDetails_${index}`}>
-                      <div className="truncate  mt-2">{d.name}</div>
+                      <div className="truncate  mt-2">{d.productName}</div>
                     </div>
                   </div>
                 </td>
@@ -175,19 +214,23 @@ const InventoryTable = () => {
                   <div
                     className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
                   >
-                    <Image
-                      src={d.avatar}
-                      className="object-contain"
-                      alt="Avatar"
-                      id={`avatar_${index}`}
-                    />
+                   {d.vendorImage && d.vendorImage.length < 1000  ? (
+                        <Image
+                          src={d.vendorImage}
+                          className="object-contain"
+                          alt="Avatar"
+                          id={`avatar_${index}`}
+                        />
+                      ) : (
+                        <AccountCircle style={{ fontSize: 50 }} className=" text-gray-400" />
+                      )}
                     <div id={`companyDetails_${index}`}>
-                      <div className="truncate ">{d.name}</div>
+                      <div className="truncate ">{d.vendorName}</div>
                       <div
                         className={`text-[#4B5565] truncate`}
                         id={`email_${index}`}
                       >
-                        {d.email}
+                        {d.vendorEmail}
                       </div>
                     </div>
                   </div>
@@ -197,16 +240,16 @@ const InventoryTable = () => {
                   className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
                   id={`itemsSold_${index}`}
                 >
-                  {d.sale}
+                  {d.noOfItemsSold}
                 </td>
                 <td
                   className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
                   id={`transactionValue_${index}`}
                 >
-                  {d.vale}
+                  {d.transactionValue}
                 </td>
               </tr>
-            ))}
+            )))}
           </tbody>
         </table>
       </div>

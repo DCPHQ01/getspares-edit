@@ -38,22 +38,26 @@ const style = {
 };
 
 function Category() {
+  const [activityPeriod, setActivityPeriod] = useState("monthly"); 
   const [page, setPage] = useState(0)
   const size = 10
   const [first, setFirst] = useState(false);
   const [last, setLast] = useState(false);
-  const { data, isError } = useGetViewAllMecaAdminCategoryQuery({ page: page, size: 10 });
+  const { data, isError } = useGetViewAllMecaAdminCategoryQuery({ page: page, size: size, options:activityPeriod});
   const [categoryList, setCategoryList] = useState<Category[]>([]);
   const [open, setOpen] = useState(false);
   const [formImage, setFormImage] = useState<string>("");
   const [categoryName, setCategoryName] = useState<string>("");
   const [categoryData, { isLoading }] = useAddCategoryMutation();
-  const [activityPeriod, setActivityPeriod] = useState("monthly"); 
+  
 
   useEffect(() => {
     if (data && Array.isArray(data.data.content)) {
       const list = data.data.content;
+      const lists = data.data;
       setCategoryList(list);
+      setFirst(lists.first)
+      setLast(lists.last)
     }
   }, [data]);
 
@@ -208,7 +212,7 @@ function Category() {
 
       <div className="flex flex-row-reverse justify-between items-center mb-[1.25rem]" id="searchBox">
         <SearchBox placeholder="Search for category" />
-        <PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange}/>
+        <PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange} />
       </div>
 
       <CategoryTable categoryList={categoryList} isLoading={isLoading} />
