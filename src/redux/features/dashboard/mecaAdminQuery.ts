@@ -38,8 +38,8 @@ export const mecaAdminQuery = createApi({
       }),
     }),
     getViewAllMecaAdminCategory: builder.query({
-      query: ({ page, size }: { page:number; size: number }) => ({
-        url: `/category/all?page=${page}&size=${size}`,
+      query: ({ page, size, options }: { page:number; size: number; options: string }) => ({
+        url: `/category/all?page=${page}&size=${size}&options=${options}`,
         method: "GET",
       }),
     }),

@@ -74,7 +74,7 @@ const CategoryTable: React.FC<CategoryTableProps> = ({ categoryList, isLoading }
                       className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
                     >
                       {d.imageUrl ? (
-                        <Image
+                        <img
                           src={d.imageUrl}
                           className="object-contain"
                           alt="Avatar"
@@ -85,6 +85,12 @@ const CategoryTable: React.FC<CategoryTableProps> = ({ categoryList, isLoading }
                       )}
                       <div id={`companyDetails_${index}`}>
                         <div className="truncate mt-2">{d.name}</div>
+                        <div
+                          className={`text-[#4B5565] truncate`}
+                          id={`email_${index}`}
+                        >
+                          {d.email}
+                        </div>
                       </div>
                     </div>
                   </td>
@@ -100,7 +106,7 @@ const CategoryTable: React.FC<CategoryTableProps> = ({ categoryList, isLoading }
                   >
                     <div className="flex gap-3">
                       <div className="">
-                        {/* <Image
+                        {/* <img
                           src={d.imageUrl}
                           className="object-contain"
                           alt="Avatar"
