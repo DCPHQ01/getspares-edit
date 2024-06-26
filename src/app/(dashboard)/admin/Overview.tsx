@@ -18,12 +18,6 @@ import cardsData from "./Overview";
 import { error } from "console";
 
 
-// interface CardData {
-//   total: string;
-//   amount: number;
-//   percentage: number;
-//   onClick: () => void;
-// };
 interface VendorData {
   // avatar: string;
   companyName: string;
@@ -33,18 +27,23 @@ interface VendorData {
   dateJoined: string;
 };
 
+interface CardProp {
+  totalNumberOfAgents?: number
+  totalNumberOfProductsSold?: number
+  totalOrderValue?: number
+  totalNumberOfPartOrdered?: number,
+  totalNumberOfAgent?: number,
+  totalTransactionValue?: number,
+  totalNumberOfVendor?: number,
+}
+
 function Overview() {
   const [activityPeriod, setActivityPeriod] = useState("monthly");
   const { data: mecaAdminOverviewData,  isLoading} = useGetMecaAdminOverviewQuery({});
   const {data,  isLoading: isVendorsLoading, isError: isVendorsError,} = useGetTopPerformingVendorsQuery({ period: activityPeriod});
 
-  const [adminOverview, setAdminOverview] = useState({
-    totalNumberOfPartOrdered: 0,
-    totalNumberOfAgent: 0,
-    totalTransactionValue: 0,
-    totalNumberOfVendor: 0,
-  });
-  console.log("data for meca admin", adminOverview);
+  const [adminOverview, setAdminOverview] = useState<CardProp[]>([]);
+
 
   const [topVendors, setTopVendors] = useState<VendorData[]>([]);
 

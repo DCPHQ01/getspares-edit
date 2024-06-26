@@ -2,13 +2,13 @@ import React from "react";
 import Card from "./card";
 
 interface CardProp {
-  totalNumberOfAgents: number
-  totalNumberOfProductsSold: number
-  totalOrderValue: number
-  totalNumberOfPartOrdered: number,
-  totalNumberOfAgent: number,
-  totalTransactionValue: number,
-  totalNumberOfVendor: number,
+  totalNumberOfAgents?: number
+  totalNumberOfProductsSold?: number
+  totalOrderValue?: number
+  totalNumberOfPartOrdered?: number,
+  totalNumberOfAgent?: number,
+  totalTransactionValue?: number,
+  totalNumberOfVendor?: number,
 }
 
 interface CardProps {
@@ -19,7 +19,7 @@ const Index:React.FC<CardProps> = ({cardField}) => {
   const cardProps = [
     {
       total: "number of parts ordered",
-      amount: cardField.totalNumberOfPartOrdered,
+      amount: cardField.totalNumberOfPartOrdered || 0,
       percentage: 32,
       onClick: () => {
         console.log("View total number of parts ordered");
