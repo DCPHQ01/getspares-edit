@@ -3,8 +3,7 @@
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { MdChevronLeft, MdClear } from "react-icons/md";
-import TopBar from "../TopBar/page";
-import Link from "next/link";
+
 import NavBar from "../../components/NavBar/NavBar";
 import { Nunito_Sans } from "next/font/google";
 import { useGetCategoryQuery } from "../../redux/features/users/authQuery";
