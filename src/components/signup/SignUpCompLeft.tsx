@@ -112,57 +112,6 @@ const SignUpComponentLeft = () => {
       setIsLoading(true);
       let userEmail = "";
       let response;
-<<<<<<< HEAD
-      if (userType === "vendor") {
-        response = await registerVendor(userVendorDetails).unwrap();
-        console.log("unwrap ", response);
-        userEmail = userVendorDetails.email;
-        if ("data" in response) {
-          router.push(paths.toVerifyEmail());
-          console.log(
-            "data response ",
-            response.data?.message,
-            " status code ",
-            response.data?.statusCode
-          );
-          if (response.data?.message === "SignUp Successfully") {
-            
-          } else {
-            setRegisterError(response.data);
-          }
-        }
-        sessionStorage.setItem("userEmail", userEmail);
-      } else if (userType === "agent") {
-        response = await registerAgent(userAgentDetails).unwrap();
-        console.log("data response ", response);
-        userEmail = userAgentDetails.email;
-        if ("data" in response) {
-          router.push(paths.toVerifyEmail());
-          console.log("data response ", response?.data);
-          router.push(paths.toVerifyEmail());
-          if (response?.data?.message === "SignUp Successfully") {
-            // alert(AgentData.message);
-           
-          } else {
-            setRegisterError(response?.data);
-          }
-        }
-        sessionStorage.setItem("userEmail", userEmail);
-      } else if (userType === "buyer") {
-        response = await registerBuyer(userBuyerDetails).unwrap();
-
-        userEmail = userBuyerDetails.email;
-        if ("data" in response) {
-          router.push(paths.toVerifyEmail());
-          console.log("data response ", response?.data?.error);
-          if (response?.data?.message === "SignUp Successfully") {
-           
-          } else if ("error" in response) {
-            setRegisterError(response);
-          }
-        }
-        sessionStorage.setItem("userEmail", userEmail);
-=======
       switch (userType) {
         case "vendor":
           response = await registerVendor(userVendorDetails).unwrap();
@@ -176,7 +125,6 @@ const SignUpComponentLeft = () => {
           response = await registerBuyer(userBuyerDetails).unwrap();
           userEmail = userBuyerDetails.email;
           break;
->>>>>>> 716c1cdb947fe743079df9b003ce1fad0265af91
       }
       router.push(paths.toVerifyEmail());
       sessionStorage.setItem("userEmail", userEmail);
