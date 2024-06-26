@@ -10,7 +10,6 @@ import { Menu, MenuItem, IconButton } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { title } from "process";
 import ViewItemDetails from "./[viewDetailsInventory]/page";
-import { ClipLoader } from 'react-spinners';
 import { ColorRing } from "react-loader-spinner";
 
 interface InventoryData {

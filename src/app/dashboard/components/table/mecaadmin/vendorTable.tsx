@@ -8,7 +8,6 @@ import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
-import { ClipLoader } from 'react-spinners';
 import { ColorRing } from "react-loader-spinner";
 
 
@@ -227,6 +226,7 @@ const VendorTable: React.FC<VendorTableProps>  = ({vendorList, isLoading}) => {
                         </div>
                       </div>
                     </div>
+                    
                   </td>
                   <td
                     className={`text-[0.88rem] py-[1rem] px-[3.13rem] truncate`}
