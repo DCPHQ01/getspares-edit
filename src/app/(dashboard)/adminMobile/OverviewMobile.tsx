@@ -18,14 +18,13 @@ interface CardData {
   percentage: number;
   onClick: () => void;
 };
+
+
 interface VendorData {
-  avatar?: string;
-  name: string;
-  email: string;
-  sale: number;
-  value: string;
-  date: string;
-  time: string;
+  companyName: string;
+  totalItemSold: number;
+  transactionValue: string;
+  dateJoined: string;
 };
 
 function Overview() {
@@ -34,8 +33,7 @@ function Overview() {
     setActivityPeriod(newPeriod);
   };
 
-  const { data: mecaAdminOverviewData,  isLoading: isOverviewLoading,
-    isError: isOverviewError,} = useGetMecaAdminOverviewQuery({});
+  const { data: mecaAdminOverviewData,  isLoading} = useGetMecaAdminOverviewQuery({});
   console.log("data for meca admin", mecaAdminOverviewData);
   const [adminOverview, setAdminOverview] = useState(mecaAdminOverviewData?.data ?? { 
     totalNumberOfPartOrdered: 0,
@@ -64,22 +62,33 @@ function Overview() {
   useEffect(() => {
     if(data) {
       console.log("Received data structure:", data);
-      const resultList = data.data.content;
-      if(resultList) {
+      const resultList = data.data;
         setTopVendors(resultList);
-      } else {
-        console.error("Expected data.content to be an array, but got:", resultList);
+      }else {
+        console.error("Expected data.content to be an array, but got:", data)
       }
-    }}, [data]);
-
+    }, [data]);
     console.log("Top vendors:", topVendors);
+
+    const [currentPage, setCurrentPage] = useState(1); // State for current page
+    const [itemsPerPage] = useState(10);
+
+
+  const handlePreviousPage = () => {
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
     
   return (
     <>
       <div>
         <Header
           subtitle={`Take a quick glance on what is happening with meca`}
-          name={`Welcome Sam`}
+          name={`, ${name}`}
         />
         <div className="lg:flex flex-col mt-10">
           <Cards cardField={adminOverview}/>
@@ -95,16 +104,19 @@ function Overview() {
             <PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange}/>
           </div>
         </div>
-        <OverviewTable data={topVendors}/>
+        <OverviewTable data={topVendors} isLoading={isVendorsLoading}/>
 
-        {/* <div className=" flex justify-between mt-10 mb-10 font-bold text-lg">
-          <button className="flex gap-x-2 border border-[#EAECF0]  rounded-md h-[36px] w-[36px] pl-1">
+        <div className=" flex justify-between mt-10 mb-10 font-bold text-lg">
+          <button className="flex gap-x-2 border border-[#EAECF0]  rounded-md h-[36px] w-[36px] pl-1"
+          onClick={handlePreviousPage}
+          disabled={currentPage === 1}>
             <MdChevronLeft className="mt-1 text-2xl" />
           </button>
-          <button className="flex gap-x-2 border border-[#EAECF0] rounded-md h-[36px] w-[36px] pl-1">
+          <button className="flex gap-x-2 border border-[#EAECF0] rounded-md h-[36px] w-[36px] pl-1"
+          onClick={handleNextPage}>
             <MdChevronRight className="mt-1 text-2xl" />
           </button>
-        </div> */}
+        </div>
       </div>
     </>
   );

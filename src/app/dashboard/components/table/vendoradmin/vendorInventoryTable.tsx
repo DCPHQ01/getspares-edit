@@ -137,17 +137,6 @@ interface Option {
 //     time: "04:00PM",
 //   },
 
-//   {
-//     avatar: image1,
-//     name: "CaterpillarEngine1v2",
-//     email: "ebuka&sons@gmail.com",
-//     TransactionValue: 123,
-//     sale: 67,
-//     vale: "₦ 700,000,00",
-//     category: "Bonnets",
-//     date: "30 Aug 2022",
-//     time: "04:00PM",
-//   },
 
 //   {
 //     avatar: image1,
@@ -218,7 +207,7 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isL
           <thead>
             <tr className="truncate">
               <th id="companyNameHeader">Item name</th>
-              <th id="transactionValueHeader">Transaction Value</th>
+              <th id="transactionValueHeader">Price</th>
               <th id="totalItemsSoldHeader">Quantity sold</th>
               <th id="transactionValueHeader" style={{ paddingLeft: "2rem" }}>
                 Category
@@ -241,7 +230,7 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isL
             colors={["#000000", "#000000", "#000000", "#000000", "#000000"]}
 
            />
-          <p>Loading Inventory Table...</p>
+          <p>Loading Inventory...</p>
         </div>
       ): (inventoryData?.map((d, index) => {
         let date = '';
@@ -285,7 +274,7 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isL
                     /> */}
                     
                     <div id={`companyDetails_${index}`}>
-                      <div>{d.quantitySold}</div>
+                      <div>{d.categoryName}</div>
                     </div>
                   </div>
                 </td>
@@ -296,6 +285,15 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isL
                   id={`itemsSold_${index}`}
                 >
                   {d.price}
+                </td>
+                <td
+                  onClick={navigateTo}
+                  className={`text-[0.88rem] py-[1rem] px-[2rem] `}
+                  id={`transactionValue_${index}`}
+                >
+                  
+                    {d.quantitySold}
+                 
                 </td>
                 <td
                   onClick={navigateTo}
