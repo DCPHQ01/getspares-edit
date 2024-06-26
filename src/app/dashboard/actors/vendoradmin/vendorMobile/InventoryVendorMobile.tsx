@@ -19,20 +19,30 @@ interface InventoryData {
 function InventoryVendorMobile() {
   const [getInventory,{isLoading,isError}] = useGetVendorAdminInventoryMutation();
   const [inventory, setInventory] = useState<InventoryData[]>([]);
-
+  const [datas, setdatas] = useState();
+  const [totalPages, setTotalPages] = useState(0);
+  const [hasNext, setHasNext] = useState(false);
+  const [hasPrevious, setHasPrevious] = useState(false);
+  const [isPaginationLoading, setIsPaginationLoading] = useState(false);
+  const [page, setPage] = useState(0);
+  const size = 10;
   const fetchVendorData = async () => {
     try {
       const requestBody = {
-        pageNumber: 0,
-        pageSize: 10
+        pageNumber: page,
+        pageSize: size,
       };
 
       const resultList = await getInventory(requestBody).unwrap();
       const list = resultList.data.content
       console.log('it is a Mobile Success:',list);
-
       setInventory(list)
-
+      const lists = resultList.data;
+      setdatas(lists);
+      setTotalPages(lists.totalPages);
+      setHasNext(lists.hasNext);
+      setHasPrevious(lists.hasPrevious);
+      setIsPaginationLoading(false)
     }  catch (error) {
       console.error('Failed to add vendor:', error);
      
@@ -45,6 +55,21 @@ function InventoryVendorMobile() {
   }, []);
 
   console.log("The Vendor Inventory Mobile: ", inventory);
+
+  const handleNextPage = () => {
+    if (hasNext) {
+      setIsPaginationLoading(true)
+      setPage(prevPage => prevPage + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (hasPrevious) {
+      setIsPaginationLoading(true)
+      setPage(prevPage => prevPage - 1);
+    }
+  };
+
   return (
     <>
       <div className={` justify-between items-center`}>
@@ -65,10 +90,16 @@ function InventoryVendorMobile() {
       <div className="">
         <VendorInventoryTable inventoryData={inventory} isLoading={isLoading}/>
         <div className=" flex justify-end mt-10 mb-10 font-bold text-lg">
-          {/* <button className="flex gap-x-2 border border-[#EAECF0]  rounded-md h-[36px] w-[36px] pl-1">
+          <button className={`flex gap-x-2 border border-[#EAECF0]  rounded-md h-[36px] w-[36px] pl-1  ${!hasPrevious ? 'text-gray-400 cursor-not-allowed' : ''}`}
+          onClick={handlePreviousPage}
+          disabled={!hasPrevious}
+          >
             <MdChevronLeft className="mt-1 text-2xl" />
-          </button> */}
-          <button className="flex gap-x-2 border border-[#EAECF0] rounded-md h-[36px] w-[36px] pl-1">
+          </button>
+          <button className={`flex gap-x-2 border border-[#EAECF0] rounded-md h-[36px] w-[36px] pl-1 ${!hasNext ? 'text-gray-400 cursor-not-allowed' : ''}`}
+           onClick={handleNextPage}
+           disabled={!hasNext}
+          >
             <MdChevronRight className="mt-1 text-2xl" />
           </button>
         </div>
