@@ -20,21 +20,21 @@ interface OrderInfo {
   orderItems: OrderItem[];
 }
 
-interface ViewParticularOrderDetailsPageProps {
-  orderId: string;
-}
+// interface ViewParticularOrderDetailsPageProps {
+//   orderId: string;
+// }
 
-const ViewParticularOrderDetailsPage: React.FC<ViewParticularOrderDetailsPageProps> = ({ orderId }) => {
-  // const [orderId, setOrderId] = useState<string | null>(null);
 
-  // useEffect(() => {
-    // const storedOrderId = sessionStorage.getItem("selectedOrderId");
-    // console.log("Stored Order ID:", storedOrderId);
-    // if (storedOrderId) {
-  //     setOrderId(storedOrderId);
-  //   }
-  // }, []);
-  
+const ViewParticularOrderDetailsPage: React.FC = () => {
+  const [orderId, setOrderId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const storedOrderId = sessionStorage.getItem("selectedOrderId");
+    if (storedOrderId) {
+      setOrderId(storedOrderId);
+    }
+  }, []);
+
   const { data, isLoading } = useGetOrderDetailsQuery({ orderId });
   console.log("data for order details", data);
 
@@ -56,7 +56,46 @@ const ViewParticularOrderDetailsPage: React.FC<ViewParticularOrderDetailsPagePro
     }
   }, [data]);
 
-  console.log("The orderDetails:", orderDetails);
+// const ViewParticularOrderDetailsPage: React.FC<ViewParticularOrderDetailsPageProps> = ({ orderId }) => {
+
+  // useEffect(() => {
+  //   const storedOrderId = sessionStorage.getItem("selectedOrderId");
+    // console.log("Stored Order ID:", storedOrderId);
+    // if (storedOrderId) {
+  //     setOrderId(storedOrderId);
+  //   }
+  // }, []);
+  // const [orderId, setOrderId] = useState<string | null>(null);
+
+  // useEffect(() => {
+  //   const storedOrderId = sessionStorage.getItem("selectedOrderId");
+  //   if (storedOrderId) {
+  //     setOrderId(storedOrderId);
+  //   }
+  // }, []);
+  
+  // const { data, isLoading } = useGetOrderDetailsQuery({ orderId });
+  // console.log("data for order details", data);
+
+  // const [orderDetails, setOrderDetails] = useState<OrderInfo>({
+  //   orderDate: "",
+  //   deliveryAddress: {},
+  //   orderItems: [],
+  // });
+
+  // useEffect(() => {
+  //   if (data) {
+  //     console.log("Received data for order details:", data);
+  //     const resultList = data?.data;
+  //     if (resultList) {
+  //       setOrderDetails(resultList);
+  //     } else {
+  //       console.error("Failed to show order details", resultList);
+  //     }
+  //   }
+  // }, [data]);
+
+
 
   return (
     <div className="">

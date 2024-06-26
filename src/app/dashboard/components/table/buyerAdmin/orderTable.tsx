@@ -31,27 +31,33 @@ interface BuyerOrderTableProps {
 
 const OrderTable: React.FC<BuyerOrderTableProps> = ({ data, isLoading }) => {
   const router = useRouter();
-
   const [renderDetails, setRenderDetails] = useState(false);
-  const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
+  
+  
 
-  // const handleDetails = () => {
-  //   setRenderDetails(!renderDetails);
-  // };
-  useEffect(() => {
-    const storedOrderId = sessionStorage.getItem("selectedOrderId");
-    if (storedOrderId) {
-      setSelectedOrderId(storedOrderId);
-    }
-  }, []);
+ const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
 
-  // const handleDetails = (orderId: string) => {
-    // setSelectedOrderId(orderId);
-  // };
-  const handleDetails = (orderId: string) => {
-    sessionStorage.setItem("selectedOrderId", orderId);
-    setSelectedOrderId(orderId);
-  };
+
+ const handleDetails = (orderId: string) => {
+   setSelectedOrderId(orderId);
+ };
+
+// useEffect(() => {
+//   const storedOrderId = sessionStorage.getItem("selectedOrderId");
+//   if (storedOrderId) {
+//     setSelectedOrderId(storedOrderId);
+//   }
+// }, []);
+
+// const handleDetails = (orderId: string) => {
+//   // Store orderId in session storage
+//   sessionStorage.setItem("selectedOrderId", orderId);
+  
+//   // Update local state
+//   setSelectedOrderId(orderId);
+  
+//   router.push(`/path.to.viewParticularOrderDetailsPage`);
+// };
   return (
     <div>
       <div id="tableContainer">
@@ -157,7 +163,7 @@ const OrderTable: React.FC<BuyerOrderTableProps> = ({ data, isLoading }) => {
       {selectedOrderId && (
         <div className="absolute bottom-0 mt-8 ml-10 lg:left-60 right-0 lg:top-0 h-[100vh] lg:w-[84%] w-[100%] lg:h-[100vh]">
           <div className="bg-white h-[100vh] w-full">
-            <ViewParticularOrderDetailsPage orderId={selectedOrderId} />
+            <ViewParticularOrderDetailsPage />
           </div>
         </div>
       )}
@@ -168,3 +174,23 @@ const OrderTable: React.FC<BuyerOrderTableProps> = ({ data, isLoading }) => {
 export default OrderTable;
 
 
+// const [renderDetails, setRenderDetails] = useState(false);
+// const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
+
+// const handleDetails = () => {
+//   setRenderDetails(!renderDetails);
+// };
+// useEffect(() => {
+//   const storedOrderId = sessionStorage.getItem("selectedOrderId");
+//   if (storedOrderId) {
+//     setSelectedOrderId(storedOrderId);
+//   }
+// }, []);
+
+// const handleDetails = (orderId: string) => {
+  // setSelectedOrderId(orderId);
+// };
+// const handleDetails = (orderId: string) => {
+//   sessionStorage.setItem("selectedOrderId", orderId);
+//   setSelectedOrderId(orderId);
+// };
