@@ -66,7 +66,7 @@ export default function ProductCarousel() {
       if (categoryId) {
         sessionStorage.setItem("categoryId", categoryId);
       }
-      router.push(paths.toCategoryProducts(urlType));
+      router.push(paths.toCategoryProducts(urlType, categoryId));
     };
     return (
       <div
