@@ -16,7 +16,6 @@ export const formatAmount = (price: string) => {
       currency: "NGN",
     }).format(Number(price));
   }
-  // const numericPrice = parseFloat(price?.replace(/[^0-9.-]+/g, ""));
 };
 
 export const uploadImage = async (
