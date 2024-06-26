@@ -116,7 +116,12 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
                     >
                       <div className="flex gap-3">
                         <div className="">
-                      
+                          {/* <Image
+                          src={d.imageUrl}
+                          className="object-contain"
+                          alt="Avatar"
+                          id={`avatar_${index}`}
+                        /> */}
                         </div>
                         <div className="">
                           <div className="truncate">{d.createdBy}</div>

@@ -50,7 +50,6 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList,isLoading }) => {
               </tr>
             </thead>
             <tbody>
-             
 
               {isLoading? ( 
                 <div 
