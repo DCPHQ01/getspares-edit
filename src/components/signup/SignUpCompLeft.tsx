@@ -117,6 +117,7 @@ const SignUpComponentLeft = () => {
         console.log("unwrap ", response);
         userEmail = userVendorDetails.email;
         if ("data" in response) {
+          router.push(paths.toVerifyEmail());
           console.log(
             "data response ",
             response.data?.message,
@@ -124,7 +125,7 @@ const SignUpComponentLeft = () => {
             response.data?.statusCode
           );
           if (response.data?.message === "SignUp Successfully") {
-            router.push(paths.toVerifyEmail());
+            
           } else {
             setRegisterError(response.data);
           }
@@ -135,10 +136,12 @@ const SignUpComponentLeft = () => {
         console.log("data response ", response);
         userEmail = userAgentDetails.email;
         if ("data" in response) {
+          router.push(paths.toVerifyEmail());
           console.log("data response ", response?.data);
+          router.push(paths.toVerifyEmail());
           if (response?.data?.message === "SignUp Successfully") {
             // alert(AgentData.message);
-            router.push(paths.toVerifyEmail());
+           
           } else {
             setRegisterError(response?.data);
           }
@@ -149,9 +152,10 @@ const SignUpComponentLeft = () => {
 
         userEmail = userBuyerDetails.email;
         if ("data" in response) {
+          router.push(paths.toVerifyEmail());
           console.log("data response ", response?.data?.error);
           if (response?.data?.message === "SignUp Successfully") {
-            router.push(paths.toVerifyEmail());
+           
           } else if ("error" in response) {
             setRegisterError(response);
           }

@@ -21,7 +21,7 @@ interface AgentTableProps {
 
 const formatDateTime = (dateTime: string) => {
   const date = dayjs(dateTime).format("YYYY-MM-DD");
-  const time = dayjs(dateTime).format("HH:mm:ss");
+  const time = dayjs(dateTime).format("HH:mm");
   return { date, time };
 };
 
@@ -80,9 +80,11 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList,isLoading }) => {
                       >
                         <div id={`companyDetails_${index}`}>
                         {/* {d.imageUrl ? (
-                        <Image
+                        <img
                           src={d.imageUrl}
                           className="object-contain"
+                          height={"50"}
+                          width={"50"}
                           alt="Avatar"
                           id={`avatar_${index}`}
                         />
@@ -102,7 +104,7 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList,isLoading }) => {
                       </div>
                     </div>
                         {/* {d.imageUrl ? (
-                        <Image
+                        <img
                           src={d.imageUrl}
                           className="object-contain"
                           alt="Avatar"

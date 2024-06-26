@@ -41,6 +41,7 @@ function Category() {
   const [activityPeriod, setActivityPeriod] = useState("monthly"); 
   const [page, setPage] = useState(0)
   const size = 10
+  const [totalElements, setTotalElements] = useState(0)
   const [first, setFirst] = useState(false);
   const [last, setLast] = useState(false);
   const { data, isError } = useGetViewAllMecaAdminCategoryQuery({ page: page, size: size, options:activityPeriod});
@@ -58,6 +59,7 @@ function Category() {
       setCategoryList(list);
       setFirst(lists.first)
       setLast(lists.last)
+      setTotalElements(lists.totalElements)
     }
   }, [data]);
 
@@ -119,7 +121,7 @@ function Category() {
   return (
     <>
       <div className="mb-[1.25rem] flex justify-between items-center" id="cateParentDiv">
-        <Header subtitle="Keep track of categories and their products" title="Category" amount="500,607" />
+        <Header subtitle="Keep track of categories and their products" title="Category" amount={totalElements} />
 
         <button
           id="addButton"

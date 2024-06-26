@@ -24,8 +24,8 @@ interface CategoryTableProps {
 }
 
 const formatDateTime = (dateTime: string) => {
-  const date = dayjs(dateTime).format("YYYY-MM-DD");
-  const time = dayjs(dateTime).format("HH:mm:ss");
+  const date = dayjs(dateTime).format("DD-MM-YYYY");
+  const time = dayjs(dateTime).format("HH:mm");
   return { date, time };
 };
 
@@ -78,6 +78,8 @@ const CategoryTable: React.FC<CategoryTableProps> = ({ categoryList, isLoading }
                         <img
                           src={d.imageUrl}
                           className="object-contain"
+                          height={"50"}
+                          width={"50"}
                           alt="Avatar"
                           id={`avatar_${index}`}
                         />
