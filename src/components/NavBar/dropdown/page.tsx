@@ -1,4 +1,5 @@
 import Card from "@mui/material/Card";
+import { useGetCategoryQuery } from "../../../redux/features/users/authQuery";
 
 const categorydropdown = [
   {
@@ -19,6 +20,9 @@ const categorydropdown = [
 ];
 
 const DropdownPage = () => {
+  const { data: getCategoriesData } = useGetCategoryQuery({});
+  console.log("buyers category  ", getCategoriesData);
+
   return (
     <div className="">
       <div>
@@ -29,55 +33,56 @@ const DropdownPage = () => {
             zIndex: 200,
           }}
         >
-          {categorydropdown.map((categorydrop) => (
-            <div
-              key={categorydrop.id}
-              className="h-96 flex scrollbar-none justify-between p-6 leading-10 gap-x-32 overflow-y-scroll "
-            >
-              <div className="flex-col">
-                <p>{categorydrop.part1}</p>
-                <p>{categorydrop.part2}</p>
-                <p>{categorydrop.part3}</p>
-                <p>{categorydrop.part4}</p>
-                <p>{categorydrop.part5}</p>
-                <p> {categorydrop.part6}</p>
-                <p> {categorydrop.part7}</p>
-                <p> {categorydrop.part8}</p>
-                <p>{categorydrop.part9}</p>
-                <p>{categorydrop.part10}</p>
-                <p>{categorydrop.part11}</p>
-                <p>{categorydrop.part12}</p>
-              </div>
-              <div className="flex-col">
-                <p>{categorydrop.part1}</p>
-                <p>{categorydrop.part2}</p>
-                <p>{categorydrop.part3}</p>
-                <p>{categorydrop.part4}</p>
-                <p>{categorydrop.part5}</p>
-                <p> {categorydrop.part6}</p>
-                <p> {categorydrop.part7}</p>
-                <p> {categorydrop.part8}</p>
-                <p>{categorydrop.part9}</p>
-                <p>{categorydrop.part10}</p>
-                <p>{categorydrop.part11}</p>
-                <p>{categorydrop.part12}</p>
-              </div>
-              <div className="flex-col">
-                <p>{categorydrop.part1}</p>
-                <p>{categorydrop.part2}</p>
-                <p>{categorydrop.part3}</p>
-                <p>{categorydrop.part4}</p>
-                <p>{categorydrop.part5}</p>
-                <p> {categorydrop.part6}</p>
-                <p> {categorydrop.part7}</p>
-                <p> {categorydrop.part8}</p>
-                <p>{categorydrop.part9}</p>
-                <p>{categorydrop.part10}</p>
-                <p>{categorydrop.part11}</p>
-                <p>{categorydrop.part12}</p>
-              </div>
+          {getCategoriesData?.data.map((category:any) => (
+            <div>
+              {category.name}
             </div>
-          ))}
+              // <div className="h-96 flex scrollbar-none justify-between p-6 leading-10 gap-x-32 overflow-y-scroll ">
+              //   <div className="flex-col">
+              //     <p>{category.name}</p>
+              //     <p>{category.name}</p>
+              //     <p>{category.name}</p>
+              //     <p>{category.name}</p>
+              //     <p>{category.name}</p>
+              //     <p> {category.name}</p>
+              //     <p>{category.name}</p>
+              //     <p>{category.name}</p>
+              //     <p>{category.name}</p>
+              //     <p>{category.name}</p>
+              //     <p>{category.name}</p>
+              //     <p> {category.name}</p>
+              //   </div>
+              //   <div className="flex-col">
+              //     <p>{category.name}</p>
+              //     <p>{category.name}</p>
+              //     <p>{category.name}</p>
+              //     <p>{category.name}</p>
+              //     <p>{category.name}</p>
+              //     <p> {category.name}</p>
+              //     <p>{category.name}</p>
+              //     <p>{category.name}</p>
+              //     <p>{category.name}</p>
+              //     <p>{category.name}</p>
+              //     <p>{category.name}</p>
+              //     <p> {category.name}</p>
+              //   </div>
+              //   <div className="flex-col">
+              //     <p>{category.name}</p>
+              //     <p>{category.name}</p>
+              //     <p>{category.name}</p>
+              //     <p>{category.name}</p>
+              //     <p>{category.name}</p>
+              //     <p> {category.name}</p>
+              //     <p>{category.name}</p>
+              //     <p>{category.name}</p>
+              //     <p>{category.name}</p>
+              //     <p>{category.name}</p>
+              //     <p>{category.name}</p>
+              //     <p> {category.name}</p>
+              //   </div>
+              // </div>
+            )
+          )}
         </Card>
       </div>
     </div>

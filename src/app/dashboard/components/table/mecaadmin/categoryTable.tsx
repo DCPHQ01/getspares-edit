@@ -3,6 +3,8 @@ import React from "react";
 import styles from "../styles.module.css";
 import { AccountCircle } from "@mui/icons-material";
 import dayjs from "dayjs";
+import Image from "next/image";
+import { ColorRing } from "react-loader-spinner";
 
 interface Category {
   id: string;
@@ -16,15 +18,20 @@ interface Category {
 
 interface CategoryTableProps {
   categoryList: Category[];
+  isLoading?: boolean;
+  isError?: boolean;
 }
 
 const formatDateTime = (dateTime: string) => {
   const date = dayjs(dateTime).format("YYYY-MM-DD");
-  const time = dayjs(dateTime).format("HH:mm a");
+  const time = dayjs(dateTime).format("HH:mm:ss");
   return { date, time };
 };
 
-const CategoryTable: React.FC<CategoryTableProps> = ({ categoryList }) => {
+const CategoryTable: React.FC<CategoryTableProps> = ({
+  categoryList,
+  isLoading,
+}) => {
   return (
     <div id="tableContainer">
       <div
@@ -43,7 +50,30 @@ const CategoryTable: React.FC<CategoryTableProps> = ({ categoryList }) => {
             </tr>
           </thead>
           <tbody>
-            {Array.isArray(categoryList) &&
+            {isLoading ? (
+              <div className="text-center mt-28 relative lg:left-[210%] lg:right[210%] md:left-[213%] md:right[213%] sm:left-[21">
+                <ColorRing
+                  visible={true}
+                  height="40"
+                  width="40"
+                  ariaLabel="color-ring-loading"
+                  wrapperStyle={{
+                    position: "absolute",
+                    bottom: "75%",
+                    left: "44%",
+                  }}
+                  wrapperClass="color-ring-wrapper"
+                  colors={[
+                    "#000000",
+                    "#000000",
+                    "#000000",
+                    "#000000",
+                    "#000000",
+                  ]}
+                />
+                <p>Loading Category.....</p>
+              </div>
+            ) : (
               categoryList?.map((d, index) => {
                 const { date, time } = formatDateTime(d.dateCreated);
                 return (
@@ -56,13 +86,11 @@ const CategoryTable: React.FC<CategoryTableProps> = ({ categoryList }) => {
                       <div
                         className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
                       >
-                        {d?.imageUrl ? (
-                          <img
-                            src={d?.imageUrl}
+                        {d.imageUrl ? (
+                          <Image
+                            src={d.imageUrl}
                             className="object-contain"
                             alt="Avatar"
-                            width={50}
-                            height={50}
                             id={`avatar_${index}`}
                           />
                         ) : (
@@ -87,7 +115,14 @@ const CategoryTable: React.FC<CategoryTableProps> = ({ categoryList }) => {
                       id={`transactionValue_${index}`}
                     >
                       <div className="flex gap-3">
-                        <div className=""></div>
+                        <div className="">
+                          {/* <Image
+                          src={d.imageUrl}
+                          className="object-contain"
+                          alt="Avatar"
+                          id={`avatar_${index}`}
+                        /> */}
+                        </div>
                         <div className="">
                           <div className="truncate">{d.createdBy}</div>
                           <div
@@ -112,11 +147,13 @@ const CategoryTable: React.FC<CategoryTableProps> = ({ categoryList }) => {
                     </td>
                   </tr>
                 );
-              })}
+              })
+            )}
           </tbody>
         </table>
       </div>
     </div>
   );
 };
+
 export default CategoryTable;

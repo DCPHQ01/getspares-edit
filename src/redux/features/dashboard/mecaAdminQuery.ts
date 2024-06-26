@@ -47,8 +47,8 @@ export const mecaAdminQuery = createApi({
       query:({ page, size}: {page:number; size:number}) =>({
         url: `/agent/${page}/${size}`,
         method: "GET",
-      })
-    })
+      }),
+    }),
   }),
 });
 

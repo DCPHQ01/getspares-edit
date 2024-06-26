@@ -1,95 +1,37 @@
 import React from "react";
 import styles from "../styles.module.css";
-import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
-import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
-import Image from "next/image";
+import dayjs from "dayjs";
+import { AccountCircle } from "@mui/icons-material";
+import { ColorRing } from "react-loader-spinner";
 
-const data = [
-  {
-    avatar: image1,
-    name: "Ebuka Shima Oke",
-    email: "ebukashima@gmail.com",
-    sale: "MCA3435656jh787",
-    vale: "₦ 200,000.00",
-    date: "24 June 2022",
-    time: "12:00PM",
-  },
-  {
-    avatar: image2,
-    name: "Sanni Rabiu",
-    email: "sannirabiu@gmail.com",
-    sale: "MCA3435656jh787",
-    vale: "₦ 1,000,000.00",
-    date: "30 June 2023",
-    time: "06:00PM",
-  },
-  {
-    avatar: image1,
-    name: "Ayodele Olakoya",
-    email: "ayodeleola@gmail.com",
-    sale: "MCA3435656jh787",
-    vale: "₦ 600,000.00",
-    date: "12 May 2024",
-    time: "08:45PM",
-  },
-  {
-    avatar: image2,
-    name: "Ngozi Ike",
-    email: "ngoziike.com",
-    sale: "MCA3435656jh787",
-    vale: "₦ 120,000.00",
-    date: "02 Sep 2022",
-    time: "11:15AM",
-  },
-  {
-    avatar: image1,
-    name: "Ayodele Olakoya",
-    email: "ayodeleola@gmail.com",
-    sale: "MCA3435656jh787",
-    vale: "₦ 700,000,00",
-    date: "30 Aug 2022",
-    time: "04:00PM",
-  },
+interface Overview {
+  id: string;
+  name: string;
+  categoryName: string;
+  dateCreated: string;
+  companyId: string;
+  quantity: number;
+  companyName: string;
+  brand: string;
+  condition: string;
+  image: string;
+  price: number;
+  model: string;
+}
 
-  {
-    avatar: image1,
-    name: "Ebuka Shima Oke",
-    email: "ebukashima@gmail.com",
-    sale: "MCA3435656jh787",
-    vale: "₦ 200,000.00",
-    date: "24 June 2022",
-    time: "12:00PM",
-  },
-  {
-    avatar: image2,
-    name: "Sanni Rabiu",
-    email: "sannirabiu@gmail.com",
-    sale: "MCA3435656jh787",
-    vale: "₦ 1,000,000.00",
-    date: "30 June 2023",
-    time: "06:00PM",
-  },
-  {
-    avatar: image2,
-    name: "Ngozi Ike",
-    email: "ngoziike.com",
-    sale: "MCA3435656jh787",
-    vale: "₦ 120,000.00",
-    date: "02 Sep 2022",
-    time: "11:15AM",
-  },
-  {
-    avatar: image1,
-    name: "Ayodele Olakoya",
-    email: "ayodeleola@gmail.com",
-    sale: "MCA3435656jh787",
-    vale: "₦ 700,000,00",
-    date: "30 Aug 2022",
-    time: "04:00PM",
-  },
-];
+interface OverviewTableProps {
+  overviewList: Overview[];
+  isLoading?: boolean;
+  isError?: boolean
+}
 
-const OverviewTable = () => {
+const formatDateTime = (dateTime: string) => {
+  const date = dayjs(dateTime).format("YYYY-MM-DD");
+  const time = dayjs(dateTime).format("HH:mm");
+  return { date, time };
+};
+
+const OverviewTable: React.FC<OverviewTableProps> = ({ isLoading, overviewList }) => {
   return (
     <div id="tableContainer">
       <div
@@ -99,85 +41,101 @@ const OverviewTable = () => {
         <table id="adminTable" className={`w-full`}>
           <thead>
             <tr className="truncate">
-              <th id="companyNameHeader">Items</th>
-              <th id="totalItemsSoldHeader" style={{ paddingLeft: "4.5rem" }}>
+              {/* <th id="companyNameHeader">Items</th> */}
+              <th id="totalItemsSoldHeader" style={{ paddingLeft: "5rem" }}>
                 Order ID
               </th>
-              <th id="transactionValueHeader" style={{ paddingLeft: "2rem" }}>
+              {/* <th id="transactionValueHeader" style={{ paddingLeft: "2rem" }}>
                 Transaction value
+              </th> */}
+              <th id="dateTimeJoinedHeader" style={{ paddingLeft: "3rem" }}>
+                Amount
               </th>
-              <th id="dateTimeJoinedHeader" style={{ paddingLeft: "5rem" }}>
-                Vendor
-              </th>
-              <th id="dateTimeJoinedHeader">Date & time ordered</th>
+              <th id="dateTimeJoinedHeader">Order Date & time</th>
             </tr>
           </thead>
           <tbody>
-            {data.map((d, index) => (
-              <tr
-                key={index}
-                id={`row_${index}`}
-                className="cursor-pointer truncate"
-              >
-                <td id={`companyData_${index}`}>
-                  <div
-                    className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
-                  >
-                    <Image
-                      src={d.avatar}
-                      className="object-contain"
-                      alt="Avatar"
-                      id={`avatar_${index}`}
-                    />
-                    <div id={`companyDetails_${index}`}>
-                      <div className="mt-2">{d.name}</div>
-                    </div>
-                  </div>
-                </td>
-
-                <td
-                  className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
-                  id={`itemsSold_${index}`}
+            {isLoading? ( 
+                <div 
+                className="text-center mt-28 relative lg:left-[210%] lg:right[210%] md:left-[213%] md:right[213%] sm:left-[21"
                 >
-                  {d.sale}
-                </td>
-
-                <td
-                  className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
-                  id={`transactionValue_${index}`}
+                   <ColorRing  
+                    visible={true}
+                    height="40"
+                    width="40"
+                    ariaLabel="color-ring-loading"
+                    wrapperStyle={{position: "absolute", bottom: "75%", left: "44%",}}
+                    wrapperClass="color-ring-wrapper"
+                    colors={["#000000", "#000000", "#000000", "#000000", "#000000"]}
+        
+                   />
+                  <p>Loading OverView.....</p>
+                </div>
+            ) : (
+              overviewList?.map((d, index) => {
+              const { date, time } = formatDateTime(d.dateCreated);
+              
+              return (
+                <tr
+                  key={index}
+                  id={`row_${index}`}
+                  className="cursor-pointer truncate"
                 >
-                  {d.vale}
-                </td>
-
-                <td id={`companyData_${index}`}>
-                  <div
-                    className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
-                  >
-                    <Image
-                      src={d.avatar}
-                      className="object-contain"
-                      alt="Avatar"
-                      id={`avatar_${index}`}
-                    />
-                    <div id={`companyDetails_${index}`}>
-                      <div>{d.name}</div>
-                      <div className={`text-[#4B5565]`} id={`email_${index}`}>
-                        {d.email}
+                  <td id={`companyData_${index}`}>
+                    <div className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
+                    >
+                      {/* {d.image ? (
+                        <img
+                        src={d.image}
+                        className="object-contain"
+                        alt="Avatar"
+                        id={`avatar_${index}`}
+                      />
+                      ) : (
+                        <AccountCircle style={{ fontSize: 50 }} className="text-grey-400" />
+                      )} */}
+                      <div id={`companyDetails_${index}`}>
+                        <div className="mt-2">{d.id}</div>
                       </div>
                     </div>
-                  </div>
-                </td>
-
-                <td id={`dateJoined_${index}`}>
-                  <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
-                    <div id={`date_${index}`}>{d.date}</div>
-                    <div className={`text-[#4B5565]`} id={`time_${index}`}>
-                      {d.time}
+                  </td>
+                  <td className={`text-[0.88rem] py-[1rem] px-[3.13rem]`} id={`itemsSold_${index}`}>
+                    {d.price}
+                  </td>
+                  {/* <td className={`text-[0.88rem] py-[1rem] px-[3.13rem]`} id={`transactionValue_${index}`}>
+                    {d.price}
+                  </td> */}
+                  {/* <td id={`companyData_${index}`}>
+                    <div className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}>
+                    {d.image ? (
+                        <img
+                        // src={d.image}
+                        className="object-contain"
+                        alt="Avatar"
+                        id={`avatar_${index}`}
+                      />
+                      ) : (
+                        <AccountCircle style={{ fontSize: 50 }} className="text-grey-400" />
+                      )}
+                      <div id={`companyDetails_${index}`}>
+                        <div>{d.name}</div>
+                        <div className={`text-[#4B5565]`} id={`email_${index}`}>
+                          {d.companyName}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </td>
-              </tr>
-            ))}
+                  </td> */}
+                  <td id={`dateJoined_${index}`}>
+                    <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
+                      <div id={`date_${index}`}>{date}</div>
+                      <div className={`text-[#4B5565]`} id={`time_${index}`}>
+                        {time}
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              );
+            }))}
           </tbody>
         </table>
       </div>
