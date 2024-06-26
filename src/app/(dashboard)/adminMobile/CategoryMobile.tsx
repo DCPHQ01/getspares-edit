@@ -15,11 +15,12 @@ import { useGetViewAllMecaAdminCategoryQuery, useAddCategoryMutation } from "../
 interface category{
   id: string;
   name: string;
-  imageUrl: string;
+  imageUrl?: string;
   productsInCategory:number;
   createdBy: string;
   dateCreated: string;
   email: string
+  options:string;
 }
 
 import {
@@ -47,16 +48,26 @@ const style = {
   p: 4,
 };
 function CategoryMobile() {
+  const [page, setPage] = useState(0)
+  const size = 10
+  const [first, setFirst] = useState(false);
+  const [last, setLast] = useState(false);
+  const [activityPeriod, setActivityPeriod] = useState("monthly"); 
   const { data, isError } = useGetViewAllMecaAdminCategoryQuery({
-    page: 1,
-    size: 10,
+    page: page,
+    size: size,
+    options: activityPeriod
   });
   const [categoryList, setCategoryList] = useState<category[]>([]);
   const [categoryName, setCategoryName] = useState<string>("");
+
   useEffect(() => {
     if (data && Array.isArray(data.data.content)) {
       const list = data.data.content;
+      const lists = data.data;
       setCategoryList(list);
+      setFirst(lists.first)
+      setLast(lists.last)
     }
   }, [data]);
   console.log( "THIS IS CATEGORY", categoryList)
@@ -101,6 +112,22 @@ function CategoryMobile() {
       console.log(error);
     }
   };
+
+  const handlePeriodChange = (newPeriod: string) => {
+    setActivityPeriod(newPeriod);
+  };
+
+  const handleNextPage=()=>{
+    if(first){
+      setPage(prevPage => prevPage + 1);
+    }
+  }
+
+  const  handlePreviousPage=()=>{
+    if (last) {
+      setPage(prevPage => prevPage - 1);
+    }
+  }
 
   return (
     <>
@@ -212,16 +239,22 @@ function CategoryMobile() {
       </div>
       <div className={`flex justify-between items-center mb-[1.25rem]`}>
         <SearchBox placeholder={`Search for category`} />
-        {/* <PeriodRadios /> */}
+        <PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange} />
       </div>
 
-      <CategoryTable categoryList={categoryList}/>
+      <CategoryTable categoryList={categoryList} isLoading={isLoading}/>
 
       <div className=" flex justify-end mt-10 mb-10 font-bold text-lg">
-        {/* <button className="flex gap-x-2 border border-[#EAECF0]  rounded-md h-[36px] w-[36px] pl-1">
+        <button className={`flex gap-x-2 border border-[#EAECF0]  rounded-md h-[36px] w-[36px] pl-1 ${last ? "text-gray-400 cursor-not-allowed" : ""}`}
+        onClick={handlePreviousPage}
+        disabled={first}
+        >
           <MdChevronLeft className="mt-1 text-2xl" />
-        </button> */}
-        <button className="flex gap-x-2 border border-[#EAECF0] rounded-md h-[36px] w-[36px] pl-1">
+        </button>
+        <button className={`flex gap-x-2 border border-[#EAECF0] rounded-md h-[36px] w-[36px] pl-1 ${last ? "text-gray-400 cursor-not-allowed" : ""}`}
+        onClick={handleNextPage}
+        disabled={last}
+        >
           <MdChevronRight className="mt-1 text-2xl" />
         </button>
       </div>
