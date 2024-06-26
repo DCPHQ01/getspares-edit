@@ -27,36 +27,25 @@ interface VendorData {
   dateJoined: string;
 };
 
-interface CardProp {
-  totalNumberOfAgents?: number
-  totalNumberOfProductsSold?: number
-  totalOrderValue?: number
-  totalNumberOfPartOrdered?: number,
-  totalNumberOfAgent?: number,
-  totalTransactionValue?: number,
-  totalNumberOfVendor?: number,
-}
 
 function Overview() {
   const [activityPeriod, setActivityPeriod] = useState("monthly");
   const { data: mecaAdminOverviewData,  isLoading} = useGetMecaAdminOverviewQuery({});
   const {data,  isLoading: isVendorsLoading, isError: isVendorsError,} = useGetTopPerformingVendorsQuery({ period: activityPeriod});
-
-  const [adminOverview, setAdminOverview] = useState<CardProp[]>([]);
-
-
+  const [adminOverview, setAdminOverview] = useState({});
+  const [name, setName] = useState("");
   const [topVendors, setTopVendors] = useState<VendorData[]>([]);
+
+
+
 
   useEffect(() => {
     if(data) {
-      console.log("Received data structure:", data);
       const resultList = data.data;
         setTopVendors(resultList);
-      }else {
-        console.error("Expected data.content to be an array, but got:", data)
       }
     }, [data]);
-    console.log("Top vendors:", topVendors);
+
 
     const handlePeriodChange = (newPeriod: string) => {
       setActivityPeriod(newPeriod);
@@ -69,14 +58,12 @@ function Overview() {
     },[mecaAdminOverviewData?.data])
 
 
-  const [role, setRoles] = useState('');
-  const [name, setName] = useState("");
+
   useEffect(() => {
     const role =
       typeof window !== "undefined" && window.sessionStorage
         ? JSON.parse(sessionStorage.getItem("userDetails") || "{}")
         : [];
-    setRoles(role.role);
     setName(role.firstName);
   }, []);
 
