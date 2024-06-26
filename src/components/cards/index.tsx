@@ -27,7 +27,7 @@ const Index:React.FC<CardProps> = ({cardField}) => {
     },
     {
       total: "number of agents",
-      amount: cardField.totalNumberOfAgent || cardField.totalNumberOfAgents,
+      amount: cardField.totalNumberOfAgent || cardField.totalNumberOfAgents || 0,
       percentage: 10,
       onClick: () => {
         console.log("View total number of agents");
@@ -35,7 +35,7 @@ const Index:React.FC<CardProps> = ({cardField}) => {
     },
     {
       total: "transaction value",
-      amount: cardField.totalTransactionValue || cardField.totalOrderValue,
+      amount: cardField.totalTransactionValue || cardField.totalOrderValue || 0,
       percentage: 59,
       onClick: () => {
         console.log("View total transaction value");
@@ -43,7 +43,7 @@ const Index:React.FC<CardProps> = ({cardField}) => {
     },
     {
       total: "total number of Product sold",
-      amount: cardField.totalNumberOfVendor || cardField.totalNumberOfProductsSold,
+      amount: cardField.totalNumberOfVendor || cardField.totalNumberOfProductsSold || 0,
       percentage: 43,
       onClick: () => {
         console.log("View total number of vendors");
