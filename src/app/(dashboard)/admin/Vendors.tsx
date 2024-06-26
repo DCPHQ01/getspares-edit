@@ -2,7 +2,6 @@ import React,{ useState, useEffect} from "react";
 import Header from "../../dashboard/components/ui/header";
 import AddButton from "../../dashboard/components/ui/addbutton";
 import SearchBox from "../../dashboard/components/ui/searchbox";
-// import SortButton from "../../dashboard/components/ui/sortbutton";
 import VendorTable from "../../dashboard/components/table/mecaadmin/vendorTable";
 
 
