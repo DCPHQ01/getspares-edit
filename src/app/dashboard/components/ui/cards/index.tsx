@@ -18,7 +18,7 @@ const Index:React.FC<CardProps> = ({cardField}) => {
   const cardProps = [
     {
       total: "number of parts ordered",
-      amount: 2250,
+      amount: cardField.totalNumberOfPartOrdered,
       percentage: 32,
       onClick: () => {
         console.log("View total number of parts ordered");
@@ -26,7 +26,7 @@ const Index:React.FC<CardProps> = ({cardField}) => {
     },
     {
       total: "number of agents",
-      amount: 1475,
+      amount: cardField.totalNumberOfAgent || cardField.totalNumberOfAgents,
       percentage: 10,
       onClick: () => {
         console.log("View total number of agents");
@@ -34,7 +34,7 @@ const Index:React.FC<CardProps> = ({cardField}) => {
     },
     {
       total: "transaction value",
-      amount: 1250,
+      amount: cardField.totalTransactionValue || cardField.totalOrderValue,
       percentage: 59,
       onClick: () => {
         console.log("View total transaction value");
@@ -42,7 +42,7 @@ const Index:React.FC<CardProps> = ({cardField}) => {
     },
     {
       total: "number of vendors",
-      amount: 1280,
+      amount: cardField.totalNumberOfVendor || cardField.totalNumberOfProductsSold,
       percentage: 43,
       onClick: () => {
         console.log("View total number of vendors");
@@ -57,9 +57,9 @@ const Index:React.FC<CardProps> = ({cardField}) => {
       {cardProps?.map((card, index) => (
         <div id={`card_${index}`} key={index} className="">
           <Card
+            total={card.total}
             amount={card.amount}
             percentage={card.percentage}
-            total={card.total}
             onClick={card.onClick}
           />
         </div>

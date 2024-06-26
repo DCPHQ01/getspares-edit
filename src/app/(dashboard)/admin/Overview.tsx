@@ -15,29 +15,29 @@ import {
 } from "react-icons/md";
 import { useGetMecaAdminOverviewQuery, useGetTopPerformingVendorsQuery } from "../../../redux/features/dashboard/mecaAdminQuery";
 import cardsData from "./Overview";
+import { error } from "console";
 
 
-interface CardData {
-  total: string;
-  amount: number;
-  percentage: number;
-  onClick: () => void;
-};
+// interface CardData {
+//   total: string;
+//   amount: number;
+//   percentage: number;
+//   onClick: () => void;
+// };
 interface VendorData {
-  avatar?: string;
-  name: string;
+  // avatar: string;
+  companyName: string;
   email: string;
-  sale: number;
-  value: string;
-  date: string;
-  time: string;
+  totalItemSold: number;
+  transactionValue: string;
+  dateJoined: string;
 };
 
 function Overview() { 
   const [activityPeriod, setActivityPeriod] = useState("monthly");  
-  const { data: mecaAdminOverviewData,  isLoading: isOverviewLoading,
-    isError: isOverviewError,} = useGetMecaAdminOverviewQuery({});
-  console.log("data for meca admin", mecaAdminOverviewData);
+  const { data: mecaAdminOverviewData,  isLoading} = useGetMecaAdminOverviewQuery({});
+  const {data,  isLoading: isVendorsLoading, isError: isVendorsError,} = useGetTopPerformingVendorsQuery({ period: activityPeriod});
+  
   const [adminOverview, setAdminOverview] = useState(mecaAdminOverviewData?.data ?? { 
     totalNumberOfPartOrdered: 0,
     totalNumberOfAgent: 0,
@@ -45,6 +45,24 @@ function Overview() {
     totalNumberOfVendor: 0,
   });
   console.log("data for meca admin", adminOverview);
+
+  const [topVendors, setTopVendors] = useState<VendorData[]>([]); 
+
+  useEffect(() => {
+    if(data) {
+      console.log("Received data structure:", data);
+      const resultList = data.data;
+        setTopVendors(resultList);
+      }else {
+        console.error("Expected data.content to be an array, but got:", data)
+      }
+    }, [data]);
+    console.log("Top vendors:", topVendors);
+    
+    const handlePeriodChange = (newPeriod: string) => {
+      setActivityPeriod(newPeriod);
+    };  
+
 
   const [role, setRoles] = useState('');
   const [name, setName] = useState("");
@@ -57,29 +75,44 @@ function Overview() {
     setName(role.firstName);
   }, []);
 
-  const {data,  isLoading: isVendorsLoading,
-    isError: isVendorsError,} = useGetTopPerformingVendorsQuery({ period: activityPeriod});
-  console.log("data for meca admin", data);
-  const [topVendors, setTopVendors] = useState<VendorData[]>([]); 
+  
+  return (
+    <>
+      <div>
+        <Header
+          subtitle={`Take a quick glance on what is happening with meca`}
+          name={`, ${name}`}
+        />
+         <Cards cardField={adminOverview}  /> 
+        <div
+          className={`flex justify-between items-center mt-[3.25rem] mb-[1.25rem]`}
+        >
+          <Header
+            subtitle={`A quick glance on vendors with highest sales on meca`}
+            title={`Top performing vendors`}
+          />
+          <PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange}/> 
+        </div>
+        <OverviewTable data={topVendors} isLoading={isVendorsLoading}/>
+        
 
-  useEffect(() => {
-    if(data) {
-      console.log("Received data structure:", data);
-      const resultList = data.data.content;
-      if(resultList) {
-        setTopVendors(resultList);
-      } else {
-        console.error("Expected data.content to be an array, but got:", resultList);
-      }
-    }}, [data]);
+        {/* <div className="flex justify-between mt-10 text-mecaBluePrimaryColor font-bold text-lg">
+          <button className="flex gap-x-2">
+            <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
+          </button>
+          <button className="flex gap-x-2">
+            <MdChevronRight className="mt-1 text-2xl" /> <span>Next</span>
+          </button>
+        </div> */}
+      </div>
+    </>
+  );
+}
 
-    console.log("Top vendors:", topVendors);
-    
-    const handlePeriodChange = (newPeriod: string) => {
-      setActivityPeriod(newPeriod);
-    };
+export default Overview;
 
-  //   const cardsData: CardData[] = [
+
+//   const cardsData: CardData[] = [
   //   {
   //     total: "Total Parts Ordered",
   //     amount:  0,
@@ -120,38 +153,3 @@ function Overview() {
   //   totalTransactionValue,
   //   totalNumberOfVendor
   // } = mecaAdminOverviewData?.data ?? {};
-  
-  return (
-    <>
-      <div>
-        <Header
-          subtitle={`Take a quick glance on what is happening with meca`}
-          name={`, ${name}`}
-        />
-         <Cards cardField={adminOverview}  /> 
-        <div
-          className={`flex justify-between items-center mt-[3.25rem] mb-[1.25rem]`}
-        >
-          <Header
-            subtitle={`A quick glance on vendors with highest sales on meca`}
-            title={`Top performing vendors`}
-          />
-          <PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange}/> 
-        </div>
-        <OverviewTable data={topVendors}  />
-        
-
-        {/* <div className="flex justify-between mt-10 text-mecaBluePrimaryColor font-bold text-lg">
-          <button className="flex gap-x-2">
-            <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
-          </button>
-          <button className="flex gap-x-2">
-            <MdChevronRight className="mt-1 text-2xl" /> <span>Next</span>
-          </button>
-        </div> */}
-      </div>
-    </>
-  );
-}
-
-export default Overview;

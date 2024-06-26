@@ -33,7 +33,7 @@ function Index() {
 
   switch (role) {
     case roles.MECA_ADMIN:
-      return <MecaAdminOverview data={null} />;
+      return <MecaAdminOverview data={[]} />;
     case roles.VENDOR_ADMIN:
       return <VendorAdminOverview topPerformingProduct={topPerformingProduct}/>;
     default:

@@ -48,7 +48,7 @@ const itemSelected = [
     count: 4,
     totalPrice: "₦360,000.00",
     shippingPrice: "₦0",
-    subtotal: "₦230,000,000.98",
+    subtotal: "₦23,000,000.98",
   },
 ];
 
@@ -242,8 +242,10 @@ const Checkout = () => {
                       value={deliveryMode}
                       onChange={handleDeliveryModeChange}
                     >
+                      <div className='flex row'>
                       <FormControlLabel className="text-black text-sm font-normal" value="delivery" control={<Radio />} label="Delivery" />
                       <FormControlLabel className="text-black text-sm font-normal" value="pickup" control={<Radio />} label="Pickup" />
+                      </div>
                     </RadioGroup>
                   </FormControl>
                   {deliveryMode === 'delivery' ? (
