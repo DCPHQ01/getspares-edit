@@ -16,65 +16,65 @@ const nunito = Nunito_Sans({
   display: "swap",
 });
 
-const categoryMobileScreen = [
-  {
-    id: 1,
-    title: "AC",
-  },
-  {
-    id: 2,
-    title: "Air Filters",
-  },
+// const categoryMobileScreen = [
+//   {
+//     id: 1,
+//     title: "AC",
+//   },
+//   {
+//     id: 2,
+//     title: "Air Filters",
+//   },
 
-  {
-    id: 3,
-    title: "Air Flow Meters",
-  },
+//   {
+//     id: 3,
+//     title: "Air Flow Meters",
+//   },
 
-  {
-    id: 4,
-    title: "Alternators",
-  },
-  {
-    id: 5,
-    title: "Axles",
-  },
+//   {
+//     id: 4,
+//     title: "Alternators",
+//   },
+//   {
+//     id: 5,
+//     title: "Axles",
+//   },
 
-  {
-    id: 6,
-    title: "Back Mirrors",
-  },
+//   {
+//     id: 6,
+//     title: "Back Mirrors",
+//   },
 
-  {
-    id: 7,
-    title: "Ball Joints",
-  },
+//   {
+//     id: 7,
+//     title: "Ball Joints",
+//   },
 
-  {
-    id: 8,
-    title: " Batteries",
-  },
+//   {
+//     id: 8,
+//     title: " Batteries",
+//   },
 
-  {
-    id: 9,
-    title: "Bonnets",
-  },
+//   {
+//     id: 9,
+//     title: "Bonnets",
+//   },
 
-  {
-    id: 10,
-    title: "Tractor Parts",
-  },
+//   {
+//     id: 10,
+//     title: "Tractor Parts",
+//   },
 
-  {
-    id: 11,
-    title: "Brakes",
-  },
+//   {
+//     id: 11,
+//     title: "Brakes",
+//   },
 
-  {
-    id: 12,
-    title: "Bulldozer Parts",
-  },
-];
+//   {
+//     id: 12,
+//     title: "Bulldozer Parts",
+//   },
+// ];
 
 const MobileDropdownViewPage = () => {
   const router = useRouter();
