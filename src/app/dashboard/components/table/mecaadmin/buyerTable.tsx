@@ -90,13 +90,12 @@ import Image from "next/image";
 // ];
 
 type BuyerData = {
-  avatar: string;
+  // avatar: string;
   name: string;
   email: string;
-  sale: number;
-  vale: string;
-  date: string;
-  time: string;
+  totalItemBought: number;
+  transactionValue: string;
+  lastSeen: string;
 };
 
 interface BuyerTableProps {
@@ -131,7 +130,7 @@ const BuyerTable = ({ data, isLoading = false, isError = false }: BuyerTableProp
                 <div
                   className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
                 >
-                  <Image src={d.avatar} alt="Avatar" id={`avatar_${index}`} />
+                  {/* <Image src={d.avatar} alt="Avatar" id={`avatar_${index}`} /> */}
                   <div id={`companyDetails_${index}`}>
                     <div className="truncate">{d.name}</div>
                     <div
@@ -147,23 +146,23 @@ const BuyerTable = ({ data, isLoading = false, isError = false }: BuyerTableProp
                 className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
                 id={`itemsSold_${index}`}
               >
-                {d.sale}
+                {d.totalItemBought}
               </td>
               <td
                 className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
                 id={`transactionValue_${index}`}
               >
-                {d.vale}
+                {d.transactionValue}
               </td>
               <td id={`dateJoined_${index}`}>
                 <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
-                  <div id={`date_${index}`}>{d.date}</div>
-                  <div
+                  <div id={`date_${index}`}>{d.lastSeen}</div>
+                  {/* <div
                     className={`text-[#4B5565] truncate`}
                     id={`time_${index}`}
                   >
                     {d.time}
-                  </div>
+                  </div> */}
                 </div>
               </td>
             </tr>

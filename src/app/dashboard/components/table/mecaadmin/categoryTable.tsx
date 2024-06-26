@@ -3,8 +3,8 @@ import React from "react";
 import styles from "../styles.module.css";
 import { AccountCircle } from "@mui/icons-material";
 import dayjs from "dayjs";
-import Image from "next/image";
 import { ColorRing } from "react-loader-spinner";
+import { CldImage } from "next-cloudinary";
 
 interface Category {
   id: string;
@@ -83,15 +83,24 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
                     className="cursor-pointer"
                   >
                     <td id={`companyData_${index}`}>
-                      <div
-                        className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
-                      >
+                      <div className={`w-full flex items-center gap-x-4`}>
                         {d.imageUrl ? (
-                          <Image
-                            src={d.imageUrl}
-                            className="object-contain"
-                            alt="Avatar"
-                            id={`avatar_${index}`}
+                          // <img
+                          //   src={d.imageUrl}
+                          //   className="object-contain"
+                          //   alt="Avatar"
+                          //   id={`avatar_${index}`}
+                          // />
+                          <CldImage
+                            src={d.imageUrl} // Use this sample image or upload your own via the Media Explorer
+                            width="40" // Transform the image: auto-crop to square aspect_ratio
+                            height="40"
+                            alt="image"
+                            crop={{
+                              type: "auto",
+                              source: true,
+                            }}
+                            className="rounded-full"
                           />
                         ) : (
                           <AccountCircle
@@ -101,6 +110,12 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
                         )}
                         <div id={`companyDetails_${index}`}>
                           <div className="truncate mt-2">{d.name}</div>
+                          <div
+                            className={`text-[#4B5565] truncate`}
+                            id={`email_${index}`}
+                          >
+                            {d.email}
+                          </div>
                         </div>
                       </div>
                     </td>
@@ -116,7 +131,7 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
                     >
                       <div className="flex gap-3">
                         <div className="">
-                          {/* <Image
+                          {/* <img
                           src={d.imageUrl}
                           className="object-contain"
                           alt="Avatar"
@@ -139,9 +154,9 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
                         <div id={`date_${index}`}>{date}</div>
                         <div
                           className={`text-[#4B5565] truncate`}
-                          id={`email_${index}`}
+                          id={`time_${index}`}
                         >
-                          {d.email}
+                          {time}
                         </div>
                       </div>
                     </td>
@@ -157,4 +172,3 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
 };
 
 export default CategoryTable;
-
