@@ -14,6 +14,7 @@ import { mecaVendorQuery } from "./features/dashboard/mecaVendorQuery";
 import { buyerQuery } from "./features/dashboard/buyerQuery";
 import { feedbackQuery } from "./features/feedback/feedbackQuery";
 import {cartQuery} from "./features/cart/cartQuery";
+import { profileQuery } from "./features/profile/profileQuery";
 
 export const store = configureStore({
   reducer: {
@@ -25,12 +26,10 @@ export const store = configureStore({
     [mecaVendorQuery.reducerPath]: mecaVendorQuery.reducer,
     [buyerQuery.reducerPath]: buyerQuery.reducer,
     [feedbackQuery.reducerPath]: feedbackQuery.reducer,
+    [profileQuery.reducerPath]: profileQuery.reducer,
 
     user: userSlice,
      [cartQuery.reducerPath]: cartQuery.reducer,
-
-
-
     // user: userSlice,
     company: companySlice,
     product: productSlice,
@@ -46,7 +45,10 @@ export const store = configureStore({
       mecaVendorQuery.middleware,
       buyerQuery.middleware,
       feedbackQuery.middleware,
-      cartQuery.middleware,
+
+       cartQuery.middleware,
+       profileQuery.middleware,
+
     ]),
 });
 

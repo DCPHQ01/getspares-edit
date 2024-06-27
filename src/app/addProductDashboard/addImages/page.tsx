@@ -165,8 +165,9 @@ const CalledPagesPageTwoPages = () => {
                 >
                   <Box>
                     <div
+                      onClick={handleImageClick}
                       style={{ backgroundColor: "#EFF2F3" }}
-                      className=" h-60 w-[27rem] mb-5 mt-10 pt-6"
+                      className=" h-60 w-[27rem] mb-5 mt-10 pt-6 cursor-pointer"
                     >
                       <div className="flex flex-col  items-center justify-center">
                         <div className="border rounded-full mt-12 h-16 w-[60px] flex justify-center">
@@ -221,7 +222,7 @@ const CalledPagesPageTwoPages = () => {
                       )}
                       <div className="text-gray-600 text-base mt-2 text-center">
                         <p className="font-bold text-mecaBluePrimaryColor">
-                          Add logo
+                          Add image
                         </p>
                         <p className="font-normal">
                           by clicking or drag and drop
