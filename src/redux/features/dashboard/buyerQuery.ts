@@ -1,6 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import customFetchBase from "../../customFetchBaseQuery";
-const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+const baseUrl = process.env.NEXT_PUBLIC_API_URL,
 
 export const buyerQuery = createApi({
   reducerPath: "buyerQuery",
@@ -30,11 +30,6 @@ export const buyerQuery = createApi({
           method: "GET",
       })
     }),
-
-    getOverviewOrderTable: builder.query({
-      query: () => ({
-        url: "/product/recent",
-
     getOverviewOrderTable: builder.query({
         query: () => ({
           url: "/order/recent",
@@ -48,10 +43,6 @@ export const buyerQuery = createApi({
           method: "GET",
       }),
     }),
-
 })
 });
 export const { useCheckoutMutation, useGetViewAllOrdersQuery, useGetOrderDetailsQuery, useGetOverviewOrderTableQuery, useGetOverviewRecentProductImageQuery  } = buyerQuery;
-
-
-
