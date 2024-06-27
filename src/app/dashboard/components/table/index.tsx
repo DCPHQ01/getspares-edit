@@ -35,7 +35,7 @@ function Index() {
     case roles.MECA_ADMIN:
       return <MecaAdminOverview data={[]} />;
     case roles.VENDOR_ADMIN:
-      return <VendorAdminOverview topPerformingProduct={topPerformingProduct}/>;
+      return <VendorAdminOverview topPerformingProduct={topPerformingProduct} isLoading={false}/>;
     default:
       return null;
   }

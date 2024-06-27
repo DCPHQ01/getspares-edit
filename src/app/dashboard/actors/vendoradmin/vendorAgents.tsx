@@ -9,15 +9,15 @@ import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 function VendorAgents() {
   const tabs = [
-    { label: "With sales ", count: 122,status: "with_sales" },
-    { label: "Without sales ", count: 122, status: "without_sales" },
+    { label: "With sales ", count: 0,status: "with_sales" },
+    { label: "Without sales ", count: 0, status: "without_sales" },
   ];
   return (
     <>
       <Header
         subtitle={`Keep track your agents and their transactions`}
         title={`Agents`}
-        amount={`430,607`}
+        amount={`0`}
       />
       <div className={`flex justify-between items-center my-[1.5rem]`}>
         <Tabs
@@ -30,18 +30,18 @@ function VendorAgents() {
         </div>
       </div>
 
-      <VendorAgentTable />
+      {/* <VendorAgentTable /> */}
 
       <div className="flex justify-end mt-10 text-mecaBluePrimaryColor font-bold text-lg">
         {/* <button className="flex gap-x-2">
             <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
           </button> */}
-        <button className="flex gap-x-2">
+        {/* <button className="flex gap-x-2">
           Next
           <span>
             <MdChevronRight className="mt-[4px] text-2xl" />{" "}
           </span>
-        </button>
+        </button> */}
       </div>
     </>
   );

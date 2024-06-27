@@ -10,18 +10,10 @@ import { useRouter } from 'next/navigation';
 
 
 interface Overview {
-  id:  string;
-  name: string;
-  categoryName: string;
+  orderId: string;
+  trackingOrderId: string;
+  amount: number;
   dateCreated: string;
-  companyId: string;
-  quantity: number;
-  companyName: string;
-  brand: string;
-  condition: string;
-  image: string;
-  price: number;
-  model:string;
 }
 
 function BuyerOverviewMobile() {

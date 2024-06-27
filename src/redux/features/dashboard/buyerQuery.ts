@@ -18,33 +18,31 @@ export const buyerQuery = createApi({
       }),
     }),
     getViewAllOrders: builder.query({
-        query: ({pageNo, pageSize}) => ({
-            url: `/dashboard/allOrders?pageNo=${pageNo}&pageSize=${pageSize}`,
-            method: "GET",
-        })
+      query: ({pageNo, pageSize}) => ({
+          url: `/dashboard/allOrders?pageNo=${pageNo}&pageSize=${pageSize}`,
+          method: "GET",
+      })
     }),
 
     getOrderDetails: builder.query({
-        query: ({ orderId }) => ({
-            url: `/order/${orderId}`,
-            method: "GET",
-        })
+      query: ({ id }) => ({
+          url: `/order/${id}`,
+          method: "GET",
+      })
     }),
-
-
 
     getOverviewOrderTable: builder.query({
         query: () => ({
-          url: "/product/recent",
+          url: "/order/recent",
+        method: "GET",
+      }),
+    }),
+    getOverviewRecentProductImage: builder.query({
+      query: () => ({
+          url: "/product/top",
           method: "GET",
       }),
-      }),
-    getOverviewRecentProductImage: builder.query({
-        query: () => ({
-            url: "/product/top",
-            method: "GET",
-        })
-    })
+    }),
 
 })
 });

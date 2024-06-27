@@ -9,7 +9,9 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const formatAmount = (price: string) => {
+
+
+export const formatAmount = (price: string | number) => {
   if (price) {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
@@ -91,4 +93,38 @@ export const uploadSeveralImages = async (
   image_urls = await Promise.all(uploadPromises);
 
   setImages(image_urls);
+};
+
+export const formatAmount2= (price: string | number) => {
+  if (price !== undefined && price !== null) {
+      let amountString = price.toString().trim();
+
+      if (amountString.startsWith("NGN")) {
+          amountString = amountString.replace("NGN", "").trim();
+      }
+
+      const amountNumber = Number(amountString);
+      
+      if (!isNaN(amountNumber)) {
+          return new Intl.NumberFormat("en-US", {
+              style: 'currency',
+              currency: 'NGN',
+          }).format(amountNumber);
+      } else {
+          return "Invalid amount";
+      }
+  } else {
+      return "₦0.00"; 
+  }
+};
+ 
+export const format = (price: string | number) => {
+    if (price !== undefined && price !== null) {
+        return new Intl.NumberFormat("en-US", {
+            style: 'currency',
+            currency: 'NGN',
+        }).format(Number(price));
+    } else {
+        return "₦0.00"; 
+    }
 };

@@ -4,6 +4,8 @@ import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
+import { useEffect, useState } from "react";
+import { useRouter } from 'next/navigation';
 
 function stringToColor(string: string) {
   let hash = 0;
@@ -25,6 +27,14 @@ function stringToColor(string: string) {
 }
 
 function stringAvatar(name: string) {
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    deliveryAddress: ''
+  });
+
+  const router = useRouter();
   return {
     sx: {
       bgcolor: stringToColor(name),
@@ -35,18 +45,41 @@ function stringAvatar(name: string) {
 
 const Profile = () => {
 
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    deliveryAddress: ''
+  });
 
+  const router = useRouter();
+
+  useEffect(() => {
+    const userDetails = sessionStorage.getItem('userDetails');
+    if (userDetails) {
+      const parsedUserDetails = JSON.parse(userDetails);
+      console.log("User details:", parsedUserDetails);
+      setFormData({
+        firstName: parsedUserDetails.firstName || '',
+        lastName: parsedUserDetails.lastName || '',
+        email: parsedUserDetails.email || '',
+        deliveryAddress: parsedUserDetails.deliveryAddress || ''
+      });
+    }
+  }, [router]);
+  
+  const fullName = `${formData.firstName} ${formData.lastName}`;
   return (
     <div>
       <Header subtitle={``} title={`Profile`} amount={``} />
       <div className="flex gap-x-2 mb-12">
         <Avatar
           className="bg-mecaActiveBackgroundNavColor text-mecaBluePrimaryColor w-16 h-16 text-4xl"
-          {...stringAvatar("Sam Immanuel")}
+          {...stringAvatar(fullName)}
         />
         <Header
-          subtitle={`samimmanuel@gmail.com`}
-          title={`Sam Immanuel`}
+          subtitle={formData.email}
+          title={fullName}
           amount={``}
         />
       </div>
@@ -68,10 +101,12 @@ const Profile = () => {
               required={true}
               id="filledbasic7"
               label="First name"
+              value={formData.firstName}
               variant="filled"
               InputProps={{ disableUnderline: true }}
               className="lg:w-[364px]  w-[100%] 2xl:w-[35rem] rounded"
               sx={{ backgroundColor: "porcelain" }}
+             
             />
 
             <TextField
@@ -80,10 +115,12 @@ const Profile = () => {
               type="url"
               id="filledbasic7"
               label="Last name"
+              value={formData.lastName}
               variant="filled"
               InputProps={{ disableUnderline: true }}
               className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem]"
               sx={{ backgroundColor: "porcelain" }}
+            
             />
           </Box>
 
@@ -94,10 +131,12 @@ const Profile = () => {
               type="url"
               id="filledbasic7"
               label="Email"
+              value={formData.email}
               variant="filled"
               InputProps={{ disableUnderline: true }}
               className="  w-[100%] rounded"
               sx={{ backgroundColor: "porcelain" }}
+            
             />
           </Box>
         </div>

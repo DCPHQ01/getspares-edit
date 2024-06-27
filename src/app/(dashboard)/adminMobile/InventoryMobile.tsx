@@ -97,7 +97,7 @@ const handlePreviousPage = () => {
         <SearchBox placeholder={`Search for buyers`} />
       </div>
 
-      <InventoryTable inventoryData={inventory} isLoading={isLoading}/>
+      <InventoryTable inventoryData={inventory} isLoading={isLoading} status=""/>
 
       <div className=" flex justify-end mt-10 mb-10 font-bold text-lg">
         {/* <button className="flex gap-x-2 border border-[#EAECF0]  rounded-md h-[36px] w-[36px] pl-1">

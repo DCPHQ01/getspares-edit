@@ -2,7 +2,7 @@ import React from "react";
 
 interface CardProps {
   total: string;
-  amount: number;
+  amount: number ;
   percentage: number;
   onClick: () => void;
 }
@@ -14,7 +14,7 @@ function Card({ total, amount, percentage, onClick }: CardProps) {
     >
       <div id="cardContent" className={`m-[24px]`}>
         <p id="totalText" className={`text-[14px] text-[#4B5565] pb-[8px]`}>
-          Total {total}
+          {total}
         </p>
         <p id="amountText" className={`font-[700] text-[30px]`}>
           {amount}
@@ -31,13 +31,13 @@ function Card({ total, amount, percentage, onClick }: CardProps) {
         >
           Up by {percentage}%
         </p>
-        <button
+        {/* <button
           id="viewAllButton"
           onClick={onClick}
           className={`font-[600] text-[14px] text-[#095AD3] leading-[20px]`}
         >
           View all
-        </button>
+        </button> */}
       </div>
     </div>
   );
