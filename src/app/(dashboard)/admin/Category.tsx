@@ -54,7 +54,7 @@ function Category() {
   const [totalElements, setTotalElements] = useState(0);
   const [first, setFirst] = useState(false);
   const [last, setLast] = useState(false);
-  const { data: getMecaCategory, isFetching, isError, refetch } = useGetViewAllMecaAdminCategoryQuery({
+  const { data, isError, refetch } = useGetViewAllMecaAdminCategoryQuery({
     page: page,
     size: size,
     options: activityPeriod,
