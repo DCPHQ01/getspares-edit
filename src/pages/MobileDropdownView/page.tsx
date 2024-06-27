@@ -10,7 +10,7 @@ import { paths } from "../../path/paths";
 
   const router = useRouter();
 
-const MobileDropdownView = () => {
+const MobileDropdownViewPage = () => {
   const [open, setOpen] = useState(false);
   const handleNav = () => {
     setOpen(!open);
@@ -92,4 +92,4 @@ const MobileDropdownView = () => {
   );
 };
 
-export default MobileDropdownView;
+export default MobileDropdownViewPage;
