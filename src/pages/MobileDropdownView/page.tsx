@@ -1,13 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {  useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { MdChevronLeft, MdClear } from "react-icons/md";
 
 import NavBar from "../../components/NavBar/NavBar";
 import { useGetCategoryQuery } from "../../redux/features/users/authQuery";
 import { paths } from "../../path/paths";
-
 
 // const categoryMobileScreen = [
 //   {
@@ -71,7 +70,6 @@ import { paths } from "../../path/paths";
 
 const MobileDropdownViewPage = () => {
   const router = useRouter();
-
   const [open, setOpen] = useState(false);
   const handleNav = () => {
     setOpen(!open);
@@ -81,7 +79,7 @@ const MobileDropdownViewPage = () => {
   const { data: getCategoriesData } = useGetCategoryQuery({});
   console.log("buyers category  ", getCategoriesData);
   const handleProductDescription = (categoryName: string) => {
-    router.push(paths.toCategoryProducts(categoryName, getCategoriesData));
+    router.push(paths.toCategoryProducts(categoryName));
   };
 
   return (
