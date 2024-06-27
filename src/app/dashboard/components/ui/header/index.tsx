@@ -23,13 +23,8 @@ const Index: React.FC<IProps> = ({ title, subtitle, amount, name }) => {
         >
           {name ? (
             <>
-<<<<<<< HEAD
               <Greeting/>
                <span>{name}</span>
-=======
-              <Greeting />,
-              &nbsp;<span>{name}</span>
->>>>>>> 40245a68be0518195005c0a7aa08e73b7af0a0ac
             </>
           ) : (
             <span>{title}</span>
