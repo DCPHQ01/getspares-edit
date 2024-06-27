@@ -74,7 +74,7 @@ const OverviewTable: React.FC<OverviewTableProps> = ({ isLoading, overviewList }
                     </td>
                     <td className={`text-[0.88rem] py-[1rem] px-[3.13rem]`} id={`itemsSold_${index}`}>
                       {/* {d.price} */}
-                      {formatAmount(d.amount)?.toString()}
+                      {formatAmount(d.amount)}
                     </td>
                     <td id={`dateJoined_${index}`}>
                       <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
