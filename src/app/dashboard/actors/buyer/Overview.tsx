@@ -33,7 +33,7 @@ function Overview() {
 
   return (
     <>
-      <div className={`flex items-center justify-between relative bottom-5`}>
+      <div className={`flex items-center justify-between relative bottom-5 -z-50`}>
         <p className={`font-semibold text-[1.9rem]`}>Recently added parts</p>
         <div>
           <button className={`underline text-[#095AD3] cursor-pointer`} 

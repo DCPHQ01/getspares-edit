@@ -32,7 +32,6 @@ interface OrderInfo {
 const Index = () => {
   const { data, isError, isLoading } = useGetOverviewRecentProductImageQuery({});
   const [imageList, setImageList] = useState<RecentProductImages[]>([]);
-  const [renderDetails, setRenderDetails] = useState(false);
   const [details, setDetails] = useState(false);
   
   useEffect(() => {
@@ -49,16 +48,12 @@ const Index = () => {
 
   const imageLists = imageList.slice(0, 3);
 
-  const handleDetails = () => {
-    setRenderDetails(!renderDetails);
-  };
-
   const handleParticularDetails = () => {
     setDetails(!details);
   };
 
   return (
-    <div className="flex gap-x-5 justify-between overflow-y-scroll scrollbar-none">
+    <div className="relative flex gap-x-5 justify-between overflow-y-scroll scrollbar-none">
       {imageLists.map((detail, index) => (
         <div key={index} className="lg:w-[22rem]"
         onClick={handleParticularDetails}
@@ -82,10 +77,8 @@ const Index = () => {
         </div>
       ))}
       {details && (
-        <div className="absolute top-0 w-[100vw] h-[100vh]">
-          <div className=" bg-white">
-            <Details />
-          </div>
+        <div className="absolute inset-0 w-full h-full bg-white z-index">
+          <Details />
         </div>
       )}
     </div>
