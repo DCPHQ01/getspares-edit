@@ -46,7 +46,7 @@ export const store = configureStore({
       mecaVendorQuery.middleware,
       buyerQuery.middleware,
       feedbackQuery.middleware,
-       cartQuery.middleware,
+      cartQuery.middleware,
     ]),
 });
 
