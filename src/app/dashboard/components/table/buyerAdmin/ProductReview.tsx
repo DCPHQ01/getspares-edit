@@ -58,6 +58,24 @@ const ProductReview = () => {
     setSelectedRating(rating);
   };
 
+  const listOfReviews = [
+    {
+      name: "Femi chukwuemeka",
+      rate: 3,
+      description:
+        "Maintenance on this engine is a breeze thanks to its user-friendly design and easy access to components",
+      date: "May 15th, 2023",
+      time: "12:00",
+    },
+    {
+      name: "Femi chukwuemeka",
+      rate: 3,
+      description:
+        "Maintenance on this engine is a breeze thanks to its user-friendly design and easy access to components",
+      date: "May 15th, 2023",
+      time: "12:00",
+    },
+  ];
 
   return (
     <div>

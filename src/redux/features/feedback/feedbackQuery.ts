@@ -1,8 +1,6 @@
-import { fetchBaseQuery } from "@reduxjs/toolkit/query";
+
 import { createApi } from "@reduxjs/toolkit/query/react";
 import customFetchBase from "../../customFetchBaseQuery";
-import build from "next/dist/build";
-const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export const feedbackQuery = createApi({
   reducerPath: "feedbackQuery",
@@ -22,14 +20,14 @@ export const feedbackQuery = createApi({
     }),
 
     getAllBuyersFeedback: builder.query({
-      query: ({ productId }: { productId: string }) => ({
+      query: (productId) => ({
         url: `/feedback/${productId}`,
         method: "GET",
       }),
     }),
 
     getViewBuyersProductDetails: builder.query({
-      query: ({ productId }: { productId: string }) => ({
+      query: (productId) => ({
         url: `/product/detail/${productId}`,
         method: "GET",
       }),
