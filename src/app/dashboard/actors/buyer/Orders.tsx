@@ -3,6 +3,7 @@ import Header from "../../components/ui/header";
 import Searchbox from "../../components/ui/searchbox";
 import OrderTable from "../../components/table/buyerAdmin/orderTable";
 import { useGetViewAllOrdersQuery } from "../../../../redux/features/dashboard/buyerQuery";
+import { MdBusinessCenter } from "react-icons/md";
 
 function Orders() {
   const [pageNo, setPageNo] = useState(0);
@@ -35,9 +36,16 @@ function Orders() {
       <div className="flex justify-end">
         <Searchbox />
       </div>
-
-      <OrderTable data={buyerOrderList} isLoading={isLoading} />
+      {!isLoading && buyerOrderList.length === 0 ? (
+        <div className="flex flex-col items-center justify-center h-64">
+          <MdBusinessCenter size={50} color="blue" style={{ border: '1px solid #D1E0FF'}}/>
+          <p className="text-xl font-semibold">No order is here yet</p>
+        </div>
+      ) : (
+        <OrderTable data={buyerOrderList} isLoading={isLoading} />
+      )}
     </div>
+   
   );
 }
 
