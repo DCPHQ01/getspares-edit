@@ -46,7 +46,7 @@ export const store = configureStore({
       buyerQuery.middleware,
       feedbackQuery.middleware,
        cartQuery.middleware,
-       profileQuery.middleware
+       profileQuery.middleware,
     ]),
 });
 
