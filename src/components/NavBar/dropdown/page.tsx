@@ -1,27 +1,10 @@
 "use client";
 
 import Card from "@mui/material/Card";
-import { useGetCategoryQuery } from "../../../redux/features/users/authQuery";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useGetCategoryQuery } from "../../../redux/features/users/authQuery";
 import { paths } from "../../../path/paths";
 
-const categorydropdown = [
-  {
-    id: 1,
-    part1: "AC",
-    part2: "Air Filters",
-    part3: "Air Flow Meters",
-    part4: "Alternators",
-    part5: "Axles",
-    part6: "Back Mirrors",
-    part7: "Ball Joints",
-    part8: "Batteries",
-    part9: "Bonnets",
-    part10: "Tractor Parts",
-    part11: "Brakes",
-    part12: "Bulldozer Parts",
-  },
-];
 
 const DropdownPage = () => {
   const router = useRouter();

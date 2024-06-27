@@ -8,67 +8,8 @@ import NavBar from "../../components/NavBar/NavBar";
 import { useGetCategoryQuery } from "../../redux/features/users/authQuery";
 import { paths } from "../../path/paths";
 
-// const categoryMobileScreen = [
-//   {
-//     id: 1,
-//     title: "AC",
-//   },
-//   {
-//     id: 2,
-//     title: "Air Filters",
-//   },
 
-//   {
-//     id: 3,
-//     title: "Air Flow Meters",
-//   },
-
-//   {
-//     id: 4,
-//     title: "Alternators",
-//   },
-//   {
-//     id: 5,
-//     title: "Axles",
-//   },
-
-//   {
-//     id: 6,
-//     title: "Back Mirrors",
-//   },
-
-//   {
-//     id: 7,
-//     title: "Ball Joints",
-//   },
-
-//   {
-//     id: 8,
-//     title: " Batteries",
-//   },
-
-//   {
-//     id: 9,
-//     title: "Bonnets",
-//   },
-
-//   {
-//     id: 10,
-//     title: "Tractor Parts",
-//   },
-
-//   {
-//     id: 11,
-//     title: "Brakes",
-//   },
-
-//   {
-//     id: 12,
-//     title: "Bulldozer Parts",
-//   },
-// ];
-
-const MobileDropdownViewPage = () => {
+const MobileDropdownView = () => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const handleNav = () => {
@@ -131,7 +72,7 @@ const MobileDropdownViewPage = () => {
             >
               {getCategoriesData?.data.map((category: any) => (
                 <div
-                  onClick={() => handleProductDescription(category.name)}
+                  onClick={() => handleProductDescription}
                   className=""
                   key={category.id}
                   style={{
@@ -152,4 +93,4 @@ const MobileDropdownViewPage = () => {
   );
 };
 
-export default MobileDropdownViewPage;
+export default MobileDropdownView;
