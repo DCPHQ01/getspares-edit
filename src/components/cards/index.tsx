@@ -29,8 +29,10 @@ const Index:React.FC<CardProps> = ({cardField}) => {
     },
     {
       total: "number of agents",
+
       amount: cardField.totalNumberOfAgent || cardField.totalNumberOfAgents || 0,
       percentage: 10,
+
       onClick: () => {
         console.log("View total number of agents");
       },

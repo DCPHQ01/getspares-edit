@@ -11,7 +11,9 @@ import dayjs from "dayjs";
 type BuyerOrderData = {
   id: string,
   orderId: string;
+
   totalAmount: string;
+
   dateCreated: string;
 };
 
@@ -138,5 +140,4 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
 export default OrderTable;
 
 // orderId={selectedOrderId} 
-
 

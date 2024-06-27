@@ -36,7 +36,6 @@ function Overview() {
 
 
 
-  
   useEffect(() => {
     if(data) {
       const resultList = data.data;

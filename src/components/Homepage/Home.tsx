@@ -139,7 +139,7 @@ export default function Home() {
             className="font-medium lg:text-xl text-sm underline"
             id="viewMoreBtn"
           >
-            <p id="btnText">View more</p>
+            {/* <p id="btnText">View more</p> */}
           </button>
         </span>
         <div id="carouselContainer" className="flex gap-x-5">
@@ -170,12 +170,12 @@ export default function Home() {
           <p className="font-semibold lg:text-3xl text-lg" id="newProductsText">
             New Products
           </p>
-          <button
+          {/* <button
             className="font-medium lg:text-xl text-sm underline"
             id="newProductsBtn"
           >
             View more
-          </button>
+          </button> */}
         </span>
         <div id="newProductsCarousel" className={"flex gap-5"}>
           {recentProductData?.data.map(

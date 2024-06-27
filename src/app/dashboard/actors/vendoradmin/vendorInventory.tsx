@@ -92,25 +92,33 @@ function VendorInventory() {
       </div>
 
       <div className="">
-        <VendorInventoryTable inventoryData={inventory} isLoading={isLoading} />
+      {inventory.length === 0 ? (
+          <div className="text-center text-gray-500">The table content is empty</div>
+        ) : (
+          <VendorInventoryTable inventoryData={inventory} isLoading={isLoading} />
+        )}
 
         <div className="flex justify-between mt-10 text-mecaBluePrimaryColor font-bold text-lg">
-          <button 
-          className={`flex gap-x-2 ${!hasPrevious ? 'text-gray-400 cursor-not-allowed' : ''}`}
+         { hasPrevious ? ( <button 
+          className={`
+          flex gap-x-2 
+        
+          `}
           onClick={handlePreviousPage}
-          disabled={!hasPrevious}
+          // disabled={!hasPrevious}
           >
             <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
-          </button>
-          <button className={`flex gap-x-2 ${!hasNext ? 'text-gray-400 cursor-not-allowed' : ''}`}
+          </button>) : (<div>{""}</div>)}
+               
+          {hasNext? (<button className={`flex gap-x-2`}
            onClick={handleNextPage}
-           disabled={!hasNext}
+          //  disabled={!hasNext}
           >
             Next
             <span>
               <MdChevronRight className="mt-[2px] text-2xl" />{" "}
             </span>
-          </button>
+          </button>) : (<div>{""}</div>)}
         </div>
       </div>
     </>

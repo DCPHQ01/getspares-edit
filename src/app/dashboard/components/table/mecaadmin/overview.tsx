@@ -7,7 +7,8 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { ColorRing } from "react-loader-spinner";
 import { useGetTopPerformingVendorsQuery } from "../../../../../redux/features/dashboard/mecaAdminQuery";
 import dayjs from "dayjs";
-import {formatAmount} from "../../../../../components/utils";
+import { formatAmount } from "../../../../../components/utils";
+
 // const datas = [
 //   {
 //     avatar: image1,
@@ -115,8 +116,14 @@ function Overview({data, isLoading}: OverviewTableProps) {
             </tr>
           ) : (
             data.map((d, index) => {
+
               const { date, time } = formatDateTime(d.dateJoined);
               const formattedTransactionValue = formatAmount(d.transactionValue);
+
+
+              const { date, time } = formatDateTime(d.dateJoined); 
+              const formattedTransactionValue = formatAmount(d.transactionValue);
+
 
               return (
                 <tr key={index} id={`row_${index}`} className="cursor-pointer">
@@ -148,7 +155,9 @@ function Overview({data, isLoading}: OverviewTableProps) {
                     {d.totalItemSold}
                   </td>
                   <td className={`text-[0.88rem] py-[1rem] px-[3.13rem] truncate`} id={`transactionValue_${index}`}>
-                  {formatAmount(d.transactionValue)}
+
+                  {formatAmount(d.transactionValue)
+
                   </td>
                   <td id={`dateJoined_${index}`}>
                     <div className={`text-[0.88rem] py-[1rem] px-[2.75rem] truncate`}>
