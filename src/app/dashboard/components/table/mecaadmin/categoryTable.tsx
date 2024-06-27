@@ -24,9 +24,14 @@ interface CategoryTableProps {
 
 const formatDateTime = (dateTime: string) => {
   const date = dayjs(dateTime).format("DD-MM-YYYY");
-  const time = dayjs(dateTime).format("HH:mm");
+  const time = dayjs(dateTime).format("hh:mm A");
   return { date, time };
 };
+// const formatDateTime = (dateTime: string) => {
+//   const date = dayjs(dateTime).format("DD-MM-YYYY");
+//   const time = dayjs(dateTime).format("hh:mm A"); // Updated to 12-hour format with AM/PM
+//   return { date, time };
+// };
 
 const CategoryTable: React.FC<CategoryTableProps> = ({
   categoryList,

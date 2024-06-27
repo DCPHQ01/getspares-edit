@@ -105,7 +105,6 @@ const OrderTable: React.FC<BuyerOrderTableProps> = ({ data, isLoading }) => {
                 data?.map((d, index) => {
                   let date = "";
                   let time = "";
-
                   if (d.dateCreated) {
                     [date, time] = d.dateCreated.split("T");
                   }

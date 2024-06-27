@@ -7,6 +7,7 @@ import { useGetViewAllOrdersQuery } from "../../../../redux/features/dashboard/b
 function Orders() {
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(10);
+  const [totalElements, setTotalElements] = useState(0)
   const {data, isLoading} = useGetViewAllOrdersQuery({pageNo, pageSize});
   console.log("data for orders", data);
 
@@ -17,6 +18,7 @@ function Orders() {
       const resultList = data?.data?.content;
       if (resultList) {
         setBuyerOrderList(resultList);
+        setTotalElements(resultList.totalElements)
       } else {
         console.error("Failed to show buyer order", resultList);
       }
@@ -28,7 +30,7 @@ function Orders() {
       <Header
         subtitle={`Keep track of orders, items ordered and their transaction values.`}
         title={`Orders`}
-        amount={`430,607`}
+        amount={totalElements}
       />
       <div className="flex justify-end">
         <Searchbox />

@@ -25,9 +25,9 @@ function VendorAgents() {
          activeTab="with_sales"
          onTabChange={(status) => console.log(status)}
          />
-        {/* <div className={`flex gap-3`}>
+        <div className={`flex gap-3`}>
           <SearchBox />
-        </div> */}
+        </div>
       </div>
 
       {/* <VendorAgentTable /> */}

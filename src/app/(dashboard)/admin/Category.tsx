@@ -14,7 +14,6 @@ import {
 } from "../../../redux/features/dashboard/mecaAdminQuery";
 import {
   MdAdd,
-  MdArrowForward,
   MdChevronRight,
   MdClose,
   MdPhotoLibrary,
@@ -52,10 +51,10 @@ function Category() {
   const [activityPeriod, setActivityPeriod] = useState("monthly");
   const [page, setPage] = useState(0);
   const size = 10;
-  const [totalElements, setTotalElements] = useState(0)
+  const [totalElements, setTotalElements] = useState(0);
   const [first, setFirst] = useState(false);
   const [last, setLast] = useState(false);
-  const { data, isError } = useGetViewAllMecaAdminCategoryQuery({
+  const { data, isError, refetch } = useGetViewAllMecaAdminCategoryQuery({
     page: page,
     size: size,
     options: activityPeriod,
@@ -65,6 +64,7 @@ function Category() {
   const [formImage, setFormImage] = useState<string>("");
   const [categoryName, setCategoryName] = useState<string>("");
   const [image_url, setImage_url] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const [categoryData, { isLoading }] = useAddCategoryMutation();
 
   useEffect(() => {
@@ -74,12 +74,26 @@ function Category() {
       setCategoryList(list);
       setFirst(lists.first);
       setLast(lists.last);
-      setTotalElements(lists.totalElements)
+      setTotalElements(lists.totalElements);
     }
   }, [data]);
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = () => {
+    setErrorMessage("");
+    setOpen(true);
+  };
+  
+  const handleClose = () => {
+    setOpen(false);
+    resetModal();
+  };
+
+  const resetModal = () => {
+    setCategoryName("");
+    setFormImage("");
+    setImage_url("");
+    setErrorMessage("");
+  };
 
   const handleImageChange = async (
     event: React.ChangeEvent<HTMLInputElement>
@@ -96,8 +110,6 @@ function Category() {
     }
   };
 
-  console.log("image url", image_url);
-
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleImageClick = () => {
@@ -106,6 +118,11 @@ function Category() {
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    const lowerCaseCategoryName = categoryName.toLowerCase();
+    if (categoryList.some((category) => category.name.toLowerCase() === lowerCaseCategoryName)) {
+    setErrorMessage("Category name already exists.");
+    return;
+  }
     try {
       const response = await categoryData({
         name: categoryName,
@@ -113,7 +130,8 @@ function Category() {
       });
       if ("data" in response) {
         console.log(response.data.data);
-        setCategoryList((prev) => [...prev, response.data.data]);
+        setCategoryList((prev) => [response.data.data, ...prev]);
+        refetch();
         handleClose();
       }
     } catch (error) {
@@ -126,13 +144,13 @@ function Category() {
   };
 
   const handleNextPage = () => {
-    if (first) {
+    if (!last) {
       setPage((prevPage) => prevPage + 1);
     }
   };
 
   const handlePreviousPage = () => {
-    if (last) {
+    if (!first) {
       setPage((prevPage) => prevPage - 1);
     }
   };
@@ -228,6 +246,16 @@ function Category() {
                 sx={{ backgroundColor: "porcelain", marginTop: "1rem" }}
               />
 
+              {errorMessage && (
+                <Typography
+                  color="error"
+                  className="mt-2 text-center"
+                  id="errorMessage"
+                >
+                  {errorMessage}
+                </Typography>
+              )}
+
               <button
                 id="addButton"
                 onClick={handleSubmit}
@@ -273,7 +301,7 @@ function Category() {
       <div className="flex gap-[89%] md:gap-[85%] mt-10 text-mecaBluePrimaryColor font-bold text-lg">
         <button
           className={`flex gap-x-2  ${
-            !last ? "text-gray-400 cursor-not-allowed" : ""
+            first ? "text-gray-400 cursor-not-allowed" : ""
           }`}
           onClick={handlePreviousPage}
           disabled={first}

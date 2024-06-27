@@ -24,13 +24,17 @@ interface Overview {
 function Overview() {
   const {data, isError, isLoading} = useGetOverviewOrderTableQuery({});
   const [overViewList, setOverviewList] = useState<Overview[]>([]);
+  const [totalElements, setTotalElements] = useState(0)
 
   useEffect(()=>{
     if(data && Array.isArray(data.data)){
       const list = data.data;
       setOverviewList(list);
+      setTotalElements(list.totalElements)
     }
   }, [data]);
+
+  console.log("total element", data)
 
   const router = useRouter();
   const handleMore =()=>{
@@ -53,7 +57,7 @@ function Overview() {
       <Header
         subtitle={`Keep track of your orders on meca`}
         title={`Orders`}
-        amount={`470,765`}
+        amount={totalElements}
       />
       <OverviewTable overviewList={overViewList} isLoading={isLoading}/>
     </>
