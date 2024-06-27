@@ -54,7 +54,7 @@ function Category() {
   const [totalElements, setTotalElements] = useState(0);
   const [first, setFirst] = useState(false);
   const [last, setLast] = useState(false);
-  const { data, isError, refetch } = useGetViewAllMecaAdminCategoryQuery({
+  const { data: getMecaCategory, isFetching, isError, refetch } = useGetViewAllMecaAdminCategoryQuery({
     page: page,
     size: size,
     options: activityPeriod,
@@ -307,6 +307,9 @@ function Category() {
         categoryList={getMecaCategory?.data.content}
         isLoading={isFetching}
       />
+
+      {/* <CategoryTable categoryList={getMecaCategory?.data.content} isLoading={isFetching}
+      /> */}
 
       <div className="flex gap-[89%] md:gap-[85%] mt-10 text-mecaBluePrimaryColor font-bold text-lg">
         <button
