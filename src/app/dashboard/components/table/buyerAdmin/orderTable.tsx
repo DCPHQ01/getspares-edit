@@ -2,19 +2,16 @@
 
 import React, { useEffect, useState } from "react";
 import styles from "../styles.module.css";
-// import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
-// import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
-// import Details from "../../../../category/products/viewDetails/[details]/page";
-// import BasicTabs from "./FeedBackTab";
 import ViewParticularOrderDetailsPage from "../../../../category/products/viewDetails/viewParticularOrderDetails/page";
 import { ColorRing } from "react-loader-spinner";
-// import AmountComponentsPage from "../../../../reusables/AmountComponents/page";
+import { formatAmount } from "../../../../../components/utils";
+import dayjs from "dayjs";
 
 type BuyerOrderData = {
+  id: string,
   orderId: string;
-  totalAmount: number;
+  totalAmount: number | string;
   dateCreated: string;
 };
 
@@ -24,96 +21,73 @@ interface BuyerOrderTableProps {
   isError?: boolean;
 }
 
+const formatDateTime = (dateTime: string) => {
+  const date = dayjs(dateTime).format("DD-MM-YYYY");
+  const time = dayjs(dateTime).format("HH:mm");
+  return { date, time };
+};
 
-
-const OrderTable: React.FC<BuyerOrderTableProps> = ({ data, isLoading }) => {
+const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
   const router = useRouter();
-  const [renderDetails, setRenderDetails] = useState(false);
-  
-  
+  const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
 
- const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
+  useEffect(() => {
+    const storedOrderId = sessionStorage.getItem("selectedOrderId");
+    if (storedOrderId) {
+      setSelectedOrderId(storedOrderId);
+    }
+  }, []);
 
+  const handleDetails = (orderId: string) => {
+    sessionStorage.setItem("selectedOrderId", orderId);
+    setSelectedOrderId(orderId);
+  };
 
- const handleDetails = (orderId: string) => {
-   setSelectedOrderId(orderId);
- };
-
-// useEffect(() => {
-//   const storedOrderId = sessionStorage.getItem("selectedOrderId");
-//   if (storedOrderId) {
-//     setSelectedOrderId(storedOrderId);
-//   }
-// }, []);
-
-// const handleDetails = (orderId: string) => {
-//   // Store orderId in session storage
-//   sessionStorage.setItem("selectedOrderId", orderId);
-  
-//   // Update local state
-//   setSelectedOrderId(orderId);
-  
-//   router.push(`/path.to.viewParticularOrderDetailsPage`);
-// };
   return (
     <div>
       <div id="tableContainer">
         <div
           id="mecaAdminTable"
-          className={` w-full max-h-[34rem] overflow-y-auto scrollbar-none ${styles.table}`}
+          className={`w-full max-h-[34rem] overflow-y-auto scrollbar-none ${styles.table}`}
         >
           <table id="adminTable" className={`w-full`}>
             <thead>
               <tr className="truncate">
-                {/* <th id="companyNameHeader">Products</th> */}
                 <th id="totalItemsSoldHeader" style={{ paddingLeft: "4.5rem" }}>
                   Order ID
                 </th>
                 <th id="transactionValueHeader" style={{ paddingLeft: "2rem" }}>
                   Transaction value
                 </th>
-                {/* <th id="dateTimeJoinedHeader" style={{ paddingLeft: "4.5rem" }}>
-                  Vendor
-                </th> */}
                 <th id="dateTimeJoinedHeader">Date & time ordered</th>
               </tr>
             </thead>
             <tbody>
               {isLoading ? (
-                  // <div className="w-[ h-full flex justify-center items-center">
-                  <div className="mt-28 relative lg:left-[400px] md:right-[400px]"> 
-                  <ColorRing
-                    visible={true}
-                    height="80"
-                    width="80"
-                    ariaLabel="color-ring-loading"
-                    wrapperStyle={{position: "absolute", bottom: "75%", left: "40%"}}
-                    wrapperClass="color-ring-wrapper"
-                    colors={[
-                      "#000000",
-                      "#000000",
-                      "#000000",
-                      "#000000",
-                      "#000000",
-                    ]}
-                  />
-                </div>
+                <tr>
+                  <td className="text-center py-4">
+                    <ColorRing
+                      visible
+                      height="40"
+                      width="40"
+                      ariaLabel="color-ring-loading"
+                      wrapperStyle={{}}
+                      wrapperClass="color-ring-wrapper"
+                      colors={["#ffff", "#ffff", "#ffff", "#ffff", "#ffff"]}
+                    />
+                  </td>
+                </tr>
               ) : (
                 data?.map((d, index) => {
-                  let date = "";
-                  let time = "";
-
-                  if (d.dateCreated) {
-                    [date, time] = d.dateCreated.split("T");
-                  }
+                  const { date, time } = formatDateTime(d.dateCreated);
+                  const formattedTransactionValue = formatAmount(d.totalAmount);
 
                   return (
                     <tr
                       key={index}
                       id={`row_${index}`}
                       className="cursor-pointer truncate"
-                      // onClick={handleDetails}
-                      onClick={() => handleDetails(d.orderId)}
+                      onClick={() => handleDetails(d.id)}
                     >
                       <td
                         className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
@@ -126,7 +100,7 @@ const OrderTable: React.FC<BuyerOrderTableProps> = ({ data, isLoading }) => {
                         className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
                         id={`transactionValue_${index}`}
                       >
-                        {d.totalAmount}
+                        {formattedTransactionValue}
                       </td>
 
                       <td id={`dateJoined_${index}`}>
@@ -150,44 +124,17 @@ const OrderTable: React.FC<BuyerOrderTableProps> = ({ data, isLoading }) => {
           </table>
         </div>
       </div>
-      {/* {renderDetails && (
+      {selectedOrderId && (
         <div className="absolute bottom-0 mt-8 ml-10 lg:left-60 right-0 lg:top-0 h-[100vh] lg:w-[84%] w-[100%] lg:h-[100vh]">
           <div className="bg-white h-[100vh] w-full">
             <ViewParticularOrderDetailsPage orderId={selectedOrderId} />
           </div>
         </div>
-      )} */}
-      {selectedOrderId && (
-        <div className="absolute bottom-0 mt-8 ml-10 lg:left-60 right-0 lg:top-0 h-[100vh] lg:w-[84%] w-[100%] lg:h-[100vh]">
-          <div className="bg-white h-[100vh] w-full">
-            <ViewParticularOrderDetailsPage />
-          </div>
-        </div>
       )}
     </div>
   );
-};              
+};
 
 export default OrderTable;
 
 
-// const [renderDetails, setRenderDetails] = useState(false);
-// const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
-
-// const handleDetails = () => {
-//   setRenderDetails(!renderDetails);
-// };
-// useEffect(() => {
-//   const storedOrderId = sessionStorage.getItem("selectedOrderId");
-//   if (storedOrderId) {
-//     setSelectedOrderId(storedOrderId);
-//   }
-// }, []);
-
-// const handleDetails = (orderId: string) => {
-  // setSelectedOrderId(orderId);
-// };
-// const handleDetails = (orderId: string) => {
-//   sessionStorage.setItem("selectedOrderId", orderId);
-//   setSelectedOrderId(orderId);
-// };

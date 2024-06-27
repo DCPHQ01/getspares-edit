@@ -3,91 +3,8 @@ import styles from "../styles.module.css";
 import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
 import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
-
-// const data = [
-//   {
-//     avatar: image1,
-//     name: "Ebuka Shima Oke",
-//     email: "ebukashima@gmail.com",
-//     sale: 12,
-//     vale: "₦ 200,000.00",
-//     date: "24 June 2022",
-//     time: "12:00PM",
-//   },
-//   {
-//     avatar: image2,
-//     name: "Sanni Rabiu",
-//     email: "sannirabiu@gmail.com",
-//     sale: 83,
-//     vale: "₦ 1,000,000.00",
-//     date: "30 June 2023",
-//     time: "06:00PM",
-//   },
-//   {
-//     avatar: image1,
-//     name: "Ayodele Olakoya",
-//     email: "ayodeleola@gmail.com",
-//     sale: 45,
-//     vale: "₦ 600,000.00",
-//     date: "12 May 2024",
-//     time: "08:45PM",
-//   },
-//   {
-//     avatar: image2,
-//     name: "Ngozi Ike",
-//     email: "ngoziike.com",
-//     sale: 10,
-//     vale: "₦ 120,000.00",
-//     date: "02 Sep 2022",
-//     time: "11:15AM",
-//   },
-//   {
-//     avatar: image1,
-//     name: "Ayodele Olakoya",
-//     email: "ayodeleola@gmail.com",
-//     sale: 67,
-//     vale: "₦ 700,000,00",
-//     date: "30 Aug 2022",
-//     time: "04:00PM",
-//   },
-
-//   {
-//     avatar: image1,
-//     name: "Ebuka Shima Oke",
-//     email: "ebukashima@gmail.com",
-//     sale: 12,
-//     vale: "₦ 200,000.00",
-//     date: "24 June 2022",
-//     time: "12:00PM",
-//   },
-//   {
-//     avatar: image2,
-//     name: "Sanni Rabiu",
-//     email: "sannirabiu@gmail.com",
-//     sale: 83,
-//     vale: "₦ 1,000,000.00",
-//     date: "30 June 2023",
-//     time: "06:00PM",
-//   },
-//   {
-//     avatar: image2,
-//     name: "Ngozi Ike",
-//     email: "ngoziike.com",
-//     sale: 10,
-//     vale: "₦ 120,000.00",
-//     date: "02 Sep 2022",
-//     time: "11:15AM",
-//   },
-//   {
-//     avatar: image1,
-//     name: "Ayodele Olakoya",
-//     email: "ayodeleola@gmail.com",
-//     sale: 67,
-//     vale: "₦ 700,000,00",
-//     date: "30 Aug 2022",
-//     time: "04:00PM",
-//   },
-// ];
+import { formatAmount } from "../../../../../components/utils";
+import { ColorRing } from "react-loader-spinner";
 
 type BuyerData = {
   // avatar: string;
@@ -105,6 +22,7 @@ interface BuyerTableProps {
 }
 
 const BuyerTable = ({ data, isLoading = false, isError = false }: BuyerTableProps) => {
+
   return (
     <div
       id="mecaAdminTable"
@@ -118,59 +36,67 @@ const BuyerTable = ({ data, isLoading = false, isError = false }: BuyerTableProp
             <th id="transactionValueHeader" style={{ paddingLeft: "2.3rem" }}>
               Transaction value
             </th>
-            <th id="dateTimeJoinedHeader" style={{ paddingLeft: "3rem" }}>
+            {/* <th id="dateTimeJoinedHeader" style={{ paddingLeft: "3rem" }}>
               Last seen
-            </th>
+            </th> */}
           </tr>
         </thead>
         <tbody>
-          {data?.map((d, index) => (
-            <tr key={index} id={`row_${index}`} className="cursor-pointer">
-              <td id={`companyData_${index}`}>
-                <div
-                  className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
-                >
-                  {/* <Image src={d.avatar} alt="Avatar" id={`avatar_${index}`} /> */}
-                  <div id={`companyDetails_${index}`}>
-                    <div className="truncate">{d.name}</div>
-                    <div
-                      className={`text-[#4B5565] truncate`}
-                      id={`email_${index}`}
-                    >
-                      {d.email}
-                    </div>
+      {isLoading ? (
+      <tr>
+        <td colSpan={4} className="text-center py-5">
+          <div className="mt-28 relative lg:left-[700px] md:right-[600px]">
+            <ColorRing
+              visible={true}
+              height="80"
+              width="80"
+              ariaLabel="color-ring-loading"
+              wrapperStyle={{}}
+              wrapperClass="color-ring-wrapper"
+              colors={["#000000", "#000000", "#000000", "#000000", "#000000"]}
+            />
+          </div>
+        </td>
+      </tr>
+    ) : (
+      data?.map((d, index) => {
+        const formattedTransactionValue = formatAmount(d.transactionValue);
+
+        return (
+          <tr key={index} id={`row_${index}`} className="cursor-pointer">
+            <td id={`companyData_${index}`}>
+              <div className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}>
+                {/* <Image src={d.avatar} alt="Avatar" id={`avatar_${index}`} /> */}
+                <div id={`companyDetails_${index}`}>
+                  <div className="truncate">{d.name}</div>
+                  <div className={`text-[#4B5565] truncate`} id={`email_${index}`}>
+                    {d.email}
                   </div>
                 </div>
-              </td>
-              <td
-                className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
-                id={`itemsSold_${index}`}
-              >
-                {d.totalItemBought}
-              </td>
-              <td
-                className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
-                id={`transactionValue_${index}`}
-              >
-                {d.transactionValue}
-              </td>
-              <td id={`dateJoined_${index}`}>
-                <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
-                  <div id={`date_${index}`}>{d.lastSeen}</div>
-                  {/* <div
-                    className={`text-[#4B5565] truncate`}
-                    id={`time_${index}`}
-                  >
-                    {d.time}
-                  </div> */}
+              </div>
+            </td>
+            <td className={`text-[0.88rem] py-[1rem] px-[3.13rem]`} id={`itemsSold_${index}`}>
+              {d.totalItemBought}
+            </td>
+            <td className={`text-[0.88rem] py-[1rem] px-[3.13rem]`} id={`transactionValue_${index}`}>
+              {formattedTransactionValue}
+            </td>
+            {/* Uncomment or modify as needed */}
+            {/* <td id={`dateJoined_${index}`}>
+              <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
+                <div id={`date_${index}`}>{d.lastSeen}</div>
+                <div className={`text-[#4B5565] truncate`} id={`time_${index}`}>
+                  {d.time}
                 </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+              </div>
+            </td> */}
+          </tr>
+        );
+      })
+    )}
+    </tbody>
+  </table>
+  </div>
   );
-};
-
+}
 export default BuyerTable;

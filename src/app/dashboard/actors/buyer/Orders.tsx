@@ -9,12 +9,14 @@ function Orders() {
   const [pageSize, setPageSize] = useState(10);
   const {data, isLoading} = useGetViewAllOrdersQuery({pageNo, pageSize});
   console.log("data for orders", data);
+  const [totalElement, setTotalElement] = useState(0);
 
   const [buyerOrderList, setBuyerOrderList] = useState([]);
   useEffect(() => {
     if (data) {
       console.log("Received data structure:", data);
       const resultList = data?.data?.content;
+      setTotalElement(data.data?.totalElements);
       if (resultList) {
         setBuyerOrderList(resultList);
       } else {
@@ -28,7 +30,7 @@ function Orders() {
       <Header
         subtitle={`Keep track of orders, items ordered and their transaction values.`}
         title={`Orders`}
-        amount={`430,607`}
+        amount={totalElement}
       />
       <div className="flex justify-end">
         <Searchbox />
