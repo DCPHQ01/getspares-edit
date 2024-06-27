@@ -1,9 +1,9 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import MobileDropdownViewPage from "../../pages/MobileDropdownView/page";
+// import MobileDropdownViewPage from "../../pages/MobileDropdownView/page";
 // import Filter from "../../../components/filters/Filter";
-import MobileDropdownBrandPage from "../../pages/MobileDropdownBrand/page";
+// import MobileDropdownBrandPage from "../../pages/MobileDropdownBrand/page";
 import {
   MdChevronRight,
   MdClear,
@@ -27,7 +27,7 @@ const mobileNavData = [
     icon1: <MdExpandMore size={24} className="text-mecaGoBackArrow" />,
     icon2: <MdChevronRight size={24} className="text-mecaGoBackArrow" />,
     link: "",
-    mobileNavHeader: <MobileDropdownViewPage />,
+    // mobileNavHeader: <MobileDropdownViewPage />,
   },
   {
     id: 3,
@@ -35,7 +35,7 @@ const mobileNavData = [
     icon: <MdExpandMore size={24} className="text-mecaGoBackArrow" />,
     icon2: <MdChevronRight size={24} className="text-mecaGoBackArrow" />,
     link: "",
-    mobileNavHeader: <MobileDropdownBrandPage />,
+    // mobileNavHeader: <MobileDropdownBrandPage />,
   },
 
   {
@@ -162,7 +162,7 @@ export default function MobileNav({ handleNav }: MobileNavProps) {
                 style={{ width: "98%", margin: "0px auto" }}
               >
                 <div className="" onClick={dropDownClicked}>
-                  {data.mobileNavHeader}
+                  {/* {data.mobileNavHeader} */}
                 </div>
               </div>
             )
