@@ -31,13 +31,13 @@ function Card({ total, amount, percentage, onClick }: CardProps) {
         >
           Up by {percentage}%
         </p>
-        <button
+        {/* <button
           id="viewAllButton"
           onClick={onClick}
           className={`font-[600] text-[14px] text-[#095AD3] leading-[20px]`}
         >
           View all
-        </button>
+        </button> */}
       </div>
     </div>
   );

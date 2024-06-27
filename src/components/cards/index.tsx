@@ -1,5 +1,7 @@
 import React from "react";
 import Card from "./card";
+import { paths } from "../../path/paths";
+import { sidePanel } from "../../app/dashboard/components/utils/utils";
 
 interface CardProp {
   totalNumberOfAgents: number
@@ -12,7 +14,7 @@ interface CardProp {
 }
 
 interface CardProps {
- cardField: CardProp;
+     cardField: CardProp;
 }
 
 const Index:React.FC<CardProps> = ({cardField}) => {
@@ -20,7 +22,7 @@ const Index:React.FC<CardProps> = ({cardField}) => {
     {
       total: "number of parts ordered",
       amount: cardField.totalNumberOfPartOrdered,
-      percentage: 32,
+      percentage: 0,
       onClick: () => {
         console.log("View total number of parts ordered");
       },
@@ -28,7 +30,7 @@ const Index:React.FC<CardProps> = ({cardField}) => {
     {
       total: "number of agents",
       amount: cardField.totalNumberOfAgent || cardField.totalNumberOfAgents,
-      percentage: 10,
+      percentage: 0,
       onClick: () => {
         console.log("View total number of agents");
       },
@@ -36,7 +38,7 @@ const Index:React.FC<CardProps> = ({cardField}) => {
     {
       total: "transaction value",
       amount: cardField.totalTransactionValue || cardField.totalOrderValue,
-      percentage: 59,
+      percentage: 0,
       onClick: () => {
         console.log("View total transaction value");
       },
@@ -44,7 +46,7 @@ const Index:React.FC<CardProps> = ({cardField}) => {
     {
       total: "total number of Product sold",
       amount: cardField.totalNumberOfVendor || cardField.totalNumberOfProductsSold,
-      percentage: 43,
+      percentage: 0,
       onClick: () => {
         console.log("View total number of vendors");
       },
@@ -67,3 +69,5 @@ const Index:React.FC<CardProps> = ({cardField}) => {
 }
 
 export default Index;
+
+
