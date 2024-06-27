@@ -28,7 +28,7 @@ const DropdownPage = () => {
   const { data: getCategoriesData } = useGetCategoryQuery({});
   console.log("buyers category  ", getCategoriesData);
   const handleProductDescription = (categoryName: string) => {
-    router.push(paths.toCategoryProducts(categoryName, getCategoriesData));
+    router.push(paths.toCategoryProducts(categoryName));
   };
   return (
     <div className="">
