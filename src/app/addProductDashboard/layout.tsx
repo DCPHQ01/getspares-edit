@@ -33,21 +33,23 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
     }
   };
   return (
-    <div id="vendorVend1">
-      <AddProductImage />
+     <>
+       <div id="vendorVend1">
+         <AddProductImage />
 
-      <div className=" flex w-[80%] m-auto ">
-        <div className="hidden mt-4 md:flex w-[34%] fixed " id="vendorVend2">
-          <AddProductSideBar step={step} setStep={setStep} />
-        </div>
-        <div id="vendorVend3" className="w-[70%] absolute mt-16 right-0">
-          {/* {togglePages(step)} */}
-          {children}
-        </div>
+         <div className=" flex w-[80%] m-auto ">
+           <div className="hidden mt-4 md:flex w-[34%] fixed " id="vendorVend2">
+             <AddProductSideBar step={step} setStep={setStep} />
+           </div>
+           <div id="vendorVend3" className="w-[70%] absolute mt-16 right-0">
+             {/* {togglePages(step)} */}
+             {children}
+           </div>
 
-        {/* <AddProductToggle /> */}
-      </div>
-    </div>
+           {/* <AddProductToggle /> */}
+         </div>
+       </div>
+     </>
   );
 };
 

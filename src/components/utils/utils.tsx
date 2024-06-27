@@ -14,5 +14,4 @@ const TruncateText: React.FC<TruncateTextProps> = ({ text, maxLength }) => {
 
   return <span title={text}>{truncatedText}</span>;
 };
-
 export default TruncateText;
