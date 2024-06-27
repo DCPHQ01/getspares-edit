@@ -197,6 +197,14 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isL
     setRoutInventory(!routInventory);
   };
 
+  function getMinutesAndSeconds(time:string) {
+   
+    const parts = time.split(':');
+    const result = parts[0] + ':' + parts[1];
+
+    return result;
+}
+
   return (
     <div id="tableContainer">
       <div
@@ -215,10 +223,10 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isL
               <th id="dateTime">Date and Time</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className=" h-[25rem]">
             {isLoading ? (
         <div 
-        className="text-center mt-28 relative lg:left-[210%] lg:right[210%] md:left-[213%] md:right[213%] sm:left-[21"
+        className="text-center mt-28 relative lg:left-[200%] lg:right[200%] md:left-[213%] md:right[213%]"
         >
            <ColorRing  
             visible={true}
@@ -238,6 +246,7 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isL
     
         if (d.dateCreated) {
             [date, time] = d.dateCreated.split(" ");
+          
         }
     
        
@@ -312,7 +321,7 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isL
                   onClick={navigateTo}
                   >
                     {date}<br/>
-                  {time}
+                  {getMinutesAndSeconds(time)}
                   </div>
 
                   <div className="absolute right-0 ">

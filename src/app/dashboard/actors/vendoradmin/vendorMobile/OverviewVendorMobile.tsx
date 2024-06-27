@@ -13,7 +13,7 @@ import { useGetMecaVendorOverviewQuery } from "../../../../../redux/features/das
 interface VendorOverview {
   dateJoined: string;
   imageUrl?: string ; 
-  transactionValue:number;
+  transactionValue:number | string;
   totalItemSold: number;
   itemName: string;
 }
@@ -64,7 +64,7 @@ function OverviewVendorMobile() {
             <PeriodRadios />
           </div>
         </div> */}
-        <OverviewTable topPerformingProduct={topPerformingProducts}/>
+        <OverviewTable topPerformingProduct={topPerformingProducts} isLoading={isLoading}/>
 
         {/* <div className=" flex justify-between mt-10 mb-10 font-bold text-lg">
           <button className="flex gap-x-2 border border-[#EAECF0]  rounded-md h-[36px] w-[36px] pl-1">

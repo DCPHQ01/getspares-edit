@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 
 interface TabsProps {
-  tabs: { label: string; count: number; status: string }[];
+  tabs: { label: string; count?: number; status: string }[];
   activeTab: string;
   onTabChange: (status: string) => void;
 }
