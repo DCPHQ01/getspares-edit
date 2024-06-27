@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../../../../../styles/profile.css";
 import Header from "../../../../dashboard/components/ui/header";
 import Avatar from "@mui/material/Avatar";
@@ -11,6 +11,19 @@ import TextareaAutosize from "@mui/material/TextareaAutosize";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import "../../../../../styles/addCompanyPageStyle/addCompanyModal.css";
+import { useGetUserAllUsersProfileQuery } from "../../../../../redux/features/profile/profileQuery";
+
+interface viewProfilesForActors {
+  id: string;
+  name: string;
+  description: string;
+  cac: string;
+  companyEmail: string;
+  imageUrl: string;
+  location: string;
+  websiteUrl: string;
+  timeStamp: string;
+}
 
 const style = {
   position: "absolute" as "absolute",
@@ -48,10 +61,12 @@ function stringAvatar(name: string) {
     sx: {
       bgcolor: stringToColor(name),
     },
-    children: `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`,
+    children: `${name
+      .split(" ")
+      .map((word) => word[0])
+      .join("")}`,
   };
 }
-
 const Profile = () => {
   const [viewAdminProfile, setViewAdminProfile] = useState(false);
   const handleViewAdminProfile = () => {
@@ -61,18 +76,38 @@ const Profile = () => {
   const handleClose = () => {
     setViewAdminProfile(false);
   };
+  const { data } = useGetUserAllUsersProfileQuery({});
+  console.log("profile details", data);
 
+  const [viewProfile, setViewProfile] = useState<viewProfilesForActors>({
+    id: "",
+    name: "",
+    description: "",
+    cac: "",
+    companyEmail: "",
+    imageUrl: "",
+    location: "",
+    websiteUrl: "",
+    timeStamp: "",
+  });
+
+  useEffect(() => {
+    if (data) {
+      const profileDet = data.data;
+      setViewProfile(profileDet);
+    }
+  });
   return (
     <div>
       <div className="">
         <div className="flex gap-x-2 mb-12">
           <Avatar
             className="bg-mecaActiveBackgroundNavColor text-mecaBluePrimaryColor w-16 h-16 text-4xl -z-50"
-            {...stringAvatar("Emeka Sons Limited")}
+            {...stringAvatar(`${viewProfile.name}`)}
           />
           <Header
-            subtitle={`emekaemeka@gmail.com`}
-            title={`Emeka & Sons Limited`}
+            subtitle={`${viewProfile.companyEmail}`}
+            title={`${viewProfile.name}`}
             amount={``}
           />
         </div>
@@ -104,20 +139,20 @@ const Profile = () => {
               <div className="flex justify-center ">
                 <Avatar
                   className="bg-mecaActiveBackgroundNavColor mb-3  text-mecaBluePrimaryColor w-16 h-16 text-4xl"
-                  {...stringAvatar("Emeka Sons Limited")}
+                  {...stringAvatar(`${viewProfile.name}`)}
                 />
               </div>
 
               <div className=" flex justify-center ">
                 <Header
                   subtitle={``}
-                  title={`Emeka & Sons Limited`}
+                  title={`${viewProfile.name}`}
                   amount={``}
                 />
               </div>
               <div className="flex justify-center ">
                 <Header
-                  subtitle={`emekaemeka@gmail.com`}
+                  subtitle={`${viewProfile.companyEmail}`}
                   title={``}
                   amount={``}
                 />
@@ -165,7 +200,7 @@ const Profile = () => {
               id="filledbasic6"
               aria-label="Description"
               name="description"
-              placeholder="Description"
+              placeholder={`${viewProfile.description}`}
               className="  w-[100%] mb-10 -z-50"
               style={{
                 backgroundColor: "#EFF2F3",
@@ -175,12 +210,13 @@ const Profile = () => {
               }}
             />
           </Box>
-          <Box className=" gap-x-4">
+          <Box className=" gap-x-4 mb-10">
             <TextField
               inputProps={{ readOnly: true }}
               required={true}
               id="filledbasic7"
               label="Address1"
+              placeholder={`${viewProfile.location}`}
               variant="filled"
               InputProps={{ disableUnderline: true }}
               className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] rounded -z-50"
@@ -193,6 +229,7 @@ const Profile = () => {
               type="url"
               id="filledbasic7"
               label="Address2"
+              placeholder={`${viewProfile.location}`}
               variant="filled"
               InputProps={{ disableUnderline: true }}
               className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] -z-50"
@@ -209,86 +246,6 @@ const Profile = () => {
               variant="filled"
               InputProps={{ disableUnderline: true }}
               className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] rounded -z-50"
-              sx={{ backgroundColor: "porcelain" }}
-            />
-
-            <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              type="url"
-              id="filledbasic7"
-              label="Agents"
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] rounded -z-50"
-              sx={{ backgroundColor: "porcelain" }}
-            />
-          </Box>
-
-          <Box className=" gap-x-4">
-            <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              type="url"
-              id="filledbasic7"
-              label="Total item sold"
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] rounded -z-50"
-              sx={{ backgroundColor: "porcelain" }}
-            />
-
-            <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              type="url"
-              id="filledbasic7"
-              label="Date and time joined"
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] -z-50"
-              sx={{ backgroundColor: "porcelain" }}
-            />
-          </Box>
-
-          <Box className=" gap-x-4">
-            <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              type="url"
-              id="filledbasic7"
-              label="Out of stock"
-              variant="filled"
-              //   value={company.companyForm.website}
-              name="website"
-              InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] rounded -z-50"
-              sx={{ backgroundColor: "porcelain" }}
-            />
-
-            <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              type="url"
-              id="filledbasic7"
-              label="Transaction value"
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] rounded -z-50"
-              sx={{ backgroundColor: "porcelain" }}
-            />
-          </Box>
-
-          <Box className=" gap-x-4">
-            <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              type="url"
-              id="filledbasic7"
-              label="Last active"
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-              className=" w-[100%] mb-10 -z-50"
               sx={{ backgroundColor: "porcelain" }}
             />
           </Box>

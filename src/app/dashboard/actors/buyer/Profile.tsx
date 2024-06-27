@@ -4,6 +4,7 @@ import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
+import { useLayoutEffect, useState } from "react";
 
 function stringToColor(string: string) {
   let hash = 0;
@@ -29,22 +30,41 @@ function stringAvatar(name: string) {
     sx: {
       bgcolor: stringToColor(name),
     },
-    children: `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`,
+    children: `${name
+      .split(" ")
+      .map((word) => word[0])
+      .join("")}`,
   };
 }
 
+interface UserDetails {
+  firstName: string;
+  lastName: string;
+  email: string;
+}
+
 const Profile = () => {
+  const [details, setDetails] = useState<UserDetails | null>(null);
+
+  useLayoutEffect(() => {
+    const savedItem = sessionStorage.getItem("userDetails");
+    if (savedItem) {
+      setDetails(JSON.parse(savedItem) as UserDetails);
+    }
+  }, []);
+
+  console.log("saved details ", details);
   return (
     <div>
       <Header subtitle={``} title={`Profile`} amount={``} />
       <div className="flex gap-x-2 mb-12">
         <Avatar
           className="bg-mecaActiveBackgroundNavColor text-mecaBluePrimaryColor w-16 h-16 text-4xl"
-          {...stringAvatar("Obinna Jesse")}
+          {...stringAvatar(`${details?.firstName} ${details?.lastName}`)}
         />
         <Header
-          subtitle={`obinnajesse@gmail.com`}
-          title={`Obinna Jesse`}
+          subtitle={`${details?.email}`}
+          title={`${details?.firstName} ${details?.lastName}`}
           amount={``}
         />
       </div>
@@ -59,13 +79,13 @@ const Profile = () => {
           </span>
         </div>
 
-        <div className="border-2 w-[60%] h-96 p-5 rounded-xl ">
+        <div className="border-2 w-[60%] h-[100%] p-5 rounded-xl ">
           <Box className="flex gap-x-4 mb-10">
             <TextField
               inputProps={{ readOnly: true }}
               required={true}
               id="filledbasic7"
-              label="First name"
+              label={details?.firstName}
               variant="filled"
               InputProps={{ disableUnderline: true }}
               className="lg:w-[364px]  w-[100%] 2xl:w-[35rem] rounded"
@@ -77,60 +97,7 @@ const Profile = () => {
               required={true}
               type="url"
               id="filledbasic7"
-              label="Last name"
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] 2xl:w-[35rem]"
-              sx={{ backgroundColor: "porcelain" }}
-            />
-          </Box>
-          <Box className="flex gap-x-4 mb-10">
-            <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              type="url"
-              id="filledbasic7"
-              label="Phone number"
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] 2xl:w-[35rem] rounded"
-              sx={{ backgroundColor: "porcelain" }}
-            />
-
-            <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              type="url"
-              id="filledbasic7"
-              label="Gender"
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] 2xl:w-[35rem] rounded"
-              sx={{ backgroundColor: "porcelain" }}
-            />
-          </Box>
-
-          <Box className="flex gap-x-4 mb-10">
-            <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              type="url"
-              id="filledbasic7"
-              label="Date account was created"
-              variant="filled"
-              //   value={company.companyForm.website}
-              name="website"
-              InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] 2xl:w-[35rem] rounded"
-              sx={{ backgroundColor: "porcelain" }}
-            />
-
-            <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              type="url"
-              id="filledbasic7"
-              label="Last active"
+              label={details?.lastName}
               variant="filled"
               InputProps={{ disableUnderline: true }}
               className="lg:w-[364px]  w-[100%] 2xl:w-[35rem]"
@@ -138,13 +105,13 @@ const Profile = () => {
             />
           </Box>
 
-          <Box className="mb-10">
+          <Box className="">
             <TextField
               inputProps={{ readOnly: true }}
               required={true}
               type="url"
               id="filledbasic7"
-              label="Email"
+              label={details?.email}
               variant="filled"
               InputProps={{ disableUnderline: true }}
               className="  w-[100%] rounded"
