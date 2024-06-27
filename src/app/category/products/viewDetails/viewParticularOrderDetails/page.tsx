@@ -20,23 +20,31 @@ interface OrderInfo {
   orderItems: OrderItem[];
 }
 
-// interface ViewParticularOrderDetailsPageProps {
-//   orderId: string;
-// }
 
 
 const ViewParticularOrderDetailsPage: React.FC = () => {
+  const [id, setId] = useState<string | null>(null);
   const [orderId, setOrderId] = useState<string | null>(null);
 
+  // useEffect(() => {
+  //   const storedOrderId = sessionStorage.getItem("selectedOrderId");
+  //   if (storedOrderId) {
+  //     setOrderId(storedOrderId);
+  //   }
+  // }, []);
+
+  // const { data, isLoading } = useGetOrderDetailsQuery({  id: id   });
+  // console.log("data for order details", data);
   useEffect(() => {
-    const storedOrderId = sessionStorage.getItem("selectedOrderId");
-    if (storedOrderId) {
-      setOrderId(storedOrderId);
+    const storedId = sessionStorage.getItem("selectedOrderId");
+    if (storedId) {
+      setId(storedId);
     }
   }, []);
 
-  const { data, isLoading } = useGetOrderDetailsQuery({ orderId });
+  const { data, isLoading } = useGetOrderDetailsQuery({ id: id || "" }, { skip: !id });
   console.log("data for order details", data);
+
 
   const [orderDetails, setOrderDetails] = useState<OrderInfo>({
     orderDate: "",
@@ -50,51 +58,12 @@ const ViewParticularOrderDetailsPage: React.FC = () => {
       const resultList = data?.data;
       if (resultList) {
         setOrderDetails(resultList);
+        setOrderId(resultList.orderId);
       } else {
         console.error("Failed to show order details", resultList);
       }
     }
   }, [data]);
-
-// const ViewParticularOrderDetailsPage: React.FC<ViewParticularOrderDetailsPageProps> = ({ orderId }) => {
-
-  // useEffect(() => {
-  //   const storedOrderId = sessionStorage.getItem("selectedOrderId");
-    // console.log("Stored Order ID:", storedOrderId);
-    // if (storedOrderId) {
-  //     setOrderId(storedOrderId);
-  //   }
-  // }, []);
-  // const [orderId, setOrderId] = useState<string | null>(null);
-
-  // useEffect(() => {
-  //   const storedOrderId = sessionStorage.getItem("selectedOrderId");
-  //   if (storedOrderId) {
-  //     setOrderId(storedOrderId);
-  //   }
-  // }, []);
-  
-  // const { data, isLoading } = useGetOrderDetailsQuery({ orderId });
-  // console.log("data for order details", data);
-
-  // const [orderDetails, setOrderDetails] = useState<OrderInfo>({
-  //   orderDate: "",
-  //   deliveryAddress: {},
-  //   orderItems: [],
-  // });
-
-  // useEffect(() => {
-  //   if (data) {
-  //     console.log("Received data for order details:", data);
-  //     const resultList = data?.data;
-  //     if (resultList) {
-  //       setOrderDetails(resultList);
-  //     } else {
-  //       console.error("Failed to show order details", resultList);
-  //     }
-  //   }
-  // }, [data]);
-
 
 
   return (
@@ -109,7 +78,7 @@ const ViewParticularOrderDetailsPage: React.FC = () => {
           </h1>
         </div>
         <div className="">
-          <h1 className="ml-10 pt-20 text-xl">Order ID: {orderId} </h1>
+          <h1 className="ml-10 pt-20 text-xl">Order ID: {id} </h1>
         </div>
         <div className="mt-5">
           <ViewParticularOrderTable data={orderDetails} isLoading={isLoading} />
