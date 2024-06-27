@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../dashboard/components/ui/header";
 import Cards from "../../../components/cards";
 import PeriodRadios from "../../dashboard/components/ui/periodradios";
@@ -12,14 +12,53 @@ import {
 } from "react-icons/md";
 
 function Overview() {
+  const [activityPeriod, setActivityPeriod] = useState("monthly");
+  const { data: mecaAdminOverviewData,  isLoading} = useGetMecaAdminOverviewQuery({});
+  console.log("data for meca admin", mecaAdminOverviewData);
+  const {data,  isLoading: isVendorsLoading, isError: isVendorsError,} = useGetTopPerformingVendorsQuery({ period: activityPeriod});
+  const [adminOverview, setAdminOverview] = useState({});
+  const [name, setName] = useState("");
+  const [topVendors, setTopVendors] = useState<VendorData[]>([]);
+
+
+
+
+  useEffect(() => {
+    if(data) {
+      const resultList = data.data;
+        setTopVendors(resultList);
+      }
+    }, [data]);
+
+
+    const handlePeriodChange = (newPeriod: string) => {
+      setActivityPeriod(newPeriod);
+    };
+
+    useEffect(() => {
+      if(mecaAdminOverviewData?.data){
+        setAdminOverview(mecaAdminOverviewData.data)
+      }
+    },[mecaAdminOverviewData?.data])
+
+
+
+  useEffect(() => {
+    const role =
+      typeof window !== "undefined" && window.sessionStorage
+        ? JSON.parse(sessionStorage.getItem("userDetails") || "{}")
+        : [];
+    setName(role.firstName);
+  }, []);
+ 
   return (
     <>
       <div>
         <Header
           subtitle={`Take a quick glance on what is happening with meca`}
-          name={`Welcome Sam`}
+          name={`,${name}`}
         />
-        <Cards />
+       <Cards cardField={adminOverview}  />
         <div
           className={`flex justify-between items-center mt-[3.25rem] mb-[1.25rem]`}
         >
@@ -27,14 +66,14 @@ function Overview() {
             subtitle={`A quick glance on vendors with highest sales on meca`}
             title={`Top performing vendors`}
           />
-          <PeriodRadios />
+            <PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange}/>
         </div>
-        <OverviewTable />
+        <OverviewTable data={topVendors} isLoading={isVendorsLoading}/>
 
         <div className="flex justify-between mt-10 text-mecaBluePrimaryColor font-bold text-lg">
-          <button className="flex gap-x-2">
+          {/* <button className="flex gap-x-2">
             <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
-          </button>
+          </button> */}
           <button className="flex gap-x-2">
             <MdChevronRight className="mt-1 text-2xl" /> <span>Next</span>
           </button>

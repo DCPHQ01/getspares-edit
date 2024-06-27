@@ -1,182 +1,117 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../styles.module.css";
-import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
-import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
-import Image from "next/image";
+import dayjs from "dayjs";
+import { AccountCircle } from "@mui/icons-material";
+import { ColorRing } from "react-loader-spinner";
+import ViewParticularOrderDetailsPage from "../../../../category/products/viewDetails/viewParticularOrderDetails/page";
 
-const data = [
-  {
-    avatar: image1,
-    name: "Ebuka Shima Oke",
-    email: "ebukashima@gmail.com",
-    sale: "MCA3435656jh787",
-    vale: "₦ 200,000.00",
-    date: "24 June 2022",
-    time: "12:00PM",
-  },
-  {
-    avatar: image2,
-    name: "Sanni Rabiu",
-    email: "sannirabiu@gmail.com",
-    sale: "MCA3435656jh787",
-    vale: "₦ 1,000,000.00",
-    date: "30 June 2023",
-    time: "06:00PM",
-  },
-  {
-    avatar: image1,
-    name: "Ayodele Olakoya",
-    email: "ayodeleola@gmail.com",
-    sale: "MCA3435656jh787",
-    vale: "₦ 600,000.00",
-    date: "12 May 2024",
-    time: "08:45PM",
-  },
-  {
-    avatar: image2,
-    name: "Ngozi Ike",
-    email: "ngoziike.com",
-    sale: "MCA3435656jh787",
-    vale: "₦ 120,000.00",
-    date: "02 Sep 2022",
-    time: "11:15AM",
-  },
-  {
-    avatar: image1,
-    name: "Ayodele Olakoya",
-    email: "ayodeleola@gmail.com",
-    sale: "MCA3435656jh787",
-    vale: "₦ 700,000,00",
-    date: "30 Aug 2022",
-    time: "04:00PM",
-  },
 
-  {
-    avatar: image1,
-    name: "Ebuka Shima Oke",
-    email: "ebukashima@gmail.com",
-    sale: "MCA3435656jh787",
-    vale: "₦ 200,000.00",
-    date: "24 June 2022",
-    time: "12:00PM",
-  },
-  {
-    avatar: image2,
-    name: "Sanni Rabiu",
-    email: "sannirabiu@gmail.com",
-    sale: "MCA3435656jh787",
-    vale: "₦ 1,000,000.00",
-    date: "30 June 2023",
-    time: "06:00PM",
-  },
-  {
-    avatar: image2,
-    name: "Ngozi Ike",
-    email: "ngoziike.com",
-    sale: "MCA3435656jh787",
-    vale: "₦ 120,000.00",
-    date: "02 Sep 2022",
-    time: "11:15AM",
-  },
-  {
-    avatar: image1,
-    name: "Ayodele Olakoya",
-    email: "ayodeleola@gmail.com",
-    sale: "MCA3435656jh787",
-    vale: "₦ 700,000,00",
-    date: "30 Aug 2022",
-    time: "04:00PM",
-  },
-];
 
-const OverviewTable = () => {
+interface Overview {
+  orderId: string;
+  trackingOrderId: string;
+  amount: number;
+  dateCreated: string;
+}
+
+interface OverviewTableProps {
+  overviewList: Overview[];
+  isLoading?: boolean;
+  isError?: boolean;
+}
+
+const formatDateTime = (dateTime: string) => {
+  const date = dayjs(dateTime).format("DD-MM-YYYY");
+
+  const time = dayjs(dateTime).format("hh:mm A");
+
+  return { date, time };
+};
+
+
+const OverviewTable: React.FC<OverviewTableProps> = ({ isLoading, overviewList }) => {
+  const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
+
+
+  const handleDetails = (orderId: string) => {
+    sessionStorage.setItem("selectedOrderId", orderId);
+    setSelectedOrderId(orderId);
+  };
+
   return (
-    <div id="tableContainer">
-      <div
-        id="mecaAdminTable"
-        className={`my-[1.25rem] w-full max-h-[34rem] overflow-y-auto scrollbar-none ${styles.table}`}
-      >
+    <div id="tableContainer" className="relative">
+    {isLoading ? (
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <ColorRing
+          visible={true}
+          height="40"
+          width="40"
+          ariaLabel="color-ring-loading"
+          wrapperClass="color-ring-wrapper"
+          colors={["#000000", "#000000", "#000000", "#000000", "#000000"]}
+        />
+        <p>Loading Overview...</p>
+      </div>
+    ) : (
+      <div className={`my-[1.25rem] w-full max-h-[34rem] overflow-y-auto scrollbar-none ${styles.table}`}>
         <table id="adminTable" className={`w-full`}>
           <thead>
             <tr className="truncate">
-              <th id="companyNameHeader">Items</th>
-              <th id="totalItemsSoldHeader">Order ID</th>
-              <th id="transactionValueHeader">Transaction value</th>
-              <th id="dateTimeJoinedHeader">Vendor</th>
-              <th id="dateTimeJoinedHeader">Date & time ordered</th>
+              <th id="totalItemsSoldHeader" style={{ paddingLeft: "5rem" }}>
+                Tracking Order ID
+              </th>
+              <th id="dateTimeJoinedHeader" style={{ paddingLeft: "3rem" }}>
+                Amount
+              </th>
+              <th id="dateTimeJoinedHeader">Order Date & Time</th>
             </tr>
           </thead>
           <tbody>
-            {data.map((d, index) => (
-              <tr
-                key={index}
-                id={`row_${index}`}
-                className="cursor-pointer truncate"
-              >
-                <td id={`companyData_${index}`}>
-                  <div
-                    className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
-                  >
-                    <Image
-                      src={d.avatar}
-                      className="object-contain"
-                      alt="Avatar"
-                      id={`avatar_${index}`}
-                    />
-                    <div id={`companyDetails_${index}`}>
-                      <div>{d.name}</div>
-                    </div>
-                  </div>
-                </td>
+            {overviewList?.map((d, index) => {
+              const { date, time } = formatDateTime(d.dateCreated);
 
-                <td
-                  className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
-                  id={`itemsSold_${index}`}
+              return (
+                <tr
+                  key={'index'}
+                  id={`row_${index}`}
+                  className="cursor-pointer truncate"
+                  onClick={() => handleDetails(d.orderId)}
                 >
-                  {d.sale}
-                </td>
-
-                <td
-                  className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
-                  id={`transactionValue_${index}`}
-                >
-                  {d.vale}
-                </td>
-
-                <td id={`companyData_${index}`}>
-                  <div
-                    className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
-                  >
-                    <Image
-                      src={d.avatar}
-                      className="object-contain"
-                      alt="Avatar"
-                      id={`avatar_${index}`}
-                    />
-                    <div id={`companyDetails_${index}`}>
-                      <div>{d.name}</div>
-                      <div className={`text-[#4B5565]`} id={`email_${index}`}>
-                        {d.email}
+                  <td id={`companyData_${index}`}>
+                    <div className={"flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]"}>
+                      <div id={`companyDetails_${index}`}>
+                        <div className="mt-2">{d.trackingOrderId}</div>
                       </div>
                     </div>
-                  </div>
-                </td>
-
-                <td id={`dateJoined_${index}`}>
-                  <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
-                    <div id={`date_${index}`}>{d.date}</div>
-                    <div className={`text-[#4B5565]`} id={`time_${index}`}>
-                      {d.time}
+                  </td>
+                  <td className={`text-[0.88rem] py-[1rem] px-[3.13rem]} id={itemsSold_${index}`}>
+                    {(d.amount)}
+                  </td>
+                  <td id={`dateJoined_${index}`}>
+                    <div className={"text-[0.88rem] py-[1rem] px-[2.75rem]"}>
+                      <div id={`date_${index}`}>{date}</div>
+                      <div className={'text-[#4B5565]'} id={`time_${index}`}>
+                        {time}
+                      </div>
                     </div>
-                  </div>
-                </td>
-              </tr>
-            ))}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
-    </div>
-  );
+    )}
+    {selectedOrderId && (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-white">
+        <div className="w-full h-full overflow-auto">
+          <ViewParticularOrderDetailsPage />
+        </div>
+      </div>
+    )}
+  </div>
+);
 };
+
 
 export default OverviewTable;
