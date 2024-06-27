@@ -31,10 +31,12 @@ interface VendorData {
 function Overview() {
   const [activityPeriod, setActivityPeriod] = useState("monthly");
   const { data: mecaAdminOverviewData,  isLoading} = useGetMecaAdminOverviewQuery({});
+  console.log("data for meca admin", mecaAdminOverviewData);
   const {data,  isLoading: isVendorsLoading, isError: isVendorsError,} = useGetTopPerformingVendorsQuery({ period: activityPeriod});
   const [adminOverview, setAdminOverview] = useState({});
   const [name, setName] = useState("");
   const [topVendors, setTopVendors] = useState<VendorData[]>([]);
+
 
 
 
@@ -66,6 +68,7 @@ function Overview() {
         : [];
     setName(role.firstName);
   }, []);
+ 
 
 
   return (
@@ -73,7 +76,7 @@ function Overview() {
       <div>
         <Header
           subtitle={`Take a quick glance on what is happening with meca`}
-          name={`, ${name}`}
+          name={`${name}`}
         />
          <Cards cardField={adminOverview}  />
         <div
@@ -104,44 +107,3 @@ function Overview() {
 export default Overview;
 
 
-//   const cardsData: CardData[] = [
-  //   {
-  //     total: "Total Parts Ordered",
-  //     amount:  0,
-  //     percentage: 0,
-  //     onClick: () => {
-  //       console.log("View Total Parts Ordered");
-  //     },
-  //   },
-  //   {
-  //     total: "Number of Agents",
-  //     amount:  0,
-  //     percentage: 0,
-  //     onClick: () => {
-  //       console.log("View Number of Agents");
-  //     },
-  //   },
-  //   {
-  //     total: "Transaction Value",
-  //     amount:  0,
-  //     percentage: 0,
-  //     onClick: () => {
-  //       console.log("View Transaction Value");
-  //     },
-  //   },
-  //   {
-  //     total: "Number of Vendors",
-  //     amount:  0,
-  //     percentage: 0,
-  //     onClick: () => {
-  //       console.log("View Number of Vendors");
-  //     },
-  //   },
-  // ];
-  // console.log("Transformed cardsData:", cardsData);
-  // const {
-  //   totalNumberOfPartOrdered,
-  //   totalNumberOfAgent,
-  //   totalTransactionValue,
-  //   totalNumberOfVendor
-  // } = mecaAdminOverviewData?.data ?? {};

@@ -5,6 +5,7 @@ import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
 import Details from "../../../../category/products/viewDetails/[details]/page";
 import dayjs from "dayjs";
+import { formatAmount } from "../../../../../components/utils";
 
 // const data = [
 //   {
@@ -98,7 +99,7 @@ interface VendorTableProps {
 const VendorOrderTable = ({data}: VendorTableProps) => {
   const [renderDetails, setRenderDetails] = useState(false);
   const formatDateTime = (dateTime: string) => {
-    const date = dayjs(dateTime).format("YYYY-MM-DD");
+    const date = dayjs(dateTime).format("DD-MM-YYYY");
     const time = dayjs(dateTime).format("HH:mm:ss");
     return { date, time };
   };
@@ -106,6 +107,7 @@ const VendorOrderTable = ({data}: VendorTableProps) => {
   const handleDetails = () => {
     setRenderDetails(!renderDetails);
   };
+  
   return (
     <div id="tableContainer">
       <div
@@ -130,6 +132,7 @@ const VendorOrderTable = ({data}: VendorTableProps) => {
           <tbody>
           {data?.map((d, index) => {
               const { date, time } = formatDateTime(d.dateOrdered);
+              const formattedTransactionValue = formatAmount(d.amount);
 
               return (
                 <tr

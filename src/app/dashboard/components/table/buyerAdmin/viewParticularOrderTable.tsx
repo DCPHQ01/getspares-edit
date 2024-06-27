@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../styles.module.css";
 import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
 import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
@@ -33,6 +33,13 @@ interface OrderInfo {
 const ViewParticularOrderTable = ({ data, isLoading }: { data: OrderInfo, isLoading: boolean,}) => {
   const router = useRouter();
   const [renderDetails, setRenderDetails] = useState(false);
+
+  // useEffect(() => {
+  //   const storedOrderId = sessionStorage.getItem("selectedOrderId");
+  //   if (storedOrderId) {
+  //     setOrderId(storedOrderId);
+  //   }
+  // }, []);
 
   const handleDetails = () => {
     setRenderDetails(!renderDetails);

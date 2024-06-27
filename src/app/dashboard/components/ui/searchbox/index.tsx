@@ -1,7 +1,7 @@
 import React from "react";
 import { MdSearch } from "react-icons/md";
 
-function Index({ placeholder = "Search"}: { placeholder?: string }) {
+function Index({ placeholder = "Search" }: { placeholder?: string }) {
   return (
     <>
       <div

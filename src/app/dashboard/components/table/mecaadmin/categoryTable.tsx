@@ -80,7 +80,7 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
               </div>
             ) : (
               categoryList?.map((d, index) => {
-                const { date, time } = formatDateTime(d.dateCreated);
+                const { date, time } = formatDateTime(d?.dateCreated);
                 return (
                   <tr
                     key={index}
@@ -89,7 +89,7 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
                   >
                     <td id={`companyData_${index}`}>
                       <div className={`w-full flex items-center gap-x-4`}>
-                        {d.imageUrl ? (
+                        {d?.imageUrl ? (
                           // <img
                           //   src={d.imageUrl}
                           //   className="object-contain"
@@ -97,7 +97,7 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
                           //   id={`avatar_${index}`}
                           // />
                           <CldImage
-                            src={d.imageUrl} // Use this sample image or upload your own via the Media Explorer
+                            src={d?.imageUrl} // Use this sample image or upload your own via the Media Explorer
                             width="40" // Transform the image: auto-crop to square aspect_ratio
                             height="40"
                             alt="image"
@@ -114,12 +114,12 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
                           />
                         )}
                         <div id={`companyDetails_${index}`}>
-                          <div className="truncate mt-2">{d.name}</div>
+                          <div className="truncate mt-2">{d?.name}</div>
                           <div
                             className={`text-[#4B5565] truncate`}
                             id={`email_${index}`}
                           >
-                            {d.email}
+                            {d?.email}
                           </div>
                         </div>
                       </div>
@@ -128,7 +128,7 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
                       className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
                       id={`itemsSold_${index}`}
                     >
-                      {d.productsInCategory}
+                      {d?.productsInCategory}
                     </td>
                     <td
                       className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
@@ -144,12 +144,12 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
                         /> */}
                         </div>
                         <div className="">
-                          <div className="truncate">{d.createdBy}</div>
+                          <div className="truncate">{d?.createdBy}</div>
                           <div
                             className={`text-[#4B5565] truncate`}
                             id={`email_${index}`}
                           >
-                            {d.email}
+                            {d?.email}
                           </div>
                         </div>
                       </div>
