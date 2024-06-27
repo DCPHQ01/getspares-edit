@@ -30,9 +30,6 @@ export const store = configureStore({
 
     user: userSlice,
      [cartQuery.reducerPath]: cartQuery.reducer,
-
-
-
     // user: userSlice,
     company: companySlice,
     product: productSlice,

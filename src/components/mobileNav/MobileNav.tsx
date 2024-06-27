@@ -1,9 +1,9 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import MobileDropdownViewPage from "../../pages/MobileDropdownView/page";
+import MobileDropdownViewPage from "../../pages/mobileDropdownView/page";
 // import Filter from "../../../components/filters/Filter";
-import MobileDropdownBrandPage from "../../pages/MobileDropdownBrand/page";
+import MobileDropdownBrandPage from "../../pages/mobileDropdownBrand/page";
 import {
   MdChevronRight,
   MdClear,
