@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Header from "../../components/ui/header";
-import Cards from "../../../../components/cards";
+// import Cards from "../../../../components/cards";
 import OverviewTable from "../../components/table/vendoradmin/overview";
 import Addbutton from "../../components/ui/addbutton";
 import Link from "next/link";
@@ -9,6 +9,7 @@ import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { useGetMecaVendorOverviewQuery } from "../../../../redux/features/dashboard/mecaVendorQuery";
 import { paths } from "../../../../path/paths";
 import PeriodRadios from "../../components/ui/periodradios";
+import Card from "../../../../components/cards/indexTwo"
 
 interface VendorOverview {
   dateJoined: string;
@@ -60,9 +61,9 @@ function VendorOverview() {
             <Addbutton title={`Update Company`} />
           </Link>
         </div>
-        <Cards cardField={overView} />
+        <Card cardField={overView} />
 
-        <OverviewTable topPerformingProduct={topPerformingProducts} />
+        <OverviewTable topPerformingProduct={topPerformingProducts} isLoading={isLoading}/>
       </div>
     </>
   );

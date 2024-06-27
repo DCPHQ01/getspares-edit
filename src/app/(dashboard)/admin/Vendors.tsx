@@ -49,7 +49,7 @@ function Vendors() {
       setIsPaginationLoading(false)
       }
     }, [data])
-    console.log("The vendorList: ", vendorList)
+    console.log("The dataList: ", data)
     console.log("The vendors: ", vendors)
 
     const handleNextPage = () => {
@@ -83,17 +83,17 @@ function Vendors() {
       
 
       <div className="flex justify-between md:gap-[85%]  mt-10 text-mecaBluePrimaryColor font-bold text-lg">
-        <button 
-        className={`flex gap-x-2 ${!hasPrevious ? 'text-gray-400 cursor-not-allowed' : ''}`}
+       { hasPrevious ? (<button 
+        className={`flex gap-x-2 `}
         onClick={handlePreviousPage}
-        disabled={!hasPrevious}
+        // disabled={!hasPrevious}
         >
             <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
-          </button>
-        <button 
-        className={`flex gap-x-2 ${!hasNext ? 'text-gray-400 cursor-not-allowed' : ''}`}
+          </button>) : (<div>{""}</div>)}
+     {hasNext ? (<button 
+        className={`flex gap-x-2`}
         onClick={handleNextPage}
-        disabled={!hasNext}
+        // disabled={!hasNext}
         >
           
           Next
@@ -101,7 +101,7 @@ function Vendors() {
          
             <MdChevronRight className="mt-[2px] text-2xl" />{" "}
           </span>
-        </button>
+        </button>) : (<div>{""}</div>)}
       </div>
     </>
   );

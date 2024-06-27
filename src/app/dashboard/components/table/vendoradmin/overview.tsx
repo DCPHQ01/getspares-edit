@@ -4,6 +4,7 @@ import image1 from "../../../../../assets/dashboardAssets/Avatar2.png";
 import image2 from "../../../../../assets/dashboardAssets/Avatar3.png";
 import Image from "next/image";
 import { AccountCircle } from "@mui/icons-material";
+import { formatAmount } from "../../../../../components/utils";
 
 const data = [
   {
@@ -146,7 +147,7 @@ const data = [
 interface VendorOverview {
   dateJoined: string;
   imageUrl?: string ; 
-  transactionValue:number;
+  transactionValue: string;
   totalItemSold: number;
   itemName: string;
   
@@ -154,9 +155,10 @@ interface VendorOverview {
 
 interface VendorTableProps {
   topPerformingProduct: VendorOverview[];
+  isLoading: boolean;
 }
 
-const Overview: React.FC<VendorTableProps> = ({topPerformingProduct}) => {
+const Overview: React.FC<VendorTableProps> = ({topPerformingProduct,isLoading}) => {
   return (
     <div
       id="vendorAdminTable"
@@ -173,9 +175,11 @@ const Overview: React.FC<VendorTableProps> = ({topPerformingProduct}) => {
             <th id="dateTimeJoinedHeader">Date & time joined</th>
           </tr>
         </thead>
-        <tbody>
-          {topPerformingProduct?.map((d, index) => (
-            <tr key={index} id={`row_${index}`} className="truncate">
+        <tbody className=" h-[25rem]">
+            { topPerformingProduct.length == 0 ? (<div className="relative right-[90%] left-[90%] pt-40 text-2xl font-bold text-gray-600">No data in the Table yet</div>) : (  topPerformingProduct?.map((d, index) => {
+
+              const transactionValue = formatAmount(d.transactionValue);
+          return ( <tr key={index} id={`row_${index}`} className="truncate">
               <td>
                 <div
                   className={`flex gap-3 items-center text-[0.88rem] py-[1rem] px-[1.5rem]`}
@@ -203,7 +207,7 @@ const Overview: React.FC<VendorTableProps> = ({topPerformingProduct}) => {
                 className={`text-[0.88rem] py-[1rem] px-[3.125rem]`}
                 id={`transactionValue_${index}`}
               >
-                {d.transactionValue}
+                {transactionValue}
               </td>
               <td>
                 <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
@@ -213,7 +217,7 @@ const Overview: React.FC<VendorTableProps> = ({topPerformingProduct}) => {
                   </div>
                 </div>
               </td>
-            </tr>
+            </tr>)}
           ))}
         </tbody>
       </table>

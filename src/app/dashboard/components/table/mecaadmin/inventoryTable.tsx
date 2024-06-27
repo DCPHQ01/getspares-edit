@@ -8,6 +8,7 @@ import Stack from "@mui/material/Stack";
 import { AccountCircle } from "@mui/icons-material";
 // import "react-tabs/style/react-tabs.css";
 import { ColorRing } from "react-loader-spinner";
+import { format } from "../../../../../components/utils";
 
 interface InventoryData {
   productName?: number;
@@ -23,136 +24,138 @@ interface InventoryData {
 interface InventoryTableProps {
   inventoryData: InventoryData[];
   isLoading: boolean;
+  status: string;
+  
 }
 
-const data = [
-  {
-    avatar: image1,
-    name: "Ebuka & Sons International",
-    email: "Ebukainternional.com",
-    sale: 12,
-    vale: "₦ 200,000.00",
-    rating: (
-      <Stack spacing={1}>
-        {/* <Rating name="half-rating" defaultValue={2.5} precision={0.5} /> */}
-      </Stack>
-    ),
-    date: "24 June 2022",
-    time: "12:00PM",
-  },
-  {
-    avatar: image2,
-    name: "Ebuka & Sons International",
-    email: "ebuka&sons@gmail.com",
-    sale: 83,
-    vale: "₦ 1,000,000.00",
-    rating: (
-      <Stack spacing={1}>
-        {/* <Rating name="half-rating" defaultValue={2.5} precision={0.5} /> */}
-      </Stack>
-    ),
-    date: "30 June 2023",
-    time: "06:00PM",
-  },
-  {
-    avatar: image1,
-    name: "Ebuka & Sons International",
-    email: "ebuka&sons@gmail.com",
-    sale: 45,
-    vale: "₦ 600,000.00",
-    // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
-    date: "12 May 2024",
-    time: "08:45PM",
-  },
-  {
-    avatar: image2,
-    name: "Ebuka & Sons International",
-    email: "ebuka&sons@gmail.com",
-    sale: 10,
-    vale: "₦ 120,000.00",
-    // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
+// const data = [
+//   {
+//     avatar: image1,
+//     name: "Ebuka & Sons International",
+//     email: "Ebukainternional.com",
+//     sale: 12,
+//     vale: "₦ 200,000.00",
+//     rating: (
+//       <Stack spacing={1}>
+//         {/* <Rating name="half-rating" defaultValue={2.5} precision={0.5} /> */}
+//       </Stack>
+//     ),
+//     date: "24 June 2022",
+//     time: "12:00PM",
+//   },
+//   {
+//     avatar: image2,
+//     name: "Ebuka & Sons International",
+//     email: "ebuka&sons@gmail.com",
+//     sale: 83,
+//     vale: "₦ 1,000,000.00",
+//     rating: (
+//       <Stack spacing={1}>
+//         {/* <Rating name="half-rating" defaultValue={2.5} precision={0.5} /> */}
+//       </Stack>
+//     ),
+//     date: "30 June 2023",
+//     time: "06:00PM",
+//   },
+//   {
+//     avatar: image1,
+//     name: "Ebuka & Sons International",
+//     email: "ebuka&sons@gmail.com",
+//     sale: 45,
+//     vale: "₦ 600,000.00",
+//     // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
+//     date: "12 May 2024",
+//     time: "08:45PM",
+//   },
+//   {
+//     avatar: image2,
+//     name: "Ebuka & Sons International",
+//     email: "ebuka&sons@gmail.com",
+//     sale: 10,
+//     vale: "₦ 120,000.00",
+//     // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
 
-    date: "02 Sep 2022",
-    time: "11:15AM",
-  },
-  {
-    avatar: image1,
-    name: "Ebuka & Sons International",
-    email: "ebuka&sons@gmail.com",
-    sale: 67,
-    vale: "₦ 700,000,00",
-    // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
-    date: "30 Aug 2022",
-    time: "04:00PM",
-  },
-  {
-    avatar: image1,
-    name: "Ebuka & Sons International",
-    email: "ebuka&sons@gmail.com",
-    sale: 67,
-    vale: "₦ 700,000,00",
-    // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
-    date: "30 Aug 2022",
-    time: "04:00PM",
-  },
+//     date: "02 Sep 2022",
+//     time: "11:15AM",
+//   },
+//   {
+//     avatar: image1,
+//     name: "Ebuka & Sons International",
+//     email: "ebuka&sons@gmail.com",
+//     sale: 67,
+//     vale: "₦ 700,000,00",
+//     // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
+//     date: "30 Aug 2022",
+//     time: "04:00PM",
+//   },
+//   {
+//     avatar: image1,
+//     name: "Ebuka & Sons International",
+//     email: "ebuka&sons@gmail.com",
+//     sale: 67,
+//     vale: "₦ 700,000,00",
+//     // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
+//     date: "30 Aug 2022",
+//     time: "04:00PM",
+//   },
 
-  {
-    avatar: image1,
-    name: "Ebuka & Sons International",
-    email: "ebuka&sons@gmail.com",
-    sale: 67,
-    vale: "₦ 700,000,00",
-    // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
-    date: "30 Aug 2022",
-    time: "04:00PM",
-  },
+//   {
+//     avatar: image1,
+//     name: "Ebuka & Sons International",
+//     email: "ebuka&sons@gmail.com",
+//     sale: 67,
+//     vale: "₦ 700,000,00",
+//     // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
+//     date: "30 Aug 2022",
+//     time: "04:00PM",
+//   },
 
-  {
-    avatar: image1,
-    name: "Ebuka & Sons International",
-    email: "ebuka&sons@gmail.com",
-    sale: 67,
-    vale: "₦ 700,000,00",
-    // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
-    date: "30 Aug 2022",
-    time: "04:00PM",
-  },
+//   {
+//     avatar: image1,
+//     name: "Ebuka & Sons International",
+//     email: "ebuka&sons@gmail.com",
+//     sale: 67,
+//     vale: "₦ 700,000,00",
+//     // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
+//     date: "30 Aug 2022",
+//     time: "04:00PM",
+//   },
 
-  {
-    avatar: image1,
-    name: "Ebuka & Sons International",
-    email: "ebuka&sons@gmail.com",
-    sale: 67,
-    vale: "₦ 700,000,00",
-    // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
-    date: "30 Aug 2022",
-    time: "04:00PM",
-  },
+//   {
+//     avatar: image1,
+//     name: "Ebuka & Sons International",
+//     email: "ebuka&sons@gmail.com",
+//     sale: 67,
+//     vale: "₦ 700,000,00",
+//     // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
+//     date: "30 Aug 2022",
+//     time: "04:00PM",
+//   },
 
-  {
-    avatar: image1,
-    name: "Ebuka & Sons International",
-    email: "ebuka&sons@gmail.com",
-    sale: 67,
-    vale: "₦ 700,000,00",
-    // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
-    date: "30 Aug 2022",
-    time: "04:00PM",
-  },
+//   {
+//     avatar: image1,
+//     name: "Ebuka & Sons International",
+//     email: "ebuka&sons@gmail.com",
+//     sale: 67,
+//     vale: "₦ 700,000,00",
+//     // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
+//     date: "30 Aug 2022",
+//     time: "04:00PM",
+//   },
 
-  {
-    avatar: image1,
-    name: "Ebuka & Sons International",
-    email: "ebuka&sons@gmail.com",
-    sale: 67,
-    vale: "₦ 700,000,00",
-    // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
-    date: "30 Aug 2022",
-    time: "04:00PM",
-  },
-];
+//   {
+//     avatar: image1,
+//     name: "Ebuka & Sons International",
+//     email: "ebuka&sons@gmail.com",
+//     sale: 67,
+//     vale: "₦ 700,000,00",
+//     // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
+//     date: "30 Aug 2022",
+//     time: "04:00PM",
+//   },
+// ];
 
-const InventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isLoading}) => {
+const InventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isLoading, status}) => {
   return (
     <div id="tableContainer">
       <div
@@ -170,10 +173,10 @@ const InventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isLoading
               </th>
             </tr>
           </thead>
-          <tbody>
-            {isLoading ? (
+          <tbody className=" h-[25rem]">
+            {inventoryData.length === 0 ? (<div className="relative right-[180%] left-[180%] pt-40 text-2xl font-bold text-gray-600">Empty</div>): (isLoading ? (
         <div 
-        className="text-center mt-28 relative lg:left-[144%] lg:right[144%]"
+        className="text-center mt-28 relative lg:left-[144%] lg:right[144%] h-[30rem]"
         >
            <ColorRing  
             visible={true}
@@ -187,7 +190,7 @@ const InventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isLoading
            />
           <p>Loading vendors...</p>
         </div>
-      ): (inventoryData?.map((d, index) => (
+      )  : (inventoryData?.map((d, index) => (
               <tr key={index} id={`row_${index}`} className="cursor-pointer">
                 <td id={`companyData_${index}`}>
                   <div
@@ -248,7 +251,7 @@ const InventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isLoading
                 >
                   {d.transactionValue}
                 </td>
-              </tr>
+              </tr>)
             )))}
           </tbody>
         </table>

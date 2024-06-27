@@ -5,10 +5,7 @@ interface CardProp {
   totalNumberOfAgents: number
   totalNumberOfProductsSold: number
   totalOrderValue: number
-  totalNumberOfPartOrdered: number,
-  totalNumberOfAgent: number,
-  totalTransactionValue: number,
-  totalNumberOfVendor: number,
+ 
 }
 
 interface CardProps {
@@ -18,33 +15,25 @@ interface CardProps {
 const Index:React.FC<CardProps> = ({cardField}) => {
   const cardProps = [
     {
-      total: "Total number of parts ordered",
-      amount: cardField.totalNumberOfPartOrdered,
-      percentage: 32,
-      onClick: () => {
-        console.log("View total number of parts ordered");
-      },
-    },
-    {
       total: "Total number of agents",
-      amount: cardField.totalNumberOfAgent || cardField.totalNumberOfAgents,
-      percentage: 10,
+      amount: cardField.totalNumberOfAgents,
+      percentage: 0,
       onClick: () => {
         console.log("View total number of agents");
       },
     },
     {
       total: "Total transaction value",
-      amount: cardField.totalTransactionValue || cardField.totalOrderValue,
-      percentage: 59,
+      amount:cardField.totalOrderValue,
+      percentage: 0,
       onClick: () => {
         console.log("View total transaction value");
       },
     },
     {
       total: "Total number of Product sold",
-      amount: cardField.totalNumberOfVendor || cardField.totalNumberOfProductsSold,
-      percentage: 43,
+      amount:cardField.totalNumberOfProductsSold,
+      percentage: 0,
       onClick: () => {
         console.log("View total number of vendors");
       },
