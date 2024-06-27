@@ -16,7 +16,6 @@ interface Overview {
 function Overview() {
   const {data, isError, isLoading} = useGetOverviewOrderTableQuery({});
   const [overViewList, setOverviewList] = useState<Overview[]>([]);
-  const [totalElements, setTotalElements] = useState(0)
 
   useEffect(()=>{
     if(data && Array.isArray(data.data)){
@@ -49,7 +48,7 @@ function Overview() {
       <Header
         subtitle={`Keep track of your orders on meca`}
         title={`Orders`}
-        amount={"94585484"}
+        amount={overViewList.length}
       />
       <OverviewTable overviewList={overViewList} isLoading={isLoading}/>
     </>
