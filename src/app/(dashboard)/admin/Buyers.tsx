@@ -79,5 +79,4 @@ function Buyers() {
     </>
   );
 }
-
 export default Buyers;
