@@ -9,6 +9,7 @@ import Image from "next/image";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import { ColorRing } from "react-loader-spinner";
+import { format } from "../../../../../components/utils";
 
 
 
@@ -178,10 +179,10 @@ const VendorTable: React.FC<VendorTableProps>  = ({vendorList, isLoading}) => {
               <th id="dateTimeJoinedHeader">Date & time joined</th>
             </tr>
           </thead>
-          <tbody>
-             {isLoading ? (
+          <tbody className=" h-[25rem]">
+             { isLoading ? (
         <div 
-        className="text-center mt-28 relative lg:left-[188%] lg:right[188%]"
+        className="text-center mt-28 relative lg:left-[188%] lg:right[188%] h-[30rem]"
         >
            <ColorRing  
             visible={true}
@@ -195,10 +196,10 @@ const VendorTable: React.FC<VendorTableProps>  = ({vendorList, isLoading}) => {
            />
           <p>Loading vendors...</p>
         </div>
-      ) :(vendorList?.map((d, index) => {
+      ) : (vendorList.length === 0 ? (<div className="relative right-[90%] left-[90%] pt-40 text-2xl font-bold text-gray-600">No data in the Table yet</div>) :(vendorList?.map((d, index) => {
               const [date, time] = d.dateJoined.split("T");
               const formattedTime = time.split(".")[0]; 
-
+              const transactionValue = format(d.transactionValue);
               return (
                 <tr key={index} id={`row_${index}`} className="cursor-pointer">
                   <td id={`companyData_${index}`}>
@@ -238,7 +239,7 @@ const VendorTable: React.FC<VendorTableProps>  = ({vendorList, isLoading}) => {
                     className={`text-[0.88rem] py-[1rem] px-[3.13rem] truncate`}
                     id={`transactionValue_${index}`}
                   >
-                    {d.transactionValue}
+                    {transactionValue}
                   </td>
                   <td
                     className={`text-[0.88rem] py-[1rem] px-[3.13rem] truncate`}
@@ -252,7 +253,7 @@ const VendorTable: React.FC<VendorTableProps>  = ({vendorList, isLoading}) => {
                           precision={0.5}
                         />
                       </Stack>
-                      <p className="mt-[2px]">{d.ratings}</p>
+                      <p className="mt-[2px]"></p>
                     </div>
                   </td>
 
@@ -268,7 +269,7 @@ const VendorTable: React.FC<VendorTableProps>  = ({vendorList, isLoading}) => {
                   </td>
                 </tr>
               );
-            }))}
+            })))}
           </tbody>
         </table>
       </div>

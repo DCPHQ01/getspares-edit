@@ -9,6 +9,8 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+
+
 export const formatAmount = (price: string | number) => {
   if (price) {
     return new Intl.NumberFormat("en-US", {
@@ -88,4 +90,15 @@ export const formatAmount2= (price: string | number) => {
   } else {
       return "₦0.00"; 
   }
+};
+ 
+export const format = (price: string | number) => {
+    if (price !== undefined && price !== null) {
+        return new Intl.NumberFormat("en-US", {
+            style: 'currency',
+            currency: 'NGN',
+        }).format(Number(price));
+    } else {
+        return "₦0.00"; 
+    }
 };
