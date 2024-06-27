@@ -22,6 +22,7 @@ import {
 function Agents() {
   const [page, setPage] = useState(0)
   const [size, setSize] = useState(10);
+  const [totalElements, setTotalElements] = useState(0);
   const [first, setFirst] = useState(false);
   const [last, setLast] = useState(false);
   const { data, isLoading, isError} = useGetMecaAdminAgentQuery({page:page, size:size })
@@ -37,6 +38,7 @@ function Agents() {
       setLast(lists.last)
       setPage(data.data?.pageable.pageNumber)
       setSize(lists.pageable?.pageSize)
+      setTotalElements(lists.totalElements)
     }
   }, [data]);
 
