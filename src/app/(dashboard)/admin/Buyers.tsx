@@ -41,11 +41,7 @@ function Buyers() {
     if (currentPage * size < totalElement) {
       setCurrentPage((prevPage) => prevPage + 1);
     }
-
-
-  
-    
-
+  }
  
   return (
     <>
@@ -78,6 +74,5 @@ function Buyers() {
       </div>
     </>
   );
-}
-
+} 
 export default Buyers;

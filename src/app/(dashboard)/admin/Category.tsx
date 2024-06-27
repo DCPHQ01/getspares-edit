@@ -1,5 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import Header from "../../dashboard/components/ui/header";
+import Avatar from "@mui/material/Avatar";
+
 import SearchBox from "../../dashboard/components/ui/searchbox";
 import PeriodRadios from "../../dashboard/components/ui/periodradios";
 import AddButton from "../../dashboard/components/ui/addbutton";
@@ -22,6 +24,32 @@ import {
 import { TextField } from "@mui/material";
 import { ColorRing } from "react-loader-spinner";
 import { uploadImage } from "../../../components/utils";
+
+function stringToColor(string: string) {
+  let hash = 0;
+  let i;
+
+  for (i = 0; i < string.length; i += 1) {
+    hash = string.charCodeAt(i) + ((hash << 5) - hash);
+  }
+
+  let color = "#";
+
+  for (i = 0; i < 3; i += 1) {
+    const value = (hash >> (i * 8)) & 0xff;
+    color += `00${value.toString(16)}`.slice(-2);
+  }
+  return color;
+}
+
+function stringAvatar(name: string) {
+  return {
+    sx: {
+      bgcolor: stringToColor(name),
+    },
+    children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+  };
+}
 
 interface Category {
   id: string;
@@ -228,6 +256,7 @@ function Category() {
                   className="w-full px-3 py-2 border rounded-md flex flex-col items-center justify-center cursor-pointer"
                 >
                   <MdPhotoLibrary className="text-gray-600 text-7xl" />
+                  {/* <Avatar {...stringAvatar('Moyin Tola')}/> */}
                 </div>
               )}
 

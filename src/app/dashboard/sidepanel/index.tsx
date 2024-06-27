@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { paths } from "../../../path/paths";
 import {
   MdBusinessCenter,
   MdCategory,
@@ -133,7 +134,7 @@ function Index({ sidePanelRoles }: any) {
       >
         <h1
           id="sidePanelTitle"
-          className={`text-[#0852C0] mx-[2.19rem] text-[1.9rem] font-[700]`}
+          className={`text-[#0852C0] mx-[2.19rem] cursor-pointer text-[1.9rem] font-[700]`}
           onClick={handleBackToHome}
         >
           e-meca
