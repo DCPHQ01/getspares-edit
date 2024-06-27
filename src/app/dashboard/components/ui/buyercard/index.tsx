@@ -44,7 +44,7 @@ const Index = () => {
       {imageLists.map((detail, index) => (
         <div key={index} className="lg:w-[22rem]">
           <div className="px-[1.2rem] py-[1.3rem] bg-[#F8FAFC] flex justify-center rounded-[8px] mb-[1rem]">
-            <img src={detail.image || engine} alt="engine" />
+            <img src={detail.image} alt="engine" />
           </div>
           <div className="flex justify-between mb-[1rem]">
             {/* <p>{detail.name}</p> */}
