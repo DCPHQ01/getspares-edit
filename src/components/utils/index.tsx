@@ -68,6 +68,29 @@ export const uploadSeveralImages = async (
     );
   });
 };
+
+export const formatAmount2= (price: string | number) => {
+  if (price !== undefined && price !== null) {
+      let amountString = price.toString().trim();
+
+      if (amountString.startsWith("NGN")) {
+          amountString = amountString.replace("NGN", "").trim();
+      }
+
+      const amountNumber = Number(amountString);
+      
+      if (!isNaN(amountNumber)) {
+          return new Intl.NumberFormat("en-US", {
+              style: 'currency',
+              currency: 'NGN',
+          }).format(amountNumber);
+      } else {
+          return "Invalid amount";
+      }
+  } else {
+      return "₦0.00"; 
+  }
+};
  
 export const format = (price: string | number) => {
     if (price !== undefined && price !== null) {

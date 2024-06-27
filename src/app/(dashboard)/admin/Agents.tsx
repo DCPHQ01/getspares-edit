@@ -60,7 +60,7 @@ function Agents() {
         <Header
           subtitle={`Keep track of agents and their service ratings.`}
           title={`Agents`}
-          amount={`500,607`}
+          amount={totalElements}
         />
         <div className={`my-[1.25rem] flex justify-end`}>
           <SearchBox placeholder={`Search for agent`} />

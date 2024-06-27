@@ -191,7 +191,7 @@ const InventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isLoading
             colors={["#000000", "#000000", "#000000", "#000000", "#000000"]}
 
            />
-          <p>Loading vendors...</p>
+          <p>Loading Inventory Table...</p>
         </div>
       ) : inventoryData.length === 0 ? (
       <div className="relative right-[100%] left-[100%] flex flex-col justify-center items-center pt-32 leading-10">

@@ -174,7 +174,7 @@ const VendorTable: React.FC<VendorTableProps>  = ({vendorList, isLoading}) => {
         className={`my-[1.25rem] w-full max-h-[34rem] overflow-y-auto scrollbar-none ${styles.table}`}
       >
         <table id="adminTable" className={`w-full `}>
-          <thead>
+          <thead className="">
             <tr className="truncate">
               <th id="companyNameHeader">Company name</th>
               <th id="totalItemsSoldHeader">Total items sold</th>
