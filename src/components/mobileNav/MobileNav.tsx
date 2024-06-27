@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 // import MobileDropdownViewPage from "../../pages/MobileDropdownView/page";
 // import Filter from "../../../components/filters/Filter";
-// import MobileDropdownBrandPage from "../../pages/MobileDropdownBrand/page";
+import MobileDropdownBrandPage from "../../pages/MobileDropdownBrand/page";
 import {
   MdChevronRight,
   MdClear,
@@ -35,7 +35,7 @@ const mobileNavData = [
     icon: <MdExpandMore size={24} className="text-mecaGoBackArrow" />,
     icon2: <MdChevronRight size={24} className="text-mecaGoBackArrow" />,
     link: "",
-    // mobileNavHeader: <MobileDropdownBrandPage />,
+    mobileNavHeader: <MobileDropdownBrandPage />,
   },
 
   {
