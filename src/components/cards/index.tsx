@@ -12,7 +12,7 @@ interface CardProp {
 }
 
 interface CardProps {
-     cardField: CardProp;
+ cardField: CardProp;
 }
 
 const Index:React.FC<CardProps> = ({cardField}) => {

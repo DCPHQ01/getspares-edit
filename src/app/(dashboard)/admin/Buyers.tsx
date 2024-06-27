@@ -7,12 +7,12 @@ import { useGetMecaAdminBuyerQuery } from "../../../redux/features/dashboard/mec
 
 
 function Buyers() {
-  const [page, setPage] = useState(1);
-  const [size, setSize] = useState(5);
+  const [page, setPage] = useState(0);
+  const [size, setSize] = useState(10);
   const {data, isLoading, isError, error} = useGetMecaAdminBuyerQuery({page, size});
   console.log("data for buyers", data);
 
-  
+
 
   const [buyerList, setBuyerList] = useState([]);
   useEffect(() => {
@@ -30,14 +30,18 @@ function Buyers() {
 
   console.log("The BuyerList:", buyerList);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  const [currentPage, setCurrentPage] = useState(1); // State for current page
+  const [itemsPerPage] = useState(10);
 
-  // if (isError) {
-  //   return <div>Error fetching data: {error?.message}</div>;
-  // }
+  const handlePreviousPage = () => {
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+  };
 
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+ 
   return (
     <>
       <Header
@@ -51,10 +55,15 @@ function Buyers() {
       <BuyerTable data={buyerList} isLoading={isLoading} isError={isError}/>
 
       <div className="flex justify-end mt-10 text-mecaBluePrimaryColor font-bold text-lg">
-        {/* <button className="flex gap-x-2">
+        <button className="flex gap-x-2"
+          onClick={handlePreviousPage} 
+          disabled={page === 0}>
             <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
-          </button> */}
-        <button className="flex gap-x-2">
+        </button>
+
+        <button className="flex gap-x-2"
+          onClick={handleNextPage} 
+        >
           Next
           <span>
             <MdChevronRight className="mt-[2px] text-2xl" />{" "}
