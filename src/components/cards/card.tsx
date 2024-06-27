@@ -36,13 +36,8 @@ function Card({ total, amount, percentage, onClick }: CardProps) {
           onClick={onClick}
           className={`font-[600] text-[14px] text-[#095AD3] leading-[20px]`}
         >
-<<<<<<< HEAD
-       
-        </button>
-=======
           View all
         </button> */}
->>>>>>> 40245a68be0518195005c0a7aa08e73b7af0a0ac
       </div>
     </div>
   );
