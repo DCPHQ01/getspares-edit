@@ -41,7 +41,7 @@ function Buyers() {
     if (currentPage * size < totalElement) {
       setCurrentPage((prevPage) => prevPage + 1);
     }
-  };
+
 
   
     
