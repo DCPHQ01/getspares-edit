@@ -23,6 +23,7 @@ function VendorInventory() {
   const [inventory, setInventory] = useState<InventoryData[]>([]);
   const [datas, setdatas] = useState();
   const [totalPages, setTotalPages] = useState(0);
+  const [totalElement, setTotolElement] = useState(0);
   const [hasNext, setHasNext] = useState(false);
   const [hasPrevious, setHasPrevious] = useState(false);
   const [isPaginationLoading, setIsPaginationLoading] = useState(false);
@@ -44,6 +45,7 @@ function VendorInventory() {
       setTotalPages(lists.totalPages);
       setHasNext(lists.hasNext);
       setHasPrevious(lists.hasPrevious);
+      setTotalPages(lists.totalElements);
       setIsPaginationLoading(false)
 
     }  catch (error) {
@@ -80,7 +82,7 @@ function VendorInventory() {
         <Header
           subtitle={`Keep track of how each item is performing.`}
           title={`Inventory`}
-          amount={`430,607`}
+          amount={totalElement}
         />
         <Link className="font-semibold" href={paths.toAddProductDashboard()}>
           <Addbutton title={`Add product`} />
@@ -92,12 +94,9 @@ function VendorInventory() {
       </div>
 
       <div className="">
-      {inventory.length === 0 ? (
-          <div className="text-center text-gray-500">The table content is empty</div>
-        ) : (
+      
           <VendorInventoryTable inventoryData={inventory} isLoading={isLoading} />
-        )}
-
+        
         <div className="flex justify-between mt-10 text-mecaBluePrimaryColor font-bold text-lg">
          { hasPrevious ? ( <button 
           className={`

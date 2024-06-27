@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { title } from "process";
 import ViewItemDetails from "./[viewDetailsInventory]/page";
 import { ColorRing } from "react-loader-spinner";
+import { MdInventory2 } from 'react-icons/md';
 
 interface InventoryData {
   categoryName?: string;
@@ -240,7 +241,15 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isL
            />
           <p>Loading Inventory...</p>
         </div>
-      ): (inventoryData?.map((d, index) => {
+      ): ( inventoryData.length === 0 ? (<div className="relative right-[100%] left-[100%] flex flex-col justify-center items-center pt-32 leading-10">
+      <div className=" h-28">
+      <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
+      <MdInventory2 style={{fontSize:"2rem", color:"#0852C0"}}/>
+      </div>
+      </div>
+      <h1 className="text-xl">No item here yet</h1>
+      <h1 className="text-gray-500">All your item will appear here</h1>
+      </div>) : ( inventoryData?.map((d, index) => {
         let date = '';
         let time = '';
     
@@ -359,7 +368,7 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isL
                   </Menu>
                 </td>
               </tr>
-            )}))}
+            )})))}
           </tbody>
         </table>
       </div>

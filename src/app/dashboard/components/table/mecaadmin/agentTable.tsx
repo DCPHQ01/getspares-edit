@@ -4,6 +4,7 @@ import styles from "../styles.module.css";
 import dayjs from "dayjs";
 import { AccountCircle } from '@mui/icons-material';
 import { ColorRing } from "react-loader-spinner";
+import { MdBusinessCenter } from "react-icons/md";
 
 interface Agent {
   firstName: string;
@@ -51,7 +52,7 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList,isLoading }) => {
 
               {isLoading? ( 
                 <div 
-                className="text-center mt-28 relative lg:left-[210%] lg:right[210%] md:left-[213%] md:right[213%] sm:left-[21"
+                className="text-center mt-28 relative lg:left-[208%] lg:right[208%] md:left-[213%] md:right[213%] sm:left-[21"
                 >
                    <ColorRing  
                     visible={true}
@@ -65,7 +66,15 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList,isLoading }) => {
                    />
                   <p>Loading Agent........</p>
                 </div>
-              ) :(
+              ) :  agentList?.length === 0 ? (<div className="relative right-[100%] left-[100%] flex flex-col justify-center items-center pt-32 leading-10">
+              <div className=" h-28">
+            <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
+            <MdBusinessCenter style={{fontSize:"2rem", color:"#0852C0"}}/>
+            </div>
+            </div>
+            <h1 className="text-xl">No agent here yet</h1>
+            <h1 className="text-gray-500">All your agent will appear here</h1>
+              </div>) :(
                  agentList?.map((d, index) => {
                 const { date, time } = formatDateTime(d.dateAdded);
                 return (
