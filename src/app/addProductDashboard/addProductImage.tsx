@@ -7,11 +7,31 @@ import { paths } from "../../path/paths";
 import { Router } from "next/router";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
+import { Modal } from "@mui/base";
+import { Box } from "@mui/material";
+
+const style = {
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  // border: '1px solid #000',
+  boxShadow: 24,
+  p: 4,
+  borderRadius: "8px",
+};
 const AddProductImage = () => {
   const router = useRouter();
   const [error, setError] = useState("");
   const [addProductdata, { isLoading }] = useCreateProductMutation();
-
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const handleDashBoard = () => {
+    router.push(paths.toDashboard());
+  };
   const basicInfoData =
     typeof window !== "undefined" && window.sessionStorage
       ? JSON.parse(sessionStorage.getItem("basicInfoValues") || "{}")
@@ -118,6 +138,26 @@ const AddProductImage = () => {
               "Publish now"
             )}
           </button>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <div className="flex flex-col justify-center items-center gap-4">
+                <p id="modal-modal-title" className="text-2xl font-nunito">
+                  Product added successfully.
+                </p>
+                <button
+                  onClick={handleDashBoard}
+                  className="text-base flex justify-center items-center bg-mecaBluePrimaryColor text-white w-40 h-10 rounded-full font-semibold "
+                >
+                  Go to dashboard
+                </button>
+              </div>
+            </Box>
+          </Modal>
         </div>
         <hr className="w-[80%] m-auto "></hr>
       </div>
