@@ -162,7 +162,7 @@ export default function MobileNav({ handleNav }: MobileNavProps) {
                 style={{ width: "98%", margin: "0px auto" }}
               >
                 <div className="" onClick={dropDownClicked}>
-                  {/* {data.mobileNavHeader} */}
+                  {data.mobileNavHeader}
                 </div>
               </div>
             )
