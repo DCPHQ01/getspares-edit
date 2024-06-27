@@ -32,6 +32,8 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         return <CalledPagesPageOnePages />;
     }
   };
+
+  
   return (
      <>
        <div id="vendorVend1">

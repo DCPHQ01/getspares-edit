@@ -5,7 +5,44 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { MdChevronLeft, MdChevronRight, MdPhotoLibrary } from "react-icons/md";
 import { paths } from "../../../path/paths";
+import { FormControl, MenuItem, Select } from "@mui/base";
+import { InputLabel } from "@mui/material";
 
+const manufacturerData = [
+  { id: 1, manufacturer: "Toyota" },
+  { id: 1, manufacturer: "Volkswagen" },
+  { id: 1, manufacturer: "BMW" },
+  { id: 1, manufacturer: "Honda" },
+  { id: 1, manufacturer: "Ford Motor" },
+  { id: 1, manufacturer: "General Motors" },
+  { id: 1, manufacturer: "Tata Motors" },
+  { id: 1, manufacturer: "Mahindra & Mahindra" },
+  { id: 1, manufacturer: "Mercedes-Benz" },
+  { id: 1, manufacturer: "Nissan" },
+  { id: 1, manufacturer: "Hyundai Motor Group" },
+  { id: 1, manufacturer: " Audi" },
+  { id: 1, manufacturer: "Lexus" },
+  { id: 1, manufacturer: "Chevrolet" },
+  { id: 1, manufacturer: "Porshe" },
+  { id: 1, manufacturer: "Fiat Chrysler Automobiles" },
+  { id: 1, manufacturer: "Peugeot S.A" },
+  { id: 1, manufacturer: "Volvo" },
+  { id: 1, manufacturer: " Mazda" },
+  { id: 1, manufacturer: " Kia motors" },
+  { id: 1, manufacturer: "Opel" },
+  { id: 1, manufacturer: "Infinit" },
+  { id: 1, manufacturer: "Chysler" },
+  { id: 1, manufacturer: "Jeep" },
+  { id: 1, manufacturer: "GAC" },
+  { id: 1, manufacturer: "DAF" },
+  { id: 1, manufacturer: "IVECO" },
+  { id: 1, manufacturer: "MAN" },
+  { id: 1, manufacturer: "Mahindra" },
+  { id: 1, manufacturer: "DAEWOO" },
+  { id: 1, manufacturer: "LAND ROVER" },
+  { id: 1, manufacturer: "ISUZU" },
+  { id: 1, manufacturer: "ACURA" },
+];
 const CalledPagesPageFivePages = () => {
   const [productName, setProductName] = useState("");
   const [price, setPrice] = useState("");
@@ -98,22 +135,40 @@ const CalledPagesPageFivePages = () => {
                   noValidate
                   autoComplete="off"
                 >
-                  <Box>
-                    <TextField
-                      required={true}
-                      id="filledbasic"
-                      label="Manufacturer"
-                      variant="filled"
-                      type="text"
+                  <FormControl
+                    variant="filled"
+                    sx={{
+                      borderBottom: "none",
+                      width: "470px",
+                    }}
+                  >
+                    <InputLabel id="demo-simple-select-filled-label">
+                      Category
+                    </InputLabel>
+                    <Select
+                      id="demo-simple-select-filled"
                       name="manufacturer"
                       placeholder="Enter"
-                      InputProps={{ disableUnderline: true }}
                       className=" w-[29.4rem] mb-5 "
                       sx={{ backgroundColor: "porcelain" }}
                       value={technicalDetails.manufacturer}
-                      onChange={handleTechnicalDetails}
-                    />
-                  </Box>
+                      // onChange={handleTechnicalDetails}
+                      // renderValue={(selected) => {
+                      //   if (!technicalDetails.manufacturer) {
+                      //     return <p>Select a category</p>;
+                      //   }
+                      //   return selected;
+                      // }}
+                    >
+                      {manufacturerData.map(
+                        (category): JSX.Element => (
+                          <MenuItem value={category.id}>
+                            {category.manufacturer}
+                          </MenuItem>
+                        )
+                      )}
+                    </Select>
+                  </FormControl>
 
                   <Box>
                     <TextField

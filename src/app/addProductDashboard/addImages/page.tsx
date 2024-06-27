@@ -42,162 +42,38 @@ import {
 } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import { paths } from "../../../path/paths";
+import { uploadImage, uploadSeveralImages } from "../../../components/utils";
 
 const CalledPagesPageTwoPages = () => {
-  const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
-
-  const [addresses, setAddresses] = useState<Address[]>([]);
-  const [inputValues, setInputValues] = useState<string[]>([""]);
-
-  const handleInputChange = (index: number, value: string) => {
-    const newInputValues = [...inputValues];
-    newInputValues[index] = value;
-    setInputValues(newInputValues);
-  };
-
-  const handleAddAddress = () => {
-    setInputValues([...inputValues, ""]);
-  };
-  const handleSaveAddress = () => {
-    const newAddresses: Address[] = inputValues.map((inputValue) => {
-      const parts = inputValue.split(",").map((part) => part.trim());
-      if (parts.length === 4) {
-        const [streetNumber, town, city, state] = parts;
-        return { streetNumber, town, city, state };
-      } else {
-        // Handle invalid input
-        console.error("Invalid address format");
-        return { streetNumber: "", town: "", city: "", state: "" };
-      }
-    });
-    setAddresses([...addresses, ...newAddresses]);
-  };
-
-  const [open, setOpen] = React.useState(false);
-
-  const handleClick = () => {
-    setOpen(true);
-  };
-
-  const handleClose = (
-    event?: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen(false);
-  };
-  // const [emailError, setEmailError] = useState("");
-  const [email, setEmail] = useState("");
-  const [address, setAddress] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  // const [addressError, setAddressError] = useState("");
-  // const [phoneError, setPhoneError] = useState("");
-  const [image, setImage] = useState<File | null>(null);
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
-
-  const addressRegex = /^.{5,}$/; // Example: Address should be at least 5 characters
-  const phoneRegex = /^\d{11}$/; // Example: Phone number should be 11 digits
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Email validation regex
-
-  const handleAddressChange = () => {
-    if (!addressRegex.test(address)) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        address: "Address must be at least 5 characters",
-      }));
-    } else {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        address: "",
-      }));
-    }
-  };
-
-  const handlePhoneChange = () => {
-    if (!phoneRegex.test(phoneNumber)) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        phoneNumber: "Phone number must be 11 digits",
-      }));
-    } else {
-      setErrors((prevErrors) => ({ ...prevErrors, phoneNumber: "" }));
-    }
-  };
-
-  const handleEmailChange = () => {
-    if (!emailRegex.test(email)) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        email: "Please enter a valid email address",
-      }));
-    } else {
-      setErrors((prevErrors) => ({ ...prevErrors, email: "" }));
-    }
-  };
-
-  const validateImage = () => {
-    if (!image) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        image: "Image is required",
-      }));
-    } else {
-      setErrors((prevErrors) => ({ ...prevErrors, image: "" }));
-    }
-  };
-
-  // const router = useRouter();
-  const [input2, setInput2] = useState("");
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    handleAddressChange();
-    handlePhoneChange();
-    handleEmailChange();
-    validateImage();
-
-    if (!Object.values(errors).some((error) => error)) {
-      console.log("Form submitted successfully");
-    }
-  };
-
-  // const [formImage, setFormImage] = useState([]);
-
-  // const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const file = event.target.files?.[0];
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-  //       setFormImage(reader.result as string);
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
-
-  const [formImage, setFormImage] = useState<string[]>([]);
-
   const [productName, setProductName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [images, setImages] = useState<string[]>([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [imagesUrl, setImagesUrl] = useState<string[]>([] || "");
 
-  // const handleImageUpload = (newImage: string) => {
-  //   setFormImage([newImage, ...formImage]);
-  // };
   const handleImageUpload: React.ChangeEventHandler<HTMLInputElement> = (
     event
   ) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImages([reader.result as string, ...images]);
-      };
-      reader.readAsDataURL(file);
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const newImages: string[] = [];
+      const newImageFiles: File[] = Array.from(files);
+      const newImagesUrl: string[] = [];
+
+      newImageFiles.forEach((file) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          newImages.push(reader.result as string);
+          if (newImages.length === newImageFiles.length) {
+            // Ensuring all images are loaded before updating the state
+            setImages((prevImages) => [...newImages, ...prevImages]);
+          }
+        };
+        reader.readAsDataURL(file);
+      });
+
+      uploadSeveralImages(newImageFiles, handleImage);
     }
   };
 
@@ -205,7 +81,6 @@ const CalledPagesPageTwoPages = () => {
 
   const handleImageClick = () => {
     fileInputRef.current?.click();
-    console.log("form image before being stored", formImage);
   };
 
   const handleImageRemove = (index: number) => {
@@ -229,7 +104,9 @@ const CalledPagesPageTwoPages = () => {
       prevIndex > 0 ? prevIndex - 1 : images.length - 1
     );
   };
-
+  const handleImage = (nf: string[]) => {
+    setImagesUrl([...imagesUrl, ...nf]);
+  };
   const handleViewNextImages = () => {
     setCurrentImageIndex((prevIndex) =>
       prevIndex < images.length - 1 ? prevIndex + 1 : 0
@@ -241,7 +118,7 @@ const CalledPagesPageTwoPages = () => {
   };
   const handleNextPage = () => {
     router.push(paths.toAddProductDashboardSpecifications());
-    sessionStorage.setItem("clickedImage", JSON.stringify(images));
+    sessionStorage.setItem("clickedImage", JSON.stringify(imagesUrl));
   };
   useEffect(() => {
     const storedBasicInfoValues = sessionStorage.getItem("basicInfoValues");
@@ -257,6 +134,7 @@ const CalledPagesPageTwoPages = () => {
   }, []);
 
   console.log("file images ", images);
+  console.log("set images ", imagesUrl);
 
   return (
     <div className="" style={{ width: "48%" }} id="pageTwo1">
@@ -283,7 +161,6 @@ const CalledPagesPageTwoPages = () => {
                   component="form"
                   className="relative flex gap-x-16 flex-col-reverse lg:flex-row lg:items-start   "
                   noValidate
-                  onSubmit={handleSubmit}
                   autoComplete="off"
                 >
                   <Box>
@@ -402,39 +279,12 @@ const CalledPagesPageTwoPages = () => {
                         type="file"
                         multiple
                         accept="image/*"
-                        // onChange={handleImageChange}
                         onChange={handleImageUpload}
                         ref={fileInputRef}
                         className="hidden w-full px-3 py-2 "
                       />
                     </div>
 
-                    {/* {images && formImage.length > 0 ? (
-                      <div className="flex justify-center">
-                        <div className="rounded-full   ">
-                          <img
-                            src={formImage[0]}
-                            alt="Uploaded"
-                            className="h-[283px] w-[28rem] object-cover"
-                          />
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="flex flex-col  items-center justify-center">
-                        <div className="border  rounded-full mt-20 h-32 w-32 flex justify-center ">
-                          <div
-                            id="prevImgState"
-                            onClick={handleImageClick}
-                            className="w-full px-2 py-2  rounded-md pt-9 cursor-pointer border-none"
-                          >
-                            <MdPhotoLibrary
-                              className="text-gray-600 text-7xl w-10 m-auto pb-6 "
-                              style={{ backgroundColor: "porcelain" }}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    )} */}
                     {images && images.length > 0 ? (
                       <div className="relative flex justify-center">
                         <div className="rounded-full">

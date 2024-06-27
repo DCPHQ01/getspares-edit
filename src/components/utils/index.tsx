@@ -42,27 +42,53 @@ export const uploadImage = async (
     });
 };
 
+// export const uploadSeveralImages = async (
+//   files: File[],
+//   setImages: (url: string[]) => void
+// ) => {
+//   let image_url: string[] = [];
+//   const formData = new FormData();
+//   files.forEach(async (file) => {
+//     formData.append("file", file);
+//     formData.append("upload_preset", my_preset);
+//     const urls = await Promise.all(
+//       files.map(async (file) => {
+//         const formData = new FormData();
+//         formData.append("file", file);
+//         formData.append("upload_preset", my_preset);
+//         const res = await fetch(cloudinary_url, {
+//           method: "POST",
+//           body: formData,
+//         });
+//         const data = await res.json();
+//         image_url.push(data.secure_url);
+//         return setImages(image_url);
+//       })
+//     );
+//   });
+// };
+
 export const uploadSeveralImages = async (
   files: File[],
   setImages: (url: string[]) => void
 ) => {
-  let image_url: string[] = [];
-  const formData = new FormData();
-  files.forEach(async (file) => {
+  let image_urls: string[] = [];
+
+  const uploadPromises = files.map(async (file) => {
+    const formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", my_preset);
-    const urls = await Promise.all(
-      files.map(async (file) => {
-        const formData = new FormData();
-        formData.append("file", file);
-        formData.append("upload_preset", "vnqoc9iz");
-        const res = await fetch(cloudinary_url, {
-          method: "POST",
-          body: formData,
-        });
-        const data = await res.json();
-        return data.secure_url;
-      })
-    );
+
+    const res = await fetch(cloudinary_url, {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await res.json();
+    return data.secure_url;
   });
+
+  image_urls = await Promise.all(uploadPromises);
+
+  setImages(image_urls);
 };

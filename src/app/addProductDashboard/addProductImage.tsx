@@ -4,7 +4,12 @@ import { useCreateProductMutation } from "../../redux/features/product/productsQ
 import { ColorRing } from "react-loader-spinner";
 
 import { paths } from "../../path/paths";
+import { Router } from "next/router";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 const AddProductImage = () => {
+  const router = useRouter();
+  const [error, setError] = useState("");
   const [addProductdata, { isLoading }] = useCreateProductMutation();
 
   const basicInfoData =
@@ -46,7 +51,7 @@ const AddProductImage = () => {
         description: basicInfoData.productDescription,
         categoryName: basicInfoData.productCategory,
         productCondition: "NEW",
-        productImages: ["string"],
+        productImages: [...imagesData],
         productInformation: {
           manufacturer: detailsData.manufacturer,
           brand: detailsData.brand,
@@ -64,12 +69,16 @@ const AddProductImage = () => {
         quantity: +basicInfoData.quantity,
         tags: ["string"],
         companyName: userDetails.companyDetails[0].name,
-      });
-      if ("data" in response) {
-        console.log(response.data);
-      }
-    } catch (error) {}
+      }).unwrap();
+      router.push("/dashboard");
+    } catch (error: any) {
+      console.log(error);
+      setError(error);
+    }
   };
+  const searchParams = useSearchParams();
+  const productId = searchParams?.get("id");
+
   return (
     <div className=" z-50 fixed top-0  h-40 w-[100%]">
       <div>
@@ -85,8 +94,10 @@ const AddProductImage = () => {
 
       <div className="bg-white h-">
         <div className="pt-[3rem]  mb-3 w-[80%] m-auto flex justify-between">
-          <h1 className="text-xl font-semibold">Add new product</h1>
-
+          <h1 className="text-xl font-semibold">
+            {productId ? "Edit product" : "Add new product"}
+          </h1>
+          {error && <p className="text-red-500">{error}</p>}
           <button
             onClick={handleAddProduct}
             className="text-base flex justify-center items-center bg-mecaBluePrimaryColor text-white w-40 h-10 rounded-full font-semibold"
@@ -101,6 +112,8 @@ const AddProductImage = () => {
                 wrapperClass="color-ring-wrapper"
                 colors={["#ffff", "#ffff", "#ffff", "#ffff", "#ffff"]}
               />
+            ) : productId ? (
+              "Save"
             ) : (
               "Publish now"
             )}
