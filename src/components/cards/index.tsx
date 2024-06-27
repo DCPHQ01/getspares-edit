@@ -4,20 +4,20 @@ import { paths } from "../../path/paths";
 import { sidePanel } from "../../app/dashboard/components/utils/utils";
 
 interface CardProp {
-  totalNumberOfAgents?: number
-  totalNumberOfProductsSold?: number
-  totalOrderValue?: number
-  totalNumberOfPartOrdered?: number,
-  totalNumberOfAgent?: number,
-  totalTransactionValue?: number,
-  totalNumberOfVendor?: number,
+  totalNumberOfAgents?: number;
+  totalNumberOfProductsSold?: number;
+  totalOrderValue?: number;
+  totalNumberOfPartOrdered?: number;
+  totalNumberOfAgent?: number;
+  totalTransactionValue?: number;
+  totalNumberOfVendor?: number;
 }
 
 interface CardProps {
-     cardField: CardProp;
+  cardField: CardProp;
 }
 
-const Index:React.FC<CardProps> = ({cardField}) => {
+const Index: React.FC<CardProps> = ({ cardField }) => {
   const cardProps = [
     {
       total: "number of parts ordered",
@@ -30,7 +30,8 @@ const Index:React.FC<CardProps> = ({cardField}) => {
     {
       total: "number of agents",
 
-      amount: cardField.totalNumberOfAgent || cardField.totalNumberOfAgents || 0,
+      amount:
+        cardField.totalNumberOfAgent || cardField.totalNumberOfAgents || 0,
       percentage: 10,
 
       onClick: () => {
@@ -39,7 +40,10 @@ const Index:React.FC<CardProps> = ({cardField}) => {
     },
     {
       total: "transaction value",
-      amount: cardField.totalTransactionValue || cardField.totalOrderValue || 0,
+      amount:
+        cardField.totalTransactionValue ||
+        cardField.totalOrderValue ||
+        "₦" + 0,
       percentage: 59,
       onClick: () => {
         console.log("View total transaction value");
@@ -47,7 +51,10 @@ const Index:React.FC<CardProps> = ({cardField}) => {
     },
     {
       total: "total number of Product sold",
-      amount: cardField.totalNumberOfVendor || cardField.totalNumberOfProductsSold || 0,
+      amount:
+        cardField.totalNumberOfVendor ||
+        cardField.totalNumberOfProductsSold ||
+        0,
       percentage: 43,
       onClick: () => {
         console.log("View total number of vendors");
@@ -56,7 +63,7 @@ const Index:React.FC<CardProps> = ({cardField}) => {
   ];
   return (
     <div id="cardContainer" className={`mt-[1rem] flex justify-between w-full`}>
-      {cardProps?.map((card ,index) => (
+      {cardProps?.map((card, index) => (
         <div id={`card_${index}`} key={index}>
           <Card
             total={card.total}
@@ -68,8 +75,6 @@ const Index:React.FC<CardProps> = ({cardField}) => {
       ))}
     </div>
   );
-}
+};
 
 export default Index;
-
-

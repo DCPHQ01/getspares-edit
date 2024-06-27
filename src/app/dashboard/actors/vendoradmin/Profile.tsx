@@ -59,7 +59,10 @@ function stringAvatar(name: string) {
     sx: {
       bgcolor: stringToColor(name),
     },
-    children: `${name.split(" ").map(word => word[0]).join("")}`,
+    children: `${name
+      .split(" ")
+      .map((word) => word[0])
+      .join("")}`,
   };
 }
 
@@ -151,7 +154,7 @@ const Profile = () => {
 
               <div className="flex justify-center">
                 <Header
-                   subtitle={`${viewProfile.companyEmail}`}
+                  subtitle={`${viewProfile.companyEmail}`}
                   title={``}
                   amount={``}
                 />
@@ -200,7 +203,7 @@ const Profile = () => {
               aria-label="Description"
               name="description"
               placeholder={`${viewProfile.description}`}
-              className="  w-[100%] mb-10 "
+              className="  w-[100%] mb-5 "
               style={{
                 backgroundColor: "#EFF2F3",
                 height: "223px",
@@ -209,125 +212,30 @@ const Profile = () => {
               }}
             />
           </Box>
-          <Box className="flex gap-x-4 mb-10 ">
-            <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              id="filledbasic7"
-              label="Address1"
-              placeholder={`${viewProfile.location}`}
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] 2xl:w-[35rem] rounded"
-              sx={{ backgroundColor: "porcelain" }}
-            />
+          <div className="flex gap-x-4">
+            <div
+              className="lg:w-[364px] h-16 pl-5 pt-3 w-[100%] 2xl:w-[35rem] rounded  bg-mecaBorderColor"
+              style={{ backgroundColor: "porcelain" }}
+            >
+              <p className="text-xs text-mecaActiveIconsNavColor">Address1</p>
+              <p>{viewProfile.location}</p>
+            </div>
 
-            <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              type="url"
-              id="filledbasic7"
-              label="Address2"
-              placeholder={`${viewProfile.location}`}
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem]"
-              sx={{ backgroundColor: "porcelain" }}
-            />
-          </Box>
-          <Box className="flex gap-x-4">
-            <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              type="url"
-              id="filledbasic7"
-              label="Phone number"
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-              className=" w-[100%] mb-10 2xl:w-[35rem] rounded"
-              sx={{ backgroundColor: "porcelain" }}
-            />
-
-            {/* <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              type="url"
-              id="filledbasic7"
-              label="Agents"
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] rounded"
-              sx={{ backgroundColor: "porcelain" }}
-            /> */}
-          </Box>
-
-          <Box className="flex gap-x-4">
-            {/* <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              type="url"
-              id="filledbasic7"
-              label="Total item sold"
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] rounded"
-              sx={{ backgroundColor: "porcelain" }}
-            /> */}
-            {/* 
-            <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              type="url"
-              id="filledbasic7"
-              label="Date and time joined"
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem]"
-              sx={{ backgroundColor: "porcelain" }}
-            /> */}
-          </Box>
-
-          <Box className="flex gap-x-4">
-            {/* <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              type="url"
-              id="filledbasic7"
-              label="Out of stock"
-              variant="filled"
-              //   value={company.companyForm.website}
-              name="website"
-              InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] rounded"
-              sx={{ backgroundColor: "porcelain" }}
-            /> */}
-
-            {/* <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              type="url"
-              id="filledbasic7"
-              label="Transaction value"
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] rounded"
-              sx={{ backgroundColor: "porcelain" }}
-            /> */}
-          </Box>
-
-          {/* <Box className="flex gap-x-4">
-            <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              type="url"
-              id="filledbasic7"
-              label="Last active"
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-              className=" w-[100%] mb-10"
-              sx={{ backgroundColor: "porcelain" }}
-            />
-          </Box> */}
+            <div
+              className="lg:w-[364px] h-16 pl-5 pt-3 w-[100%] 2xl:w-[35rem] rounded  bg-mecaBorderColor"
+              style={{ backgroundColor: "porcelain" }}
+            >
+              <p className="text-xs text-mecaActiveIconsNavColor">Address2</p>
+              <p>{viewProfile.location}</p>
+            </div>
+          </div>
+          <div
+            className=" h-16 mt-5 pl-5 pt-3 w-[100%] rounded  bg-mecaBorderColor"
+            style={{ backgroundColor: "porcelain" }}
+          >
+            <p className="text-xs text-mecaActiveIconsNavColor">Email</p>
+            <p>{viewProfile.location}</p>
+          </div>
         </div>
       </div>
     </div>
