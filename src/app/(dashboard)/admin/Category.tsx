@@ -303,13 +303,13 @@ function Category() {
         />
       </div>
 
-      <CategoryTable
+      {/* <CategoryTable
         categoryList={getMecaCategory?.data.content}
         isLoading={isFetching}
-      />
-
-      {/* <CategoryTable categoryList={getMecaCategory?.data.content} isLoading={isFetching}
       /> */}
+
+      <CategoryTable categoryList={categoryList} isLoading={isLoading}
+      />
 
       <div className="flex gap-[89%] md:gap-[85%] mt-10 text-mecaBluePrimaryColor font-bold text-lg">
         <button
