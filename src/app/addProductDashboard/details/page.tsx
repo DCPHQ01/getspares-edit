@@ -155,7 +155,10 @@ const CalledPagesPageFivePages = () => {
                     >
                       {manufacturerData.map(
                         (category): JSX.Element => (
-                          <MenuItem value={category.id}>
+                          <MenuItem
+                            key={category.id}
+                            value={category.manufacturer}
+                          >
                             {category.manufacturer}
                           </MenuItem>
                         )

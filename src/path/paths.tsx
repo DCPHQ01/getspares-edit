@@ -41,7 +41,7 @@ paths` object provides a centralized way to manage and use route paths in the ap
  */
 export const paths = {
   toReusableMobileNav: () => "/reusables/mobileNav",
-  toAddProductDashboard: () => "/addProductDashboard",
+  toAddProductDashboard: () => "/addProductDashboard/basicInfo",
   toModalPageVendor: () => "/modalPage/vendor",
   toCart: () => "/cart",
   toForgotPassword: () => "/forgot-password",
