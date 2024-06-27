@@ -192,63 +192,38 @@ const Profile = () => {
           </span>
         </div>
 
-        <div className="border-2 lg:w-[60%] mt-10 w-[100%] h-screen p-5 rounded-xl overflow-auto scrollbar-none">
-          <Box>
-            <TextareaAutosize
-              readOnly={true}
-              required={true}
-              id="filledbasic6"
-              aria-label="Description"
-              name="description"
-              placeholder={`${viewProfile.description}`}
-              className="  w-[100%] mb-10 -z-50"
-              style={{
-                backgroundColor: "#EFF2F3",
-                height: "223px",
-                borderColor: "none",
-                padding: "20px",
-              }}
-            />
-          </Box>
-          <Box className=" gap-x-4 mb-10">
-            <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              id="filledbasic7"
-              label="Address1"
-              placeholder={`${viewProfile.location}`}
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] rounded -z-50"
-              sx={{ backgroundColor: "porcelain" }}
-            />
+        <div className="border-2 lg:w-[60%] mt-10 w-[100%] h-[100%] p-5 rounded-xl overflow-auto scrollbar-none">
+          <div>
+            <div className=" h-52 mb-5  pl-5 pt-3 w-[100%] rounded  bg-mecaBorderColor">
+              <p className="text-sm text-gray-500">Description</p>
+              <p className="text-lg">{viewProfile.description}</p>
+            </div>
+          </div>
 
-            <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              type="url"
-              id="filledbasic7"
-              label="Address2"
-              placeholder={`${viewProfile.location}`}
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] -z-50"
-              sx={{ backgroundColor: "porcelain" }}
-            />
-          </Box>
-          <Box className=" gap-x-4">
-            <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              type="url"
-              id="filledbasic7"
-              label="Phone number"
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem] rounded -z-50"
-              sx={{ backgroundColor: "porcelain" }}
-            />
-          </Box>
+          <div className="flex gap-x-4">
+            <div
+              className="lg:w-[364px] h-16 pl-5 pt-3 w-[100%] 2xl:w-[35rem] rounded  bg-mecaBorderColor"
+              style={{ backgroundColor: "porcelain" }}
+            >
+              <p className="text-xs text-gray-500">Address1</p>
+              <p>{viewProfile.location}</p>
+            </div>
+
+            <div
+              className="lg:w-[364px] h-16 pl-5 pt-3 w-[100%] 2xl:w-[35rem] rounded  bg-mecaBorderColor"
+              style={{ backgroundColor: "porcelain" }}
+            >
+              <p className="text-xs text-gray-500">Address2</p>
+              <p>{viewProfile.location}</p>
+            </div>
+          </div>
+          <div
+            className=" h-16 mt-5 pl-5 pt-3 w-[100%] rounded  bg-mecaBorderColor"
+            style={{ backgroundColor: "porcelain" }}
+          >
+            <p className="text-xs text-gray-500">Email</p>
+            <p>{viewProfile.companyEmail}</p>
+          </div>
         </div>
       </div>
     </div>

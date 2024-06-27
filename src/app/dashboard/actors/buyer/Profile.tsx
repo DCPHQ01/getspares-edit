@@ -80,44 +80,30 @@ const Profile = () => {
         </div>
 
         <div className="border-2 w-[60%] h-[100%] p-5 rounded-xl ">
-          <Box className="flex gap-x-4 mb-10">
-            <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              id="filledbasic7"
-              label={details?.firstName}
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] 2xl:w-[35rem] rounded"
-              sx={{ backgroundColor: "porcelain" }}
-            />
+          <div>
+            <div className=" h-16 mb-5  pl-5 pt-3 w-[100%] rounded  bg-mecaBorderColor">
+              <p className="text-sm text-gray-500">Fistname</p>
+              <p className="text-lg">{details?.firstName}</p>
+            </div>
+          </div>
 
-            <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              type="url"
-              id="filledbasic7"
-              label={details?.lastName}
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] 2xl:w-[35rem]"
-              sx={{ backgroundColor: "porcelain" }}
-            />
-          </Box>
+          <div className="flex gap-x-4">
+            <div
+              className="lg:w-[364px] h-16 pl-5 pt-3 w-[100%] 2xl:w-[35rem] rounded  bg-mecaBorderColor"
+              style={{ backgroundColor: "porcelain" }}
+            >
+              <p className="text-xs text-gray-500">Lastname</p>
+              <p>{details?.lastName}</p>
+            </div>
 
-          <Box className="">
-            <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              type="url"
-              id="filledbasic7"
-              label={details?.email}
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-              className="  w-[100%] rounded"
-              sx={{ backgroundColor: "porcelain" }}
-            />
-          </Box>
+            <div
+              className="lg:w-[364px] h-16 pl-5 pr-5 pt-3 w-[100%] 2xl:w-[35rem] rounded  bg-mecaBorderColor"
+              style={{ backgroundColor: "porcelain" }}
+            >
+              <p className="text-xs text-gray-500">Email</p>
+              <p>{details?.email}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
