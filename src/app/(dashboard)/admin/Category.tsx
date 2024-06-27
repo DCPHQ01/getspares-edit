@@ -54,27 +54,29 @@ function Category() {
   const size = 10;
   const [first, setFirst] = useState(false);
   const [last, setLast] = useState(false);
-  const { data, isError } = useGetViewAllMecaAdminCategoryQuery({
-    page: page,
-    size: size,
-    options: activityPeriod,
-  });
+  const { data: getMecaCategory, isFetching } =
+    useGetViewAllMecaAdminCategoryQuery({
+      page: page,
+      size: size,
+      options: activityPeriod,
+    });
   const [categoryList, setCategoryList] = useState<Category[]>([]);
   const [open, setOpen] = useState(false);
   const [formImage, setFormImage] = useState<string>("");
   const [categoryName, setCategoryName] = useState<string>("");
   const [image_url, setImage_url] = useState<string>("");
   const [categoryData, { isLoading }] = useAddCategoryMutation();
+  const [error, setError] = useState<string>("");
 
-  useEffect(() => {
-    if (data && Array.isArray(data.data.content)) {
-      const list = data.data.content;
-      const lists = data.data;
-      setCategoryList(list);
-      setFirst(lists.first);
-      setLast(lists.last);
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (data && Array.isArray(data.data.content)) {
+  //     const list = data.data.content;
+  //     const lists = data.data;
+  //     setCategoryList(list);
+  //     setFirst(lists.first);
+  //     setLast(lists.last);
+  //   }
+  // }, [data]);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -108,19 +110,20 @@ function Category() {
       const response = await categoryData({
         name: categoryName,
         image: image_url,
-      });
+      }).unwrap();
       if ("data" in response) {
         console.log(response.data.data);
         setCategoryList((prev) => [...prev, response.data.data]);
         handleClose();
       }
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
+      setError(error.data.message);
     }
   };
 
   const handlePeriodChange = (newPeriod: string) => {
-    setActivityPeriod(newPeriod);
+    setActivityPeriod(newPeriod as string);
   };
 
   const handleNextPage = () => {
@@ -134,7 +137,9 @@ function Category() {
       setPage((prevPage) => prevPage - 1);
     }
   };
-
+  const handleFocus = () => {
+    setError("");
+  };
   return (
     <>
       <div
@@ -186,6 +191,7 @@ function Category() {
                 onChange={handleImageChange}
                 ref={fileInputRef}
                 className="hidden"
+                onFocus={handleFocus}
               />
 
               {formImage ? (
@@ -222,6 +228,7 @@ function Category() {
                 InputProps={{ disableUnderline: true }}
                 className="w-[21rem] mt-10"
                 value={categoryName}
+                onFocus={handleFocus}
                 onChange={(e) => setCategoryName(e.target.value)}
                 sx={{ backgroundColor: "porcelain", marginTop: "1rem" }}
               />
@@ -229,7 +236,7 @@ function Category() {
               <button
                 id="addButton"
                 onClick={handleSubmit}
-                className="bg-[#095AD3] mt-8 w-[21rem] text-white rounded-full py-[0.38rem] px-[1.5rem]"
+                className="bg-[#095AD3] flex justify-center items-center mt-8 w-[21rem] text-white rounded-full py-[0.38rem] px-[1.5rem]"
               >
                 {isLoading ? (
                   <ColorRing
@@ -250,6 +257,7 @@ function Category() {
                   </div>
                 )}
               </button>
+              {error && <p className="text-red-500">{error}</p>}
             </div>
           </Box>
         </Modal>
@@ -266,7 +274,10 @@ function Category() {
         />
       </div>
 
-      <CategoryTable categoryList={categoryList} isLoading={isLoading} />
+      <CategoryTable
+        categoryList={getMecaCategory?.data.content}
+        isLoading={isFetching}
+      />
 
       <div className="flex gap-[89%] md:gap-[85%] mt-10 text-mecaBluePrimaryColor font-bold text-lg">
         <button
