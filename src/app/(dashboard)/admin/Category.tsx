@@ -255,8 +255,8 @@ function Category() {
                   onClick={handleImageClick}
                   className="w-full px-3 py-2 border rounded-md flex flex-col items-center justify-center cursor-pointer"
                 >
-                  {/* <MdPhotoLibrary className="text-gray-600 text-7xl" /> */}
-                  <Avatar {...stringAvatar('Moyin Tola')}/>
+                  <MdPhotoLibrary className="text-gray-600 text-7xl" />
+                  {/* <Avatar {...stringAvatar('Moyin Tola')}/> */}
                 </div>
               )}
 
