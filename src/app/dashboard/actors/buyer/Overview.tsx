@@ -49,7 +49,7 @@ function Overview() {
       <Header
         subtitle={`Keep track of your orders on meca`}
         title={`Orders`}
-        amount={totalElements}
+        amount={"94585484"}
       />
       <OverviewTable overviewList={overViewList} isLoading={isLoading}/>
     </>

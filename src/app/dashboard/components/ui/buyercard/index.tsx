@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import engine from "../../../../../assets/dashboardAssets/engine.png";
 // import Image from "next/image";
 import { FaStar } from "react-icons/fa6";
-import { formatAmount } from '../../../../../components/utils';
+import { formatAmount2 } from '../../../../../components/utils';
 import { useGetOverviewRecentProductImageQuery } from "../../../../../redux/features/dashboard/buyerQuery";
 
 interface RecentProductImages {
@@ -17,7 +17,7 @@ interface RecentProductImages {
   brand: string;
   condition: string;
   image: string;
-  price: number;
+  price: string;
   model: string;
 }
 
@@ -56,8 +56,8 @@ const Index = () => {
             </div> */}
           </div>
           <p className="border rounded-full px-[0.5rem] inline-block">
-            {/* {formatAmount(detail.price)} */}
-            <p>{detail.price}</p>
+            {formatAmount2(detail.price)}
+            {/* <p>{detail.price}</p> */}
           </p>
         </div>
       ))}
