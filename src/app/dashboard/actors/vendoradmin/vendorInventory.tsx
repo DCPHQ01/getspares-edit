@@ -7,19 +7,19 @@ import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import Link from "next/link";
 import { paths } from "../../../../path/paths";
 import { useGetVendorAdminInventoryMutation } from "../../../../redux/features/dashboard/mecaVendorQuery";
-import {useState, useEffect} from "react"
-
+import { useState, useEffect } from "react";
 
 interface InventoryData {
   categoryName?: string;
-  dateCreated:string;
+  dateCreated: string;
   itemName: string;
   quantitySold: number;
   price?: number;
-  
-};
+  id: string;
+}
 function VendorInventory() {
-  const [getInventory,{isLoading,isError}] = useGetVendorAdminInventoryMutation();
+  const [getInventory, { isLoading, isError }] =
+    useGetVendorAdminInventoryMutation();
   const [inventory, setInventory] = useState<InventoryData[]>([]);
   const [datas, setdatas] = useState();
   const [totalPages, setTotalPages] = useState(0);
@@ -36,21 +36,18 @@ function VendorInventory() {
       };
 
       const resultList = await getInventory(requestBody).unwrap();
-      const list = resultList.data.content
-      console.log('it is Success:',list);
-      setInventory(list)
+      const list = resultList.data.content;
+      console.log("it is Success:", list);
+      setInventory(list);
       const lists = resultList.data;
       setdatas(lists);
       setTotalPages(lists.totalPages);
       setHasNext(lists.hasNext);
       setHasPrevious(lists.hasPrevious);
-      setIsPaginationLoading(false)
-
-    }  catch (error) {
-      console.error('Failed to add vendor:', error);
-     
+      setIsPaginationLoading(false);
+    } catch (error) {
+      console.error("Failed to add vendor:", error);
     }
-  
   };
 
   useEffect(() => {
@@ -58,25 +55,25 @@ function VendorInventory() {
   }, []);
 
   console.log("The Vendor Inventory: ", inventory);
-  console.log('The data success:',datas);
+  console.log("The data success:", datas);
 
   const handleNextPage = () => {
     if (hasNext) {
-      setIsPaginationLoading(true)
-      setPage(prevPage => prevPage + 1);
+      setIsPaginationLoading(true);
+      setPage((prevPage) => prevPage + 1);
     }
   };
 
   const handlePreviousPage = () => {
     if (hasPrevious) {
-      setIsPaginationLoading(true)
-      setPage(prevPage => prevPage - 1);
+      setIsPaginationLoading(true);
+      setPage((prevPage) => prevPage - 1);
     }
   };
 
   return (
     <>
-    <div className={`flex justify-between items-center`}>
+      <div className={`flex justify-between items-center`}>
         <Header
           subtitle={`Keep track of how each item is performing.`}
           title={`Inventory`}
@@ -95,16 +92,21 @@ function VendorInventory() {
         <VendorInventoryTable inventoryData={inventory} isLoading={isLoading} />
 
         <div className="flex justify-between mt-10 text-mecaBluePrimaryColor font-bold text-lg">
-          <button 
-          className={`flex gap-x-2 ${!hasPrevious ? 'text-gray-400 cursor-not-allowed' : ''}`}
-          onClick={handlePreviousPage}
-          disabled={!hasPrevious}
+          <button
+            className={`flex gap-x-2 ${
+              !hasPrevious ? "text-gray-400 cursor-not-allowed" : ""
+            }`}
+            onClick={handlePreviousPage}
+            disabled={!hasPrevious}
           >
             <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
           </button>
-          <button className={`flex gap-x-2 ${!hasNext ? 'text-gray-400 cursor-not-allowed' : ''}`}
-           onClick={handleNextPage}
-           disabled={!hasNext}
+          <button
+            className={`flex gap-x-2 ${
+              !hasNext ? "text-gray-400 cursor-not-allowed" : ""
+            }`}
+            onClick={handleNextPage}
+            disabled={!hasNext}
           >
             Next
             <span>

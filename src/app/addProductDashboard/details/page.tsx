@@ -135,13 +135,7 @@ const CalledPagesPageFivePages = () => {
                   noValidate
                   autoComplete="off"
                 >
-                  <FormControl
-                    variant="filled"
-                    sx={{
-                      borderBottom: "none",
-                      width: "470px",
-                    }}
-                  >
+                  <FormControl className="w-[29.4rem] mb-5 ">
                     <InputLabel id="demo-simple-select-filled-label">
                       Category
                     </InputLabel>
@@ -150,7 +144,6 @@ const CalledPagesPageFivePages = () => {
                       name="manufacturer"
                       placeholder="Enter"
                       className=" w-[29.4rem] mb-5 "
-                      sx={{ backgroundColor: "porcelain" }}
                       value={technicalDetails.manufacturer}
                       // onChange={handleTechnicalDetails}
                       // renderValue={(selected) => {
