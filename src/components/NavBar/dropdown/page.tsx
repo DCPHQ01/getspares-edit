@@ -5,7 +5,6 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useGetCategoryQuery } from "../../../redux/features/users/authQuery";
 import { paths } from "../../../path/paths";
 
-
 const DropdownPage = () => {
   const router = useRouter();
   const { data: getCategoriesData } = useGetCategoryQuery({});
@@ -26,8 +25,7 @@ const DropdownPage = () => {
           <div className="w-full p-10 grid grid-cols-3  gap-x-10 ">
             {getCategoriesData?.data.map((category: any) => (
               <div
-                key={category.id}
-                onClick={() => handleProductDescription(category.name)}
+                onClick={() => handleProductDescription}
                 className=" w-[100%] h-10 cursor-pointer"
               >
                 {category.name}

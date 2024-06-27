@@ -8,7 +8,6 @@ import NavBar from "../../components/NavBar/NavBar";
 import { useGetCategoryQuery } from "../../redux/features/users/authQuery";
 import { paths } from "../../path/paths";
 
-
 const MobileDropdownView = () => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -70,11 +69,10 @@ const MobileDropdownView = () => {
                 cursor: "pointer",
               }}
             >
-              {getCategoriesData?.data.map((category: any) => (
+              {/* {getCategoriesData?.data.map((category: any) => (
                 <div
                   onClick={() => handleProductDescription}
                   className=""
-                  key={category.id}
                   style={{
                     color: "black",
                     textDecoration: "none",
@@ -84,7 +82,7 @@ const MobileDropdownView = () => {
                 >
                   {category.name}
                 </div>
-              ))}
+              ))} */}
             </div>
           </div>
         </div>
