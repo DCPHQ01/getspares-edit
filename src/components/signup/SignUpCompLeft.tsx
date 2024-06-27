@@ -198,6 +198,13 @@ const SignUpComponentLeft = () => {
                     id="radiogroup1"
                     className="lg:w-96 w-full flex justify-between"
                   >
+                     <FormControlLabel
+                      value="buyer"
+                      control={<Radio />}
+                      label="Buyer"
+                      id="inputBuyerId"
+                      checked={userType === "buyer"}
+                    />
                     <FormControlLabel
                       value="vendor"
                       control={<Radio />}
@@ -211,13 +218,6 @@ const SignUpComponentLeft = () => {
                       label="Agent"
                       id="inputAgentId"
                       checked={userType === "agent"}
-                    />
-                    <FormControlLabel
-                      value="buyer"
-                      control={<Radio />}
-                      label="Buyer"
-                      id="inputBuyerId"
-                      checked={userType === "buyer"}
                     />
                   </RadioGroup>
                 </FormControl>

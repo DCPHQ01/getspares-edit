@@ -117,6 +117,10 @@ function Overview({data, isLoading}: OverviewTableProps) {
           ) : (
             data.map((d, index) => {
 
+              const { date, time } = formatDateTime(d.dateJoined);
+              const formattedTransactionValue = formatAmount(d.transactionValue);
+
+
               const { date, time } = formatDateTime(d.dateJoined); 
               const formattedTransactionValue = formatAmount(d.transactionValue);
 
@@ -152,7 +156,7 @@ function Overview({data, isLoading}: OverviewTableProps) {
                   </td>
                   <td className={`text-[0.88rem] py-[1rem] px-[3.13rem] truncate`} id={`transactionValue_${index}`}>
 
-                    {formatAmount(d.transactionValue)}
+                  {formatAmount(d.transactionValue)
 
                   </td>
                   <td id={`dateJoined_${index}`}>

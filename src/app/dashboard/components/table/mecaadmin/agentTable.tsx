@@ -22,12 +22,16 @@ interface AgentTableProps {
 }
 
 const formatDateTime = (dateTime: string) => {
+
   const date = dayjs(dateTime).format("YYYY-MM-DD");
   const time = dayjs(dateTime).format("HH:mm a");
+  const date = dayjs(dateTime).format("DD-MM-YYYY");
+  const time = dayjs(dateTime).format("hh:mm A"); 
+
   return { date, time };
 };
 
-const AgentTable: React.FC<AgentTableProps> = ({ agentList,isLoading }) => {
+const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading }) => {
   return (
     <div>
       <div id="tableContainer">
@@ -76,6 +80,7 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList,isLoading }) => {
                   />
                   <p>Loading Agent........</p>
                 </div>
+
               ) : (
                 agentList?.map((d, index) => {
                   const { date, time } = formatDateTime(d.dateAdded);
@@ -148,6 +153,49 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList,isLoading }) => {
                         {d.transactionValue}
                       </td>
                       <td id={`dateJoined_${index}`}>
+
+              ) :(
+                 agentList?.map((d, index) => {
+                const { date, time } = formatDateTime(d.dateAdded);
+                return (
+                  <tr
+                    key={index}
+                    id={`row_${index}`}
+                    className="cursor-pointer hover:bg-gray-50"
+                  >
+                    <td id={`companyData_${index}`}>
+                      <div
+                        className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
+                      >
+                        <div id={`companyDetails_${index}`}>
+                        <div id={`companyDetails_${index}`}>
+                        <div className="truncate">{d.firstName}</div>
+                        <div
+                          className={`text-[#4B5565] truncate`}
+                          id={`email_${index}`}
+                        >
+                          {d.email}
+                        </div>
+                      </div>
+                    </div>
+                      </div>
+                    </td>
+                    <td
+                      className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
+                      id={`itemsSold_${index}`}
+                    >
+                      {d.quantitySold}
+                    </td>
+                    <td
+                      className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
+                      id={`transactionValue_${index}`}
+                    >
+                      {d.transactionValue}
+                    </td>
+                    <td id={`dateJoined_${index}`}>
+                      <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
+                        <div id={`date_${index}`}>{date}</div>
+
                         <div
                           className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}
                         >
