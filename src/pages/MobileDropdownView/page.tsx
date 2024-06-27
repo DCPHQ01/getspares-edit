@@ -1,20 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import {  useRouter } from "next/router";
 import { MdChevronLeft, MdClear } from "react-icons/md";
 
 import NavBar from "../../components/NavBar/NavBar";
-import { Nunito_Sans } from "next/font/google";
 import { useGetCategoryQuery } from "../../redux/features/users/authQuery";
 import { paths } from "../../path/paths";
 
-const nunito = Nunito_Sans({
-  subsets: ["latin"],
-  variable: "--font-nunito_sans",
-  adjustFontFallback: false,
-  display: "swap",
-});
 
 // const categoryMobileScreen = [
 //   {
@@ -92,7 +85,7 @@ const MobileDropdownViewPage = () => {
   };
 
   return (
-    <div className={nunito.className}>
+    <div>
       {open && (
         <div
           className="w-[98%] h-screen  scrollbar-none overflow-y-scroll bg-white z-[2000] left-1 px-2   fixed top-0"
