@@ -4,7 +4,7 @@ import image1 from "../../../../../assets/dashboardAssets/Avatar2.png";
 import image2 from "../../../../../assets/dashboardAssets/Avatar3.png";
 import Image from "next/image";
 import { AccountCircle } from "@mui/icons-material";
-import { formatAmount } from "../../../../../components/utils";
+import { format } from "../../../../../components/utils";
 
 const data = [
   {
@@ -147,7 +147,7 @@ const data = [
 interface VendorOverview {
   dateJoined: string;
   imageUrl?: string ; 
-  transactionValue: string;
+  transactionValue: string | number;
   totalItemSold: number;
   itemName: string;
   
@@ -178,7 +178,7 @@ const Overview: React.FC<VendorTableProps> = ({topPerformingProduct,isLoading}) 
         <tbody className=" h-[25rem]">
             { topPerformingProduct.length == 0 ? (<div className="relative right-[90%] left-[90%] pt-40 text-2xl font-bold text-gray-600">No data in the Table yet</div>) : (  topPerformingProduct?.map((d, index) => {
 
-              const transactionValue = formatAmount(d.transactionValue);
+              const transactionValue = format(d.transactionValue);
           return ( <tr key={index} id={`row_${index}`} className="truncate">
               <td>
                 <div

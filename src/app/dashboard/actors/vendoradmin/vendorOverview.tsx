@@ -14,7 +14,7 @@ import Card from "../../../../components/cards/indexTwo"
 interface VendorOverview {
   dateJoined: string;
   imageUrl?: string;
-  transactionValue: number;
+  transactionValue: number | string;
   totalItemSold: number;
   itemName: string;
 }
