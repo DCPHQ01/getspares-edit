@@ -11,7 +11,7 @@ export function cn(...inputs: ClassValue[]) {
 
 
 
-export const formatAmount = (price: string) => {
+export const formatAmount = (price: string | number) => {
   if (price) {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
