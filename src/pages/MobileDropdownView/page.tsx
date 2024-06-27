@@ -5,22 +5,23 @@ import { useRouter } from "next/router";
 import { MdChevronLeft, MdClear } from "react-icons/md";
 
 import NavBar from "../../components/NavBar/NavBar";
-import { useGetCategoryQuery } from "../../redux/features/users/authQuery";
+// import { useGetCategoryQuery } from "../../redux/features/users/authQuery";
 import { paths } from "../../path/paths";
 
-const MobileDropdownView = () => {
   const router = useRouter();
+
+const MobileDropdownView = () => {
   const [open, setOpen] = useState(false);
   const handleNav = () => {
     setOpen(!open);
   };
   useEffect(() => setOpen(true), []);
 
-  const { data: getCategoriesData } = useGetCategoryQuery({});
-  console.log("buyers category  ", getCategoriesData);
-  const handleProductDescription = (categoryName: string) => {
-    router.push(paths.toCategoryProducts(categoryName));
-  };
+  // const { data: getCategoriesData } = useGetCategoryQuery({});
+  // console.log("buyers category  ", getCategoriesData);
+  // const handleProductDescription = (categoryName: string) => {
+  //   router.push(paths.toCategoryProducts(categoryName));
+  // };
 
   return (
     <div>
