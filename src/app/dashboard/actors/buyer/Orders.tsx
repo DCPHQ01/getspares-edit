@@ -32,11 +32,7 @@ function Orders() {
       <Header
         subtitle={`Keep track of orders, items ordered and their transaction values.`}
         title={`Orders`}
-<<<<<<< HEAD
         amount={totalElements}
-=======
-        amount={totalElement}
->>>>>>> 40245a68be0518195005c0a7aa08e73b7af0a0ac
       />
       <div className="flex justify-end">
         <Searchbox />

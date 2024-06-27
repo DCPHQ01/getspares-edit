@@ -20,11 +20,7 @@ interface OverviewTableProps {
 
 const formatDateTime = (dateTime: string) => {
   const date = dayjs(dateTime).format("DD-MM-YYYY");
-<<<<<<< HEAD
   const time = dayjs(dateTime).format("hh:mm A");
-=======
-  const time = dayjs(dateTime).format("HH:mm");
->>>>>>> 40245a68be0518195005c0a7aa08e73b7af0a0ac
   return { date, time };
 };
 

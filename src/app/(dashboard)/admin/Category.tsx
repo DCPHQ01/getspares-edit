@@ -54,20 +54,11 @@ function Category() {
   const [totalElements, setTotalElements] = useState(0);
   const [first, setFirst] = useState(false);
   const [last, setLast] = useState(false);
-<<<<<<< HEAD
   const { data, isError, refetch } = useGetViewAllMecaAdminCategoryQuery({
     page: page,
     size: size,
     options: activityPeriod,
   });
-=======
-  const { data: getMecaCategory, isFetching } =
-    useGetViewAllMecaAdminCategoryQuery({
-      page: page,
-      size: size,
-      options: activityPeriod,
-    });
->>>>>>> 40245a68be0518195005c0a7aa08e73b7af0a0ac
   const [categoryList, setCategoryList] = useState<Category[]>([]);
   const [open, setOpen] = useState(false);
   const [formImage, setFormImage] = useState<string>("");
@@ -77,7 +68,6 @@ function Category() {
   const [categoryData, { isLoading }] = useAddCategoryMutation();
   const [error, setError] = useState<string>("");
 
-<<<<<<< HEAD
   useEffect(() => {
     if (data && Array.isArray(data.data.content)) {
       const list = data.data.content;
@@ -88,17 +78,6 @@ function Category() {
       setTotalElements(lists.totalElements);
     }
   }, [data]);
-=======
-  // useEffect(() => {
-  //   if (data && Array.isArray(data.data.content)) {
-  //     const list = data.data.content;
-  //     const lists = data.data;
-  //     setCategoryList(list);
-  //     setFirst(lists.first);
-  //     setLast(lists.last);
-  //   }
-  // }, [data]);
->>>>>>> 40245a68be0518195005c0a7aa08e73b7af0a0ac
 
   const handleOpen = () => {
     setErrorMessage("");

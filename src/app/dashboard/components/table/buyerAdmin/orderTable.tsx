@@ -79,16 +79,8 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
                 </tr>
               ) : (
                 data?.map((d, index) => {
-<<<<<<< HEAD
-                  let date = "";
-                  let time = "";
-                  if (d.dateCreated) {
-                    [date, time] = d.dateCreated.split("T");
-                  }
-=======
                   const { date, time } = formatDateTime(d.dateCreated);
                   const formattedTransactionValue = formatAmount(d.totalAmount);
->>>>>>> 40245a68be0518195005c0a7aa08e73b7af0a0ac
 
                   return (
                     <tr
