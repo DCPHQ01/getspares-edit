@@ -40,10 +40,7 @@ const Index: React.FC<CardProps> = ({ cardField }) => {
     },
     {
       total: "transaction value",
-      amount:
-        cardField.totalTransactionValue ||
-        cardField.totalOrderValue ||
-        "₦" + 0,
+      amount: cardField.totalTransactionValue || cardField.totalOrderValue || 0,
       percentage: 59,
       onClick: () => {
         console.log("View total transaction value");
