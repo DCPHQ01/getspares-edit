@@ -17,27 +17,24 @@ export const buyerQuery = createApi({
         body,
       }),
     }),
+ 
     getViewAllOrders: builder.query({
       query: ({pageNo, pageSize}) => ({
           url: `/dashboard/allOrders?pageNo=${pageNo}&pageSize=${pageSize}`,
           method: "GET",
-      })
+      }),
     }),
 
     getOrderDetails: builder.query({
       query: ({ id }) => ({
           url: `/order/${id}`,
           method: "GET",
-      })
+      }),
     }),
 
     getOverviewOrderTable: builder.query({
-      query: () => ({
-        url: "/product/recent",
-
-    getOverviewOrderTable: builder.query({
         query: () => ({
-          url: "/order/recent",
+          url: "/product/recent",
 
         method: "GET",
       }),
@@ -51,6 +48,7 @@ export const buyerQuery = createApi({
 
 })
 });
+
 export const { useCheckoutMutation, useGetViewAllOrdersQuery, useGetOrderDetailsQuery, useGetOverviewOrderTableQuery, useGetOverviewRecentProductImageQuery  } = buyerQuery;
 
 
