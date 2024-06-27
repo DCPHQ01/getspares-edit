@@ -131,14 +131,12 @@ const ViewParticularOrderTable = ({ data, isLoading }: { data: OrderInfo, isLoad
                           </div>
                         </div>
                       </td>
-{/* 3.13 */}
                       <td
                         className={`text-[0.88rem] py-[1rem] px-[6rem]`}
                         id={`transactionValue_${index}`}
                       >
                         {d.quantity}
                       </td>
-                      {/* 2.75 */}
                       <td id={`dateJoined_${index}`}>
                         <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
                           {d.price}

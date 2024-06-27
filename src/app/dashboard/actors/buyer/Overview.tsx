@@ -21,7 +21,6 @@ function Overview() {
     if(data && Array.isArray(data.data)){
       const list = data.data;
       setOverviewList(list);
-      setTotalElements(list.totalElements)
     }
   }, [data]);
 
