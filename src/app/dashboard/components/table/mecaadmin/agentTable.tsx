@@ -2,9 +2,9 @@
 import React from "react";
 import styles from "../styles.module.css";
 import dayjs from "dayjs";
-import { AccountCircle } from '@mui/icons-material';
 import { ColorRing } from "react-loader-spinner";
 import { MdBusinessCenter } from "react-icons/md";
+import { format } from "../../../../../components/utils";
 
 interface Agent {
   firstName: string;
@@ -22,11 +22,11 @@ interface AgentTableProps {
 
 const formatDateTime = (dateTime: string) => {
   const date = dayjs(dateTime).format("DD-MM-YYYY");
-  const time = dayjs(dateTime).format("hh:mm "); 
+  const time = dayjs(dateTime).format("hh:mm A");
   return { date, time };
 };
-
 const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading }) => {
+  //  const role: any = agentRoles;
   return (
     <div>
       <div id="tableContainer">
@@ -119,7 +119,13 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading }) => {
                           className={`text-[#4B5565] truncate`}
                           id={`time_${index}`}
                         >
-                          {time}
+                          <div id={`date_${index}`}>{date}</div>
+                          <div
+                            className={`text-[#4B5565]`}
+                            id={`time_${index}`}
+                          >
+                            {time}
+                          </div>
                         </div>
                       </div>
                     </td>

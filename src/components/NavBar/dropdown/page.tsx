@@ -16,13 +16,13 @@ const DropdownPage = () => {
     <div className="">
       <div>
         <Card
-          className="w-full h-96  scrollbar-none overflow-y-scroll  "
+          className="w-full  lg:h-96 h-[100vh]  scrollbar-none overflow-y-scroll  "
           style={{
             boxShadow: "0px 2px 8px 0px #63636333",
             zIndex: 200,
           }}
         >
-          <div className="w-full p-10 grid grid-cols-3  gap-x-10 ">
+          <div className="w-full p-10 lg:grid lg:grid-cols-3  gap-x-10 scrollbar-none overflow-y-scroll  ">
             {getCategoriesData?.data.map((category: any) => (
               <div
                 onClick={() => handleProductDescription}
