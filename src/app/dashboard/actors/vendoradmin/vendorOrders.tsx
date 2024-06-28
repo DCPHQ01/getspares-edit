@@ -5,11 +5,13 @@ import Searchbox from "../../components/ui/searchbox";
 import { useGetMecaVendorOrdersQuery } from "../../../../redux/features/dashboard/mecaVendorQuery";
 import { useEffect, useState } from "react";
 import { MdBusinessCenter } from "react-icons/md";
-
 function VendorOrders() {
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(10);
-  const {data, isLoading, isError} = useGetMecaVendorOrdersQuery({page, size});
+  const { data, isLoading, isError } = useGetMecaVendorOrdersQuery({
+    page,
+    size,
+  });
   console.log("data for vendor orders", data);
 
   const [vendorOrderList, setVendorOrderList] = useState([]);
@@ -25,13 +27,15 @@ function VendorOrders() {
         setHasOrders(true);
       } else {
         setHasOrders(false);
-        console.error("Expected data.content to be an array, but got:", resultList);
+        console.error(
+          "Expected data.content to be an array, but got:",
+          resultList
+        );
       }
     }
   }, [data]);
-    console.log("The vendorOrderList:", vendorOrderList);
-
-  const [currentPage, setCurrentPage] = useState(1); 
+  console.log("The vendorOrderList:", vendorOrderList);
+  const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
 
   const handlePreviousPage = () => {
@@ -94,8 +98,5 @@ function VendorOrders() {
     </div>
   );
 }
-
-
-
 
 export default VendorOrders;

@@ -1,9 +1,13 @@
 "use client";
 import React from "react";
 import styles from "../styles.module.css";
-import dayjs from "dayjs";
+import Image from "next/image";
+import Stack from "@mui/material/Stack";
+// import "react-tabs/style/react-tabs.css";
 import { AccountCircle } from "@mui/icons-material";
+import dayjs from "dayjs";
 import { ColorRing } from "react-loader-spinner";
+import { format } from "../../../../../components/utils";
 
 interface Agent {
   firstName: string;
@@ -24,8 +28,8 @@ const formatDateTime = (dateTime: string) => {
   const time = dayjs(dateTime).format("hh:mm A");
   return { date, time };
 };
-
 const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading }) => {
+  //  const role: any = agentRoles;
   return (
     <div>
       <div id="tableContainer">
@@ -88,7 +92,7 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading }) => {
                             <div id={`companyDetails_${index}`}>
                               <div className="truncate">{d.firstName}</div>
                               <div
-                                className={`text-[#4B5565] truncate`}
+                                className={"text-[#4B5565] truncate"}
                                 id={`email_${index}`}
                               >
                                 {d.email}
@@ -98,13 +102,13 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading }) => {
                         </div>
                       </td>
                       <td
-                        className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
+                        className={"text-[0.88rem] py-[1rem] px-[3.13rem]"}
                         id={`itemsSold_${index}`}
                       >
                         {d.quantitySold}
                       </td>
                       <td
-                        className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
+                        className={"text-[0.88rem] py-[1rem] px-[3.13rem]"}
                         id={`transactionValue_${index}`}
                       >
                         {d.transactionValue}
@@ -115,7 +119,7 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading }) => {
                         >
                           <div id={`date_${index}`}>{date}</div>
                           <div
-                            className={`text-[#4B5565] truncate`}
+                            className={`text-[#4B5565]`}
                             id={`time_${index}`}
                           >
                             {time}

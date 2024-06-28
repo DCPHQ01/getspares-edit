@@ -14,7 +14,6 @@ function Buyers() {
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(10);
   const {data, isLoading, isError, error} = useGetMecaAdminBuyerQuery({page, size});
-  console.log("data for buyers", data);
 
   
 

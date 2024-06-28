@@ -75,3 +75,6 @@ const Index: React.FC<CardProps> = ({ cardField }) => {
 };
 
 export default Index;
+
+
+
