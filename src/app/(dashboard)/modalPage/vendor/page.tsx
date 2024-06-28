@@ -4,25 +4,51 @@ import CalledPagesPageOnePages from "../../../../components/calledPages/pageOne/
 import CalledPagesPageTwoPages from "../../../../components/calledPages/pageTwo/page";
 import CalledPagesPageThreePages from "../../../../components/calledPages/pageThree/page";
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { RootState } from "../../../../redux";
 import { setStep } from "../../../../redux/features/company/companySlice";
+import {useGetCompanyProfileQuery} from "../../../../redux/features/company/companyQuery";
 
 const number = [1, 2, 3];
 
 const Dashboard = () => {
-  // const step = company.step;
+
   const dispatch = useAppDispatch();
   const [activeTab, setActiveTab] = useState<boolean>(false);
   const currentPage = useAppSelector(
     (state: RootState) => state.company.currentStep
   );
 
-  const togglePages = (steps: number) => {
+   const { data, isLoading, isError } = useGetCompanyProfileQuery({});
+
+   // interface PageOneProps {
+   //    newData?: {
+   //       name: string;
+   //       description: string;
+   //       website: string;
+   //       companyEmail: string;
+   //       phoneNumber: string;
+   //       cac: string;
+   //       address1: string;
+   //       address2:string;
+   //    };
+   // }
+
+   interface newData {
+      name?: string;
+      description?: string;
+      website?: string;
+      companyEmail?: string;
+      phoneNumber?: string;
+      cac?: string;
+      address1?: string;
+      address2?:string;
+   };
+
+   const togglePages = (steps:number, newData: newData) => {
     switch (steps) {
       case 1:
-        return <CalledPagesPageOnePages />;
+        return <CalledPagesPageOnePages/>;
       case 2:
         return <CalledPagesPageTwoPages />;
       case 3:
@@ -37,26 +63,17 @@ const Dashboard = () => {
         <AddCompanySidebar active={activeTab} setActive={setActiveTab} />
       </div>
       <div id="vendorVend3" className="w-[64%]">
-        {togglePages(currentPage + 1)}
+        {togglePages(currentPage + 1, data?.data)}
       </div>
 
       <div
         id="vendorVend4"
         className="md:hidden fixed bottom-0 left-0 w-full m-auto flex justify-between gap-2 px-8 mt-6 mb-6"
       >
-        {/* <div className="mt-8 flex items-center justify-evenly gap-4 h-[8px] w-full"> */}
         {number.map((item, index) => (
-          <div
-   key={index}
-   className={`
-            ${
-      currentPage === index && activeTab
+          <div key={index} className={`${currentPage === index && activeTab
          ? "w-1/3 bg-blue-800 rounded-lg h-3"
-         : "bg-gray-500 rounded-lg h-3 w-1/3"
-   }`}
-   // className="w-1/3 bg-blue-800 rounded-lg h-3"
-   id="switchedButton1"
-   />
+         : "bg-gray-500 rounded-lg h-3 w-1/3"}`} id="switchedButton1"/>
         ))}
 
       </div>

@@ -5,6 +5,7 @@ const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 export const companyQuery = createApi({
   reducerPath: "companyQuery",
   baseQuery: customFetchBase,
+  tagTypes: ["company"],
   endpoints: (builder) => ({
     updateCompany: builder.mutation({
       query: (body: {
@@ -13,18 +14,27 @@ export const companyQuery = createApi({
         description: string;
         websiteUrl: string;
         cac: string;
-        // date_founded: string;
         companyEmail: string;
         phoneNumber: string;
-        location: string;
+        address1: string;
         imageUrl: string;
       }) => ({
         url: "/company",
         method: "PATCH",
         body,
+        invalidatesTags:['company']
+
       }),
+    }),
+    getCompanyProfile: builder.query({
+      query:() =>  ({
+        url: "/company/detail",
+        method: "GET",
+      }),
+      providesTags:['company']
+
     }),
   }),
 });
 
-export const { useUpdateCompanyMutation } = companyQuery;
+export const { useUpdateCompanyMutation, useGetCompanyProfileQuery } = companyQuery;
