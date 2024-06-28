@@ -9,53 +9,6 @@ import { useGetTopPerformingVendorsQuery } from "../../../../../redux/features/d
 import dayjs from "dayjs";
 import { formatAmount } from "../../../../../components/utils";
 
-// const datas = [
-//   {
-//     avatar: image1,
-//     name: "Ebuka & Sons International",
-//     email: "ebuka&sons@gmail.com",
-//     sale: 12,
-//     value: "₦ 200,000.00",
-//     date: "24 June 2022",
-//     time: "12:00PM",
-//   },
-//   {
-//     avatar: image2,
-//     name: "Ebuka & Sons International",
-//     email: "ebuka&sons@gmail.com",
-//     sale: 83,
-//     value: "₦ 1,000,000.00",
-//     date: "30 June 2023",
-//     time: "06:00PM",
-//   },
-//   {
-//     avatar: image1,
-//     name: "Ebuka & Sons International",
-//     email: "ebuka&sons@gmail.com",
-//     sale: 45,
-//     value: "₦ 600,000.00",
-//     date: "12 May 2024",
-//     time: "08:45PM",
-//   },
-//   {
-//     avatar: image2,
-//     name: "Ebuka & Sons International",
-//     email: "ebuka&sons@gmail.com",
-//     sale: 10,
-//     value: "₦ 120,000.00",
-//     date: "02 Sep 2022",
-//     time: "11:15AM",
-//   },
-//   {
-//     avatar: image1,
-//     name: "Ebuka & Sons International",
-//     email: "ebuka&sons@gmail.com",
-//     sale: 67,
-//     value: "₦ 700,000,00",
-//     date: "30 Aug 2022",
-//     time: "04:00PM",
-//   },
-// ];
 
 interface TopVendors{
   avatar?: string;
@@ -117,7 +70,7 @@ function Overview({data, isLoading}: OverviewTableProps) {
             data.map((d, index) => {
 
 
-              const { date, time } = formatDateTime(d.dateJoined); 
+              const { date, time } = formatDateTime(d.dateJoined);
               const formattedTransactionValue = formatAmount(d.transactionValue);
 
 

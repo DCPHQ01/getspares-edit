@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import dayjs from "dayjs";
 
 const cloud_name = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
 const cloudinary_url = `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`;
@@ -18,6 +19,18 @@ export const formatAmount = (price: string | number) => {
       currency: "NGN",
     }).format(Number(price));
   }
+};
+
+export const formatDate = (date: string) => {
+   const finalDate = dayjs(date, 'DD:MM:YYYY HH:mm').format("DD-MM-YYYY");
+   return finalDate;
+};
+
+
+
+export const formatTime = (time: string) => {
+   const finalTime = dayjs(time, 'DD:MM:YYYY HH:mm').format("hh:mm A");
+   return finalTime;
 };
 
 export const uploadImage = async (
@@ -104,7 +117,7 @@ export const formatAmount2= (price: string | number) => {
       }
 
       const amountNumber = Number(amountString);
-      
+
       if (!isNaN(amountNumber)) {
           return new Intl.NumberFormat("en-US", {
               style: 'currency',
@@ -114,10 +127,10 @@ export const formatAmount2= (price: string | number) => {
           return "Invalid amount";
       }
   } else {
-      return "₦0.00"; 
+      return "₦0.00";
   }
 };
- 
+
 export const format = (price: string | number) => {
     if (price !== undefined && price !== null) {
         return new Intl.NumberFormat("en-US", {
@@ -125,6 +138,6 @@ export const format = (price: string | number) => {
             currency: 'NGN',
         }).format(Number(price));
     } else {
-        return "₦0.00"; 
+        return "₦0.00";
     }
 };
