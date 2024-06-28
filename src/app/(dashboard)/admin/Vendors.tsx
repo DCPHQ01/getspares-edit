@@ -33,6 +33,7 @@ function Vendors() {
   const [vendors, setVendors] = useState<Vendor[]>([]);
   const [vendorList, setVendorList] = useState<Vendor[]>([]);
   const [totalPages, setTotalPages] = useState(0);
+  const [totalElements, setTotalElements] = useState(0);
   const [hasNext, setHasNext] = useState(false);
   const [hasPrevious, setHasPrevious] = useState(false);
   const [isPaginationLoading, setIsPaginationLoading] = useState(false);
@@ -43,6 +44,7 @@ function Vendors() {
         const vendorData =  data.data
         setVendorList(resultList)
         setVendors(vendorData)
+        setTotalElements(vendorData.totalElements);
         setTotalPages(vendorData.totalPages);
       setHasNext(vendorData.hasNext);
       setHasPrevious(vendorData.hasPrevious);
@@ -72,7 +74,7 @@ function Vendors() {
         <Header
           subtitle={`Keep track of vendor sales and their service ratings.`}
           title={`Vendors`}
-          amount={`430,607`}
+          amount={totalElements}
         />
         {/* <AddButton title={`Add vendor`}/> */}
       </div>

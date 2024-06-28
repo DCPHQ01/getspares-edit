@@ -11,7 +11,7 @@ interface IProps {
 
 const Index: React.FC<IProps> = ({ title, subtitle, amount, name }) => {
   return (
-    <div>
+    <>
       <div className="flex items-center gap-0.5">
         <h1
           id="topHeaderTitle"
@@ -23,23 +23,27 @@ const Index: React.FC<IProps> = ({ title, subtitle, amount, name }) => {
         >
           {name ? (
             <>
-              <Greeting />, &nbsp;<span>{name}</span>
+
+              <Greeting />,
+              &nbsp;<span>{name}</span>
+
+              <Greeting/>
+               <span>, {name}</span>
             </>
           ) : (
             <span>{title}</span>
           )}
         </h1>
-        {amount && (
+
           <p className="border inline-block border-[#9AA4B2] text-center text-[#9AA4B2] rounded-full px-3 ml-2">
-            {amount}
+            {amount || 0}
           </p>
-        )}
       </div>
 
       <p id="topHeaderSubtitle" className={`text-[#4B5565]`}>
         {subtitle}
       </p>
-    </div>
+    </>
   );
 };
 

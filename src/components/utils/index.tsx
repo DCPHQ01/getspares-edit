@@ -1,5 +1,10 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import dayjs from "dayjs";
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+
+dayjs.extend(customParseFormat);
+
 
 const cloud_name = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
 const cloudinary_url = `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`;
@@ -16,6 +21,18 @@ export const formatAmount = (price: string | number) => {
       currency: "NGN",
     }).format(Number(price));
   }
+};
+
+export const formatDate = (date: string) => {
+   const finalDate = dayjs(date, 'DD:MM:YYYY HH:mm').format("DD-MM-YYYY");
+   return finalDate;
+};
+
+
+
+export const formatTime = (time: string) => {
+   const finalTime = dayjs(time, 'DD:MM:YYYY HH:mm').format("hh:mm A");
+   return finalTime;
 };
 
 export const uploadImage = async (
