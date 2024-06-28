@@ -22,7 +22,7 @@ interface AgentTableProps {
 
 const formatDateTime = (dateTime: string) => {
   const date = dayjs(dateTime).format("DD-MM-YYYY");
-  const time = dayjs(dateTime).format("hh:mm A"); 
+  const time = dayjs(dateTime).format("hh:mm "); 
   return { date, time };
 };
 
@@ -32,9 +32,9 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading }) => {
       <div id="tableContainer">
         <div
           id="mecaAdminTable"
-          className={`my-[1.25rem] w-full max-h-[34rem] overflow-y-auto scrollbar-none ${styles.table}`}
+          className={`my-[1.25rem] w-full max-h-[34rem] overflow-y-auto scrollbar-none h-[32rem] ${styles.table}`}
         >
-          <table id="adminTable" className={`w-full`}>
+          <table id="adminTable" className={`w-full `}>
             <thead>
               <tr className="truncate">
                 <th id="companyNameHeader">Full name</th>
@@ -48,11 +48,11 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading }) => {
                 <th id="dateTimeJoinedHeader">Date & time added</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody >
 
               {isLoading? ( 
                 <div 
-                className="text-center mt-28 relative lg:left-[208%] lg:right[208%] md:left-[213%] md:right[213%] sm:left-[21"
+                className="text-center mt-28 relative left-[140%] right[140%] "
                 >
                    <ColorRing  
                     visible={true}

@@ -45,13 +45,13 @@ function Agents() {
   console.log("The datas: ", data);
 
   const handleNextPage=()=>{
-    if(first){
+    if(size === 10){
       setPage(prevPage => prevPage + 1);
     }
   }
 
   const  handlePreviousPage=()=>{
-    if (last) {
+    if (page > 0) {
       setPage(prevPage => prevPage - 1);
     }
   }
@@ -71,7 +71,7 @@ function Agents() {
 
       <AgentTable agentList={agentList} isLoading={isLoading}/>
 
-      <div className="flex gap-[89%] md:gap-[85%] mt-10 text-mecaBluePrimaryColor font-bold text-lg">
+      <div className="flex justify-between mt-10 text-mecaBluePrimaryColor font-bold text-lg">
         
           { !first?
             <button className={`flex gap-x-2 `}
@@ -81,7 +81,7 @@ function Agents() {
               <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
             </button> : <div>{""}</div> 
           }
-         { first ? <button className={`flex gap-x-2  `}
+         { !last ? <button className={`flex gap-x-2  `}
           onClick={handleNextPage}
           //  disabled={last}
           >

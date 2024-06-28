@@ -171,7 +171,7 @@ const VendorTable: React.FC<VendorTableProps>  = ({vendorList, isLoading}) => {
     <div id="tableContainer">
       <div
         id="mecaAdminTable"
-        className={`my-[1.25rem] w-full max-h-[34rem] overflow-y-auto scrollbar-none ${styles.table}`}
+        className={`my-[1.25rem] w-full max-h-[34rem] overflow-y-auto scrollbar-none h-[32rem] ${styles.table}`}
       >
         <table id="adminTable" className={`w-full `}>
           <thead className="">
@@ -187,10 +187,10 @@ const VendorTable: React.FC<VendorTableProps>  = ({vendorList, isLoading}) => {
               <th id="dateTimeJoinedHeader">Date & time joined</th>
             </tr>
           </thead>
-          <tbody className=" h-[25rem]">
+          <tbody >
              { isLoading ? (
         <div 
-        className="text-center mt-28 relative left-[140%] right[140%] h-[30rem]"
+        className="text-center mt-28 relative left-[180%] right[180%] h-[30rem]"
         >
            <ColorRing  
             visible={true}

@@ -68,7 +68,7 @@ function Buyers() {
       </div>
       <BuyerTable data={buyerList} isLoading={isLoading} isError={isError}/>
 
-      <div className="flex mt-10 text-mecaBluePrimaryColor font-bold text-lg pt-96">
+      <div className="flex mt-10 text-mecaBluePrimaryColor font-bold text-lg">
       {!last ? (
           <button className={`flex gap-x-2`} 
           onClick={handlePreviousPage}>
