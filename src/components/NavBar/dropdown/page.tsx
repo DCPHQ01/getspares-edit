@@ -4,8 +4,29 @@ import Card from "@mui/material/Card";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useGetCategoryQuery } from "../../../redux/features/users/authQuery";
 import { paths } from "../../../path/paths";
+import { useEffect, useRef } from "react";
 
-const DropdownPage = () => {
+interface DropdownPageProps {
+  closeDropdown: () => void;
+}
+const DropdownPage: React.FC<DropdownPageProps> = ({ closeDropdown }) => {
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        closeDropdown();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownRef, closeDropdown]);
   const router = useRouter();
   const { data: getCategoriesData } = useGetCategoryQuery({});
   console.log("buyers category  ", getCategoriesData);
@@ -13,7 +34,7 @@ const DropdownPage = () => {
     router.push(paths.toCategoryProducts(categoryName));
   };
   return (
-    <div className="">
+    <div ref={dropdownRef} className="">
       <div>
         <Card
           className="w-full  lg:h-96 h-[100vh]  scrollbar-none overflow-y-scroll  "
