@@ -41,6 +41,9 @@ function Overview() {
     }, [data]);
 
 
+  // console.log("data", mecaAdminOverviewData);
+console.log("topVendors", topVendors);
+
     const handlePeriodChange = (newPeriod: string) => {
       setActivityPeriod(newPeriod);
     };
@@ -83,9 +86,9 @@ function Overview() {
           <button className="flex gap-x-2">
             <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
           </button> */}
-          <button className="flex gap-x-2">
-            <MdChevronRight className="mt-1 text-2xl" /> <span>Next</span>
-          </button>
+          {/*<button className="flex gap-x-2">*/}
+          {/*  <MdChevronRight className="mt-1 text-2xl" /> <span>Next</span>*/}
+          {/*</button>*/}
         {/* </div> */}
       </div>
     </>
