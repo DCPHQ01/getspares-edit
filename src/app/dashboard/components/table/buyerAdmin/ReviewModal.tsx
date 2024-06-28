@@ -47,7 +47,7 @@ const ReviewModal: React.FC<ReviewModalProps> = ({
       }).unwrap();
       closeModal();
       if ("data" in res) {
-        console.log(res.data.data);
+        console.log("create comment", res.data.data);
       }
     } catch (error) {}
   };
