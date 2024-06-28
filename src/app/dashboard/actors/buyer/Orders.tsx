@@ -10,13 +10,11 @@ function Orders() {
   const [pageSize, setPageSize] = useState(10);
   const [totalElements, setTotalElements] = useState(0)
   const {data, isLoading} = useGetViewAllOrdersQuery({pageNo, pageSize});
-  console.log("data for orders", data);
   const [totalElement, setTotalElement] = useState(0);
 
   const [buyerOrderList, setBuyerOrderList] = useState([]);
   useEffect(() => {
     if (data) {
-      console.log("Received data structure:", data);
       const resultList = data?.data?.content;
       setTotalElement(data.data?.totalElements);
       if (resultList) {
@@ -27,7 +25,6 @@ function Orders() {
       }
     }
   }, [data]);
-  console.log("The buyerOrderList:", buyerOrderList);
   return (
     <div className={`flex flex-col gap-6`}>
       <Header

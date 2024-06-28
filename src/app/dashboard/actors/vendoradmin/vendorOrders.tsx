@@ -6,11 +6,11 @@ import { useGetMecaVendorOrdersQuery } from "../../../../redux/features/dashboar
 import { useEffect, useState } from "react";
 import { MdBusinessCenter } from "react-icons/md";
 
+
 function VendorOrders() {
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(10);
   const {data, isLoading, isError} = useGetMecaVendorOrdersQuery({page, size});
-  console.log("data for vendor orders", data);
 
   const [vendorOrderList, setVendorOrderList] = useState([]);
   const [hasOrders, setHasOrders] = useState(false);

@@ -9,12 +9,10 @@ function BuyerOrderMobile() {
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(10);
   const {data, isLoading} = useGetViewAllOrdersQuery({pageNo, pageSize});
-  console.log("data for orders", data);
 
   const [buyerOrderList, setBuyerOrderList] = useState([]);
   useEffect(() => {
     if (data) {
-      console.log("Received data structure:", data);
       const resultList = data?.data?.content;
       if (resultList) {
         setBuyerOrderList(resultList);
@@ -23,7 +21,6 @@ function BuyerOrderMobile() {
       }
     }
   }, [data]);
-  console.log("The buyerOrderList:", buyerOrderList);
   return (
     <div className={`flex flex-col gap-6`}>
       <Header
