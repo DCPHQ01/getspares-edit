@@ -33,7 +33,6 @@ const AddProductImage = () => {
   const handleDashBoard = () => {
     router.push(paths.toDashboard());
   };
-
   const basicInfoData =
     typeof window !== "undefined" && window.sessionStorage
       ? JSON.parse(sessionStorage.getItem("basicInfoValues") || "{}")
@@ -100,10 +99,11 @@ const AddProductImage = () => {
   };
   const searchParams = useSearchParams();
   const productId = searchParams?.get("id");
-  // const { data: getAproduct, isFetching } = useGetAProductQuery(productId, {
-  //   skip: !productId,
-  // });
-  // console.log("get a product ", getAproduct);
+
+  const { data, isFetching } = useGetAProductQuery(productId || "", {
+    skip: !productId,
+  });
+
   return (
     <div className=" z-50 fixed top-0  h-40 w-[100%]">
       <div>
@@ -127,21 +127,7 @@ const AddProductImage = () => {
             onClick={handleAddProduct}
             className="text-base flex justify-center items-center bg-mecaBluePrimaryColor text-white w-40 h-10 rounded-full font-semibold"
           >
-            {isLoading ? (
-              <ColorRing
-                visible={true}
-                height="40"
-                width="40"
-                ariaLabel="color-ring-loading"
-                wrapperStyle={{}}
-                wrapperClass="color-ring-wrapper"
-                colors={["#ffff", "#ffff", "#ffff", "#ffff", "#ffff"]}
-              />
-            ) : productId ? (
-              "Save"
-            ) : (
-              "Publish now"
-            )}
+            {productId ? "Save" : "Publish now"}
           </button>
           <Modal
             open={open}

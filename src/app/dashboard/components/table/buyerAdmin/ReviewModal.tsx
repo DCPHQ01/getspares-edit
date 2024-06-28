@@ -11,6 +11,13 @@ interface ReviewModalProps {
   setOpenModal: (value: boolean) => void;
 }
 
+interface BuyersDetails{
+    description: string,
+    rating: number,
+    productId: string,
+    orderId: string,
+}
+
 const CustomIconContainer = styled("span")({
   fontSize: "75px",
   display: "inline-flex",
@@ -19,7 +26,7 @@ const CustomIconContainer = styled("span")({
   marginRight: "4px",
 });
 
-const ReviewModal: React.FC<ReviewModalProps> = ({
+const ReviewModal: React.FC<ReviewModalProps>  = ({
   openModal,
   setOpenModal,
 }) => {
@@ -27,10 +34,11 @@ const ReviewModal: React.FC<ReviewModalProps> = ({
     setOpenModal(false);
   };
 
-
   const [formData, setFormData] = useState({
     description: "",
     rating: 0,
+    productId: "",
+    orderId: "",
   });
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -38,12 +46,14 @@ const ReviewModal: React.FC<ReviewModalProps> = ({
   const [feedBackPostReview] = useCreateFeedbackMutation();
 
   const handleSubmit = async () => {
+    const productId = sessionStorage.getItem("productId");
+    const orderId = sessionStorage.getItem("selectedOrderId");
     try {
       const res = await feedBackPostReview({
         comment: formData.description,
-        orderId: "66770091d36d2c0f4f2a2569",
-        productId: "666877a5b48207256da90429",
-        rating: 0
+        orderId: orderId as string,
+        productId: productId as string,
+        rating: formData.rating,
       }).unwrap();
       closeModal();
       if ("data" in res) {

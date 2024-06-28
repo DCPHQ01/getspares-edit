@@ -135,8 +135,10 @@ export default function Details() {
   const firstImages = images.slice(0, 5);
   const remainingImages = images.slice(5);
 
+  const productId = sessionStorage.getItem("productId")
+
   const { data } = useGetViewBuyersProductDetailsQuery({
-    productId: "666877a5b48207256da90429",
+    productId: productId as string,
   });
   console.log("view buyer product detail", data);
 
@@ -198,7 +200,7 @@ export default function Details() {
                 </div>
                 <div
                   id="otherImagesDiv"
-                  className="w-full flex flex-wrap gap-5 justify-center lg:justify-start"
+                  className="w-full flex gap-5"
                 >
                   {(showAllImages ? images : firstImages).map((image, i) => (
                     <div
