@@ -5,6 +5,7 @@ import engine from "../../../../../assets/dashboardAssets/engine.png";
 import { FaStar } from "react-icons/fa6";
 import { formatAmount2 } from '../../../../../components/utils';
 import { useGetOverviewRecentProductImageQuery } from "../../../../../redux/features/dashboard/buyerQuery";
+import Details from '../../../../category/products/viewDetails/[details]/page';
 
 interface RecentProductImages {
   id: string;
@@ -21,9 +22,17 @@ interface RecentProductImages {
   model: string;
 }
 
+interface OrderInfo {
+  orderId?: string;
+  orderDate: string;
+  deliveryAddress: any;
+  orderItems: RecentProductImages[];
+};
+
 const Index = () => {
   const { data, isError, isLoading } = useGetOverviewRecentProductImageQuery({});
   const [imageList, setImageList] = useState<RecentProductImages[]>([]);
+  const [details, setDetails] = useState(false);
   
   useEffect(() => {
     if (data && Array.isArray(data.data)) {
@@ -39,10 +48,16 @@ const Index = () => {
 
   const imageLists = imageList.slice(0, 3);
 
+  const handleParticularDetails = () => {
+    setDetails(!details);
+  };
+
   return (
-    <div className="flex gap-x-5 justify-between overflow-y-scroll scrollbar-none">
+    <div className="relative flex gap-x-5 justify-between overflow-y-scroll scrollbar-none">
       {imageLists.map((detail, index) => (
-        <div key={index} className="lg:w-[22rem]">
+        <div key={index} className="lg:w-[22rem]"
+        onClick={handleParticularDetails}
+        >
           <div className="px-[1.2rem] py-[1.3rem] bg-[#F8FAFC] flex justify-center rounded-[8px] mb-[1rem]">
             <img src={detail.image} alt="engine" />
           </div>
@@ -61,6 +76,11 @@ const Index = () => {
           </p>
         </div>
       ))}
+      {details && (
+        <div className="absolute inset-0 w-full h-full bg-white z-index">
+          <Details />
+        </div>
+      )}
     </div>
   );
 };

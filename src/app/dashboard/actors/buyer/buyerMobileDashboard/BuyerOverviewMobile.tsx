@@ -46,7 +46,7 @@ function BuyerOverviewMobile() {
       <Header
         subtitle={`Keep track of your orders on meca`}
         title={`Orders`}
-        amount={`470,765`}
+        amount={overViewList.length}
       />
 
       {/* <OverviewTable /> */}

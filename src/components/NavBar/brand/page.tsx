@@ -5,7 +5,7 @@ const BrandPage = () => {
     const brandsCartegory = [
       {
         ListBrands: {
-          header: "List of BRANDS (Cars)",
+          header: "List of brands (Cars)",
           id: 1,
           toyota: "Toyota",
           honda: "Honda",
@@ -28,7 +28,7 @@ const BrandPage = () => {
         },
 
         ListHeavyDutyBrand: {
-          header: "List of BRANDS (Heavy Duty)",
+          header: "List of brands (Heavy Duty)",
           id: 2,
           john: "John Deere",
           sonalika: "Sonalika",

@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import MobileDropdownViewPage from "../../pages/MobileDropdownView/page";
+// import MobileDropdownViewPage from "../../pages/MobileDropdownView/page";
 // import Filter from "../../../components/filters/Filter";
 import MobileDropdownBrandPage from "../../pages/MobileDropdownBrand/page";
 import {
@@ -27,7 +27,7 @@ const mobileNavData = [
     icon1: <MdExpandMore size={24} className="text-mecaGoBackArrow" />,
     icon2: <MdChevronRight size={24} className="text-mecaGoBackArrow" />,
     link: "",
-    mobileNavHeader: <MobileDropdownViewPage />,
+    // mobileNavHeader: <MobileDropdownViewPage />,
   },
   {
     id: 3,
@@ -37,30 +37,10 @@ const mobileNavData = [
     link: "",
     mobileNavHeader: <MobileDropdownBrandPage />,
   },
-  {
-    id: 4,
-    title: "mechanics",
-    icon: <MdExpandMore size={24} className="text-mecaGoBackArrow" />,
-    icon2: <MdChevronRight size={24} className="text-mecaGoBackArrow" />,
-    link: "",
-  },
+
   {
     id: 5,
     title: "vendors",
-    icon: <MdExpandMore size={24} className="text-mecaGoBackArrow" />,
-    icon2: <MdChevronRight size={24} className="text-mecaGoBackArrow" />,
-    link: "",
-  },
-  {
-    id: 6,
-    title: "listings",
-    icon: <MdExpandMore size={24} className="text-mecaGoBackArrow" />,
-    icon2: <MdChevronRight size={24} className="text-mecaGoBackArrow" />,
-    link: "",
-  },
-  {
-    id: 7,
-    title: "advertise",
     icon: <MdExpandMore size={24} className="text-mecaGoBackArrow" />,
     icon2: <MdChevronRight size={24} className="text-mecaGoBackArrow" />,
     link: "",

@@ -34,7 +34,7 @@ interface ItemsDataProps {
   desc: string;
   rating: number;
   price: string;
-  image: any;
+  image?: any;
 }
 
 const itemsData: ItemsDataProps[] = [
@@ -307,7 +307,7 @@ export default function Products() {
                         id="itemImageDiv"
                       >
                         <Image
-                          src={item.image}
+                          src={item?.image}
                           alt="tractor image"
                           width={144}
                           height={106}
@@ -510,7 +510,7 @@ export default function Products() {
                     id="itemImage"
                   >
                     <Image
-                      src={item.image}
+                      src={item?.image}
                       alt="tractor image"
                       width={144}
                       height={106}

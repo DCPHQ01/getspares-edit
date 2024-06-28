@@ -36,8 +36,7 @@ function VendorOrders() {
     }
   }, [data]);
   console.log("The vendorOrderList:", vendorOrderList);
-
-  const [currentPage, setCurrentPage] = useState(1); // State for current page
+  const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
 
   const handlePreviousPage = () => {
