@@ -4,7 +4,6 @@ import ViewParticularOrderTable from "../../../../dashboard/components/table/buy
 import { useGetOrderDetailsQuery } from "../../../../../redux/features/dashboard/buyerQuery";
 import { useEffect, useState } from "react";
 
-
 interface OrderItem {
   price: number;
   productId: string;
@@ -20,12 +19,9 @@ interface OrderInfo {
   orderItems: OrderItem[];
 }
 
-
-
 const ViewParticularOrderDetailsPage: React.FC = () => {
   const [id, setId] = useState<string | null>(null);
   const [orderId, setOrderId] = useState<string | null>(null);
-  
 
   // useEffect(() => {
   //   const storedOrderId = sessionStorage.getItem("selectedOrderId");
@@ -43,10 +39,27 @@ const ViewParticularOrderDetailsPage: React.FC = () => {
     }
   }, []);
 
-  const { data, isLoading } = useGetOrderDetailsQuery({ id: id || "" }, { skip: !id });
-  console.log("data for order details", data);
+  const { data, isLoading } = useGetOrderDetailsQuery(
+    { id: id || "" },
+    { skip: !id }
+  );
+//  const [selectedProductName, setSelectedProductName] = useState("");
+//  const [selectedProductId, setSelectedProductId] = useState("");
 
-
+//  useEffect(() => {
+//    if (!isLoading && data && data?.data?.orderItems) {
+//      // Find productId based on selectedProductName
+//      const selectedProduct = data?.data?.orderItems.find(
+//        (item:any) => item.productName === selectedProductName
+//      );
+//      console.log(selectedProduct,'jj')
+//      if (selectedProduct) {
+//        setSelectedProductId(selectedProduct.productId);
+//        sessionStorage.setItem("selectedProductId", selectedProduct.productId);
+//      }
+//    }
+//  }, [isLoading, data, selectedProductName]);
+console.log(data, 'hhfhfh')
   const [orderDetails, setOrderDetails] = useState<OrderInfo>({
     orderDate: "",
     deliveryAddress: {},
@@ -65,7 +78,6 @@ const ViewParticularOrderDetailsPage: React.FC = () => {
       }
     }
   }, [data]);
-
 
   return (
     <div className="">
