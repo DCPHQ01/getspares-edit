@@ -12,8 +12,6 @@ import ViewParticularOrderDetailsPage from "../../../../category/products/viewDe
 import { ColorRing } from "react-loader-spinner";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
-
-
 interface OrderItem {
   price: number;
   productId: string;
@@ -21,16 +19,22 @@ interface OrderItem {
   productName: string;
   quantity: number;
   avatar?: any;
-};
+}
 
 interface OrderInfo {
   orderId?: string;
   orderDate: string;
   deliveryAddress: any;
   orderItems: OrderItem[];
-};
+}
 
-const ViewParticularOrderTable = ({ data, isLoading }: { data: OrderInfo, isLoading: boolean,}) => {
+const ViewParticularOrderTable = ({
+  data,
+  isLoading,
+}: {
+  data: OrderInfo;
+  isLoading: boolean;
+}) => {
   const router = useRouter();
   const [renderDetails, setRenderDetails] = useState(false);
 
@@ -41,17 +45,15 @@ const ViewParticularOrderTable = ({ data, isLoading }: { data: OrderInfo, isLoad
   //   }
   // }, []);
 
-
   const handleDetails = () => {
     setRenderDetails(!renderDetails);
   };
 
   const [details, setDetails] = useState(false);
-  const handleParticularDetails = (productId:any) => {
-    sessionStorage.setItem('productId', productId)
+  const handleParticularDetails = (productId: any) => {
+    sessionStorage.setItem("productId", productId);
     setDetails(!details);
-        console.log("ggghhhhhafter");
-
+    console.log("ggghhhhhafter");
   };
   return (
     <div className="">
@@ -81,17 +83,21 @@ const ViewParticularOrderTable = ({ data, isLoading }: { data: OrderInfo, isLoad
                   </th>
                 </tr>
               </thead>
-              <tbody >
-              {isLoading ? (
+              <tbody>
+                {isLoading ? (
                   <tr>
                     <td colSpan={3}>
-                      <div className="mt-28 relative lg:left-[100px] md:right-[400px]"> 
+                      <div className="mt-28 relative lg:left-[100px] md:right-[400px]">
                         <ColorRing
                           visible={true}
                           height="80"
                           width="80"
                           ariaLabel="color-ring-loading"
-                          wrapperStyle={{position: "absolute", bottom: "75%", left: "40%"}}
+                          wrapperStyle={{
+                            position: "absolute",
+                            bottom: "75%",
+                            left: "40%",
+                          }}
                           wrapperClass="color-ring-wrapper"
                           colors={[
                             "#000000",
@@ -106,7 +112,6 @@ const ViewParticularOrderTable = ({ data, isLoading }: { data: OrderInfo, isLoad
                   </tr>
                 ) : (
                   data?.orderItems?.map((d, index) => (
-                    
                     <tr
                       key={index}
                       id={`row_${index}`}
@@ -114,22 +119,24 @@ const ViewParticularOrderTable = ({ data, isLoading }: { data: OrderInfo, isLoad
                       onClick={() => handleParticularDetails(d.productId)}
                     >
                       <td id={`companyData_${index}`}>
-                        <div className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}>
-                        {d.avatar ? (
-                          <Image
-                            src={d.productImage}
-                            className="object-contain"
-                            alt="Product Image"
-                            width={50}
-                            height={50}
-                          />
-                        ) : (
-                          <AccountCircleIcon
-                            id={`avatar_${index}`}
-                            className="object-cover"
-                            style={{ fontSize: 40, color: 'gray' }}
-                          />
-                        )}
+                        <div
+                          className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
+                        >
+                          {d.avatar ? (
+                            <Image
+                              src={d.productImage}
+                              className="object-contain"
+                              alt="Product Image"
+                              width={50}
+                              height={50}
+                            />
+                          ) : (
+                            <AccountCircleIcon
+                              id={`avatar_${index}`}
+                              className="object-cover"
+                              style={{ fontSize: 40, color: "gray" }}
+                            />
+                          )}
                           <div id={`companyDetails_${index}`}>
                             <div className="mt-[8px]">{d.productName}</div>
                           </div>
@@ -142,7 +149,9 @@ const ViewParticularOrderTable = ({ data, isLoading }: { data: OrderInfo, isLoad
                         {d.quantity}
                       </td>
                       <td id={`dateJoined_${index}`}>
-                        <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
+                        <div
+                          className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}
+                        >
                           {d.price}
                         </div>
                       </td>
@@ -178,7 +187,7 @@ const ViewParticularOrderTable = ({ data, isLoading }: { data: OrderInfo, isLoad
       </div>
 
       {details && (
-        <div className="absolute top-0 w-[100vw] h-[100vh]">
+        <div className="absolute top-0 w-[100%] m-auto  h-[100vh]">
           <div className=" bg-white">
             <Details />
           </div>

@@ -200,7 +200,7 @@ export default function Details() {
                 </div>
                 <div
                   id="otherImagesDiv"
-                  className="w-full flex flex-wrap gap-5 justify-center lg:justify-start"
+                  className="w-full flex gap-5"
                 >
                   {(showAllImages ? images : firstImages).map((image, i) => (
                     <div
