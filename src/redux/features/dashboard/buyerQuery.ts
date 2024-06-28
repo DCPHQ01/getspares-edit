@@ -31,15 +31,15 @@ export const buyerQuery = createApi({
       }),
     }),
 
-    // getOverviewOrderTable: builder.query({
-    //   query: () => ({
-    //     url: "/product/recent",
-    //   }),
     getOverviewOrderTable: builder.query({
       query: () => ({
-        url: "/order/recent",
-        method: "GET",
+        url: "/product/recent",
       }),
+      // getOverviewOrderTable: builder.query({
+      //   query: () => ({
+      //     url: "/order/recent",
+      //     method: "GET",
+      //   }),
     }),
     getOverviewRecentProductImage: builder.query({
       query: () => ({
