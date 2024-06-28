@@ -91,6 +91,13 @@ export const productsQuery = createApi({
         method: "GET",
       }),
     }),
+    getAllVendorProducts: builder.query({
+      query:(body: { pageNumber: number; pageSize: number }) =>  ({
+        url: "/product/vendor/view-all",
+        method: "POST",
+        body
+      })
+    }),
   }),
 });
 
@@ -102,4 +109,5 @@ export const {
   useAddProductToCartMutation,
   useRemoveProductFromCartMutation,
   useViewCartQuery,
+   useGetAllVendorProductsQuery,
 } = productsQuery;

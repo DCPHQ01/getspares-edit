@@ -1,5 +1,5 @@
 "use client"
-import { useState } from 'react'
+import {useEffect, useState} from 'react'
 import { MdChevronRight } from 'react-icons/md';
 import Image from "next/image";
 import * as React from "react";
@@ -14,9 +14,16 @@ import { useRouter } from "next/navigation";
 import BasicTabs from '../BasicTabs';
 import DetailImageModal from "../vendorModal"
 import { paths } from '../../../../../../path/paths';
+import {useGetAProductQuery} from "../../../../../../redux/features/users/authQuery";
+import {formatAmount} from "../../../../../../components/utils";
 
 interface State {
   open: boolean;
+}
+
+interface NavProps {
+  routeBack ?: () => void;
+  productId: string
 }
 
 const images = [
@@ -24,26 +31,37 @@ const images = [
   { src: tractor, alt: "Back View" },
   { src: tractor, alt: "Right Side View" },
   { src: tractor, alt: "Left Side View" },
-  
+
 ];
 
-const ViewItemDetails = () => {
+
+const ViewItemDetails : React.FC<NavProps> = ({routeBack, productId}) => {
+
+
   const [opens, setOpens] = React.useState<boolean>(false);
   const [state, setState] = React.useState<State>({
     open: false,
   });
+  const [id, setId] = useState('')
 
   const handleOpen = () => setOpens(true);
   const handleClose = () => setOpens(false);
-
-  const { open } = state;
-  const dispatch = useAppDispatch();
-  const searchParams = usePathname()!;
-  const search = searchParams;
-  const segments = searchParams.split("/");
-  const searches = segments[3];
-  const id = segments[4];
   const router = useRouter();
+
+  const { data, isLoading } = useGetAProductQuery(productId, {
+    skip: !productId,
+  });
+
+
+  useEffect(()=>{
+    if(productId){
+      setId(productId)
+    }
+  },[productId])
+
+
+
+
 
   const onClick = () => {
     router.push(paths.toDashboard())
@@ -73,10 +91,10 @@ const ViewItemDetails = () => {
           className="flex items-center gap-x-2"
         >
           {/* <Link href={paths.toDashboard()}> */}
-            <button className="text-lg cursor-pointer font-nunito font-normal text-mecaDarkBlueBackgroundOverlay"
-            onClick={onClick}
+            <button className="text-lg capitalize cursor-pointer font-nunito font-normal text-mecaDarkBlueBackgroundOverlay"
+            onClick={routeBack}
             >
-              Caterpillar engine v1
+              {data?.data?.name}
             </button>
           {/* </Link> */}
           <MdChevronRight size={20} />
@@ -136,53 +154,55 @@ const ViewItemDetails = () => {
                 id="titleCompanyDiv"
                 className="w-full flex flex-col gap-y-4 bg-white"
               >
-                <h2 className="text-2xl text-mecaDarkBlueBackgroundOverlay font-normal font-nunito ">
-                  E46 Engine 1996 Model
+                <h2 className="capitalize text-2xl text-mecaDarkBlueBackgroundOverlay font-normal font-nunito ">
+                  {data?.data?.name}
                 </h2>
                 <div id="aboutProduct" className="w-full mt-3">
                   <p className="text-lg font-nunito font-normal text-mecaGrayBodyText">
-                    For a 1996 BMW model, you would be looking at engines from
-                    the E36 generation. These engines varied depending on the
-                    specific model and trim level but generally included
-                    inline-four, inline-six, and V8 options. They are known
-                    for their performance, reliability, and smooth operation
-                    typical of BMW engines.
+                     {data?.data?.description}
                   </p>
                 </div>
                 <div id="priceButtonDiv" className="flex flex-col mt-6">
                   <div id="priceDiv" className="flex gap-x-6 items-center">
                     <p className="text-mecaDarkBlueBackgroundOverlay text-3xl font-extrabold">
-                      ₦97,500.00
+                      {
+                       formatAmount(data?.data?.amount)
+                      }
                     </p>
-                    <div
-                      id="inStockBtn"
-                      className="w-[68px] h-[22px] bg-mecaSuccess rounded-full flex justify-center items-center"
+                    {data?.data?.availabilityStatus !== 'IN_STOCK' ? <div
+                       id="inStockBtn"
+                       className="w-[68px] h-[22px] bg-mecaSuccess rounded-full flex justify-center items-center"
                     >
                       <p className="text-mecaIconSuccessColor text-sm font-normal">
                         In stock
                       </p>
-                    </div>
+                    </div> : <div
+                       id="inStockBtn"
+                       className="bg-mecaErrorBackground rounded-full flex justify-center items-center p-2"
+                    >
+                      <span className="text-mecaErrorText text-sm font-normal">
+                        Not in stock
+                      </span>
+                    </div>}
+
                   </div>
-                  <div
-                    id="buttonDiv"
-                    className="w-full h-full mt-4 flex flex-col gap-y-4"
-                  ></div>
+                  <div id="buttonDiv" className="w-full h-full mt-4 flex flex-col gap-y-4"/>
                 </div>
               </div>
             </div>
           </div>
            <div className=' mt-5'>
-           <BasicTabs />
+           <BasicTabs productInformation={data?.data?.productInformation}/>
            </div>
         </div>
       </div>
       <div>
-        
+
         {<DetailImageModal  open={opens} handleClose={handleClose}/>}
       </div>
     </div>
   </div>
 );
 }
- 
+
 export default ViewItemDetails

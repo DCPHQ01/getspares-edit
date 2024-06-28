@@ -8,7 +8,7 @@ function Index({ placeholder = "Search" }: { placeholder?: string }) {
         className={`lg:w-[254px] w-[100%] flex items-center border text-[#667085] py-2.5 px-3.5 rounded-full border-[#D0D5DD]`}
       >
         <div className="">
-          <MdSearch className="" />
+          <MdSearch size={25} className="" />
         </div>
         <div className="">
           <input placeholder={placeholder} className={`focus:outline-none ml-3`} />
