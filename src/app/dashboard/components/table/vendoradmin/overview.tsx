@@ -5,6 +5,8 @@ import image2 from "../../../../../assets/dashboardAssets/Avatar3.png";
 import Image from "next/image";
 import { AccountCircle } from "@mui/icons-material";
 import { format } from "../../../../../components/utils";
+import { MdInventory2 } from 'react-icons/md';
+
 
 // const data = [
 //   {
@@ -168,7 +170,15 @@ const Overview: React.FC<VendorTableProps> = ({topPerformingProduct,isLoading}) 
           </tr>
         </thead>
         <tbody className=" h-[25rem]">
-            { topPerformingProduct.length == 0 ? (<div className="relative right-[90%] left-[90%] pt-40 text-2xl font-bold text-gray-600">No data in the Table yet</div>) : (  topPerformingProduct?.map((d, index) => {
+            { topPerformingProduct.length == 0 ? (<div className="relative right-[100%] left-[100%] flex flex-col justify-center items-center pt-32 leading-10">
+              <div className=" h-28">
+              <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
+              <MdInventory2 style={{fontSize:"2rem", color:"#0852C0"}}/>
+              </div>
+              </div>
+              <h1 className="text-xl">No item here yet</h1>
+              <h1 className="text-gray-500">All your item will appear here</h1>
+              </div>) : (  topPerformingProduct?.map((d, index) => {
 
           return ( <tr key={index} id={`row_${index}`} className="truncate">
               <td>

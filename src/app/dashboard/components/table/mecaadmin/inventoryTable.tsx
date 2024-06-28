@@ -9,6 +9,9 @@ import { AccountCircle } from "@mui/icons-material";
 // import "react-tabs/style/react-tabs.css";
 import { ColorRing } from "react-loader-spinner";
 import { format } from "../../../../../components/utils";
+import { MdInventory2 } from 'react-icons/md';
+
+
 
 interface InventoryData {
   productName?: number;
@@ -160,7 +163,7 @@ const InventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isLoading
     <div id="tableContainer">
       <div
         id="mecaAdminTable"
-        className={`my-[1.25rem] w-full max-h-[34rem] overflow-y-auto scrollbar-none ${styles.table}`}
+        className={`my-[1.25rem] w-full max-h-[34rem] overflow-y-auto scrollbar-none h-[32rem] ${styles.table}`}
       >
         <table id="adminTable" className={`w-full`}>
           <thead>
@@ -174,9 +177,9 @@ const InventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isLoading
             </tr>
           </thead>
           <tbody className=" h-[25rem]">
-            {inventoryData.length === 0 ? (<div className="relative right-[180%] left-[180%] pt-40 text-2xl font-bold text-gray-600">Empty</div>): (isLoading ? (
+            {  isLoading ? (
         <div 
-        className="text-center mt-28 relative lg:left-[144%] lg:right[144%] h-[30rem]"
+        className="text-center mt-28 relative lg:left-[100%] lg:right[100%] h-[30rem]"
         >
            <ColorRing  
             visible={true}
@@ -190,7 +193,16 @@ const InventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isLoading
            />
           <p>Loading Inventory Table...</p>
         </div>
-      )  : (inventoryData?.map((d, index) => (
+      ) : inventoryData.length === 0 ? (
+      <div className="relative right-[100%] left-[100%] flex flex-col justify-center items-center pt-32 leading-10">
+         <div className=" h-28">
+      <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
+      <MdInventory2 style={{fontSize:"2rem", color:"#0852C0"}}/>
+      </div>
+      </div>
+      <h1 className="text-xl">No item here yet</h1>
+      <h1 className="text-gray-500">All your item will appear here</h1>
+        </div>) : (inventoryData?.map((d, index) => (
               <tr key={index} id={`row_${index}`} className="cursor-pointer">
                 <td id={`companyData_${index}`}>
                   <div
@@ -252,7 +264,7 @@ const InventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isLoading
                   {d.transactionValue}
                 </td>
               </tr>)
-            )))}
+            ))}
           </tbody>
         </table>
       </div>
