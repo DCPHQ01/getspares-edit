@@ -56,7 +56,7 @@ const mobileNavData = [
 interface MobileNavProps {
   handleNav?: () => void;
 }
-export default function MobileNav({ handleNav }: MobileNavProps) {
+export default function MobileNavbarList({ handleNav }: MobileNavProps) {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const toggleModal = () => {

@@ -10,7 +10,7 @@ import {
 import Header from "./../Header/page";
 import NavBar from "../../../components/NavBar/NavBar";
 import { useState } from "react";
-import MobileNav from "../../../components/mobileNav/MobileNav";
+import MobileNav from "../../../components/MobileNav/mobileNavbarList.tsx";
 
 export default function TopBar() {
   const [open, setOpen] = useState(true);
