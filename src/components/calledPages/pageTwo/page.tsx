@@ -46,9 +46,9 @@ const CalledPagesPageTwoPages = () => {
     setInputValues(newInputValues);
   };
 
-  const handleAddAddress = () => {
-    setInputValues([...company.companyForm.address, ""]);
-  };
+  // const handleAddAddress = () => {
+  //   setInputValues([...company.companyForm.address1, ""]);
+  // };
   const handleSaveAddress = () => {
     const newAddresses: Address[] = inputValues.map((inputValue) => {
       const parts = inputValue.split(",").map((part) => part.trim());
@@ -99,12 +99,12 @@ const CalledPagesPageTwoPages = () => {
     if (!addressRegex.test(address)) {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        address: "Address must be at least 5 characters",
+        address1: "Address must be at least 5 characters",
       }));
     } else {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        address: "",
+        address1: "",
       }));
     }
   };
@@ -229,7 +229,7 @@ const CalledPagesPageTwoPages = () => {
                   placeholder="Enter email"
                   InputProps={{ disableUnderline: true }}
                   className="  w-full lg:w-[364px]  2xl:w-[35rem]"
-                  value={company.companyForm.email}
+                  value={company.companyForm.companyEmail}
                   onChange={(e) =>
                     dispatch(
                       setCompanyForm({
@@ -296,7 +296,7 @@ const CalledPagesPageTwoPages = () => {
                         InputProps={{ disableUnderline: true }}
                         className="  w-full lg:w-[364px] 2xl:w-[35rem] "
                         placeholder="Enter address (Street Number, Town, City, State)"
-                        value={company.companyForm.address}
+                        value={company.companyForm.address1}
                         onBlur={(e) =>
                           dispatch(
                             setCompanyForm({
@@ -311,7 +311,7 @@ const CalledPagesPageTwoPages = () => {
                   ))}
 
                   <button
-                    onClick={handleAddAddress}
+                    // onClick={handleAddAddress}
                     className="add-address"
                     id="addAnotherid4"
                   >
@@ -451,7 +451,7 @@ const CalledPagesPageTwoPages = () => {
                         // className="lg:w-[100%] w-[100%]"
                         className="  w-full lg:w-[364px]  2xl:w-[35rem]"
                         // sx={{ backgroundColor: "porcelain" }}
-                        value={company.companyForm.email}
+                        value={company.companyForm.companyEmail}
                         onChange={(e) =>
                           dispatch(
                             setCompanyForm({
@@ -544,7 +544,7 @@ const CalledPagesPageTwoPages = () => {
                         ))}
 
                         <button
-                          onClick={handleAddAddress}
+                          // onClick={handleAddAddress}
                           className="add-address"
                           id="addAnotheraddress"
                         >

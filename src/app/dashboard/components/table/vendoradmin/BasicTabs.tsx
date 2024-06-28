@@ -34,7 +34,17 @@ function a11yProps(index: number) {
 }
 
 interface BasicProps {
-  productInformation: object
+  productInformation: {
+    quantity?:string,
+    manufacturerPartNumber?:string,
+    manufacturer?:string,
+    model?:string,
+    itemModelNumber?:string,
+    color?:string,
+    itemWeight?:string,
+    productDimension?:string,
+    countryOfOrigin?:string
+  }
 }
 
 const BasicTabs : React.FC<BasicProps> = ({productInformation}) => {

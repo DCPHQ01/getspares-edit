@@ -74,7 +74,16 @@ function Label({
 }
 
 interface PageOneProps {
-  companyData: object;
+  companyData?: {
+    name: string;
+    description: string;
+    website: string;
+    companyEmail: string;
+    phoneNumber: string;
+    cac: string;
+    address1: string;
+    address2:string;
+  };
 }
 
 
@@ -203,29 +212,29 @@ const CalledPagesPageOnePages: React.FC<PageOneProps> = ({companyData}) => {
     dispatch(setCurrentStep(1));
   };
 
-  const populateData = (userData) => {
-    const userDataKeys = Object.keys(companyForm)
-    if(userData){
-      userDataKeys.forEach(key => {
-          dispatch(
-             setCompanyForm({
-               ...companyForm,
-               [key]: userData[key] ? userData[key] : '',
-             })
-          )
-      })
-    }
-  }
+  // const populateData = (userData) => {
+  //   const userDataKeys = Object.keys(companyForm)
+  //   if(userData){
+  //     userDataKeys.forEach(key => {
+  //         dispatch(
+  //            setCompanyForm({
+  //              ...companyForm,
+  //              [key]: userData[key] ? userData[key] : '',
+  //            })
+  //         )
+  //     })
+  //   }
+  // }
 
 
   useEffect(() => {
     if(companyData){
-      populateData(companyData)
-      // dispatch(
-      //    setCompanyForm(
-      //      companyData
-      //    )
-      // )
+      // populateData(companyData)
+      dispatch(
+         setCompanyForm(
+           companyData
+         )
+      )
     }
   },[companyData])
 

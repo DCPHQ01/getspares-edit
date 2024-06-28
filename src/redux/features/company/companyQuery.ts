@@ -16,7 +16,7 @@ export const companyQuery = createApi({
         cac: string;
         companyEmail: string;
         phoneNumber: string;
-        location: string;
+        address1: string;
         imageUrl: string;
       }) => ({
         url: "/company",

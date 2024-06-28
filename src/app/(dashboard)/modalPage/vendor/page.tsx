@@ -21,12 +21,34 @@ const Dashboard = () => {
 
    const { data, isLoading, isError } = useGetCompanyProfileQuery({});
 
+   // interface PageOneProps {
+   //    newData?: {
+   //       name: string;
+   //       description: string;
+   //       website: string;
+   //       companyEmail: string;
+   //       phoneNumber: string;
+   //       cac: string;
+   //       address1: string;
+   //       address2:string;
+   //    };
+   // }
 
+   interface newData {
+      name?: string;
+      description?: string;
+      website?: string;
+      companyEmail?: string;
+      phoneNumber?: string;
+      cac?: string;
+      address1?: string;
+      address2?:string;
+   };
 
-   const togglePages = (steps: number, data:object) => {
+   const togglePages = (steps:number, newData: newData) => {
     switch (steps) {
       case 1:
-        return <CalledPagesPageOnePages companyData={data}/>;
+        return <CalledPagesPageOnePages/>;
       case 2:
         return <CalledPagesPageTwoPages />;
       case 3:

@@ -92,7 +92,7 @@ export const productsQuery = createApi({
       }),
     }),
     getAllVendorProducts: builder.query({
-      query:(body: { pageNumber: number; pageSize: number }) =>  ({
+      query:(body) =>  ({
         url: "/product/vendor/view-all",
         method: "POST",
         body

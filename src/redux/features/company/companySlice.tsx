@@ -14,7 +14,7 @@ const companySlice = createSlice({
       phoneNumber: "",
       cac: "",
       address1: '',
-      address2: '',
+      // address2: '',
     },
   },
   reducers: {

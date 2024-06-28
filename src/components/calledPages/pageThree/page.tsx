@@ -43,9 +43,9 @@ const CalledPagesPageThreePages = () => {
         description: company.companyForm.description,
         websiteUrl: company.companyForm.website,
         cac: company.companyForm.cac,
-        companyEmail: company.companyForm.email,
+        address1: company.companyForm.address1,
+        companyEmail: company.companyForm.companyEmail,
         phoneNumber: company.companyForm.phoneNumber,
-        location: company.companyForm.address.join(", "),
         imageUrl: companyImage,
       });
 
@@ -152,7 +152,7 @@ const CalledPagesPageThreePages = () => {
                       id="filledbasic9"
                       label="Email address"
                       variant="filled"
-                      value={company.companyForm.email}
+                      value={company.companyForm.companyEmail}
                       type="email"
                       name="email"
                       placeholder="Enter email"
@@ -186,7 +186,7 @@ const CalledPagesPageThreePages = () => {
                       id="filledbasic11"
                       label="Address 1"
                       variant="filled"
-                      value={company.companyForm.address}
+                      value={company.companyForm.address1}
                       name="address"
                       placeholder="371, Borno way, Lagos Nigeria"
                       InputProps={{ disableUnderline: true }}
@@ -323,7 +323,7 @@ const CalledPagesPageThreePages = () => {
                       type="email"
                       name="email"
                       id="previewEmailId6"
-                      value={company.companyForm.email}
+                      value={company.companyForm.companyEmail}
                       className=" companyInput mt-6"
                       placeholder="Enter email"
                    />
@@ -344,7 +344,7 @@ const CalledPagesPageThreePages = () => {
                       readOnly={true}
                       type="text"
                       name="inputName"
-                      value={company.companyForm.address}
+                      value={company.companyForm.address1}
                       id="previewAddress1Id8"
                       placeholder="Address1"
                       className=" companyInput mt-6"

@@ -9,11 +9,11 @@ import {MdMoreVert, MdPreview, MdEdit, MdDeleteOutline, MdBusinessCenter} from "
 import { Menu, MenuItem, IconButton } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { title } from "process";
-import ViewItemDetails from "./[viewDetailsInventory]/page";
 import { ColorRing } from "react-loader-spinner";
 import { MdInventory2 } from 'react-icons/md';
 import {formatAmount, formatAmount2} from "../../../../../components/utils";
 import {useGetAProductQuery} from "../../../../../redux/features/users/authQuery";
+import ViewItemDetails from "./ViewItemDetails";
 
 interface InventoryData {
   categoryName?: string;
@@ -171,7 +171,7 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
                              className={`text-[0.88rem] py-[1rem] px-[1.13rem]`}
                              id={`itemsSold_${index}`}
                           >
-                            {formatAmount( d.price)}
+                            {formatAmount( Number(d.price))}
                           </td>
                           <td
                              className={`text-[0.88rem] py-[1rem] px-[2rem] `}
