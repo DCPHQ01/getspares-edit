@@ -72,7 +72,14 @@ function Label({
 
   return content;
 }
-const CalledPagesPageOnePages = () => {
+
+interface PageOneProps {
+  companyData: object;
+}
+
+
+
+const CalledPagesPageOnePages: React.FC<PageOneProps> = ({companyData}) => {
   const [website, setWebsite] = useState("");
   const [fullName, setFullName] = useState("");
   const [cacNumber, setCacNumber] = useState("");
@@ -115,7 +122,6 @@ const CalledPagesPageOnePages = () => {
     }
   }
 
-
   const validateMessage = () => {
     if (!message.trim()) {
       setErrors((prevErrors) => ({
@@ -128,7 +134,6 @@ const CalledPagesPageOnePages = () => {
   };
 
   const validateDate = () => {
-    // You can implement your own validation logic for the date field
     if (!date.trim()) {
       setErrors((prevErrors) => ({
         ...prevErrors,
@@ -162,12 +167,10 @@ const CalledPagesPageOnePages = () => {
       console.log("Form submitted successfully");
     }
   };
-  const router = useRouter();
 
   const dispatch = useAppDispatch();
 
-  const company = useAppSelector((state: RootState) => state.company);
-  console.log("company ", company.companyForm);
+  const {companyForm} = useAppSelector((state: RootState) => state.company);
 
   const [formImage, setFormImage] = useState<string | null>(() => {
     if (typeof window !== "undefined") {
@@ -196,45 +199,36 @@ const CalledPagesPageOnePages = () => {
     fileInputRef.current?.click();
   };
 
-  // const step = useAppSelector((state) => state.company.step);
-  const currentStep = useAppSelector((state) => state.company.currentStep);
   const handleNextPage = () => {
     dispatch(setCurrentStep(1));
   };
 
-  let companyName = "";
-  if (typeof window !== "undefined") {
-    const userDetails = sessionStorage.getItem("userDetails");
-
-    if (userDetails) {
-      const parsedDetails = JSON.parse(userDetails);
-      if (
-        parsedDetails.companyDetails &&
-        parsedDetails.companyDetails.length > 0
-      ) {
-        companyName = parsedDetails.companyDetails[0].name;
-      }
+  const populateData = (userData) => {
+    const userDataKeys = Object.keys(companyForm)
+    if(userData){
+      userDataKeys.forEach(key => {
+          dispatch(
+             setCompanyForm({
+               ...companyForm,
+               [key]: userData[key] ? userData[key] : '',
+             })
+          )
+      })
     }
   }
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const userDetails = sessionStorage.getItem("userDetails");
-      if (userDetails) {
-        const parsedDetails = JSON.parse(userDetails);
-        if (
-          parsedDetails.companyDetails &&
-          parsedDetails.companyDetails.length > 0
-        ) {
-          dispatch(
-            setCompanyForm({ ...company.companyForm, name: companyName })
-          );
-        }
-      }
-    }
-  }, [dispatch]);
 
-  console.log("Company name: ", companyName);
+  useEffect(() => {
+    if(companyData){
+      populateData(companyData)
+      // dispatch(
+      //    setCompanyForm(
+      //      companyData
+      //    )
+      // )
+    }
+  },[companyData])
+
 
   return (
     <>
@@ -250,16 +244,6 @@ const CalledPagesPageOnePages = () => {
                 <sub className="text-xs font-normal" id="pageone6">
                   Provide details
                 </sub>
-
-                {/* <form method="dialog" id="pageone7">
-                  <button
-                    className="text-sm font-semibold skip cursor-pointer"
-                    id="skip1"
-                    onClick={handleNextPage}
-                  >
-                    Skip
-                  </button>
-                </form> */}
               </div>
             </div>
 
@@ -286,11 +270,11 @@ const CalledPagesPageOnePages = () => {
                     InputProps={{ disableUnderline: true }}
                     className="lg:w-[364px] w-[100%] mb-10 2xl:w-[35rem]"
                     sx={{ backgroundColor: "porcelain" }}
-                    value={company.companyForm.name}
+                    value={companyForm?.name}
                     onChange={(e) =>
                       dispatch(
                         setCompanyForm({
-                          ...company.companyForm,
+                          ...companyForm,
                           name: e.target.value,
                         })
                       )
@@ -310,11 +294,11 @@ const CalledPagesPageOnePages = () => {
                     InputProps={{ disableUnderline: true }}
                     className="lg:w-[364px] w-[100%] mb-10 2xl:w-[35rem]"
                     sx={{ backgroundColor: "porcelain" }}
-                    value={company.companyForm.cac}
+                    value={companyForm?.cac}
                     onChange={(e) =>
                       dispatch(
                         setCompanyForm({
-                          ...company.companyForm,
+                          ...companyForm,
                           cac: e.target.value.toUpperCase(),
                         })
                       )
@@ -326,11 +310,11 @@ const CalledPagesPageOnePages = () => {
                   <p>Description</p>
                   <TextareaAutosize
                     required={true}
-                    value={company.companyForm.description}
+                    value={companyForm?.description}
                     onChange={(e) =>
                       dispatch(
                         setCompanyForm({
-                          ...company.companyForm,
+                          ...companyForm,
                           description: e.target.value,
                         })
                       )
@@ -355,11 +339,11 @@ const CalledPagesPageOnePages = () => {
                 <Box>
                   <TextField
                     required={true}
-                    value={company.companyForm.website}
+                    value={companyForm?.website}
                     onChange={(e) =>
                       dispatch(
                         setCompanyForm({
-                          ...company.companyForm,
+                          ...companyForm,
                           website: e.target.value,
                         })
                       )
@@ -522,11 +506,11 @@ const CalledPagesPageOnePages = () => {
                     <div>
                       <input
                         required={true}
-                        value={company.companyForm.name}
+                        value={companyForm?.name}
                         onChange={(e) =>
                           dispatch(
                             setCompanyForm({
-                              ...company.companyForm,
+                              ...companyForm,
                               name: e.target.value,
                             })
                           )
@@ -546,22 +530,22 @@ const CalledPagesPageOnePages = () => {
                       <br></br>
 
                       <textarea
-                        required={true}
-                        value={company.companyForm.description}
-                        onChange={(e) =>
+                       required={true}
+                       value={companyForm?.description}
+                       onChange={(e) =>
                           dispatch(
-                            setCompanyForm({
-                              ...company.companyForm,
-                              description: e.target.value,
-                            })
+                             setCompanyForm({
+                               ...companyForm,
+                               description: e.target.value,
+                             })
                           )
-                        }
-                        onBlur={validateMessage}
-                        name="message"
-                        id="messageid2"
-                        placeholder="Description Say something about your company"
-                        className=" companyInput inputText w-full mb-8 lg:w-[364px]"
-                      ></textarea>
+                       }
+                       onBlur={validateMessage}
+                       name="message"
+                       id="messageid2"
+                       placeholder="Description Say something about your company"
+                       className=" companyInput inputText w-full mb-8 lg:w-[364px]"
+                       />
                       {/* {errors.message && (
                         <p className="error-color">{errors.message}</p>
                       )} */}
@@ -570,11 +554,11 @@ const CalledPagesPageOnePages = () => {
 
                       <input
                         required={true}
-                        value={company.companyForm.website}
+                        value={companyForm?.website}
                         onChange={(e) =>
                           dispatch(
                             setCompanyForm({
-                              ...company.companyForm,
+                              ...companyForm,
                               website: e.target.value,
                             })
                           )
@@ -628,7 +612,7 @@ const CalledPagesPageOnePages = () => {
                         </div>
 
                         {/* {formImage && (
-                  
+
                   )} */}
                         {formImage ? (
                           <div className="">

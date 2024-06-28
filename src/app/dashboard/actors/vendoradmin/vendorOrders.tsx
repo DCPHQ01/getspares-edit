@@ -62,7 +62,6 @@ function VendorOrders() {
            <VendorOrderTable data={vendorOrderList} isLoading={isLoading} />
            <div className="">
              {!hasOrders && !isLoading && (
-                // <div className="relative right-[100%] left-[100%] flex flex-col justify-center items-center pt-32 leading-10">
                 <div className="h-28 mt-[15rem]">
                   <div className="flex justify-center">
                     <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">

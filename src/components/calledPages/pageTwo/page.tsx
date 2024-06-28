@@ -56,7 +56,6 @@ const CalledPagesPageTwoPages = () => {
         const [streetNumber, town, city, state] = parts;
         return { streetNumber, town, city, state };
       } else {
-        // Handle invalid input
         console.error("Invalid address format");
         return { streetNumber: "", town: "", city: "", state: "" };
       }
@@ -297,12 +296,12 @@ const CalledPagesPageTwoPages = () => {
                         InputProps={{ disableUnderline: true }}
                         className="  w-full lg:w-[364px] 2xl:w-[35rem] "
                         placeholder="Enter address (Street Number, Town, City, State)"
-                        value={company.companyForm.address[index]}
+                        value={company.companyForm.address}
                         onBlur={(e) =>
                           dispatch(
                             setCompanyForm({
                               ...company.companyForm,
-                              address: [...company.companyForm.address.slice(0, index), e.target.value]
+                              address: company.companyForm.address1
                             }),
                           )
                         }
@@ -337,7 +336,7 @@ const CalledPagesPageTwoPages = () => {
                 </div> */}
 
                 {/* {formImage && (
-                  
+
                   )} */}
                 {/* {formImage ? (
                   <div className="">
@@ -524,12 +523,12 @@ const CalledPagesPageTwoPages = () => {
                               InputProps={{ disableUnderline: true }}
                               className="  w-full lg:w-[364px]  2xl:w-[35rem] "
                               placeholder="Enter address (Street Number, Town, City, State)"
-                              value={company.companyForm.address[index]}
+                              value={company.companyForm.address1}
                               onBlur={(e) => {
                                 dispatch(
                                   setCompanyForm({
                                     ...company.companyForm,
-                                    address: [...company.companyForm.address.slice(0, index),e.target.value,]
+                                    address: company.companyForm.address1
                                   }),
                                 );
                               }}
@@ -571,7 +570,7 @@ const CalledPagesPageTwoPages = () => {
                     </div>
 
                     {/* {formImage && (
-                  
+
                   )} */}
                     {formImage ? (
                       <div className="">
