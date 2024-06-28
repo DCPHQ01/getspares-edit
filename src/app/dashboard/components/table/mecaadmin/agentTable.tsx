@@ -34,7 +34,7 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading }) => {
           id="mecaAdminTable"
           className={`my-[1.25rem] w-full max-h-[34rem] overflow-y-auto scrollbar-none h-[32rem] ${styles.table}`}
         >
-          <table id="adminTable" className={`w-full h-[23rem]`}>
+          <table id="adminTable" className={`w-full`}>
             <thead>
               <tr className="truncate">
                 <th id="companyNameHeader">Full name</th>
