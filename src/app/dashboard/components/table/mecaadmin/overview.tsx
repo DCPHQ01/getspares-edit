@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
+// @ts-ignore
 import styles from "../styles.module.css";
-import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
-import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
+// import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
+// import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { ColorRing } from "react-loader-spinner";
@@ -9,6 +10,7 @@ import { useGetTopPerformingVendorsQuery } from "../../../../../redux/features/d
 import dayjs from "dayjs";
 import { formatAmount } from "../../../../../components/utils";
 import { MdYard } from "react-icons/md";
+import {formatDateTime} from "../../../../../components/utils/utils";
 
 interface TopVendors {
   avatar?: string;
@@ -27,11 +29,7 @@ interface OverviewTableProps {
 }
 
 function Overview({ data, isLoading }: OverviewTableProps) {
-  const formatDateTime = (dateTime: string) => {
-    const date = dayjs(dateTime).format("DD-MM-YYYY");
-    const time = dayjs(dateTime).format("HH:mm");
-    return { date, time };
-  };
+
 
   return (
     <div
