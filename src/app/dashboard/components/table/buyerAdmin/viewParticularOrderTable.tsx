@@ -41,13 +41,17 @@ const ViewParticularOrderTable = ({ data, isLoading }: { data: OrderInfo, isLoad
   //   }
   // }, []);
 
+
   const handleDetails = () => {
     setRenderDetails(!renderDetails);
   };
 
   const [details, setDetails] = useState(false);
-  const handleParticularDetails = () => {
+  const handleParticularDetails = (productId:any) => {
+    sessionStorage.setItem('productId', productId)
     setDetails(!details);
+        console.log("ggghhhhhafter");
+
   };
   return (
     <div className="">
@@ -77,7 +81,7 @@ const ViewParticularOrderTable = ({ data, isLoading }: { data: OrderInfo, isLoad
                   </th>
                 </tr>
               </thead>
-              <tbody onClick={handleParticularDetails}>
+              <tbody >
               {isLoading ? (
                   <tr>
                     <td colSpan={3}>
@@ -107,7 +111,7 @@ const ViewParticularOrderTable = ({ data, isLoading }: { data: OrderInfo, isLoad
                       key={index}
                       id={`row_${index}`}
                       className="cursor-pointer truncate"
-                      onClick={() => setDetails(true)}
+                      onClick={() => handleParticularDetails(d.productId)}
                     >
                       <td id={`companyData_${index}`}>
                         <div className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}>
