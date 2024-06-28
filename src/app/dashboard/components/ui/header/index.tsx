@@ -23,7 +23,6 @@ const Index: React.FC<IProps> = ({ title, subtitle, amount, name }) => {
         >
           {name ? (
             <>
-
               <Greeting />,
               &nbsp;<span>{name}</span>
             </>
@@ -31,10 +30,10 @@ const Index: React.FC<IProps> = ({ title, subtitle, amount, name }) => {
             <span>{title}</span>
           )}
         </h1>
+         {amount && <p className="border inline-block border-[#9AA4B2] text-center text-[#9AA4B2] rounded-full px-3 ml-2">
+            {amount}
+         </p> }
 
-          <p className="border inline-block border-[#9AA4B2] text-center text-[#9AA4B2] rounded-full px-3 ml-2">
-            {amount || 0}
-          </p>
       </div>
 
       <p id="topHeaderSubtitle" className={`text-[#4B5565]`}>

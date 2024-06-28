@@ -56,7 +56,7 @@ function VendorOverview() {
             />
           </div>
 
-          <Link href={paths.toModalPage()} className="font-semibold">
+          <Link href={paths.toModalPageVendor()} className="font-semibold">
             <Addbutton title={`Update Company`} />
           </Link>
         </div>

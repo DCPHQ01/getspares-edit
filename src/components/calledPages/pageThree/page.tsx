@@ -384,17 +384,6 @@ const CalledPagesPageThreePages = () => {
                   className=" inputImage imagetext"
                   id="previewImageId11"
                 />
-                {/* <div className="">
-                  <p>Company logo</p>
-                </div> */}
-                {/* <div className="edit-btn-Wrapper">
-                  <div className="edit-btn" id="editBtn1">
-                    <button>Edit logo</button>
-                  </div>
-                  <div className="edit-btn" id="editBtn2">
-                    <button>Change logo</button>
-                  </div>
-                </div> */}
               </div>
             </div>
 
@@ -406,39 +395,23 @@ const CalledPagesPageThreePages = () => {
                   //   horizontal: "center",
                   // })}
                   id="thirdFormSubmit2"
-                  className="nextbtn nextbtnMobile h-12  mt-6 mb-20 cursor-pointer"
+                  className="nextbtn h-12  mt-6 mb-20 cursor-pointer"
                 >
                   Save
                 </button>
               </div>
-              {/* <Box sx={{ width: 500 }}>
-                <Snackbar
-                  anchorOrigin={{ vertical, horizontal }}
-                  open={open}
-                  // onClose={handleClose}
-                  // sx={{ backgroundColor: "green" }}
+                {/*<Snackbar*/}
+                {/*  anchorOrigin={{ vertical, horizontal }}*/}
+                {/*  open={open}*/}
+                {/*  // onClose={handleClose}*/}
+                {/*  // sx={{ backgroundColor: "green" }}*/}
 
-                  key={vertical + horizontal}
-                >
-                  <Alert severity="success" variant="filled">
-                    Company added successfully !
-                  </Alert>
-                </Snackbar>
-              </Box> */}
-              {/* <div className="mt-8 flex items-center justify-evenly gap-4 h-[8px] w-full">
-                <div
-                  className="h-full w-1/3 bg-blue-800 rounded-lg"
-                  id="switchedButton1"
-                ></div>
-                <div
-                  className="h-full w-1/3 bg-blue-800 rounded-lg"
-                  id="switchedButton2"
-                ></div>
-                <div
-                  className="h-full w-1/3 bg-blue-800 rounded-lg"
-                  id="switchedButton3"
-                ></div>
-              </div> */}
+                {/*  key={vertical + horizontal}*/}
+                {/*>*/}
+                {/*  <Alert severity="success" variant="filled">*/}
+                {/*    Company added successfully !*/}
+                {/*  </Alert>*/}
+                {/*</Snackbar>*/}
             </div>
           </div>
         </div>

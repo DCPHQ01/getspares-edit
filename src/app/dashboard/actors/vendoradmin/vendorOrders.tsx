@@ -51,7 +51,7 @@ function VendorOrders() {
              <Header
                 subtitle={`Keep track of buyers, items bought and their transaction values.`}
                 title={`Orders`}
-                amount={totalElement}
+                amount={'0'}
              />
            </div>
            <div>
