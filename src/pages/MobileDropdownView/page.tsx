@@ -31,3 +31,10 @@
 // };
 
 // export default MobileDropdownViewPage;
+const MobileDropdownViewPage = () => {
+  return (
+    <div>MobileDropdownViewPage</div>
+  )
+}
+
+export default MobileDropdownViewPage
