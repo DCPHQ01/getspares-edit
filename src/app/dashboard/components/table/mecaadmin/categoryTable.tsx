@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+// @ts-ignore
 import styles from "../styles.module.css";
 import { AccountCircle } from "@mui/icons-material";
 import dayjs from "dayjs";
@@ -46,12 +47,12 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
         <table id="adminTable" className={`w-full`}>
           <thead>
             <tr className="truncate">
-              <th id="companyNameHeader">Category name</th>
-              <th id="totalItemsSoldHeader">No of products</th>
-              <th id="transactionValueHeader" style={{ paddingLeft: "5rem" }}>
+              <th id="companyNameHeader" className={`sticky`}>Category name</th>
+              <th id="totalItemsSoldHeader" className={`sticky`}>No of products</th>
+              <th id="transactionValueHeader" className={`sticky`} style={{ paddingLeft: "5rem" }}>
                 Created by
               </th>
-              <th id="dateTimeJoinedHeader">Date & time joined</th>
+              <th id="dateTimeJoinedHeader" className={`sticky`}>Date & time joined</th>
             </tr>
           </thead>
           <tbody>

@@ -325,7 +325,7 @@ function Category() {
         className="flex flex-row-reverse justify-between items-center mb-[1.25rem]"
         id="searchBox"
       >
-        <SearchBox placeholder="Search for category" />
+        <SearchBox placeholder="Search" />
         <PeriodRadios
           activityPeriod={activityPeriod}
           onPeriodChange={handlePeriodChange}
