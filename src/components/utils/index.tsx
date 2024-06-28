@@ -36,7 +36,6 @@ export const uploadImage = async (
       return response.json();
     })
     .then((data) => {
-      //   console.log("image url ", data);
       image_url = data.url;
       setImage(image_url);
       console.log("image url ", image_url);
