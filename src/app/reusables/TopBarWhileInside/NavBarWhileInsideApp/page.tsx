@@ -15,7 +15,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { clearUser } from "../../../../redux/features/users/userSlice";
-import MobileNav from "../../../../components/MobileNav/mobileNavbarList.tsx";
+import MobileNav from "../../../../components/MobileNav/mobileNavbarList";
 import NavBar from "../../../../components/NavBar/NavBar";
 import { paths } from "../../../../path/paths";
 
