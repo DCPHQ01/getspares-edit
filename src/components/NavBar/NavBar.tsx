@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   MdExpandLess,
   MdExpandMore,
@@ -37,7 +37,7 @@ const navData = [
     icon: <MdExpandMore size={18} />,
     icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
     link: "",
-    dropdownComponent: <DropdownPage />,
+    dropdownComponent: <DropdownPage closeDropdown={() => {}} />,
   },
   {
     id: 3,
@@ -45,7 +45,7 @@ const navData = [
     icon: <MdExpandMore size={18} />,
     icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
     link: "",
-    dropdownComponent: <BrandPage />,
+    dropdownComponent: <BrandPage closeDropdown={() => {}} />,
   },
 
   {
@@ -69,6 +69,9 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
   const [active, setActive] = useState<number | null>(1);
   const handleClick = (id: number) => {
     setActive(id);
+  };
+  const closeDropdown = () => {
+    setActive(null);
   };
   const [savedCardItems, setSavedCartItems] = useState<CartProduct[]>([]);
 
@@ -94,22 +97,15 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
   const handleLogin = () => {
     router.push(paths.toLogin());
   };
-  const [isCategoryOptionOpened, setIsCategoryOptionOpen] = useState(false);
 
-  const toggle = (id: number) => {
-    if (id === active) {
-      setIsCategoryOptionOpen((prev) => !prev);
-      console.log("category ", isCategoryOptionOpened);
-    }
-    return isCategoryOptionOpened;
-  };
   const handleDashboard = () => {
     router.push(paths.toDashboard());
   };
   const [toggleProfile, setToggleProfile] = useState(false);
   const [tokens, setTokens] = useState("");
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
   const profile = () => {
-    setToggleProfile(!toggleProfile);
+    setToggleProfile((prev) => !prev);
   };
   let decoded: JwtPayload | null = null;
 
@@ -130,10 +126,6 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
     console.error("Failed to decode token:", error);
   }
 
-  const dropDownClicked = () => {
-    setActive(null);
-  };
-
   const name = decoded?.given_name;
 
   const logOut = () => {
@@ -144,11 +136,6 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
   };
 
   useEffect(() => setActive(1), []);
-
-  const [toggleCategory, setToggleCategory] = useState(false);
-  const handleToggleCategory = () => {
-    setToggleCategory(!toggleCategory);
-  };
 
   return (
     <nav className="w-full bg-white relative" id="navbarContainer">
@@ -266,7 +253,11 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                   <p className="mt-2 font-normal text-mecaDarkBlueBackgroundOverlay text-sm">
                     Hi, {name}
                   </p>
-                  <MdExpandLess className="text-mecaGoBackArrow w-5 h-5 mt-2" />
+                  {toggleProfile ? (
+                    <MdExpandLess className="text-mecaGoBackArrow w-5 h-5 mt-2" />
+                  ) : (
+                    <MdExpandMore className="text-mecaGoBackArrow w-5 h-5 mt-2" />
+                  )}
                 </button>
               )}
 
@@ -333,18 +324,10 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
               {item.title}
             </p>
             <div>
-              {isCategoryOptionOpened && item.id === active ? (
+              {item.id === active ? (
                 <p>{item.icon2}</p>
               ) : (
-                <p
-                  className={`${
-                    active === item.id
-                      ? "text-mecaBluePrimaryColor"
-                      : "text-mecaGoBackArrow"
-                  }`}
-                >
-                  {item.icon}
-                </p>
+                <p className="text-mecaGoBackArrow">{item.icon}</p>
               )}
             </div>
           </div>
@@ -353,9 +336,16 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
         {navData.map(
           (item) =>
             active === item.id && (
-              <div className="flex justify-center" key={item.id}>
+              <div
+                className="flex justify-center"
+                ref={dropdownRef}
+                key={item.id}
+              >
                 <div className="absolute left-96 top-40 z-50">
-                  <div onClick={dropDownClicked}>{item.dropdownComponent}</div>
+                  {item.dropdownComponent &&
+                    React.cloneElement(item.dropdownComponent, {
+                      closeDropdown,
+                    })}
                 </div>
               </div>
             )
