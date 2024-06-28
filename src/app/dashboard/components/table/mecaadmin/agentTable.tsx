@@ -20,18 +20,15 @@ interface Agent {
 interface AgentTableProps {
   agentList: Agent[];
   isLoading?: boolean;
-  isError?: boolean
+  isError?: boolean;
 }
 
 const formatDateTime = (dateTime: string) => {
   const date = dayjs(dateTime).format("DD-MM-YYYY");
-  const time = dayjs(dateTime).format("hh:mm A"); 
+  const time = dayjs(dateTime).format("hh:mm A");
   return { date, time };
 };
-
-
-
-const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading}) => {
+const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading }) => {
   //  const role: any = agentRoles;
   return (
     <div>
@@ -55,12 +52,9 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading}) => {
               </tr>
             </thead>
             <tbody>
-
-              {isLoading? ( 
-                <div 
-                className="text-center mt-28 relative lg:left-[210%] lg:right[210%] md:left-[213%] md:right[213%] sm:left-[21"
-                >
-                   <ColorRing  
+              {isLoading ? (
+                <div className="text-center mt-28 relative lg:left-[210%] lg:right[210%] md:left-[213%] md:right[213%] sm:left-[21">
+                  <ColorRing
                     visible={true}
                     height="40"
                     width="40"
@@ -81,7 +75,6 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading}) => {
                   />
                   <p>Loading Agent........</p>
                 </div>
-
               ) : (
                 agentList?.map((d, index) => {
                   const { date, time } = formatDateTime(d.dateAdded);
@@ -96,22 +89,10 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading}) => {
                           className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
                         >
                           <div id={`companyDetails_${index}`}>
-                            {/* {d.imageUrl ? (
-                        <Image
-                          src={d.imageUrl}
-                          className="object-contain"
-                          alt="Avatar"
-                          id={`avatar_${index}`}
-                        />
-                      ) : (
-                        <AccountCircle style={{ fontSize: 50 }} className=" text-gray-400" 
-                        style={{ fontSize:40, color: gray}}
-                        />
-                      )} */}
                             <div id={`companyDetails_${index}`}>
                               <div className="truncate">{d.firstName}</div>
                               <div
-                                className={`text-[#4B5565] truncate`}
+                                className={"text-[#4B5565] truncate"}
                                 id={`email_${index}`}
                               >
                                 {d.email}
@@ -121,28 +102,33 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading}) => {
                         </div>
                       </td>
                       <td
-                        className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
+                        className={"text-[0.88rem] py-[1rem] px-[3.13rem]"}
                         id={`itemsSold_${index}`}
                       >
                         {d.quantitySold}
                       </td>
                       <td
-                        className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
+                        className={"text-[0.88rem] py-[1rem] px-[3.13rem]"}
                         id={`transactionValue_${index}`}
                       >
                         {d.transactionValue}
                       </td>
                       <td id={`dateJoined_${index}`}>
-                        <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
-                          <div id={`date_${index}`}>{date}</div>  
-                          <div className={`text-[#4B5565]`} id={`time_${index}`}>
+                        <div
+                          className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}
+                        >
+                          <div id={`date_${index}`}>{date}</div>
+                          <div
+                            className={`text-[#4B5565]`}
+                            id={`time_${index}`}
+                          >
                             {time}
-                          </div>             
+                          </div>
                         </div>
                       </td>
-                  </tr>
-                );
-              })
+                    </tr>
+                  );
+                })
               )}
             </tbody>
           </table>
@@ -153,4 +139,3 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading}) => {
 };
 
 export default AgentTable;
-
