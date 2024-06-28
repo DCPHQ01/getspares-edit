@@ -11,7 +11,8 @@ import {
 } from "react-icons/md";
 import { useState } from "react";
 import { paths } from "../../path/paths";
-import MobileDropdownViewPage from "../../pages/MobileDropdownView/page";
+// import MobileDropdownViewPage from "../../pages/MobileDropdownView/page";
+import DropdownPage from "../NavBar/dropdown/page";
 
 const mobileNavData = [
   {
@@ -27,7 +28,7 @@ const mobileNavData = [
     icon1: <MdExpandMore size={24} className="text-mecaGoBackArrow" />,
     icon2: <MdChevronRight size={24} className="text-mecaGoBackArrow" />,
     link: "",
-    mobileNavHeader: <MobileDropdownViewPage />,
+    mobileNavHeader: <DropdownPage />,
   },
   {
     id: 3,
