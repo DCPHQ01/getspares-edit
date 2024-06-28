@@ -132,7 +132,7 @@ function Category() {
       reader.onloadend = () => {
         setFormImage(reader.result as string);
       };
-      uploadImage(file, setImage_url);
+      await uploadImage(file, setImage_url);
 
       reader.readAsDataURL(file);
     }
