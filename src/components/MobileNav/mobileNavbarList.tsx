@@ -144,13 +144,6 @@ export default function MobileNavbarList({ handleNav }: MobileNavProps) {
                 {data.icon2}
               </p>
             )}
-
-            {/* <p
-              onClick={data.id === 2 || data.id === 3 ? toggleModal : undefined}
-              // onClick={toggleModal}
-            >
-              {data.icon2}
-            </p> */}
           </div>
         ))}
 

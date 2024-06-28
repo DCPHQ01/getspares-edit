@@ -139,7 +139,7 @@ const Cart = () => {
                 title={`Cart`}
                 // amount={totalElement}
               />
-              <div className="flex">
+              <div className="flex justify-end">
                 <Searchbox />
               </div>
             </div>
