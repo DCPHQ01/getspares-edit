@@ -21,7 +21,7 @@ const BrandPage: React.FC<BrandPageProps> = ({ closeDropdown }) => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [dropdownRef, closeDropdown]);
+  }, [closeDropdown]);
 
   const brandsCartegory = [
     {

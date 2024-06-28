@@ -26,7 +26,8 @@ const DropdownPage: React.FC<DropdownPageProps> = ({ closeDropdown }) => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [dropdownRef, closeDropdown]);
+  }, [closeDropdown]);
+
   const router = useRouter();
   const { data: getCategoriesData } = useGetCategoryQuery({});
   console.log("buyers category  ", getCategoriesData);
@@ -46,8 +47,9 @@ const DropdownPage: React.FC<DropdownPageProps> = ({ closeDropdown }) => {
           <div className="w-full p-10 lg:grid lg:grid-cols-3  gap-x-10 scrollbar-none overflow-y-scroll  ">
             {getCategoriesData?.data.map((category: any) => (
               <div
-                onClick={() => handleProductDescription}
+                onClick={() => handleProductDescription(category.name)}
                 className=" w-[100%] h-10 cursor-pointer"
+                key={category.id}
               >
                 {category.name}
               </div>
