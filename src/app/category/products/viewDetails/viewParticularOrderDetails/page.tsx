@@ -91,7 +91,7 @@ console.log(data, 'hhfhfh')
           </h1>
         </div>
         <div className="">
-          <h1 className="ml-10 pt-20 text-xl">Order ID: {id} </h1>
+          <h1 className="ml-10 pt-20 text-xl">Order ID: {orderId} </h1>
         </div>
         <div className="mt-5">
           <ViewParticularOrderTable data={orderDetails} isLoading={isLoading} />
