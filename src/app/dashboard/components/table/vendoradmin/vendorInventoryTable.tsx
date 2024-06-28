@@ -5,7 +5,7 @@ import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
 import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
 import Stack from "@mui/material/Stack";
-import { MdMoreVert, MdPreview, MdEdit, MdDeleteOutline } from "react-icons/md";
+import {MdMoreVert, MdPreview, MdEdit, MdDeleteOutline, MdBusinessCenter} from "react-icons/md";
 import { Menu, MenuItem, IconButton } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { title } from "process";
@@ -133,7 +133,15 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
                      />
                      <p>Loading Inventory...</p>
                    </div>
-                ) : (
+                ) : inventoryData?.length === 0 ? (<div className="relative right-[100%] left-[100%] flex flex-col justify-center items-center pt-32 leading-10">
+                  <div className=" h-28">
+                  <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
+                  <MdBusinessCenter style={{fontSize:"2rem", color:"#0852C0"}}/>
+                  </div>
+                  </div>
+                  <h1 className="text-xl">No product here yet</h1>
+                  <h1 className="text-gray-500">All your products will appear here</h1>
+                  </div>) : (
                    inventoryData?.map((d, index) => {
                      let date = "";
                      let time = "";

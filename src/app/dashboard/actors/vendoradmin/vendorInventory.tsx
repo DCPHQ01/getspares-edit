@@ -19,15 +19,9 @@ interface InventoryData {
   id: string;
 }
 function VendorInventory() {
-  const [getInventory, { isLoading, isError }] = useGetVendorAdminInventoryMutation();
-  const [inventory, setInventory] = useState<InventoryData[]>([]);
-  const [totalPages, setTotalPages] = useState(0);
-  const [hasNext, setHasNext] = useState(false);
-  const [hasPrevious, setHasPrevious] = useState(false);
-  const [isPaginationLoading, setIsPaginationLoading] = useState(false);
+
   const [page, setPage] = useState(0);
   const size = 10;
-
 
   const requestBody = {
     pageNumber: page,
@@ -37,27 +31,6 @@ function VendorInventory() {
 
 
 
-  const fetchVendorData = async () => {
-    try {
-      const requestBody = {
-        pageNumber: page,
-        pageSize: size,
-      };
-
-      const resultList = await getInventory(requestBody).unwrap();
-      const list = resultList.data.content;
-      setInventory(list);
-      const lists = resultList.data;
-      setTotalPages(lists.totalPages);
-      setHasNext(lists.hasNext);
-      setHasPrevious(lists.hasPrevious);
-      setTotalPages(lists.totalElements);
-      setIsPaginationLoading(false)
-    }  catch (error) {
-      console.error('Failed to add vendor:', error);
-
-    }
-  };
 
   const handleNextPage = () => {
     setPage((prevPage) => prevPage + 1);
@@ -75,7 +48,7 @@ function VendorInventory() {
           <Header
              subtitle={`Keep track of how each item is performing.`}
              title={`Inventory`}
-             amount={totalPages}
+             amount={data?.data?.totalElements}
           />
         </div>
         <Link className="font-semibold" href={paths.toAddProductDashboard()}>
@@ -91,7 +64,7 @@ function VendorInventory() {
           <VendorInventoryTable inventoryData={data?.data?.content} isLoading={isFetching} />
       </div>
       <div className="flex justify-between mt-10 text-mecaBluePrimaryColor font-bold text-lg">
-        {hasPrevious ? (
+        {page > 1 ? (
            <button
               className={`flex gap-x-2`}
               onClick={handlePreviousPage}
