@@ -156,20 +156,20 @@ const Overview: React.FC<VendorTableProps> = ({topPerformingProduct,isLoading}) 
   return (
     <div
       id="vendorAdminTable"
-      className={`my-[1.25rem] w-full max-h-[25.19rem] overflow-y-auto scrollbar-none ${styles.table}`}
+      className={`my-[0.5rem] w-full max-h-[35rem] overflow-y-auto scrollbar-none ${styles.table}`}
     >
       <table id="vendorTable" className={`w-full`}>
         <thead className={``}>
           <tr className="truncate">
-            <th id="itemNameHeader">Item name</th>
-            <th id="totalSoldHeader">Total sold</th>
-            <th id="transactionValueHeader" style={{ paddingLeft: "2.3rem" }}>
+            <th style={{position:'sticky'}} id="itemNameHeader">Item name</th>
+            <th style={{position:'sticky'}} id="totalSoldHeader">Total sold</th>
+            <th  id="transactionValueHeader" style={{ paddingLeft: "2.3rem", position:'sticky' }}>
               Transaction value
             </th>
-            <th id="dateTimeJoinedHeader">Date & time joined</th>
+            <th style={{position:'sticky'}} id="dateTimeJoinedHeader">Date & time joined</th>
           </tr>
         </thead>
-        <tbody className=" h-[25rem]">
+        <tbody className=" h-full" >
             { topPerformingProduct.length == 0 ? (<div className="relative right-[100%] left-[100%] flex flex-col justify-center items-center pt-32 leading-10">
               <div className=" h-28">
               <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
@@ -177,7 +177,7 @@ const Overview: React.FC<VendorTableProps> = ({topPerformingProduct,isLoading}) 
               </div>
               </div>
               <h1 className="text-xl">No item here yet</h1>
-              <h1 className="text-gray-500">All your item will appear here</h1>
+              <h1 className="text-gray-500">All your items will appear here</h1>
               </div>) : (  topPerformingProduct?.map((d, index) => {
 
           return ( <tr key={index} id={`row_${index}`} className="truncate">
