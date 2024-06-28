@@ -30,17 +30,23 @@ export const buyerQuery = createApi({
         method: "GET",
       }),
     }),
-
     getOverviewOrderTable: builder.query({
       query: () => ({
-        url: "/product/recent",
+        url: "/order/recent",
+        method: "GET",
       }),
-      // getOverviewOrderTable: builder.query({
-      //   query: () => ({
-      //     url: "/order/recent",
-      //     method: "GET",
-      //   }),
     }),
+
+    // getOverviewOrderTable: builder.query({
+    //   query: () => ({
+    //     url: "/product/recent",
+    //   }),
+    //   // getOverviewOrderTable: builder.query({
+    //   //   query: () => ({
+    //   //     url: "/order/recent",
+    //   //     method: "GET",
+    //   //   }),
+    // }),
     getOverviewRecentProductImage: builder.query({
       query: () => ({
         url: "/product/top",

@@ -3,9 +3,11 @@ import React from "react";
 import styles from "../styles.module.css";
 import Image from "next/image";
 import Stack from "@mui/material/Stack";
-import dayjs from "dayjs";
+// import "react-tabs/style/react-tabs.css";
 import { AccountCircle } from "@mui/icons-material";
+import dayjs from "dayjs";
 import { ColorRing } from "react-loader-spinner";
+import { format } from "../../../../../components/utils";
 
 interface Agent {
   firstName: string;
@@ -24,11 +26,10 @@ interface AgentTableProps {
 const formatDateTime = (dateTime: string) => {
   const date = dayjs(dateTime).format("DD-MM-YYYY");
   const time = dayjs(dateTime).format("hh:mm A");
-
   return { date, time };
 };
-
 const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading }) => {
+  //  const role: any = agentRoles;
   return (
     <div>
       <div id="tableContainer">
@@ -114,11 +115,11 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading }) => {
                       </td>
                       <td id={`dateJoined_${index}`}>
                         <div
-                          className={"text-[0.88rem] py-[1rem] px-[2.75rem]"}
+                          className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}
                         >
                           <div id={`date_${index}`}>{date}</div>
                           <div
-                            className={"text-[#4B5565] truncate"}
+                            className={`text-[#4B5565]`}
                             id={`time_${index}`}
                           >
                             {time}

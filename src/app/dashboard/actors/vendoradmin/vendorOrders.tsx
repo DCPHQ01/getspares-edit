@@ -5,7 +5,6 @@ import Searchbox from "../../components/ui/searchbox";
 import { useGetMecaVendorOrdersQuery } from "../../../../redux/features/dashboard/mecaVendorQuery";
 import { useEffect, useState } from "react";
 import { MdBusinessCenter } from "react-icons/md";
-
 function VendorOrders() {
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(10);

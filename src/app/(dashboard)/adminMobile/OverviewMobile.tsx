@@ -34,14 +34,12 @@ function Overview() {
   };
 
   const { data: mecaAdminOverviewData,  isLoading} = useGetMecaAdminOverviewQuery({});
-  console.log("data for meca admin", mecaAdminOverviewData);
   const [adminOverview, setAdminOverview] = useState(mecaAdminOverviewData?.data ?? { 
     totalNumberOfPartOrdered: 0,
     totalNumberOfAgent: 0,
     totalTransactionValue: 0,
     totalNumberOfVendor: 0,
   });
-  console.log("data for meca admin", adminOverview);
 
   const [role, setRoles] = useState('');
   const [name, setName] = useState("");
@@ -56,19 +54,16 @@ function Overview() {
 
   const {data,  isLoading: isVendorsLoading,
     isError: isVendorsError,} = useGetTopPerformingVendorsQuery({ period: activityPeriod});
-  console.log("data for meca admin", data);
   const [topVendors, setTopVendors] = useState<VendorData[]>([]); 
 
   useEffect(() => {
     if(data) {
-      console.log("Received data structure:", data);
       const resultList = data.data;
         setTopVendors(resultList);
       }else {
         console.error("Expected data.content to be an array, but got:", data)
       }
     }, [data]);
-    console.log("Top vendors:", topVendors);
 
     const [currentPage, setCurrentPage] = useState(1); // State for current page
     const [itemsPerPage] = useState(10);
