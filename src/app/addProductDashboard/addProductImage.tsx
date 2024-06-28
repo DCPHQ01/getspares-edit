@@ -103,7 +103,7 @@ const AddProductImage = () => {
   // const { data: getAproduct, isFetching } = useGetAProductQuery(productId, {
   //   skip: !productId,
   // });
-  console.log("get a product ", getAproduct);
+  // console.log("get a product ", getAproduct);
   return (
     <div className=" z-50 fixed top-0  h-40 w-[100%]">
       <div>
