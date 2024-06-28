@@ -10,14 +10,12 @@ function Buyers() {
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(10);
   const {data, isLoading, isError, error} = useGetMecaAdminBuyerQuery({page, size});
-  console.log("data for buyers", data);
   const [totalElement, setTotalElement] = useState(0);
 
 
   const [buyerList, setBuyerList] = useState([]);
   useEffect(() => {
     if (data) {
-      console.log("Received data structure:", data);
       setTotalElement(data.data?.totalElements);
       const resultList = data.data?.content;
       if (resultList) {

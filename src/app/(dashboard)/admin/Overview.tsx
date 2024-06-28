@@ -28,7 +28,6 @@ interface VendorData {
 function Overview() {
   const [activityPeriod, setActivityPeriod] = useState("monthly");
   const { data: mecaAdminOverviewData,  isLoading} = useGetMecaAdminOverviewQuery({});
-  console.log("data for meca admin", mecaAdminOverviewData);
   const {data,  isLoading: isVendorsLoading, isError: isVendorsError,} = useGetTopPerformingVendorsQuery({ period: activityPeriod});
   const [adminOverview, setAdminOverview] = useState({});
   const [name, setName] = useState("");

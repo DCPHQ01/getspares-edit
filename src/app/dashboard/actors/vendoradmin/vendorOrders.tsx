@@ -11,7 +11,6 @@ function VendorOrders() {
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(10);
   const {data, isLoading, isError} = useGetMecaVendorOrdersQuery({page, size});
-  console.log("data for vendor orders", data);
 
   const [vendorOrderList, setVendorOrderList] = useState([]);
   const [hasOrders, setHasOrders] = useState(false);
