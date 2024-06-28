@@ -71,12 +71,15 @@ console.log("topVendors", topVendors);
         />
          <Cards cardField={adminOverview}  />
         <div
-          className={`flex justify-between items-center mt-[3.25rem] mb-[1.25rem]`}
+          className={` flex justify-between items-center mt-[3.25rem] mb-[1.25rem]`}
         >
-          <Header
-            subtitle={`A quick glance on vendors with highest sales on meca`}
-            title={`Top performing vendors`}
-          />
+          <div>
+            <Header
+                subtitle={`A quick glance on vendors with highest sales on meca`}
+                title={`Top performing vendors`}
+            />
+          </div>
+
           <PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange}/>
         </div>
         <OverviewTable data={topVendors} isLoading={isVendorsLoading}/>

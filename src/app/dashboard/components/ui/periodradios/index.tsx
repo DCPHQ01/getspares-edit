@@ -76,10 +76,10 @@ const Index: React.FC<PeriodRadiosProps> = ({ activityPeriod, onPeriodChange }) 
       onPeriodChange(newValue);
     };
 
-  const changeToYear = () => {
-    setSelectedValue("year");
-    onPeriodChange("year");
-  };
+  // const changeToYear = () => {
+  //   setSelectedValue("year");
+  //   onPeriodChange("year");
+  // };
 
   return (
     <FormControl>
