@@ -27,7 +27,7 @@ function Agents() {
   const [last, setLast] = useState(false);
   const { data, isLoading, isError} = useGetMecaAdminAgentQuery({page:page, size:size })
   const [agentList, setAgentList] = useState<Agent[]>([]);
-  console.log("The agent list", data)
+
 
   useEffect(() => {
     if (data && Array.isArray(data.data.content)) {
@@ -42,7 +42,6 @@ function Agents() {
     }
   }, [data]);
 
-  console.log("The datas: ", data);
 
   const handleNextPage=()=>{
     if(size === 10){

@@ -18,7 +18,7 @@ import { MdInventory2 } from 'react-icons/md';
 //     date: "24 June 2022",
 //     time: "10:00AM",
 //   },
-  
+
 //   {
 //     avatar: image1,
 //     name: "Caterpillar Engine IV2 ",
@@ -140,11 +140,11 @@ import { MdInventory2 } from 'react-icons/md';
 
 interface VendorOverview {
   dateJoined: string;
-  imageUrl?: string ; 
+  imageUrl?: string ;
   transactionValue: string | number;
   totalItemSold: number;
   itemName: string;
-  
+
 }
 
 interface VendorTableProps {
@@ -180,7 +180,6 @@ const Overview: React.FC<VendorTableProps> = ({topPerformingProduct,isLoading}) 
               <h1 className="text-gray-500">All your item will appear here</h1>
               </div>) : (  topPerformingProduct?.map((d, index) => {
 
-              const transactionValue = format(d.transactionValue);
           return ( <tr key={index} id={`row_${index}`} className="truncate">
               <td>
                 <div
@@ -209,7 +208,7 @@ const Overview: React.FC<VendorTableProps> = ({topPerformingProduct,isLoading}) 
                 className={`text-[0.88rem] py-[1rem] px-[3.125rem]`}
                 id={`transactionValue_${index}`}
               >
-                {transactionValue}
+                {format(d.transactionValue)}
               </td>
               <td>
                 <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>

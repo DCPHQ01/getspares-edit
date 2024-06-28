@@ -85,9 +85,9 @@ function Overview({ data, isLoading }: OverviewTableProps) {
               </div>)  : (
             data.map((d, index) => {
 
-            
 
-              const { date, time } = formatDateTime(d.dateJoined); 
+
+              const { date, time } = formatDateTime(d.dateJoined);
               const formattedTransactionValue = formatAmount(d.transactionValue);
 
 
