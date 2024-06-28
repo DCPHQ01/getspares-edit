@@ -28,13 +28,10 @@ interface VendorData {
 function Overview() {
   const [activityPeriod, setActivityPeriod] = useState("monthly");
   const { data: mecaAdminOverviewData,  isLoading} = useGetMecaAdminOverviewQuery({});
-  console.log("data for meca admin", mecaAdminOverviewData);
   const {data,  isLoading: isVendorsLoading, isError: isVendorsError,} = useGetTopPerformingVendorsQuery({ period: activityPeriod});
   const [adminOverview, setAdminOverview] = useState({});
   const [name, setName] = useState("");
   const [topVendors, setTopVendors] = useState<VendorData[]>([]);
-
-
 
   useEffect(() => {
     if(data) {
@@ -54,8 +51,6 @@ function Overview() {
       }
     },[mecaAdminOverviewData?.data])
 
-
-
   useEffect(() => {
     const role =
       typeof window !== "undefined" && window.sessionStorage
@@ -63,8 +58,6 @@ function Overview() {
         : [];
     setName(role.firstName);
   }, []);
- 
-
 
   return (
     <>
@@ -89,11 +82,11 @@ function Overview() {
         {/* <div className="flex justify-between mt-10 text-mecaBluePrimaryColor font-bold text-lg">
           <button className="flex gap-x-2">
             <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
-          </button>
+          </button> */}
           <button className="flex gap-x-2">
             <MdChevronRight className="mt-1 text-2xl" /> <span>Next</span>
           </button>
-        </div> */}
+        {/* </div> */}
       </div>
     </>
   );

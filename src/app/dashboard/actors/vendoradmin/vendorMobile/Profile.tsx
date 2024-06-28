@@ -159,18 +159,13 @@ const Profile = () => {
               </div>
             </div>
 
-            <div className="mt-5 text-sm">
+            <div className="mt-5 text-sm mb-14">
               <div className="flex justify-between mb-6">
                 <p>Date onboarded</p>
                 <p>12:00pm, Jan 2023</p>
               </div>
-
-              <div className="flex justify-between mb-14">
-                <p>Last seen</p>
-                <p>2:00pm, Sep 2023</p>
-              </div>
             </div>
-            <div className="text-center">
+            <div className="text-center ">
               <button
                 className="bg-mecaBluePrimaryColor w-40 text-lg font-semibold h-10 rounded-full pl-6 pr-6 text-center pt-2 pb-2 text-white"
                 onClick={handleClose}
@@ -217,12 +212,22 @@ const Profile = () => {
               <p>{viewProfile.location}</p>
             </div>
           </div>
-          <div
-            className=" h-16 mt-5 pl-5 pt-3 w-[100%] rounded  bg-mecaBorderColor"
-            style={{ backgroundColor: "porcelain" }}
-          >
-            <p className="text-xs text-gray-500">Email</p>
-            <p>{viewProfile.companyEmail}</p>
+          <div className="flex gap-x-4 mt-5">
+            <div
+              className=" lg:w-[364px] h-16 pl-5 pt-3 w-[100%] 2xl:w-[35rem] rounded  bg-mecaBorderColor"
+              style={{ backgroundColor: "porcelain" }}
+            >
+              <p className="text-xs text-gray-500">Email</p>
+              <p>{viewProfile.companyEmail}</p>
+            </div>
+
+            <div
+              className=" lg:w-[364px] h-16 pl-5 pt-3 w-[100%] 2xl:w-[35rem] rounded  bg-mecaBorderColor"
+              style={{ backgroundColor: "porcelain" }}
+            >
+              <p className="text-xs text-gray-500">Phone Number</p>
+              <p>{viewProfile.companyEmail}</p>
+            </div>
           </div>
         </div>
       </div>

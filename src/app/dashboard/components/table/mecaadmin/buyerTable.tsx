@@ -5,6 +5,7 @@ import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
 import { formatAmount } from "../../../../../components/utils";
 import { ColorRing } from "react-loader-spinner";
+import { MdBusinessCenter } from "react-icons/md";
 
 type BuyerData = {
   // avatar: string;
@@ -26,7 +27,7 @@ const BuyerTable = ({ data, isLoading = false, isError = false }: BuyerTableProp
   return (
     <div
       id="mecaAdminTable"
-      className={`my-[1.25rem] w-full max-h-[34rem] overflow-y-auto scrollbar-none ${styles.table}`}
+      className={`my-[1.25rem] w-full max-h-[34rem] overflow-y-auto scrollbar-none h-[32rem] ${styles.table}`}
     >
       <table id="adminTable" className={`w-full`}>
         <thead>
@@ -41,7 +42,7 @@ const BuyerTable = ({ data, isLoading = false, isError = false }: BuyerTableProp
             </th> */}
           </tr>
         </thead>
-        <tbody>
+        <tbody >
       {isLoading ? (
       <tr>
         <td colSpan={4} className="text-center py-5">
@@ -58,7 +59,15 @@ const BuyerTable = ({ data, isLoading = false, isError = false }: BuyerTableProp
           </div>
         </td>
       </tr>
-    ) : (
+    ) : data?.length === 0 ? (<div className="relative right-[100%] left-[100%] flex flex-col justify-center items-center pt-32 leading-10">
+    <div className=" h-28">
+  <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
+  <MdBusinessCenter style={{fontSize:"2rem", color:"#0852C0"}}/>
+  </div>
+  </div>
+  <h1 className="text-xl">No buyers here yet</h1>
+  <h1 className="text-gray-500">All your buyers will appear here</h1>
+    </div>) :  (
       data?.map((d, index) => {
         const formattedTransactionValue = formatAmount(d.transactionValue);
 

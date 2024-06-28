@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { title } from "process";
 import ViewItemDetails from "./[viewDetailsInventory]/page";
 import { ColorRing } from "react-loader-spinner";
+import { MdInventory2 } from 'react-icons/md';
 
 interface InventoryData {
   categoryName?: string;
@@ -88,7 +89,7 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
     <div id="tableContainer">
       <div
         id="mecaAdminTable"
-        className={`my-[1.25rem] w-full max-h-[34rem] overflow-y-auto scrollbar-none ${styles.table}`}
+        className={`my-[1.25rem] w-full max-h-[34rem] overflow-y-auto scrollbar-none  ${styles.table}`}
       >
         <table id="adminTable" className={`w-full`}>
           <thead>
@@ -102,9 +103,9 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
               <th id="dateTime">Date and Time</th>
             </tr>
           </thead>
-          <tbody className=" h-[25rem]">
+          <tbody >
             {isLoading ? (
-              <div className="text-center mt-28 relative lg:left-[210%] lg:right[210%] md:left-[213%] md:right[213%] sm:left-[21">
+              <div className="text-center mt-28 relative left-[130%] right[130%]">
                 <ColorRing
                   visible={true}
                   height="40"

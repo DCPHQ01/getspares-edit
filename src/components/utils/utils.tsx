@@ -1,4 +1,5 @@
 import React from "react";
+import dayjs from "dayjs";
 
 interface TruncateTextProps {
   text: string;
@@ -15,3 +16,10 @@ const TruncateText: React.FC<TruncateTextProps> = ({ text, maxLength }) => {
   return <span title={text}>{truncatedText}</span>;
 };
 export default TruncateText;
+
+
+export const formatDateTime = (dateTime: string) => {
+  const date = dayjs(dateTime).format("DD-MM-YYYY");
+  const time = dayjs(dateTime).format("HH:mm");
+  return { date, time };
+};

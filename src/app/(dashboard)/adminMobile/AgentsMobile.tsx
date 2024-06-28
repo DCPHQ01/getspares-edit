@@ -24,11 +24,10 @@ function AgentsMobile() {
   const [first, setFirst] = useState(false);
   const [last, setLast] = useState(false);
   const { data, isLoading, isError} = useGetMecaAdminAgentQuery({
-    page:page, 
-    size:size 
+    page:page,
+    size:size
   })
   const [agentList, setAgentList] = useState<Agent[]>([]);
-  console.log("The agent mobile list", data);
 
   useEffect(() => {
     if (data && Array.isArray(data.data.content)) {
@@ -40,7 +39,6 @@ function AgentsMobile() {
     }
   }, [data]);
 
-  console.log("The agentMobile datas: ", data);
 
   const handleNextPage=()=>{
     if(first){
@@ -64,7 +62,7 @@ function AgentsMobile() {
       <div className={`my-[1.25rem] lg:`}>
         <SearchBox placeholder={`Search for agent`} />
       </div>
-   
+
       <div className="">
         <AgentTable agentList={agentList} isLoading={isLoading}/>
         <div className=" flex justify-end mt-10 mb-10 font-bold text-lg">
@@ -72,7 +70,7 @@ function AgentsMobile() {
           onClick={handlePreviousPage}
           disabled={first}
           >
-            <MdChevronLeft className="mt-1 text-2xl" /> 
+            <MdChevronLeft className="mt-1 text-2xl" />
           </button>
           <button className={`flex gap-x-2 border border-[#EAECF0] rounded-md h-[36px] w-[36px] pl-1  ${last ? "text-gray-400 cursor-not-allowed" : ""}`}
             onClick={handleNextPage}
