@@ -163,12 +163,12 @@ const InventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isLoading
         className={`my-[1.25rem] w-full max-h-[34rem] overflow-y-auto scrollbar-none ${styles.table}`}
       >
         <table id="adminTable" className={`w-full`}>
-          <thead>
+          <thead className="sticky">
             <tr className="truncate">
-              <th id="companyNameHeader">Product name</th>
-              <th id="dateTimeJoinedHeader">Vendors</th>
-              <th id="totalItemsSoldHeader">Quantity sold</th>
-              <th id="transactionValueHeader" style={{ paddingLeft: "2.3rem" }}>
+              <th id="companyNameHeader" className={`sticky`}>Product name</th>
+              <th id="dateTimeJoinedHeader" className={`sticky`}>Vendors</th>
+              <th id="totalItemsSoldHeader" className={`sticky`}>Quantity sold</th>
+              <th id="transactionValueHeader" className={`sticky`} style={{ paddingLeft: "2.3rem" }}>
                 Transaction value
               </th>
             </tr>
@@ -215,7 +215,7 @@ const InventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isLoading
 
                 <td id={`companyData_${index}`}>
                   <div
-                    className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
+                    className={`flex gap-3 items-center text-[0.88rem] py-[1rem] px-[1.25rem]`}
                   >
                    {d.vendorImage && d.vendorImage.length < 1000  ? (
                         <Image
