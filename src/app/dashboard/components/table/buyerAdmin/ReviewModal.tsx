@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Dialog, DialogTitle, Rating, TextField } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { IoClose } from "react-icons/io5";
@@ -51,6 +51,15 @@ const ReviewModal: React.FC<ReviewModalProps> = ({
       }
     } catch (error) {}
   };
+
+  // useEffect(() => {
+  //   if (orderId && productId) {
+  //     sessionStorage.setItem("orderId", orderId);
+  //     sessionStorage.setItem("orderId", orderId);
+  //     console.log("Stored in session storage", {orderId, productId})
+  //   }
+
+  // }, [orderId, productId]);
 
   return (
     <Dialog
