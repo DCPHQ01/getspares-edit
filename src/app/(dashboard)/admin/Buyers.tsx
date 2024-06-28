@@ -90,6 +90,5 @@ function Buyers() {
       </div>
     </>
   );
-}
-
+} 
 export default Buyers;

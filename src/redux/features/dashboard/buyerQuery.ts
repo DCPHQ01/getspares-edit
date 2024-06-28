@@ -31,7 +31,6 @@ export const buyerQuery = createApi({
           method: "GET",
       }),
     }),
-
     getOverviewOrderTable: builder.query({
         query: () => ({
           url: "/product/recent",
@@ -45,11 +44,6 @@ export const buyerQuery = createApi({
           method: "GET",
       }),
     }),
-
 })
 });
-
 export const { useCheckoutMutation, useGetViewAllOrdersQuery, useGetOrderDetailsQuery, useGetOverviewOrderTableQuery, useGetOverviewRecentProductImageQuery  } = buyerQuery;
-
-
-

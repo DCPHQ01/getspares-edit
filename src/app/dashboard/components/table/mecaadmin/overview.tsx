@@ -74,7 +74,6 @@ interface OverviewTableProps {
   isError?: boolean;
 };
 
-
 function Overview({data, isLoading}: OverviewTableProps) {
   const formatDateTime = (dateTime: string) => {
     const date = dayjs(dateTime).format("DD-MM-YYYY");

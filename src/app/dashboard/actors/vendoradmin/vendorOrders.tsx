@@ -31,7 +31,7 @@ function VendorOrders() {
   }, [data]);
     console.log("The vendorOrderList:", vendorOrderList);
 
-  const [currentPage, setCurrentPage] = useState(1); // State for current page
+  const [currentPage, setCurrentPage] = useState(1); 
   const [itemsPerPage] = useState(10);
 
   const handlePreviousPage = () => {
@@ -53,7 +53,6 @@ function VendorOrders() {
       <div className="flex justify-end">
         <Searchbox />
       </div>
-      {/* {hasOrders && ( */}
         <VendorOrderTable data={vendorOrderList} isLoading={isLoading} />
       {!hasOrders && !isLoading && (
         // <div className="relative right-[100%] left-[100%] flex flex-col justify-center items-center pt-32 leading-10">
