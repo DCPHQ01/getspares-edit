@@ -46,13 +46,13 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
       >
         <table id="adminTable" className={`w-full`}>
           <thead>
-            <tr className="truncate fixed w-1/5">
-              <th id="companyNameHeader" className={`w-1/5`} >Category name</th>
-              <th id="totalItemsSoldHeader" >No of products</th>
-              <th id="transactionValueHeader" className={`w-1/5`} style={{ paddingLeft: "5rem" }}>
+            <tr className="truncate">
+              <th id="companyNameHeader" className={`sticky`}>Category name</th>
+              <th id="totalItemsSoldHeader" className={`sticky`}>No of products</th>
+              <th id="transactionValueHeader" className={`sticky`} style={{ paddingLeft: "5rem" }}>
                 Created by
               </th>
-              <th id="dateTimeJoinedHeader" >Date & time joined</th>
+              <th id="dateTimeJoinedHeader" className={`sticky`}>Date & time joined</th>
             </tr>
           </thead>
           <tbody>
