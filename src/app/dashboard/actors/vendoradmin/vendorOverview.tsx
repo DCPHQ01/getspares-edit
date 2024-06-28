@@ -28,11 +28,10 @@ function VendorOverview() {
       totalOrderValue: 0,
     }
   );
-  console.log("data for VendorOverviews: ", overView);
+
   const [topPerformingProducts, setTopPerformingProducts] = useState<
     VendorOverview[]
   >([]);
-  console.log("data for VendorOverview: ", data);
 
   useEffect(() => {
     if (data) {
@@ -43,9 +42,6 @@ function VendorOverview() {
     }
   }, [data]);
 
-  console.log("The overView: ", overView);
-
-  console.log("The topPerformingProducts: ", topPerformingProducts);
 
   const userName = JSON.parse(sessionStorage.getItem("userDetails") || "");
   const usersFirstName = userName?.firstName;

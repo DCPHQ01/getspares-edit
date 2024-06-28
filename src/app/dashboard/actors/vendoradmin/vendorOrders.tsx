@@ -48,55 +48,37 @@ function VendorOrders() {
     }
   };
   return (
-    <>
-      <div className={`flex flex-col gap-6`}>
-        <Header
-          subtitle={`Keep track of buyers, items bought and their transaction values.`}
-          title={`Orders`}
-          amount={totalElement}
-        />
-        <div className="flex justify-end">
-          <Searchbox />
-        </div>
-        {/* {hasOrders && ( */}
-        <VendorOrderTable data={vendorOrderList} isLoading={isLoading} />
+    <div className={`flex flex-col gap-6`}>
+      <Header
+        subtitle={`Keep track of buyers, items bought and their transaction values.`}
+        title={`Orders`}
+        amount={totalElement}
+      />
+      <div className="flex justify-end">
+        <Searchbox />
+      </div>
+      <VendorOrderTable data={vendorOrderList} isLoading={isLoading} />
+
+      <div className="">
         {!hasOrders && !isLoading && (
           // <div className="relative right-[100%] left-[100%] flex flex-col justify-center items-center pt-32 leading-10">
-          <div className="h-28">
-            <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
-              <MdBusinessCenter size={40} color="#0852C0" />
+          <div className="h-28 mt-24">
+            <div className="flex justify-center">
+              <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
+                <MdBusinessCenter size={40} color="#0852C0" />
+              </div>
             </div>
-            <p className="text-xl font-semibold">No orders made yet</p>
-            <p className="text-base font-normal text-mecaLightGrayText">
-              All your orders will appear here
-            </p>
+            <div className="text-center">
+              <p className="text-xl font-semibold">No orders made yet</p>
+              <p className="text-base font-normal text-mecaLightGrayText">
+                All your orders will appear here
+              </p>
+            </div>
           </div>
         )}
-
-        <div className="flex mt-10 text-mecaBluePrimaryColor font-bold text-lg">
-          {currentPage > 1 && (
-            <button className={`flex gap-x-2`} onClick={handlePreviousPage}>
-              <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
-            </button>
-          )}
-          <button
-            className="flex gap-x-2 justify-end ml-auto"
-            onClick={handleNextPage}
-            disabled={currentPage * size >= totalElement}
-          >
-            Next
-            <span>
-              <MdChevronRight className="mt-[2px] text-2xl" />{" "}
-            </span>
-          </button>
-        </div>
-      </div>
-
-      <div className="flex justify-center items-center h-64">
-        <p className="text-xl font-semibold">No orders made yet</p>
       </div>
       {/* // */}
-      <div className="flex mt-10 text-mecaBluePrimaryColor font-bold text-lg">
+      {/* <div className="flex mt-10 text-mecaBluePrimaryColor font-bold text-lg">
         {currentPage > 1 && (
           <button className={`flex gap-x-2`} onClick={handlePreviousPage}>
             <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
@@ -112,8 +94,8 @@ function VendorOrders() {
             <MdChevronRight className="mt-[2px] text-2xl" />{" "}
           </span>
         </button>
-      </div>
-    </>
+      </div> */}
+    </div>
   );
 }
 

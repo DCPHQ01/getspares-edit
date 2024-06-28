@@ -17,6 +17,7 @@ export const buyerQuery = createApi({
         body,
       }),
     }),
+ 
     getViewAllOrders: builder.query({
       query: ({ pageNo, pageSize }) => ({
         url: `/dashboard/allOrders?pageNo=${pageNo}&pageSize=${pageSize}`,
@@ -26,7 +27,14 @@ export const buyerQuery = createApi({
 
     getOrderDetails: builder.query({
       query: ({ id }) => ({
-        url: `/order/${id}`,
+          url: `/order/${id}`,
+          method: "GET",
+      }),
+    }),
+    getOverviewOrderTables: builder.query({
+        query: () => ({
+          url: "/product/recent",
+
         method: "GET",
       }),
     }),

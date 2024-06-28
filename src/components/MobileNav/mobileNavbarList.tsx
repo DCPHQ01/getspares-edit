@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-// import MobileDropdownViewPage from "../../pages/MobileDropdownView/page";
 // import Filter from "../../../components/filters/Filter";
 import MobileDropdownBrandPage from "../../pages/MobileDropdownBrand/page";
 import {
@@ -12,6 +11,8 @@ import {
 } from "react-icons/md";
 import { useState } from "react";
 import { paths } from "../../path/paths";
+// import MobileDropdownViewPage from "../../pages/MobileDropdownView/page";
+import DropdownPage from "../NavBar/dropdown/page";
 
 const mobileNavData = [
   {
@@ -27,7 +28,7 @@ const mobileNavData = [
     icon1: <MdExpandMore size={24} className="text-mecaGoBackArrow" />,
     icon2: <MdChevronRight size={24} className="text-mecaGoBackArrow" />,
     link: "",
-    // mobileNavHeader: <MobileDropdownViewPage />,
+    mobileNavHeader: <DropdownPage />,
   },
   {
     id: 3,
@@ -56,7 +57,7 @@ const mobileNavData = [
 interface MobileNavProps {
   handleNav?: () => void;
 }
-export default function MobileNav({ handleNav }: MobileNavProps) {
+export default function MobileNavbarList({ handleNav }: MobileNavProps) {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const toggleModal = () => {
@@ -143,13 +144,6 @@ export default function MobileNav({ handleNav }: MobileNavProps) {
                 {data.icon2}
               </p>
             )}
-
-            {/* <p
-              onClick={data.id === 2 || data.id === 3 ? toggleModal : undefined}
-              // onClick={toggleModal}
-            >
-              {data.icon2}
-            </p> */}
           </div>
         ))}
 
