@@ -8,6 +8,7 @@ import { ColorRing } from "react-loader-spinner";
 import { useGetTopPerformingVendorsQuery } from "../../../../../redux/features/dashboard/mecaAdminQuery";
 import dayjs from "dayjs";
 import { formatAmount } from "../../../../../components/utils";
+import { MdYard } from "react-icons/md";
 
 interface TopVendors {
   avatar?: string;
@@ -35,7 +36,7 @@ function Overview({ data, isLoading }: OverviewTableProps) {
   return (
     <div
       id="mecaAdminTable"
-      className={`my-[1.25rem] w-full max-h-[25.19rem] overflow-y-auto scrollbar-none ${styles.table}`}
+      className={`my-[1.25rem] w-full max-h-[25.19rem] overflow-y-auto scrollbar-none h-[32rem] ${styles.table}`}
     >
       <table id="adminTable" className={`w-full`}>
         <thead>
@@ -55,8 +56,8 @@ function Overview({ data, isLoading }: OverviewTableProps) {
                 <div className="mt-28 relative lg:left-[700px] md:right-[600px]">
                   <ColorRing
                     visible={true}
-                    height="80"
-                    width="80"
+                    height="40"
+                    width="40"
                     ariaLabel="color-ring-loading"
                     wrapperStyle={{}}
                     wrapperClass="color-ring-wrapper"
@@ -68,15 +69,28 @@ function Overview({ data, isLoading }: OverviewTableProps) {
                       "#000000",
                     ]}
                   />
+                   <p>Loading Overview Table...</p>
                 </div>
               </td>
             </tr>
-          ) : (
+          ) : data.length === 0 ? (
+            <div className="relative right-[100%] left-[100%] flex flex-col justify-center items-center pt-32 leading-10">
+               <div className=" h-28">
+            <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
+            <MdYard style={{fontSize:"2rem", color:"#0852C0"}}/>
+            </div>
+            </div>
+            <h1 className="text-xl">No item here yet</h1>
+            <h1 className="text-gray-500">All your item will appear here</h1>
+              </div>)  : (
             data.map((d, index) => {
-              const { date, time } = formatDateTime(d.dateJoined);
-              const formattedTransactionValue = formatAmount(
-                d.transactionValue
-              );
+
+            
+
+              const { date, time } = formatDateTime(d.dateJoined); 
+              const formattedTransactionValue = formatAmount(d.transactionValue);
+
+
               return (
                 <tr key={index} id={`row_${index}`} className="cursor-pointer">
                   <td id={`companyData_${index}`}>

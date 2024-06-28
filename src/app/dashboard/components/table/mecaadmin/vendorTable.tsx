@@ -10,7 +10,9 @@ import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import { ColorRing } from "react-loader-spinner";
 import { format } from "../../../../../components/utils";
-
+import { MdYard } from "react-icons/md";
+import dayjs from "dayjs";
+import { MdInventory2 } from 'react-icons/md';
 
 
 interface Vendor {
@@ -27,6 +29,12 @@ interface VendorTableProps {
   vendorList: Vendor[];
   isLoading?: boolean;
 }
+
+const formatDateTime = (dateTime: string) => {
+  const date = dayjs(dateTime).format("DD-MM-YYYY");
+  const time = dayjs(dateTime).format("HH:mm");
+  return { date, time };
+};
 
 
 // const data = [
@@ -163,10 +171,10 @@ const VendorTable: React.FC<VendorTableProps>  = ({vendorList, isLoading}) => {
     <div id="tableContainer">
       <div
         id="mecaAdminTable"
-        className={`my-[1.25rem] w-full max-h-[34rem] overflow-y-auto scrollbar-none ${styles.table}`}
+        className={`my-[1.25rem] w-full max-h-[34rem] overflow-y-auto scrollbar-none h-[32rem] ${styles.table}`}
       >
-        <table id="adminTable" className={`w-full`}>
-          <thead>
+        <table id="adminTable" className={`w-full `}>
+          <thead className="">
             <tr className="truncate">
               <th id="companyNameHeader">Company name</th>
               <th id="totalItemsSoldHeader">Total items sold</th>
@@ -179,10 +187,10 @@ const VendorTable: React.FC<VendorTableProps>  = ({vendorList, isLoading}) => {
               <th id="dateTimeJoinedHeader">Date & time joined</th>
             </tr>
           </thead>
-          <tbody className=" h-[25rem]">
+          <tbody >
              { isLoading ? (
         <div 
-        className="text-center mt-28 relative lg:left-[188%] lg:right[188%] h-[30rem]"
+        className="text-center mt-28 relative left-[180%] right[180%] h-[30rem]"
         >
            <ColorRing  
             visible={true}
@@ -196,9 +204,16 @@ const VendorTable: React.FC<VendorTableProps>  = ({vendorList, isLoading}) => {
            />
           <p>Loading vendors...</p>
         </div>
-      ) : (vendorList.length === 0 ? (<div className="relative right-[90%] left-[90%] pt-40 text-2xl font-bold text-gray-600">No data in the Table yet</div>) :(vendorList?.map((d, index) => {
-              const [date, time] = d.dateJoined.split("T");
-              const formattedTime = time.split(".")[0]; 
+      ) :  vendorList.length === 0 ? (<div className="relative right-[130%] left-[130%] flex flex-col justify-center items-center pt-32 leading-10">
+        <div className=" h-28">
+      <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
+      <MdYard style={{fontSize:"2rem", color:"#0852C0"}}/>
+      </div>
+      </div>
+      <h1 className="text-xl">No item here yet</h1>
+      <h1 className="text-gray-500">All your item will appear here</h1>
+        </div>) :(vendorList?.map((d, index) => {
+               const { date, time } = formatDateTime(d?.dateJoined);
               const transactionValue = format(d.transactionValue);
               return (
                 <tr key={index} id={`row_${index}`} className="cursor-pointer">
@@ -263,13 +278,13 @@ const VendorTable: React.FC<VendorTableProps>  = ({vendorList, isLoading}) => {
                     >
                      <div id={`date_${index}`}>{date}</div>
                      <div className={`text-[#4B5565]`} id={`time_${index}`}>
-                        {formattedTime}
+                        {time}
                      </div>
                     </div>
                   </td>
                 </tr>
               );
-            })))}
+            }))}
           </tbody>
         </table>
       </div>
