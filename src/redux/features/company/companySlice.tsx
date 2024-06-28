@@ -10,14 +10,16 @@ const companySlice = createSlice({
       name: "",
       description: "",
       website: "",
-      email: "",
+      companyEmail: "",
       phoneNumber: "",
       cac: "",
-      address: [],
+      address1: '',
+      // address2: '',
     },
   },
   reducers: {
     setCompanyForm: (state, action) => {
+      console.log(action.payload, 'store');
       state.companyForm = action.payload;
     },
     setStep: (state, action) => {

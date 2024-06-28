@@ -42,7 +42,7 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading }) => {
           className={`my-[1.25rem] w-full max-h-[34rem] overflow-y-auto scrollbar-none ${styles.table}`}
        >
          <table id="adminTable" className={`w-full`}>
-           <thead style={{position:'sticky', width:'100%'}} className={`w-full`}>
+           <thead className={`w-full`}>
            <tr className="truncate">
              <th style={{position:'sticky'}} id="companyNameHeader">Full name</th>
              <th style={{position:'sticky'}} id="totalItemsSoldHeader">Quantity sold</th>

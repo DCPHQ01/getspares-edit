@@ -101,16 +101,17 @@ const Profile = () => {
   return (
     <div>
       <div className="flex justify-between">
-        <div className="flex gap-x-2 mb-12">
+        <div className="flex items-center gap-x-2 mb-12">
           <Avatar
             className="bg-mecaActiveBackgroundNavColor text-mecaBluePrimaryColor w-16 h-16 text-4xl"
             {...stringAvatar(`${viewProfile.name}`)}
           />
-          <Header
-            subtitle={`${viewProfile.companyEmail}`}
-            title={`${viewProfile.name}`}
-            amount={``}
-          />
+          <div>
+            <Header
+               subtitle={`${viewProfile.companyEmail}`}
+               title={`${viewProfile.name}`}
+            />
+          </div>
         </div>
         <div onClick={handleViewAdminProfile} className="">
           <button
@@ -133,7 +134,7 @@ const Profile = () => {
           <Box
             sx={{ ...style }}
             onClick={handleClose}
-            className="w-[30%] h-[399px] rounded-lg 
+            className="w-[30%] h-[399px] rounded-lg
             "
           >
             <div className=" mt-6 ">
