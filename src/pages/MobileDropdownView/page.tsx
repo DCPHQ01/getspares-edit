@@ -17,9 +17,9 @@ const MobileDropdownViewPage = () => {
   };
   useEffect(() => setOpen(true), []);
 
-  const { data: getCategoriesData } = useGetCategoryQuery({});
-  console.log("buyers category  ", getCategoriesData);
-  const handleProductDescription = (categoryName: string) => {
+  const { data: getMobileCategoriesData } = useGetCategoryQuery({});
+  console.log("buyers category  ", getMobileCategoriesData);
+  const handleProductDescrip = (categoryName: string) => {
     router.push(paths.toCategoryProducts(categoryName));
   };
 
@@ -70,9 +70,9 @@ const MobileDropdownViewPage = () => {
                 cursor: "pointer",
               }}
             >
-              {getCategoriesData?.data.map((category: any) => (
+              {getMobileCategoriesData?.data.map((category: any) => (
                 <div
-                  onClick={() => handleProductDescription}
+                  onClick={() => handleProductDescrip(category)}
                   className=""
                   style={{
                     color: "black",
