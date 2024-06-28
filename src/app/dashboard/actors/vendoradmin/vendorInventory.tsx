@@ -45,18 +45,12 @@ function VendorInventory() {
       setTotalPages(lists.totalPages);
       setHasNext(lists.hasNext);
       setHasPrevious(lists.hasPrevious);
-<<<<<<< HEAD
       setTotalPages(lists.totalElements);
       setIsPaginationLoading(false)
 
     }  catch (error) {
       console.error('Failed to add vendor:', error);
      
-=======
-      setIsPaginationLoading(false);
-    } catch (error) {
-      console.error("Failed to add vendor:", error);
->>>>>>> 89d94089f2758db1d3f340085f7e90ed3f90e0ca
     }
   };
 
