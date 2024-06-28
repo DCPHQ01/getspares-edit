@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import {
-  MdChevronRight,
   MdExpandLess,
   MdExpandMore,
   MdMenu,
@@ -12,13 +11,17 @@ import {
 } from "react-icons/md";
 import IconButton from "@mui/material/IconButton";
 import DropdownPage from "./dropdown/page";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import Button from "@mui/material/Button";
 import { JwtPayload as BaseJwtPayload } from "jsonwebtoken";
 import * as JWT from "jwt-decode";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { clearUser } from "../../redux/features/users/userSlice";
+import BrandPage from "./brand/page";
+import { paths } from "../../path/paths";
+import { setCart } from "../../redux/features/product/productSlice";
+import { CartProduct } from "../../types/cart/product";
 
 const navData = [
   {
@@ -34,6 +37,7 @@ const navData = [
     icon: <MdExpandMore size={18} />,
     icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
     link: "",
+    dropdownComponent: <DropdownPage />,
   },
   {
     id: 3,
@@ -41,41 +45,12 @@ const navData = [
     icon: <MdExpandMore size={18} />,
     icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
     link: "",
+    dropdownComponent: <BrandPage />,
   },
-  {
-    id: 4,
-    title: "mechanics",
-    icon: "",
-    // icon: <MdExpandMore size={18} />,
-    // icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
-    icon2: "",
-    link: "",
-  },
+
   {
     id: 5,
     title: "vendors",
-    icon: "",
-    // icon: <MdExpandMore size={18} />,
-    // icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
-    icon2: "",
-    link: "",
-  },
-  {
-    id: 6,
-    title: "listings",
-    icon: "",
-    // icon: <MdExpandMore size={18} className="" />,
-    icon2: "",
-    // icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
-    link: "",
-  },
-  {
-    id: 7,
-    title: "advertise",
-    icon: "",
-    // icon: <MdExpandMore size={18} />,
-    icon2: "",
-    // icon2: <MdExpandLess size={18} className="text-mecaBluePrimaryColor" />,
     link: "",
   },
 ];
@@ -89,23 +64,35 @@ interface JwtPayload extends BaseJwtPayload {
   role?: string;
 }
 export default function NavBar({ open, setOpen }: NavBarProps) {
-  const [active, setActive] = useState(1);
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const [active, setActive] = useState<number | null>(1);
   const handleClick = (id: number) => {
     setActive(id);
   };
+  const [savedCardItems, setSavedCartItems] = useState<CartProduct[]>([]);
 
   const { cart } = useAppSelector((state) => state.product);
+  useEffect(() => {
+    const saveCartItems = JSON.parse(
+      localStorage.getItem("savedCartItems") as string
+    ) as CartProduct[];
+    if (saveCartItems) {
+      setSavedCartItems(saveCartItems);
+    }
+  }, []);
 
-  console.log(" product", cart);
-
-  const router = useRouter();
-  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (cart.length === 0 && savedCardItems) {
+      dispatch(setCart(savedCardItems));
+    }
+  }, [cart, savedCardItems]);
 
   const handleStartShopping = () => {
-    router.push("/signup");
+    router.push(paths.toSignUp());
   };
   const handleLogin = () => {
-    router.push("/login");
+    router.push(paths.toLogin());
   };
   const [isCategoryOptionOpened, setIsCategoryOptionOpen] = useState(false);
 
@@ -117,7 +104,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
     return isCategoryOptionOpened;
   };
   const handleDashboard = () => {
-    router.push("/dashboard");
+    router.push(paths.toDashboard());
   };
   const [toggleProfile, setToggleProfile] = useState(false);
   const [tokens, setTokens] = useState("");
@@ -143,17 +130,28 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
     console.error("Failed to decode token:", error);
   }
 
+  const dropDownClicked = () => {
+    setActive(null);
+  };
+
   const name = decoded?.given_name;
 
   const logOut = () => {
     sessionStorage.clear();
     sessionStorage.removeItem("userDetails");
     dispatch(clearUser());
-    router.push("/login");
+    router.push(paths.toLogin());
   };
+
   useEffect(() => setActive(1), []);
+
+  const [toggleCategory, setToggleCategory] = useState(false);
+  const handleToggleCategory = () => {
+    setToggleCategory(!toggleCategory);
+  };
+
   return (
-    <nav className="w-full bg-white" id="navbarContainer">
+    <nav className="w-full bg-white relative" id="navbarContainer">
       {/* mobile and tab */}
       <div
         className="w-full h-[60px] border-b-2 z-50 border-b-mecaBottomBorder px-4 flex justify-between items-center lg:hidden"
@@ -161,13 +159,13 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
       >
         <p
           className="text-mecaActiveIconsNavColor text-xl font-nunito font-bold cursor-pointer"
-          onClick={() => router.push("/")}
+          onClick={() => router.push(paths.toHome())}
         >
           e-meca
         </p>
         <div className="flex items-center gap-x-2" id="menuSearchCart">
           <MdSearch size={18} />
-          <Link href="/cart">
+          <Link href={paths.toCart()}>
             <div
               className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1"
               id="textCartMobTab"
@@ -177,7 +175,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                 className="text-mecaBluePrimaryColor"
               />
               <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
-                {cart.length}
+                {cart?.length || 0}
               </p>
             </div>
           </Link>
@@ -198,32 +196,34 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
           <div className="w-[20%]" id="mecaLogoDesktop">
             <p
               className="text-mecaActiveIconsNavColor text-3xl font-nunito font-bold cursor-pointer"
-              onClick={() => router.push("/")}
+              onClick={() => router.push(paths.toHome())}
             >
               e-meca
             </p>
           </div>
           <div
-            className="w-1/3 flex items-center gap-x-2 relative"
+            className="flex-grow flex justify-center items-center gap-x-2 relative"
             id="searchDesktop"
           >
-            <MdSearch
-              size={24}
-              className="absolute left-1 text-mecaGoBackArrow"
-            />
-            <input
-              id="inputSearchDesktop"
-              placeholder="Search for anything"
-              className="bg-mecaSearchColor w-[580px] h-[44px] rounded-full px-9 outline-none"
-            />
+            <div className="relative w-full max-w-[580px]">
+              <MdSearch
+                size={24}
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-mecaGoBackArrow"
+              />
+              <input
+                id="inputSearchDesktop"
+                placeholder="Search for anything"
+                className="bg-mecaSearchColor w-full h-[44px] rounded-full pl-12 pr-4 outline-none"
+              />
+            </div>
           </div>
           <div
             className="w-[28%] h-8 flex justify-end items-center gap-x-2"
             id="cartDesktop"
           >
-            <Link href="/cart">
+            <Link href={paths.toCart()}>
               <div
-                className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1 cursor-pointer"
+                className="w-[49px] h-[28px] ml-8 flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1 cursor-pointer"
                 id="textCart"
               >
                 <MdOutlineShoppingCart
@@ -231,16 +231,16 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                   className="text-mecaBluePrimaryColor"
                 />
                 <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
-                  {cart.length}
+                  {cart?.length || 0}
                 </p>
               </div>
             </Link>
             <div className="w-full flex items-center h-full">
               {!tokens ? (
-                <div className="w-full flex items-center h-full gap-4">
+                <div className="w-full flex justify-end items-center h-full gap-4">
                   <button
                     type="button"
-                    className="w-[28%] h-full border border-mecaBluePrimaryColor bg-white text-mecaBluePrimaryColor text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
+                    className="w-[28%] xl:w-[38%] h-full border border-mecaBluePrimaryColor bg-white text-mecaBluePrimaryColor text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
                     id="startShoppingBtnMainNavBar"
                     onClick={handleLogin}
                   >
@@ -248,7 +248,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                   </button>
                   <button
                     type="button"
-                    className="w-[52%] h-full bg-mecaBluePrimaryColor text-white text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
+                    className="w-[58%] xl:w-[52%] h-full bg-mecaBluePrimaryColor text-white text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
                     id="startShoppingBtn"
                     onClick={handleStartShopping}
                   >
@@ -258,7 +258,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
               ) : (
                 <button
                   onClick={profile}
-                  className="flex gap-2 "
+                  className="flex gap-2"
                   type="button"
                   id="profileBtnMainNav"
                 >
@@ -269,12 +269,14 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                   <MdExpandLess className="text-mecaGoBackArrow w-5 h-5 mt-2" />
                 </button>
               )}
+
               {toggleProfile && (
                 <div
-                  className="w-52 h-24 rounded-lg p-1 bg-white absolute top-28 right-6 "
+                  className="w-52 h-24 rounded-lg p-1 bg-white absolute top-12 right-24 "
                   style={{ boxShadow: "0px 2px 8px 0px #63636333" }}
                 >
                   <button
+                    id="profileBtn"
                     onClick={profile}
                     className="flex gap-2 w-48 m-auto  h-10 p-2 pt-3 hover:bg-mecaActiveBackgroundNavColor hover:text-mecaActiveIconsNavColor"
                   >
@@ -330,13 +332,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
             >
               {item.title}
             </p>
-            <div
-              onClick={
-                item.id === 2 || item.id === 3
-                  ? () => toggle(item.id)
-                  : () => {}
-              }
-            >
+            <div>
               {isCategoryOptionOpened && item.id === active ? (
                 <p>{item.icon2}</p>
               ) : (
@@ -351,24 +347,20 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                 </p>
               )}
             </div>
-
-            {/* {item.id === 2 && isCategoryOptionOpened && (
-              <div className="flex justify-center">
-                <div className="absolute top-56 z-50">
-                  <DropdownPage />
-                </div>
-              </div>
-            )} */}
           </div>
         ))}
+
+        {navData.map(
+          (item) =>
+            active === item.id && (
+              <div className="flex justify-center" key={item.id}>
+                <div className="absolute left-96 top-40 z-50">
+                  <div onClick={dropDownClicked}>{item.dropdownComponent}</div>
+                </div>
+              </div>
+            )
+        )}
       </div>
-      {isCategoryOptionOpened && (
-        <div className="flex justify-center">
-          <div className="absolute z-50">
-            <DropdownPage />
-          </div>
-        </div>
-      )}
     </nav>
   );
 }

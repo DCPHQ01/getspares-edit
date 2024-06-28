@@ -8,14 +8,18 @@ import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 function Overview() {
   // @ts-ignore
+  const [activityPeriod, setActivityPeriod] = useState("monthly"); 
+  const handlePeriodChange = (newPeriod: string) => {
+    setActivityPeriod(newPeriod);
+  };
   return (
     <>
       <div>
         <Header
           subtitle={`Take a quick glance on what is happening with meca`}
-          name={`Sam`}
+          name={` Sam`}
         />
-        <Cards />
+        {/* <Cards cardProps={}/> */}
         <div
           className={`flex justify-between items-center mt-[3.25rem] mb-[1.25rem]`}
         >
@@ -23,19 +27,19 @@ function Overview() {
             subtitle={`A quick glance on parts with highest sales on meca`}
             title={`Recently sold parts`}
           />
-          <PeriodRadios />
+          <PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange} />
         </div>
 
         <OverviewTable />
 
-        <div className="flex justify-between mt-10 text-mecaBluePrimaryColor font-bold text-lg">
+        {/* <div className="flex justify-between mt-10 text-mecaBluePrimaryColor font-bold text-lg">
           <button className="flex gap-x-2">
             <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
           </button>
           <button className="flex gap-x-2">
             <MdChevronRight className="mt-1 text-2xl" /> <span>Next</span>
           </button>
-        </div>
+        </div> */}
       </div>
     </>
   );

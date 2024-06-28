@@ -1,17 +1,8 @@
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { LoginResponse } from "../../../models/loginResponse";
+import ResetPassword from "../../../app/forgot-password/page";
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-// const getToken = () => {
-//   if (typeof window !== "undefined") {
-//     return JSON.parse(sessionStorage.getItem("token") || "{}");
-//   }
-//   return {};
-// };
-
-// let token = getToken();
-// console.log("token for basequery ", token);
-
 export const authQuery = createApi({
   reducerPath: "baseQuery",
   baseQuery: fetchBaseQuery({ baseUrl }),
@@ -83,13 +74,45 @@ export const authQuery = createApi({
         body,
       }),
     }),
+    getTopProduct: builder.query({
+      query: () => "/product/top",
+    }),
+    getRecentProduct: builder.query({
+      query: () => "/product/recent",
+    }),
+    getRelatedProduct: builder.query({
+      query: (productId) => `/product/related?productId=${productId}`,
+    }),
+    getAProduct: builder.query({
+      query: (productId: string) => `/product/detail/${productId}`,
+    }),
+    getCategory: builder.query({
+      query: () => "/category/categories",
+    }),
+    getProductInCategory: builder.query({
+      query: (body: {
+        categoryId: string;
+        pageNumber: number;
+        pageSize: number;
+      }) => ({
+        url: "/product",
+        method: "POST",
+        body,
+      }),
+    }),
+    resetPasswordVerifyEmail: builder.mutation({
+      query: (email) => ({
+        url: `/auth/reset-password-verify-email?email=${email}`,
+        method: "POST",
+      }),
+    }),
     resetPassword: builder.mutation({
       query: (body: {
         email: string;
         otpCode: string;
         newPassword: string;
       }) => ({
-        url: "/auth/resetPassword",
+        url: "/auth/reset-password",
         method: "POST",
         body,
       }),
@@ -98,11 +121,18 @@ export const authQuery = createApi({
 });
 
 export const {
+  useGetAProductQuery,
+  useGetRelatedProductQuery,
+  useGetTopProductQuery,
+  useGetRecentProductQuery,
   useRegisterBuyerMutation,
   useRegisterAgentMutation,
   useRegisterVendorMutation,
   useVerifyEmailMutation,
   useLoginMutation,
   useResetOtpMutation,
+  useGetCategoryQuery,
+  useGetProductInCategoryQuery,
+  useResetPasswordVerifyEmailMutation,
   useResetPasswordMutation,
 } = authQuery;

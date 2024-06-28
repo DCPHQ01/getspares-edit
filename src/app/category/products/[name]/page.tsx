@@ -23,13 +23,18 @@ import Footer from "../../../../components/footer/Footer";
 import TruncateText from "../../../../components/utils/utils";
 import Filter from "../../../../components/filters/Filter";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import FilterFixedPage from "../../filterFixedPage";
+import SideFilter from "../../sideFilter";
+import TopBarWhileInside from "../../../reusables/TopBarWhileInside/page";
+import { useGetProductInCategoryQuery } from "../../../../redux/features/users/authQuery";
+import { ColorRing } from "react-loader-spinner";
 
 interface ItemsDataProps {
   id: number;
   desc: string;
   rating: number;
   price: string;
-  image: any;
+  image?: any;
 }
 
 const itemsData: ItemsDataProps[] = [
@@ -100,6 +105,7 @@ export default function Products() {
 
   const router = useRouter();
   const [showFilter, setShowFilter] = useState(true);
+  const [categoryId, setCategoryId] = useState<string>("");
   const handleToggleFilter = () => {
     setShowFilter(!showFilter);
   };
@@ -114,6 +120,18 @@ export default function Products() {
     router.push(`/category/products/${searches}/${id}`);
   };
 
+  const { data, isLoading } = useGetProductInCategoryQuery({
+    categoryId,
+    pageNumber: 0,
+    pageSize: 100,
+  });
+  console.log("data for categories ", data?.data?.content);
+  useEffect(() => {
+    const storedCategoryId = sessionStorage.getItem("categoryId");
+    if (storedCategoryId) {
+      setCategoryId(storedCategoryId);
+    }
+  }, []);
   const filterData = [
     {
       id: 1,
@@ -214,12 +232,12 @@ export default function Products() {
       {/* mobile and Tab */}
       {!isFilterOpen ? (
         <div className="flex flex-col lg:hidden" id="ProductMobileDivContainer">
-          <TopBar />
+          <TopBarWhileInside />
           <div
             className="px-4 flex flex-col gap-y-4 lg:hidden"
             id="productCategoryContentDiv"
           >
-            <div className="flex items-center gap-4 mt-52" id="breadCrumbsDiv">
+            <div className="flex items-center gap-4 mt-32" id="breadCrumbsDiv">
               <p className="font-nunito text-sm font-medium text-mecaDarkBlueBackgroundOverlay">
                 Home
               </p>
@@ -253,70 +271,96 @@ export default function Products() {
                 className="mt-4 w-full flex items-center flex-wrap gap-x-5"
                 id="allItemsContainerDiv"
               >
-                {itemsData.map((item: ItemsDataProps) => (
-                  <div
-                    className="w-[46%] h-[270px] flex flex-col justify-center gap-y-3 mb-8"
-                    id="eachItemDiv"
-                    key={item.id}
-                  >
+                {isLoading ? (
+                  <div className="w-full h-screen flex justify-center items-center">
+                    <ColorRing
+                      visible={true}
+                      height="80"
+                      width="80"
+                      ariaLabel="color-ring-loading"
+                      wrapperStyle={{}}
+                      wrapperClass="color-ring-wrapper"
+                      colors={[
+                        "#00A3FF",
+                        "#FFD300",
+                        "#00A3FF",
+                        "#FFD300",
+                        "#FF0000",
+                      ]}
+                    />
+                  </div>
+                ) : data?.data?.content?.length <= 0 ? (
+                  <div className="w-full flex justify-center items-center">
+                    <p className="text-mecaDarkBlueBackgroundOverlay text-4xl font-nunito font-semibold">
+                      No Product Found
+                    </p>
+                  </div>
+                ) : (
+                  data?.data?.content.map((item: ItemsDataProps) => (
                     <div
-                      className="w-full h-[194px] flex justify-center items-center bg-mecaSearchColor"
-                      id="itemImageDiv"
+                      className="w-[46%] h-[270px] flex flex-col justify-center gap-y-3 mb-8"
+                      id="eachItemDiv"
+                      key={item.id}
                     >
-                      <Image
-                        src={item.image}
-                        alt="tractor image"
-                        width={144}
-                        height={106}
-                      />
-                    </div>
-                    <div
-                      className="w-full flex flex-col gap-y-4"
-                      id="itemContentDiv"
-                    >
-                      <div className="flex justify-between items-center md:hidden">
-                        <TruncateText text={item.desc} maxLength={15} />
-                        <div
-                          id="ratingContainerMobile"
-                          className="flex items-center gap-x-1"
-                        >
-                          <Image
-                            src={star}
-                            alt="rating"
-                            width={12}
-                            height={12}
-                          />
-                          <p className="text-[12px] text-mecaDarkBlueBackgroundOverlay">
-                            {item.rating}
-                          </p>
-                        </div>
+                      <div
+                        className="w-full h-[194px] flex justify-center items-center bg-mecaSearchColor"
+                        id="itemImageDiv"
+                      >
+                        <Image
+                          src={item?.image}
+                          alt="tractor image"
+                          width={144}
+                          height={106}
+                        />
                       </div>
                       <div
-                        id="priceContainerDiv"
-                        className="flex items-center ml-6"
+                        className="w-full flex flex-col gap-y-4"
+                        id="itemContentDiv"
                       >
-                        <p className="text-mecaDarkBlueBackgroundOverlay text-sm font-nunito font-bold text-center">
-                          {item.price}
-                        </p>
-                      </div>
-                      <div className="hidden md:flex justify-between items-center lg:hidden">
-                        <TruncateText text={item.desc} maxLength={25} />
+                        <div className="flex justify-between items-center md:hidden">
+                          <TruncateText text={item.desc} maxLength={15} />
+                          <div
+                            id="ratingContainerMobile"
+                            className="flex items-center gap-x-1"
+                          >
+                            <Image
+                              src={star}
+                              alt="rating"
+                              width={12}
+                              height={12}
+                            />
+                            <p className="text-[12px] text-mecaDarkBlueBackgroundOverlay">
+                              {item.rating}
+                            </p>
+                          </div>
+                        </div>
                         <div
-                          id="ratingContainerTabDiv"
-                          className="flex items-center"
+                          id="priceContainerDiv"
+                          className="flex items-center ml-6"
                         >
-                          <Image
-                            src={star}
-                            alt="rating"
-                            width={10}
-                            height={10}
-                          />
-                          <p>{item.rating}</p>
+                          <p className="text-mecaDarkBlueBackgroundOverlay text-sm font-nunito font-bold text-center">
+                            {item.price}
+                          </p>
+                        </div>
+                        <div className="hidden md:flex justify-between items-center lg:hidden">
+                          <TruncateText text={item.desc} maxLength={25} />
+                          <div
+                            id="ratingContainerTabDiv"
+                            className="flex items-center"
+                          >
+                            <Image
+                              src={star}
+                              alt="rating"
+                              width={10}
+                              height={10}
+                            />
+                            <p>{item.rating}</p>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+                )}
               </div>
             </div>
           </div>
@@ -327,7 +371,7 @@ export default function Products() {
       )}
       {/* desktop */}
       <div className="hidden lg:flex flex-col" id="desktopDiv">
-        <TopBar />
+        <TopBarWhileInside />
         <div
           className="flex items-center gap-2 mt-56 px-8"
           id="breadCrumbsDivDesktop"
@@ -430,57 +474,86 @@ export default function Products() {
             className="flex flex-wrap justify-between w-full"
             id="allItemsContainerDivDesktop"
           >
-            {itemsData.map((item: ItemsDataProps) => (
-              <div
-                className="flex flex-col w-[30.4%] cursor-pointer"
-                key={item.id}
-                onClick={() => handleProductDescription(item.id)}
-              >
+            {isLoading ? (
+              <div className="w-full h-screen flex justify-center items-center">
+                <ColorRing
+                  visible={true}
+                  height="80"
+                  width="80"
+                  ariaLabel="color-ring-loading"
+                  wrapperStyle={{}}
+                  wrapperClass="color-ring-wrapper"
+                  colors={[
+                    "#00A3FF",
+                    "#FFD300",
+                    "#00A3FF",
+                    "#FFD300",
+                    "#FF0000",
+                  ]}
+                />
+              </div>
+            ) : data?.data?.content?.length <= 0 ? (
+              <div className="w-full flex justify-center items-center">
+                <p className="text-mecaDarkBlueBackgroundOverlay text-4xl font-nunito font-semibold">
+                  No Product Found
+                </p>
+              </div>
+            ) : (
+              data?.data?.content.map((item: ItemsDataProps) => (
                 <div
-                  className="w-full h-[194px] flex justify-center items-center bg-mecaSearchColor"
-                  id="itemImage"
+                  className="flex flex-col w-[30.4%] cursor-pointer"
+                  key={item.id}
+                  onClick={() => handleProductDescription(item.id)}
                 >
-                  <Image
-                    src={item.image}
-                    alt="tractor image"
-                    width={144}
-                    height={106}
-                  />
-                </div>
-                <div
-                  className="w-full flex flex-col gap-y-4 mt-4"
-                  id="itemContent"
-                >
-                  <div className="flex justify-between items-center">
-                    <TruncateText text={item.desc} maxLength={50} />
-                    <div
-                      id="ratingContainerDesktop"
-                      className="flex items-center gap-x-1"
-                    >
-                      <Image src={star} alt="rating" width={12} height={12} />
-                      <p className="text-[12px] text-mecaDarkBlueBackgroundOverlay">
-                        {item.rating}
-                      </p>
-                    </div>
+                  <div
+                    className="w-full h-[194px] flex justify-center items-center bg-mecaSearchColor"
+                    id="itemImage"
+                  >
+                    <Image
+                      src={item?.image}
+                      alt="tractor image"
+                      width={144}
+                      height={106}
+                    />
                   </div>
                   <div
-                    id="priceContainer"
-                    className="flex items-center ml-6 mb-4"
+                    className="w-full flex flex-col gap-y-4 mt-4"
+                    id="itemContent"
                   >
-                    <p className="text-mecaDarkBlueBackgroundOverlay text-sm font-nunito font-bold text-center">
-                      {item.price}
-                    </p>
-                  </div>
-                  <div className="hidden md:flex justify-between items-center lg:hidden">
-                    <TruncateText text={item.desc} maxLength={25} />
-                    <div id="ratingContainerTab" className="flex items-center">
-                      <Image src={star} alt="rating" width={10} height={10} />
-                      <p>{item.rating}</p>
+                    <div className="flex justify-between items-center">
+                      <TruncateText text={item.desc} maxLength={50} />
+                      <div
+                        id="ratingContainerDesktop"
+                        className="flex items-center gap-x-1"
+                      >
+                        <Image src={star} alt="rating" width={12} height={12} />
+                        <p className="text-[12px] text-mecaDarkBlueBackgroundOverlay">
+                          {item.rating}
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      id="priceContainer"
+                      className="flex items-center ml-6 mb-4"
+                    >
+                      <p className="text-mecaDarkBlueBackgroundOverlay text-sm font-nunito font-bold text-center">
+                        {item.price}
+                      </p>
+                    </div>
+                    <div className="hidden md:flex justify-between items-center lg:hidden">
+                      <TruncateText text={item.desc} maxLength={25} />
+                      <div
+                        id="ratingContainerTab"
+                        className="flex items-center"
+                      >
+                        <Image src={star} alt="rating" width={10} height={10} />
+                        <p>{item.rating}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>
         <div id="footerDiv" className="mt-12">

@@ -8,7 +8,7 @@ import HomeImage1 from "../../../../../assets/images/homeImage1.png";
 import tractor from "../../../../../assets/images/tractors.png";
 import HomeImage2 from "../../../../../assets/images/homeImage2.png";
 import ratingStar from "../../../../../assets/images/Star.png";
-import { useRef, useState } from "react";
+import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import {
   MdCheckCircle,
   MdChevronLeft,
@@ -17,7 +17,7 @@ import {
   MdOutlineStorefront,
 } from "react-icons/md";
 import Footer from "../../../../../components/footer/Footer";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import * as React from "react";
 import {
@@ -32,11 +32,24 @@ import {
 
 import { IoCloseCircleOutline } from "react-icons/io5";
 import TopBarWhileInside from "../../../../reusables/TopBarWhileInside/page";
-import { useAppDispatch } from "../../../../../redux/hooks";
+import {useAppDispatch, useAppSelector} from "../../../../../redux/hooks";
 import { addToCart } from "../../../../../redux/features/product/productSlice";
+import {
+  useGetAProductQuery,
+  useGetRelatedProductQuery,
+} from "../../../../../redux/features/users/authQuery";
+import {CartProduct} from "../../../../../types/cart/product";
 
 interface State extends SnackbarOrigin {
   open: boolean;
+}
+
+interface ProductType {
+  id: string;
+  name: string;
+  image: string;
+  price: string;
+  categoryName?: string;
 }
 
 const responsive = {
@@ -72,13 +85,25 @@ const images = [
 ];
 
 export default function ProductDescription() {
+  const searchParams = usePathname()
+
   const [state, setState] = React.useState<State>({
     open: false,
     vertical: "top",
     horizontal: "center",
   });
+  const productId = usePathname()!.split("/")[4];
+
+  const [visible, setVisible] = useState(false);
+
+
+  const { data, isLoading } = useGetAProductQuery(productId, {
+    skip: !productId,
+  });
 
   const { vertical, horizontal, open } = state;
+
+
 
   const dispatch = useAppDispatch();
 
@@ -86,36 +111,78 @@ export default function ProductDescription() {
   const remainingImages = images.slice(5);
   const carouselRef = useRef<Carousel>(null);
 
+  const { data: relatedProductData } = useGetRelatedProductQuery(productId, {
+    skip: !productId,
+  });
+
   const handleNext = () => {
     if (carouselRef.current) carouselRef.current.next(0);
   };
+
+  const router = useRouter()
 
   const handlePrevious = () => {
     if (carouselRef.current) carouselRef.current.previous(0);
   };
 
-  const searchParams = usePathname()!;
-  const search = searchParams;
-  const segments = searchParams.split("/");
-  // console.log(segments, " segments");
-  const searches = segments[3];
-  const id = segments[4];
-  // console.log(searches, " searches");
 
-  const handleClick = (newState: SnackbarOrigin) => () => {
-    dispatch(
-      addToCart({
-        id,
-      })
-    );
-    setState({ ...newState, open: true });
+  const { cart } = useAppSelector((state) => state.product);
 
-    setTimeout(() => {
-      setState({ ...newState, open: false });
-    }, 3000);
+
+  useEffect(() => {
+    if(cart.length !== 0){
+      let hasItem = cart.some( vendor => vendor.id === data?.data?.id )
+      setVisible(hasItem)
+    }
+  },[cart, data?.data])
+
+
+  // useLayoutEffect(()=> {
+  //
+  // },[])
+
+
+
+
+  const handleClick = (newState: SnackbarOrigin, val:any) => () => {
+    let newArr = []
+    let finalArr = []
+    let payload = {...val, quantity:'1'}
+    const savedCartItems = JSON.parse(localStorage.getItem('savedCartItems') as string)as CartProduct[];
+
+    if(savedCartItems){
+      const i = savedCartItems.findIndex(e => e.id === payload.id);
+      if (i > -1) {
+        // We know that at least 1 object that matches has been found at the index i
+        return
+      }else {
+        newArr.push(payload)
+        finalArr = newArr.concat(savedCartItems)
+        localStorage.setItem('savedCartItems', JSON.stringify(finalArr));
+        dispatch(addToCart(newArr))
+      }
+
+    }else{
+      newArr.push(payload)
+      localStorage.setItem('savedCartItems', JSON.stringify(newArr));
+      dispatch(addToCart(newArr))
+    }
+
+
+    // setState({ ...newState, open: true });
+    //
+    // setTimeout(() => {
+    //   setState({ ...newState, open: false });
+    // }, 3000);
   };
 
-  const searchWords = segments[3].replace(/([A-Z])/g, " $1").trim();
+  const formatPrice = (price: string, currency: string) => {
+    return new Intl.NumberFormat("en-US", {
+      style: 'currency',
+      currency: currency ? currency : 'NGN',
+    }).format(Number(price));
+  };
+
 
   return (
     <div className="relative">
@@ -135,20 +202,20 @@ export default function ProductDescription() {
             <MdChevronRight size={20} />
             <p className="text-[12px] font-nunito font-normal text-mecaDarkBlueBackgroundOverlay">
               {" "}
-              {searchWords}
+              {data?.data.category}
             </p>
             <MdChevronRight size={20} />
             <p className="text-[12px] font-nunito font-normal text-mecaGoBackArrow">
-              E46 Engine 1996 Model
+              {data?.data.name}
             </p>
           </div>
           <div
             id="productDescriptionDetails"
-            className="w-full flex justify-between"
+            className="w-full flex flex-col lg:flex-row justify-between"
           >
             <div
               id="productImage"
-              className="w-[56%] h-[615px] flex flex-col gap-y-4"
+              className="w-full lg:w-[56%] h-[615px] flex flex-col gap-y-4"
             >
               <div
                 id="imageDiv"
@@ -162,7 +229,7 @@ export default function ProductDescription() {
               >
                 {firstImages.map((image, i) => (
                   <div
-                    className="w-[30%] h-[88px] cursor-pointer rounded-lg flex justify-center items-center bg-mecaSearchColor relative" // Add relative here
+                    className="w-[30%] h-[88px] cursor-pointer rounded-lg flex justify-center items-center bg-mecaSearchColor relative"
                     key={i}
                   >
                     <Image
@@ -170,12 +237,11 @@ export default function ProductDescription() {
                       alt="tractor parts"
                       className="h-full w-full"
                     />
-                    {/* Show the overlay on the last image */}
                     {i === firstImages.length - 1 &&
                       remainingImages.length > 0 && (
                         <div
                           id="moreImages"
-                          className="absolute rounded-lg inset-0 flex justify-center items-center bg-mecaDarkBlueBackgroundOverlay bg-opacity-50" // Add absolute here and adjust as needed
+                          className="absolute rounded-lg inset-0 flex justify-center items-center bg-mecaDarkBlueBackgroundOverlay bg-opacity-50"
                         >
                           <p className="text-white text-3xl font-nunito font-semibold">
                             +{remainingImages.length}
@@ -188,14 +254,14 @@ export default function ProductDescription() {
             </div>
             <div
               id="productDetails"
-              className="w-[42%] flex flex-col h-[615px]"
+              className="w-full h-full lg:w-[42%] flex flex-col lg:h-full"
             >
               <div
                 id="titleCompanyDiv"
                 className="w-full flex flex-col gap-y-4"
               >
                 <h2 className="text-2xl text-mecaDarkBlueBackgroundOverlay font-normal font-nunito">
-                  E46 Engine 1996 Model
+                  {data?.data.name}
                 </h2>
                 <div
                   id="companyDiv"
@@ -221,11 +287,11 @@ export default function ProductDescription() {
                       id="companyNameDiv"
                     >
                       <p className="text-sm font-normal font-nunito text-black">
-                        Okonkwo Machineries Store
+                        {data?.data.companyName || data?.data.company}
                       </p>
                       <div
                         id="ratings"
-                        className="w-[56%] h-[20px] rounded-full px-1 flex items-center gap-x-1 bg-mecaRatingsDiv border-mecaRatingsBorder"
+                        className="w-[56%] h-[32px] lg:h-[20px] rounded-full px-1 flex items-center gap-x-1 bg-mecaRatingsDiv border-mecaRatingsBorder"
                       >
                         <Image
                           src={ratingStar}
@@ -233,7 +299,7 @@ export default function ProductDescription() {
                           className="w-3 h-3"
                         />
                         <p className="text-[12px] text-mecaDarkBlueBackgroundOverlay font-normal font-nunito">
-                          4894 reviews
+                          4,894 reviews
                         </p>
                       </div>
                     </div>
@@ -253,25 +319,32 @@ export default function ProductDescription() {
                 </div>
                 <div id="aboutProduct" className="w-full mt-8">
                   <p className="text-sm font-nunito font-normal text-mecaGrayBodyText">
-                    For a 1996 BMW model, you would be looking at engines from
-                    the E36 generation. These engines varied depending on the
-                    specific model and trim level but generally included
-                    inline-four, inline-six, and V8 options. They are known for
-                    their performance, reliability, and smooth operation typical
-                    of BMW engines.
+                    {data?.data.description}
                   </p>
                 </div>
                 <div id="priceButtonDiv" className="flex flex-col mt-6">
                   <div id="priceDiv" className="flex gap-x-6 items-center">
                     <p className="text-mecaDarkBlueBackgroundOverlay text-3xl font-extrabold">
-                      ₦97,500.00
+                      {formatPrice(data?.data.amount, data?.data.currency)}
                     </p>
                     <div
                       id="inStockBtn"
-                      className="w-[68px] h-[22px] bg-mecaSuccess rounded-full flex justify-center items-center"
+                      className={`w-[68px] h-[22px] ${
+                        data?.data.availabilityStatus === "IN_STOCK"
+                          ? "bg-mecaSuccess"
+                          : "bg-red-200"
+                      } rounded-full flex justify-center items-center`}
                     >
-                      <p className="text-mecaIconSuccessColor text-sm font-normal">
-                        In stock
+                      <p
+                        className={`${
+                          data?.data.availabilityStatus === "IN_STOCK"
+                            ? "text-mecaIconSuccessColor"
+                            : "text-mecaErrorInputColor"
+                        } text-sm font-normal`}
+                      >
+                        {data?.data.availabilityStatus === "IN_STOCK"
+                          ? "In stock"
+                          : "N/A"}
                       </p>
                     </div>
                   </div>
@@ -279,60 +352,35 @@ export default function ProductDescription() {
                     id="buttonDiv"
                     className="w-full h-full mt-4 flex flex-col gap-y-4"
                   >
-                    <button
-                      onClick={handleClick({
-                        vertical: "top",
-                        horizontal: "center",
-                      })}
-                      type="button"
-                      className="w-full h-[44px] text-white text-lg font-nunito font-semibold flex items-center justify-center bg-mecaBluePrimaryColor rounded-full"
+                    {!visible ? <button
+                       onClick={handleClick({
+                         vertical: "top",
+                         horizontal: "center",
+                       }, data?.data)}
+                       type="button"
+                       className="w-full h-[44px] text-white text-lg font-nunito font-semibold flex items-center justify-center bg-mecaBluePrimaryColor rounded-full"
                     >
                       Add to cart
-                    </button>
+                    </button> : <button
+                       onClick={handleClick({
+                         vertical: "top",
+                         horizontal: "center",
+                       }, data?.data)}
+                       type="button"
+                       disabled
+                       className="w-full h-[44px] text-mecaBluePrimaryColor text-lg font-nunito font-semibold flex items-center justify-center rounded-full border border-mecaBluePrimaryColor"
+                    >
+                      Added to cart
+                    </button>}
+
                     <button
+                    onClick={()=> router.push("/cart/checkout")}
                       type="button"
                       className="w-full h-[44px] text-mecaBluePrimaryColor text-lg font-nunito font-semibold flex items-center justify-center border bg-white border-mecaBluePrimaryColor rounded-full"
                     >
                       Buy now
                     </button>
-                    {/* <div className="mt-4" id="accordionForProductDescription">
-                      <Accordion>
-                        <AccordionSummary
-                          expandIcon={
-                            <MdExpandMore size={28} className="text-black" />
-                          }
-                          aria-controls="panel1a-content"
-                          id="panel1a-header"
-                        >
-                          <p className="text-mecaDarkBlueBackgroundOverlay text-lg">
-                            Shipping & Returns
-                          </p>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Suspendisse malesuada lacus ex, sit amet blandit
-                          leo lobortis eget.
-                        </AccordionDetails>
-                      </Accordion>
-                      <Accordion>
-                        <AccordionSummary
-                          expandIcon={
-                            <MdExpandMore size={28} className="text-black" />
-                          }
-                          aria-controls="panel2-content"
-                          id="panel2-header"
-                        >
-                          <p className="text-mecaDarkBlueBackgroundOverlay text-lg">
-                            Delivery
-                          </p>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Suspendisse malesuada lacus ex, sit amet blandit
-                          leo lobortis eget.
-                        </AccordionDetails>
-                      </Accordion>
-                    </div> */}
+
                     <Snackbar
                       anchorOrigin={{ vertical, horizontal }}
                       open={open}
@@ -371,14 +419,14 @@ export default function ProductDescription() {
             <span className="flex gap-8" id="carouselButtonSpanOne">
               <div
                 id="previousBtnOne"
-                className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay"
+                className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay cursor-pointer"
                 onClick={handlePrevious}
               >
                 <MdChevronLeft size={40} />
               </div>
               <div
                 id="nextBtnOne"
-                className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay"
+                className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay cursor-pointer"
                 onClick={handleNext}
               >
                 <MdChevronRight size={40} />
@@ -386,21 +434,35 @@ export default function ProductDescription() {
             </span>
           </div>
           <div id="carouselProductDescription">
-            <Carousel
-              partialVisible={true}
-              draggable={false}
-              responsive={responsive}
-              ssr={true}
-              infinite
-              autoPlay={true}
-              arrows={false}
-              ref={carouselRef}
-              itemClass="lg:pr-8"
-            >
-              <Card image={HomeImage1} />
-              <Card image={HomeImage2} />
-              <Card image={HomeImage1} />
-            </Carousel>
+            <React.Fragment>
+              {relatedProductData &&
+              relatedProductData?.data?.content &&
+              relatedProductData?.data?.content.length > 0 ? (
+                <Carousel
+                  partialVisible={true}
+                  draggable={false}
+                  responsive={responsive}
+                  ssr={true}
+                  infinite
+                  autoPlay={true}
+                  itemClass="lg:pr-8 pr-4"
+                >
+                  {relatedProductData?.data?.content.map(
+                    (product: ProductType) => (
+                      <Card
+                        key={product.id}
+                        id={product.id}
+                        image={HomeImage1}
+                        productName={product.name}
+                        price={product.price}
+                      />
+                    )
+                  )}
+                </Carousel>
+              ) : (
+                <p>No related products found.</p>
+              )}
+            </React.Fragment>
           </div>
         </div>
         <div
@@ -417,14 +479,14 @@ export default function ProductDescription() {
             <span className="flex gap-8" id="carouselButtonSpan">
               <div
                 id="previousBtn"
-                className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay"
+                className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay cursor-pointer"
                 onClick={handlePrevious}
               >
                 <MdChevronLeft size={40} />
               </div>
               <div
                 id="nextBtn"
-                className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay"
+                className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay cursor-pointer"
                 onClick={handleNext}
               >
                 <MdChevronRight size={40} />
@@ -432,21 +494,35 @@ export default function ProductDescription() {
             </span>
           </div>
           <div id="carousel">
-            <Carousel
-              partialVisible={true}
-              draggable={false}
-              responsive={responsive}
-              ssr={true}
-              infinite
-              autoPlay={true}
-              arrows={false}
-              ref={carouselRef}
-              itemClass="lg:pr-8"
-            >
-              <Card image={HomeImage1} />
-              <Card image={HomeImage2} />
-              <Card image={HomeImage1} />
-            </Carousel>
+            <React.Fragment>
+              {relatedProductData &&
+              relatedProductData?.data?.content &&
+              relatedProductData?.data?.content.length > 0 ? (
+                <Carousel
+                  partialVisible={true}
+                  draggable={false}
+                  responsive={responsive}
+                  ssr={true}
+                  infinite
+                  autoPlay={true}
+                  itemClass="lg:pr-8 pr-4"
+                >
+                  {relatedProductData?.data?.content.map(
+                    (product: ProductType) => (
+                      <Card
+                        key={product.id}
+                        id={product.id}
+                        image={HomeImage1}
+                        productName={product.name}
+                        price={product.price}
+                      />
+                    )
+                  )}
+                </Carousel>
+              ) : (
+                <p>No related products found.</p>
+              )}
+            </React.Fragment>
           </div>
         </div>
       </div>

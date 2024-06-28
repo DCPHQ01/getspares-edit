@@ -2,10 +2,13 @@
 
 import { useEffect, useLayoutEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useUserRole } from "./hooks/useUserRole";
+import { paths } from "../path/paths";
 
 export default function withAuth(Component: any) {
   return function AuthComponent(props: any) {
     const router = useRouter();
+    const role = useUserRole();
     // const tokens = JSON.parse(sessionStorage.getItem("token") || "{}");
     const getToken = () => {
       if (typeof window !== "undefined") {
@@ -17,7 +20,7 @@ export default function withAuth(Component: any) {
     let tokens = getToken();
     useLayoutEffect(() => {
       if (!tokens) {
-        router.push("/login");
+        router.push(paths.toHome());
       }
     }, [tokens, router]);
 

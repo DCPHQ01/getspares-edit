@@ -1,11 +1,37 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import BuyerCard from "../../../components/ui/buyercard";
 import Header from "../../../components/ui/header";
 import OverviewTable from "../../../components/table/buyerAdmin/overviewTable";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { Card } from "@mui/material";
+import { useGetOverviewOrderTableQuery } from "../../../../../redux/features/dashboard/buyerQuery";
+import { paths } from "../../../../../path/paths";
+import { useRouter } from 'next/navigation';
+
+
+interface Overview {
+  orderId: string;
+  trackingOrderId: string;
+  amount: number;
+  dateCreated: string;
+}
 
 function BuyerOverviewMobile() {
+  const {data, isError, isLoading} = useGetOverviewOrderTableQuery({});
+  const [overViewList, setOverviewList] = useState<Overview[]>([]);
+
+  useEffect(()=>{
+    if(data && Array.isArray(data.data)){
+      const list = data.data;
+      setOverviewList(list);
+    }
+  }, [data]);
+
+  const router = useRouter();
+  const handleMore =()=>{
+   router.push(paths.toHome());
+  }
+
   return (
     <>
       <div
@@ -20,19 +46,20 @@ function BuyerOverviewMobile() {
       <Header
         subtitle={`Keep track of your orders on meca`}
         title={`Orders`}
-        amount={`470,765`}
+        amount={overViewList.length}
       />
 
-      <OverviewTable />
+      {/* <OverviewTable /> */}
+      <OverviewTable overviewList={overViewList} isLoading={isLoading}/>
 
-      <div className=" flex justify-between mt-10 mb-10 font-bold text-lg">
+      {/* <div className=" flex justify-between mt-10 mb-10 font-bold text-lg">
         <button className="flex gap-x-2 border border-[#EAECF0]  rounded-md h-[36px] w-[36px] pl-1">
           <MdChevronLeft className="mt-1 text-2xl" />
         </button>
         <button className="flex gap-x-2 border border-[#EAECF0] rounded-md h-[36px] w-[36px] pl-1">
           <MdChevronRight className="mt-1 text-2xl" />
         </button>
-      </div>
+      </div> */}
     </>
   );
 }

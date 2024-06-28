@@ -3,9 +3,8 @@ import styles from "../styles.module.css";
 import dayjs from "dayjs";
 import { AccountCircle } from "@mui/icons-material";
 import { ColorRing } from "react-loader-spinner";
+import { formatAmount } from "../../../../../components/utils";
 import ViewParticularOrderDetailsPage from "../../../../category/products/viewDetails/viewParticularOrderDetails/page";
-
-
 
 interface Overview {
   orderId: string;
@@ -27,7 +26,6 @@ const formatDateTime = (dateTime: string) => {
 
   return { date, time };
 };
-
 
 const OverviewTable: React.FC<OverviewTableProps> = ({ isLoading, overviewList }) => {
   const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
@@ -72,25 +70,25 @@ const OverviewTable: React.FC<OverviewTableProps> = ({ isLoading, overviewList }
 
               return (
                 <tr
-                  key={'index'}
+                  key={index}
                   id={`row_${index}`}
                   className="cursor-pointer truncate"
                   onClick={() => handleDetails(d.orderId)}
                 >
                   <td id={`companyData_${index}`}>
-                    <div className={"flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]"}>
+                    <div className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}>
                       <div id={`companyDetails_${index}`}>
                         <div className="mt-2">{d.trackingOrderId}</div>
                       </div>
                     </div>
                   </td>
-                  <td className={`text-[0.88rem] py-[1rem] px-[3.13rem]} id={itemsSold_${index}`}>
-                    {(d.amount)}
+                  <td className={`text-[0.88rem] py-[1rem] px-[3.13rem]`} id={`itemsSold_${index}`}>
+                    {formatAmount(d.amount)}
                   </td>
                   <td id={`dateJoined_${index}`}>
-                    <div className={"text-[0.88rem] py-[1rem] px-[2.75rem]"}>
+                    <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
                       <div id={`date_${index}`}>{date}</div>
-                      <div className={'text-[#4B5565]'} id={`time_${index}`}>
+                      <div className={`text-[#4B5565]`} id={`time_${index}`}>
                         {time}
                       </div>
                     </div>
@@ -112,6 +110,7 @@ const OverviewTable: React.FC<OverviewTableProps> = ({ isLoading, overviewList }
   </div>
 );
 };
+
 
 
 export default OverviewTable;

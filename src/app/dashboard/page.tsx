@@ -7,14 +7,18 @@ import Agents from "./actors/agent";
 import Buyer from "./actors/buyer";
 import withAuth from "../withAuth";
 import { useUserRole } from "../hooks/useUserRole";
+import { paths } from "../../path/paths";
 
 function Page() {
   const userRole = useUserRole();
   const role: any = userRole;
+
+  console.log("role from main page=>", role);
+
   const router = useRouter();
   switch (role) {
     case roles.MECA_ADMIN:
-      router.push("/admin");
+      router.push(paths.toAdmin());
       break;
     case roles.VENDOR_ADMIN:
       return <Vendors />;

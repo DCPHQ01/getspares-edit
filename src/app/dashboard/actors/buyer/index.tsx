@@ -15,6 +15,7 @@ import { dashboardActions } from "../../../../redux/features/dashboard/dashboard
 import { clearUser, setUser } from "../../../../redux/features/users/userSlice";
 import { useRouter } from "next/navigation";
 import { roles, userRole } from "../../../dashboard/components/utils/utils";
+import { useUserRole } from "../../../hooks/useUserRole";
 
 import {
   MdBusinessCenter,
@@ -27,6 +28,7 @@ import {
   MdShoppingCart,
   MdYard,
 } from "react-icons/md";
+import { paths } from "../../../../path/paths";
 
 function Index() {
   const SidePanelButton = () => {
@@ -48,15 +50,27 @@ function Index() {
   };
 
   const dispatch = useAppDispatch();
-  const [activeButton, setActiveButton] = useState(0);
+  const [activeButton, setActiveButton] = useState<number | null>(0);
+  const [bottomActiveBtn, setBottomActiveButton] = useState<number | null>(
+    null
+  );
 
+  const userRole = useUserRole();
   const role = userRole;
 
   const router = useRouter();
 
   const logOut = () => {
     dispatch(clearUser());
-    router.push("/");
+    router.push(paths.toHome());
+  };
+
+  // console.log(roles, " roles");
+
+  const profileBtn = () => {
+    handleButtonClick(sidePanel.PROFILE);
+    setActiveButton(null);
+    setBottomActiveButton(0);
   };
 
   const buttons = [
@@ -123,17 +137,17 @@ function Index() {
       icon: <MdPersonPin />,
       title: "Profile",
       size: 18,
-      onClick: () => {
-        handleButtonClick(sidePanel.PROFILE);
-      },
+      onClick: profileBtn,
     },
     {
       icon: <MdLogout />,
       title: "Logout",
       size: 18,
       onClick: () => {
+        sessionStorage.clear();
+        sessionStorage.removeItem("userDetails");
         dispatch(setUser({}));
-        router.push("/");
+        router.push(paths.toLogin());
       },
     },
   ];
@@ -141,6 +155,7 @@ function Index() {
   const handleButtonClick = (panel: any, index?: any) => {
     setActiveButton(index);
     dispatch(dashboardActions.setNavButton(panel));
+    setBottomActiveButton(null);
   };
 
   const filteredButtons = buttons.filter((button) =>
@@ -177,7 +192,7 @@ function Index() {
                   >
                     <p
                       className="text-mecaActiveIconsNavColor text-xl font-nunito font-bold cursor-pointer"
-                      onClick={() => router.push("/")}
+                      onClick={() => router.push(paths.toHome())}
                     >
                       e-meca
                     </p>
@@ -186,7 +201,7 @@ function Index() {
                       onClick={handleBuyerMobileDashboard}
                       id="mobileMenuBtn"
                     >
-                      <MdMenu size={18} />
+                      <MdMenu size={18} className="cursor-pointer" />
                     </div>
                   </div>
 
@@ -202,7 +217,7 @@ function Index() {
                         >
                           <p
                             className="text-mecaActiveIconsNavColor text-xl font-nunito font-bold cursor-pointer"
-                            onClick={() => router.push("/")}
+                            onClick={() => router.push(paths.toHome())}
                           >
                             e-meca
                           </p>
@@ -211,7 +226,7 @@ function Index() {
                             onClick={handleBuyerMobileDashboard}
                             id="mobileMenuBtn"
                           >
-                            <MdClose size={18} />
+                            <MdClose size={18} className="cursor-pointer" />
                           </div>
                         </div>
                       </div>
@@ -265,7 +280,11 @@ function Index() {
                               <button
                                 key={index}
                                 id={`bottomButton_${index}`}
-                                className={`flex  items-center text-[#364152] rounded-full hover:bg-[#EFF4FF] hover:text-[#0852C0] w-[13rem] py-[0.5rem] px-[0.75rem] gap-4 mb-[1rem]`}
+                                className={`flex items-center text-[#364152] rounded-full hover:bg-[#EFF4FF] hover:text-[#0852C0] w-[13rem] py-[0.5rem] px-[0.75rem] gap-4 mb-[1rem] ${
+                                  bottomActiveBtn === index
+                                    ? "bg-[#EFF4FF] text-[#0852C0]"
+                                    : ""
+                                }`}
                                 onClick={btn.onClick}
                               >
                                 <span>

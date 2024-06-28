@@ -29,6 +29,7 @@ import {
   setCurrentStep,
 } from "../../../redux/features/company/companySlice";
 import { MdPhotoLibrary } from "react-icons/md";
+import { paths } from "../../../path/paths";
 
 interface CalledPagesPageTwoPagesProps {
   step: number;
@@ -46,7 +47,7 @@ const CalledPagesPageTwoPages = () => {
   };
 
   const handleAddAddress = () => {
-    setInputValues([...inputValues, ""]);
+    setInputValues([...company.companyForm.address, ""]);
   };
   const handleSaveAddress = () => {
     const newAddresses: Address[] = inputValues.map((inputValue) => {
@@ -166,7 +167,6 @@ const CalledPagesPageTwoPages = () => {
   };
 
   const company = useAppSelector((state: RootState) => state.company);
-
   const [formImage, setFormImage] = useState<string | null>(null);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -236,7 +236,7 @@ const CalledPagesPageTwoPages = () => {
                       setCompanyForm({
                         ...company.companyForm,
                         email: e.target.value,
-                      })
+                      }),
                     )
                   }
                   onBlur={handleEmailChange}
@@ -263,7 +263,7 @@ const CalledPagesPageTwoPages = () => {
                       setCompanyForm({
                         ...company.companyForm,
                         phoneNumber: e.target.value,
-                      })
+                      }),
                     )
                   }
                   onBlur={handlePhoneChange}
@@ -297,13 +297,13 @@ const CalledPagesPageTwoPages = () => {
                         InputProps={{ disableUnderline: true }}
                         className="  w-full lg:w-[364px] 2xl:w-[35rem] "
                         placeholder="Enter address (Street Number, Town, City, State)"
-                        value={company.companyForm.address}
-                        onChange={(e) =>
+                        value={company.companyForm.address[index]}
+                        onBlur={(e) =>
                           dispatch(
                             setCompanyForm({
                               ...company.companyForm,
-                              address: e.target.value,
-                            })
+                              address: [...company.companyForm.address.slice(0, index), e.target.value]
+                            }),
                           )
                         }
                         // className="mr-2"
@@ -458,7 +458,7 @@ const CalledPagesPageTwoPages = () => {
                             setCompanyForm({
                               ...company.companyForm,
                               email: e.target.value,
-                            })
+                            }),
                           )
                         }
                         onBlur={handleEmailChange}
@@ -488,7 +488,7 @@ const CalledPagesPageTwoPages = () => {
                             setCompanyForm({
                               ...company.companyForm,
                               phoneNumber: e.target.value,
-                            })
+                            }),
                           )
                         }
                         onBlur={handlePhoneChange}
@@ -524,15 +524,15 @@ const CalledPagesPageTwoPages = () => {
                               InputProps={{ disableUnderline: true }}
                               className="  w-full lg:w-[364px]  2xl:w-[35rem] "
                               placeholder="Enter address (Street Number, Town, City, State)"
-                              value={company.companyForm.address}
-                              onChange={(e) =>
+                              value={company.companyForm.address[index]}
+                              onBlur={(e) => {
                                 dispatch(
                                   setCompanyForm({
                                     ...company.companyForm,
-                                    address: e.target.value,
-                                  })
-                                )
-                              }
+                                    address: [...company.companyForm.address.slice(0, index),e.target.value,]
+                                  }),
+                                );
+                              }}
                               // className="mr-2"
                             />
                             {/* <button
@@ -581,7 +581,7 @@ const CalledPagesPageTwoPages = () => {
                           className="absolute right-0 pr-4"
                           // className={nunito_sans.className}
                         >
-                          <Link href="/modalPage">
+                          <Link href={paths.toModalPage()}>
                             <button
                               id="cancelbtn"
                               className="btn btn-sm btn-circle btn-ghost font-bold w-3 h-3 "

@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Header from "../../dashboard/components/ui/header";
 import SearchBox from "../../dashboard/components/ui/searchbox";
 import PeriodRadios from "../../dashboard/components/ui/periodradios";
@@ -9,6 +9,20 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import { ColorRing } from "react-loader-spinner";
+import { useGetViewAllMecaAdminCategoryQuery, useAddCategoryMutation } from "../../../redux/features/dashboard/mecaAdminQuery";
+
+interface category{
+  id: string;
+  name: string;
+  imageUrl?: string;
+  productsInCategory:number;
+  createdBy: string;
+  dateCreated: string;
+  email: string
+  options:string;
+}
+
 import {
   MdAdd,
   MdArrowBack,
@@ -18,8 +32,8 @@ import {
   MdClose,
   MdPhotoLibrary,
 } from "react-icons/md";
-import { TextField } from "@mui/material";
 
+import { TextField } from "@mui/material";
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
@@ -33,12 +47,38 @@ const style = {
   borderRadius: "20px",
   p: 4,
 };
-function Category() {
+function CategoryMobile() {
+  const [page, setPage] = useState(0)
+  const size = 10
+  const [first, setFirst] = useState(false);
+  const [last, setLast] = useState(false);
+  const [activityPeriod, setActivityPeriod] = useState("monthly"); 
+  const { data, isError } = useGetViewAllMecaAdminCategoryQuery({
+    page: page,
+    size: size,
+    options: activityPeriod
+  });
+  const [categoryList, setCategoryList] = useState<category[]>([]);
+  const [categoryName, setCategoryName] = useState<string>("");
+
+  useEffect(() => {
+    if (data && Array.isArray(data.data.content)) {
+      const list = data.data.content;
+      const lists = data.data;
+      setCategoryList(list);
+      setFirst(lists.first)
+      setLast(lists.last)
+    }
+  }, [data]);
+  console.log( "THIS IS CATEGORY", categoryList)
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const [formImage, setFormImage] = useState<string | null>(null);
+  const [categoryData, { isLoading }] = useAddCategoryMutation();
+
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -56,6 +96,39 @@ function Category() {
     fileInputRef.current?.click();
   };
 
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    try {
+      const response = await categoryData({ 
+        name: categoryName, 
+        image: "string", 
+      });
+      if ("data" in response) {
+        console.log(response.data.data);
+        setCategoryList((prev) => [...prev, response.data.data]);
+        handleClose();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handlePeriodChange = (newPeriod: string) => {
+    setActivityPeriod(newPeriod);
+  };
+
+  const handleNextPage=()=>{
+    if(first){
+      setPage(prevPage => prevPage + 1);
+    }
+  }
+
+  const  handlePreviousPage=()=>{
+    if (last) {
+      setPage(prevPage => prevPage - 1);
+    }
+  }
+
   return (
     <>
       <div
@@ -67,7 +140,7 @@ function Category() {
           amount={`500,607`}
         />
         <div className="mt-4" onClick={handleOpen}>
-          <Addbutton title={`Create category`} />
+          <Addbutton title={`Create`} />
         </div>
 
         <Modal
@@ -98,10 +171,6 @@ function Category() {
                     className="hidden w-full px-3 py-2 "
                   />
                 </div>
-
-                {/* {formImage && (
-                  
-                  )} */}
                 {formImage ? (
                   <div className="w-20 h-20 m-auto">
                     <img
@@ -140,15 +209,28 @@ function Category() {
 
                 <button
                   id="addButton"
-                  className={`bg-[#095AD3]  w-[21rem] text-white rounded-full py-[0.38rem] px-[1.5rem] 
-        `}
+                  className="bg-[#095AD3]  w-[21rem] text-white rounded-full py-[0.38rem] px-[1.5rem]"
+                  onClick={handleSubmit}
                 >
-                  <div
+                  {isLoading ? (
+                  <ColorRing
+                    visible
+                    height="40"
+                    width="40"
+                    ariaLabel="color-ring-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="color-ring-wrapper"
+                    colors={["#ffff", "#ffff", "#ffff", "#ffff", "#ffff"]}
+                  />
+                ) : (
+                  <div className="flex text-white items-center justify-center" id="addCategory">Create category</div>
+                )}
+                  {/* <div
                     className={`flex text-white items-center justify-center`}
                   >
                     <MdAdd size={18} />
                     Create category
-                  </div>
+                  </div> */}
                 </button>
               </div>
             </div>
@@ -157,16 +239,22 @@ function Category() {
       </div>
       <div className={`flex justify-between items-center mb-[1.25rem]`}>
         <SearchBox placeholder={`Search for category`} />
-        {/* <PeriodRadios /> */}
+        <PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange} />
       </div>
 
-      <CategoryTable />
+      <CategoryTable categoryList={categoryList} isLoading={isLoading}/>
 
-      <div className=" flex justify-between mt-10 mb-10 font-bold text-lg">
-        <button className="flex gap-x-2 border border-[#EAECF0]  rounded-md h-[36px] w-[36px] pl-1">
+      <div className=" flex justify-end mt-10 mb-10 font-bold text-lg">
+        <button className={`flex gap-x-2 border border-[#EAECF0]  rounded-md h-[36px] w-[36px] pl-1 ${last ? "text-gray-400 cursor-not-allowed" : ""}`}
+        onClick={handlePreviousPage}
+        disabled={first}
+        >
           <MdChevronLeft className="mt-1 text-2xl" />
         </button>
-        <button className="flex gap-x-2 border border-[#EAECF0] rounded-md h-[36px] w-[36px] pl-1">
+        <button className={`flex gap-x-2 border border-[#EAECF0] rounded-md h-[36px] w-[36px] pl-1 ${last ? "text-gray-400 cursor-not-allowed" : ""}`}
+        onClick={handleNextPage}
+        disabled={last}
+        >
           <MdChevronRight className="mt-1 text-2xl" />
         </button>
       </div>
@@ -174,4 +262,4 @@ function Category() {
   );
 }
 
-export default Category;
+export default CategoryMobile;

@@ -6,7 +6,6 @@ import { useGetMecaVendorOrdersQuery } from "../../../../redux/features/dashboar
 import { useEffect, useState } from "react";
 import { MdBusinessCenter } from "react-icons/md";
 
-
 function VendorOrders() {
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(10);
@@ -44,18 +43,18 @@ function VendorOrders() {
       setCurrentPage((prevPage) => prevPage + 1);
     }
   };
-    return (
-      <div className={`flex flex-col gap-6`}>
-        <Header
-          subtitle={`Keep track of buyers, items bought and their transaction values.`}
-          title={`Orders`}
-          amount={totalElement}
-        />
+  return (
+    <div className={`flex flex-col gap-6`}>
+      <Header
+        subtitle={`Keep track of buyers, items bought and their transaction values.`}
+        title={`Orders`}
+        amount={totalElement}
+      />
+      <div className="flex justify-end">
         <Searchbox />
-
-        <VendorOrderTable data={vendorOrderList} isLoading={isLoading}/>
-
-        {!hasOrders && !isLoading && (
+      </div>
+        <VendorOrderTable data={vendorOrderList} isLoading={isLoading} />
+      {!hasOrders && !isLoading && (
         // <div className="relative right-[100%] left-[100%] flex flex-col justify-center items-center pt-32 leading-10">
           <div className="h-28">
             <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
@@ -85,6 +84,9 @@ function VendorOrders() {
         </div>
   );
 }
+
+
+
 
 
 export default VendorOrders;

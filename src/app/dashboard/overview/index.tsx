@@ -1,15 +1,16 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 // import Cards from "../../../../../app/dashboard/overview/cards";
 import Cards from "../../../components/cards";
 import PeriodRadios from "../../../app/dashboard/components/ui/periodradios";
 import Table from "../../../app/dashboard/components/table";
 
-import { roles } from "../../../app/dashboard/components/utils/utils";
+import { roles } from "../components/utils/utils";
 import Link from "next/link";
 import * as JWT from "jwt-decode";
 import { JwtPayload as BaseJwtPayload } from "jsonwebtoken";
 import { useAppSelector } from "../../../redux/hooks";
+import { paths } from "../../../path/paths";
 
 interface IProps {
   header: string;
@@ -29,6 +30,12 @@ function Index({ header, subheader, overviewRoles }: IProps) {
   const name = userDetails?.firstName;
 
   const role: any = overviewRoles;
+  
+  const [activityPeriod, setActivityPeriod] = useState("monthly");  
+  const handlePeriodChange = (newPeriod: string) => {
+    setActivityPeriod(newPeriod);
+  };
+
   // const cardProps = [
   //   {
   //     total: "number of parts ordered",
@@ -79,7 +86,7 @@ function Index({ header, subheader, overviewRoles }: IProps) {
         </div>
 
         <div>
-          <Link href="/modalPage">
+          <Link href={paths.toModalPage()}>
             {role === roles.VENDOR_ADMIN && (
               <button
                 id="addCompanyButton"
@@ -92,7 +99,7 @@ function Index({ header, subheader, overviewRoles }: IProps) {
         </div>
       </div>
       <div id="cardContainer" className={`mt-[1rem] flex gap-5 w-full`}>
-        <Cards />
+        {/* <Cards /> */}
       </div>
       <div id="sectionHeader" className={`mt-[3.25rem] flex justify-between`}>
         <div>
@@ -104,7 +111,7 @@ function Index({ header, subheader, overviewRoles }: IProps) {
           </p>
         </div>
         <div>
-          <PeriodRadios />
+          <PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange}/>
         </div>
       </div>
       <div id="tableContainer">

@@ -129,16 +129,16 @@ function ResponsiveDrawer({ active, setActive }: SideBarProps) {
           </div>
         </div>
       </div>
-      <div
-        className="hidden md:flex w-full h-[50px] justify-between text-sm items-center absolute bottom-0 left-0 p-2"
-        id="sidebardivFooterText"
-      >
-        <p id="sidebarProductiondate">© Meca 2024</p>
-        <div className="flex gap-x-2 " id="sidebardivcopyright">
-          <Image src={mail} alt="mail" id="mail" className="w-auto" />
-          <p id="copyright">info@meca.com.ng</p>
-        </div>
-      </div>
+      {/*<div*/}
+      {/*  className="hidden md:flex w-full h-[50px] justify-between text-sm items-center absolute bottom-0 left-0 p-2"*/}
+      {/*  id="sidebardivFooterText"*/}
+      {/*>*/}
+      {/*  <p id="sidebarProductiondate">© Meca 2024</p>*/}
+      {/*  <div className="flex gap-x-2 " id="sidebardivcopyright">*/}
+      {/*    <Image src={mail} alt="mail" id="mail" className="w-auto" />*/}
+      {/*    <p id="copyright">info@meca.com.ng</p>*/}
+      {/*  </div>*/}
+      {/*</div>*/}
     </div>
   );
 }

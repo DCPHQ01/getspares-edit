@@ -7,11 +7,21 @@ import Tractor from "../../assets/images/tractor.png";
 import Bulldozer from "../../assets/images/bulldozer.png";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useGetCategoryQuery } from "../../redux/features/product/productsQuery";
+import { paths } from "../../path/paths";
+import { useGetCategoryQuery } from "../../redux/features/users/authQuery";
+import { ColorLens } from "@mui/icons-material";
+import { ColorRing } from "react-loader-spinner";
 
 interface CardProps {
-  image: StaticImageData;
+  image: StaticImageData | string;
   type: string;
+  categoryId?: string | undefined;
+}
+
+interface DataProps {
+  name: string;
+  image: string;
+  id: string;
 }
 
 const responsive = {
@@ -38,11 +48,8 @@ const responsive = {
 export default function ProductCarousel() {
   const carouselRef = useRef<Carousel>(null);
 
-  const {
-    data: categoryData,
-    error: categoryError,
-    isLoading,
-  } = useGetCategoryQuery({}, {});
+  const { data: categoryData, isLoading } = useGetCategoryQuery({});
+  console.log("category data ", categoryData);
 
   const handleNext = () => {
     if (carouselRef.current) carouselRef.current.next(0);
@@ -52,20 +59,20 @@ export default function ProductCarousel() {
     if (carouselRef.current) carouselRef.current.previous(0);
   };
 
-  const Card: React.FC<CardProps> = ({ image, type }) => {
-    const urlType = type.replace(/\s+/g, "");
+  const Card: React.FC<CardProps> = ({ image, type, categoryId }) => {
+    const urlType = type?.replace(/\s+/g, "");
     const router = useRouter();
+    const handleRouteToProductPage = () => {
+      if (categoryId) {
+        sessionStorage.setItem("categoryId", categoryId);
+      }
+      router.push(paths.toCategoryProducts(urlType));
+    };
     return (
-      // <Link
-      //   href={{
-      //     pathname: "/category/products/?",
-      //     query: { type: encodeURIComponent(urlType) },
-      //   }}
-      // >
       <div
         className="relative cursor-pointer"
         id="productContainer"
-        onClick={() => router.push(`/category/products/${urlType}`)}
+        onClick={handleRouteToProductPage}
       >
         <Image
           src={image}
@@ -105,19 +112,19 @@ export default function ProductCarousel() {
         id="carouselContainer"
       >
         <p className="text-3xl font-semibold" id="carouselTitle">
-          Shop
+          Categories
         </p>
         <span className="flex gap-8" id="carouselButtonSpan">
           <div
             id="previousBtn"
-            className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay"
+            className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay cursor-pointer"
             onClick={handlePrevious}
           >
             <MdChevronLeft size={30} />
           </div>
           <div
             id="nextBtn"
-            className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay"
+            className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay cursor-pointer"
             onClick={handleNext}
           >
             <MdChevronRight size={30} />
@@ -136,9 +143,25 @@ export default function ProductCarousel() {
           ref={carouselRef}
           itemClass="lg:pr-8"
         >
-          <Card image={Tractor} type="Tractor Parts" />
-          <Card image={Bulldozer} type="Bulldozer Parts" />
-          <Card image={Bulldozer} type="Bulldozer Parts" />
+          {isLoading ? (
+            <ColorRing
+              visible={true}
+              height="40"
+              width="40"
+              ariaLabel="color-ring-loading"
+              wrapperStyle={{}}
+              wrapperClass="color-ring-wrapper"
+              colors={["#ffff", "#ffff", "#ffff", "#ffff", "#ffff"]}
+            />
+          ) : (
+            (categoryData?.data || []).map((data: DataProps) => (
+              <Card
+                image={data.image ? data.image : Bulldozer}
+                type={data.name}
+                categoryId={data.id}
+              />
+            ))
+          )}
         </Carousel>
       </div>
     </div>

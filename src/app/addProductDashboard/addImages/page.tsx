@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Link from "next/link";
 import { useState } from "react";
 // import { useRouter } from "next/router";
@@ -40,184 +40,40 @@ import {
   MdClose,
   MdPhotoLibrary,
 } from "react-icons/md";
+import { useRouter } from "next/navigation";
+import { paths } from "../../../path/paths";
+import { uploadImage, uploadSeveralImages } from "../../../components/utils";
 
-const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
-  const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
+const CalledPagesPageTwoPages = () => {
+  const [productName, setProductName] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
+  const [images, setImages] = useState<string[]>([]);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [imagesUrl, setImagesUrl] = useState<string[]>([] || "");
 
-  // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const files = event.target.files;
-  //   setSelectedFiles(files);
-  //   if (files) {
-  //     onUpload(files);
-  //   }
-  // };
-
-  const [addresses, setAddresses] = useState<Address[]>([]);
-  const [inputValues, setInputValues] = useState<string[]>([""]);
-
-  const handleInputChange = (index: number, value: string) => {
-    const newInputValues = [...inputValues];
-    newInputValues[index] = value;
-    setInputValues(newInputValues);
-  };
-
-  const handleAddAddress = () => {
-    setInputValues([...inputValues, ""]);
-  };
-  const handleSaveAddress = () => {
-    const newAddresses: Address[] = inputValues.map((inputValue) => {
-      const parts = inputValue.split(",").map((part) => part.trim());
-      if (parts.length === 4) {
-        const [streetNumber, town, city, state] = parts;
-        return { streetNumber, town, city, state };
-      } else {
-        // Handle invalid input
-        console.error("Invalid address format");
-        return { streetNumber: "", town: "", city: "", state: "" };
-      }
-    });
-    setAddresses([...addresses, ...newAddresses]);
-  };
-
-  const [open, setOpen] = React.useState(false);
-
-  const handleClick = () => {
-    setOpen(true);
-  };
-
-  const handleClose = (
-    event?: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen(false);
-  };
-
-  // const router = useRouter();
-  console.log("step ", step);
-  console.log("active ", active);
-
-  const goToNextPage = () => {
-    setStep(step + 1);
-    // setActive(active);
-  };
-
-  const goToPreviousPage = () => {
-    // Navigate to the previous page if it's available
-    setStep(step - 1);
-  };
-
-  // const [emailError, setEmailError] = useState("");
-  const [email, setEmail] = useState("");
-  const [address, setAddress] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  // const [addressError, setAddressError] = useState("");
-  // const [phoneError, setPhoneError] = useState("");
-  const [image, setImage] = useState<File | null>(null);
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
-
-  const addressRegex = /^.{5,}$/; // Example: Address should be at least 5 characters
-  const phoneRegex = /^\d{11}$/; // Example: Phone number should be 11 digits
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Email validation regex
-
-  const handleAddressChange = () => {
-    if (!addressRegex.test(address)) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        address: "Address must be at least 5 characters",
-      }));
-    } else {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        address: "",
-      }));
-    }
-  };
-
-  const handlePhoneChange = () => {
-    if (!phoneRegex.test(phoneNumber)) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        phoneNumber: "Phone number must be 11 digits",
-      }));
-    } else {
-      setErrors((prevErrors) => ({ ...prevErrors, phoneNumber: "" }));
-    }
-  };
-
-  const handleEmailChange = () => {
-    if (!emailRegex.test(email)) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        email: "Please enter a valid email address",
-      }));
-    } else {
-      setErrors((prevErrors) => ({ ...prevErrors, email: "" }));
-    }
-  };
-
-  const validateImage = () => {
-    if (!image) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        image: "Image is required",
-      }));
-    } else {
-      setErrors((prevErrors) => ({ ...prevErrors, image: "" }));
-    }
-  };
-
-  // const router = useRouter();
-  const [input2, setInput2] = useState("");
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    handleAddressChange();
-    handlePhoneChange();
-    handleEmailChange();
-    validateImage();
-
-    if (!Object.values(errors).some((error) => error)) {
-      console.log("Form submitted successfully");
-    }
-  };
-
-  const dispatch = useAppDispatch();
-
-  const { company } = useAppSelector((state: RootState) => state);
-  console.log("company ", company.companyForm);
-
-  // const [formImage, setFormImage] = useState([]);
-
-  // const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const file = event.target.files?.[0];
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-  //       setFormImage(reader.result as string);
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
-
-  const [formImage, setFormImage] = useState<string[]>([]);
-
-  // const handleImageUpload = (newImage: string) => {
-  //   setFormImage([newImage, ...formImage]);
-  // };
   const handleImageUpload: React.ChangeEventHandler<HTMLInputElement> = (
     event
   ) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setFormImage([reader.result as string, ...formImage]);
-      };
-      reader.readAsDataURL(file);
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const newImages: string[] = [];
+      const newImageFiles: File[] = Array.from(files);
+      const newImagesUrl: string[] = [];
+
+      newImageFiles.forEach((file) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          newImages.push(reader.result as string);
+          if (newImages.length === newImageFiles.length) {
+            // Ensuring all images are loaded before updating the state
+            setImages((prevImages) => [...newImages, ...prevImages]);
+          }
+        };
+        reader.readAsDataURL(file);
+      });
+
+      uploadSeveralImages(newImageFiles, handleImage);
     }
   };
 
@@ -228,24 +84,57 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
   };
 
   const handleImageRemove = (index: number) => {
-    const newImages = [...formImage];
+    const newImages = [...images];
     newImages.splice(index, 1);
-    setFormImage(newImages);
+    setImages(newImages);
+    if (currentImageIndex > 0) {
+      setCurrentImageIndex(currentImageIndex - 1);
+    }
   };
 
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const router = useRouter();
+
+  useEffect(() => {
+    const savedImages = sessionStorage.getItem("clickedImage");
+    setImages(JSON.parse(savedImages || "[]") as string[]);
+  }, []);
 
   const handleViewPreviousImages = () => {
     setCurrentImageIndex((prevIndex) =>
-      prevIndex > 0 ? prevIndex - 1 : prevIndex
+      prevIndex > 0 ? prevIndex - 1 : images.length - 1
+    );
+  };
+  const handleImage = (nf: string[]) => {
+    setImagesUrl([...imagesUrl, ...nf]);
+  };
+  const handleViewNextImages = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex < images.length - 1 ? prevIndex + 1 : 0
     );
   };
 
-  const handleViewNextImages = () => {
-    setCurrentImageIndex((prevIndex) =>
-      prevIndex < formImage.length - 1 ? prevIndex + 1 : prevIndex
-    );
+  const handlePreviousPage = () => {
+    router.push(paths.toAddProductDashboardBasicInfo());
   };
+  const handleNextPage = () => {
+    router.push(paths.toAddProductDashboardSpecifications());
+    sessionStorage.setItem("clickedImage", JSON.stringify(imagesUrl));
+  };
+  useEffect(() => {
+    const storedBasicInfoValues = sessionStorage.getItem("basicInfoValues");
+
+    const parsedBasicInfoValues =
+      storedBasicInfoValues && JSON.parse(storedBasicInfoValues);
+
+    if (parsedBasicInfoValues) {
+      setProductName(parsedBasicInfoValues.productName);
+      setPrice(parsedBasicInfoValues.price);
+      setDescription(parsedBasicInfoValues.productDescription);
+    }
+  }, []);
+
+  console.log("file images ", images);
+  console.log("set images ", imagesUrl);
 
   return (
     <div className="" style={{ width: "48%" }} id="pageTwo1">
@@ -272,13 +161,13 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                   component="form"
                   className="relative flex gap-x-16 flex-col-reverse lg:flex-row lg:items-start   "
                   noValidate
-                  onSubmit={handleSubmit}
                   autoComplete="off"
                 >
                   <Box>
                     <div
+                      onClick={handleImageClick}
                       style={{ backgroundColor: "#EFF2F3" }}
-                      className=" h-60 w-[27rem] mb-5 mt-10 pt-6"
+                      className=" h-60 w-[27rem] mb-5 mt-10 pt-6 cursor-pointer"
                     >
                       <div className="flex flex-col  items-center justify-center">
                         <div className="border rounded-full mt-12 h-16 w-[60px] flex justify-center">
@@ -295,12 +184,16 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                         </div>
                       </div>
 
-                      {formImage && (
+                      {images && (
                         <div className="flex absolute -bottom-16">
-                          {formImage.slice(0, 4).map((image, index) => (
+                          {images.slice(0, 4).map((image, index) => (
                             <div
                               key={index}
-                              className="w-20 h-16 bg-mecaProfileColor m-2 relative"
+                              className={`${
+                                index === currentImageIndex
+                                  ? "border border-red-600"
+                                  : ""
+                              }  w-20 h-16 bg-mecaProfileColor m-2 relative`}
                             >
                               <MdClose
                                 size={14}
@@ -314,10 +207,10 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                                     alt={`Uploaded ${index}`}
                                     className="w-full h-full object-cover"
                                   />
-                                  {index === 3 && formImage.length > 4 && (
+                                  {index === 3 && images.length > 4 && (
                                     <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
                                       <p className="text-white text-2xl">{`${
-                                        formImage.length - 4
+                                        images.length - 4
                                       }+`}</p>
                                     </div>
                                   )}
@@ -328,7 +221,9 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                         </div>
                       )}
                       <div className="text-gray-600 text-base mt-2 text-center">
-                        <p className="font-bold">Add logo</p>
+                        <p className="font-bold text-mecaBluePrimaryColor">
+                          Add image
+                        </p>
                         <p className="font-normal">
                           by clicking or drag and drop
                         </p>
@@ -336,6 +231,34 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                     </div>
                   </Box>
                 </Box>
+
+                <div className="flex  justify-between w-[100%] mt-32 ">
+                  <div id="firstPreviousbtn9">
+                    <button
+                      type="submit"
+                      onClick={handlePreviousPage}
+                      className="w-[116px] flex justify-center gap-x-3 pt-2 h-10 font-semibold border rounded-full text-mecaBluePrimaryColor border-mecaBluePrimaryColor mb-6 "
+                    >
+                      <span>
+                        <MdChevronLeft className="mt-1 " />
+                      </span>
+                      <p> Previous</p>
+                    </button>
+                  </div>
+                  <div className="">
+                    <button
+                      type="submit"
+                      id="thirdFormSubmit"
+                      onClick={handleNextPage}
+                      className="w-[116px] flex justify-center gap-x-3 pt-2 h-10 font-semibold border rounded-full text-mecaBluePrimaryColor border-mecaBluePrimaryColor  mb-6 "
+                    >
+                      <p>Next </p>
+                      <span>
+                        <MdChevronRight className="mt-1 " />
+                      </span>
+                    </button>
+                  </div>
+                </div>
               </div>
 
               <div className="">
@@ -357,44 +280,17 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                         type="file"
                         multiple
                         accept="image/*"
-                        // onChange={handleImageChange}
                         onChange={handleImageUpload}
                         ref={fileInputRef}
                         className="hidden w-full px-3 py-2 "
                       />
                     </div>
 
-                    {/* {formImage && formImage.length > 0 ? (
-                      <div className="flex justify-center">
-                        <div className="rounded-full   ">
-                          <img
-                            src={formImage[0]}
-                            alt="Uploaded"
-                            className="h-[283px] w-[28rem] object-cover"
-                          />
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="flex flex-col  items-center justify-center">
-                        <div className="border  rounded-full mt-20 h-32 w-32 flex justify-center ">
-                          <div
-                            id="prevImgState"
-                            onClick={handleImageClick}
-                            className="w-full px-2 py-2  rounded-md pt-9 cursor-pointer border-none"
-                          >
-                            <MdPhotoLibrary
-                              className="text-gray-600 text-7xl w-10 m-auto pb-6 "
-                              style={{ backgroundColor: "porcelain" }}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    )} */}
-                    {formImage && formImage.length > 0 ? (
+                    {images && images.length > 0 ? (
                       <div className="relative flex justify-center">
                         <div className="rounded-full">
                           <img
-                            src={formImage[currentImageIndex]}
+                            src={images[currentImageIndex]}
                             alt="Uploaded"
                             className="h-[283px] w-[28rem] object-cover"
                           />
@@ -436,46 +332,42 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                     )}
                   </div>
                 </Box>
-                <div className="">
+                <div className="w-full">
                   <div className="flex justify-between">
-                    <div className="">
-                      <p>Product name</p>
+                    <div className="flex flex-col w-[280px] justify-center h-[40px] px-2">
+                      {productName ? (
+                        <p className="capitalize font-bold text-lg text-mecaDarkBlueBackgroundOverlay">
+                          {productName}
+                        </p>
+                      ) : (
+                        <p className="capitalize font-bold text-lg text-mecaDarkBlueBackgroundOverlay">
+                          Product Name
+                        </p>
+                      )}
                     </div>
-                    <div className="">
-                      <p>Price</p>
+                    <div className="flex flex-col items-end justify-center w-[120px] h-[40px]">
+                      {price ? (
+                        <p className="capitalize font-normal text-sm text-mecaDarkBlueBackgroundOverlay">
+                          ₦{price}
+                        </p>
+                      ) : (
+                        <p className="capitalize font-normal text-sm text-mecaDarkBlueBackgroundOverlay">
+                          price
+                        </p>
+                      )}
                     </div>
                   </div>
                   <div className="mt-8">
                     <p>Description</p>
+                    <textarea
+                      title="textArea"
+                      value={description}
+                      readOnly={true}
+                      className="scrollbar-none border-white pl-0 w-full h-32 p-2 bg-white placeholder:text-black outline-none"
+                    />
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-
-          <div className="flex  justify-between w-[84%]">
-            <div onClick={goToPreviousPage} id="firstPreviousbtn9">
-              <button
-                type="submit"
-                className="w-[116px] flex justify-center gap-x-3 pt-2 h-10 font-semibold border rounded-full text-mecaBluePrimaryColor border-mecaBluePrimaryColor mb-6 "
-              >
-                <span>
-                  <MdChevronLeft className="mt-1 " />
-                </span>
-                <p> Previous</p>
-              </button>
-            </div>
-            <div onClick={goToNextPage} className="">
-              <button
-                type="submit"
-                id="thirdFormSubmit"
-                className="w-[116px] flex justify-center gap-x-3 pt-2 h-10 font-semibold border rounded-full text-mecaBluePrimaryColor border-mecaBluePrimaryColor  mb-6 "
-              >
-                <p>Next </p>
-                <span>
-                  <MdChevronRight className="mt-1 " />
-                </span>
-              </button>
             </div>
           </div>
         </div>
@@ -517,9 +409,9 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                         name="email"
                         placeholder="Enter email"
                         InputProps={{ disableUnderline: true }}
-                      
+
                         className="  w-full lg:w-[364px]  2xl:w-[35rem]"
-                      
+
                         value={company.companyForm.email}
                         onChange={(e) =>
                           dispatch(
@@ -531,7 +423,7 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                         }
                         onBlur={handleEmailChange}
                       />
-                 
+
                     </Box>
 
                     <br></br>
@@ -545,9 +437,9 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                         name="number"
                         placeholder="09000000000"
                         InputProps={{ disableUnderline: true }}
-                        
+
                         className="  w-full lg:w-[364px]  2xl:w-[35rem]"
-                    
+
                         value={company.companyForm.phoneNumber}
                         onChange={(e) =>
                           dispatch(
@@ -559,7 +451,7 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                         }
                         onBlur={handlePhoneChange}
                       />
-              
+
                     </Box>
 
                     <br></br>
@@ -597,9 +489,9 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                                   })
                                 )
                               }
-                             
+
                             />
-                       
+
                           </div>
                         ))}
 
@@ -627,14 +519,13 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                       />
                     </div>
 
-              
                     {formImage ? (
                       <div className="">
                         <form
                           method="dialog"
                           id="confirmpageButton"
                           className="absolute right-0 pr-4"
-                         
+
                         >
                           <Link href="/modalPage">
                             <button
@@ -672,7 +563,6 @@ const CalledPagesPageTwoPages = ({ step, setStep, active, setActive }: any) => {
                   </div>
                 </Box>
               </Box>
-        
 
               <div className="flex gap-x-5 justify-between mt-40">
                 <div

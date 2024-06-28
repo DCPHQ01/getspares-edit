@@ -1,0 +1,22 @@
+# name: Merge to Development
+
+# on:
+#   push:
+#     branches:
+#       - "main"
+
+# jobs:
+#   merge_to_development:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v2
+
+#     - name: Merge in-dev -> development
+#       uses: devmasx/merge-branch@master
+#       with:
+#         type: now
+#         from_branch: "main"
+#         target_branch: uat
+#         github_token: ${{ secrets.PAT_TOKEN }}
