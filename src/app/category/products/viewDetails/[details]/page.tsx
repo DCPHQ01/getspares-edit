@@ -16,6 +16,7 @@ import ProductReview from "../../../../dashboard/components/table/buyerAdmin/Pro
 import DetailsTable from "../../../../dashboard/components/table/buyerAdmin/tab";
 import BuyerModal from "../../../../dashboard/components/table/vendoradmin/vendorModal";
 import { paths } from "../../../../../path/paths";
+import { formatAmount2 } from "../../../../../components/utils";
 import { useGetViewBuyersProductDetailsQuery } from "../../../../../redux/features/feedback/feedbackQuery";
 import AmountComponentsPage from "../../../../reusables/AmountComponents/page";
 interface State {
@@ -252,8 +253,9 @@ export default function Details() {
                   </div>
                   <div id="priceButtonDiv" className="flex flex-col mt-6">
                     <div id="priceDiv" className="flex gap-x-6 items-center">
-                      <p className="text-mecaDarkBlueBackgroundOverlay text-3xl font-extrabold">
-                        {viewBuyerProducts?.amount}
+                      <p className="text-mecaDarkBlueBackgroundOverlay text-3xl font-semibold">
+                        {formatAmount2(viewBuyerProducts?.amount)}
+                        {/* {viewBuyerProducts?.amount} */}
                       </p>
                       <div
                         id="inStockBtn"
