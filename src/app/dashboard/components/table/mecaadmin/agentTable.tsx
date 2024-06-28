@@ -1,6 +1,7 @@
 "use client";
 import React, {useEffect} from "react";
-import styles from "../styles.module.css";
+// @ts-ignore
+import styles from "./../styles.module.css";
 import Image from "next/image";
 import Stack from "@mui/material/Stack";
 import dayjs from "dayjs";

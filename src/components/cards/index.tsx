@@ -20,7 +20,7 @@ interface CardProps {
 const Index: React.FC<CardProps> = ({ cardField }) => {
   const cardProps = [
     {
-      total: "number of parts ordered",
+      total: "Number of parts ordered",
       amount: cardField.totalNumberOfPartOrdered || 0,
       percentage: 32,
       onClick: () => {
@@ -28,7 +28,7 @@ const Index: React.FC<CardProps> = ({ cardField }) => {
       },
     },
     {
-      total: "number of agents",
+      total: "Number of agents",
 
       amount:
         cardField.totalNumberOfAgent || cardField.totalNumberOfAgents || 0,
@@ -39,7 +39,7 @@ const Index: React.FC<CardProps> = ({ cardField }) => {
       },
     },
     {
-      total: "transaction value",
+      total: "Transaction value",
       amount: cardField.totalTransactionValue || cardField.totalOrderValue || 0,
       percentage: 59,
       onClick: () => {
@@ -47,7 +47,7 @@ const Index: React.FC<CardProps> = ({ cardField }) => {
       },
     },
     {
-      total: "total number of Product sold",
+      total: "Number of vendors",
       amount:
         cardField.totalNumberOfVendor ||
         cardField.totalNumberOfProductsSold ||

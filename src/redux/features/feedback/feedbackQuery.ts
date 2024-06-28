@@ -13,7 +13,7 @@ export const feedbackQuery = createApi({
         comment: string;
         orderId: string;
         productId: string;
-        rating: 0;
+        rating: number;
       }) => ({
         url: "/feedback/product",
         method: "POST",

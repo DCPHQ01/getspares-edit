@@ -28,7 +28,7 @@ const mobileNavData = [
     icon1: <MdExpandMore size={24} className="text-mecaGoBackArrow" />,
     icon2: <MdChevronRight size={24} className="text-mecaGoBackArrow" />,
     link: "",
-    mobileNavHeader: <DropdownPage />,
+    mobileNavHeader: <DropdownPage closeDropdown={() => {}} />,
   },
   {
     id: 3,

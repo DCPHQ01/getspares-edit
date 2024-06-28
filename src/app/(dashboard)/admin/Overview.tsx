@@ -33,8 +33,6 @@ function Overview() {
   const [name, setName] = useState("");
   const [topVendors, setTopVendors] = useState<VendorData[]>([]);
 
-
-
   useEffect(() => {
     if(data) {
       const resultList = data.data;
@@ -53,8 +51,6 @@ function Overview() {
       }
     },[mecaAdminOverviewData?.data])
 
-
-
   useEffect(() => {
     const role =
       typeof window !== "undefined" && window.sessionStorage
@@ -62,11 +58,6 @@ function Overview() {
         : [];
     setName(role.firstName);
   }, []);
- 
-
-  
- 
-
 
   return (
     <>

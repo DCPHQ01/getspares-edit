@@ -8,7 +8,7 @@ import HomeImage1 from "../../../../../assets/images/homeImage1.png";
 import tractor from "../../../../../assets/images/tractors.png";
 import HomeImage2 from "../../../../../assets/images/homeImage2.png";
 import ratingStar from "../../../../../assets/images/Star.png";
-import {useEffect, useLayoutEffect, useRef, useState} from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   MdCheckCircle,
   MdChevronLeft,
@@ -32,13 +32,13 @@ import {
 
 import { IoCloseCircleOutline } from "react-icons/io5";
 import TopBarWhileInside from "../../../../reusables/TopBarWhileInside/page";
-import {useAppDispatch, useAppSelector} from "../../../../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../../redux/hooks";
 import { addToCart } from "../../../../../redux/features/product/productSlice";
 import {
   useGetAProductQuery,
   useGetRelatedProductQuery,
 } from "../../../../../redux/features/users/authQuery";
-import {CartProduct} from "../../../../../types/cart/product";
+import { CartProduct } from "../../../../../types/cart/product";
 
 interface State extends SnackbarOrigin {
   open: boolean;
@@ -85,7 +85,7 @@ const images = [
 ];
 
 export default function ProductDescription() {
-  const searchParams = usePathname()
+  const searchParams = usePathname();
 
   const [state, setState] = React.useState<State>({
     open: false,
@@ -96,14 +96,11 @@ export default function ProductDescription() {
 
   const [visible, setVisible] = useState(false);
 
-
   const { data, isLoading } = useGetAProductQuery(productId, {
     skip: !productId,
   });
 
   const { vertical, horizontal, open } = state;
-
-
 
   const dispatch = useAppDispatch();
 
@@ -119,55 +116,49 @@ export default function ProductDescription() {
     if (carouselRef.current) carouselRef.current.next(0);
   };
 
-  const router = useRouter()
+  const router = useRouter();
 
   const handlePrevious = () => {
     if (carouselRef.current) carouselRef.current.previous(0);
   };
 
-
   const { cart } = useAppSelector((state) => state.product);
 
-
   useEffect(() => {
-    if(cart.length !== 0){
-      let hasItem = cart.some( vendor => vendor.id === data?.data?.id )
-      setVisible(hasItem)
+    if (cart.length !== 0) {
+      let hasItem = cart.some((vendor) => vendor.id === data?.data?.id);
+      setVisible(hasItem);
     }
-  },[cart, data?.data])
-
+  }, [cart, data?.data]);
 
   // useLayoutEffect(()=> {
   //
   // },[])
 
+  const handleClick = (newState: SnackbarOrigin, val: any) => () => {
+    let newArr = [];
+    let finalArr = [];
+    let payload = { ...val, quantity: "1" };
+    const savedCartItems = JSON.parse(
+      localStorage.getItem("savedCartItems") as string
+    ) as CartProduct[];
 
-
-
-  const handleClick = (newState: SnackbarOrigin, val:any) => () => {
-    let newArr = []
-    let finalArr = []
-    let payload = {...val, quantity:'1'}
-    const savedCartItems = JSON.parse(localStorage.getItem('savedCartItems') as string)as CartProduct[];
-
-    if(savedCartItems){
-      const i = savedCartItems.findIndex(e => e.id === payload.id);
+    if (savedCartItems) {
+      const i = savedCartItems.findIndex((e) => e.id === payload.id);
       if (i > -1) {
         // We know that at least 1 object that matches has been found at the index i
-        return
-      }else {
-        newArr.push(payload)
-        finalArr = newArr.concat(savedCartItems)
-        localStorage.setItem('savedCartItems', JSON.stringify(finalArr));
-        dispatch(addToCart(newArr))
+        return;
+      } else {
+        newArr.push(payload);
+        finalArr = newArr.concat(savedCartItems);
+        localStorage.setItem("savedCartItems", JSON.stringify(finalArr));
+        dispatch(addToCart(newArr));
       }
-
-    }else{
-      newArr.push(payload)
-      localStorage.setItem('savedCartItems', JSON.stringify(newArr));
-      dispatch(addToCart(newArr))
+    } else {
+      newArr.push(payload);
+      localStorage.setItem("savedCartItems", JSON.stringify(newArr));
+      dispatch(addToCart(newArr));
     }
-
 
     // setState({ ...newState, open: true });
     //
@@ -178,11 +169,10 @@ export default function ProductDescription() {
 
   const formatPrice = (price: string, currency: string) => {
     return new Intl.NumberFormat("en-US", {
-      style: 'currency',
-      currency: currency ? currency : 'NGN',
+      style: "currency",
+      currency: currency ? currency : "NGN",
     }).format(Number(price));
   };
-
 
   return (
     <div className="relative">
@@ -304,7 +294,7 @@ export default function ProductDescription() {
                       </div>
                     </div>
                   </div>
-                  <div
+                  {/* <div
                     id="viewSellerButtonDiv"
                     className="w-[40%] flex justify-end items-center"
                   >
@@ -315,7 +305,7 @@ export default function ProductDescription() {
                     >
                       View Seller
                     </button>
-                  </div>
+                  </div> */}
                 </div>
                 <div id="aboutProduct" className="w-full mt-8">
                   <p className="text-sm font-nunito font-normal text-mecaGrayBodyText">
@@ -352,29 +342,39 @@ export default function ProductDescription() {
                     id="buttonDiv"
                     className="w-full h-full mt-4 flex flex-col gap-y-4"
                   >
-                    {!visible ? <button
-                       onClick={handleClick({
-                         vertical: "top",
-                         horizontal: "center",
-                       }, data?.data)}
-                       type="button"
-                       className="w-full h-[44px] text-white text-lg font-nunito font-semibold flex items-center justify-center bg-mecaBluePrimaryColor rounded-full"
-                    >
-                      Add to cart
-                    </button> : <button
-                       onClick={handleClick({
-                         vertical: "top",
-                         horizontal: "center",
-                       }, data?.data)}
-                       type="button"
-                       disabled
-                       className="w-full h-[44px] text-mecaBluePrimaryColor text-lg font-nunito font-semibold flex items-center justify-center rounded-full border border-mecaBluePrimaryColor"
-                    >
-                      Added to cart
-                    </button>}
+                    {!visible ? (
+                      <button
+                        onClick={handleClick(
+                          {
+                            vertical: "top",
+                            horizontal: "center",
+                          },
+                          data?.data
+                        )}
+                        type="button"
+                        className="w-full h-[44px] text-white text-lg font-nunito font-semibold flex items-center justify-center bg-mecaBluePrimaryColor rounded-full"
+                      >
+                        Add to cart
+                      </button>
+                    ) : (
+                      <button
+                        onClick={handleClick(
+                          {
+                            vertical: "top",
+                            horizontal: "center",
+                          },
+                          data?.data
+                        )}
+                        type="button"
+                        disabled
+                        className="w-full h-[44px] text-mecaBluePrimaryColor text-lg font-nunito font-semibold flex items-center justify-center rounded-full border border-mecaBluePrimaryColor"
+                      >
+                        Added to cart
+                      </button>
+                    )}
 
                     <button
-                    onClick={()=> router.push("/cart/checkout")}
+                      onClick={() => router.push("/cart/checkout")}
                       type="button"
                       className="w-full h-[44px] text-mecaBluePrimaryColor text-lg font-nunito font-semibold flex items-center justify-center border bg-white border-mecaBluePrimaryColor rounded-full"
                     >
