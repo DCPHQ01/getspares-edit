@@ -22,9 +22,6 @@ interface AgentTableProps {
 }
 
 const formatDateTime = (dateTime: string) => {
-
-  const date = dayjs(dateTime).format("YYYY-MM-DD");
-  const time = dayjs(dateTime).format("HH:mm a");
   const date = dayjs(dateTime).format("DD-MM-YYYY");
   const time = dayjs(dateTime).format("hh:mm A"); 
 
@@ -64,96 +61,13 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading }) => {
                     height="40"
                     width="40"
                     ariaLabel="color-ring-loading"
-                    wrapperStyle={{
-                      position: "absolute",
-                      bottom: "75%",
-                      left: "44%",
-                    }}
+                    wrapperStyle={{position: "absolute", bottom: "75%", left: "44%",}}
                     wrapperClass="color-ring-wrapper"
-                    colors={[
-                      "#000000",
-                      "#000000",
-                      "#000000",
-                      "#000000",
-                      "#000000",
-                    ]}
-                  />
+                    colors={["#000000", "#000000", "#000000", "#000000", "#000000"]}
+        
+                   />
                   <p>Loading Agent........</p>
                 </div>
-
-              ) : (
-                agentList?.map((d, index) => {
-                  const { date, time } = formatDateTime(d.dateAdded);
-                  return (
-                    <tr
-                      key={index}
-                      id={`row_${index}`}
-                      className="cursor-pointer hover:bg-gray-50"
-                    >
-                      <td id={`companyData_${index}`}>
-                        <div
-                          className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
-                        >
-                          <div id={`companyDetails_${index}`}>
-                            {/* {d.imageUrl ? (
-                        <Image
-                          src={d.imageUrl}
-                          className="object-contain"
-                          alt="Avatar"
-                          id={`avatar_${index}`}
-                        />
-                      ) : (
-                        <AccountCircle style={{ fontSize: 50 }} className=" text-gray-400" 
-                        style={{ fontSize:40, color: gray}}
-                        />
-                      )} */}
-                            <div id={`companyDetails_${index}`}>
-                              <div className="truncate">{d.firstName}</div>
-                              <div
-                                className={`text-[#4B5565] truncate`}
-                                id={`email_${index}`}
-                              >
-                                {d.email}
-                              </div>
-                            </div>
-                          </div>
-                          {/* {d.imageUrl ? (
-                        <Image
-                          src={d.imageUrl}
-                          className="object-contain"
-                          alt="Avatar"
-                          width={50}
-                          height={50}
-                        />
-                      ) : (
-                        <AccountCircle style={{ fontSize: 50 }} className="text-gray-400"
-                        style={{ fontSize:40, color: gray}}
-                         />
-                      )}
-                          <div className="truncate">{d.firstName}</div>
-                          <div
-                            className={`text-[#4B5565] truncate`}
-                            id={`email_${index}`}
-                          >
-                            {d.email}
-                          </div>
-                        </div> */}
-                        </div>
-                      </td>
-                      <td
-                        className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
-                        id={`itemsSold_${index}`}
-                      >
-                        {d.quantitySold}
-                      </td>
-                      <td
-                        className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
-                        id={`transactionValue_${index}`}
-                      >
-                        {d.transactionValue}
-                      </td>
-                      <td id={`dateJoined_${index}`}>
-
               ) :(
                  agentList?.map((d, index) => {
                 const { date, time } = formatDateTime(d.dateAdded);
@@ -193,25 +107,20 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading }) => {
                       {d.transactionValue}
                     </td>
                     <td id={`dateJoined_${index}`}>
-                      <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
+                      <div className={"text-[0.88rem] py-[1rem] px-[2.75rem]"}>
                         <div id={`date_${index}`}>{date}</div>
-
                         <div
-                          className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}
+                          className={`text-[#4B5565] truncate`}
+                          id={`time_${index}`}
                         >
-                          <div id={`date_${index}`}>{date}</div>
-                          <div
-                            className={`text-[#4B5565] truncate`}
-                            id={`time_${index}`}
-                          >
-                            {time}
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })
-              )}
+                          {time}
+
+</div>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              }))}
             </tbody>
           </table>
         </div>
@@ -221,3 +130,4 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading }) => {
 };
 
 export default AgentTable;
+
