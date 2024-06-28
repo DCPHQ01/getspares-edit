@@ -6,6 +6,7 @@ import { useGetMecaVendorOrdersQuery } from "../../../../redux/features/dashboar
 import { useEffect, useState } from "react";
 import { MdBusinessCenter } from "react-icons/md";
 
+
 function VendorOrders() {
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(10);
@@ -84,7 +85,6 @@ function VendorOrders() {
         </div>
   );
 }
-
 
 
 
