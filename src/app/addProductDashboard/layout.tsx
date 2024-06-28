@@ -7,7 +7,7 @@ import CalledPagesPageFivePages from "./details/page";
 import React, { useState } from "react";
 
 // import AddProductToggle from "./addProducttoggle";
-import AddProductImage from "./addProductImage";
+import AddProductImage, { WrappedAddProductImage } from "./addProductImage";
 
 const number = [1, 2, 3];
 
@@ -21,7 +21,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       case 2:
         return <CalledPagesPageTwoPages />;
       case 3:
-        // return <CalledPagesPageThreePages />;
+      // return <CalledPagesPageThreePages />;
 
       case 4:
         return <CalledPagesPageFourPages />;
@@ -32,24 +32,26 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         return <CalledPagesPageOnePages />;
     }
   };
+
   return (
-     <>
-       <div id="vendorVend1">
-         <AddProductImage />
+    <>
+      <div id="vendorVend1">
+        {/* <AddProductImage /> */}
+        <WrappedAddProductImage />
 
-         <div className=" flex w-[80%] m-auto ">
-           <div className="hidden mt-4 md:flex w-[34%] fixed " id="vendorVend2">
-             <AddProductSideBar step={step} setStep={setStep} />
-           </div>
-           <div id="vendorVend3" className="w-[70%] absolute mt-16 right-0">
-             {/* {togglePages(step)} */}
-             {children}
-           </div>
+        <div className=" flex w-[80%] m-auto ">
+          <div className="hidden mt-4 md:flex w-[34%] fixed " id="vendorVend2">
+            <AddProductSideBar step={step} setStep={setStep} />
+          </div>
+          <div id="vendorVend3" className="w-[70%] absolute mt-16 right-0">
+            {/* {togglePages(step)} */}
+            {children}
+          </div>
 
-           {/* <AddProductToggle /> */}
-         </div>
-       </div>
-     </>
+          {/* <AddProductToggle /> */}
+        </div>
+      </div>
+    </>
   );
 };
 

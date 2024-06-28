@@ -22,6 +22,7 @@ import {
 function Agents() {
   const [page, setPage] = useState(0)
   const size = 10
+  const [totalElements, setTotalElements] = useState(0)
   const [first, setFirst] = useState(false);
   const [last, setLast] = useState(false);
   const { data, isLoading, isError} = useGetMecaAdminAgentQuery({page:page, size:size })
@@ -35,6 +36,7 @@ function Agents() {
       setAgentList(list);
       setFirst(lists.first)
       setLast(lists.last)
+      setTotalElements(lists.totalElements)
     }
   }, [data]);
 
@@ -58,7 +60,7 @@ function Agents() {
         <Header
           subtitle={`Keep track of agents and their service ratings.`}
           title={`Agents`}
-          amount={`500,607`}
+          amount={totalElements}
         />
         <div className={`my-[1.25rem] flex justify-end`}>
           <SearchBox placeholder={`Search for agent`} />

@@ -7,18 +7,10 @@ import { paths } from "../../../../path/paths";
 import { useRouter } from 'next/navigation';
 
 interface Overview {
-  id:  string;
-  name: string;
-  categoryName: string;
+  orderId: string;
+  trackingOrderId: string;
+  amount: number;
   dateCreated: string;
-  companyId: string;
-  quantity: number;
-  companyName: string;
-  brand: string;
-  condition: string;
-  image: string;
-  price: number;
-  model:string;
 }
 
 function Overview() {
@@ -32,6 +24,8 @@ function Overview() {
     }
   }, [data]);
 
+  console.log("total element", data)
+
   const router = useRouter();
   const handleMore =()=>{
    router.push(paths.toHome());
@@ -39,7 +33,7 @@ function Overview() {
 
   return (
     <>
-      <div className={`flex items-center justify-between relative bottom-5`}>
+      <div className={`flex items-center justify-between relative bottom-5 -z-50`}>
         <p className={`font-semibold text-[1.9rem]`}>Recently added parts</p>
         <div>
           <button className={`underline text-[#095AD3] cursor-pointer`} 
@@ -53,7 +47,7 @@ function Overview() {
       <Header
         subtitle={`Keep track of your orders on meca`}
         title={`Orders`}
-        amount={`470,765`}
+        amount={overViewList.length}
       />
       <OverviewTable overviewList={overViewList} isLoading={isLoading}/>
     </>

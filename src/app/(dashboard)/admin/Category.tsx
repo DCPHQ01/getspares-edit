@@ -1,5 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import Header from "../../dashboard/components/ui/header";
+import Avatar from "@mui/material/Avatar";
+
 import SearchBox from "../../dashboard/components/ui/searchbox";
 import PeriodRadios from "../../dashboard/components/ui/periodradios";
 import AddButton from "../../dashboard/components/ui/addbutton";
@@ -14,7 +16,6 @@ import {
 } from "../../../redux/features/dashboard/mecaAdminQuery";
 import {
   MdAdd,
-  MdArrowForward,
   MdChevronRight,
   MdClose,
   MdPhotoLibrary,
@@ -23,6 +24,32 @@ import {
 import { TextField } from "@mui/material";
 import { ColorRing } from "react-loader-spinner";
 import { uploadImage } from "../../../components/utils";
+
+function stringToColor(string: string) {
+  let hash = 0;
+  let i;
+
+  for (i = 0; i < string.length; i += 1) {
+    hash = string.charCodeAt(i) + ((hash << 5) - hash);
+  }
+
+  let color = "#";
+
+  for (i = 0; i < 3; i += 1) {
+    const value = (hash >> (i * 8)) & 0xff;
+    color += `00${value.toString(16)}`.slice(-2);
+  }
+  return color;
+}
+
+function stringAvatar(name: string) {
+  return {
+    sx: {
+      bgcolor: stringToColor(name),
+    },
+    children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+  };
+}
 
 interface Category {
   id: string;
@@ -52,34 +79,50 @@ function Category() {
   const [activityPeriod, setActivityPeriod] = useState("monthly");
   const [page, setPage] = useState(0);
   const size = 10;
+  const [totalElements, setTotalElements] = useState(0);
   const [first, setFirst] = useState(false);
   const [last, setLast] = useState(false);
-  const { data: getMecaCategory, isFetching } =
-    useGetViewAllMecaAdminCategoryQuery({
-      page: page,
-      size: size,
-      options: activityPeriod,
-    });
+  const { data, isError, refetch } = useGetViewAllMecaAdminCategoryQuery({
+    page: page,
+    size: size,
+    options: activityPeriod,
+  });
   const [categoryList, setCategoryList] = useState<Category[]>([]);
   const [open, setOpen] = useState(false);
   const [formImage, setFormImage] = useState<string>("");
   const [categoryName, setCategoryName] = useState<string>("");
   const [image_url, setImage_url] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const [categoryData, { isLoading }] = useAddCategoryMutation();
   const [error, setError] = useState<string>("");
 
-  // useEffect(() => {
-  //   if (data && Array.isArray(data.data.content)) {
-  //     const list = data.data.content;
-  //     const lists = data.data;
-  //     setCategoryList(list);
-  //     setFirst(lists.first);
-  //     setLast(lists.last);
-  //   }
-  // }, [data]);
+  useEffect(() => {
+    if (data && Array.isArray(data.data.content)) {
+      const list = data.data.content;
+      const lists = data.data;
+      setCategoryList(list);
+      setFirst(lists.first);
+      setLast(lists.last);
+      setTotalElements(lists.totalElements);
+    }
+  }, [data]);
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = () => {
+    setErrorMessage("");
+    setOpen(true);
+  };
+  
+  const handleClose = () => {
+    setOpen(false);
+    resetModal();
+  };
+
+  const resetModal = () => {
+    setCategoryName("");
+    setFormImage("");
+    setImage_url("");
+    setErrorMessage("");
+  };
 
   const handleImageChange = async (
     event: React.ChangeEvent<HTMLInputElement>
@@ -96,8 +139,6 @@ function Category() {
     }
   };
 
-  console.log("image url", image_url);
-
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleImageClick = () => {
@@ -106,6 +147,11 @@ function Category() {
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    const lowerCaseCategoryName = categoryName.toLowerCase();
+    if (categoryList.some((category) => category.name.toLowerCase() === lowerCaseCategoryName)) {
+    setErrorMessage("Category name already exists.");
+    return;
+  }
     try {
       const response = await categoryData({
         name: categoryName,
@@ -113,7 +159,8 @@ function Category() {
       }).unwrap();
       if ("data" in response) {
         console.log(response.data.data);
-        setCategoryList((prev) => [...prev, response.data.data]);
+        setCategoryList((prev) => [response.data.data, ...prev]);
+        refetch();
         handleClose();
       }
     } catch (error: any) {
@@ -127,13 +174,13 @@ function Category() {
   };
 
   const handleNextPage = () => {
-    if (first) {
+    if (!last) {
       setPage((prevPage) => prevPage + 1);
     }
   };
 
   const handlePreviousPage = () => {
-    if (last) {
+    if (!first) {
       setPage((prevPage) => prevPage - 1);
     }
   };
@@ -149,7 +196,7 @@ function Category() {
         <Header
           subtitle="Keep track of categories and their products"
           title="Category"
-          amount="500,607"
+          amount={totalElements}
         />
 
         <button
@@ -209,6 +256,7 @@ function Category() {
                   className="w-full px-3 py-2 border rounded-md flex flex-col items-center justify-center cursor-pointer"
                 >
                   <MdPhotoLibrary className="text-gray-600 text-7xl" />
+                  {/* <Avatar {...stringAvatar('Moyin Tola')}/> */}
                 </div>
               )}
 
@@ -232,6 +280,16 @@ function Category() {
                 onChange={(e) => setCategoryName(e.target.value)}
                 sx={{ backgroundColor: "porcelain", marginTop: "1rem" }}
               />
+
+              {errorMessage && (
+                <Typography
+                  color="error"
+                  className="mt-2 text-center"
+                  id="errorMessage"
+                >
+                  {errorMessage}
+                </Typography>
+              )}
 
               <button
                 id="addButton"
@@ -274,15 +332,18 @@ function Category() {
         />
       </div>
 
-      <CategoryTable
+      {/* <CategoryTable
         categoryList={getMecaCategory?.data.content}
         isLoading={isFetching}
+      /> */}
+
+      <CategoryTable categoryList={categoryList} isLoading={isLoading}
       />
 
       <div className="flex gap-[89%] md:gap-[85%] mt-10 text-mecaBluePrimaryColor font-bold text-lg">
         <button
           className={`flex gap-x-2  ${
-            !last ? "text-gray-400 cursor-not-allowed" : ""
+            first ? "text-gray-400 cursor-not-allowed" : ""
           }`}
           onClick={handlePreviousPage}
           disabled={first}

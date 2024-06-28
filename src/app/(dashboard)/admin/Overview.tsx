@@ -4,9 +4,6 @@ import Header from "../../dashboard/components/ui/header";
 import Cards from "../../../components/cards";
 import PeriodRadios from "../../dashboard/components/ui/periodradios";
 import OverviewTable from "../../dashboard/components/table/mecaadmin/overview";
-
-
-
 import {
   MdArrowBack,
   MdArrowForward,
@@ -36,8 +33,6 @@ function Overview() {
   const [adminOverview, setAdminOverview] = useState({});
   const [name, setName] = useState("");
   const [topVendors, setTopVendors] = useState<VendorData[]>([]);
-
-
 
 
 

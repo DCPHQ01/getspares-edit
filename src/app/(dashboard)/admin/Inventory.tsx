@@ -24,9 +24,10 @@ function Inventory() {
   const [activeTab, setActiveTab] = useState('IN_STOCK');
   const [totalElement, setTotalElement] = useState(0);
   const [inStockCount, setInStockCount] = useState(0);
-  const [outOfStockCount, setOutOfStockCount] = useState(0)
+  const [outOfStockCount, setOutOfStockCount] = useState()
   const [page, setPage] = useState(0);
   const size = 10; 
+  
 
    const fetchInventoryData = async (status: string) => {
     try {
@@ -38,7 +39,7 @@ function Inventory() {
       const resultList = await getInventory(requestBody).unwrap();
       const list = resultList.data.content
       const totalElements = resultList.data.totalElements;
-      console.log('Success:',list);
+      // console.log('Success is: ',resultList.data);
       console.log('Total elements:', totalElements);
       setInventory(list)
       setTotalElement(totalElements);
@@ -81,6 +82,7 @@ function Inventory() {
         setPage(prevPage => prevPage - 1);
       }
     };
+    const status = tabs.filter(tab => tab.status === activeTab);
 
     return (
 
@@ -88,7 +90,7 @@ function Inventory() {
         <Header
           subtitle={`Keep track of how each item is performing.`}
           title={`Inventory`}
-          amount={`433,112`}
+          amount={totalElement}
         />
         <div className={`flex justify-between my-[1.25rem]`}>
           <Stock 
@@ -99,24 +101,24 @@ function Inventory() {
           <SearchBox placeholder={`Search for buyers`} />
         </div>
 
-        <InventoryTable inventoryData={inventory} isLoading={isLoading}/>
+        <InventoryTable inventoryData={inventory} isLoading={isLoading} status={""}/>
 
-        <div className="flex gap-[89%] md:gap-[85%] mt-10 text-mecaBluePrimaryColor font-bold text-lg">
-          <button className={`flex gap-x-2 ${page > 0 ? 'text-mecaBluePrimaryColor' : 'text-gray-400 cursor-not-allowed'}`} 
+        <div className="flex justify-between mt-10 text-mecaBluePrimaryColor font-bold text-lg">
+         { page > 0 ? ( <button className={`flex gap-x-2 `} 
           onClick={handlePreviousPage}
-          disabled={page === 0}
+          // disabled={page === 0}
           >
             <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
-          </button>
-          <button className={`flex gap-x-2 ${inventory.length === size ? 'text-mecaBluePrimaryColor' : 'text-gray-400 cursor-not-allowed'}`} 
+          </button>) : (<div>{""}</div>)}
+         { inventory.length === size ? (<button className={`flex gap-x-2 `} 
           onClick={handleNextPage}
-          disabled={inventory.length === 0}
+          // disabled={inventory.length === 0}
           >
             Next
             <span>
               <MdChevronRight className="mt-[2px] text-2xl" />{" "}
             </span>
-          </button>
+          </button>): (<div>{""}</div>)}
         </div>
       </>
     );

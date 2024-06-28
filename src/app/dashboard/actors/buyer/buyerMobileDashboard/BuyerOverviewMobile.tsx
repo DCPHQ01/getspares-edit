@@ -10,18 +10,10 @@ import { useRouter } from 'next/navigation';
 
 
 interface Overview {
-  id:  string;
-  name: string;
-  categoryName: string;
+  orderId: string;
+  trackingOrderId: string;
+  amount: number;
   dateCreated: string;
-  companyId: string;
-  quantity: number;
-  companyName: string;
-  brand: string;
-  condition: string;
-  image: string;
-  price: number;
-  model:string;
 }
 
 function BuyerOverviewMobile() {
@@ -54,7 +46,7 @@ function BuyerOverviewMobile() {
       <Header
         subtitle={`Keep track of your orders on meca`}
         title={`Orders`}
-        amount={`470,765`}
+        amount={overViewList.length}
       />
 
       {/* <OverviewTable /> */}
