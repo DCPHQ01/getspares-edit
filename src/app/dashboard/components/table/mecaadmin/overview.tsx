@@ -39,12 +39,12 @@ function Overview({ data, isLoading }: OverviewTableProps) {
       <table id="adminTable" className={`w-full`}>
         <thead>
           <tr className="truncate">
-            <th id="companyNameHeader">Company name</th>
-            <th id="totalItemsSoldHeader">Total items sold</th>
-            <th id="transactionValueHeader" style={{ paddingLeft: "2.5rem" }}>
+            <th id="companyNameHeader" className={`sticky`}>Company name</th>
+            <th id="totalItemsSoldHeader" className={`sticky`}>Total items sold</th>
+            <th id="transactionValueHeader" className={`sticky`} style={{ paddingLeft: "2.5rem" }}>
               Transaction value
             </th>
-            <th id="dateTimeJoinedHeader">Date & time joined</th>
+            <th id="dateTimeJoinedHeader" className={`sticky`}>Date & time joined</th>
           </tr>
         </thead>
         <tbody>

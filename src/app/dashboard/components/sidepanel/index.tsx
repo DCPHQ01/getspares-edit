@@ -172,7 +172,8 @@ function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
       >
         <h1
           id="sidePanelTitle"
-          className={`text-[#0852C0] mx-[2.19rem] text-[1.9rem] font-[700]`}
+          className={`text-[#0852C0] mx-[2.19rem] text-[1.9rem] font-[700] cursor-pointer`}
+          onClick={() => router.push(paths.toHome())}
         >
           e-meca
         </h1>
