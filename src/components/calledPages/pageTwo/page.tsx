@@ -30,6 +30,7 @@ import {
 } from "../../../redux/features/company/companySlice";
 import { MdPhotoLibrary } from "react-icons/md";
 import { paths } from "../../../path/paths";
+import {useGetCompanyProfileQuery} from "../../../redux/features/company/companyQuery";
 
 interface CalledPagesPageTwoPagesProps {
   step: number;
@@ -39,6 +40,8 @@ interface CalledPagesPageTwoPagesProps {
 const CalledPagesPageTwoPages = () => {
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [inputValues, setInputValues] = useState<string[]>([""]);
+  const { data, isLoading, isError } = useGetCompanyProfileQuery({});
+
 
   const handleInputChange = (index: number, value: string) => {
     const newInputValues = [...inputValues];

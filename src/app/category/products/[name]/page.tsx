@@ -28,79 +28,22 @@ import SideFilter from "../../sideFilter";
 import TopBarWhileInside from "../../../reusables/TopBarWhileInside/page";
 import { useGetProductInCategoryQuery } from "../../../../redux/features/users/authQuery";
 import { ColorRing } from "react-loader-spinner";
+import {formatAmount} from "../../../../components/utils";
 
 interface ItemsDataProps {
   id: number;
-  desc: string;
+  description: string;
   rating: number;
   price: string;
   image?: any;
+  name:string;
 }
 
-const itemsData: ItemsDataProps[] = [
-  {
-    id: 1,
-    desc: "E46 Engine 1996 Model",
-    rating: 3,
-    price: "₦97,500.00",
-    image: part,
-  },
-  {
-    id: 2,
-    desc: "E46 Engine 1996 Model",
-    rating: 3,
-    price: "₦97,500.00",
-    image: part,
-  },
-  {
-    id: 3,
-    desc: "E46 Engine 1996 Model",
-    rating: 3,
-    price: "₦97,500.00",
-    image: part,
-  },
-  {
-    id: 4,
-    desc: "E46 Engine 1996 Model",
-    rating: 3,
-    price: "₦97,500.00",
-    image: part,
-  },
-  {
-    id: 5,
-    desc: "E46 Engine 1996 Model",
-    rating: 3,
-    price: "₦97,500.00",
-    image: part,
-  },
-  {
-    id: 6,
-    desc: "E46 Engine 1996 Model",
-    rating: 3,
-    price: "₦97,500.00",
-    image: part,
-  },
-  {
-    id: 7,
-    desc: "E46 Engine 1996 Model",
-    rating: 3,
-    price: "₦97,500.00",
-    image: part,
-  },
-  {
-    id: 8,
-    desc: "E46 Engine 1996 Model",
-    rating: 3,
-    price: "₦97,500.00",
-    image: part,
-  },
-];
 
 export default function Products() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const handleOpeningFilterButton = () => {
     setIsFilterOpen(!isFilterOpen);
-    console.log(isFilterOpen, "isFilterOpen");
   };
 
   const router = useRouter();
@@ -288,11 +231,11 @@ export default function Products() {
                         wrapperStyle={{}}
                         wrapperClass="color-ring-wrapper"
                         colors={[
-                          "#00A3FF",
-                          "#FFD300",
-                          "#00A3FF",
-                          "#FFD300",
-                          "#FF0000",
+                          "white",
+                          "white",
+                          "white",
+                          "white",
+                          "white",
                         ]}
                       />
                     </div>
@@ -327,7 +270,7 @@ export default function Products() {
                           id="itemContentDiv"
                         >
                           <div className="flex justify-between items-center md:hidden">
-                            <TruncateText text={item.desc} maxLength={15} />
+                            <TruncateText text={item.name} maxLength={15} />
                             <div
                               id="ratingContainerMobile"
                               className="flex items-center gap-x-1"
@@ -348,11 +291,11 @@ export default function Products() {
                             className="flex items-center ml-6"
                           >
                             <p className="text-mecaDarkBlueBackgroundOverlay text-sm font-nunito font-bold text-center">
-                              {item.price}
+                              {formatAmount(Number(item.price))}
                             </p>
                           </div>
                           <div className="hidden md:flex justify-between items-center lg:hidden">
-                            <TruncateText text={item.desc} maxLength={25} />
+                            <TruncateText text={item.description} maxLength={25} />
                             <div
                               id="ratingContainerTabDiv"
                               className="flex items-center"
@@ -535,7 +478,7 @@ export default function Products() {
                       id="itemContent"
                     >
                       <div className="flex justify-between items-center">
-                        <TruncateText text={item.desc} maxLength={50} />
+                        <TruncateText text={item.name} maxLength={50} />
                         <div
                           id="ratingContainerDesktop"
                           className="flex items-center gap-x-1"
@@ -553,14 +496,14 @@ export default function Products() {
                       </div>
                       <div
                         id="priceContainer"
-                        className="flex items-center ml-6 mb-4"
+                        className="flex items-center mb-4"
                       >
                         <p className="text-mecaDarkBlueBackgroundOverlay text-sm font-nunito font-bold text-center">
-                          {item.price}
+                          {formatAmount(Number(item.price))}
                         </p>
                       </div>
                       <div className="hidden md:flex justify-between items-center lg:hidden">
-                        <TruncateText text={item.desc} maxLength={25} />
+                        <TruncateText text={item.description} maxLength={25} />
                         <div
                           id="ratingContainerTab"
                           className="flex items-center"
