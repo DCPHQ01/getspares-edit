@@ -11,9 +11,14 @@ import { useRouter } from "next/navigation";
 import { title } from "process";
 import { ColorRing } from "react-loader-spinner";
 import { MdInventory2 } from 'react-icons/md';
-import {formatAmount, formatAmount2} from "../../../../../components/utils";
 import {useGetAProductQuery} from "../../../../../redux/features/users/authQuery";
 import ViewItemDetails from "./ViewItemDetails";
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import dayjs from "dayjs";
+import {formatAmount} from "../../../../../components/utils";
+import {formatAllTime, formatAllDate} from "../../utils/utils";
+
+dayjs.extend(customParseFormat);
 
 interface InventoryData {
   categoryName?: string;
@@ -44,6 +49,7 @@ const option = [
 ];
 
 
+
 const VendorInventoryTable: React.FC<InventoryTableProps> = ({
   inventoryData,
   isLoading,
@@ -61,6 +67,9 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
   const handleOptionClose = () => {
     setAnchorEl(null);
   };
+
+
+
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -143,12 +152,6 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
                   <h1 className="text-gray-500">All your products will appear here</h1>
                   </div>) : (
                    inventoryData?.map((d, index) => {
-                     let date = "";
-                     let time = "";
-
-                     if (d.dateCreated) {
-                       [date, time] = d.dateCreated.split(" ");
-                     }
 
                      return (
                         <tr
@@ -192,9 +195,9 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
                              id={`transactionValue_${index}`}
                           >
                             <div>
-                              {date}
+                              {formatAllDate(d.dateCreated)}
                               <br />
-                              {time}
+                              {formatAllTime(d.dateCreated)}
                             </div>
 
                           </td>

@@ -8,23 +8,13 @@ export const companyQuery = createApi({
   tagTypes: ["company"],
   endpoints: (builder) => ({
     updateCompany: builder.mutation({
-      query: (body: {
-        id: string;
-        name: string;
-        description: string;
-        websiteUrl: string;
-        cac: string;
-        companyEmail: string;
-        phoneNumber: string;
-        address1: string;
-        imageUrl: string;
-      }) => ({
+      query: (body) => ({
         url: "/company",
         method: "PATCH",
         body,
-        invalidatesTags:['company']
-
       }),
+      invalidatesTags:['company']
+
     }),
     getCompanyProfile: builder.query({
       query:() =>  ({
@@ -32,7 +22,6 @@ export const companyQuery = createApi({
         method: "GET",
       }),
       providesTags:['company']
-
     }),
   }),
 });
