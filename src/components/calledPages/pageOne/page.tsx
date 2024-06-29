@@ -220,7 +220,7 @@ const CalledPagesPageOnePages: React.FC<PageOneProps> = ({companyData}) => {
     dispatch(setCurrentStep(1));
   };
 
-  const populateData = (userData) => {
+  const populateData = (userData:any) => {
     const userDataKeys = Object.keys(inputs)
     if(userData){
       userDataKeys.forEach(key => {

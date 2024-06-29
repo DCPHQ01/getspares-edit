@@ -167,7 +167,7 @@ const UpdateCompanyStepOne: React.FC<PageOneProps> = ({companyData}) => {
       fileInputRef.current?.click();
    };
 
-   const handleChange = (e) => {
+   const handleChange = (e:any) => {
       const name = e.target.name;
       const value = e.target.value;
 
@@ -185,13 +185,13 @@ const UpdateCompanyStepOne: React.FC<PageOneProps> = ({companyData}) => {
          const res = await updateCompanyDetails(inputs).unwrap()
          console.log(res.data);
          dispatch(setCurrentStep(1));
-      }catch (e) {
+      }catch (e:any) {
          console.log(e.data)
       }
 
    };
 
-   const populateData = (userData) => {
+   const populateData = (userData:any) => {
       const userDataKeys = Object.keys(inputs)
       if(userData){
          userDataKeys.forEach(key => {

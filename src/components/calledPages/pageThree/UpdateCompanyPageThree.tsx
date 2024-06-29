@@ -32,8 +32,6 @@ interface PageThreeProps {
 const UpdateCompanyPageThree : React.FC<PageThreeProps> = ({companyData}) => {
    const dispatch = useAppDispatch();
    const router = useRouter();
-   const [updateCompanyDetails, {isLoading, isError}] = useUpdateCompanyMutation();
-   const [getUserData] = useGetUserDetailsMutation({});
    const initialFormState = {
       name: "",
       cac: "",
@@ -47,15 +45,13 @@ const UpdateCompanyPageThree : React.FC<PageThreeProps> = ({companyData}) => {
    };
    const [inputs, setInputs] = useState(initialFormState);
 
-   const company = useAppSelector((state: RootState) => state.company);
 
    const handlePreviousPage = () => {
       dispatch(setCurrentStep(1));
    };
 
 
-
-   const populateData = (userData) => {
+   const populateData = (userData:any) => {
       const userDataKeys = Object.keys(inputs)
       if(userData){
          userDataKeys.forEach(key => {
@@ -95,7 +91,7 @@ const UpdateCompanyPageThree : React.FC<PageThreeProps> = ({companyData}) => {
                               id="firstPreviousbtn9"
                            >
                               <button
-                                 onClick={(e)=>handlePreviousPage(e)}
+                                 onClick={handlePreviousPage}
                               >Edit
                               </button>
                            </div>

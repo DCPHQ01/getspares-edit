@@ -54,7 +54,6 @@ const UpdateCompanyStepTwo : React.FC<PageTwoProps> = ({companyData})=> {
 
    const addressRegex = /^.{5,}$/; // Example: Address should be at least 5 characters
    const phoneRegex = /^\d{11}$/; // Example: Phone number should be 11 digits
-   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Email validation regex
 
    const handleAddressChange = () => {
       if (inputs.address1 && !addressRegex.test(inputs.address1)) {
@@ -107,7 +106,7 @@ const UpdateCompanyStepTwo : React.FC<PageTwoProps> = ({companyData})=> {
          const res = await updateCompanyDetails(inputs).unwrap()
          console.log(res.data);
          dispatch(setCurrentStep(2));
-      } catch (e) {
+      } catch (e:any) {
          console.log(e.data)
       }
    };
@@ -138,7 +137,7 @@ const UpdateCompanyStepTwo : React.FC<PageTwoProps> = ({companyData})=> {
       fileInputRef.current?.click();
    };
 
-   const populateData = (userData) => {
+   const populateData = (userData:any) => {
       const userDataKeys = Object.keys(inputs)
       if(userData){
          userDataKeys.forEach(key => {
@@ -154,7 +153,7 @@ const UpdateCompanyStepTwo : React.FC<PageTwoProps> = ({companyData})=> {
       }
    }
 
-   const handleChange = (e) => {
+   const handleChange = (e:any) => {
       const name = e.target.name;
       const value = e.target.value;
 
@@ -167,7 +166,7 @@ const UpdateCompanyStepTwo : React.FC<PageTwoProps> = ({companyData})=> {
       setSecAddress((prev) => !prev)
    }
 
-   const deleteImage = (event: React.ChangeEvent<HTMLButtonElement>) => {
+   const deleteImage = (event: React.MouseEvent<HTMLButtonElement>) => {
       event.preventDefault()
       setFormImage('');
    }

@@ -1,12 +1,8 @@
 "use client";
 import AddCompanySidebar from "../../../../components/addCompanyPage/addCompanySidebar";
-import CalledPagesPageOnePages from "../../../../components/calledPages/pageOne/page";
-import CalledPagesPageTwoPages from "../../../../components/calledPages/pageTwo/page";
-import CalledPagesPageThreePages from "../../../../components/calledPages/pageThree/page";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { RootState } from "../../../../redux";
-import { setStep } from "../../../../redux/features/company/companySlice";
 import {useGetCompanyProfileQuery} from "../../../../redux/features/company/companyQuery";
 import UpdateCompanyStepOne from "../../../../components/calledPages/pageOne/UpdateCompanyStepOne";
 import UpdateCompanyStepTwo from "../../../../components/calledPages/pageTwo/UpdateCompanyStepTwo";
