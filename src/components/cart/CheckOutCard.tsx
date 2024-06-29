@@ -5,7 +5,7 @@ import Image from "next/image";
 import Parts from "../../assets/images/parts.png";
 import { MdDeleteOutline, MdMoreVert } from "react-icons/md";
 import { formatAmount } from "../utils";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   removeFromCart,
   setCart,
@@ -71,6 +71,23 @@ export const CheckOutCard = ({ cardCartItem, closeDropDown }: Props) => {
     }));
   };
 
+  // useEffect(() => {
+  //   const savedCartItems = localStorage.getItem("savedCartItems");
+  //   if (savedCartItems) {
+  //     dispatch(setCart(JSON.parse(savedCartItems)));
+  //   }
+  // }, []);
+  useEffect(() => {
+    const savedCartItems = localStorage.getItem("savedCartItems");
+    if (savedCartItems) {
+      try {
+        const parsedItems = JSON.parse(savedCartItems);
+        dispatch(setCart(parsedItems));
+      } catch (error) {
+        console.error("Error parsing savedCartItems from localStorage:", error);
+      }
+    }
+  }, []);
   const removeItem = (id: string) => {
     const filteredCart = cart.filter((item) => item.id !== id);
 
@@ -138,8 +155,8 @@ export const CheckOutCard = ({ cardCartItem, closeDropDown }: Props) => {
               </div>
               <div>
                 <div className="flex font-normal text-sm text-mecaLightGrayText mb-1">
-                  {cardCartItem.category}
-                  <span>.</span>
+                  {/* {cardCartItem.category}
+                  <span>.</span> */}
                   {cardCartItem.description}
                 </div>
               </div>

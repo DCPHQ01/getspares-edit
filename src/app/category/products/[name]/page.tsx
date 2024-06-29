@@ -70,6 +70,13 @@ export default function Products() {
   console.log("data for categories: ", data);
   console.log("category id: ", categoryId);
 
+  useEffect(() => {
+    const savedItems = sessionStorage.getItem("categoryId");
+    if (savedItems) {
+      setCategoryId(savedItems);
+    }
+  }, []);
+
   const filterData = [
     {
       id: 1,
@@ -167,7 +174,7 @@ export default function Products() {
                   Home
                 </p>
                 <MdChevronRight size={20} />
-                <p className="font-nunito text-sm font-medium text-mecaGoBackArrow">
+                <p className="font-nunito text-sm font-medium text-mecaGoBackArrow capitalize">
                   {searchWords}
                 </p>
               </div>
@@ -176,7 +183,7 @@ export default function Products() {
                   className="flex justify-between items-center"
                   id="productHeader"
                 >
-                  <h1 className="text-lg font-semibold font-nunito text-mecaDarkBlueBackgroundOverlay">
+                  <h1 className="text-lg font-semibold capitalize font-nunito text-mecaDarkBlueBackgroundOverlay">
                     {searchWords}
                   </h1>
                   <div className="w-[60px] h-[24px]" id="filterButtonDiv">
@@ -197,20 +204,20 @@ export default function Products() {
                   id="allItemsContainerDiv"
                 >
                   {isFetching ? (
-                    <div className="w-full h-screen flex justify-center items-center">
+                    <div className="w-full h-[615px] flex justify-center items-center">
                       <ColorRing
                         visible={true}
-                        height="80"
-                        width="80"
+                        height="100"
+                        width="100"
                         ariaLabel="color-ring-loading"
                         wrapperStyle={{}}
                         wrapperClass="color-ring-wrapper"
                         colors={[
-                          "#00A3FF",
-                          "#FFD300",
-                          "#00A3FF",
-                          "#FFD300",
-                          "#FF0000",
+                          "#000000",
+                          "#000000",
+                          "#000000",
+                          "#000000",
+                          "#000000",
                         ]}
                       />
                     </div>
@@ -313,16 +320,16 @@ export default function Products() {
               Home
             </p>
             <MdChevronRight size={20} />
-            <p className="font-nunito text-sm font-medium text-mecaGoBackArrow">
-              {searchWords}
+            <p className="font-nunito text-sm capitalize font-medium text-mecaGoBackArrow">
+              {decodeURIComponent(searchWords)}
             </p>
           </div>
           <div
             className="mt-4 flex justify-between items-center px-8"
             id="laptopContent"
           >
-            <p className="text-2xl text-mecaDarkBlueBackgroundOverlay font-bold font-nunito">
-              {searchWords}
+            <p className="text-2xl capitalize text-mecaDarkBlueBackgroundOverlay font-bold font-nunito">
+              {decodeURIComponent(searchWords)}
             </p>
             {data?.data?.content?.length > 0 && (
               <div className="flex gap-x-2 items-center" id="toggler/header">
@@ -412,20 +419,20 @@ export default function Products() {
               id="allItemsContainerDivDesktop"
             >
               {isFetching ? (
-                <div className="w-full h-screen flex justify-center items-center">
+                <div className="w-full h-[615px] flex justify-center items-center">
                   <ColorRing
                     visible={true}
-                    height="80"
-                    width="80"
+                    height="100"
+                    width="100"
                     ariaLabel="color-ring-loading"
                     wrapperStyle={{}}
                     wrapperClass="color-ring-wrapper"
                     colors={[
-                      "#00A3FF",
-                      "#FFD300",
-                      "#00A3FF",
-                      "#FFD300",
-                      "#FF0000",
+                      "#000000",
+                      "#000000",
+                      "#000000",
+                      "#000000",
+                      "#000000",
                     ]}
                   />
                 </div>

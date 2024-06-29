@@ -136,6 +136,11 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
   };
 
   useEffect(() => setActive(1), []);
+  useEffect(() => {
+    if (active === null) {
+      setActive(1);
+    }
+  }, [active]);
 
   return (
     <nav className="w-full bg-white relative" id="navbarContainer">
