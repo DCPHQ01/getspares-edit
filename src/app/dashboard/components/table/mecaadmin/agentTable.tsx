@@ -1,14 +1,15 @@
 "use client";
 import React, {useEffect} from "react";
-import styles from "../styles.module.css";
+// @ts-ignore
+import styles from "./../styles.module.css";
 import Image from "next/image";
 import Stack from "@mui/material/Stack";
 import dayjs from "dayjs";
 import { AccountCircle } from '@mui/icons-material';
 import { ColorRing } from "react-loader-spinner";
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import {formatDate, formatTime} from "../../../../../components/utils";
 import { MdBusinessCenter } from "react-icons/md";
+import {formatAllDate, formatAllTime} from "../../utils/utils";
 
 
 
@@ -41,7 +42,7 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading }) => {
           className={`my-[1.25rem] w-full max-h-[34rem] overflow-y-auto scrollbar-none ${styles.table}`}
        >
          <table id="adminTable" className={`w-full`}>
-           <thead style={{position:'sticky', width:'100%'}} className={`w-full`}>
+           <thead className={`w-full`}>
            <tr className="truncate">
              <th style={{position:'sticky'}} id="companyNameHeader">Full name</th>
              <th style={{position:'sticky'}} id="totalItemsSoldHeader">Quantity sold</th>
@@ -123,8 +124,8 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading }) => {
                      </td>
                      <td id={`dateJoined_${index}`}>
                        <div className={`text-[0.88rem] py-[0.5rem] px-[1.5rem]`}>
-                         <div id={`date_${index}`}>{formatDate(d.dateAdded)}</div>
-                         <div className={`text-[#4B5565] truncate`} id={`time_${index}`}>{formatTime(d.dateAdded)}</div>
+                         <div id={`date_${index}`}>{formatAllDate(d.dateAdded)}</div>
+                         <div className={`text-[#4B5565] truncate`} id={`time_${index}`}>{formatAllTime(d.dateAdded)}</div>
                        </div>
                      </td>
                    </tr>

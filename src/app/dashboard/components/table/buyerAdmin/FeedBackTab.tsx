@@ -1,7 +1,7 @@
-import * as React from 'react';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
+import * as React from "react";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
 
 // Define the props for CustomTabPanel using TypeScript interfaces
 interface CustomTabPanelProps {
@@ -29,7 +29,7 @@ function CustomTabPanel(props: CustomTabPanelProps) {
 function a11yProps(index: number) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
@@ -50,11 +50,22 @@ const BasicTabs: React.FC<BasicTabsProps> = ({ tabs }) => {
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="dynamic tabs example">
+    <Box sx={{ width: "100%" }}>
+      <Box
+        sx={{ borderBottom: 1, borderColor: "divider", textTransform: "none" }}
+      >
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="dynamic tabs example"
+        >
           {tabs.map((tab, index) => (
-            <Tab label={tab.label} key={index} {...a11yProps(index)} />
+            <Tab
+              label={tab.label}
+              key={index}
+              {...a11yProps(index)}
+              sx={{ textTransform: "none", fontWeight: "semibold" }}
+            />
           ))}
         </Tabs>
       </Box>

@@ -28,21 +28,21 @@ import SideFilter from "../../sideFilter";
 import TopBarWhileInside from "../../../reusables/TopBarWhileInside/page";
 import { useGetProductInCategoryQuery } from "../../../../redux/features/users/authQuery";
 import { ColorRing } from "react-loader-spinner";
+import { formatAmount } from "../../../../components/utils";
 
 interface ItemsDataProps {
   id: number;
-  name: string;
-  desc: string;
+  description: string;
   rating: number;
   price: string;
   image?: any;
+  name: string;
 }
 
 export default function Products() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const handleOpeningFilterButton = () => {
     setIsFilterOpen(!isFilterOpen);
-    console.log(isFilterOpen, "isFilterOpen");
   };
 
   const router = useRouter();
@@ -273,11 +273,14 @@ export default function Products() {
                             className="flex items-center ml-6"
                           >
                             <p className="text-mecaDarkBlueBackgroundOverlay text-sm font-nunito font-bold text-center">
-                              {item.price}
+                              {formatAmount(Number(item.price))}
                             </p>
                           </div>
                           <div className="hidden md:flex justify-between items-center lg:hidden">
-                            <TruncateText text={item.desc} maxLength={25} />
+                            <TruncateText
+                              text={item.description}
+                              maxLength={25}
+                            />
                             <div
                               id="ratingContainerTabDiv"
                               className="flex items-center"
@@ -485,14 +488,14 @@ export default function Products() {
                       </div>
                       <div
                         id="priceContainer"
-                        className="flex items-center ml-6 mb-4"
+                        className="flex items-center mb-4"
                       >
                         <p className="text-mecaDarkBlueBackgroundOverlay text-sm font-nunito font-bold text-center">
-                          {item.price}
+                          {formatAmount(Number(item.price))}
                         </p>
                       </div>
                       <div className="hidden md:flex justify-between items-center lg:hidden">
-                        <TruncateText text={item.desc} maxLength={25} />
+                        <TruncateText text={item.description} maxLength={25} />
                         <div
                           id="ratingContainerTab"
                           className="flex items-center"

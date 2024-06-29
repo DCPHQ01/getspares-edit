@@ -72,7 +72,23 @@ function Label({
 
   return content;
 }
-const CalledPagesPageOnePages = () => {
+
+interface PageOneProps {
+  companyData?: {
+    name: string;
+    description: string;
+    website: string;
+    companyEmail: string;
+    phoneNumber: string;
+    cac: string;
+    address1: string;
+    address2:string;
+  };
+}
+
+
+
+const CalledPagesPageOnePages: React.FC<PageOneProps> = ({companyData}) => {
   const [website, setWebsite] = useState("");
   const [fullName, setFullName] = useState("");
   const [cacNumber, setCacNumber] = useState("");
@@ -80,6 +96,14 @@ const CalledPagesPageOnePages = () => {
   const [date, setDate] = useState("");
   const [image, setImage] = useState<File | null>(null);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const initialFormState = {
+    name: "",
+    cac: "",
+    description: "",
+    website: "",
+  };
+  const [inputs, setInputs] = useState(initialFormState);
+
 
   const validateWebsite = () => {
     const websiteRegex =
@@ -115,7 +139,6 @@ const CalledPagesPageOnePages = () => {
     }
   }
 
-
   const validateMessage = () => {
     if (!message.trim()) {
       setErrors((prevErrors) => ({
@@ -128,7 +151,6 @@ const CalledPagesPageOnePages = () => {
   };
 
   const validateDate = () => {
-    // You can implement your own validation logic for the date field
     if (!date.trim()) {
       setErrors((prevErrors) => ({
         ...prevErrors,
@@ -162,12 +184,10 @@ const CalledPagesPageOnePages = () => {
       console.log("Form submitted successfully");
     }
   };
-  const router = useRouter();
 
   const dispatch = useAppDispatch();
 
-  const company = useAppSelector((state: RootState) => state.company);
-  console.log("company ", company.companyForm);
+  const {companyForm} = useAppSelector((state: RootState) => state.company);
 
   const [formImage, setFormImage] = useState<string | null>(() => {
     if (typeof window !== "undefined") {
@@ -196,45 +216,25 @@ const CalledPagesPageOnePages = () => {
     fileInputRef.current?.click();
   };
 
-  // const step = useAppSelector((state) => state.company.step);
-  const currentStep = useAppSelector((state) => state.company.currentStep);
   const handleNextPage = () => {
     dispatch(setCurrentStep(1));
   };
 
-  let companyName = "";
-  if (typeof window !== "undefined") {
-    const userDetails = sessionStorage.getItem("userDetails");
-
-    if (userDetails) {
-      const parsedDetails = JSON.parse(userDetails);
-      if (
-        parsedDetails.companyDetails &&
-        parsedDetails.companyDetails.length > 0
-      ) {
-        companyName = parsedDetails.companyDetails[0].name;
-      }
+  const populateData = (userData:any) => {
+    const userDataKeys = Object.keys(inputs)
+    if(userData){
+      userDataKeys.forEach(key => {
+        setInputs((values) => ({ ...values, [key]: userData[key] ? userData[key] : '' }));
+      })
     }
   }
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const userDetails = sessionStorage.getItem("userDetails");
-      if (userDetails) {
-        const parsedDetails = JSON.parse(userDetails);
-        if (
-          parsedDetails.companyDetails &&
-          parsedDetails.companyDetails.length > 0
-        ) {
-          dispatch(
-            setCompanyForm({ ...company.companyForm, name: companyName })
-          );
-        }
-      }
-    }
-  }, [dispatch]);
 
-  console.log("Company name: ", companyName);
+  useEffect(() => {
+    if(companyData){
+      populateData(companyData)
+    }
+  },[companyData])
 
   return (
     <>
@@ -250,20 +250,9 @@ const CalledPagesPageOnePages = () => {
                 <sub className="text-xs font-normal" id="pageone6">
                   Provide details
                 </sub>
-
-                {/* <form method="dialog" id="pageone7">
-                  <button
-                    className="text-sm font-semibold skip cursor-pointer"
-                    id="skip1"
-                    onClick={handleNextPage}
-                  >
-                    Skip
-                  </button>
-                </form> */}
               </div>
             </div>
 
-            {/* here */}
 
             <Box
               component="form"
@@ -273,7 +262,7 @@ const CalledPagesPageOnePages = () => {
               onSubmit={handleSubmit}
               autoComplete="off"
             >
-              <Box>
+              <Box className={'flex flex-col gap-8'}>
                 <Box>
                   <TextField
                     required={true}
@@ -286,19 +275,12 @@ const CalledPagesPageOnePages = () => {
                     InputProps={{ disableUnderline: true }}
                     className="lg:w-[364px] w-[100%] mb-10 2xl:w-[35rem]"
                     sx={{ backgroundColor: "porcelain" }}
-                    value={company.companyForm.name}
-                    onChange={(e) =>
-                      dispatch(
-                        setCompanyForm({
-                          ...company.companyForm,
-                          name: e.target.value,
-                        })
-                      )
-                    }
+                    value={inputs.name}
                     onBlur={validateFullName}
                   />
                 </Box>
                 <Box>
+
                   <TextField
                     required={true}
                     id="filledbasic"
@@ -310,44 +292,28 @@ const CalledPagesPageOnePages = () => {
                     InputProps={{ disableUnderline: true }}
                     className="lg:w-[364px] w-[100%] mb-10 2xl:w-[35rem]"
                     sx={{ backgroundColor: "porcelain" }}
-                    value={company.companyForm.cac}
-                    onChange={(e) =>
-                      dispatch(
-                        setCompanyForm({
-                          ...company.companyForm,
-                          cac: e.target.value.toUpperCase(),
-                        })
-                      )
-                    }
+                    value={inputs.cac}
                     onBlur={validateCac}
                   />
                 </Box>
                 <Box>
-                  <p>Description</p>
-                  <TextareaAutosize
-                    required={true}
-                    value={company.companyForm.description}
-                    onChange={(e) =>
-                      dispatch(
-                        setCompanyForm({
-                          ...company.companyForm,
-                          description: e.target.value,
-                        })
-                      )
-                    }
-                    onBlur={validateMessage}
-                    id="filledbasic"
-                    aria-label="Description"
-                    name="description"
-                    placeholder="Say something about your company"
-                    className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem]"
-                    style={{
-                      backgroundColor: "#EFF2F3",
-                      height: "223px",
-                      borderColor: "none",
-                      padding: "20px",
-                    }}
+                  <TextField
+                     required={true}
+                     id="filledbasic"
+                     label="Description"
+                     variant="filled"
+                     type="text"
+                     name="cacNumber"
+                     multiline
+                     minRows={7}
+                     maxRows={9}
+                     placeholder="Say something about your company"
+                     InputProps={{ disableUnderline: true }}
+                     className="lg:w-[364px] w-[100%] mb-10 2xl:w-[35rem]"
+                     sx={{ backgroundColor: "porcelain" }}
+                     value={inputs.description}
                   />
+
                   {/* {errors.message && (
                     <p className="error-color">{errors.message}</p>
                   )} */}
@@ -355,15 +321,7 @@ const CalledPagesPageOnePages = () => {
                 <Box>
                   <TextField
                     required={true}
-                    value={company.companyForm.website}
-                    onChange={(e) =>
-                      dispatch(
-                        setCompanyForm({
-                          ...company.companyForm,
-                          website: e.target.value,
-                        })
-                      )
-                    }
+                    value={inputs.website}
                     onBlur={validateWebsite}
                     type="url"
                     id="filledbasic"
@@ -379,38 +337,6 @@ const CalledPagesPageOnePages = () => {
                     <p className="error-color -mt-8">{errors.website}</p>
                   )}
                 </Box>
-                {/* <Box>
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DemoContainer components={["DatePicker"]}>
-                      <DemoItem
-                        label={
-                          <Label
-                            componentName="Date Founded"
-                            valueType="date"
-                          />
-                        }
-                      >
-                        <DatePicker
-                          sx={{ width: "356px" }}
-                          onChange={(date) => {
-                            const formattedDate = date
-                              ? date.format("YYYY-MM-DD")
-                              : null;
-                            console.log(formattedDate);
-                            if (formattedDate) {
-                              sessionStorage.setItem(
-                                "date_founded",
-                                formattedDate
-                              );
-                            } else {
-                              sessionStorage.removeItem("date_founded");
-                            }
-                          }}
-                        />
-                      </DemoItem>
-                    </DemoContainer>
-                  </LocalizationProvider>
-                </Box> */}
               </Box>
               <Box>
                 <div className="inputImage imagetext h-[283px] w-[316px] pt-6">
@@ -522,11 +448,11 @@ const CalledPagesPageOnePages = () => {
                     <div>
                       <input
                         required={true}
-                        value={company.companyForm.name}
+                        value={companyForm?.name}
                         onChange={(e) =>
                           dispatch(
                             setCompanyForm({
-                              ...company.companyForm,
+                              ...companyForm,
                               name: e.target.value,
                             })
                           )
@@ -546,22 +472,22 @@ const CalledPagesPageOnePages = () => {
                       <br></br>
 
                       <textarea
-                        required={true}
-                        value={company.companyForm.description}
-                        onChange={(e) =>
+                       required={true}
+                       value={companyForm?.description}
+                       onChange={(e) =>
                           dispatch(
-                            setCompanyForm({
-                              ...company.companyForm,
-                              description: e.target.value,
-                            })
+                             setCompanyForm({
+                               ...companyForm,
+                               description: e.target.value,
+                             })
                           )
-                        }
-                        onBlur={validateMessage}
-                        name="message"
-                        id="messageid2"
-                        placeholder="Description Say something about your company"
-                        className=" companyInput inputText w-full mb-8 lg:w-[364px]"
-                      ></textarea>
+                       }
+                       onBlur={validateMessage}
+                       name="message"
+                       id="messageid2"
+                       placeholder="Description Say something about your company"
+                       className=" companyInput inputText w-full mb-8 lg:w-[364px]"
+                       />
                       {/* {errors.message && (
                         <p className="error-color">{errors.message}</p>
                       )} */}
@@ -570,11 +496,11 @@ const CalledPagesPageOnePages = () => {
 
                       <input
                         required={true}
-                        value={company.companyForm.website}
+                        value={companyForm?.website}
                         onChange={(e) =>
                           dispatch(
                             setCompanyForm({
-                              ...company.companyForm,
+                              ...companyForm,
                               website: e.target.value,
                             })
                           )
@@ -590,27 +516,7 @@ const CalledPagesPageOnePages = () => {
                         <p className="error-color">{errors.website}</p>
                       )} */}
                       <br></br>
-                      {/* <input
-                        required={true}
-                        value={company.companyForm.date_founded}
-                        onChange={(e) =>
-                          dispatch(
-                            setCompanyForm({
-                              ...company.companyForm,
-                              date_founded: e.target.value,
-                            })
-                          )
-                        }
-                        onBlur={validateDate}
-                        type="date"
-                        name="date"
-                        id="dateid2"
-                        placeholder="date funded 12/12/21"
-                        className=" companyInput mb-4"
-                      /> */}
-                      {/* {errors.date && (
-                        <p className="error-color">{errors.date}</p>
-                      )} */}
+
                     </div>
 
                     <Box>
@@ -628,7 +534,7 @@ const CalledPagesPageOnePages = () => {
                         </div>
 
                         {/* {formImage && (
-                  
+
                   )} */}
                         {formImage ? (
                           <div className="">

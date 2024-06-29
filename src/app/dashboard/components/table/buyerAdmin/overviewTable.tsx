@@ -101,7 +101,7 @@ const OverviewTable: React.FC<OverviewTableProps> = ({ isLoading, overviewList }
       </div>
     )}
     {selectedOrderId && (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-white">
+      <div className="ml-[18%] fixed inset-0 z-50 flex items-center justify-center bg-white">
         <div className="w-full h-full overflow-auto">
           <ViewParticularOrderDetailsPage />
         </div>

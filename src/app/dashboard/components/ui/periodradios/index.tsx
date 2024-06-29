@@ -70,9 +70,16 @@ interface PeriodRadiosProps {
 const Index: React.FC<PeriodRadiosProps> = ({ activityPeriod, onPeriodChange }) => {
   const [selectedValue, setSelectedValue] = useState("month");
 
-  const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedValue(event.target.value);
-  };
+    const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      const newValue = event.target.value;
+      setSelectedValue(newValue);
+      onPeriodChange(newValue);
+    };
+
+  // const changeToYear = () => {
+  //   setSelectedValue("year");
+  //   onPeriodChange("year");
+  // };
 
   return (
     <FormControl>

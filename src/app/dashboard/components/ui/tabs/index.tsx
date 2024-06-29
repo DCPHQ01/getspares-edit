@@ -4,7 +4,7 @@ import React, { useState } from "react";
 interface TabsProps {
   tabs: { label: string; count?: number; status: string }[];
   activeTab: string;
-  onTabChange: (status: string) => void;
+  onTabChange?: (status: string) => void;
 }
 
 // function Index({ tabs }: { tabs: { label: string; count: string }[] }) {
@@ -23,7 +23,7 @@ interface TabsProps {
                 : ""
             }`}
             // onClick={() => setActiveTab(tab.label)}
-            onClick={() => onTabChange(tab.status)}
+            onClick={() => onTabChange ? onTabChange(tab.status) : null}
           >
             {tab.label}({tab.count})
           </button>

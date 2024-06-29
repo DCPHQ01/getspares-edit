@@ -1,10 +1,11 @@
 "use client";
 import React,{ useEffect, useState } from "react";
 import Link from "next/link";
+// @ts-ignore
 import styles from "../styles.module.css";
 import { AccountCircle } from "@mui/icons-material";
-import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
-import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
+// import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
+// import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
@@ -13,6 +14,7 @@ import { format } from "../../../../../components/utils";
 import { MdYard } from "react-icons/md";
 import dayjs from "dayjs";
 import { MdInventory2 } from 'react-icons/md';
+import {formatDateTime} from "../../../../../components/utils/utils";
 
 
 interface Vendor {
@@ -30,11 +32,11 @@ interface VendorTableProps {
   isLoading?: boolean;
 }
 
-const formatDateTime = (dateTime: string) => {
-  const date = dayjs(dateTime).format("DD-MM-YYYY");
-  const time = dayjs(dateTime).format("HH:mm");
-  return { date, time };
-};
+// const formatDateTime = (dateTime: string) => {
+//   const date = dayjs(dateTime).format("DD-MM-YYYY");
+//   const time = dayjs(dateTime).format("HH:mm");
+//   return { date, time };
+// };
 
 
 // const data = [
@@ -176,15 +178,15 @@ const VendorTable: React.FC<VendorTableProps>  = ({vendorList, isLoading}) => {
         <table id="adminTable" className={`w-full `}>
           <thead className="">
             <tr className="truncate">
-              <th id="companyNameHeader">Company name</th>
-              <th id="totalItemsSoldHeader">Total items sold</th>
-              <th id="transactionValueHeader" style={{ paddingLeft: "2.3rem" }}>
+              <th id="companyNameHeader" className={`sticky`}>Company name</th>
+              <th id="totalItemsSoldHeader" className={`sticky`}>Total items sold</th>
+              <th id="transactionValueHeader" className={`sticky`} style={{ paddingLeft: "2.3rem" }}>
                 Transaction value
               </th>
-              <th id="transactionRatings" style={{ paddingLeft: "5.5rem" }}>
+              <th id="transactionRatings" className={`sticky z-10`} style={{ paddingLeft: "5.5rem" }}>
                 Ratings
               </th>
-              <th id="dateTimeJoinedHeader">Date & time joined</th>
+              <th id="dateTimeJoinedHeader" className={`sticky`}>Date & time joined</th>
             </tr>
           </thead>
           <tbody >
@@ -266,6 +268,7 @@ const VendorTable: React.FC<VendorTableProps>  = ({vendorList, isLoading}) => {
                           name="half-rating"
                           defaultValue={d.ratings}
                           precision={0.5}
+                          disabled={true}
                         />
                       </Stack>
                       <p className="mt-[2px]"></p>
