@@ -36,7 +36,7 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
     if (storedOrderId) {
       setSelectedOrderId(storedOrderId);
     }
-  }, []);
+  }, [selectedOrderId]);
 
   const handleDetails = (orderId: string) => {
     sessionStorage.setItem("selectedOrderId", orderId);
