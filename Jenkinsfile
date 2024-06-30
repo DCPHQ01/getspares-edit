@@ -13,6 +13,14 @@ pipeline {
     }
 
     stages {
+        stage('Print Environment Variables') {
+            steps {
+                script {
+                    // Print all environment variables for debugging
+                    sh 'printenv'
+                }
+            }
+        }
         stage('Checkout') {
             steps {
                 script {
