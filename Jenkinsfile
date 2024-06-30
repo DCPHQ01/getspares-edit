@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         EMAILS = 'joshua.o@semicolon.africa,ibrahim@semicolon.africa,emmanuel.e@semicolon.africa,prince@semicolon.africa,ashleyndabai@gmail.com,olawamidemoyinoluwamary@gmail.com,Ikennajames03@gmail.com,precious@semicolon.africa,asuelimenblessing630@gmail.com,Enubiakjoseph@gmail.com,henryokafor.dev@gmail.com,Paulineyahla@gmail.com'
-        SMTP_SERVER = 'semicolon.africa'
+        SMTP_SERVER = 'smtp.semicolon.africa'
         SMTP_PORT = 465
         SMTP_USERNAME = 'builds@semicolon.africa'
     }
@@ -16,8 +16,11 @@ pipeline {
         stage('Checkout') {
             steps {
                 script {
-                    // Checkout code
-                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/me-ca/e-meca-next-frontend.git']]])
+                    // Checkout code with PAT credentials
+                    checkout([$class: 'GitSCM',
+                        branches: [[name: '*/main']],
+                        userRemoteConfigs: [[url: 'https://github.com/me-ca/e-meca-next-frontend.git', credentialsId: 'github-pat']]
+                    ])
                     env.BRANCH_NAME = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
                 }
             }
