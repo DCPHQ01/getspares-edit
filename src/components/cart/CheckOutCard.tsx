@@ -11,12 +11,10 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 type Props = {
   cardCartItem: CartProduct;
-  closeDropDown?: () => void;
-
   getPrice?: () => void;
 };
 
-export const CheckOutCard = ({ cardCartItem, closeDropDown }: Props) => {
+export const CheckOutCard = ({ cardCartItem }: Props) => {
   const dispatch = useAppDispatch();
 
   const [visibleButtons, setVisibleButtons] = useState<{
@@ -75,7 +73,7 @@ export const CheckOutCard = ({ cardCartItem, closeDropDown }: Props) => {
   },[cardCartItem])
 
 
-  const removeItem = (e:MouseEvent, id: string) => {
+  const removeItem = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
     e.preventDefault()
     const filteredCart = cart.filter((item) => item.id !== id);
     console.log(filteredCart);
@@ -112,7 +110,7 @@ export const CheckOutCard = ({ cardCartItem, closeDropDown }: Props) => {
                 <div>
                   <div>
                     <MdMoreVert
-                      onClick={() => toggleButton(cardCartItem.id)}
+                      onClick={() => toggleButton(cardCartItem.id!)}
                       style={{
                         fontSize: "20px",
                         overflow: "hidden",
@@ -125,12 +123,12 @@ export const CheckOutCard = ({ cardCartItem, closeDropDown }: Props) => {
                   </div>
 
                   {visibleButtons[cardCartItem.id] && (
-                    <div onClick={() => toggleButton(cardCartItem.id)}>
+                    <div onClick={() => toggleButton(cardCartItem.id!)}>
                       <button
                         style={{
                           boxShadow: "0px 2px 8px 0px #63636333",
                         }}
-                        onClick={(e) => removeItem(e,cardCartItem.id)}
+                        onClick={(e) => removeItem(e,cardCartItem.id!)}
                         className="px-1 h-12 w-24 cursor-pointer bg-white rounded absolute "
                       >
                         <div className="flex items-center gap-1 w-20 h-9 m-auto hover:text-mecaErrorInputColor">
