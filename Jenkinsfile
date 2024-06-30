@@ -36,7 +36,7 @@ pipeline {
 
         stage('Build and Test') {
             when {
-                expression { return env.BRANCH_NAME == 'main' }
+                expression { return env.BRANCH_NAME == 'origin/main' }
             }
             steps {
                 script {
