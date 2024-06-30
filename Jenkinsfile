@@ -17,10 +17,7 @@ pipeline {
             steps {
                 script {
                     // Checkout code
-                    checkout([$class: 'GitSCM',
-                        branches: [[name: '*/main']],
-                        userRemoteConfigs: [[url: 'https://github.com/me-ca/e-meca-next-frontend.git', credentialsId: 'github-pat']]
-                    ])
+                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/me-ca/e-meca-next-frontend.git']]])
                     env.BRANCH_NAME = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
                 }
             }
@@ -28,9 +25,8 @@ pipeline {
 
         stage('Build and Test') {
             when {
-                branch 'main'
+                expression { return env.BRANCH_NAME == 'main' }
             }
-
             steps {
                 script {
                     // Setup Node.js
