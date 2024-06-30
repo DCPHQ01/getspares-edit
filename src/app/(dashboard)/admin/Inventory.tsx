@@ -98,7 +98,7 @@ function Inventory() {
           activeTab={activeTab}
           onTabChange={(status) => setActiveTab(status)}
           />
-          <SearchBox placeholder={`Search for buyers`} />
+          <SearchBox placeholder={`Search`} />
         </div>
 
         <InventoryTable inventoryData={inventory} isLoading={isLoading} status={""}/>

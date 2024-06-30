@@ -69,6 +69,7 @@ const Profile = () => {
   }, [router]);
 
   const fullName = `${formData.firstName} ${formData.lastName}`;
+
   return (
     <div>
       <Header subtitle={``} title={`Profile`} amount={``} />

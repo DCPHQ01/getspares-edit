@@ -235,6 +235,8 @@ const InventoryTable: React.FC<InventoryTableProps> = ({inventoryData, isLoading
                           className="object-contain"
                           alt="Avatar"
                           id={`avatar_${index}`}
+                          width={1}
+                          height={1}
                         />
                       ) : (
                         <AccountCircle style={{ fontSize: 50 }} className=" text-gray-400" />
