@@ -22,6 +22,18 @@ pipeline {
             }
         }
 
+        stage('Check Node.js Version') {
+            steps {
+                script {
+                    // Print Node.js version
+                    sh 'node -v'
+                    
+                    // Print npm version
+                    sh 'npm -v'
+                }
+            }
+        }
+
         stage('Checkout') {
             steps {
                 script {
