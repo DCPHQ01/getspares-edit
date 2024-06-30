@@ -4,7 +4,7 @@ import part from "../../../../assets/images/parts.png";
 import star from "../../../../assets/images/Star.png";
 import Image from "next/image";
 
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useLayoutEffect, useState } from "react";
 
 import {
   Accordion,
@@ -28,7 +28,7 @@ import SideFilter from "../../sideFilter";
 import TopBarWhileInside from "../../../reusables/TopBarWhileInside/page";
 import { useGetProductInCategoryQuery } from "../../../../redux/features/users/authQuery";
 import { ColorRing } from "react-loader-spinner";
-import {formatAmount} from "../../../../components/utils";
+import { formatAmount } from "../../../../components/utils";
 
 interface ItemsDataProps {
   id: number;
@@ -36,9 +36,8 @@ interface ItemsDataProps {
   rating: number;
   price: string;
   image?: any;
-  name:string;
+  name: string;
 }
-
 
 export default function Products() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -63,18 +62,21 @@ export default function Products() {
     router.push(`/category/products/${searches}/${id}`);
   };
 
-  const { data, isLoading } = useGetProductInCategoryQuery({
+  const { data, isFetching } = useGetProductInCategoryQuery({
     categoryId,
     pageNumber: 0,
     pageSize: 100,
   });
-  console.log("data for categories ", data?.data?.content);
+  console.log("data for categories: ", data);
+  console.log("category id: ", categoryId);
+
   useEffect(() => {
-    const storedCategoryId = sessionStorage.getItem("categoryId");
-    if (storedCategoryId) {
-      setCategoryId(storedCategoryId);
+    const savedItems = sessionStorage.getItem("categoryId");
+    if (savedItems) {
+      setCategoryId(savedItems);
     }
   }, []);
+
   const filterData = [
     {
       id: 1,
@@ -102,29 +104,9 @@ export default function Products() {
         },
       ],
     },
+
     {
       id: 2,
-      title: "Model",
-      items: [
-        {
-          id: 1,
-          title: "New",
-          icon: <Checkbox />,
-        },
-        {
-          id: 2,
-          title: "Refurbished",
-          icon: <Checkbox />,
-        },
-        {
-          id: 3,
-          title: "Not specified",
-          icon: <Checkbox />,
-        },
-      ],
-    },
-    {
-      id: 3,
       title: "Conditions",
       items: [
         {
@@ -145,7 +127,7 @@ export default function Products() {
       ],
     },
     {
-      id: 4,
+      id: 3,
       title: "Price",
       items: [
         {
@@ -192,7 +174,7 @@ export default function Products() {
                   Home
                 </p>
                 <MdChevronRight size={20} />
-                <p className="font-nunito text-sm font-medium text-mecaGoBackArrow">
+                <p className="font-nunito text-sm font-medium text-mecaGoBackArrow capitalize">
                   {searchWords}
                 </p>
               </div>
@@ -201,7 +183,7 @@ export default function Products() {
                   className="flex justify-between items-center"
                   id="productHeader"
                 >
-                  <h1 className="text-lg font-semibold font-nunito text-mecaDarkBlueBackgroundOverlay">
+                  <h1 className="text-lg font-semibold capitalize font-nunito text-mecaDarkBlueBackgroundOverlay">
                     {searchWords}
                   </h1>
                   <div className="w-[60px] h-[24px]" id="filterButtonDiv">
@@ -221,21 +203,21 @@ export default function Products() {
                   className="mt-4 w-full flex items-center flex-wrap gap-x-5"
                   id="allItemsContainerDiv"
                 >
-                  {isLoading ? (
-                    <div className="w-full h-screen flex justify-center items-center">
+                  {isFetching ? (
+                    <div className="w-full h-[615px] flex justify-center items-center">
                       <ColorRing
                         visible={true}
-                        height="80"
-                        width="80"
+                        height="100"
+                        width="100"
                         ariaLabel="color-ring-loading"
                         wrapperStyle={{}}
                         wrapperClass="color-ring-wrapper"
                         colors={[
-                          "white",
-                          "white",
-                          "white",
-                          "white",
-                          "white",
+                          "#000000",
+                          "#000000",
+                          "#000000",
+                          "#000000",
+                          "#000000",
                         ]}
                       />
                     </div>
@@ -295,7 +277,10 @@ export default function Products() {
                             </p>
                           </div>
                           <div className="hidden md:flex justify-between items-center lg:hidden">
-                            <TruncateText text={item.description} maxLength={25} />
+                            <TruncateText
+                              text={item.description}
+                              maxLength={25}
+                            />
                             <div
                               id="ratingContainerTabDiv"
                               className="flex items-center"
@@ -331,119 +316,126 @@ export default function Products() {
             className="flex items-center gap-2 mt-56 px-8"
             id="breadCrumbsDivDesktop"
           >
-            <p className="font-nunito text-sm font-medium text-mecaDarkBlueBackgroundOverlay">
+            <p
+              className="font-nunito cursor-pointer text-sm font-medium text-mecaDarkBlueBackgroundOverlay"
+              onClick={() => router.push("/")}
+            >
               Home
             </p>
             <MdChevronRight size={20} />
-            <p className="font-nunito text-sm font-medium text-mecaGoBackArrow">
-              {searchWords}
+            <p className="font-nunito text-sm capitalize font-medium text-mecaGoBackArrow">
+              {decodeURIComponent(searchWords)}
             </p>
           </div>
           <div
             className="mt-4 flex justify-between items-center px-8"
             id="laptopContent"
           >
-            <p className="text-2xl text-mecaDarkBlueBackgroundOverlay font-bold font-nunito">
-              {searchWords}
+            <p className="text-2xl capitalize text-mecaDarkBlueBackgroundOverlay font-bold font-nunito">
+              {decodeURIComponent(searchWords)}
             </p>
-            <div className="flex gap-x-2 items-center" id="toggler/header">
-              <p className="text-sm text-mecaDarkBlueBackgroundOverlay font-normal font-nunito">
-                Hide filters
-              </p>
-              <Switches onClick={handleToggleFilter} />
-            </div>
+            {data?.data?.content?.length > 0 && (
+              <div className="flex gap-x-2 items-center" id="toggler/header">
+                <p className="text-sm text-mecaDarkBlueBackgroundOverlay font-normal font-nunito">
+                  Hide filters
+                </p>
+                <Switches onClick={handleToggleFilter} />
+              </div>
+            )}
           </div>
           <div
             className="mt-8 px-8 flex gap-x-4 justify-between"
             id="filterDivForDesktopContainer"
           >
-            <div
-              className={`flex flex-col ${showFilter ? "w-[28%]" : "hidden"}`}
-              id="filterSideBarContainer"
-            >
-              <p className="text-lg font-medium text-nunito text-mecaDarkBlueBackgroundOverlay">
-                Filter by
-              </p>
-              {filterData.map((data) => (
-                <div className="-ml-4" id="navDatum" key={data.id}>
-                  <Accordion
-                    defaultExpanded
-                    className="w-full"
-                    style={{ boxShadow: "none" }}
-                  >
-                    <AccordionSummary
-                      expandIcon={<MdExpandMore size={28} />}
-                      aria-controls="panel1a-content"
-                      id="panel1a-header"
+            {data?.data?.content?.length > 0 && (
+              <div
+                className={`flex flex-col ${showFilter ? "w-[28%]" : "hidden"}`}
+                id="filterSideBarContainer"
+              >
+                <p className="text-lg font-medium text-nunito text-mecaDarkBlueBackgroundOverlay">
+                  Filter by
+                </p>
+                {filterData.map((data) => (
+                  <div className="-ml-4" id="navDatum" key={data.id}>
+                    <Accordion
+                      defaultExpanded
+                      className="w-full"
+                      style={{ boxShadow: "none" }}
                     >
-                      <p className="text-mecaGoBackText text-[16px] font-semibold font-nunito capitalize">
-                        {data.title}
-                      </p>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                      <div className="flex flex-col gap-y-4">
-                        <FormControl>
-                          <RadioGroup
-                            aria-labelledby="demo-radio-buttons-group-label"
-                            name="radio-buttons-group"
-                            defaultValue={data.items[0].title}
-                          >
-                            {data.items.map((item: any) => (
-                              <div
-                                className="flex items-center gap-4"
-                                key={item.id}
-                                id="checkboxItemList"
-                              >
-                                <FormControlLabel
-                                  className="text-mecaGoBackText text-sm font-nunito"
-                                  control={item.icon}
-                                  label={`${item.title}`}
-                                />
-                              </div>
-                            ))}
-                          </RadioGroup>
-                        </FormControl>
-                      </div>
-                    </AccordionDetails>
-                  </Accordion>
+                      <AccordionSummary
+                        expandIcon={<MdExpandMore size={28} />}
+                        aria-controls="panel1a-content"
+                        id="panel1a-header"
+                      >
+                        <p className="text-mecaGoBackText text-[16px] font-semibold font-nunito capitalize">
+                          {data.title}
+                        </p>
+                      </AccordionSummary>
+                      <AccordionDetails>
+                        <div className="flex flex-col gap-y-4">
+                          <FormControl>
+                            <RadioGroup
+                              aria-labelledby="demo-radio-buttons-group-label"
+                              name="radio-buttons-group"
+                              defaultValue={data.items[0].title}
+                            >
+                              {data.items.map((item: any) => (
+                                <div
+                                  className="flex items-center gap-4"
+                                  key={item.id}
+                                  id="checkboxItemList"
+                                >
+                                  <FormControlLabel
+                                    className="text-mecaGoBackText text-sm font-nunito"
+                                    control={item.icon}
+                                    label={`${item.title}`}
+                                  />
+                                </div>
+                              ))}
+                            </RadioGroup>
+                          </FormControl>
+                        </div>
+                      </AccordionDetails>
+                    </Accordion>
+                  </div>
+                ))}
+                <div className="mt-8 flex flex-col justify-center gap-y-4 w-[273px] h-[100px]">
+                  <button
+                    type="button"
+                    className="w-full h-[48px] bg-mecaBluePrimaryColor text-white font-nunito font-semibold text-sm rounded-full"
+                    id="applyFilterButton"
+                  >
+                    Apply Filter
+                  </button>
+                  <button
+                    type="button"
+                    className="w-full h-[48px] border border-mecaBluePrimaryColor text-mecaBluePrimaryColor font-nunito font-semibold text-sm rounded-full"
+                    id="clearFilterButton"
+                  >
+                    Cancel Filter
+                  </button>
                 </div>
-              ))}
-              <div className="mt-8 flex flex-col justify-center gap-y-4 w-[273px] h-[100px]">
-                <button
-                  type="button"
-                  className="w-full h-[48px] bg-mecaBluePrimaryColor text-white font-nunito font-semibold text-sm rounded-full"
-                  id="applyFilterButton"
-                >
-                  Apply Filter
-                </button>
-                <button
-                  type="button"
-                  className="w-full h-[48px] border border-mecaBluePrimaryColor text-mecaBluePrimaryColor font-nunito font-semibold text-sm rounded-full"
-                  id="clearFilterButton"
-                >
-                  Cancel Filter
-                </button>
               </div>
-            </div>
+            )}
             <div
               className="flex flex-wrap justify-between w-full"
               id="allItemsContainerDivDesktop"
             >
-              {isLoading ? (
-                <div className="w-full h-screen flex justify-center items-center">
+              {isFetching ? (
+                <div className="w-full h-[615px] flex justify-center items-center">
                   <ColorRing
                     visible={true}
-                    height="80"
-                    width="80"
+                    height="100"
+                    width="100"
                     ariaLabel="color-ring-loading"
                     wrapperStyle={{}}
                     wrapperClass="color-ring-wrapper"
                     colors={[
-                      "#00A3FF",
-                      "#FFD300",
-                      "#00A3FF",
-                      "#FFD300",
-                      "#FF0000",
+                      "#000000",
+                      "#000000",
+                      "#000000",
+                      "#000000",
+                      "#000000",
                     ]}
                   />
                 </div>
