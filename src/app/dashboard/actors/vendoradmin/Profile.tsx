@@ -10,17 +10,18 @@ import TextareaAutosize from "@mui/material/TextareaAutosize";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import { useGetUserAllUsersProfileQuery } from "../../../../redux/features/profile/profileQuery";
+import {useGetCompanyProfileQuery} from "../../../../redux/features/company/companyQuery";
 
 interface viewProfilesForActors {
-  id: string;
-  name: string;
-  description: string;
-  cac: string;
-  companyEmail: string;
-  imageUrl: string;
-  location: string;
-  websiteUrl: string;
-  timeStamp: string;
+  name?: string;
+  description?: string;
+  cac?: string;
+  companyEmail?: string;
+  imageUrl?: string;
+  address1?: string;
+  address2?: string;
+  websiteUrl?: string;
+  phoneNumber?: string;
 }
 
 const style = {
@@ -76,19 +77,19 @@ const Profile = () => {
     setViewAdminProfile(false);
   };
 
-  const { data } = useGetUserAllUsersProfileQuery({});
+  const { data, isLoading, isError } = useGetCompanyProfileQuery({});
   console.log("profile details", data);
 
   const [viewProfile, setViewProfile] = useState<viewProfilesForActors>({
-    id: "",
     name: "",
     description: "",
     cac: "",
     companyEmail: "",
     imageUrl: "",
-    location: "",
+    address1: "",
+    address2: "",
     websiteUrl: "",
-    timeStamp: "",
+    phoneNumber:''
   });
 
   useEffect(() => {
@@ -149,7 +150,6 @@ const Profile = () => {
                 <Header
                   subtitle={``}
                   title={`${viewProfile.name}`}
-                  amount={``}
                 />
               </div>
 
@@ -157,7 +157,6 @@ const Profile = () => {
                 <Header
                   subtitle={`${viewProfile.companyEmail}`}
                   title={``}
-                  amount={``}
                 />
               </div>
             </div>
@@ -200,11 +199,11 @@ const Profile = () => {
 
           <div className="flex gap-x-4">
             <div
-              className="lg:w-[364px] h-16 pl-5 pt-3 w-[100%] 2xl:w-[35rem] rounded  bg-mecaBorderColor"
+              className="text-wrap lg:w-[364px] pl-5 pt-3 w-[100%] 2xl:w-[35rem] rounded  bg-mecaBorderColor"
               style={{ backgroundColor: "porcelain" }}
             >
               <p className="text-xs text-gray-500">Address1</p>
-              <p>{viewProfile.location}</p>
+              <p>{viewProfile.address1}</p>
             </div>
 
             <div
@@ -212,7 +211,7 @@ const Profile = () => {
               style={{ backgroundColor: "porcelain" }}
             >
               <p className="text-xs text-gray-500">Address2</p>
-              <p>{viewProfile.location}</p>
+              <p>{viewProfile.address2}</p>
             </div>
           </div>
 
@@ -230,7 +229,7 @@ const Profile = () => {
               style={{ backgroundColor: "porcelain" }}
             >
               <p className="text-xs text-gray-500">Phone Number</p>
-              <p>{viewProfile.companyEmail}</p>
+              <p>{viewProfile.phoneNumber}</p>
             </div>
           </div>
         </div>

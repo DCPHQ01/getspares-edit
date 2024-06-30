@@ -14,15 +14,15 @@ import "../../../../../styles/addCompanyPageStyle/addCompanyModal.css";
 import { useGetUserAllUsersProfileQuery } from "../../../../../redux/features/profile/profileQuery";
 
 interface viewProfilesForActors {
-  id: string;
-  name: string;
-  description: string;
-  cac: string;
-  companyEmail: string;
-  imageUrl: string;
-  location: string;
-  websiteUrl: string;
-  timeStamp: string;
+  name?: string;
+  description?: string;
+  cac?: string;
+  companyEmail?: string;
+  imageUrl?: string;
+  address1?: string;
+  address2?: string;
+  websiteUrl?: string;
+  phoneNumber?: string;
 }
 
 const style = {
@@ -80,15 +80,15 @@ const Profile = () => {
   console.log("profile details", data);
 
   const [viewProfile, setViewProfile] = useState<viewProfilesForActors>({
-    id: "",
     name: "",
     description: "",
     cac: "",
     companyEmail: "",
     imageUrl: "",
-    location: "",
+    address1: "",
+    address2: "",
     websiteUrl: "",
-    timeStamp: "",
+    phoneNumber:''
   });
 
   useEffect(() => {
@@ -105,11 +105,13 @@ const Profile = () => {
             className="bg-mecaActiveBackgroundNavColor text-mecaBluePrimaryColor w-16 h-16 text-4xl -z-50"
             {...stringAvatar(`${viewProfile.name}`)}
           />
-          <Header
-            subtitle={`${viewProfile.companyEmail}`}
-            title={`${viewProfile.name}`}
-            amount={``}
-          />
+          <div>
+            <Header
+               subtitle={`${viewProfile.companyEmail}`}
+               title={`${viewProfile.name}`}
+               amount={``}
+            />
+          </div>
         </div>
         <div onClick={handleViewAdminProfile} className="">
           <button
@@ -132,7 +134,7 @@ const Profile = () => {
           <Box
             sx={{ ...style }}
             onClick={handleClose}
-            className="w-[90%] h-[399px] rounded-lg 
+            className="w-[90%] h-[399px] rounded-lg
             "
           >
             <div className=" mt-6 ">
@@ -197,19 +199,19 @@ const Profile = () => {
 
           <div className="flex gap-x-4">
             <div
-              className="lg:w-[364px] h-16 pl-5 pt-3 w-[100%] 2xl:w-[35rem] rounded  bg-mecaBorderColor"
+              className="text-wrap lg:w-[364px] pl-5 pt-3 w-[100%] 2xl:w-[35rem] rounded  bg-mecaBorderColor"
               style={{ backgroundColor: "porcelain" }}
             >
               <p className="text-xs text-gray-500">Address1</p>
-              <p>{viewProfile.location}</p>
+              <p>{viewProfile.address1}</p>
             </div>
 
             <div
-              className="lg:w-[364px] h-16 pl-5 pt-3 w-[100%] 2xl:w-[35rem] rounded  bg-mecaBorderColor"
+              className="lg:w-[364px] pl-5 pt-3 w-[100%] 2xl:w-[35rem] rounded  bg-mecaBorderColor"
               style={{ backgroundColor: "porcelain" }}
             >
               <p className="text-xs text-gray-500">Address2</p>
-              <p>{viewProfile.location}</p>
+              <p>{viewProfile.address2}</p>
             </div>
           </div>
           <div className="flex gap-x-4 mt-5">

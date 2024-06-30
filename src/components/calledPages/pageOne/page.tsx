@@ -96,6 +96,14 @@ const CalledPagesPageOnePages: React.FC<PageOneProps> = ({companyData}) => {
   const [date, setDate] = useState("");
   const [image, setImage] = useState<File | null>(null);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const initialFormState = {
+    name: "",
+    cac: "",
+    description: "",
+    website: "",
+  };
+  const [inputs, setInputs] = useState(initialFormState);
+
 
   const validateWebsite = () => {
     const websiteRegex =
@@ -212,32 +220,21 @@ const CalledPagesPageOnePages: React.FC<PageOneProps> = ({companyData}) => {
     dispatch(setCurrentStep(1));
   };
 
-  // const populateData = (userData) => {
-  //   const userDataKeys = Object.keys(companyForm)
-  //   if(userData){
-  //     userDataKeys.forEach(key => {
-  //         dispatch(
-  //            setCompanyForm({
-  //              ...companyForm,
-  //              [key]: userData[key] ? userData[key] : '',
-  //            })
-  //         )
-  //     })
-  //   }
-  // }
+  const populateData = (userData:any) => {
+    const userDataKeys = Object.keys(inputs)
+    if(userData){
+      userDataKeys.forEach(key => {
+        setInputs((values) => ({ ...values, [key]: userData[key] ? userData[key] : '' }));
+      })
+    }
+  }
 
 
   useEffect(() => {
     if(companyData){
-      // populateData(companyData)
-      dispatch(
-         setCompanyForm(
-           companyData
-         )
-      )
+      populateData(companyData)
     }
   },[companyData])
-
 
   return (
     <>
@@ -256,7 +253,6 @@ const CalledPagesPageOnePages: React.FC<PageOneProps> = ({companyData}) => {
               </div>
             </div>
 
-            {/* here */}
 
             <Box
               component="form"
@@ -266,7 +262,7 @@ const CalledPagesPageOnePages: React.FC<PageOneProps> = ({companyData}) => {
               onSubmit={handleSubmit}
               autoComplete="off"
             >
-              <Box>
+              <Box className={'flex flex-col gap-8'}>
                 <Box>
                   <TextField
                     required={true}
@@ -279,19 +275,12 @@ const CalledPagesPageOnePages: React.FC<PageOneProps> = ({companyData}) => {
                     InputProps={{ disableUnderline: true }}
                     className="lg:w-[364px] w-[100%] mb-10 2xl:w-[35rem]"
                     sx={{ backgroundColor: "porcelain" }}
-                    value={companyForm?.name}
-                    onChange={(e) =>
-                      dispatch(
-                        setCompanyForm({
-                          ...companyForm,
-                          name: e.target.value,
-                        })
-                      )
-                    }
+                    value={inputs.name}
                     onBlur={validateFullName}
                   />
                 </Box>
                 <Box>
+
                   <TextField
                     required={true}
                     id="filledbasic"
@@ -303,44 +292,28 @@ const CalledPagesPageOnePages: React.FC<PageOneProps> = ({companyData}) => {
                     InputProps={{ disableUnderline: true }}
                     className="lg:w-[364px] w-[100%] mb-10 2xl:w-[35rem]"
                     sx={{ backgroundColor: "porcelain" }}
-                    value={companyForm?.cac}
-                    onChange={(e) =>
-                      dispatch(
-                        setCompanyForm({
-                          ...companyForm,
-                          cac: e.target.value.toUpperCase(),
-                        })
-                      )
-                    }
+                    value={inputs.cac}
                     onBlur={validateCac}
                   />
                 </Box>
                 <Box>
-                  <p>Description</p>
-                  <TextareaAutosize
-                    required={true}
-                    value={companyForm?.description}
-                    onChange={(e) =>
-                      dispatch(
-                        setCompanyForm({
-                          ...companyForm,
-                          description: e.target.value,
-                        })
-                      )
-                    }
-                    onBlur={validateMessage}
-                    id="filledbasic"
-                    aria-label="Description"
-                    name="description"
-                    placeholder="Say something about your company"
-                    className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem]"
-                    style={{
-                      backgroundColor: "#EFF2F3",
-                      height: "223px",
-                      borderColor: "none",
-                      padding: "20px",
-                    }}
+                  <TextField
+                     required={true}
+                     id="filledbasic"
+                     label="Description"
+                     variant="filled"
+                     type="text"
+                     name="cacNumber"
+                     multiline
+                     minRows={7}
+                     maxRows={9}
+                     placeholder="Say something about your company"
+                     InputProps={{ disableUnderline: true }}
+                     className="lg:w-[364px] w-[100%] mb-10 2xl:w-[35rem]"
+                     sx={{ backgroundColor: "porcelain" }}
+                     value={inputs.description}
                   />
+
                   {/* {errors.message && (
                     <p className="error-color">{errors.message}</p>
                   )} */}
@@ -348,15 +321,7 @@ const CalledPagesPageOnePages: React.FC<PageOneProps> = ({companyData}) => {
                 <Box>
                   <TextField
                     required={true}
-                    value={companyForm?.website}
-                    onChange={(e) =>
-                      dispatch(
-                        setCompanyForm({
-                          ...companyForm,
-                          website: e.target.value,
-                        })
-                      )
-                    }
+                    value={inputs.website}
                     onBlur={validateWebsite}
                     type="url"
                     id="filledbasic"
@@ -372,38 +337,6 @@ const CalledPagesPageOnePages: React.FC<PageOneProps> = ({companyData}) => {
                     <p className="error-color -mt-8">{errors.website}</p>
                   )}
                 </Box>
-                {/* <Box>
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DemoContainer components={["DatePicker"]}>
-                      <DemoItem
-                        label={
-                          <Label
-                            componentName="Date Founded"
-                            valueType="date"
-                          />
-                        }
-                      >
-                        <DatePicker
-                          sx={{ width: "356px" }}
-                          onChange={(date) => {
-                            const formattedDate = date
-                              ? date.format("YYYY-MM-DD")
-                              : null;
-                            console.log(formattedDate);
-                            if (formattedDate) {
-                              sessionStorage.setItem(
-                                "date_founded",
-                                formattedDate
-                              );
-                            } else {
-                              sessionStorage.removeItem("date_founded");
-                            }
-                          }}
-                        />
-                      </DemoItem>
-                    </DemoContainer>
-                  </LocalizationProvider>
-                </Box> */}
               </Box>
               <Box>
                 <div className="inputImage imagetext h-[283px] w-[316px] pt-6">
@@ -583,27 +516,7 @@ const CalledPagesPageOnePages: React.FC<PageOneProps> = ({companyData}) => {
                         <p className="error-color">{errors.website}</p>
                       )} */}
                       <br></br>
-                      {/* <input
-                        required={true}
-                        value={company.companyForm.date_founded}
-                        onChange={(e) =>
-                          dispatch(
-                            setCompanyForm({
-                              ...company.companyForm,
-                              date_founded: e.target.value,
-                            })
-                          )
-                        }
-                        onBlur={validateDate}
-                        type="date"
-                        name="date"
-                        id="dateid2"
-                        placeholder="date funded 12/12/21"
-                        className=" companyInput mb-4"
-                      /> */}
-                      {/* {errors.date && (
-                        <p className="error-color">{errors.date}</p>
-                      )} */}
+
                     </div>
 
                     <Box>
