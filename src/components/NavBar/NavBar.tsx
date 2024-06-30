@@ -73,23 +73,19 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
   const closeDropdown = () => {
     setActive(null);
   };
-  const [savedCardItems, setSavedCartItems] = useState<CartProduct[]>([]);
 
   const { cart } = useAppSelector((state) => state.product);
-  useEffect(() => {
-    const saveCartItems = JSON.parse(
-      localStorage.getItem("savedCartItems") as string
-    ) as CartProduct[];
-    if (saveCartItems) {
-      setSavedCartItems(saveCartItems);
-    }
-  }, []);
+
+  const saveCartItems = JSON.parse(
+     localStorage.getItem("savedCartItems") as string
+  ) as CartProduct[];
+
 
   useEffect(() => {
-    if (cart.length === 0 && savedCardItems) {
-      dispatch(setCart(savedCardItems));
+    if (cart.length === 0 && saveCartItems && saveCartItems.length > 0) {
+      dispatch(setCart(saveCartItems));
     }
-  }, [cart, savedCardItems]);
+  }, [cart, saveCartItems]);
 
   const handleStartShopping = () => {
     router.push(paths.toSignUp());

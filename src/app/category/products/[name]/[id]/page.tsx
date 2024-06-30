@@ -33,7 +33,7 @@ import {
 import { IoCloseCircleOutline } from "react-icons/io5";
 import TopBarWhileInside from "../../../../reusables/TopBarWhileInside/page";
 import { useAppDispatch, useAppSelector } from "../../../../../redux/hooks";
-import { addToCart } from "../../../../../redux/features/product/productSlice";
+import {addToCart, setCart} from "../../../../../redux/features/product/productSlice";
 import {
   useGetAProductQuery,
   useGetRelatedProductQuery,
@@ -96,6 +96,7 @@ export default function ProductDescription() {
   });
   const productId = usePathname()!.split("/")[4];
 
+
   const [visible, setVisible] = useState(false);
 
   const { data, isFetching } = useGetAProductQuery(productId, {
@@ -113,7 +114,7 @@ export default function ProductDescription() {
   const { data: relatedProductData } = useGetRelatedProductQuery(productId, {
     skip: !productId,
   });
-  console.log("first ", data);
+
   const handleNext = () => {
     if (carouselRef.current) carouselRef.current.next(0);
   };
@@ -126,12 +127,7 @@ export default function ProductDescription() {
 
   const { cart } = useAppSelector((state) => state.product);
 
-  useEffect(() => {
-    if (cart.length !== 0) {
-      let hasItem = cart.some((vendor) => vendor.id === data?.data?.id);
-      setVisible(hasItem);
-    }
-  }, [cart, data?.data]);
+
 
   const handleClick = (newState: SnackbarOrigin, val: any) => () => {
     let newArr = [];
@@ -150,12 +146,12 @@ export default function ProductDescription() {
         newArr.push(payload);
         finalArr = newArr.concat(savedCartItems);
         localStorage.setItem("savedCartItems", JSON.stringify(finalArr));
-        dispatch(addToCart(newArr));
+        dispatch(setCart(finalArr));
       }
     } else {
       newArr.push(payload);
       localStorage.setItem("savedCartItems", JSON.stringify(newArr));
-      dispatch(addToCart(newArr));
+      dispatch(setCart(newArr));
     }
 
     // setState({ ...newState, open: true });
@@ -164,6 +160,13 @@ export default function ProductDescription() {
     //   setState({ ...newState, open: false });
     // }, 3000);
   };
+
+  useEffect(() => {
+    if (cart.length !== 0) {
+      let hasItem = cart.some((vendor) => vendor.id === String(productId));
+      setVisible(hasItem);
+    }
+  }, [cart]);
 
   const formatPrice = (price: string, currency: string) => {
     return new Intl.NumberFormat("en-US", {

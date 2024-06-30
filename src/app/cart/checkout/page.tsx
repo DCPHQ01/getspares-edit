@@ -105,16 +105,15 @@ const Checkout = () => {
   };
 
   useEffect(() => {
-    let userDetails = sessionStorage.getItem('userDetails') || '';
-    const parsedUserDetails = JSON.parse(userDetails);
-    console.log("user details:", parsedUserDetails);
-    setFormData({
-      ...formData,
-      firstName: parsedUserDetails.firstName || '',
-      lastName: parsedUserDetails.lastName,
+    let parsedUserDetails = JSON.parse(sessionStorage.getItem('userDetails')!);
+    if(parsedUserDetails){
+      setFormData({
+        ...formData,
+        firstName: parsedUserDetails.firstName || '',
+        lastName: parsedUserDetails.lastName,
 
-    });
-
+      });
+    }
   }, [router]);
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
