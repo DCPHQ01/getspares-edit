@@ -35,9 +35,9 @@ pipeline {
         }
 
         stage('Build and Test') {
-            when {
-                expression { return env.BRANCH_NAME == '*/main' }
-            }
+            // when {
+            //     expression { return env.BRANCH_NAME == '*/main' }
+            // }
             steps {
                 script {
                     // Setup Node.js
