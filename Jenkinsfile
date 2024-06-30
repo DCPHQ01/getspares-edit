@@ -6,6 +6,7 @@ pipeline {
         SMTP_SERVER = 'smtp.semicolon.africa'
         SMTP_PORT = 465
         SMTP_USERNAME = 'builds@semicolon.africa'
+        SMTP_PASSWORD = '6xbZJUw&0coHCoB'
     }
 
     stages {
