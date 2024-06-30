@@ -41,12 +41,31 @@ pipeline {
                 script {
                     // Setup Node.js
                     tool name: 'nodejs-20', type: 'NodeJSInstallation'
+                    echo "Using Node.js version: ${tool name: 'nodejs-20', type: 'NodeJSInstallation'}"
+
+                    // Verify Node.js and npm versions
+                    sh 'node -v'
+                    sh 'npm -v'
 
                     // Install dependencies
                     sh 'npm install --force'
 
+                    // Check for errors in `npm install` command
+                    echo "Completed npm install"
+
+                    // Lint the code
+                    sh 'npm run lint'
+                    echo "Linting completed"
+
                     // Build
                     sh 'npm run build'
+                    // Check for errors in `npm run build` command
+                    echo "Build completed"
+
+                    // Run tests
+                    sh 'npm test'
+                    // Check for errors in `npm test` command
+                    echo "Tests completed"
 
                     // Set environment variables
                     def TIMESTAMP = sh(script: 'date +%Y%m%d%H%M%S', returnStdout: true).trim()
@@ -56,6 +75,7 @@ pipeline {
                     env.COMMIT_TITLE = sh(script: 'git log -1 --pretty=%s', returnStdout: true).trim()
                     env.COMMIT_MESSAGE = sh(script: 'git log -1 --pretty=%B', returnStdout: true).trim()
                     env.COMMIT_AUTHOR = sh(script: 'git log -1 --pretty=format:\'%an <%ae>\'', returnStdout: true).trim()
+                    
                     echo "Commit Details:"
                     echo "Title: ${env.COMMIT_TITLE}"
                     echo "Message: ${env.COMMIT_MESSAGE}"
