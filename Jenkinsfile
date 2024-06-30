@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         EMAILS = 'joshua.o@semicolon.africa,ibrahim@semicolon.africa,emmanuel.e@semicolon.africa,prince@semicolon.africa,ashleyndabai@gmail.com,olawamidemoyinoluwamary@gmail.com,Ikennajames03@gmail.com,precious@semicolon.africa,asuelimenblessing630@gmail.com,Enubiakjoseph@gmail.com,henryokafor.dev@gmail.com,Paulineyahla@gmail.com'
-        SMTP_SERVER = 'smtp.semicolon.africa'
+        SMTP_SERVER = 'semicolon.africa'
         SMTP_PORT = 465
         SMTP_USERNAME = 'builds@semicolon.africa'
     }
