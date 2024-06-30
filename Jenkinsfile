@@ -21,6 +21,7 @@ pipeline {
                 }
             }
         }
+
         stage('Checkout') {
             steps {
                 script {
@@ -30,14 +31,12 @@ pipeline {
                         userRemoteConfigs: [[url: 'https://github.com/me-ca/e-meca-next-frontend.git', credentialsId: 'githubcred']]
                     ])
                     env.BRANCH_NAME = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
+                    echo "Current Branch Name: ${env.BRANCH_NAME}"
                 }
             }
         }
 
         stage('Build and Test') {
-            // when {
-            //     expression { return env.BRANCH_NAME == '*/main' }
-            // }
             steps {
                 script {
                     // Setup Node.js
@@ -57,11 +56,16 @@ pipeline {
                     env.COMMIT_TITLE = sh(script: 'git log -1 --pretty=%s', returnStdout: true).trim()
                     env.COMMIT_MESSAGE = sh(script: 'git log -1 --pretty=%B', returnStdout: true).trim()
                     env.COMMIT_AUTHOR = sh(script: 'git log -1 --pretty=format:\'%an <%ae>\'', returnStdout: true).trim()
+                    echo "Commit Details:"
+                    echo "Title: ${env.COMMIT_TITLE}"
+                    echo "Message: ${env.COMMIT_MESSAGE}"
+                    echo "Author: ${env.COMMIT_AUTHOR}"
+                    echo "Tag: ${env.TAG}"
                 }
             }
         }
 
-        stage('Send build notifications') {
+        stage('Send Build Notifications') {
             steps {
                 script {
                     withCredentials([string(credentialsId: 'SMTP_PASSWORD', variable: 'SMTP_PASSWORD')]) {
@@ -107,8 +111,7 @@ pipeline {
     post {
         always {
             script {
-                def branchName = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
-                echo "Branch Name: ${branchName}"
+                echo "Branch Name: ${env.BRANCH_NAME}"
             }
         }
     }
