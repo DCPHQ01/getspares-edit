@@ -6,10 +6,7 @@ import Parts from "../../assets/images/parts.png";
 import { MdDeleteOutline, MdMoreVert } from "react-icons/md";
 import { formatAmount } from "../utils";
 import { useEffect, useState } from "react";
-import {
-  removeFromCart,
-  setCart,
-} from "../../redux/features/product/productSlice";
+import {setCart,} from "../../redux/features/product/productSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 type Props = {
@@ -71,28 +68,24 @@ export const CheckOutCard = ({ cardCartItem, closeDropDown }: Props) => {
     }));
   };
 
-  // useEffect(() => {
-  //   const savedCartItems = localStorage.getItem("savedCartItems");
-  //   if (savedCartItems) {
-  //     dispatch(setCart(JSON.parse(savedCartItems)));
-  //   }
-  // }, []);
-  useEffect(() => {
-    const savedCartItems = localStorage.getItem("savedCartItems");
-    if (savedCartItems) {
-      try {
-        const parsedItems = JSON.parse(savedCartItems);
-        dispatch(setCart(parsedItems));
-      } catch (error) {
-        console.error("Error parsing savedCartItems from localStorage:", error);
-      }
+  useEffect(()=> {
+    if(cardCartItem){
+      setQuantity(cardCartItem.quantity!)
     }
-  }, []);
-  const removeItem = (id: string) => {
+  },[cardCartItem])
+
+
+  const removeItem = (e:MouseEvent, id: string) => {
+    e.preventDefault()
     const filteredCart = cart.filter((item) => item.id !== id);
+    console.log(filteredCart);
 
     dispatch(setCart(filteredCart));
-    localStorage.setItem("savedCartItems", JSON.stringify(filteredCart));
+    if(filteredCart.length > 0) {
+      localStorage.setItem("savedCartItems", JSON.stringify(filteredCart));
+    }else {
+      localStorage.removeItem("savedCartItems");
+    }
   };
 
   return (
@@ -137,7 +130,7 @@ export const CheckOutCard = ({ cardCartItem, closeDropDown }: Props) => {
                         style={{
                           boxShadow: "0px 2px 8px 0px #63636333",
                         }}
-                        onClick={() => removeItem(cardCartItem.id)}
+                        onClick={(e) => removeItem(e,cardCartItem.id)}
                         className="px-1 h-12 w-24 cursor-pointer bg-white rounded absolute "
                       >
                         <div className="flex items-center gap-1 w-20 h-9 m-auto hover:text-mecaErrorInputColor">
@@ -164,7 +157,7 @@ export const CheckOutCard = ({ cardCartItem, closeDropDown }: Props) => {
               <div className="flex items-center justify-between  mt-5">
                 <div className={"flex items-center gap-2"}>
                   <div className="text-black font-normal text-sm">Quantity</div>
-                  {isInputVisible ? (
+                  {isInputVisible || Number(cardCartItem.quantity) > 9  ? (
                     <div className="flex gap-x-2 cursor-pointer">
                       <input
                         title="quantity"
