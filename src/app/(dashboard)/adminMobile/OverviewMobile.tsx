@@ -27,9 +27,9 @@ interface VendorData {
 };
 
 function Overview() {
-  const [activityPeriod, setActivityPeriod] = useState("monthly");
-  const handlePeriodChange = (newPeriod: string) => {
-    setActivityPeriod(newPeriod);
+  const [activityPeriod, setActivityPeriod] = useState("month");
+  const handlePeriodChange = () => {
+    setActivityPeriod((prevValue) => (prevValue === 'month' ? 'year' : 'month'));
   };
 
   const { data: mecaAdminOverviewData, isLoading } = useGetMecaAdminOverviewQuery({});
@@ -98,7 +98,10 @@ function Overview() {
                 title={`Top performing vendors`}
             />
             <div className="mt-5">
-              <PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange} />
+              <PeriodRadios
+                  activityPeriod={activityPeriod}
+                  onPeriodChange={handlePeriodChange}
+              />
             </div>
           </div>
           <OverviewTable data={topVendors} isLoading={isVendorsLoading} />

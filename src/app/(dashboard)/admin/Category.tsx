@@ -168,8 +168,8 @@ function Category() {
     }
   };
 
-  const handlePeriodChange = (newPeriod: string) => {
-    setActivityPeriod(newPeriod as string);
+  const handlePeriodChange = () => {
+    setActivityPeriod((prevValue) => (prevValue === 'month' ? 'year' : 'month'));
   };
 
   const handleNextPage = () => {
@@ -292,7 +292,7 @@ function Category() {
                 )}
 
                 <button
-                    id="addButton"
+                    id="addButton123"
                     onClick={handleSubmit}
                     className="bg-[#095AD3] flex justify-center items-center mt-8 w-[21rem] text-white rounded-full py-[0.38rem] px-[1.5rem]"
                 >
@@ -309,7 +309,7 @@ function Category() {
                   ) : (
                       <div
                           className="flex text-white items-center justify-center"
-                          id="addCategory"
+                          id="addCategory123"
                       >
                         Create category
                       </div>

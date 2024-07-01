@@ -38,13 +38,23 @@ function OverviewVendorMobile() {
     }
   }, [data])
 
+  let usersName: any;
+
+  useEffect(()=> {
+    const userName = (sessionStorage.getItem("userDetails"));
+    if(userName){
+      usersName=JSON.parse(userName);
+    }
+  },[])
+  const usersFirstName = usersName?.firstName;
+
   return (
     <>
       <div>
         <div className={`justify-between items-center`}>
           <Header
             subtitle={`Take a quick glance on what is happening with meca`}
-            name={`Ayodeji`}
+            name={usersFirstName}
           />
           <div className="mt-5 mb-5">
             <Link href={paths.toModalPage()}>

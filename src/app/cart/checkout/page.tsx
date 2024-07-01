@@ -145,6 +145,8 @@ const Checkout = () => {
         console.log(response.data.data);
         setOpen(true);
       }
+      localStorage.removeItem('savedCartItems');
+      router.push(`/`)
     } catch (error) {
       console.log(error);
     }
