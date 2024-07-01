@@ -1,5 +1,5 @@
 "use client";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { MdExpandLess, MdExpandMore } from "react-icons/md";
 import { useGetCategoryQuery } from "../../../../../redux/features/users/authQuery";
 
@@ -25,36 +25,34 @@ function Index() {
     name: string;
   }
 
- 
-
   const handleButtonClicked = () => {
     setClicked(!clicked);
   };
 
-  console.log('clicked: ', clicked);
+  console.log("clicked: ", clicked);
   const DropdownMenu = () => {
+    const { data, isLoading, isError } = useGetCategoryQuery({});
+    const [nameCategoryItems, setNameCategoryItems] = useState<
+      nameCategoryItem[]
+    >([]);
 
-    const{data,isLoading, isError} = useGetCategoryQuery({});
-    const [nameCategoryItems, setNameCategoryItems] = useState<nameCategoryItem[]>([]);
-
-    const categories = data?.data
+    const categories = data?.data;
     console.log("data for categories", categories);
 
-    
-
-    
     useEffect(() => {
       if (data && data.data) {
         setNameCategoryItems(data.data);
       }
     }, [data]);
-    console.log('nameCategoryItems: ', nameCategoryItems);
+    console.log("nameCategoryItems: ", nameCategoryItems);
 
     return (
       <div
         className={`absolute  mt-2 w-[20rem] cursor-pointer p-1 shadow-[0_2px_8px_0_rgba(0,0,0,0.2)] rounded-[8px] bg-white `}
       >
-        <div className={`mx-auto p-[0.75rem] h-96 scrollbar-none overflow-y-scroll`}>
+        <div
+          className={`mx-auto p-[0.75rem] h-96 scrollbar-none overflow-y-scroll`}
+        >
           {nameCategoryItems?.map((item, index) => (
             <button
               key={index}
@@ -83,7 +81,7 @@ function Index() {
   };
 
   return (
-    <div className="relative inline-block">
+    <div className="relative inline-block -z-50">
       <button
         className={`bg-[#F8FAFC] border cursor-pointer border-[#CDD5DF] inline-block rounded-full px-3 py-2 mb-[0.5rem]`}
         onClick={handleButtonClicked}
