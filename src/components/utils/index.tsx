@@ -101,6 +101,8 @@ export const formatAmount2 = (price: string | number) => {
 
     if (amountString.startsWith("NGN")) {
       amountString = amountString.replace("NGN", "").trim();
+    }else{
+
     }
 
     const amountNumber = Number(amountString);
@@ -118,12 +120,24 @@ export const formatAmount2 = (price: string | number) => {
   }
 };
 
-export const format = (price: string | number) => {
-  if (price !== undefined && price !== null) {
+// export const formatAmount3 = (price: string | number) => {
+//   if (price !== undefined && price !== null) {
+//     return new Intl.NumberFormat("en-US", {
+//       style: "currency",
+//       currency: "NGN",
+//     }).format(Number(price));
+//   } else {
+//     return "₦0.00";
+//   }
+// };
+
+export const formatAmount3 = (price: string) => {
+  if (price) {
+    const newStr = price.split(' ')
     return new Intl.NumberFormat("en-US", {
       style: "currency",
-      currency: "NGN",
-    }).format(Number(price));
+      currency: newStr[0] && 'NGN',
+    }).format(Number(newStr[1]));
   } else {
     return "₦0.00";
   }
