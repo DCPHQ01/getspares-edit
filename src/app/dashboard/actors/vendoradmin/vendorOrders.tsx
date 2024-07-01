@@ -61,7 +61,7 @@ function VendorOrders() {
          <div className={'h-[40rem] mt-5'}>
            <VendorOrderTable data={vendorOrderList} isLoading={isLoading} />
            <div className="">
-             {!hasOrders && !isLoading && (
+             {/*{!hasOrders && !isLoading && (*/}
                 <div className="h-28 mt-[15rem]">
                   <div className="flex justify-center">
                     <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
@@ -75,7 +75,7 @@ function VendorOrders() {
                     </p>
                   </div>
                 </div>
-             )}
+             {/*)}*/}
            </div>
          </div>
 
