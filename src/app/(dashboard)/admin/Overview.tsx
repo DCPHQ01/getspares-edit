@@ -26,7 +26,7 @@ interface VendorData {
 
 
 function Overview() {
-  const [activityPeriod, setActivityPeriod] = useState("monthly");
+  const [activityPeriod, setActivityPeriod] = useState("month");
   const { data: mecaAdminOverviewData,  isLoading} = useGetMecaAdminOverviewQuery({});
   const {data,  isLoading: isVendorsLoading, isError: isVendorsError,} = useGetTopPerformingVendorsQuery({ period: activityPeriod});
   const [adminOverview, setAdminOverview] = useState({});
@@ -44,9 +44,9 @@ function Overview() {
   // console.log("data", mecaAdminOverviewData);
 console.log("topVendors", topVendors);
 
-    const handlePeriodChange = (newPeriod: string) => {
-      setActivityPeriod(newPeriod);
-    };
+  const handlePeriodChange = () => {
+    setActivityPeriod((prevValue) => (prevValue === 'month' ? 'year' : 'month'));
+  };
 
     useEffect(() => {
       if(mecaAdminOverviewData?.data){
@@ -80,7 +80,10 @@ console.log("topVendors", topVendors);
             />
           </div>
 
-          <PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange}/>
+          <PeriodRadios
+              activityPeriod={activityPeriod}
+              onPeriodChange={handlePeriodChange}
+          />
         </div>
         <OverviewTable data={topVendors} isLoading={isVendorsLoading}/>
 

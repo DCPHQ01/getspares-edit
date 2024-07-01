@@ -8,9 +8,9 @@ import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 function AgentOverview() {
   // @ts-ignore
-  const [activityPeriod, setActivityPeriod] = useState("monthly"); 
-  const handlePeriodChange = (newPeriod: string) => {
-    setActivityPeriod(newPeriod);
+  const [activityPeriod, setActivityPeriod] = useState("month");
+  const handlePeriodChange = () => {
+    setActivityPeriod((prevValue) => (prevValue === 'month' ? 'year' : 'month'));
   };
   return (
     <>

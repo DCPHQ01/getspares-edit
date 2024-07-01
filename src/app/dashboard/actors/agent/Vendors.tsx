@@ -7,10 +7,11 @@ import VendorTable from "../../components/table/agentAdmin/vendorTable";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 function Vendors() {
-  const [activityPeriod, setActivityPeriod] = useState("monthly");
-  const handlePeriodChange = (newPeriod: string) => {
-    setActivityPeriod(newPeriod);
-  };
+  const [activityPeriod, setActivityPeriod] = useState("month");
+    const handlePeriodChange = () => {
+        setActivityPeriod((prevValue) => (prevValue === 'month' ? 'year' : 'month'));
+    };
+
   return (
     <>
       <div className={`flex items-center justify-between mb-[1.5rem]`}>
