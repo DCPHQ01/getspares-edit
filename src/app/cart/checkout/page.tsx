@@ -81,14 +81,29 @@ const Checkout = () => {
     paths.toHome();
   };
 
-  const getAllTotalPrice = () => {
-    if(cart.length !== 0){
-      let total = cart.map( item => (Number(item.amount) * Number(item.quantity))).reduce( (a,b) => a+b);
-      setTotalItemPrice(String(total))
-    }
-  }
+  // const getAllTotalPrice = () => {
+  //   if(cart.length !== 0){
+  //     let total = cart.map( item => (Number(item.amount) * Number(item.quantity))).reduce( (a,b) => a+b);
+  //     setTotalItemPrice(String(total))
+  //   }
+  // }
 
-  useLayoutEffect(()=>{
+  const getAllTotalPrice = () => {
+    let newTotal = "0";
+
+    if (cart.length !== 0) {
+      const total = cart
+         .map((item) => Number(item.amount) * Number(item.quantity))
+         .reduce((a, b) => a + b, 0);
+
+      newTotal = String(total);
+    }
+    if (totalItemPrice !== newTotal) {
+      setTotalItemPrice(newTotal);
+    }
+  };
+
+  useEffect(()=>{
     getAllTotalPrice()
 
   },[cart])

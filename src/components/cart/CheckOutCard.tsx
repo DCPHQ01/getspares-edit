@@ -76,7 +76,6 @@ export const CheckOutCard = ({ cardCartItem }: Props) => {
   const removeItem = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
     e.preventDefault()
     const filteredCart = cart.filter((item) => item.id !== id);
-    console.log(filteredCart);
 
     dispatch(setCart(filteredCart));
     if(filteredCart.length > 0) {

@@ -5,6 +5,7 @@ import { AccountCircle } from "@mui/icons-material";
 import { ColorRing } from "react-loader-spinner";
 import { formatAmount } from "../../../../../components/utils";
 import ViewParticularOrderDetailsPage from "../../../../category/products/viewDetails/viewParticularOrderDetails/page";
+import {formatAllDate, formatAllTime} from "../../utils/utils";
 
 interface Overview {
   orderId: string;
@@ -66,7 +67,6 @@ const OverviewTable: React.FC<OverviewTableProps> = ({ isLoading, overviewList }
           </thead>
           <tbody>
             {overviewList?.map((d, index) => {
-              const { date, time } = formatDateTime(d.dateCreated);
 
               return (
                 <tr
@@ -87,9 +87,9 @@ const OverviewTable: React.FC<OverviewTableProps> = ({ isLoading, overviewList }
                   </td>
                   <td id={`dateJoined_${index}`}>
                     <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
-                      <div id={`date_${index}`}>{date}</div>
+                      <div id={`date_${index}`}>{formatAllDate(d.dateCreated, 'DD:MM:YYYY')}</div>
                       <div className={`text-[#4B5565]`} id={`time_${index}`}>
-                        {time}
+                        {formatAllTime(d.dateCreated)}
                       </div>
                     </div>
                   </td>
