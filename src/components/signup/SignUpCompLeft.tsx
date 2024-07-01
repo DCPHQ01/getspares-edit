@@ -62,6 +62,8 @@ interface State extends SnackbarOrigin {
   open: boolean;
 }
 
+const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
 type RegisterError = string | { data: { password?: string; message?: string } };
 
 const SignUpComponentLeft = () => {
@@ -75,12 +77,17 @@ const SignUpComponentLeft = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [registerError, setRegisterError] = useState<RegisterError>("");
   const router = useRouter();
+  const [emailError, setEmailError] = useState<string | null>(null);
 
   const [state, setState] = React.useState<State>({
     open: false,
     vertical: "top",
     horizontal: "center",
   });
+
+  const validateEmail = (email: string) => {
+    return emailRegex.test(email);
+  };
 
   const { vertical, horizontal, open } = state;
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -93,6 +100,14 @@ const SignUpComponentLeft = () => {
       setUserAgentDetails((values) => ({ ...values, [id]: value }));
     } else {
       setUserBuyerDetails((values) => ({ ...values, [id]: value }));
+    }
+
+    if (id === "email") {
+      if (validateEmail(value)) {
+        setEmailError(null);
+      } else {
+        setEmailError("Please enter a valid email address.");
+      }
     }
   };
 
@@ -141,6 +156,7 @@ const SignUpComponentLeft = () => {
 
   const handleFocus = () => {
     setRegisterError("");
+    setEmailError(null);
   };
 
   return (
@@ -198,7 +214,7 @@ const SignUpComponentLeft = () => {
                     id="radiogroup1"
                     className="lg:w-96 w-full flex justify-between"
                   >
-                     <FormControlLabel
+                    <FormControlLabel
                       value="buyer"
                       control={<Radio />}
                       label="Buyer"
@@ -286,7 +302,11 @@ const SignUpComponentLeft = () => {
                           ? userAgentDetails.email
                           : userBuyerDetails.email
                       }
+                      error={!!emailError}
                     />
+                    {emailError && (
+                      <span className="text-red-500 text-lg">{emailError}</span>
+                    )}
                   </FormControl>
 
                   {userType === "vendor" ? (
