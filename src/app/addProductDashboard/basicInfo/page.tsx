@@ -119,11 +119,11 @@ const CalledPagesPageOnePages = () => {
           <div className="hidden md:flex flex-col mt-[4.5rem]" id="pageone3">
             <div className="flex gap-x-10 justify-between">
               {isFetching ? (
-                <div className="w-full h-screen flex justify-center items-center">
+                <div className="w-full h-[50vh] flex justify-center items-center">
                   <ColorRing
                     visible={true}
-                    height="100"
-                    width="100"
+                    height="60"
+                    width="60"
                     ariaLabel="color-ring-loading"
                     wrapperStyle={{}}
                     wrapperClass="color-ring-wrapper"
