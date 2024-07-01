@@ -6,42 +6,42 @@ import TextField from "@mui/material/TextField";
 import { MdChevronLeft, MdChevronRight, MdPhotoLibrary } from "react-icons/md";
 import { paths } from "../../../path/paths";
 import { FormControl, MenuItem, Select } from "@mui/base";
-import { InputLabel } from "@mui/material";
+import { InputLabel, OutlinedInput, SelectChangeEvent } from "@mui/material";
 
 const manufacturerData = [
   { id: 1, manufacturer: "Toyota" },
-  { id: 1, manufacturer: "Volkswagen" },
-  { id: 1, manufacturer: "BMW" },
-  { id: 1, manufacturer: "Honda" },
-  { id: 1, manufacturer: "Ford Motor" },
-  { id: 1, manufacturer: "General Motors" },
-  { id: 1, manufacturer: "Tata Motors" },
-  { id: 1, manufacturer: "Mahindra & Mahindra" },
-  { id: 1, manufacturer: "Mercedes-Benz" },
-  { id: 1, manufacturer: "Nissan" },
-  { id: 1, manufacturer: "Hyundai Motor Group" },
-  { id: 1, manufacturer: " Audi" },
-  { id: 1, manufacturer: "Lexus" },
-  { id: 1, manufacturer: "Chevrolet" },
-  { id: 1, manufacturer: "Porshe" },
-  { id: 1, manufacturer: "Fiat Chrysler Automobiles" },
-  { id: 1, manufacturer: "Peugeot S.A" },
-  { id: 1, manufacturer: "Volvo" },
-  { id: 1, manufacturer: " Mazda" },
-  { id: 1, manufacturer: " Kia motors" },
-  { id: 1, manufacturer: "Opel" },
-  { id: 1, manufacturer: "Infinit" },
-  { id: 1, manufacturer: "Chysler" },
-  { id: 1, manufacturer: "Jeep" },
-  { id: 1, manufacturer: "GAC" },
-  { id: 1, manufacturer: "DAF" },
-  { id: 1, manufacturer: "IVECO" },
-  { id: 1, manufacturer: "MAN" },
-  { id: 1, manufacturer: "Mahindra" },
-  { id: 1, manufacturer: "DAEWOO" },
-  { id: 1, manufacturer: "LAND ROVER" },
-  { id: 1, manufacturer: "ISUZU" },
-  { id: 1, manufacturer: "ACURA" },
+  { id: 2, manufacturer: "Volkswagen" },
+  { id: 3, manufacturer: "BMW" },
+  { id: 4, manufacturer: "Honda" },
+  { id: 5, manufacturer: "Ford Motor" },
+  { id: 6, manufacturer: "General Motors" },
+  { id: 7, manufacturer: "Tata Motors" },
+  { id: 8, manufacturer: "Mahindra & Mahindra" },
+  { id: 9, manufacturer: "Mercedes-Benz" },
+  { id: 10, manufacturer: "Nissan" },
+  { id: 11, manufacturer: "Hyundai Motor Group" },
+  { id: 12, manufacturer: " Audi" },
+  { id: 13, manufacturer: "Lexus" },
+  { id: 14, manufacturer: "Chevrolet" },
+  { id: 15, manufacturer: "Porshe" },
+  { id: 16, manufacturer: "Fiat Chrysler Automobiles" },
+  { id: 17, manufacturer: "Peugeot S.A" },
+  { id: 18, manufacturer: "Volvo" },
+  { id: 19, manufacturer: " Mazda" },
+  { id: 20, manufacturer: " Kia motors" },
+  { id: 21, manufacturer: "Opel" },
+  { id: 22, manufacturer: "Infinit" },
+  { id: 23, manufacturer: "Chysler" },
+  { id: 24, manufacturer: "Jeep" },
+  { id: 25, manufacturer: "GAC" },
+  { id: 26, manufacturer: "DAF" },
+  { id: 27, manufacturer: "IVECO" },
+  { id: 28, manufacturer: "MAN" },
+  { id: 29, manufacturer: "Mahindra" },
+  { id: 30, manufacturer: "DAEWOO" },
+  { id: 31, manufacturer: "LAND ROVER" },
+  { id: 32, manufacturer: "ISUZU" },
+  { id: 33, manufacturer: "ACURA" },
 ];
 const CalledPagesPageFivePages = () => {
   const [productName, setProductName] = useState("");
@@ -93,7 +93,7 @@ const CalledPagesPageFivePages = () => {
     );
   };
 
-  const handleTechnicalDetails = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTechnicalDetails = (e: any) => {
     const { name, value } = e.target;
 
     setTechnicalDetails((prevValues) => {
@@ -102,6 +102,8 @@ const CalledPagesPageFivePages = () => {
       return newValues;
     });
   };
+
+  console.log("the manufacturer data ", technicalDetails.manufacturer);
 
   const handlePreviousPage = () => {
     router.push(paths.toAddProductDashboardSpecifications());
@@ -128,142 +130,114 @@ const CalledPagesPageFivePages = () => {
                   <hr className="w-[80%]"></hr>
                 </div>
 
-                <Box
-                  component="form"
-                  id="pageone8"
-                  className="flex gap-y-4 flex-col lg:items-start   "
-                  noValidate
-                  autoComplete="off"
-                >
-                  <FormControl className="w-[29.4rem] mb-5 ">
-                    <InputLabel id="demo-simple-select-filled-label">
-                      Category
-                    </InputLabel>
-                    <Select
-                      id="demo-simple-select-filled"
-                      name="manufacturer"
-                      placeholder="Enter"
-                      className=" w-[29.4rem] mb-5 "
-                      value={technicalDetails.manufacturer}
-                      // onChange={handleTechnicalDetails}
-                      // renderValue={(selected) => {
-                      //   if (!technicalDetails.manufacturer) {
-                      //     return <p>Select a category</p>;
-                      //   }
-                      //   return selected;
-                      // }}
-                    >
-                      {manufacturerData.map(
-                        (category): JSX.Element => (
-                          <MenuItem
-                            key={category.id}
-                            value={category.manufacturer}
-                          >
-                            {category.manufacturer}
-                          </MenuItem>
-                        )
-                      )}
-                    </Select>
-                  </FormControl>
+                <div>
+                  <select
+                    id="manufacturer"
+                    name="manufacturer"
+                    style={{ backgroundColor: "porcelain" }}
+                    required={true}
+                    className="w-[29.4rem] h-14 border bg-mecaInputBgColor rounded-md pl-2 mb-5 outline-none"
+                    title="manufacturer"
+                    value={technicalDetails.manufacturer}
+                    onChange={(e) =>
+                      setTechnicalDetails({
+                        ...technicalDetails,
+                        manufacturer: e.target.value,
+                      })
+                    }
+                  >
+                    {manufacturerData.map((data) => (
+                      <option
+                        key={data.id}
+                        value={data.manufacturer}
+                        className="border border-b-2 border-gray-400"
+                      >
+                        {data.manufacturer}
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
-                  <Box>
-                    <TextField
-                      type="url"
-                      id="filledbasic"
-                      label="Manufacturer part number"
-                      variant="filled"
-                      name="manufacturerParts"
-                      placeholder="12345"
-                      InputProps={{ disableUnderline: true }}
-                      className="w-[29.4rem] mb-5 "
-                      sx={{ backgroundColor: "porcelain" }}
-                      value={technicalDetails.manufacturerParts}
-                      onChange={handleTechnicalDetails}
-                    />
-                  </Box>
+                <TextField
+                  type="url"
+                  id="filledbasic"
+                  label="Manufacturer part number"
+                  variant="filled"
+                  name="manufacturerParts"
+                  placeholder="12345"
+                  InputProps={{ disableUnderline: true }}
+                  className="w-[29.4rem] mb-5 bg-mecaInputBgColor"
+                  value={technicalDetails.manufacturerParts}
+                  onChange={handleTechnicalDetails}
+                />
 
-                  <Box>
-                    <TextField
-                      required={true}
-                      id="filledbasic"
-                      label="Brand"
-                      variant="filled"
-                      type="text"
-                      name="brand"
-                      placeholder="E765"
-                      InputProps={{ disableUnderline: true }}
-                      className=" w-[29.4rem] mb-5 "
-                      sx={{ backgroundColor: "porcelain" }}
-                      value={technicalDetails.brand}
-                      onChange={handleTechnicalDetails}
-                    />
-                  </Box>
+                <TextField
+                  required={true}
+                  id="filledbasic"
+                  label="Brand"
+                  variant="filled"
+                  type="text"
+                  name="brand"
+                  placeholder="E765"
+                  InputProps={{ disableUnderline: true }}
+                  className=" w-[29.4rem] mb-5 bg-mecaInputBgColor"
+                  value={technicalDetails.brand}
+                  onChange={handleTechnicalDetails}
+                />
 
-                  <Box>
-                    <TextField
-                      required={true}
-                      id="filledbasic"
-                      label="Model"
-                      variant="filled"
-                      type="text"
-                      name="model"
-                      placeholder="E765"
-                      InputProps={{ disableUnderline: true }}
-                      className=" w-[29.4rem] mb-5 "
-                      sx={{ backgroundColor: "porcelain" }}
-                      value={technicalDetails.model}
-                      onChange={handleTechnicalDetails}
-                    />
-                  </Box>
+                <TextField
+                  required={true}
+                  id="filledbasic"
+                  label="Model"
+                  variant="filled"
+                  type="text"
+                  name="model"
+                  placeholder="E765"
+                  InputProps={{ disableUnderline: true }}
+                  className=" w-[29.4rem] mb-5 bg-mecaInputBgColor"
+                  value={technicalDetails.model}
+                  onChange={handleTechnicalDetails}
+                />
 
-                  <Box>
-                    <TextField
-                      id="filledbasic"
-                      label="Weight"
-                      variant="filled"
-                      type="text"
-                      name="weight"
-                      placeholder="786 kg"
-                      InputProps={{ disableUnderline: true }}
-                      className=" w-[29.4rem] mb-5 "
-                      sx={{ backgroundColor: "porcelain" }}
-                      value={technicalDetails.weight}
-                      onChange={handleTechnicalDetails}
-                    />
-                  </Box>
+                <TextField
+                  id="filledbasic"
+                  label="Weight"
+                  variant="filled"
+                  type="text"
+                  name="weight"
+                  placeholder="786 kg"
+                  InputProps={{ disableUnderline: true }}
+                  className=" w-[29.4rem] mb-5 bg-mecaInputBgColor"
+                  value={technicalDetails.weight}
+                  onChange={handleTechnicalDetails}
+                />
 
-                  <Box>
-                    <TextField
-                      id="filledbasic"
-                      label="Dimension"
-                      variant="filled"
-                      type="text"
-                      name="dimension"
-                      placeholder="Medium"
-                      InputProps={{ disableUnderline: true }}
-                      className=" w-[29.4rem] mb-5 "
-                      sx={{ backgroundColor: "porcelain" }}
-                      value={technicalDetails.dimension}
-                      onChange={handleTechnicalDetails}
-                    />
-                  </Box>
+                <TextField
+                  id="filledbasic"
+                  label="Dimension"
+                  variant="filled"
+                  type="text"
+                  name="dimension"
+                  placeholder="Medium"
+                  InputProps={{ disableUnderline: true }}
+                  className=" w-[29.4rem] mb-5 bg-mecaInputBgColor"
+                  value={technicalDetails.dimension}
+                  onChange={handleTechnicalDetails}
+                />
 
-                  <Box>
-                    <TextField
-                      id="filledbasic"
-                      label="Country of origin"
-                      variant="filled"
-                      type="text"
-                      name="countryOfOrigin"
-                      placeholder="Aba"
-                      InputProps={{ disableUnderline: true }}
-                      className=" w-[29.4rem] mb-5 "
-                      sx={{ backgroundColor: "porcelain" }}
-                      value={technicalDetails.countryOfOrigin}
-                      onChange={handleTechnicalDetails}
-                    />
-                  </Box>
-                </Box>
+                <TextField
+                  id="filledbasic"
+                  label="Country of origin"
+                  variant="filled"
+                  type="text"
+                  name="countryOfOrigin"
+                  placeholder="Aba"
+                  InputProps={{ disableUnderline: true }}
+                  className=" w-[29.4rem] mb-5 bg-mecaInputBgColor"
+                  value={technicalDetails.countryOfOrigin}
+                  onChange={handleTechnicalDetails}
+                />
+
                 <div className="flex w-full justify-center mt-8">
                   <div id="firstPreviousbtn9 flex justify-center">
                     <button
