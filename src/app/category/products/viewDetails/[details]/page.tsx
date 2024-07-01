@@ -217,7 +217,7 @@ export default function Details() {
                         alt={image.alt}
                         className="h-full w-full object-cover"
                       />
-                      {/* {!showAllImages &&
+                      {!showAllImages &&
                         i === firstImages.length - 1 &&
                         remainingImages.length > 0 && (
                           <div
@@ -229,7 +229,7 @@ export default function Details() {
                               +{remainingImages.length}
                             </p>
                           </div>
-                        )} */}
+                        )}
                     </div>
                   ))}
                 </div>

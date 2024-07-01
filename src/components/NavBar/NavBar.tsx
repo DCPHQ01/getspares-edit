@@ -75,11 +75,11 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
   };
 
   const { cart } = useAppSelector((state) => state.product);
-  let saveCartItems:any;
+  let saveCartItems: any;
 
-  if (typeof window !== 'undefined'){
+  if (typeof window !== "undefined") {
     saveCartItems = JSON.parse(
-       localStorage.getItem("savedCartItems") as string
+      localStorage.getItem("savedCartItems") as string
     ) as CartProduct[];
   }
 
@@ -113,10 +113,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
     }
   }, []);
   try {
-    if (
-      tokens &&
-      tokens.split(".").length === 3
-    ) {
+    if (tokens && tokens.split(".").length === 3) {
       decoded = JWT.jwtDecode(tokens);
     }
   } catch (error) {
@@ -168,7 +165,11 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
               </p>
             </div>
           </Link>
-          <div id="mobileMenuBtn" onClick={() => setOpen(!open)}>
+          <div
+            id="mobileMenuBtn"
+            className="cursor-pointer"
+            onClick={() => setOpen(!open)}
+          >
             <MdMenu size={18} />
           </div>
         </div>
