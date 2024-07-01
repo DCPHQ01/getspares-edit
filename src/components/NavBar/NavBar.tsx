@@ -75,7 +75,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
   };
 
   const { cart } = useAppSelector((state) => state.product);
-  let saveCartItems;
+  let saveCartItems:any;
 
   if (typeof window !== 'undefined'){
     saveCartItems = JSON.parse(

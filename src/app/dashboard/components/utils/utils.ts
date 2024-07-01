@@ -26,10 +26,10 @@ export enum roles {
   AGENTS = "AGENT",
 }
 
-export const formatAllDate = (date: string, format:string) => {
+export const formatAllDate = (date: string, format='YYYY-MM-DD') => {
   if(date){
     let val = date.split(' ')[0];
-    const finalDate = dayjs(val, format ? format :'YYYY-MM-DD').format("DD-MM-YYYY");
+    const finalDate = dayjs(val, format).format("DD-MM-YYYY");
     return finalDate;
   }
 };
