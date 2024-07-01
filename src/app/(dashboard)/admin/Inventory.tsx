@@ -16,7 +16,7 @@ interface InventoryData {
   noOfItemsSold: number;
   vendorImage: string;
   
-};
+}
 
 function Inventory() {
   const [getInventory,{isLoading,isError}] = useGetMecaAdminInventoryMutation();
