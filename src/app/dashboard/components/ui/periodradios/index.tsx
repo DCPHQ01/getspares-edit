@@ -88,7 +88,7 @@ const Index: React.FC<PeriodRadiosProps> = ({ activityPeriod, onPeriodChange }) 
                 aria-labelledby="period-radios"
                 name="customized-radios"
             >
-                <div className="flex w-full">
+                <div className="flex w-full z-[-10]">
                     <div>
                         <FormControlLabel
                             value="month"
