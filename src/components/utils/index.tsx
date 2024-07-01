@@ -120,16 +120,16 @@ export const formatAmount2 = (price: string | number) => {
   }
 };
 
-// export const formatAmount3 = (price: string | number) => {
-//   if (price !== undefined && price !== null) {
-//     return new Intl.NumberFormat("en-US", {
-//       style: "currency",
-//       currency: "NGN",
-//     }).format(Number(price));
-//   } else {
-//     return "₦0.00";
-//   }
-// };
+export const format = (price: string | number) => {
+  if (price !== undefined && price !== null) {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "NGN",
+    }).format(Number(price));
+  } else {
+    return "₦0.00";
+  }
+};
 
 export const formatAmount3 = (price: string) => {
   if (price) {
