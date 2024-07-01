@@ -250,14 +250,16 @@ function CategoryMobile() {
           </Box>
         </Modal>
       </div>
-      <div className={` mb-5 gap-[100px] mr-[2rem] items-center mb-[1.25rem]`}>
-        <SearchBox placeholder={`Search for category`} />
-        {/*<PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange} />*/}
-
-        <PeriodRadios
-          activityPeriod={activityPeriod}
-          onPeriodChange={handlePeriodChange}
-        />
+      <div className={`  mr-[2rem] items-center`}>
+        <div className="mb-5">
+          <SearchBox placeholder={`Search for category`} />
+        </div>
+        <div className="flex justify-center">
+          <PeriodRadios
+            activityPeriod={activityPeriod}
+            onPeriodChange={handlePeriodChange}
+          />
+        </div>
       </div>
 
       <CategoryTable categoryList={categoryList} isLoading={isLoading} />
