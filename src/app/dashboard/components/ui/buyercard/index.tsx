@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react';
 import engine from "../../../../../assets/dashboardAssets/engine.png";
 // import Image from "next/image";
 import { FaStar } from "react-icons/fa6";
-import { formatAmount2 } from '../../../../../components/utils';
 import { useGetOverviewRecentProductImageQuery } from "../../../../../redux/features/dashboard/buyerQuery";
 import Details from '../../../../category/products/viewDetails/[details]/page';
+import {formatAmount2, formatAmount3} from "../../../../../components/utils";
 
 interface RecentProductImages {
   id: string;
@@ -35,7 +35,7 @@ const Index = ({checkOpened}: any) => {
   const { data, isError, isLoading } = useGetOverviewRecentProductImageQuery({});
   const [imageList, setImageList] = useState<RecentProductImages[]>([]);
   const [details, setDetails] = useState(false);
-  
+
   useEffect(() => {
     if (data && Array.isArray(data.data)) {
       setImageList(data.data);
@@ -74,7 +74,7 @@ const Index = ({checkOpened}: any) => {
             </div> */}
           </div>
           <p className="border rounded-full px-[0.5rem] inline-block">
-            {formatAmount2(detail.price)}
+            {formatAmount3(detail.price)}
             {/* <p>{detail.price}</p> */}
           </p>
         </div>

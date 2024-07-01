@@ -4,7 +4,7 @@ import Greeting from "../../utils/Greeting";
 
 interface IProps {
   title?: string;
-  subtitle: string;
+  subtitle?: string;
   amount?: number | string;
   name?: string;
 }
