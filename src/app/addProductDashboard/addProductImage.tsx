@@ -348,7 +348,10 @@ const AddProductImage = () => {
           >
             <Box sx={style}>
               <div className="flex h-56 flex-col justify-center items-center gap-4">
-                <p id="modal-modal-title" className="text-2xl font-nunito">
+                <p
+                  id="modal-modal-title"
+                  className="text-xl text-mecaBluePrimaryColor font-nunito"
+                >
                   Product added successfully.
                 </p>
                 <button
