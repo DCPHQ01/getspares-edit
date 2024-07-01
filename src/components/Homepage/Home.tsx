@@ -95,7 +95,8 @@ export default function Home() {
   const { data: productData, isLoading } = useGetTopProductQuery({});
   const { data: recentProductData, isLoading: isLoadingRecent } =
     useGetRecentProductQuery({});
-  console.log("data ", productData);
+
+
   return (
     <main className="container mx-auto px-5 mt-8" id="mainContainer">
       <div id="heroCarousel">

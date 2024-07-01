@@ -33,8 +33,6 @@ function Overview() {
   const [name, setName] = useState("");
   const [topVendors, setTopVendors] = useState<VendorData[]>([]);
 
-
-
   useEffect(() => {
     if(data) {
       const resultList = data.data;
@@ -42,6 +40,9 @@ function Overview() {
       }
     }, [data]);
 
+
+  // console.log("data", mecaAdminOverviewData);
+console.log("topVendors", topVendors);
 
     const handlePeriodChange = (newPeriod: string) => {
       setActivityPeriod(newPeriod);
@@ -53,8 +54,6 @@ function Overview() {
       }
     },[mecaAdminOverviewData?.data])
 
-
-
   useEffect(() => {
     const role =
       typeof window !== "undefined" && window.sessionStorage
@@ -62,11 +61,6 @@ function Overview() {
         : [];
     setName(role.firstName);
   }, []);
- 
-
-  
- 
-
 
   return (
     <>
@@ -77,12 +71,15 @@ function Overview() {
         />
          <Cards cardField={adminOverview}  />
         <div
-          className={`flex justify-between items-center mt-[3.25rem] mb-[1.25rem]`}
+          className={` flex justify-between items-center mt-[3.25rem] mb-[1.25rem]`}
         >
-          <Header
-            subtitle={`A quick glance on vendors with highest sales on meca`}
-            title={`Top performing vendors`}
-          />
+          <div>
+            <Header
+                subtitle={`A quick glance on vendors with highest sales on meca`}
+                title={`Top performing vendors`}
+            />
+          </div>
+
           <PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange}/>
         </div>
         <OverviewTable data={topVendors} isLoading={isVendorsLoading}/>
@@ -92,9 +89,9 @@ function Overview() {
           <button className="flex gap-x-2">
             <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
           </button> */}
-          <button className="flex gap-x-2">
-            <MdChevronRight className="mt-1 text-2xl" /> <span>Next</span>
-          </button>
+          {/*<button className="flex gap-x-2">*/}
+          {/*  <MdChevronRight className="mt-1 text-2xl" /> <span>Next</span>*/}
+          {/*</button>*/}
         {/* </div> */}
       </div>
     </>

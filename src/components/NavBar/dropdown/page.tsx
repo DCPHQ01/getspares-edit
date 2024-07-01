@@ -1,7 +1,7 @@
 "use client";
 
 import Card from "@mui/material/Card";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useGetCategoryQuery } from "../../../redux/features/users/authQuery";
 import { paths } from "../../../path/paths";
 import { useEffect, useRef, useState } from "react";
