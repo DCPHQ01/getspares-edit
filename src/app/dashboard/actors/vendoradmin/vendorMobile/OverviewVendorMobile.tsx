@@ -38,8 +38,15 @@ function OverviewVendorMobile() {
     }
   }, [data])
 
-  const userName = JSON.parse(sessionStorage.getItem("userDetails") || "");
-  const usersFirstName = userName?.firstName;
+  let usersName: any;
+
+  useEffect(()=> {
+    const userName = (sessionStorage.getItem("userDetails"));
+    if(userName){
+      usersName=JSON.parse(userName);
+    }
+  },[])
+  const usersFirstName = usersName?.firstName;
 
   return (
     <>
