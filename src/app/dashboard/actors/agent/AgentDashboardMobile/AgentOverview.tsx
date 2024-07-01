@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import Header from "../../../components/ui/header";
 import Cards from "../../../components/ui/cards";
 import PeriodRadios from "../../../components/ui/periodradios";
@@ -13,15 +13,23 @@ function AgentOverview() {
     setActivityPeriod((prevValue) => (prevValue === 'month' ? 'year' : 'month'));
   };
 
-  const userName = JSON.parse(sessionStorage.getItem("userDetails") || "");
-  const usersFirstName = userName?.firstName;
+  const [name, setName] = useState("");
+
+  useEffect(() => {
+    const role =
+        typeof window !== "undefined" && window.sessionStorage
+            ? JSON.parse(sessionStorage.getItem("userDetails") || "{}")
+            : [];
+    setName(role.firstName);
+  }, []);
+
 
   return (
     <>
       <div>
         <Header
           subtitle={`Take a quick glance on what is happening with meca`}
-          name={usersFirstName}
+          name={name}
         />
         <div className="mt-5">
           {/* <Cards /> */}
