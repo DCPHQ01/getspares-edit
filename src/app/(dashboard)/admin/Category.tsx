@@ -95,8 +95,6 @@ function Category() {
   const [categoryData, { isLoading }] = useAddCategoryMutation();
   const [error, setError] = useState<string>("");
 
-  console.log("activityPeriod", activityPeriod);
-
   useEffect(() => {
     if (data && Array.isArray(data.data.content)) {
       const list = data.data.content;

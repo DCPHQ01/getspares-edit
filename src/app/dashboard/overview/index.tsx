@@ -31,9 +31,9 @@ function Index({ header, subheader, overviewRoles }: IProps) {
 
   const role: any = overviewRoles;
   
-  const [activityPeriod, setActivityPeriod] = useState("monthly");  
-  const handlePeriodChange = (newPeriod: string) => {
-    setActivityPeriod(newPeriod);
+  const [activityPeriod, setActivityPeriod] = useState("month");
+  const handlePeriodChange = () => {
+    setActivityPeriod((prevValue) => (prevValue === 'month' ? 'year' : 'month'));
   };
 
   // const cardProps = [
