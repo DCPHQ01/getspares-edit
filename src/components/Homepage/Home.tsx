@@ -16,6 +16,8 @@ import {
   useGetRecentProductQuery,
   useGetTopProductQuery,
 } from "../../redux/features/users/authQuery";
+import {paths} from "../../path/paths";
+import {useRouter} from "next/navigation";
 
 interface CustomDotProps {
   onClick: () => void;
@@ -77,6 +79,13 @@ const responsives = {
 };
 
 export default function Home() {
+  const router = useRouter();
+
+
+  const handleSignUp = () => {
+    router.push(paths.toSignUp());
+  };
+
   const CustomDot = ({ onClick, active }: CustomDotProps) => {
     return (
       <li onClick={() => onClick()}>
@@ -95,7 +104,8 @@ export default function Home() {
   const { data: productData, isLoading } = useGetTopProductQuery({});
   const { data: recentProductData, isLoading: isLoadingRecent } =
     useGetRecentProductQuery({});
-  console.log("data ", productData);
+
+
   return (
     <main className="container mx-auto px-5 mt-8" id="mainContainer">
       <div id="heroCarousel">
@@ -225,10 +235,11 @@ export default function Home() {
               id="exploreEnginesBtn"
               className="bg-white normal-case text-mecaBluePrimaryColor lg:text-lg text-sm  rounded-[436px] disabled:bg-mecaBgDisableColor disabled:text-white hover:bg-white lg:my-6 py-[10px] px-6"
               variant="contained"
+              onClick={handleSignUp}
               endIcon={<MdChevronRight />}
               disableElevation
             >
-              Learn more
+              Get started
             </Button>
           </div>
         </span>

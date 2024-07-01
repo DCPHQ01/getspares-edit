@@ -35,6 +35,7 @@ export default function NavBarWhileInsideApp() {
 
   const { cart } = useAppSelector((state) => state.product);
 
+
   const [toggleProfile, setToggleProfile] = useState(false);
   const [openNavOptions, setOpenNavOptions] = useState(false);
   const [tokens, setTokens] = useState("");

@@ -110,18 +110,35 @@ const Cart = () => {
     setSnackState({ ...snackState, open: false });
   };
 
-  const getAllTotalPrice = () => {
-    if (cart.length !== 0) {
-      let total = cart
-        .map((item) => Number(item.amount) * Number(item.quantity))
-        .reduce((a, b) => a + b);
+  // const getAllTotalPrice = () => {
+  //   if (cart.length !== 0) {
+  //     let total = cart
+  //       .map((item) => Number(item.amount) * Number(item.quantity))
+  //       .reduce((a, b) => a + b);
+  //
+  //     console.log(total, 'hi');
+  //     setTotalItemPrice(String(total));
+  //   }
+  // };
 
-      // let total = cart.reduce((accum,item) => accum + getPrice(item.price), 0)
-      setTotalItemPrice(String(total));
+
+  const getAllTotalPrice = () => {
+    let newTotal = "0";
+
+    if (cart.length !== 0) {
+      const total = cart
+         .map((item) => Number(item.amount) * Number(item.quantity))
+         .reduce((a, b) => a + b, 0);
+
+      newTotal = String(total);
+    }
+    if (totalItemPrice !== newTotal) {
+      setTotalItemPrice(newTotal);
     }
   };
 
-  useLayoutEffect(() => {
+
+  useEffect(() => {
     getAllTotalPrice();
   }, [cart]);
 
@@ -131,7 +148,7 @@ const Cart = () => {
         {/* desktop */}
         <div id="contentContainerAddToCartDesktop">
           <div className="w-[95%] md:w-[90%]" style={{ margin: "0px auto" }}>
-           
+
             <div>
             <div className={`flex flex-col gap-6`}>
               <Header
@@ -143,12 +160,6 @@ const Cart = () => {
                 <Searchbox />
               </div>
             </div>
-              {/* <div className="">
-                <h1 className="text-lg font-semibold font-nunito text-mecaDarkBlueBackgroundOverlay mt-6">
-                  Cart
-                </h1>
-                <p>Keep track of items in your cart</p>
-              </div> */}
               <div className="md:flex md:gap-x-6">
                 <div className={"w-full"}>
                   {cart?.length === 0 ? (

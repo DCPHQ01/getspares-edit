@@ -152,8 +152,8 @@ export default function MobileNavbarList({ handleNav }: MobileNavProps) {
             active === data.id && (
               <div
                 key={data.id}
-                className=" absolute top-0 "
-                style={{ width: "98%", margin: "0px auto" }}
+                className=" absolute top-0 left-0 right-0"
+                style={{ width: "100%", margin: "0px auto" }}
               >
                 <div className="" onClick={dropDownClicked}>
                   {data.mobileNavHeader}
