@@ -1,13 +1,11 @@
 "use client";
 import { MdChevronRight, MdExpandMore } from "react-icons/md";
 import part from "../../assets/images/parts.png";
-
 import { useEffect, useState } from "react";
-
 import { Checkbox, Radio } from "@mui/material";
 import Switches from "../../components/switch/Switches";
-
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
 
 interface ItemsDataProps {
   id: number;
@@ -76,9 +74,6 @@ const itemsData: ItemsDataProps[] = [
   },
 ];
 
-// useEffect(() => {
-//   setIsFilterOpen(false);
-// }, []
 
 const FilterFixedPage = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -194,6 +189,7 @@ const FilterFixedPage = () => {
       ],
     },
   ];
+
   return (
     <div className="z-50 w-full h-28 bg-red-400">
       <div
