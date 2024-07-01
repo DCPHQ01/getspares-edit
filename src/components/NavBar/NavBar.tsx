@@ -75,11 +75,13 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
   };
 
   const { cart } = useAppSelector((state) => state.product);
+  let saveCartItems;
 
-  const saveCartItems = JSON.parse(
-     localStorage.getItem("savedCartItems") as string
-  ) as CartProduct[];
-
+  if (typeof window !== 'undefined'){
+    saveCartItems = JSON.parse(
+       localStorage.getItem("savedCartItems") as string
+    ) as CartProduct[];
+  }
 
   useEffect(() => {
     if (cart.length === 0 && saveCartItems && saveCartItems.length > 0) {
@@ -113,7 +115,6 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
   try {
     if (
       tokens &&
-      typeof tokens === "string" &&
       tokens.split(".").length === 3
     ) {
       decoded = JWT.jwtDecode(tokens);
