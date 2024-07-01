@@ -12,12 +12,16 @@ function AgentOverview() {
   const handlePeriodChange = () => {
     setActivityPeriod((prevValue) => (prevValue === 'month' ? 'year' : 'month'));
   };
+
+  const userName = JSON.parse(sessionStorage.getItem("userDetails") || "");
+  const usersFirstName = userName?.firstName;
+
   return (
     <>
       <div>
         <Header
           subtitle={`Take a quick glance on what is happening with meca`}
-          name={`Sam`}
+          name={usersFirstName}
         />
         <div className="mt-5">
           {/* <Cards /> */}

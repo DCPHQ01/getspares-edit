@@ -433,15 +433,18 @@ const SignUpComponentLeft = () => {
                 ) : (
                   <>
                     {registerError.data.password && (
-                      <p className="text-red-500 text-lg">
+                      <p className="text-red-500 text-xs mt-2">
                         {registerError.data.password}
                       </p>
                     )}
-                    {registerError.data.message && (
-                      <p className="text-red-500 text-lg">
-                        {registerError.data.message}
-                      </p>
+                    {registerError.data?.message && (
+                        <p className="text-red-500 text-xs mt-2">
+                          {registerError.data.message === "Name should be provided"
+                              ? "Please provide company name"
+                              : registerError.data.message}
+                        </p>
                     )}
+
                   </>
                 )}
               </form>
