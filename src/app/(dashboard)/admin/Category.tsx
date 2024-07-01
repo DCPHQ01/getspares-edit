@@ -168,8 +168,8 @@ function Category() {
     }
   };
 
-  const handlePeriodChange = (newPeriod: string) => {
-    setActivityPeriod(newPeriod as string);
+  const handlePeriodChange = () => {
+    setActivityPeriod((prevValue) => (prevValue === 'month' ? 'year' : 'month'));
   };
 
   const handleNextPage = () => {
