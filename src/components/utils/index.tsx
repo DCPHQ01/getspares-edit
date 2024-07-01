@@ -1,7 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-
 const cloud_name = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
 const cloudinary_url = `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`;
 
@@ -18,7 +17,6 @@ export const formatAmount = (price: string | number) => {
     }).format(Number(price));
   }
 };
-
 
 export const uploadImage = async (
   file: File,

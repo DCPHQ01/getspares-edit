@@ -213,11 +213,11 @@ export default function Products() {
                         wrapperStyle={{}}
                         wrapperClass="color-ring-wrapper"
                         colors={[
-                          "#000000",
-                          "#000000",
-                          "#000000",
-                          "#000000",
-                          "#000000",
+                          "#0000FF",
+                          "#0000FF",
+                          "#0000FF",
+                          "#0000FF",
+                          "#0000FF",
                         ]}
                       />
                     </div>
@@ -431,11 +431,11 @@ export default function Products() {
                     wrapperStyle={{}}
                     wrapperClass="color-ring-wrapper"
                     colors={[
-                      "#000000",
-                      "#000000",
-                      "#000000",
-                      "#000000",
-                      "#000000",
+                      "#0000FF",
+                      "#0000FF",
+                      "#0000FF",
+                      "#0000FF",
+                      "#0000FF",
                     ]}
                   />
                 </div>
