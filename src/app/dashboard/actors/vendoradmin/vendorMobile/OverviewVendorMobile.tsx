@@ -38,13 +38,16 @@ function OverviewVendorMobile() {
     }
   }, [data])
 
+  const userName = JSON.parse(sessionStorage.getItem("userDetails") || "");
+  const usersFirstName = userName?.firstName;
+
   return (
     <>
       <div>
         <div className={`justify-between items-center`}>
           <Header
             subtitle={`Take a quick glance on what is happening with meca`}
-            name={`Ayodeji`}
+            name={usersFirstName}
           />
           <div className="mt-5 mb-5">
             <Link href={paths.toModalPage()}>
