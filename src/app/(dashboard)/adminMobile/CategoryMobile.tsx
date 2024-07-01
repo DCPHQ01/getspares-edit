@@ -52,7 +52,7 @@ function CategoryMobile() {
   const size = 10
   const [first, setFirst] = useState(false);
   const [last, setLast] = useState(false);
-  const [activityPeriod, setActivityPeriod] = useState("monthly"); 
+  const [activityPeriod, setActivityPeriod] = useState("month");
   const { data, isError } = useGetViewAllMecaAdminCategoryQuery({
     page: page,
     size: size,
@@ -113,8 +113,12 @@ function CategoryMobile() {
     }
   };
 
-  const handlePeriodChange = (newPeriod: string) => {
-    setActivityPeriod(newPeriod);
+  // const handlePeriodChange = (newPeriod: string) => {
+  //   setActivityPeriod(newPeriod);
+  // };
+
+  const handlePeriodChange = () => {
+    setActivityPeriod((prevValue) => (prevValue === 'month' ? 'year' : 'month'));
   };
 
   const handleNextPage=()=>{
@@ -237,9 +241,15 @@ function CategoryMobile() {
           </Box>
         </Modal>
       </div>
-      <div className={`flex justify-between items-center mb-[1.25rem]`}>
+      <div className={`flex justify-between gap-[100px] mr-[2rem] items-center mb-[1.25rem]`}>
         <SearchBox placeholder={`Search for category`} />
-        <PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange} />
+        {/*<PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange} />*/}
+
+        <PeriodRadios
+            activityPeriod={activityPeriod}
+            onPeriodChange={handlePeriodChange}
+        />
+
       </div>
 
       <CategoryTable categoryList={categoryList} isLoading={isLoading}/>

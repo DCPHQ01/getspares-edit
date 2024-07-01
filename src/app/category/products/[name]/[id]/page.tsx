@@ -444,84 +444,24 @@ export default function ProductDescription() {
             <p className="text-3xl font-semibold" id="carouselTitleOne">
               More Products Like This
             </p>
-            <span className="flex gap-8" id="carouselButtonSpanOne">
-              <div
-                id="previousBtnOne"
-                className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay cursor-pointer"
-                onClick={handlePrevious}
-              >
-                <MdChevronLeft size={40} />
-              </div>
-              <div
-                id="nextBtnOne"
-                className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay cursor-pointer"
-                onClick={handleNext}
-              >
-                <MdChevronRight size={40} />
-              </div>
-            </span>
+            {/*<span className="flex gap-8" id="carouselButtonSpanOne">*/}
+            {/*  <div*/}
+            {/*    id="previousBtnOne"*/}
+            {/*    className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay cursor-pointer"*/}
+            {/*    onClick={handlePrevious}*/}
+            {/*  >*/}
+            {/*    <MdChevronLeft size={40} />*/}
+            {/*  </div>*/}
+            {/*  <div*/}
+            {/*    id="nextBtnOne"*/}
+            {/*    className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay cursor-pointer"*/}
+            {/*    onClick={handleNext}*/}
+            {/*  >*/}
+            {/*    <MdChevronRight size={40} />*/}
+            {/*  </div>*/}
+            {/*</span>*/}
           </div>
           <div id="carouselProductDescription">
-            <React.Fragment>
-              {relatedProductData &&
-              relatedProductData?.data?.content &&
-              relatedProductData?.data?.content.length > 0 ? (
-                <Carousel
-                  partialVisible={true}
-                  draggable={false}
-                  responsive={responsive}
-                  ssr={true}
-                  infinite
-                  autoPlay={true}
-                  itemClass="lg:pr-8 pr-4"
-                >
-                  {relatedProductData?.data?.content.map(
-                    (product: ProductType) => (
-                      <Card
-                        key={product.id}
-                        id={product.id}
-                        image={HomeImage1}
-                        productName={product.name}
-                        price={product.price}
-                      />
-                    )
-                  )}
-                </Carousel>
-              ) : (
-                <p>No related products found.</p>
-              )}
-            </React.Fragment>
-          </div>
-        </div>
-        <div
-          className="text-mecaDarkBlueBackgroundOverlay py-8"
-          id="productDescriptionCarouselTwo"
-        >
-          <div
-            className="flex justify-between items-center my-8"
-            id="carouselContainer"
-          >
-            <p className="text-3xl font-semibold" id="carouselTitle">
-              More Products Like This
-            </p>
-            <span className="flex gap-8" id="carouselButtonSpan">
-              <div
-                id="previousBtn"
-                className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay cursor-pointer"
-                onClick={handlePrevious}
-              >
-                <MdChevronLeft size={40} />
-              </div>
-              <div
-                id="nextBtn"
-                className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay cursor-pointer"
-                onClick={handleNext}
-              >
-                <MdChevronRight size={40} />
-              </div>
-            </span>
-          </div>
-          <div id="carousel">
             <React.Fragment>
               {relatedProductData &&
               relatedProductData?.data?.content &&
