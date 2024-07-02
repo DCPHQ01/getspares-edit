@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import { Nunito_Sans } from "next/font/google";
 import Carousel from "react-multi-carousel";
 import Cards from "../../../../../components/Homepage/Card";
@@ -14,37 +14,21 @@ const nunito = Nunito_Sans({
   display: "swap",
 });
 import {
-  MdChevronRight,
-  MdMenu,
-  MdOutlineShoppingCart,
-  MdSearch,
-  MdMoreVert,
-  MdOutlineExpandMore,
-  MdCircle,
-  MdKeyboardArrowDown,
-  MdDeleteOutline,
+
   MdCheckCircle,
 } from "react-icons/md";
-import HeaderPage from "../../../../reusables/Header/page";
-import Parts from "../../../../../assets/images/parts.png";
-import Image from "next/image";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
+
 import { Alert, Card } from "@mui/material";
-import Footer from "../../../../../components/footer/Footer";
 import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
-import Link from "next/link";
-import MenuItem from "@mui/material/MenuItem";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import IconButton from "@mui/material/IconButton";
-import Menu from "@mui/material/Menu";
-// import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 import { useRouter } from "next/navigation";
 import { useAppSelector } from "../../../../../redux/hooks";
 import Header from "../../../components/ui/header";
 import Searchbox from "../../../components/ui/searchbox";
-import TruncateText from "../../../../../components/utils/utils";
+import {CheckOutCard} from "../../../../../components/cart/CheckOutCard";
+import {paths} from "../../../../../path/paths";
+import {useAddSingleProductToCartMutation} from "../../../../../redux/features/cart/cartQuery";
+import {formatAmount} from "../../../../../components/utils";
 
 interface State extends SnackbarOrigin {
   open: boolean;
@@ -71,190 +55,24 @@ const responsive = {
   },
 };
 
-const cardCartItems = [
-  {
-    id: "1",
-    Image: Parts,
-    header: "E46 Engine 1996 Model",
-    subHeader: "Tractor parts",
-    new: "Refurbished",
-    quantity: "Quantity",
-    quantityAmount: "10",
-    icon1: <MdOutlineExpandMore />,
-    icondropdown: <MdKeyboardArrowDown />,
-    delete: <MdDeleteOutline />,
-    // icon2: <MdMoreVert />,
-    icondot: <MdCircle />,
-    remove: "Remove",
-    price: "₦900,000.00",
-  },
-
-  {
-    id: "2",
-    Image: Parts,
-    header: "E46 Engine 1996 Model",
-    subHeader: "Tractor parts",
-    new: "New",
-    quantity: "Quantity",
-    quantityAmount: "100",
-    icon1: <MdOutlineExpandMore />,
-    icondropdown: <MdKeyboardArrowDown />,
-    delete: <MdDeleteOutline />,
-    remove: "Remove",
-    // icon2: <MdMoreVert />,
-    icondot: <MdCircle />,
-    price: "₦9,000,000.00",
-  },
-
-  {
-    id: "3",
-    Image: Parts,
-    header: "E46 Engine 1996 Model",
-    subHeader: "Tractor parts",
-    new: "New",
-    quantity: "Quantity",
-    quantityAmount: "5",
-    icon1: <MdOutlineExpandMore />,
-    delete: <MdDeleteOutline />,
-    remove: "Remove",
-    icondropdown: <MdKeyboardArrowDown />,
-    // icon2: <MdMoreVert />,
-    icondot: <MdCircle />,
-    price: "₦450,000.00",
-  },
-  {
-    id: "4",
-    Image: Parts,
-    header: "E46 Engine 1996 Model",
-    subHeader: "Tractor parts",
-    new: "New",
-    quantity: "Quantity",
-    quantityAmount: "5",
-    icon1: <MdOutlineExpandMore />,
-    delete: <MdDeleteOutline />,
-    remove: "Remove",
-    icondropdown: <MdKeyboardArrowDown />,
-    // icon2: <MdMoreVert />,
-    icondot: <MdCircle />,
-    price: "₦450,000.00",
-  },
-  {
-    id: "5",
-    Image: Parts,
-    header: "E46 Engine 1996 Model",
-    subHeader: "Tractor parts",
-    new: "New",
-    quantity: "Quantity",
-    quantityAmount: "5",
-    icon1: <MdOutlineExpandMore />,
-    delete: <MdDeleteOutline />,
-    remove: "Remove",
-    icondropdown: <MdKeyboardArrowDown />,
-    // icon2: <MdMoreVert />,
-    icondot: <MdCircle />,
-    price: "₦450,000.00",
-  },
-
-  {
-    id: "6",
-    Image: Parts,
-    header: "E46 Engine 1996 Model",
-    subHeader: "Tractor parts",
-    new: "New",
-    quantity: "Quantity",
-    quantityAmount: "5",
-    icon1: <MdOutlineExpandMore />,
-    delete: <MdDeleteOutline />,
-    remove: "Remove",
-    icondropdown: <MdKeyboardArrowDown />,
-    // icon2: <MdMoreVert />,
-    icondot: <MdCircle />,
-    price: "₦450,000.00",
-  },
-
-  {
-    id: "7",
-    Image: Parts,
-    header: "E46 Engine 1996 Model",
-    subHeader: "Tractor parts",
-    new: "New",
-    quantity: "Quantity",
-    quantityAmount: "5",
-    icon1: <MdOutlineExpandMore />,
-    delete: <MdDeleteOutline />,
-    remove: "Remove",
-    icondropdown: <MdKeyboardArrowDown />,
-    // icon2: <MdMoreVert />,
-    icondot: <MdCircle />,
-    price: "₦450,000.00",
-  },
-
-  {
-    id: "8",
-    Image: Parts,
-    header: "E46 Engine 1996 Model",
-    subHeader: "Tractor parts",
-    new: "New",
-    quantity: "Quantity",
-    quantityAmount: "5",
-    icon1: <MdOutlineExpandMore />,
-    delete: <MdDeleteOutline />,
-    remove: "Remove",
-    icondropdown: <MdKeyboardArrowDown />,
-    // icon2: <MdMoreVert />,
-    icondot: <MdCircle />,
-    price: "₦450,000.00",
-  },
-];
-
-const itemSelected = [
-  {
-    count: 4,
-    totalPrice: "₦360,000.00",
-    shippingPrice: "₦0",
-    subtotal: "₦360,000.00",
-  },
-];
-
-const ITEM_HEIGHT = 48;
 
 const BuyerCartMobile = () => {
-  const [visibleButtons, setVisibleButtons] = useState<{
-    [key: string]: boolean;
-  }>({});
+  const router = useRouter();
 
-  const toggleButton = (id: string) => {
-    setVisibleButtons((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
-  };
-
-  const [number, setNumber] = useState("");
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setNumber(event.target.value as string);
-  };
-
-  const [isOpen, setIsOpen] = useState(false);
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
-
-  //  const { cart } = useAppSelector((state) => state.product);
-  const { cart } = useAppSelector((state) => state.product);
-  console.log("cart ", cart);
-  const [OpenA, setOpenA] = useState(false);
-  const handleNav = () => {
-    setOpenA(!OpenA);
-  };
-
+  const [totalItemPrice, setTotalItemPrice] = useState<string>("0");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [state, setState] = useState<State>({
     open: false,
     vertical: "top",
     horizontal: "center",
   });
   const { vertical, horizontal, open } = state;
+
+  const { cart } = useAppSelector((state) => state.product);
+
+
+  const [addToCart, { isLoading: cartLoading }] =
+     useAddSingleProductToCartMutation();
 
   const handleSucessClick = (newState: SnackbarOrigin) => () => {
     setState({ ...newState, open: true });
@@ -264,41 +82,57 @@ const BuyerCartMobile = () => {
     setState({ ...state, open: false });
   };
 
-  const [carts, setCarts] = useState(cardCartItems);
 
-  const removeFromCart = (id: string) => {
-    setCarts((prevCart) => prevCart.filter((item) => item.id !== id));
-  };
-  const router = useRouter();
 
-  const [showButton, setShowButton] = useState(false);
-
-  const [quantity, setQuantity] = useState<string | number>("");
-  const [isInputVisible, setIsInputVisible] = useState(false);
-  const [isUpdateButtonVisible, setIsUpdateButtonVisible] = useState(false);
-
-  const handleDropdownChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value;
-    if (value === "10+") {
-      setIsInputVisible(true);
-      setIsUpdateButtonVisible(true);
-      setQuantity("");
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      setIsAuthenticated(false);
     } else {
-      setIsInputVisible(false);
-      setQuantity(Number(value));
+      setIsAuthenticated(true);
+    }
+  }, [router]);
+
+  const handleCheckout = (newState: SnackbarOrigin) => async () => {
+    if (!isAuthenticated) {
+      router.push(paths.toLogin());
+    } else {
+      const data = cart.map((item) => {
+        return {
+          productId: item.id,
+          quantity: Number(item.quantity),
+        };
+      });
+      try {
+        const res = await addToCart(data).unwrap();
+        setState({ ...newState, open: true });
+        router.push(paths.toCheckout());
+        console.log(res.data);
+      } catch (error: any) {
+        console.log(error.data);
+      }
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuantity(e.target.value);
-    setIsUpdateButtonVisible(true);
-  };
 
-  const handleUpdateClick = () => {
-    if (Number(quantity) >= 1) {
-      setIsUpdateButtonVisible(false);
+  const getAllTotalPrice = () => {
+    let newTotal = "0";
+
+    if (cart.length !== 0) {
+      const total = cart
+         .map((item) => Number(item.amount) * Number(item.quantity))
+         .reduce((a, b) => a + b, 0);
+
+      newTotal = String(total);
+    }
+    if (totalItemPrice !== newTotal) {
+      setTotalItemPrice(newTotal);
     }
   };
+
+  useEffect(() => {
+    getAllTotalPrice();
+  }, [cart]);
 
   return (
     <div>
@@ -317,175 +151,18 @@ const BuyerCartMobile = () => {
 
             <div className="flex  flex-col w-full">
               <div className="" style={{ width: "100%" }}>
-                {carts.length === 0 ? (
+                {cart.length === 0 ? (
                   <p className="text-lg font-bold text-center mt-20 mb-20">
                     Your Cart is Empty!
                   </p>
                 ) : (
                   <div className="">
-                    {carts.map((cardCartItem) => (
-                      <div key={cardCartItem.id} className="mt-6 mb-5 ">
-                        <div
-                          className="h-52 p-4 rounded-lg bg-white "
-                          style={{
-                            boxShadow: "0px 0px 0px 1px rgba(42, 59, 81, 0.12)",
-                          }}
-                        >
-                          <div className="flex justify-between h-full">
-                            <div className="flex justify-between gap-x-4 w-full h-full relative">
-                              <div className="flex justify-start">
-                                <div className="bg-mecaActiveBackgroundNavColor z-50   h-20 flex justify-center items-center w-24 rounded-lg">
-                                  <Image
-                                    className="m-auto p-3 "
-                                    src={cardCartItem.Image}
-                                    id="cardCartItemImage"
-                                    alt="mobile spear part image"
-                                  />
-                                </div>
-                              </div>
-                              <div className="h-full flex-1">
-                                <CardContent
-                                  className=""
-                                  style={{
-                                    padding: "inherit",
-                                    width: "100%",
-                                    zIndex: "",
-                                  }}
-                                >
-                                  <div className="text-base font-semibold mb-2">
-                                    <div className="" id="cardHeadTitle">
-                                      <TruncateText
-                                        text={cardCartItem.header}
-                                        maxLength={20}
-                                      />
-                                    </div>
-                                  </div>
-                                  <div className={`${nunito.className} w-full`}>
-                                    <div className="flex gap-x-1 font-normal text-sm text-mecaLightGrayText">
-                                      {cardCartItem.subHeader}
-                                      <span className="">.</span>
-                                      <TruncateText
-                                        text={cardCartItem.new}
-                                        maxLength={10}
-                                      />
-                                    </div>
-                                  </div>
-
-                                  <div className="flex gap-x-3 mt-4 font-normal text-sm">
-                                    <div className="text-black">
-                                      {cardCartItem.quantity}
-                                    </div>
-
-                                    <div className="relative bottom-4">
-                                      <form>
-                                        {isInputVisible ? (
-                                          <div className="flex gap-x-2">
-                                            <input
-                                              title="quantity"
-                                              type="number"
-                                              min="10"
-                                              value={quantity}
-                                              onChange={handleInputChange}
-                                              className="w-16 h-9 rounded border-2 p-2 border-mecaVerificationCodeColor mt-2"
-                                            />
-                                            {isUpdateButtonVisible && (
-                                              <button
-                                                onClick={handleUpdateClick}
-                                                className="bg-mecaBluePrimaryColor rounded-lg mt-2 text-white cursor-pointer w-16 h-9"
-                                              >
-                                                Update
-                                              </button>
-                                            )}
-                                          </div>
-                                        ) : (
-                                          <select
-                                            onChange={handleDropdownChange}
-                                            title="quantity"
-                                            className="w-16 h-9 rounded border-2 p-2 border-mecaVerificationCodeColor mt-2"
-                                            name="categoria"
-                                            id="categoriesId"
-                                          >
-                                            <option value="0" selected>
-                                              0
-                                            </option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
-                                            <option value="10+">10+</option>
-                                          </select>
-                                        )}
-                                      </form>
-                                    </div>
-                                  </div>
-
-                                  <div className="mt-1">
-                                    <p className="font-nunito font-semibold">
-                                      {cardCartItem.price}
-                                    </p>
-                                  </div>
-                                </CardContent>
-                              </div>
-
-                              <div className="">
-                                <div
-                                // style={{
-                                //   position: "relative",
-                                //   left: "40px",
-                                //   cursor: "pointer",
-                                // }}
-                                >
-                                  <MdMoreVert
-                                    onClick={() =>
-                                      toggleButton(cardCartItem.id)
-                                    }
-                                    style={{
-                                      fontSize: "20px",
-                                      overflow: "hidden",
-                                      whiteSpace: "nowrap",
-                                      textOverflow: "ellipsis",
-                                      maxWidth: "150px",
-                                    }}
-                                  />
-                                </div>
-
-                                {visibleButtons[cardCartItem.id] && (
-                                  <div
-                                    onClick={() =>
-                                      toggleButton(cardCartItem.id)
-                                    }
-                                  >
-                                    <button
-                                      style={{
-                                        boxShadow: "0px 2px 8px 0px #63636333",
-                                      }}
-                                      className="absolute right-1 top-7 h-[34px] w-[100px] cursor-pointer bg-white rounded"
-                                      onClick={() =>
-                                        removeFromCart(cardCartItem.id)
-                                      }
-                                    >
-                                      <div className="px-1 flex items-center hover:shadow-xl gap-x-1 w-full h-full m-auto hover:bg-mecaTableTextErrorBackgroundColor hover:text-mecaErrorInputColor">
-                                        <div className="">
-                                          {cardCartItem.delete}
-                                        </div>
-                                        <div className="text-sm font-normal">
-                                          {cardCartItem.remove}
-                                        </div>
-                                      </div>
-                                    </button>
-                                  </div>
-                                )}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
+                    {cart.map((cardCartItem,index) => (
+                       <CheckOutCard
+                          key={index}
+                          cardCartItem={cardCartItem}
+                          getPrice={getAllTotalPrice}
+                       />                    ))}
                   </div>
                 )}
               </div>
@@ -494,36 +171,42 @@ const BuyerCartMobile = () => {
               <div className="mb-10" style={{ width: "100%" }}>
                 <div className="h-64 bg-mecaSearchColor  rounded-lg pt-5">
                   <div className="w-[90%] m-auto">
-                    {itemSelected.map((itemSelect) => (
-                      <div className={nunito.className}>
-                        <div className="flex justify-between">
-                          <div className="flex font-normal text-sm">
-                            <p> item</p>
-                            <p> ({itemSelect.count})</p>
-                          </div>
+                    <div>
+                      <div className="flex justify-between">
+                        <div className="flex font-normal text-sm">
+                          <p> Item{cart?.length > 1 && "s"}</p>
+                          <p> ({cart?.length})</p>
+                        </div>
 
-                          <div className=" font-normal text-sm">
-                            <p>{itemSelect.totalPrice}</p>
-                          </div>
-                        </div>
-                        <div className="flex justify-between mt-5 font-normal text-sm">
-                          <p>Shipping</p>
-                          <p>{itemSelect.shippingPrice}</p>
-                        </div>
-                        <hr className="mt-5"></hr>
-                        <div className="flex justify-between mt-5 mb-9 font-semibold text-xl">
-                          <p>Subtotal</p>
-                          <p>{itemSelect.subtotal}</p>
+                        <div className=" font-normal text-sm">
+                          <p>
+                            {totalItemPrice
+                               ? formatAmount(totalItemPrice)
+                               : "0"}
+                          </p>
                         </div>
                       </div>
-                    ))}
+                      <div className="flex justify-between mt-5 font-normal text-sm">
+                        <p>Shipping</p>
+                        <p>{"₦0"}</p>
+                      </div>
+                      <hr className="mt-5"></hr>
+                      <div className="flex justify-between mt-5 mb-9 font-semibold text-xl">
+                        <p>Subtotal</p>
+                        <p>
+                          {totalItemPrice
+                             ? formatAmount(totalItemPrice)
+                             : "0"}
+                        </p>
+                      </div>
+                    </div>
                     <div className="">
                       <button
-                        onClick={handleSucessClick({
-                          vertical: "top",
-                          horizontal: "center",
-                        })}
-                        className="w-full h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer"
+                         onClick={handleCheckout({
+                           vertical: "top",
+                           horizontal: "center",
+                         })}
+                         className="w-full h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer"
                       >
                         Checkout
                       </button>

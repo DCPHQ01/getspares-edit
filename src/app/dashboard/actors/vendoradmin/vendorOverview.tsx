@@ -49,11 +49,14 @@ function VendorOverview() {
     <>
       <div>
         <div className={`flex justify-between items-center`}>
-          <Header
-            subtitle={`Take a quick glance on what is happening with meca`}
-            name={usersFirstName}
-          />
-          <Link href={paths.toModalPage()} className="font-semibold">
+          <div>
+            <Header
+               subtitle={`Take a quick glance on what is happening with meca`}
+               name={usersFirstName}
+            />
+          </div>
+
+          <Link href={paths.toModalPageVendor()} className="font-semibold">
             <Addbutton title={`Update Company`} />
           </Link>
         </div>

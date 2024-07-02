@@ -5,7 +5,7 @@ interface CardProp {
   totalNumberOfAgents: number
   totalNumberOfProductsSold: number
   totalOrderValue: number
- 
+
 }
 
 interface CardProps {
@@ -31,7 +31,7 @@ const Index:React.FC<CardProps> = ({cardField}) => {
       },
     },
     {
-      total: "Total number of Product sold",
+      total: "Total number of product sold",
       amount:cardField.totalNumberOfProductsSold,
       percentage: 0,
       onClick: () => {

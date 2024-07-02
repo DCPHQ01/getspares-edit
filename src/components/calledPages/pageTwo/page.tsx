@@ -30,6 +30,7 @@ import {
 } from "../../../redux/features/company/companySlice";
 import { MdPhotoLibrary } from "react-icons/md";
 import { paths } from "../../../path/paths";
+import {useGetCompanyProfileQuery} from "../../../redux/features/company/companyQuery";
 
 interface CalledPagesPageTwoPagesProps {
   step: number;
@@ -39,6 +40,8 @@ interface CalledPagesPageTwoPagesProps {
 const CalledPagesPageTwoPages = () => {
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [inputValues, setInputValues] = useState<string[]>([""]);
+  const { data, isLoading, isError } = useGetCompanyProfileQuery({});
+
 
   const handleInputChange = (index: number, value: string) => {
     const newInputValues = [...inputValues];
@@ -46,9 +49,9 @@ const CalledPagesPageTwoPages = () => {
     setInputValues(newInputValues);
   };
 
-  const handleAddAddress = () => {
-    setInputValues([...company.companyForm.address, ""]);
-  };
+  // const handleAddAddress = () => {
+  //   setInputValues([...company.companyForm.address1, ""]);
+  // };
   const handleSaveAddress = () => {
     const newAddresses: Address[] = inputValues.map((inputValue) => {
       const parts = inputValue.split(",").map((part) => part.trim());
@@ -56,7 +59,6 @@ const CalledPagesPageTwoPages = () => {
         const [streetNumber, town, city, state] = parts;
         return { streetNumber, town, city, state };
       } else {
-        // Handle invalid input
         console.error("Invalid address format");
         return { streetNumber: "", town: "", city: "", state: "" };
       }
@@ -100,12 +102,12 @@ const CalledPagesPageTwoPages = () => {
     if (!addressRegex.test(address)) {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        address: "Address must be at least 5 characters",
+        address1: "Address must be at least 5 characters",
       }));
     } else {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        address: "",
+        address1: "",
       }));
     }
   };
@@ -230,7 +232,7 @@ const CalledPagesPageTwoPages = () => {
                   placeholder="Enter email"
                   InputProps={{ disableUnderline: true }}
                   className="  w-full lg:w-[364px]  2xl:w-[35rem]"
-                  value={company.companyForm.email}
+                  value={company.companyForm.companyEmail}
                   onChange={(e) =>
                     dispatch(
                       setCompanyForm({
@@ -297,12 +299,12 @@ const CalledPagesPageTwoPages = () => {
                         InputProps={{ disableUnderline: true }}
                         className="  w-full lg:w-[364px] 2xl:w-[35rem] "
                         placeholder="Enter address (Street Number, Town, City, State)"
-                        value={company.companyForm.address[index]}
+                        value={company.companyForm.address1}
                         onBlur={(e) =>
                           dispatch(
                             setCompanyForm({
                               ...company.companyForm,
-                              address: [...company.companyForm.address.slice(0, index), e.target.value]
+                              address: company.companyForm.address1
                             }),
                           )
                         }
@@ -312,7 +314,7 @@ const CalledPagesPageTwoPages = () => {
                   ))}
 
                   <button
-                    onClick={handleAddAddress}
+                    // onClick={handleAddAddress}
                     className="add-address"
                     id="addAnotherid4"
                   >
@@ -337,7 +339,7 @@ const CalledPagesPageTwoPages = () => {
                 </div> */}
 
                 {/* {formImage && (
-                  
+
                   )} */}
                 {/* {formImage ? (
                   <div className="">
@@ -452,7 +454,7 @@ const CalledPagesPageTwoPages = () => {
                         // className="lg:w-[100%] w-[100%]"
                         className="  w-full lg:w-[364px]  2xl:w-[35rem]"
                         // sx={{ backgroundColor: "porcelain" }}
-                        value={company.companyForm.email}
+                        value={company.companyForm.companyEmail}
                         onChange={(e) =>
                           dispatch(
                             setCompanyForm({
@@ -524,12 +526,12 @@ const CalledPagesPageTwoPages = () => {
                               InputProps={{ disableUnderline: true }}
                               className="  w-full lg:w-[364px]  2xl:w-[35rem] "
                               placeholder="Enter address (Street Number, Town, City, State)"
-                              value={company.companyForm.address[index]}
+                              value={company.companyForm.address1}
                               onBlur={(e) => {
                                 dispatch(
                                   setCompanyForm({
                                     ...company.companyForm,
-                                    address: [...company.companyForm.address.slice(0, index),e.target.value,]
+                                    address: company.companyForm.address1
                                   }),
                                 );
                               }}
@@ -545,7 +547,7 @@ const CalledPagesPageTwoPages = () => {
                         ))}
 
                         <button
-                          onClick={handleAddAddress}
+                          // onClick={handleAddAddress}
                           className="add-address"
                           id="addAnotheraddress"
                         >
@@ -571,7 +573,7 @@ const CalledPagesPageTwoPages = () => {
                     </div>
 
                     {/* {formImage && (
-                  
+
                   )} */}
                     {formImage ? (
                       <div className="">

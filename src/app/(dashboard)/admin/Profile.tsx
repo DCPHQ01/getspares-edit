@@ -67,8 +67,9 @@ const Profile = () => {
       });
     }
   }, [router]);
-  
+
   const fullName = `${formData.firstName} ${formData.lastName}`;
+
   return (
     <div>
       <Header subtitle={``} title={`Profile`} amount={``} />
@@ -77,11 +78,13 @@ const Profile = () => {
           className="bg-mecaActiveBackgroundNavColor text-mecaBluePrimaryColor w-16 h-16 text-4xl"
           {...stringAvatar(fullName)}
         />
-        <Header
-          subtitle={formData.email}
-          title={fullName}
-          amount={``}
-        />
+        <div>
+          <Header
+             subtitle={formData.email}
+             title={fullName}
+          />
+        </div>
+
       </div>
 
       <hr></hr>
@@ -106,7 +109,7 @@ const Profile = () => {
               InputProps={{ disableUnderline: true }}
               className="lg:w-[364px]  w-[100%] 2xl:w-[35rem] rounded"
               sx={{ backgroundColor: "porcelain" }}
-             
+
             />
 
             <TextField
@@ -120,7 +123,7 @@ const Profile = () => {
               InputProps={{ disableUnderline: true }}
               className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem]"
               sx={{ backgroundColor: "porcelain" }}
-            
+
             />
           </Box>
 
@@ -136,7 +139,7 @@ const Profile = () => {
               InputProps={{ disableUnderline: true }}
               className="  w-[100%] rounded"
               sx={{ backgroundColor: "porcelain" }}
-            
+
             />
           </Box>
         </div>

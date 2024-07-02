@@ -56,7 +56,7 @@ const RemoveToCartPage = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
-  const [totalItemPrice, setTotalItemPrice] = useState<string>("");
+  const [totalItemPrice, setTotalItemPrice] = useState<string>("0");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const [snackState, setSnackState] = useState<SnackState>({
@@ -90,8 +90,12 @@ const RemoveToCartPage = () => {
           quantity: Number(item.quantity),
         };
       });
+
+      const payload = {
+        itemRequests:data
+      }
       try {
-        const res = await addToCart(data).unwrap();
+        const res = await addToCart(payload).unwrap();
         setSnackState({ ...newState, open: true });
         router.push(paths.toCheckout());
         console.log(res.data);
@@ -106,17 +110,21 @@ const RemoveToCartPage = () => {
   };
 
   const getAllTotalPrice = () => {
-    if (cart.length !== 0) {
-      let total = cart
-        .map((item) => Number(item.amount) * Number(item.quantity))
-        .reduce((a, b) => a + b);
+    let newTotal = "0";
 
-      // let total = cart.reduce((accum,item) => accum + getPrice(item.price), 0)
-      setTotalItemPrice(String(total));
+    if (cart.length !== 0) {
+      const total = cart
+        .map((item) => Number(item.amount) * Number(item.quantity))
+        .reduce((a, b) => a + b, 0);
+
+      newTotal = String(total);
+    }
+    if (totalItemPrice !== newTotal) {
+      setTotalItemPrice(newTotal);
     }
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     getAllTotalPrice();
   }, [cart]);
 

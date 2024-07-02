@@ -28,7 +28,7 @@ const mobileNavData = [
     icon1: <MdExpandMore size={24} className="text-mecaGoBackArrow" />,
     icon2: <MdChevronRight size={24} className="text-mecaGoBackArrow" />,
     link: "",
-    mobileNavHeader: <DropdownPage />,
+    mobileNavHeader: <DropdownPage closeDropdown={() => {}} />,
   },
   {
     id: 3,
@@ -84,7 +84,7 @@ export default function MobileNavbarList({ handleNav }: MobileNavProps) {
   };
   return (
     <div
-      className="w-full h-screen z-[2000] bg-white fixed top-0 overflow-y-hidden"
+      className="w-full h-screen bg-white fixed z-50 top-0 overflow-y-hidden"
       id="mobileMenuContainer"
     >
       <div
@@ -152,8 +152,8 @@ export default function MobileNavbarList({ handleNav }: MobileNavProps) {
             active === data.id && (
               <div
                 key={data.id}
-                className=" absolute top-0 "
-                style={{ width: "98%", margin: "0px auto" }}
+                className=" absolute top-0 left-0 right-0"
+                style={{ width: "100%", margin: "0px auto" }}
               >
                 <div className="" onClick={dropDownClicked}>
                   {data.mobileNavHeader}

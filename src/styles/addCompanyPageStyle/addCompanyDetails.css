@@ -107,7 +107,7 @@
   padding: 0px 8px;
   gap: 0px;
   border-radius: 4px 4px 0px 0px;
-  opacity: 0px;
+  opacity: 0;
 }
 
 .nextbtn-wrapper {
@@ -116,21 +116,27 @@
   /* margin-bottom: 24px; */
   /* margin-top: 98px; */
 }
+.saveBtn {
+  background-color: #095ad3;
+  color: #ffffff;
+  text-align: center;
+  width: 130px;
+  height: 48px;
+  padding: 10px 24px 10px 24px;
+  border-radius: 36px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+}
 
 .nextbtn {
   background-color: #095ad3;
   color: #ffffff;
-
   text-align: center;
-
-  /* padding-top: 10px; */
-
-  width: 360px;
+  width: 350px;
   height: 48px;
   padding: 10px 24px 10px 24px;
-  /* gap: 10px; */
   border-radius: 36px;
-  opacity: 0px;
   font-size: 18px;
   font-weight: 600;
   line-height: 28px;
@@ -153,8 +159,22 @@
   margin-top: 80px;
 }
 
+.editBtn {
+  width: 130px;
+  height: 48px;
+  padding: 10px 24px 10px 24px;
+  /* gap: 10px; */
+  border-radius: 36px;
+  border: 2px solid #095ad3;
+  color: #095ad3;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+  text-align: center;
+}
+
 .previousbtn {
-  width: 360px;
+  width: 350px;
   height: 48px;
   padding: 10px 24px 10px 24px;
   /* gap: 10px; */
@@ -271,7 +291,7 @@
   .companyInputWrap {
     width: -webkit-fill-available;
   }
-  /* 
+  /*
   .form-display {
     position: absolute;
     left: 114px;
@@ -281,7 +301,7 @@
     display: none;
   } */
 
-  /* 
+  /*
 
   .nextbtn-wrapper {
     flex-direction: column;

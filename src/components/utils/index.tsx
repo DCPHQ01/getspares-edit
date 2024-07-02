@@ -1,10 +1,5 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import dayjs from "dayjs";
-import customParseFormat from 'dayjs/plugin/customParseFormat';
-
-dayjs.extend(customParseFormat);
-
 
 const cloud_name = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
 const cloudinary_url = `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`;
@@ -21,18 +16,6 @@ export const formatAmount = (price: string | number) => {
       currency: "NGN",
     }).format(Number(price));
   }
-};
-
-export const formatDate = (date: string) => {
-   const finalDate = dayjs(date, 'DD:MM:YYYY HH:mm').format("DD-MM-YYYY");
-   return finalDate;
-};
-
-
-
-export const formatTime = (time: string) => {
-   const finalTime = dayjs(time, 'DD:MM:YYYY HH:mm').format("hh:mm A");
-   return finalTime;
 };
 
 export const uploadImage = async (
@@ -115,6 +98,8 @@ export const formatAmount2 = (price: string | number) => {
 
     if (amountString.startsWith("NGN")) {
       amountString = amountString.replace("NGN", "").trim();
+    }else{
+
     }
 
     const amountNumber = Number(amountString);
@@ -138,6 +123,18 @@ export const format = (price: string | number) => {
       style: "currency",
       currency: "NGN",
     }).format(Number(price));
+  } else {
+    return "₦0.00";
+  }
+};
+
+export const formatAmount3 = (price: string) => {
+  if (price) {
+    const newStr = price.split(' ')
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: newStr[0] && 'NGN',
+    }).format(Number(newStr[1]));
   } else {
     return "₦0.00";
   }

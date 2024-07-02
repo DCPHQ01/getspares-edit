@@ -4,6 +4,8 @@ import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
+import {useEffect, useState} from "react";
+import {useRouter} from "next/navigation";
 
 function stringToColor(string: string) {
   let hash = 0;
@@ -34,19 +36,48 @@ function stringAvatar(name: string) {
 }
 
 const Profile = () => {
+
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    deliveryAddress: ''
+  });
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const userDetails = sessionStorage.getItem('userDetails');
+    if (userDetails) {
+      const parsedUserDetails = JSON.parse(userDetails);
+      console.log("User details:", parsedUserDetails);
+      setFormData({
+        firstName: parsedUserDetails.firstName || '',
+        lastName: parsedUserDetails.lastName || '',
+        email: parsedUserDetails.email || '',
+        deliveryAddress: parsedUserDetails.deliveryAddress || ''
+      });
+    }
+  }, [router]);
+
+  const fullName = `${formData.firstName} ${formData.lastName}`;
+
   return (
     <div>
       <Header subtitle={``} title={`Profile`} amount={``} />
       <div className="flex gap-x-2 mb-12">
         <Avatar
           className="bg-mecaActiveBackgroundNavColor text-mecaBluePrimaryColor w-16 h-16 text-4xl -z-50"
-          {...stringAvatar("Sam Immanuel")}
+          {...stringAvatar(fullName)}
         />
-        <Header
-          subtitle={`samimmanuel@gmail.com`}
-          title={`Sam Immanuel`}
-          amount={``}
-        />
+        <div>
+          <Header
+              subtitle={formData.email}
+              title={fullName}
+              amount={``}
+          />
+        </div>
+
       </div>
 
       <hr></hr>

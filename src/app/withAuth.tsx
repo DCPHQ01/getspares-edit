@@ -1,45 +1,32 @@
 "use client";
 
 import { useEffect, useLayoutEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useUserRole } from "./hooks/useUserRole";
 import { paths } from "../path/paths";
+import useGetToken from "./hooks/useGetToken";
 
 export default function withAuth(Component: any) {
   return function AuthComponent(props: any) {
     const router = useRouter();
-    const role = useUserRole();
-    // const tokens = JSON.parse(sessionStorage.getItem("token") || "{}");
-    const getToken = () => {
-      if (typeof window !== "undefined") {
-        return JSON.parse(sessionStorage.getItem("token") || "{}");
-      }
-      return {};
-    };
-
-    let tokens = getToken();
-    useLayoutEffect(() => {
-      if (!tokens) {
-        router.push(paths.toHome());
-      }
-    }, [tokens, router]);
+    const token = useGetToken()
+    const routeUrl = usePathname()
 
     useEffect(() => {
-      const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-        if (!tokens) {
-          event.preventDefault();
-        }
-      };
+      if (Object.keys(token).length === 0) {
+        router.push("/login")
+      }
+    }, []);
 
-      window.addEventListener("beforeunload", handleBeforeUnload);
+    useEffect(() => {
+      if (routeUrl === '/dashboard') {
+        window.onpopstate = () => {
+          history.go(1);
+        };
+      }
+    }, [routeUrl]);
 
-      return () => {
-        window.removeEventListener("beforeunload", handleBeforeUnload);
-      };
-    }, [tokens]);
-    if (!tokens) {
-      return null;
-    }
+
     return <Component {...props} />;
   };
 }
