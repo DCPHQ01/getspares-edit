@@ -10,7 +10,7 @@ import { useGetTopPerformingVendorsQuery } from "../../../../../redux/features/d
 import dayjs from "dayjs";
 import { formatAmount } from "../../../../../components/utils";
 import { MdYard } from "react-icons/md";
-import {formatDateTime} from "../../../../../components/utils/utils";
+import { formatDateTime } from "../../../../../components/utils/utils";
 
 interface TopVendors {
   avatar?: string;
@@ -29,8 +29,6 @@ interface OverviewTableProps {
 }
 
 function Overview({ data, isLoading }: OverviewTableProps) {
-
-
   return (
     <div
       id="mecaAdminTable"
@@ -39,12 +37,22 @@ function Overview({ data, isLoading }: OverviewTableProps) {
       <table id="adminTable" className={`w-full`}>
         <thead>
           <tr className="truncate">
-            <th id="companyNameHeader" className={`sticky`}>Company name</th>
-            <th id="totalItemsSoldHeader" className={`sticky`}>Total items sold</th>
-            <th id="transactionValueHeader" className={`sticky`} style={{ paddingLeft: "2.5rem" }}>
+            <th id="companyNameHeader" className={`sticky`}>
+              Company name
+            </th>
+            <th id="totalItemsSoldHeader" className={`sticky`}>
+              Total items sold
+            </th>
+            <th
+              id="transactionValueHeader"
+              className={`sticky`}
+              style={{ paddingLeft: "2.5rem" }}
+            >
               Transaction value
             </th>
-            <th id="dateTimeJoinedHeader" className={`sticky`}>Date & time joined</th>
+            <th id="dateTimeJoinedHeader" className={`sticky`}>
+              Date & time joined
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -60,34 +68,32 @@ function Overview({ data, isLoading }: OverviewTableProps) {
                     wrapperStyle={{}}
                     wrapperClass="color-ring-wrapper"
                     colors={[
-                      "#000000",
-                      "#000000",
-                      "#000000",
-                      "#000000",
-                      "#000000",
+                      "#095AD3",
+                      "#095AD3",
+                      "#095AD3",
+                      "#095AD3",
+                      "#095AD3",
                     ]}
                   />
-                   <p>Loading Overview Table...</p>
                 </div>
               </td>
             </tr>
           ) : data.length === 0 ? (
             <div className="relative right-[100%] left-[100%] flex flex-col justify-center items-center pt-32 leading-10">
-               <div className=" h-28">
-            <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
-            <MdYard style={{fontSize:"2rem", color:"#0852C0"}}/>
+              <div className=" h-28">
+                <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
+                  <MdYard style={{ fontSize: "2rem", color: "#0852C0" }} />
+                </div>
+              </div>
+              <h1 className="text-xl">No item here yet</h1>
+              <h1 className="text-gray-500">All your item will appear here</h1>
             </div>
-            </div>
-            <h1 className="text-xl">No item here yet</h1>
-            <h1 className="text-gray-500">All your item will appear here</h1>
-              </div>)  : (
+          ) : (
             data.map((d, index) => {
-
-
-
               const { date, time } = formatDateTime(d.dateJoined);
-              const formattedTransactionValue = formatAmount(d.transactionValue);
-
+              const formattedTransactionValue = formatAmount(
+                d.transactionValue
+              );
 
               return (
                 <tr key={index} id={`row_${index}`} className="cursor-pointer">

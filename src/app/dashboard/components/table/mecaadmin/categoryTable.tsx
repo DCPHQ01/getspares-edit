@@ -47,12 +47,22 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
         <table id="adminTable" className={`w-full`}>
           <thead>
             <tr className="truncate">
-              <th id="companyNameHeader" className={`sticky`}>Category name</th>
-              <th id="totalItemsSoldHeader" className={`sticky`}>No of products</th>
-              <th id="transactionValueHeader" className={`sticky`} style={{ paddingLeft: "5rem" }}>
+              <th id="companyNameHeader" className={`sticky`}>
+                Category name
+              </th>
+              <th id="totalItemsSoldHeader" className={`sticky`}>
+                No of products
+              </th>
+              <th
+                id="transactionValueHeader"
+                className={`sticky`}
+                style={{ paddingLeft: "5rem" }}
+              >
                 Created by
               </th>
-              <th id="dateTimeJoinedHeader" className={`sticky`}>Date & time joined</th>
+              <th id="dateTimeJoinedHeader" className={`sticky`}>
+                Date & time joined
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -70,11 +80,11 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
                   }}
                   wrapperClass="color-ring-wrapper"
                   colors={[
-                    "#000000",
-                    "#000000",
-                    "#000000",
-                    "#000000",
-                    "#000000",
+                    "#095AD3",
+                    "#095AD3",
+                    "#095AD3",
+                    "#095AD3",
+                    "#095AD3",
                   ]}
                 />
                 <p>Loading Category.....</p>
