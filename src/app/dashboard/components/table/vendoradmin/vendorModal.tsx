@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import { MdCancel } from "react-icons/md";
 import tractor from "../../../../../assets/images/tractors.png";
@@ -9,7 +7,6 @@ import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
 
 interface VendorModalProps {
   isOpen: boolean;
-  // handleClose: () => void;
 }
 
 const images = [
@@ -29,11 +26,7 @@ const VendorModal: React.FC<VendorModalProps> = ({ isOpen }) => {
   const previousSlide = () => {
     setSlide(slide === 0 ? 0 : slide - 1);
   };
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleModal = () => {
-    setIsModalOpen(!isModalOpen);
-  };
   const [visible, setVisible] = useState(isOpen);
 
   const handleModalClose = () => {
@@ -83,8 +76,6 @@ const VendorModal: React.FC<VendorModalProps> = ({ isOpen }) => {
                     alt={item.alt}
                     key={idx}
                     layout="fixed"
-                    //  width={1000}
-                    //  height={1000}
                   />
                 </div>
               );
