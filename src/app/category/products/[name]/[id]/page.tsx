@@ -231,12 +231,12 @@ export default function ProductDescription() {
             id="productDescriptionBreadcrumbs"
             className="flex items-center gap-x-2"
           >
-            <p className="text-[12px] font-nunito font-normal text-mecaDarkBlueBackgroundOverlay">
+            <p className="text-[12px] font-nunito cursor-pointer font-normal text-mecaDarkBlueBackgroundOverlay">
               Home
             </p>
             <MdChevronRight size={20} />
             <p
-              className="text-[12px] font-nunito font-normal text-mecaDarkBlueBackgroundOverlay"
+              className="text-[12px] cursor-pointer  font-nunito font-normal text-mecaDarkBlueBackgroundOverlay"
               onClick={() =>
                 router.push(paths.toCategoryProducts(data?.data.category))
               }
@@ -245,7 +245,7 @@ export default function ProductDescription() {
               {data?.data.category}
             </p>
             <MdChevronRight size={20} />
-            <p className="text-[12px] font-nunito font-normal text-mecaGoBackArrow">
+            <p className="text-[12px] font-nunito cursor-pointer font-normal text-mecaGoBackArrow">
               {data?.data.name}
             </p>
           </div>
@@ -263,11 +263,11 @@ export default function ProductDescription() {
                   wrapperStyle={{}}
                   wrapperClass="color-ring-wrapper"
                   colors={[
-                    "#000000",
-                    "#000000",
-                    "#000000",
-                    "#000000",
-                    "#000000",
+                    "#0000FF",
+                    "#0000FF",
+                    "#0000FF",
+                    "#0000FF",
+                    "#0000FF",
                   ]}
                 />
               </div>

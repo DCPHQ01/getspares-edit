@@ -43,6 +43,7 @@ import {
 import { useRouter } from "next/navigation";
 import { paths } from "../../../path/paths";
 import { uploadImage, uploadSeveralImages } from "../../../components/utils";
+import { ColorRing } from "react-loader-spinner";
 
 const CalledPagesPageTwoPages = () => {
   const [productName, setProductName] = useState("");
@@ -51,6 +52,7 @@ const CalledPagesPageTwoPages = () => {
   const [images, setImages] = useState<string[]>([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [imagesUrl, setImagesUrl] = useState<string[]>([] || "");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleImageUpload: React.ChangeEventHandler<HTMLInputElement> = (
     event
@@ -72,9 +74,11 @@ const CalledPagesPageTwoPages = () => {
         };
         reader.readAsDataURL(file);
       });
+      setIsLoading(true);
 
       uploadSeveralImages(newImageFiles, handleImage);
     }
+    setIsLoading(false);
   };
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -183,7 +187,25 @@ const CalledPagesPageTwoPages = () => {
                           </div>
                         </div>
                       </div>
-
+                      {isLoading && (
+                        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                          <ColorRing
+                            visible={true}
+                            height="40"
+                            width="40"
+                            ariaLabel="color-ring-loading"
+                            wrapperStyle={{}}
+                            wrapperClass="color-ring-wrapper"
+                            colors={[
+                              "#0000FF",
+                              "#0000FF",
+                              "#0000FF",
+                              "#0000FF",
+                              "#0000FF",
+                            ]}
+                          />
+                        </div>
+                      )}
                       {images && (
                         <div className="flex absolute -bottom-16">
                           {images.slice(0, 4).map((image, index) => (

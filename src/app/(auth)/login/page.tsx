@@ -260,7 +260,6 @@ export default function Login() {
           >
             {isLoading ? (
               <div className="w-full h-screen flex justify-center items-center">
-             
                 <ColorRing
                   visible={true}
                   height="40"
