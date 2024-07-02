@@ -13,7 +13,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 // import MobileNav from "../mobileNav/page";
 // import MobileNav from "@/app/reusables/mobileNav/page";
-import MobileNav from "../../components/mobileNav/MobileNav";
+import MobileNav from "../../components/MobileNav/mobileNavbarList";
 
 const TopBar = () => {
   const [open, setOpen] = useState(false);

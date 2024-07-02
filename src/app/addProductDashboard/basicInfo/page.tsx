@@ -211,7 +211,7 @@ const CalledPagesPageOnePages = () => {
                       label="Product price"
                       variant="filled"
                       name="price"
-                      placeholder="$ 2000.00"
+                      placeholder="NGN 2000.00"
                       InputProps={{ disableUnderline: true }}
                       className="w-[29.4rem] mb-5"
                       sx={{ backgroundColor: "porcelain" }}

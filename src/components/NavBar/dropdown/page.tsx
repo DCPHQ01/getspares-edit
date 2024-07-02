@@ -1,83 +1,37 @@
-import Card from "@mui/material/Card";
+"use client";
 
-const categorydropdown = [
-  {
-    id: 1,
-    part1: "AC",
-    part2: "Air Filters",
-    part3: "Air Flow Meters",
-    part4: "Alternators",
-    part5: "Axles",
-    part6: "Back Mirrors",
-    part7: "Ball Joints",
-    part8: "Batteries",
-    part9: "Bonnets",
-    part10: "Tractor Parts",
-    part11: "Brakes",
-    part12: "Bulldozer Parts",
-  },
-];
+import Card from "@mui/material/Card";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useGetCategoryQuery } from "../../../redux/features/users/authQuery";
+import { paths } from "../../../path/paths";
 
 const DropdownPage = () => {
+  const router = useRouter();
+  const { data: getCategoriesData } = useGetCategoryQuery({});
+  console.log("buyers category  ", getCategoriesData);
+  const handleProductDescription = (categoryName: string) => {
+    router.push(paths.toCategoryProducts(categoryName));
+  };
   return (
     <div className="">
       <div>
         <Card
-          className="w-full  "
+          className="w-full  lg:h-96 h-[100vh]  scrollbar-none overflow-y-scroll  "
           style={{
             boxShadow: "0px 2px 8px 0px #63636333",
             zIndex: 200,
           }}
         >
-          {categorydropdown.map((categorydrop) => (
-            <div
-              key={categorydrop.id}
-              className="h-96 flex scrollbar-none justify-between p-6 leading-10 gap-x-32 overflow-y-scroll "
-            >
-              <div className="flex-col">
-                <p>{categorydrop.part1}</p>
-                <p>{categorydrop.part2}</p>
-                <p>{categorydrop.part3}</p>
-                <p>{categorydrop.part4}</p>
-                <p>{categorydrop.part5}</p>
-                <p> {categorydrop.part6}</p>
-                <p> {categorydrop.part7}</p>
-                <p> {categorydrop.part8}</p>
-                <p>{categorydrop.part9}</p>
-                <p>{categorydrop.part10}</p>
-                <p>{categorydrop.part11}</p>
-                <p>{categorydrop.part12}</p>
+          <div className="w-full p-10 lg:grid lg:grid-cols-3  gap-x-10 scrollbar-none overflow-y-scroll  ">
+            {getCategoriesData?.data.map((category: any) => (
+              <div
+                onClick={() => handleProductDescription}
+                className=" w-[100%] h-10 cursor-pointer"
+              >
+                {category.name}
               </div>
-              <div className="flex-col">
-                <p>{categorydrop.part1}</p>
-                <p>{categorydrop.part2}</p>
-                <p>{categorydrop.part3}</p>
-                <p>{categorydrop.part4}</p>
-                <p>{categorydrop.part5}</p>
-                <p> {categorydrop.part6}</p>
-                <p> {categorydrop.part7}</p>
-                <p> {categorydrop.part8}</p>
-                <p>{categorydrop.part9}</p>
-                <p>{categorydrop.part10}</p>
-                <p>{categorydrop.part11}</p>
-                <p>{categorydrop.part12}</p>
-              </div>
-              <div className="flex-col">
-                <p>{categorydrop.part1}</p>
-                <p>{categorydrop.part2}</p>
-                <p>{categorydrop.part3}</p>
-                <p>{categorydrop.part4}</p>
-                <p>{categorydrop.part5}</p>
-                <p> {categorydrop.part6}</p>
-                <p> {categorydrop.part7}</p>
-                <p> {categorydrop.part8}</p>
-                <p>{categorydrop.part9}</p>
-                <p>{categorydrop.part10}</p>
-                <p>{categorydrop.part11}</p>
-                <p>{categorydrop.part12}</p>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </Card>
       </div>
     </div>
