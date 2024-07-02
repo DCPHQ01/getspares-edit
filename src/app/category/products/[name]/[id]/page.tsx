@@ -43,7 +43,8 @@ import {
 import { CartProduct } from "../../../../../types/cart/product";
 import { paths } from "../../../../../path/paths";
 import { ColorRing } from "react-loader-spinner";
-import {useAddSingleProductToCartMutation} from "../../../../../redux/features/cart/cartQuery";
+import { useAddSingleProductToCartMutation } from "../../../../../redux/features/cart/cartQuery";
+import TruncateText from "../../../../../components/utils/utils";
 
 interface State extends SnackbarOrigin {
   open: boolean;
@@ -91,11 +92,21 @@ const images = [
 ];
 
 export default function ProductDescription() {
+  const [openVendorModal, setOpenVendorModal] = useState(false);
+  const handleOpenVendorModal = () => {
+    setOpenVendorModal((val)=> !val);
+  };
+
+  const [opens, setOpens] = React.useState<boolean>(false);
+  const handleOpen = () => setOpens(true);
+  const handleClose = () => setOpens(false);
+  const [productImages, setProductImages] = useState([]);
   const searchParams = usePathname();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-
-
+  const [showMore, setShowMore] = useState(false);
+  const changeSize = () => {
+    setShowMore((showMore) => !showMore);
+  };
   const [state, setState] = React.useState<State>({
     open: false,
     vertical: "top",

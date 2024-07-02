@@ -85,10 +85,10 @@ function CategoryMobile() {
   const handleClose = () => setOpen(false);
 
   const [formImage, setFormImage] = useState<string | null>(null);
-  const [categoryData, { isLoading }] = useAddCategoryMutation();
 
-
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
@@ -118,10 +118,10 @@ function CategoryMobile() {
       return;
     }
     try {
-      const response = await categoryData({ 
-        name: categoryName, 
-        image: "string", 
-      });
+      const response = await categoryData({
+        name: categoryName,
+        image: image_url,
+      }).unwrap();
       if ("data" in response) {
         console.log(response.data.data);
         setCategoryList((prev) => [response.data.data, ...prev]);
@@ -243,24 +243,23 @@ function CategoryMobile() {
                   onClick={handleSubmit}
                 >
                   {isLoading ? (
-                  <ColorRing
-                    visible
-                    height="40"
-                    width="40"
-                    ariaLabel="color-ring-loading"
-                    wrapperStyle={{}}
-                    wrapperClass="color-ring-wrapper"
-                    colors={["#ffff", "#ffff", "#ffff", "#ffff", "#ffff"]}
-                  />
-                ) : (
-                  <div className="flex text-white items-center justify-center" id="addCategory">Create category</div>
-                )}
-                  {/* <div
-                    className={`flex text-white items-center justify-center`}
-                  >
-                    <MdAdd size={18} />
-                    Create category
-                  </div> */}
+                    <ColorRing
+                      visible
+                      height="40"
+                      width="40"
+                      ariaLabel="color-ring-loading"
+                      wrapperStyle={{}}
+                      wrapperClass="color-ring-wrapper"
+                      colors={["#ffff", "#ffff", "#ffff", "#ffff", "#ffff"]}
+                    />
+                  ) : (
+                    <p
+                      className="flex text-white items-center justify-center"
+                      id="addCategory"
+                    >
+                      Create category
+                    </p>
+                  )}
                 </button>
                 {error && (
                   <p className="text-red-500 text-center text-sm mt-2">
@@ -272,29 +271,38 @@ function CategoryMobile() {
           </Box>
         </Modal>
       </div>
-      <div className={`flex justify-between gap-[100px] mr-[2rem] items-center mb-[1.25rem]`}>
+      <div
+        className={`flex justify-between gap-[100px] mr-[2rem] items-center mb-[1.25rem]`}
+      >
         <SearchBox placeholder={`Search for category`} />
         {/*<PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange} />*/}
 
         <PeriodRadios
-            activityPeriod={activityPeriod}
-            onPeriodChange={handlePeriodChange}
+          activityPeriod={activityPeriod}
+          onPeriodChange={handlePeriodChange}
         />
-
       </div>
 
       <CategoryTable categoryList={categoryList} isLoading={isLoading} />
 
       <div className=" flex justify-end mt-10 mb-10 font-bold text-lg">
-        <button className={`flex gap-x-2 border border-[#EAECF0]  rounded-md h-[36px] w-[36px] pl-1 ${last ? "text-gray-400 cursor-not-allowed" : ""}`}
-        onClick={handlePreviousPage}
-        disabled={first}
+        <button
+          title="previous"
+          className={`flex gap-x-2 border border-[#EAECF0]  rounded-md h-[36px] w-[36px] pl-1 ${
+            last ? "text-gray-400 cursor-not-allowed" : ""
+          }`}
+          onClick={handlePreviousPage}
+          disabled={first}
         >
           <MdChevronLeft className="mt-1 text-2xl" />
         </button>
-        <button className={`flex gap-x-2 border border-[#EAECF0] rounded-md h-[36px] w-[36px] pl-1 ${last ? "text-gray-400 cursor-not-allowed" : ""}`}
-        onClick={handleNextPage}
-        disabled={last}
+        <button
+          title="next"
+          className={`flex gap-x-2 border border-[#EAECF0] rounded-md h-[36px] w-[36px] pl-1 ${
+            last ? "text-gray-400 cursor-not-allowed" : ""
+          }`}
+          onClick={handleNextPage}
+          disabled={last}
         >
           <MdChevronRight className="mt-1 text-2xl" />
         </button>
