@@ -84,7 +84,7 @@ export default function MobileNavbarList({ handleNav }: MobileNavProps) {
   };
   return (
     <div
-      className="w-full h-screen bg-white fixed top-0 overflow-y-hidden"
+      className="w-full h-screen bg-white fixed z-50 top-0 overflow-y-hidden"
       id="mobileMenuContainer"
     >
       <div
