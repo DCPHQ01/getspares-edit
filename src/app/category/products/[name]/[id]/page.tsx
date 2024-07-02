@@ -92,7 +92,7 @@ const images = [
 export default function ProductDescription() {
   const [openVendorModal, setOpenVendorModal] = useState(false);
   const handleOpenVendorModal = () => {
-    setOpenVendorModal(!openVendorModal);
+    setOpenVendorModal((val)=> !val);
   };
 
   const [opens, setOpens] = React.useState<boolean>(false);
@@ -223,6 +223,11 @@ export default function ProductDescription() {
     <div className="relative">
       <TopBarWhileInside />
       <div id="mainContainer" className="container mx-auto px-2">
+        {openVendorModal && (
+          <div>
+            <VendorModal handleModalClose={handleOpenVendorModal} />
+          </div>
+        )}
         <div
           className="flex flex-col space-y-8 mt-40 w-full"
           id="productDescriptionContentContainer"
@@ -313,11 +318,6 @@ export default function ProductDescription() {
                       </div>
                     ))}
                   </div>
-                  {openVendorModal && (
-                    <div>
-                      <VendorModal isOpen={true} />
-                    </div>
-                  )}
                 </div>
                 <div
                   id="productDetails"

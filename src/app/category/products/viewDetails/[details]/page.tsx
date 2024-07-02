@@ -156,6 +156,10 @@ export default function Details() {
   console.log("view ", viewBuyerProducts);
   console.log("The productInformation: ", productInformations);
 
+    const [openVendorModal, setOpenVendorModal] = useState(false);
+    const handleOpenVendorModal = () => {
+      setOpenVendorModal((val) => !val);
+    };
   return (
     <div className="relative pt-5" id="detailsDiv">
       <div id="mainContainer" className="container px-4 md:px-8 lg:px-16">
@@ -278,7 +282,10 @@ export default function Details() {
         </div>
       </div>
       <div>
-        <BuyerModal isOpen={true} />
+        <BuyerModal
+          handleModalClose={handleOpenVendorModal}
+         
+        />
       </div>
     </div>
   );
