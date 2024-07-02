@@ -28,15 +28,7 @@ const formatDateTime = (dateTime: string) => {
 };
 
 const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
-  const router = useRouter();
   const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
-
-  useEffect(() => {
-    const storedOrderId = sessionStorage.getItem("selectedOrderId");
-    if (storedOrderId) {
-      setSelectedOrderId(storedOrderId);
-    }
-  }, [selectedOrderId]);
 
   const handleDetails = (orderId: string) => {
     sessionStorage.setItem("selectedOrderId", orderId);
