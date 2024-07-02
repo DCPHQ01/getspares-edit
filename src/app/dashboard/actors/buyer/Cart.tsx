@@ -95,8 +95,12 @@ const Cart = () => {
           quantity: Number(item.quantity),
         };
       });
+
+      const payload = {
+        itemRequests:data
+      }
       try {
-        const res = await addToCart(data).unwrap();
+        const res = await addToCart(payload).unwrap();
         setSnackState({ ...newState, open: true });
         router.push(paths.toCheckout());
         console.log(res.data);
