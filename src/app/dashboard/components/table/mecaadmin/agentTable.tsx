@@ -114,7 +114,6 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading }) => {
                     </td>
                     <td id={`dateJoined_${index}`}>
                       <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
-                        <div id={`date_${index}`}>{date}</div>
                         <div
                           className={`text-[#4B5565] truncate`}
                           id={`time_${index}`}
