@@ -189,8 +189,11 @@ export default function ProductDescription() {
           quantity: Number(item.quantity),
         };
       });
+      const payload = {
+        itemRequests: data
+      }
       try {
-        const res = await addToCart(data).unwrap();
+        const res = await addToCart(payload).unwrap();
         setState({ ...newState, open: true });
 
         setTimeout(() => {
