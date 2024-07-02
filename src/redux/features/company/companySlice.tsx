@@ -13,13 +13,14 @@ const companySlice = createSlice({
       companyEmail: "",
       phoneNumber: "",
       cac: "",
-      address1: '',
+      address1: "",
       // address2: '',
     },
+    productData: {},
   },
   reducers: {
     setCompanyForm: (state, action) => {
-      console.log(action.payload, 'store');
+      console.log(action.payload, "store");
       state.companyForm = action.payload;
     },
     setStep: (state, action) => {
@@ -28,8 +29,12 @@ const companySlice = createSlice({
     setCurrentStep: (state, action) => {
       state.currentStep = action.payload;
     },
+    setProductData: (state, action) => {
+      state.productData = action.payload;
+    },
   },
 });
 
-export const { setCompanyForm, setStep, setCurrentStep } = companySlice.actions;
+export const { setCompanyForm, setStep, setCurrentStep, setProductData } =
+  companySlice.actions;
 export default companySlice.reducer;

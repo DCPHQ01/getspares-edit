@@ -143,19 +143,21 @@ export default function ProductCarousel() {
           itemClass="lg:pr-8"
         >
           {isLoading ? (
-            <ColorRing
-              visible={true}
-              height="40"
-              width="40"
-              ariaLabel="color-ring-loading"
-              wrapperStyle={{}}
-              wrapperClass="color-ring-wrapper"
-              colors={["#ffff", "#ffff", "#ffff", "#ffff", "#ffff"]}
-            />
+            <div className="w-full flex justify-center items-center">
+              <ColorRing
+                visible={true}
+                height="40"
+                width="40"
+                ariaLabel="color-ring-loading"
+                wrapperStyle={{}}
+                wrapperClass="color-ring-wrapper"
+                colors={["#095AD3", "#095AD3", "#095AD3", "#095AD3", "#095AD3"]}
+              />
+            </div>
           ) : (
             (categoryData?.data || []).map((data: DataProps) => (
               <Card
-                 key={data.id}
+                key={data.id}
                 image={data.image ? data.image : Bulldozer}
                 type={data.name}
                 categoryId={data.id}
