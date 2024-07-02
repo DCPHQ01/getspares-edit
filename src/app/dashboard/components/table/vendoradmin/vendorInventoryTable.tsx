@@ -146,11 +146,11 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
                       }}
                       wrapperClass="color-ring-wrapper"
                       colors={[
-                        "#000000",
-                        "#000000",
-                        "#000000",
-                        "#000000",
-                        "#000000",
+                        "#095AD3",
+                        "#095AD3",
+                        "#095AD3",
+                        "#095AD3",
+                        "#095AD3",
                       ]}
                     />
                     <p>Loading Inventory...</p>

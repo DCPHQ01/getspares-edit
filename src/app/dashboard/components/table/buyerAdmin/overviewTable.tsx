@@ -76,11 +76,11 @@ const OverviewTable: React.FC<OverviewTableProps> = ({
                   ariaLabel="color-ring-loading"
                   wrapperClass="color-ring-wrapper"
                   colors={[
-                    "#000000",
-                    "#000000",
-                    "#000000",
-                    "#000000",
-                    "#000000",
+                    "#095AD3",
+                    "#095AD3",
+                    "#095AD3",
+                    "#095AD3",
+                    "#095AD3",
                   ]}
                 />
                 <p>Loading Overview...</p>
