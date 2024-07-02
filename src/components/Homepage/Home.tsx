@@ -16,8 +16,8 @@ import {
   useGetRecentProductQuery,
   useGetTopProductQuery,
 } from "../../redux/features/users/authQuery";
-import {paths} from "../../path/paths";
-import {useRouter} from "next/navigation";
+import { paths } from "../../path/paths";
+import { useRouter } from "next/navigation";
 
 interface CustomDotProps {
   onClick: () => void;
@@ -35,6 +35,8 @@ interface ProductType {
   image: string;
   price: string;
   categoryName?: string;
+  categoryId: string;
+  productImage?: string;
 }
 const responsive = {
   superLargeDesktop: {
@@ -81,7 +83,6 @@ const responsives = {
 export default function Home() {
   const router = useRouter();
 
-
   const handleSignUp = () => {
     router.push(paths.toSignUp());
   };
@@ -101,10 +102,9 @@ export default function Home() {
       </button>
     );
   };
-  const { data: productData, isLoading } = useGetTopProductQuery({});
-  const { data: recentProductData, isLoading: isLoadingRecent } =
+  const { data: productData, isFetching } = useGetTopProductQuery({});
+  const { data: recentProductData, isFetching: isLoadingRecent } =
     useGetRecentProductQuery({});
-
 
   return (
     <main className="container mx-auto px-5 mt-8" id="mainContainer">
@@ -157,13 +157,15 @@ export default function Home() {
             (product: ProductType, index: number) =>
               index < 3 && (
                 <Card
-                   key={index}
-                   isLoading={isLoading}
+                  key={index}
+                  isLoading={isFetching}
                   image={HomeImage1}
                   id={product.id}
                   productName={product.name}
                   price={product.price}
                   categoryName={product.categoryName}
+                  categoryId={product.categoryId}
+                  productImage={product.image}
                 />
               )
           )}
@@ -192,13 +194,15 @@ export default function Home() {
             (recentProduct: ProductType, index: number) =>
               index < 3 && (
                 <Card
-                   key={index}
+                  key={index}
                   isLoading={isLoadingRecent}
                   image={HomeImage2}
                   id={recentProduct.id}
                   productName={recentProduct.name}
                   price={recentProduct.price}
                   categoryName={recentProduct.categoryName}
+                  categoryId={recentProduct.categoryId}
+                  productImage={recentProduct.image}
                 />
               )
           )}

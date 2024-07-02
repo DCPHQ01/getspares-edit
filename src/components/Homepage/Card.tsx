@@ -10,6 +10,8 @@ interface CardProps {
   price: string;
   isLoading?: boolean;
   categoryName?: string;
+  categoryId?: string;
+  productImage?: string;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -19,10 +21,15 @@ const Card: React.FC<CardProps> = ({
   productName,
   isLoading,
   categoryName,
+  categoryId,
+  productImage,
 }) => {
-  const searches = categoryName?.replace(/ /g, "-");
+  const searches = categoryName?.replace(/ /g, "-") ?? "";
   const router = useRouter();
-  const handleProductDescription = (id: string) => {
+  const handleProductDescription = (id: string, categoryId: string) => {
+    if (categoryId) {
+      sessionStorage.setItem("categoryId", categoryId);
+    }
     router.push(`/category/products/${searches}/${id}`);
   };
 
@@ -37,32 +44,44 @@ const Card: React.FC<CardProps> = ({
     <div
       className="flex flex-col items-center w-full cursor-pointer"
       id="CardContainer"
-      onClick={() => handleProductDescription(id)}
+      onClick={() => handleProductDescription(id, categoryId!)}
     >
       {isLoading && (
-        <ColorRing
-          visible={true}
-          height="40"
-          width="40"
-          ariaLabel="color-ring-loading"
-          wrapperStyle={{}}
-          wrapperClass="color-ring-wrapper"
-          colors={["#ffff", "#ffff", "#ffff", "#ffff", "#ffff"]}
-        />
+        <div className="w-full flex justify-center items-center">
+          <ColorRing
+            visible={true}
+            height="40"
+            width="40"
+            ariaLabel="color-ring-loading"
+            wrapperStyle={{}}
+            wrapperClass="color-ring-wrapper"
+            colors={["#095AD3", "#095AD3", "#095AD3", "#095AD3", "#095AD3"]}
+          />
+        </div>
       )}
       <div
         className="bg-mecaGrayBackgroundColor w-full flex justify-center items-center h-[287px] rounded-lg"
         id="cardImageContainer"
         key={id}
       >
-        <Image
-          src={image}
-          alt="image of an engine"
-          width={315}
-          height={247}
-          placeholder="blur"
-          id="cardImage"
-        />
+        {productImage !== "" ? (
+          <img
+            src={productImage}
+            alt="image of an engine"
+            width={315}
+            height={247}
+            id="cardImage"
+          />
+        ) : (
+          <Image
+            src={image}
+            alt="image of an engine"
+            width={315}
+            height={247}
+            placeholder="blur"
+            id="cardImage"
+          />
+        )}
       </div>
       <span className="flex justify-between py-4 w-full gap-4" id="cardSpan">
         <p className="lg:text-lg text-sm truncate" id="cardText">
