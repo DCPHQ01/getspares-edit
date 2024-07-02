@@ -65,8 +65,9 @@ function BpRadio(props: RadioProps) {
 
 interface PeriodRadiosProps {
     activityPeriod: string;
-    onPeriodChange: (newValue: string) => void;
+    onPeriodChange: () => void;
 }
+
 const Index: React.FC<PeriodRadiosProps> = ({ activityPeriod, onPeriodChange }) => {
     const [selectedValue, setSelectedValue] = useState(activityPeriod);
 
@@ -77,7 +78,7 @@ const Index: React.FC<PeriodRadiosProps> = ({ activityPeriod, onPeriodChange }) 
     const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = event.target.value;
         setSelectedValue(newValue);
-        onPeriodChange(newValue);
+        onPeriodChange();
     };
 
     return (

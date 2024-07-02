@@ -43,7 +43,13 @@ const DropdownPage: React.FC<DropdownPageProps> = ({ closeDropdown }) => {
   const router = useRouter();
   const { data: getCategoriesData, isFetching } = useGetCategoryQuery({});
   console.log("buyers category  ", getCategoriesData);
-  const handleProductDescription = (categoryName: string) => {
+  const handleProductDescription = (
+    categoryName: string,
+    categoryId: string
+  ) => {
+    if (categoryId) {
+      sessionStorage.setItem("categoryId", categoryId);
+    }
     router.push(paths.toCategoryProducts(categoryName));
   };
 
@@ -128,7 +134,9 @@ const DropdownPage: React.FC<DropdownPageProps> = ({ closeDropdown }) => {
               <div className="w-full p-10 lg:grid lg:grid-cols-3  gap-x-10 scrollbar-none overflow-y-scroll  ">
                 {getCategoriesData?.data.map((category: any) => (
                   <div
-                    onClick={() => handleProductDescription(category.name)}
+                    onClick={() =>
+                      handleProductDescription(category.name, category.id)
+                    }
                     className=" w-[100%] h-10 cursor-pointer"
                     key={category.id}
                   >
@@ -205,7 +213,9 @@ const DropdownPage: React.FC<DropdownPageProps> = ({ closeDropdown }) => {
               <div className="w-full p-10 lg:grid lg:grid-cols-3  gap-x-10 scrollbar-none overflow-y-scroll  ">
                 {getCategoriesData?.data.map((category: any) => (
                   <div
-                    onClick={() => handleProductDescription(category.name)}
+                    onClick={() =>
+                      handleProductDescription(category.name, category.id)
+                    }
                     className=" w-[100%] h-10 cursor-pointer"
                     key={category.id}
                   >

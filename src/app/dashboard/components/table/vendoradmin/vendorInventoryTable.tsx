@@ -23,6 +23,7 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import dayjs from "dayjs";
 import { formatAmount } from "../../../../../components/utils";
 import { formatAllTime, formatAllDate } from "../../utils/utils";
+import MenuOptions from "../../menu/MenuOptions";
 
 dayjs.extend(customParseFormat);
 
@@ -78,11 +79,12 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
   const [routInventory, setRoutInventory] = useState(false);
 
   const handleRoutInventory = (id: number, index: string) => {
-    console.log(id, " id", index, " index");
+    console.log("before ", id, " id", index, " index");
     if (id === 1) {
       setRoutInventory(!routInventory);
     } else if (id === 2) {
-      router.push(`/addProductDashboard/basicInfo/?id=${index}`);
+      console.log("after ", id, " id", index, " index");
+      // router.push(`/addProductDashboard/basicInfo/?id=${index}`);
     }
     handleOptionClose();
   };
@@ -221,12 +223,21 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
                           className={`text-[0.88rem] py-[1rem] px-[2rem]`}
                           id={`transactionValue_${index}`}
                         >
-                          <div className="">
+                          <div>
                             <IconButton onClick={handleClick}>
-                              <MdMoreVert className="-z-50" />
+                              <MdMoreVert />
                             </IconButton>
                           </div>
-                          <Menu
+                          <MenuOptions
+                            anchorEl={anchorEl}
+                            openOption={openOption}
+                            handleOptionClose={handleOptionClose}
+                            handleRouteInventory={handleRoutInventory}
+                            optionData={option}
+                            tableId={d.id}
+                          />
+
+                          {/* <Menu
                             id="menu"
                             MenuListProps={{ "aria-labelledby": "long-button" }}
                             anchorEl={anchorEl}
@@ -249,13 +260,13 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
                                   handleRoutInventory(opt.id, d?.id)
                                 }
                               >
-                                <span className="">{opt.icon}</span>
-                                <span className="ml-3 -z-50 text-gray-500 text-sm">
+                                {opt.icon}{" "}
+                                <span className=" ml-3 text-gray-500 text-sm">
                                   {opt.title}
                                 </span>
                               </MenuItem>
                             ))}
-                          </Menu>
+                          </Menu> */}
                         </td>
                       </tr>
                     );

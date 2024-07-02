@@ -43,7 +43,7 @@ import {
 import { CartProduct } from "../../../../../types/cart/product";
 import { paths } from "../../../../../path/paths";
 import { ColorRing } from "react-loader-spinner";
-import { useAddSingleProductToCartMutation } from "../../../../../redux/features/cart/cartQuery";
+import {useAddSingleProductToCartMutation} from "../../../../../redux/features/cart/cartQuery";
 
 interface State extends SnackbarOrigin {
   open: boolean;
@@ -52,9 +52,10 @@ interface State extends SnackbarOrigin {
 interface ProductType {
   id: string;
   name: string;
-  image: string;
+  image?: string;
   price: string;
   categoryName?: string;
+  productImage?: string;
 }
 
 const responsive = {
@@ -90,17 +91,10 @@ const images = [
 ];
 
 export default function ProductDescription() {
-  const [openVendorModal, setOpenVendorModal] = useState(false);
-  const handleOpenVendorModal = () => {
-    setOpenVendorModal((val)=> !val);
-  };
-
-  const [opens, setOpens] = React.useState<boolean>(false);
-  const handleOpen = () => setOpens(true);
-  const handleClose = () => setOpens(false);
-
   const searchParams = usePathname();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+
 
   const [state, setState] = React.useState<State>({
     open: false,
@@ -114,6 +108,8 @@ export default function ProductDescription() {
   const { data, isFetching } = useGetAProductQuery(productId, {
     skip: !productId,
   });
+
+  console.log("data here ", data?.data);
 
   const { vertical, horizontal, open } = state;
 
@@ -219,6 +215,12 @@ export default function ProductDescription() {
     }).format(Number(price));
   };
 
+  useLayoutEffect(() => {
+    setProductImages(data?.data.images);
+  }, [data]);
+
+  console.log("product images ", productImages);
+
   return (
     <div className="relative">
       <TopBarWhileInside />
@@ -268,11 +270,11 @@ export default function ProductDescription() {
                   wrapperStyle={{}}
                   wrapperClass="color-ring-wrapper"
                   colors={[
-                    "#0000FF",
-                    "#0000FF",
-                    "#0000FF",
-                    "#0000FF",
-                    "#0000FF",
+                    "#095AD3",
+                    "#095AD3",
+                    "#095AD3",
+                    "#095AD3",
+                    "#095AD3",
                   ]}
                 />
               </div>
@@ -386,7 +388,17 @@ export default function ProductDescription() {
                     </div>
                     <div id="aboutProduct" className="w-full mt-8">
                       <p className="text-sm font-nunito font-normal text-mecaGrayBodyText">
-                        {data?.data.description}
+                        {showMore
+                          ? data?.data.description
+                          : `${data?.data.description?.substring(0, 200)}`}
+                        {data?.data.description?.length > 200 && (
+                          <span
+                            onClick={changeSize}
+                            style={{ color: "#095AD3" }}
+                          >
+                            {showMore ? " show less" : " ...show more"}
+                          </span>
+                        )}
                       </p>
                     </div>
                     <div id="priceButtonDiv" className="flex flex-col mt-6">
