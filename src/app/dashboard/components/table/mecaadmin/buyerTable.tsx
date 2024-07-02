@@ -35,9 +35,17 @@ const BuyerTable = ({
       <table id="adminTable" className={`w-full`}>
         <thead>
           <tr className="truncate">
-            <th id="companyNameHeader">Buyers name</th>
-            <th id="totalItemsSoldHeader">Total items bought</th>
-            <th id="transactionValueHeader" style={{ paddingLeft: "2.3rem" }}>
+            <th id="companyNameHeader" className={`lg:sticky`}>
+              Buyers name
+            </th>
+            <th id="totalItemsSoldHeader" className={`lg:sticky`}>
+              Total items bought
+            </th>
+            <th
+              id="transactionValueHeader"
+              style={{ paddingLeft: "2.3rem" }}
+              className={`lg:sticky`}
+            >
               Transaction value
             </th>
             {/* <th id="dateTimeJoinedHeader" style={{ paddingLeft: "3rem" }}>
@@ -69,7 +77,7 @@ const BuyerTable = ({
               </td>
             </tr>
           ) : data?.length === 0 ? (
-            <div className="relative right-[100%] left-[100%] flex flex-col justify-center items-center pt-32 leading-10">
+            <div className="relative -z-50 right-[100%] left-[100%] flex flex-col justify-center items-center pt-32 leading-10">
               <div className=" h-28">
                 <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
                   <MdBusinessCenter
@@ -77,10 +85,12 @@ const BuyerTable = ({
                   />
                 </div>
               </div>
-              <h1 className="text-xl">No buyers here yet</h1>
-              <h1 className="text-gray-500">
-                All your buyers will appear here
-              </h1>
+              <div className="text-center">
+                <h1 className="text-xl">No buyers here yet</h1>
+                <h1 className="text-gray-500">
+                  All your buyers will appear here
+                </h1>
+              </div>
             </div>
           ) : (
             data?.map((d, index) => {

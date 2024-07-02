@@ -173,27 +173,27 @@ const VendorTable: React.FC<VendorTableProps> = ({ vendorList, isLoading }) => {
         <table id="adminTable" className={`w-full `}>
           <thead className="">
             <tr className="truncate">
-              <th id="companyNameHeader" className={`sticky`}>
+              <th id="companyNameHeader" className={`lg:sticky`}>
                 Company name
               </th>
-              <th id="totalItemsSoldHeader" className={`sticky`}>
+              <th id="totalItemsSoldHeader" className={`lg:sticky`}>
                 Total items sold
               </th>
               <th
                 id="transactionValueHeader"
-                className={`sticky`}
+                className={`lg:sticky`}
                 style={{ paddingLeft: "2.3rem" }}
               >
                 Transaction value
               </th>
               <th
                 id="transactionRatings"
-                className={`sticky z-10`}
+                className={`lg:sticky z-10`}
                 style={{ paddingLeft: "5.5rem" }}
               >
                 Ratings
               </th>
-              <th id="dateTimeJoinedHeader" className={`sticky`}>
+              <th id="dateTimeJoinedHeader" className={`lg:sticky`}>
                 Date & time joined
               </th>
             </tr>
@@ -223,16 +223,18 @@ const VendorTable: React.FC<VendorTableProps> = ({ vendorList, isLoading }) => {
                 <p>Loading vendors...</p>
               </div>
             ) : vendorList.length === 0 ? (
-              <div className="relative right-[130%] left-[130%] flex flex-col justify-center items-center pt-32 leading-10">
+              <div className="relative right-[130%] left-[130%] -z-50 flex flex-col justify-center items-center pt-32 leading-10">
                 <div className=" h-28">
                   <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
                     <MdYard style={{ fontSize: "2rem", color: "#0852C0" }} />
                   </div>
                 </div>
-                <h1 className="text-xl">No item here yet</h1>
-                <h1 className="text-gray-500">
-                  All your item will appear here
-                </h1>
+                <div className="text-center">
+                  <h1 className="text-xl">No item here yet</h1>
+                  <h1 className="text-gray-500">
+                    All your item will appear here
+                  </h1>
+                </div>
               </div>
             ) : (
               vendorList?.map((d, index) => {

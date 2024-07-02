@@ -135,7 +135,7 @@ export default function Details() {
   const firstImages = images.slice(0, 5);
   const remainingImages = images.slice(5);
 
-  const productId = sessionStorage.getItem("productId")
+  const productId = sessionStorage.getItem("productId");
 
   const { data } = useGetViewBuyersProductDetailsQuery({
     productId: productId as string,
@@ -156,6 +156,10 @@ export default function Details() {
   console.log("view ", viewBuyerProducts);
   console.log("The productInformation: ", productInformations);
 
+    const [openVendorModal, setOpenVendorModal] = useState(false);
+    const handleOpenVendorModal = () => {
+      setOpenVendorModal((val) => !val);
+    };
   return (
     <div className="relative pt-5" id="detailsDiv">
       <div id="mainContainer" className="container px-4 md:px-8 lg:px-16">
@@ -198,10 +202,7 @@ export default function Details() {
                     className="max-w-full max-h-full"
                   />
                 </div>
-                <div
-                  id="otherImagesDiv"
-                  className="w-full flex gap-5"
-                >
+                <div id="otherImagesDiv" className="w-full flex gap-5">
                   {(showAllImages ? images : firstImages).map((image, i) => (
                     <div
                       className={`w-1/6 h-24 cursor-pointer rounded-lg flex justify-center items-center bg-mecaSearchColor relative ${
@@ -217,7 +218,7 @@ export default function Details() {
                         alt={image.alt}
                         className="h-full w-full object-cover"
                       />
-                      {/* {!showAllImages &&
+                      {!showAllImages &&
                         i === firstImages.length - 1 &&
                         remainingImages.length > 0 && (
                           <div
@@ -229,7 +230,7 @@ export default function Details() {
                               +{remainingImages.length}
                             </p>
                           </div>
-                        )} */}
+                        )}
                     </div>
                   ))}
                 </div>
@@ -281,7 +282,10 @@ export default function Details() {
         </div>
       </div>
       <div>
-        <BuyerModal open={opens} handleClose={handleClose} />
+        <BuyerModal
+          handleModalClose={handleOpenVendorModal}
+         
+        />
       </div>
     </div>
   );
