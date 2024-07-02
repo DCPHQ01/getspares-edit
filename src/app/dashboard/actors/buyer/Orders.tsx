@@ -30,9 +30,7 @@ function Orders() {
       <Header
         subtitle={`Keep track of orders, items ordered and their transaction values.`}
         title={`Orders`}
-
         amount={totalElement}
-
       />
       <div className="flex justify-end">
         <Searchbox />
