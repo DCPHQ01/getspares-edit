@@ -135,7 +135,7 @@ export default function Details() {
   const firstImages = images.slice(0, 5);
   const remainingImages = images.slice(5);
 
-  const productId = sessionStorage.getItem("productId")
+  const productId = sessionStorage.getItem("productId");
 
   const { data } = useGetViewBuyersProductDetailsQuery({
     productId: productId as string,
@@ -198,10 +198,7 @@ export default function Details() {
                     className="max-w-full max-h-full"
                   />
                 </div>
-                <div
-                  id="otherImagesDiv"
-                  className="w-full flex gap-5"
-                >
+                <div id="otherImagesDiv" className="w-full flex gap-5">
                   {(showAllImages ? images : firstImages).map((image, i) => (
                     <div
                       className={`w-1/6 h-24 cursor-pointer rounded-lg flex justify-center items-center bg-mecaSearchColor relative ${
@@ -281,7 +278,7 @@ export default function Details() {
         </div>
       </div>
       <div>
-        <BuyerModal open={opens} handleClose={handleClose} />
+        <BuyerModal isOpen={true} />
       </div>
     </div>
   );
