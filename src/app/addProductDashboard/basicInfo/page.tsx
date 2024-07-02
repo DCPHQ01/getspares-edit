@@ -21,14 +21,24 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { paths } from "../../../path/paths";
 import { useGetCategoryQuery } from "../../../redux/features/users/authQuery";
 import { ColorRing } from "react-loader-spinner";
-
+import { useAppSelector } from "../../../redux/hooks";
+interface ProductData {
+  name: string;
+  amount: string;
+  description: string;
+  category: string;
+  quantity: string;
+}
 const CalledPagesPageOnePages = () => {
+  const productData = useAppSelector(
+    (state) => state.company.productData as ProductData
+  );
   const [basicInfoValues, setBasicInfoValues] = useState({
-    productName: "",
-    productCategory: "",
-    productDescription: "",
-    price: "",
-    quantity: "",
+    productName: productData?.name || "",
+    productCategory: productData?.category || "",
+    productDescription: productData?.description || "",
+    price: productData?.amount || "",
+    quantity: productData?.quantity || "",
   });
 
   const { data: getCategoriesData, isFetching } = useGetCategoryQuery({});
@@ -64,6 +74,8 @@ const CalledPagesPageOnePages = () => {
   };
 
   console.log("category data ", getCategoriesData);
+
+  console.log("basic info ", productData);
 
   const [errors, setErrors] = useState({
     productName: "",
@@ -128,11 +140,11 @@ const CalledPagesPageOnePages = () => {
                     wrapperStyle={{}}
                     wrapperClass="color-ring-wrapper"
                     colors={[
-                      "#0000FF",
-                      "#0000FF",
-                      "#0000FF",
-                      "#0000FF",
-                      "#0000FF",
+                      "#095AD3",
+                      "#095AD3",
+                      "#095AD3",
+                      "#095AD3",
+                      "#095AD3",
                     ]}
                   />
                 </div>
@@ -167,7 +179,9 @@ const CalledPagesPageOnePages = () => {
                           placeholder="Enter name"
                           InputProps={{ disableUnderline: true }}
                           className=" w-[29.4rem] mb-5 "
-                          value={basicInfoValues.productName}
+                          value={
+                            productData?.name || basicInfoValues.productName
+                          }
                           onChange={handleBasicInfoChange}
                           error={!!errors.productName}
                           helperText={errors.productName || ""}
@@ -202,7 +216,7 @@ const CalledPagesPageOnePages = () => {
                               id: number;
                               name: string;
                             }): JSX.Element => (
-                              <MenuItem value={category.name}>
+                              <MenuItem value={category.name} key={category.id}>
                                 {category.name}
                               </MenuItem>
                             )
@@ -222,7 +236,10 @@ const CalledPagesPageOnePages = () => {
                         variant="filled"
                         minRows={4}
                         maxRows={6}
-                        value={basicInfoValues.productDescription}
+                        value={
+                          productData?.description ||
+                          basicInfoValues.productDescription
+                        }
                         onChange={handleBasicInfoChange}
                       />
 
@@ -238,7 +255,7 @@ const CalledPagesPageOnePages = () => {
                           InputProps={{ disableUnderline: true }}
                           className="w-[29.4rem] mb-5"
                           sx={{ backgroundColor: "porcelain" }}
-                          value={basicInfoValues.price}
+                          value={productData?.amount || basicInfoValues.price}
                           onChange={handleBasicInfoChange}
                           error={!!errors.price}
                           helperText={errors.price || ""}
@@ -253,7 +270,9 @@ const CalledPagesPageOnePages = () => {
                           label="Quantity availability"
                           variant="filled"
                           name="quantity"
-                          value={basicInfoValues.quantity}
+                          value={
+                            productData?.quantity || basicInfoValues.quantity
+                          }
                           onChange={handleBasicInfoChange}
                           placeholder="Enter value"
                           InputProps={{ disableUnderline: true }}

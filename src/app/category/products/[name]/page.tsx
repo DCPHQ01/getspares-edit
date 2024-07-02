@@ -167,7 +167,7 @@ export default function Products() {
               id="productCategoryContentDiv"
             >
               <div
-                className="flex items-center gap-4 mt-32"
+                className="flex items-center gap-4 mt-12"
                 id="breadCrumbsDiv"
               >
                 <p className="font-nunito text-sm font-medium text-mecaDarkBlueBackgroundOverlay">
@@ -313,7 +313,7 @@ export default function Products() {
         <div className="hidden lg:flex flex-col" id="desktopDiv">
           <TopBarWhileInside />
           <div
-            className="flex items-center gap-2 mt-56 px-8"
+            className="flex items-center gap-2 mt-40 px-8"
             id="breadCrumbsDivDesktop"
           >
             <p
@@ -431,11 +431,11 @@ export default function Products() {
                     wrapperStyle={{}}
                     wrapperClass="color-ring-wrapper"
                     colors={[
-                      "#0000FF",
-                      "#0000FF",
-                      "#0000FF",
-                      "#0000FF",
-                      "#0000FF",
+                      "#095AD3",
+                      "#095AD3",
+                      "#095AD3",
+                      "#095AD3",
+                      "#095AD3",
                     ]}
                   />
                 </div>

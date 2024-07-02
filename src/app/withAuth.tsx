@@ -9,11 +9,11 @@ import useGetToken from "./hooks/useGetToken";
 export default function withAuth(Component: any) {
   return function AuthComponent(props: any) {
     const router = useRouter();
-    const token = useGetToken()
+    const token = useGetToken();
 
     useEffect(() => {
       if (Object.keys(token).length === 0) {
-        router.push("/login")
+        router.push("/login");
       }
     }, []);
     return <Component {...props} />;

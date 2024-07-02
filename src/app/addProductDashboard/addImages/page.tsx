@@ -197,11 +197,11 @@ const CalledPagesPageTwoPages = () => {
                             wrapperStyle={{}}
                             wrapperClass="color-ring-wrapper"
                             colors={[
-                              "#0000FF",
-                              "#0000FF",
-                              "#0000FF",
-                              "#0000FF",
-                              "#0000FF",
+                              "#095AD3",
+                              "#095AD3",
+                              "#095AD3",
+                              "#095AD3",
+                              "#095AD3",
                             ]}
                           />
                         </div>

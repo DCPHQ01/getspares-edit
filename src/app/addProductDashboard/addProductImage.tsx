@@ -181,10 +181,12 @@ import { useCreateProductMutation } from "../../redux/features/product/productsQ
 import { ColorRing } from "react-loader-spinner";
 import { paths } from "../../path/paths";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Modal } from "@mui/base";
 import { Box } from "@mui/material";
 import { useGetAProductQuery } from "../../redux/features/users/authQuery";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { setProductData } from "../../redux/features/company/companySlice";
 
 const style = {
   position: "absolute" as "absolute",
@@ -208,6 +210,8 @@ const AddProductImage = () => {
   const handleDashBoard = () => {
     router.push(paths.toDashboard());
   };
+
+  const dispatch = useAppDispatch();
 
   const basicInfoData =
     typeof window !== "undefined" && window.sessionStorage
@@ -305,6 +309,11 @@ const AddProductImage = () => {
     skip: !productId,
   });
 
+  useEffect(() => {
+    if (data) {
+      dispatch(setProductData(data?.data));
+    }
+  }, []);
   return (
     <div className="z-50 fixed top-0 h-40 w-[100%]">
       <div className="bg-white">
