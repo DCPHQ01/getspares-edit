@@ -35,7 +35,7 @@ interface ProductType {
   image: string;
   price: string;
   categoryName?: string;
-  categoryId?: string;
+  categoryId: string;
   productImage?: string;
 }
 const responsive = {

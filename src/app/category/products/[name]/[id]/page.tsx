@@ -57,7 +57,7 @@ interface ProductType {
   image?: string;
   price: string;
   categoryName?: string;
-  productImage: string;
+  productImage?: string;
 }
 
 const responsive = {
@@ -548,7 +548,6 @@ export default function ProductDescription() {
                         image={HomeImage1}
                         productName={product.name}
                         price={product.price}
-                        productImage={product.image}
                       />
                     )
                   )}

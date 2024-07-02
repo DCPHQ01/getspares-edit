@@ -33,6 +33,7 @@ const CalledPagesPageOnePages = () => {
   const productData = useAppSelector(
     (state) => state.company.productData as ProductData
   );
+  const [descriptionError, setDescriptionError] = useState("");
   const [basicInfoValues, setBasicInfoValues] = useState({
     productName: productData?.name || "",
     productCategory: productData?.category || "",
@@ -123,6 +124,18 @@ const CalledPagesPageOnePages = () => {
     }
   };
 
+  const checkDescriptionLength = (value: string) => {
+    if (value.length > 5000) {
+      setDescriptionError("Description exceeds the 5000 word limit.");
+    } else {
+      setDescriptionError("");
+      setBasicInfoValues((prevValues) => ({
+        ...prevValues,
+        productDescription: value,
+      }));
+    }
+  };
+
   console.log("values ", basicInfoValues);
   return (
     <>
@@ -201,6 +214,7 @@ const CalledPagesPageOnePages = () => {
                         <Select
                           labelId="demo-simple-select-filled-label"
                           id="demo-simple-select-filled"
+                          disableUnderline
                           value={basicInfoValues.productCategory}
                           name="productCategory"
                           onChange={handleBasicInfoChange}
@@ -231,6 +245,7 @@ const CalledPagesPageOnePages = () => {
                         name="productDescription"
                         label="Description"
                         multiline
+                        InputProps={{ disableUnderline: true }}
                         placeholder="Say something about the product"
                         className="w-[29.4rem] mb-5 outline-none"
                         variant="filled"
@@ -240,7 +255,9 @@ const CalledPagesPageOnePages = () => {
                           productData?.description ||
                           basicInfoValues.productDescription
                         }
-                        onChange={handleBasicInfoChange}
+                        onChange={(e) => checkDescriptionLength(e.target.value)}
+                        error={!!descriptionError}
+                        helperText={descriptionError}
                       />
 
                       <Box>

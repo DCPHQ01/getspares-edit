@@ -153,12 +153,12 @@ export default function Login() {
     router.push(paths.toHome());
   };
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      sessionStorage.clear();
-      sessionStorage.removeItem("userDetails");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     sessionStorage.clear();
+  //     sessionStorage.removeItem("userDetails");
+  //   }
+  // }, []);
 
   return (
     <div className={nunito.className}>

@@ -11,7 +11,7 @@ interface CardProps {
   isLoading?: boolean;
   categoryName?: string;
   categoryId?: string;
-  productImage: string;
+  productImage?: string;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -44,7 +44,7 @@ const Card: React.FC<CardProps> = ({
     <div
       className="flex flex-col items-center w-full cursor-pointer"
       id="CardContainer"
-      onClick={() => handleProductDescription(id, categoryId)}
+      onClick={() => handleProductDescription(id, categoryId!)}
     >
       {isLoading && (
         <div className="w-full flex justify-center items-center">
