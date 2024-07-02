@@ -28,11 +28,14 @@ import {
   SnackbarOrigin,
   Typography,
 } from "@mui/material";
-import BuyerModal from "../../../../dashboard/components/table/vendoradmin/vendorModal";
+import VendorModal from "../../../../dashboard/components/table/vendoradmin/vendorModal";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import TopBarWhileInside from "../../../../reusables/TopBarWhileInside/page";
 import { useAppDispatch, useAppSelector } from "../../../../../redux/hooks";
-import {addToCart, setCart} from "../../../../../redux/features/product/productSlice";
+import {
+  addToCart,
+  setCart,
+} from "../../../../../redux/features/product/productSlice";
 import {
   useGetAProductQuery,
   useGetRelatedProductQuery,
@@ -40,7 +43,7 @@ import {
 import { CartProduct } from "../../../../../types/cart/product";
 import { paths } from "../../../../../path/paths";
 import { ColorRing } from "react-loader-spinner";
-import {useAddSingleProductToCartMutation} from "../../../../../redux/features/cart/cartQuery";
+import { useAddSingleProductToCartMutation } from "../../../../../redux/features/cart/cartQuery";
 
 interface State extends SnackbarOrigin {
   open: boolean;
@@ -87,6 +90,10 @@ const images = [
 ];
 
 export default function ProductDescription() {
+  const [openVendorModal, setOpenVendorModal] = useState(false);
+  const handleOpenVendorModal = () => {
+    setOpenVendorModal(!openVendorModal);
+  };
 
   const [opens, setOpens] = React.useState<boolean>(false);
   const handleOpen = () => setOpens(true);
@@ -95,15 +102,12 @@ export default function ProductDescription() {
   const searchParams = usePathname();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-
-
   const [state, setState] = React.useState<State>({
     open: false,
     vertical: "top",
     horizontal: "center",
   });
   const productId = usePathname()!.split("/")[4];
-
 
   const [visible, setVisible] = useState(false);
 
@@ -124,7 +128,7 @@ export default function ProductDescription() {
   });
 
   const [addToCart, { isLoading: cartLoading }] =
-     useAddSingleProductToCartMutation();
+    useAddSingleProductToCartMutation();
 
   const handleNext = () => {
     if (carouselRef.current) carouselRef.current.next(0);
@@ -137,8 +141,6 @@ export default function ProductDescription() {
   };
 
   const { cart } = useAppSelector((state) => state.product);
-
-
 
   const handleClick = (newState: SnackbarOrigin, val: any) => () => {
     let newArr = [];
@@ -158,7 +160,6 @@ export default function ProductDescription() {
         finalArr = newArr.concat(savedCartItems);
         localStorage.setItem("savedCartItems", JSON.stringify(finalArr));
         dispatch(setCart(finalArr));
-
       }
     } else {
       newArr.push(payload);
@@ -169,8 +170,6 @@ export default function ProductDescription() {
     setTimeout(() => {
       setState({ ...newState, open: false });
     }, 3000);
-
-
   };
 
   useEffect(() => {
@@ -181,7 +180,6 @@ export default function ProductDescription() {
       setIsAuthenticated(true);
     }
   }, [router]);
-
 
   const buyNow = async (newState: SnackbarOrigin) => {
     if (!isAuthenticated) {
@@ -205,7 +203,7 @@ export default function ProductDescription() {
         console.log(error.data);
       }
     }
-  }
+  };
 
   useEffect(() => {
     if (cart.length !== 0) {
@@ -213,8 +211,6 @@ export default function ProductDescription() {
       setVisible(hasItem);
     }
   }, [cart]);
-
-
 
   const formatPrice = (price: string, currency: string) => {
     return new Intl.NumberFormat("en-US", {
@@ -288,9 +284,6 @@ export default function ProductDescription() {
                     <Image src={tractor} alt="tractor parts" />
                   </div>
 
-                  <div>
-                    <BuyerModal open={opens} handleClose={handleClose} />
-                  </div>
                   <div
                     id="otherImagesDiv"
                     className="w-full flex item-center gap-x-4"
@@ -308,7 +301,7 @@ export default function ProductDescription() {
                         {i === firstImages.length - 1 &&
                           remainingImages.length > 0 && (
                             <div
-                              onClick={handleOpen}
+                              onClick={handleOpenVendorModal}
                               id="moreImages"
                               className="absolute cursor-pointer rounded-lg inset-0 flex justify-center items-center bg-mecaDarkBlueBackgroundOverlay bg-opacity-50"
                             >
@@ -320,6 +313,11 @@ export default function ProductDescription() {
                       </div>
                     ))}
                   </div>
+                  {openVendorModal && (
+                    <div>
+                      <VendorModal isOpen={true} />
+                    </div>
+                  )}
                 </div>
                 <div
                   id="productDetails"
@@ -453,10 +451,12 @@ export default function ProductDescription() {
                         )}
 
                         <button
-                          onClick={()=>buyNow({
-                            vertical: "top",
-                            horizontal: "center",
-                          })}
+                          onClick={() =>
+                            buyNow({
+                              vertical: "top",
+                              horizontal: "center",
+                            })
+                          }
                           type="button"
                           className="w-full h-[44px] text-mecaBluePrimaryColor text-lg font-nunito font-semibold flex items-center justify-center border bg-white border-mecaBluePrimaryColor rounded-full"
                         >
