@@ -58,7 +58,7 @@ function ResponsiveDrawer({ active, setActive }: SideBarProps) {
   ];
   const dispatch = useAppDispatch();
   const handleToggle = (step: number) => {
-    console.log("step ", step);
+    "step ", step;
     dispatch(setCurrentStep(step - 1));
   };
 

@@ -80,7 +80,7 @@ export default function VerifyEmail({
       inputsRef.current[index - 1]?.focus();
     }
   };
-  console.log(otp.join(""));
+  otp.join("");
 
   useEffect(() => {
     inputsRef.current[0]?.focus();
@@ -95,13 +95,13 @@ export default function VerifyEmail({
       email: userEmail,
       otpCode: otp.join(""),
     };
-    console.log(data, "data");
+    data, "data";
     setIsLoading(true);
     try {
       let response: any;
       response = await verifyEmail(data);
       if ("data" in response) {
-        console.log(response.data.message, " verify");
+        response.data.message, " verify";
         if (response?.data?.message === "User verified successfully") {
           setHaveVerifiedEmail(true);
           setIsLoading(false);
@@ -116,7 +116,7 @@ export default function VerifyEmail({
         }
       }
     } catch (error: any) {
-      console.log(error?.data.message);
+      error?.data.message;
       setMessage(
         error?.data.message || "Verification failed. Please try again."
       );
@@ -186,7 +186,7 @@ export default function VerifyEmail({
       setOpen(true);
     }
   };
-  console.log("email error ", emailError);
+  "email error ", emailError;
   return (
     <>
       <div

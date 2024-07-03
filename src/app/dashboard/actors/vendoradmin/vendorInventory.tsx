@@ -28,7 +28,7 @@ function VendorInventory() {
   };
   const { data, isFetching } = useGetAllVendorProductsQuery({ requestBody });
 
-  console.log("inventory data ", data);
+  "inventory data ", data;
 
   const handleNextPage = () => {
     setPage((prevPage) => prevPage + 1);

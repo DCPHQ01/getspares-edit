@@ -36,7 +36,7 @@ function InventoryVendorMobile() {
 
       const resultList = await getInventory(requestBody).unwrap();
       const list = resultList.data.content;
-      console.log("it is a Mobile Success:", list);
+      "it is a Mobile Success:", list;
       setInventory(list);
       const lists = resultList.data;
       setdatas(lists);
@@ -53,7 +53,7 @@ function InventoryVendorMobile() {
     fetchVendorData();
   }, []);
 
-  console.log("The Vendor Inventory Mobile: ", inventory);
+  "The Vendor Inventory Mobile: ", inventory;
 
   const handleNextPage = () => {
     if (hasNext) {

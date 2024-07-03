@@ -113,8 +113,6 @@ export default function ProductDescription() {
     skip: !productId,
   });
 
-  console.log("data here ", data?.data);
-
   const { vertical, horizontal, open } = state;
 
   const dispatch = useAppDispatch();
@@ -200,7 +198,7 @@ export default function ProductDescription() {
         }, 3000);
         router.push(paths.toCheckout());
       } catch (error: any) {
-        console.log(error.data);
+        error.data;
       }
     }
   };
@@ -222,8 +220,6 @@ export default function ProductDescription() {
   useLayoutEffect(() => {
     setProductImages(data?.data.images);
   }, [data]);
-
-  console.log("product images ", productImages);
 
   return (
     <div className="relative">
@@ -509,22 +505,6 @@ export default function ProductDescription() {
             <p className="text-3xl font-semibold" id="carouselTitleOne">
               More Products Like This
             </p>
-            {/*<span className="flex gap-8" id="carouselButtonSpanOne">*/}
-            {/*  <div*/}
-            {/*    id="previousBtnOne"*/}
-            {/*    className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay cursor-pointer"*/}
-            {/*    onClick={handlePrevious}*/}
-            {/*  >*/}
-            {/*    <MdChevronLeft size={40} />*/}
-            {/*  </div>*/}
-            {/*  <div*/}
-            {/*    id="nextBtnOne"*/}
-            {/*    className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay cursor-pointer"*/}
-            {/*    onClick={handleNext}*/}
-            {/*  >*/}
-            {/*    <MdChevronRight size={40} />*/}
-            {/*  </div>*/}
-            {/*</span>*/}
           </div>
           <div id="carouselProductDescription">
             <React.Fragment>

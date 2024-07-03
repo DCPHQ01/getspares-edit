@@ -53,7 +53,7 @@ const ViewParticularOrderTable = ({
   const handleParticularDetails = (productId: any) => {
     sessionStorage.setItem("productId", productId);
     setDetails(!details);
-    console.log("ggghhhhhafter");
+    ("ggghhhhhafter");
   };
   return (
     <div className="">

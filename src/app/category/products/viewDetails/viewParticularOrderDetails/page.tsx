@@ -31,7 +31,7 @@ const ViewParticularOrderDetailsPage: React.FC = () => {
   // }, []);
 
   // const { data, isLoading } = useGetOrderDetailsQuery({  id: id   });
-  // console.log("data for order details", data);
+  // ("data for order details", data);
   useEffect(() => {
     const storedId = sessionStorage.getItem("selectedOrderId");
     if (storedId) {
@@ -43,23 +43,23 @@ const ViewParticularOrderDetailsPage: React.FC = () => {
     { id: id || "" },
     { skip: !id }
   );
-//  const [selectedProductName, setSelectedProductName] = useState("");
-//  const [selectedProductId, setSelectedProductId] = useState("");
+  //  const [selectedProductName, setSelectedProductName] = useState("");
+  //  const [selectedProductId, setSelectedProductId] = useState("");
 
-//  useEffect(() => {
-//    if (!isLoading && data && data?.data?.orderItems) {
-//      // Find productId based on selectedProductName
-//      const selectedProduct = data?.data?.orderItems.find(
-//        (item:any) => item.productName === selectedProductName
-//      );
-//      console.log(selectedProduct,'jj')
-//      if (selectedProduct) {
-//        setSelectedProductId(selectedProduct.productId);
-//        sessionStorage.setItem("selectedProductId", selectedProduct.productId);
-//      }
-//    }
-//  }, [isLoading, data, selectedProductName]);
-console.log(data, 'hhfhfh')
+  //  useEffect(() => {
+  //    if (!isLoading && data && data?.data?.orderItems) {
+  //      // Find productId based on selectedProductName
+  //      const selectedProduct = data?.data?.orderItems.find(
+  //        (item:any) => item.productName === selectedProductName
+  //      );
+  //      (selectedProduct,'jj')
+  //      if (selectedProduct) {
+  //        setSelectedProductId(selectedProduct.productId);
+  //        sessionStorage.setItem("selectedProductId", selectedProduct.productId);
+  //      }
+  //    }
+  //  }, [isLoading, data, selectedProductName]);
+  data, "hhfhfh";
   const [orderDetails, setOrderDetails] = useState<OrderInfo>({
     orderDate: "",
     deliveryAddress: {},
@@ -68,7 +68,7 @@ console.log(data, 'hhfhfh')
 
   useEffect(() => {
     if (data) {
-      console.log("Received data for order details:", data);
+      "Received data for order details:", data;
       const resultList = data?.data;
       if (resultList) {
         setOrderDetails(resultList);

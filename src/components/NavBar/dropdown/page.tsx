@@ -31,7 +31,7 @@ const DropdownPage: React.FC<DropdownPageProps> = ({ closeDropdown }) => {
 
   const router = useRouter();
   const { data: getCategoriesData } = useGetCategoryQuery({});
-  console.log("buyers category  ", getCategoriesData);
+  "buyers category  ", getCategoriesData;
   const handleProductDescription = (
     categoryName: string,
     categoryId: string

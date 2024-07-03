@@ -34,10 +34,10 @@ export const uploadImage = async (
       return response.json();
     })
     .then((data) => {
-      //   console.log("image url ", data);
+      //   ("image url ", data);
       image_url = data.url;
       setImage(image_url);
-      console.log("image url ", image_url);
+      "image url ", image_url;
       return image_url;
     });
 };
@@ -99,8 +99,7 @@ export const formatAmount2 = (price: string | number) => {
 
     if (amountString.startsWith("NGN")) {
       amountString = amountString.replace("NGN", "").trim();
-    }else{
-
+    } else {
     }
 
     const amountNumber = Number(amountString);
@@ -131,10 +130,10 @@ export const format = (price: string | number) => {
 
 export const formatAmount3 = (price: string) => {
   if (price) {
-    const newStr = price.split(' ')
+    const newStr = price.split(" ");
     return new Intl.NumberFormat("en-US", {
       style: "currency",
-      currency: newStr[0] && 'NGN',
+      currency: newStr[0] && "NGN",
     }).format(Number(newStr[1]));
   } else {
     return "₦0.00";

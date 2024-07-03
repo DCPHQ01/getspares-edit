@@ -1,5 +1,5 @@
 "use client";
-import React,{useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../../components/ui/header";
 import Cards from "../../../components/ui/cards";
 import PeriodRadios from "../../../components/ui/periodradios";
@@ -9,43 +9,44 @@ import Link from "next/link";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { useGetMecaVendorOverviewQuery } from "../../../../../redux/features/dashboard/mecaVendorQuery";
 
-
 interface VendorOverview {
   dateJoined: string;
-  imageUrl?: string ; 
-  transactionValue:number | string;
+  imageUrl?: string;
+  transactionValue: number | string;
   totalItemSold: number;
   itemName: string;
 }
 import { paths } from "../../../../../path/paths";
 
 function OverviewVendorMobile() {
-  const { data, isLoading, isError} = useGetMecaVendorOverviewQuery({});
+  const { data, isLoading, isError } = useGetMecaVendorOverviewQuery({});
   const [overView, setOverView] = useState({
     totalNumberOfAgents: 0,
     totalNumberOfProductsSold: 0,
     totalOrderValue: 0,
   });
-  const [topPerformingProducts, setTopPerformingProducts] = useState<VendorOverview[]>([]);
-  console.log("data for VendorOverview: ",data)
+  const [topPerformingProducts, setTopPerformingProducts] = useState<
+    VendorOverview[]
+  >([]);
+  "data for VendorOverview: ", data;
 
-  useEffect(()=> {
-    if(data) {
-      const resultList = data.data
-      setOverView(resultList)
-      const topPerforming = data.data.topPerformingProducts
-      setTopPerformingProducts(topPerforming)
+  useEffect(() => {
+    if (data) {
+      const resultList = data.data;
+      setOverView(resultList);
+      const topPerforming = data.data.topPerformingProducts;
+      setTopPerformingProducts(topPerforming);
     }
-  }, [data])
+  }, [data]);
 
   let usersName: any;
 
-  useEffect(()=> {
-    const userName = (sessionStorage.getItem("userDetails"));
-    if(userName){
-      usersName=JSON.parse(userName);
+  useEffect(() => {
+    const userName = sessionStorage.getItem("userDetails");
+    if (userName) {
+      usersName = JSON.parse(userName);
     }
-  },[])
+  }, []);
   const usersFirstName = usersName?.firstName;
 
   return (
@@ -74,7 +75,10 @@ function OverviewVendorMobile() {
             <PeriodRadios />
           </div>
         </div> */}
-        <OverviewTable topPerformingProduct={topPerformingProducts} isLoading={isLoading}/>
+        <OverviewTable
+          topPerformingProduct={topPerformingProducts}
+          isLoading={isLoading}
+        />
 
         {/* <div className=" flex justify-between mt-10 mb-10 font-bold text-lg">
           <button className="flex gap-x-2 border border-[#EAECF0]  rounded-md h-[36px] w-[36px] pl-1">

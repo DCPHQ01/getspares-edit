@@ -55,8 +55,6 @@ interface SnackState extends SnackbarOrigin {
   open: boolean;
 }
 
-
-
 const Cart = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -99,9 +97,9 @@ const Cart = () => {
         const res = await addToCart(data).unwrap();
         setSnackState({ ...newState, open: true });
         router.push(paths.toCheckout());
-        console.log(res.data);
+        res.data;
       } catch (error: any) {
-        console.log(error.data);
+        error.data;
       }
     }
   };
@@ -116,19 +114,18 @@ const Cart = () => {
   //       .map((item) => Number(item.amount) * Number(item.quantity))
   //       .reduce((a, b) => a + b);
   //
-  //     console.log(total, 'hi');
+  //     (total, 'hi');
   //     setTotalItemPrice(String(total));
   //   }
   // };
-
 
   const getAllTotalPrice = () => {
     let newTotal = "0";
 
     if (cart.length !== 0) {
       const total = cart
-         .map((item) => Number(item.amount) * Number(item.quantity))
-         .reduce((a, b) => a + b, 0);
+        .map((item) => Number(item.amount) * Number(item.quantity))
+        .reduce((a, b) => a + b, 0);
 
       newTotal = String(total);
     }
@@ -137,19 +134,16 @@ const Cart = () => {
     }
   };
 
-
   useEffect(() => {
     getAllTotalPrice();
   }, [cart]);
 
-
   return (
     <div className="">
-        {/* desktop */}
-        <div id="contentContainerAddToCartDesktop">
-          <div className="w-[95%] md:w-[90%]" style={{ margin: "0px auto" }}>
-
-            <div>
+      {/* desktop */}
+      <div id="contentContainerAddToCartDesktop">
+        <div className="w-[95%] md:w-[90%]" style={{ margin: "0px auto" }}>
+          <div>
             <div className={`flex flex-col gap-6`}>
               <Header
                 subtitle={`Keep track of items in your cart.`}
@@ -160,49 +154,35 @@ const Cart = () => {
                 <Searchbox />
               </div>
             </div>
-              <div className="md:flex md:gap-x-6">
-                <div className={"w-full"}>
-                  {cart?.length === 0 ? (
-                    <p className="text-lg font-bold text-center mt-20">
-                      Your Cart is Empty!
-                    </p>
-                  ) : (
-                    <div className="">
-                      {cart?.map((cardCartItem, index) => (
-                        <CheckOutCard
-                          key={index}
-                          cardCartItem={cardCartItem}
-                          getPrice={getAllTotalPrice}
-                        />
-                      ))}
-                    </div>
-                  )}
-                </div>
-                <div className="mt-6 w-full md:w-[45%]">
-                  <div className="h-64 bg-mecaSearchColor  rounded-lg pt-5">
-                    <div className="w-[90%] m-auto">
-                      <div>
-                        <div className="flex justify-between">
-                          <div className="flex font-normal text-sm">
-                            <p> Item{cart?.length > 1 && "s"}</p>
-                            <p> ({cart?.length})</p>
-                          </div>
+            <div className="md:flex md:gap-x-6">
+              <div className={"w-full"}>
+                {cart?.length === 0 ? (
+                  <p className="text-lg font-bold text-center mt-20">
+                    Your Cart is Empty!
+                  </p>
+                ) : (
+                  <div className="">
+                    {cart?.map((cardCartItem, index) => (
+                      <CheckOutCard
+                        key={index}
+                        cardCartItem={cardCartItem}
+                        getPrice={getAllTotalPrice}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+              <div className="mt-6 w-full md:w-[45%]">
+                <div className="h-64 bg-mecaSearchColor  rounded-lg pt-5">
+                  <div className="w-[90%] m-auto">
+                    <div>
+                      <div className="flex justify-between">
+                        <div className="flex font-normal text-sm">
+                          <p> Item{cart?.length > 1 && "s"}</p>
+                          <p> ({cart?.length})</p>
+                        </div>
 
-                          <div className=" font-normal text-sm">
-                            <p>
-                              {totalItemPrice
-                                ? formatAmount(totalItemPrice)
-                                : "0"}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="flex justify-between mt-5 font-normal text-sm">
-                          <p>Shipping</p>
-                          <p>{"₦0"}</p>
-                        </div>
-                        <hr className="mt-5"></hr>
-                        <div className="flex justify-between mt-5 mb-9 font-semibold text-xl">
-                          <p>Subtotal</p>
+                        <div className=" font-normal text-sm">
                           <p>
                             {totalItemPrice
                               ? formatAmount(totalItemPrice)
@@ -210,47 +190,59 @@ const Cart = () => {
                           </p>
                         </div>
                       </div>
-                      <div className="">
-                        <button
-                          onClick={handleCheckout({
-                            vertical: "top",
-                            horizontal: "center",
-                          })}
-                          className="w-full h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer"
-                        >
-                          Checkout
-                        </button>
+                      <div className="flex justify-between mt-5 font-normal text-sm">
+                        <p>Shipping</p>
+                        <p>{"₦0"}</p>
                       </div>
+                      <hr className="mt-5"></hr>
+                      <div className="flex justify-between mt-5 mb-9 font-semibold text-xl">
+                        <p>Subtotal</p>
+                        <p>
+                          {totalItemPrice ? formatAmount(totalItemPrice) : "0"}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="">
+                      <button
+                        onClick={handleCheckout({
+                          vertical: "top",
+                          horizontal: "center",
+                        })}
+                        className="w-full h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer"
+                      >
+                        Checkout
+                      </button>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
-          <Snackbar
-            anchorOrigin={{ vertical, horizontal }}
-            open={open}
-            onClose={handleSuccessClose}
-            key={vertical + horizontal}
-          >
-            <Alert
-              onClose={handleSuccessClose}
-              // severity="success"
-              variant="filled"
-              sx={{ width: "100%" }}
-            >
-              <div className="flex gap-x-3">
-                <span>
-                  <MdCheckCircle className="w-5 h-5" />
-                </span>
-
-                <span>Item has been removed successfully</span>
-              </div>
-            </Alert>
-          </Snackbar>
         </div>
+
+        <Snackbar
+          anchorOrigin={{ vertical, horizontal }}
+          open={open}
+          onClose={handleSuccessClose}
+          key={vertical + horizontal}
+        >
+          <Alert
+            onClose={handleSuccessClose}
+            // severity="success"
+            variant="filled"
+            sx={{ width: "100%" }}
+          >
+            <div className="flex gap-x-3">
+              <span>
+                <MdCheckCircle className="w-5 h-5" />
+              </span>
+
+              <span>Item has been removed successfully</span>
+            </div>
+          </Alert>
+        </Snackbar>
       </div>
+    </div>
   );
 };
 

@@ -2,46 +2,45 @@ import React from "react";
 import Card from "./card";
 
 interface CardProp {
-  totalNumberOfAgents: number
-  totalNumberOfProductsSold: number
-  totalOrderValue: number
-
+  totalNumberOfAgents: number;
+  totalNumberOfProductsSold: number;
+  totalOrderValue: number;
 }
 
 interface CardProps {
-     cardField: CardProp;
+  cardField: CardProp;
 }
 
-const Index:React.FC<CardProps> = ({cardField}) => {
+const Index: React.FC<CardProps> = ({ cardField }) => {
   const cardProps = [
     {
       total: "Total number of agents",
       amount: cardField.totalNumberOfAgents,
       percentage: 0,
       onClick: () => {
-        console.log("View total number of agents");
+        ("View total number of agents");
       },
     },
     {
       total: "Total transaction value",
-      amount:cardField.totalOrderValue,
+      amount: cardField.totalOrderValue,
       percentage: 0,
       onClick: () => {
-        console.log("View total transaction value");
+        ("View total transaction value");
       },
     },
     {
       total: "Total number of product sold",
-      amount:cardField.totalNumberOfProductsSold,
+      amount: cardField.totalNumberOfProductsSold,
       percentage: 0,
       onClick: () => {
-        console.log("View total number of vendors");
+        ("View total number of vendors");
       },
     },
   ];
   return (
     <div id="cardContainer" className={`mt-[1rem] flex justify-between w-full`}>
-      {cardProps?.map((card ,index) => (
+      {cardProps?.map((card, index) => (
         <div id={`card_${index}`} key={index}>
           <Card
             total={card.total}
@@ -53,6 +52,6 @@ const Index:React.FC<CardProps> = ({cardField}) => {
       ))}
     </div>
   );
-}
+};
 
 export default Index;

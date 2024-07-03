@@ -153,7 +153,7 @@ const VendorTable: React.FC<VendorTableProps> = ({ vendorList, isLoading }) => {
 
   //   const resultList = await addVendor(requestBody).unwrap();
   //   const list = resultList.data.content
-  //   console.log('Success:',list);
+  //   ('Success:',list);
 
   //   setVendorList(list)
 

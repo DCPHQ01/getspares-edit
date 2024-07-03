@@ -30,7 +30,7 @@ import {
 } from "../../../redux/features/company/companySlice";
 import { MdPhotoLibrary } from "react-icons/md";
 import { paths } from "../../../path/paths";
-import {useGetCompanyProfileQuery} from "../../../redux/features/company/companyQuery";
+import { useGetCompanyProfileQuery } from "../../../redux/features/company/companyQuery";
 
 interface CalledPagesPageTwoPagesProps {
   step: number;
@@ -41,7 +41,6 @@ const CalledPagesPageTwoPages = () => {
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [inputValues, setInputValues] = useState<string[]>([""]);
   const { data, isLoading, isError } = useGetCompanyProfileQuery({});
-
 
   const handleInputChange = (index: number, value: string) => {
     const newInputValues = [...inputValues];
@@ -155,7 +154,7 @@ const CalledPagesPageTwoPages = () => {
     // validateImage();
 
     if (!Object.values(errors).some((error) => error)) {
-      console.log("Form submitted successfully");
+      ("Form submitted successfully");
     }
   };
 
@@ -238,7 +237,7 @@ const CalledPagesPageTwoPages = () => {
                       setCompanyForm({
                         ...company.companyForm,
                         email: e.target.value,
-                      }),
+                      })
                     )
                   }
                   onBlur={handleEmailChange}
@@ -265,7 +264,7 @@ const CalledPagesPageTwoPages = () => {
                       setCompanyForm({
                         ...company.companyForm,
                         phoneNumber: e.target.value,
-                      }),
+                      })
                     )
                   }
                   onBlur={handlePhoneChange}
@@ -304,8 +303,8 @@ const CalledPagesPageTwoPages = () => {
                           dispatch(
                             setCompanyForm({
                               ...company.companyForm,
-                              address: company.companyForm.address1
-                            }),
+                              address: company.companyForm.address1,
+                            })
                           )
                         }
                         // className="mr-2"
@@ -460,7 +459,7 @@ const CalledPagesPageTwoPages = () => {
                             setCompanyForm({
                               ...company.companyForm,
                               email: e.target.value,
-                            }),
+                            })
                           )
                         }
                         onBlur={handleEmailChange}
@@ -490,7 +489,7 @@ const CalledPagesPageTwoPages = () => {
                             setCompanyForm({
                               ...company.companyForm,
                               phoneNumber: e.target.value,
-                            }),
+                            })
                           )
                         }
                         onBlur={handlePhoneChange}
@@ -531,8 +530,8 @@ const CalledPagesPageTwoPages = () => {
                                 dispatch(
                                   setCompanyForm({
                                     ...company.companyForm,
-                                    address: company.companyForm.address1
-                                  }),
+                                    address: company.companyForm.address1,
+                                  })
                                 );
                               }}
                               // className="mr-2"

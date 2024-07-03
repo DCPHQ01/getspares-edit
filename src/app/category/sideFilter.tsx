@@ -87,7 +87,7 @@ const SideFilter = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const handleOpeningFilterButton = () => {
     setIsFilterOpen(!isFilterOpen);
-    console.log(isFilterOpen, "isFilterOpen");
+    isFilterOpen, "isFilterOpen";
   };
 
   const router = useRouter();

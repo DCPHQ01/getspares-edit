@@ -67,8 +67,8 @@ export default function Products() {
     pageNumber: 0,
     pageSize: 100,
   });
-  console.log("data for categories: ", data);
-  console.log("category id: ", categoryId);
+  "data for categories: ", data;
+  "category id: ", categoryId;
 
   useEffect(() => {
     const savedItems = sessionStorage.getItem("categoryId");

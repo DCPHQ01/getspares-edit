@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../../dashboard/components/ui/header";
 import SearchBox from "../../dashboard/components/ui/searchbox";
 import Stock from "../../dashboard/components/ui/tabs";
@@ -15,24 +15,23 @@ import { useGetMecaAdminInventoryMutation } from "../../../redux/features/dashbo
 interface InventoryData {
   productImage?: string;
   productName?: number;
-  vendorName:string;
+  vendorName: string;
   vendorEmail: string;
-  transactionValue:number;
+  transactionValue: number;
   noOfItemsSold: number;
   vendorImage: string;
-  
-};
+}
 
 function Inventory() {
-  const [getInventory,{isLoading,isError}] = useGetMecaAdminInventoryMutation();
+  const [getInventory, { isLoading, isError }] =
+    useGetMecaAdminInventoryMutation();
   const [inventory, setInventory] = useState<InventoryData[]>([]);
-  const [activeTab, setActiveTab] = useState('IN_STOCK');
+  const [activeTab, setActiveTab] = useState("IN_STOCK");
   const [totalElement, setTotalElement] = useState(0);
   const [inStockCount, setInStockCount] = useState(0);
-  const [outOfStockCount, setOutOfStockCount] = useState()
+  const [outOfStockCount, setOutOfStockCount] = useState();
   const [page, setPage] = useState(0);
   const size = 10;
-
 
   const fetchInventoryData = async (status: string) => {
     try {
@@ -42,54 +41,43 @@ function Inventory() {
         availabilityStatus: status,
       };
       const resultList = await getInventory(requestBody).unwrap();
-      const list = resultList.data.content
+      const list = resultList.data.content;
       const totalElements = resultList.data.totalElements;
-      // console.log('Success is: ',resultList.data);
-      console.log('Total elements:', totalElements);
-      setInventory(list)
+
+      setInventory(list);
       setTotalElement(totalElements);
 
-      if (status === 'IN_STOCK') {
+      if (status === "IN_STOCK") {
         setInStockCount(totalElements);
-      } else if (status === 'OUT_OF_STOCK') {
+      } else if (status === "OUT_OF_STOCK") {
         setOutOfStockCount(totalElements);
       }
+    } catch (error) {
+      console.error("Failed to add vendor:", error);
     }
-    catch (error) {
-      console.error('Failed to add vendor:', error);
-
-    }
-
-
   };
 
   useEffect(() => {
     fetchInventoryData(activeTab);
   }, [activeTab, page]);
 
-  console.log("Inventory: ", inventory);
-
-
-
   const tabs = [
-    { label: 'In stock', count: inStockCount, status: 'IN_STOCK'  },
-    { label: 'Out of stock', count: outOfStockCount, status: 'OUT_OF_STOCK' },
+    { label: "In stock", count: inStockCount, status: "IN_STOCK" },
+    { label: "Out of stock", count: outOfStockCount, status: "OUT_OF_STOCK" },
   ];
 
   const handleNextPage = () => {
     if (inventory.length === size) {
-      setPage(prevPage => prevPage + 1);
+      setPage((prevPage) => prevPage + 1);
     }
   };
 
   const handlePreviousPage = () => {
     if (page > 0) {
-      setPage(prevPage => prevPage - 1);
+      setPage((prevPage) => prevPage - 1);
     }
   };
-  const status = tabs.filter(tab => tab.status === activeTab);
-
-
+  const status = tabs.filter((tab) => tab.status === activeTab);
 
   return (
     <>
@@ -99,21 +87,28 @@ function Inventory() {
         amount={totalElement}
       />
       <div className={`flex justify-between my-[1.25rem]`}>
-        <Stock 
-          tabs={tabs} 
+        <Stock
+          tabs={tabs}
           activeTab={activeTab}
           onTabChange={(status) => setActiveTab(status)}
-          />
+        />
         <SearchBox placeholder={`Search for buyers`} />
       </div>
 
-      <InventoryTable inventoryData={inventory} isLoading={isLoading} status=""/>
+      <InventoryTable
+        inventoryData={inventory}
+        isLoading={isLoading}
+        status=""
+      />
 
       <div className=" flex justify-end mt-10 mb-10 font-bold text-lg">
         {/* <button className="flex gap-x-2 border border-[#EAECF0]  rounded-md h-[36px] w-[36px] pl-1">
             <MdChevronLeft className="mt-1 text-2xl" />
           </button> */}
-        <button className="flex gap-x-2 border border-[#EAECF0] rounded-md h-[36px] w-[36px] pl-1">
+        <button
+          title="right"
+          className="flex gap-x-2 border border-[#EAECF0] rounded-md h-[36px] w-[36px] pl-1"
+        >
           <MdChevronRight className="mt-1 text-2xl" />
         </button>
       </div>

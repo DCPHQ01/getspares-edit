@@ -53,7 +53,7 @@ const Profile = () => {
     }
   }, []);
 
-  console.log("saved details ", details);
+  "saved details ", details;
   return (
     <div>
       <Header subtitle={``} title={`Profile`} amount={``} />
@@ -64,8 +64,8 @@ const Profile = () => {
         />
         <div>
           <Header
-             subtitle={`${details?.email}`}
-             title={`${details?.firstName} ${details?.lastName}`}
+            subtitle={`${details?.email}`}
+            title={`${details?.firstName} ${details?.lastName}`}
           />
         </div>
       </div>

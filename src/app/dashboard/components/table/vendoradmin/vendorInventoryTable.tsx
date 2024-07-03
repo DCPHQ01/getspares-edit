@@ -63,13 +63,12 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
   const openOption = Boolean(anchorEl);
   const router = useRouter();
   const [id, setId] = useState("");
+  const [dropDownOption, setDropDownOption] = useState<string | null>(null);
 
-  // const { data, isLoading } = useGetAProductQuery(productId, {
-  //   skip: !productId,
-  // });
-
-  const handleOptionClose = () => {
+  const handleOptionClose = (e: any) => {
+    e.stopPropagation();
     setAnchorEl(null);
+    setDropDownOption(null);
   };
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -79,14 +78,12 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
   const [routInventory, setRoutInventory] = useState(false);
 
   const handleRoutInventory = (id: number, index: string) => {
-    console.log("before ", id, " id", index, " index");
     if (id === 1) {
       setRoutInventory(!routInventory);
     } else if (id === 2) {
-      console.log("after ", id, " id", index, " index");
-      // router.push(`/addProductDashboard/basicInfo/?id=${index}`);
+      sessionStorage.removeItem("basicInfoValues");
+      router.push(`/addProductDashboard/basicInfo/?id=${index}`);
     }
-    handleOptionClose();
   };
 
   const stopPagination = (event: React.MouseEvent<HTMLElement>) => {
@@ -96,6 +93,20 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
   const navigateTo = (val: string) => {
     setId(val);
     setRoutInventory((routInventory) => !routInventory);
+  };
+
+  const dropDownOptions = (
+    id: string,
+    event: React.MouseEvent<HTMLElement>
+  ) => {
+    if (dropDownOption !== id) {
+      inventoryData.find((itm) => {
+        itm.id === id ? setDropDownOption(id) : null;
+      });
+    } else {
+      setDropDownOption(null);
+    }
+    setAnchorEl(event.target as HTMLElement);
   };
 
   return (
@@ -155,7 +166,6 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
                         "#095AD3",
                       ]}
                     />
-                    <p>Loading Inventory...</p>
                   </div>
                 ) : inventoryData?.length === 0 ? (
                   <div className="relative right-[100%] left-[100%] flex flex-col justify-center items-center pt-32 leading-10">
@@ -226,49 +236,26 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
                           id={`transactionValue_${index}`}
                         >
                           <div>
-                            <IconButton onClick={handleClick}>
+                            <IconButton
+                              onClick={(event: React.MouseEvent<HTMLElement>) =>
+                                dropDownOptions(d.id, event)
+                              }
+                            >
                               <MdMoreVert />
                             </IconButton>
                           </div>
-                          <MenuOptions
-                            anchorEl={anchorEl}
-                            openOption={openOption}
-                            handleOptionClose={handleOptionClose}
-                            handleRouteInventory={handleRoutInventory}
-                            optionData={option}
-                            tableId={d.id}
-                          />
-
-                          {/* <Menu
-                            id="menu"
-                            MenuListProps={{ "aria-labelledby": "long-button" }}
-                            anchorEl={anchorEl}
-                            open={openOption}
-                            onClose={handleOptionClose}
-                            PaperProps={{
-                              style: {
-                                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                                borderRadius: "15px",
-                                backgroundColor: "#FFFFFF",
-                              },
-                            }}
-                          >
-                            {option.map((opt) => (
-                              <MenuItem
-                                key={opt.id}
-                                id={`option_${opt.id}`}
-                                selected={opt.id === 1}
-                                onClick={() =>
-                                  handleRoutInventory(opt.id, d?.id)
-                                }
-                              >
-                                {opt.icon}{" "}
-                                <span className=" ml-3 text-gray-500 text-sm">
-                                  {opt.title}
-                                </span>
-                              </MenuItem>
-                            ))}
-                          </Menu> */}
+                          {dropDownOption === d.id && (
+                            <MenuOptions
+                              anchorEl={anchorEl}
+                              openOption={openOption}
+                              handleOptionClose={(e: any) =>
+                                handleOptionClose(e)
+                              }
+                              handleRouteInventory={handleRoutInventory}
+                              optionData={option}
+                              tableId={d.id}
+                            />
+                          )}
                         </td>
                       </tr>
                     );
