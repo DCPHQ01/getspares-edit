@@ -103,8 +103,11 @@ const BuyerCartMobile = () => {
           quantity: Number(item.quantity),
         };
       });
+      const payload = {
+        itemRequests:data
+      }
       try {
-        const res = await addToCart(data).unwrap();
+        const res = await addToCart(payload).unwrap();
         setState({ ...newState, open: true });
         router.push(paths.toCheckout());
         console.log(res.data);
@@ -168,7 +171,7 @@ const BuyerCartMobile = () => {
               </div>
 
               {/* Subtotal items */}
-              <div className="mb-10" style={{ width: "100%" }}>
+              {cart.length !== 0 && <div className="mb-10" style={{ width: "100%" }}>
                 <div className="h-64 bg-mecaSearchColor  rounded-lg pt-5">
                   <div className="w-[90%] m-auto">
                     <div>
@@ -214,6 +217,7 @@ const BuyerCartMobile = () => {
                   </div>
                 </div>
               </div>
+              }
             </div>
           </div>
         </div>

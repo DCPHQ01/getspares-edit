@@ -95,8 +95,12 @@ const Cart = () => {
           quantity: Number(item.quantity),
         };
       });
+
+      const payload = {
+        itemRequests:data
+      }
       try {
-        const res = await addToCart(data).unwrap();
+        const res = await addToCart(payload).unwrap();
         setSnackState({ ...newState, open: true });
         router.push(paths.toCheckout());
         console.log(res.data);
@@ -178,7 +182,7 @@ const Cart = () => {
                     </div>
                   )}
                 </div>
-                <div className="mt-6 w-full md:w-[45%]">
+                {cart.length !== 0 &&  <div className="mt-6 w-full md:w-[45%]">
                   <div className="h-64 bg-mecaSearchColor  rounded-lg pt-5">
                     <div className="w-[90%] m-auto">
                       <div>
@@ -191,8 +195,8 @@ const Cart = () => {
                           <div className=" font-normal text-sm">
                             <p>
                               {totalItemPrice
-                                ? formatAmount(totalItemPrice)
-                                : "0"}
+                                 ? formatAmount(totalItemPrice)
+                                 : "0"}
                             </p>
                           </div>
                         </div>
@@ -205,25 +209,25 @@ const Cart = () => {
                           <p>Subtotal</p>
                           <p>
                             {totalItemPrice
-                              ? formatAmount(totalItemPrice)
-                              : "0"}
+                               ? formatAmount(totalItemPrice)
+                               : "0"}
                           </p>
                         </div>
                       </div>
                       <div className="">
                         <button
-                          onClick={handleCheckout({
-                            vertical: "top",
-                            horizontal: "center",
-                          })}
-                          className="w-full h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer"
+                           onClick={handleCheckout({
+                             vertical: "top",
+                             horizontal: "center",
+                           })}
+                           className="w-full h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer"
                         >
                           Checkout
                         </button>
                       </div>
                     </div>
                   </div>
-                </div>
+                </div>}
               </div>
             </div>
           </div>
@@ -245,7 +249,7 @@ const Cart = () => {
                   <MdCheckCircle className="w-5 h-5" />
                 </span>
 
-                <span>Item has been removed successfully</span>
+                <span>Item has been added successfully</span>
               </div>
             </Alert>
           </Snackbar>

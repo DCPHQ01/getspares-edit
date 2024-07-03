@@ -40,30 +40,19 @@ const OverviewTable: React.FC<OverviewTableProps> = ({
   };
 
   return (
-    <div id="tableContainer" className="relative">
-      <div
-        className={`my-[1.25rem] w-full max-h-[34rem] overflow-y-auto scrollbar-none ${styles.table}`}
-      >
-        <table id="adminTable" className={`w-full `}>
-          <thead className={`lg:sticky `}>
-            <tr className="truncate">
-              <th
-                id="totalItemsSoldHeader"
-                className={`lg:sticky`}
-                style={{ paddingLeft: "5rem" }}
-              >
+    <div id="tableContainer" className="relative -z-50">
+
+      <div className={`my-[1.25rem] w-full max-h-[34rem] overflow-y-auto scrollbar-none ${styles.table}`}>
+        <table id="adminTable" className={`w-full`}>
+          <thead>
+            <tr className="truncate ">
+              <th id="totalItemsSoldHeader" style={{ paddingLeft: "5rem" }} >
                 Tracking Order ID
               </th>
-              <th
-                id="dateTimeJoinedHeader"
-                style={{ paddingLeft: "3rem" }}
-                className={`lg:sticky`}
-              >
+              <th id="dateTimeJoinedHeader" style={{ paddingLeft: "3rem" }} >
                 Amount
               </th>
-              <th id="dateTimeJoinedHeader" className={`lg:sticky`}>
-                Order Date & Time
-              </th>
+              <th id="dateTimeJoinedHeader" >Order Date & Time</th>
             </tr>
           </thead>
           <tbody>

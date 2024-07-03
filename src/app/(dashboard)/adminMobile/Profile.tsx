@@ -64,7 +64,7 @@ const Profile = () => {
 
   return (
     <div>
-      <Header subtitle={``} title={`Profile`} amount={``} />
+      <Header subtitle={``} title={`Profile`} />
       <div className="flex gap-x-2 mb-12">
         <Avatar
           className="bg-mecaActiveBackgroundNavColor text-mecaBluePrimaryColor w-16 h-16 text-4xl -z-50"
@@ -74,7 +74,6 @@ const Profile = () => {
           <Header
               subtitle={formData.email}
               title={fullName}
-              amount={``}
           />
         </div>
 
@@ -97,6 +96,7 @@ const Profile = () => {
               required={true}
               id="filledbasic7"
               label="First name"
+              value={formData.firstName}
               variant="filled"
               InputProps={{ disableUnderline: true }}
               className="lg:w-[364px]  w-[100%] mb-5 2xl:w-[35rem] rounded -z-50"
@@ -109,6 +109,7 @@ const Profile = () => {
               type="url"
               id="filledbasic7"
               label="Last name"
+              value={formData.lastName}
               variant="filled"
               InputProps={{ disableUnderline: true }}
               className="lg:w-[364px]  w-[100%] mb-5 2xl:w-[35rem] -z-50"
@@ -123,6 +124,7 @@ const Profile = () => {
               type="url"
               id="filledbasic7"
               label="Email"
+              value={formData.email}
               variant="filled"
               InputProps={{ disableUnderline: true }}
               className="  w-[100%] mb-5 rounded -z-50"
