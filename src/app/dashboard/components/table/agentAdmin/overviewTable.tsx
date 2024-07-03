@@ -106,7 +106,7 @@ const OverviewTable = () => {
             <th id="dateTimeJoinedHeader">Date & time of transaction</th>
           </tr>
         </thead>
-        <tbody>
+        {/* <tbody>
           {data.map((d, index) => (
             <tr
               key={index}
@@ -148,7 +148,7 @@ const OverviewTable = () => {
               </td>
             </tr>
           ))}
-        </tbody>
+        </tbody> */}
       </table>
     </div>
   );
