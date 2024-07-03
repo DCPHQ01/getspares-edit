@@ -5,6 +5,7 @@ import "../../../../../styles/profile.css";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
+import { useLayoutEffect, useState } from "react";
 
 function stringToColor(string: string) {
   let hash = 0;
@@ -20,6 +21,7 @@ function stringToColor(string: string) {
     const value = (hash >> (i * 8)) & 0xff;
     color += `00${value.toString(16)}`.slice(-2);
   }
+  /* eslint-enable no-bitwise */
 
   return color;
 }
@@ -29,24 +31,42 @@ function stringAvatar(name: string) {
     sx: {
       bgcolor: stringToColor(name),
     },
-    children: `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`,
+    children: `${name
+      .split(" ")
+      .map((word) => word[0])
+      .join("")}`,
   };
 }
 
+interface UserDetails {
+  firstName: string;
+  lastName: string;
+  email: string;
+}
+
 const Profile = () => {
+  const [details, setDetails] = useState<UserDetails | null>(null);
+
+  useLayoutEffect(() => {
+    const savedItem = sessionStorage.getItem("userDetails");
+    if (savedItem) {
+      setDetails(JSON.parse(savedItem) as UserDetails);
+    }
+  }, []);
   return (
     <div>
-      <Header subtitle={``} title={`Profile`} amount={``} />
+      <Header subtitle={``} title={`Profile`} />
       <div className="flex gap-x-2 mb-12">
         <Avatar
           className="bg-mecaActiveBackgroundNavColor text-mecaBluePrimaryColor w-16 h-16 text-4xl"
-          {...stringAvatar("Sule Femi")}
+          {...stringAvatar(`${details?.firstName} ${details?.lastName}`)}
         />
-        <Header
-          subtitle={`sulefemi@gmail.com`}
-          title={`Sule Femi`}
-          amount={``}
-        />
+        <div className="mt-1">
+          <Header
+            subtitle={`${details?.email}`}
+            title={`${details?.firstName} ${details?.lastName}`}
+          />
+        </div>
       </div>
 
       <hr></hr>
@@ -58,97 +78,30 @@ const Profile = () => {
         </div>
 
         <div className="border-2 w-[100%] h-[100%] p-5 rounded-xl ">
-          <Box className="">
-            <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              id="filledbasic7"
-              label="First name"
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-5 2xl:w-[35rem] rounded -z-50"
-              sx={{ backgroundColor: "porcelain" }}
-            />
+          <div className="flex justify-between gap-x-5">
+            <div className=" h-16 mb-5  pl-5 pt-3 lg:w-[364px] rounded w-[100%] 2xl:w-[35rem]  bg-mecaBorderColor">
+              <p className="text-sm text-gray-500">Fistname</p>
+              <p className="text-lg">{details?.firstName}</p>
+            </div>
 
-            <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              type="url"
-              id="filledbasic7"
-              label="Last name"
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px] mb-5  w-[100%] 2xl:w-[35rem] -z-50"
-              sx={{ backgroundColor: "porcelain" }}
-            />
-          </Box>
-          <Box className="">
-            <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              type="url"
-              id="filledbasic7"
-              label="Phone number"
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-5 2xl:w-[35rem] rounded -z-50"
-              sx={{ backgroundColor: "porcelain" }}
-            />
+            <div
+              className="lg:w-[364px] h-16 pl-5 pt-3 w-[100%] 2xl:w-[35rem] rounded  bg-mecaBorderColor"
+              style={{ backgroundColor: "porcelain" }}
+            >
+              <p className="text-xs text-gray-500">Lastname</p>
+              <p>{details?.lastName}</p>
+            </div>
+          </div>
 
-            <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              type="url"
-              id="filledbasic7"
-              label="Gender"
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px] mb-5  w-[100%] 2xl:w-[35rem] rounded -z-50"
-              sx={{ backgroundColor: "porcelain" }}
-            />
-          </Box>
-
-          <Box className="">
-            <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              type="url"
-              id="filledbasic7"
-              label="Date account was created"
-              variant="filled"
-              //   value={company.companyForm.website}
-              name="website"
-              InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] mb-5 2xl:w-[35rem] rounded -z-50"
-              sx={{ backgroundColor: "porcelain" }}
-            />
-
-            <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              type="url"
-              id="filledbasic7"
-              label="Last active"
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px] mb-5  w-[100%] 2xl:w-[35rem] -z-50"
-              sx={{ backgroundColor: "porcelain" }}
-            />
-          </Box>
-
-          <Box className="">
-            <TextField
-              inputProps={{ readOnly: true }}
-              required={true}
-              type="url"
-              id="filledbasic7"
-              label="Email"
-              variant="filled"
-              InputProps={{ disableUnderline: true }}
-              className="  w-[100%] rounded -z-50"
-              sx={{ backgroundColor: "porcelain" }}
-            />
-          </Box>
+          <div className="flex gap-x-4">
+            <div
+              className=" h-16 pl-5 pr-5 pt-3 w-[100%] rounded  bg-mecaBorderColor"
+              style={{ backgroundColor: "porcelain" }}
+            >
+              <p className="text-xs text-gray-500">Email</p>
+              <p>{details?.email}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
