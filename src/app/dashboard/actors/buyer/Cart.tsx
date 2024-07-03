@@ -178,7 +178,7 @@ const Cart = () => {
                         </p>
                         <p className='text-gray-500'>All your orders will appear here</p>
                       </div>
-                  </div>
+                    </div>
                   ) : (
                     <div className="">
                       {cart?.map((cardCartItem, index) => (
