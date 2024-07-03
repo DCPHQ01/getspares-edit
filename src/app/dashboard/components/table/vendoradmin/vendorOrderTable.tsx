@@ -7,87 +7,11 @@ import Details from "../../../../category/products/viewDetails/[details]/page";
 import dayjs from "dayjs";
 import { formatAmount } from "../../../../../components/utils";
 
-// const data = [
-//   {
-//     avatar: image1,
-//     name: "Ebuka Shima Oke",
-//     email: "ebukashima@gmail.com",
-//     sale: "MCA3435656jh787",
-//     vale: "₦ 200,000.00",
-//     date: "24 June 2022",
-//     time: "12:00PM",
-//   },
-//   {
-//     avatar: image2,
-//     name: "Sanni Rabiu",
-//     email: "sannirabiu@gmail.com",
-//     sale: "MCA3435656jh787",
-//     vale: "₦ 1,000,000.00",
-//     date: "30 June 2023",
-//     time: "06:00PM",
-//   },
-//   {
-//     avatar: image1,
-//     name: "Ayodele Olakoya",
-//     email: "ayodeleola@gmail.com",
-//     sale: "MCA3435656jh787",
-//     vale: "₦ 600,000.00",
-//     date: "12 May 2024",
-//     time: "08:45PM",
-//   },
-//   {
-//     avatar: image2,
-//     name: "Ngozi Ike",
-//     email: "ngoziike.com",
-//     sale: "MCA3435656jh787",
-//     vale: "₦ 120,000.00",
-//     date: "02 Sep 2022",
-//     time: "11:15AM",
-//   },
-//   {
-//     avatar: image1,
-//     name: "Ayodele Olakoya",
-//     email: "ayodeleola@gmail.com",
-//     sale: "MCA3435656jh787",
-//     vale: "₦ 700,000,00",
-//     date: "30 Aug 2022",
-//     time: "04:00PM",
-//   },
-
-//   {
-//     avatar: image2,
-//     name: "Sanni Rabiu",
-//     email: "sannirabiu@gmail.com",
-//     sale: "MCA3435656jh787",
-//     vale: "₦ 1,000,000.00",
-//     date: "30 June 2023",
-//     time: "06:00PM",
-//   },
-//   {
-//     avatar: image2,
-//     name: "Ngozi Ike",
-//     email: "ngoziike.com",
-//     sale: "MCA3435656jh787",
-//     vale: "₦ 120,000.00",
-//     date: "02 Sep 2022",
-//     time: "11:15AM",
-//   },
-//   {
-//     avatar: image1,
-//     name: "Ayodele Olakoya",
-//     email: "ayodeleola@gmail.com",
-//     sale: "MCA3435656jh787",
-//     vale: "₦ 700,000,00",
-//     date: "30 Aug 2022",
-//     time: "04:00PM",
-//   },
-// ];
 type VendorData = {
   orderId: string;
   amount: string;
   buyers: number;
   dateOrdered: string;
-
 };
 
 interface VendorTableProps {
@@ -96,7 +20,7 @@ interface VendorTableProps {
   isError?: boolean;
 }
 
-const VendorOrderTable = ({data}: VendorTableProps) => {
+const VendorOrderTable = ({ data }: VendorTableProps) => {
   const [renderDetails, setRenderDetails] = useState(false);
   const formatDateTime = (dateTime: string) => {
     const date = dayjs(dateTime).format("DD-MM-YYYY");
@@ -107,7 +31,7 @@ const VendorOrderTable = ({data}: VendorTableProps) => {
   const handleDetails = () => {
     setRenderDetails(!renderDetails);
   };
-  
+
   return (
     <div id="tableContainer">
       <div
@@ -117,20 +41,34 @@ const VendorOrderTable = ({data}: VendorTableProps) => {
         <table id="adminTable" className={`w-full`}>
           <thead>
             <tr className="truncate">
-              <th id="totalItemsSoldHeader" style={{ paddingLeft: "4rem" }}>
+              <th
+                id="totalItemsSoldHeader"
+                className={`lg:sticky`}
+                style={{ paddingLeft: "4rem" }}
+              >
                 Order ID
               </th>
-              <th id="transactionValueHeader" style={{ paddingLeft: "4rem" }}>
+              <th
+                id="transactionValueHeader"
+                className={`lg:sticky`}
+                style={{ paddingLeft: "4rem" }}
+              >
                 Amount
               </th>
-              <th id="dateTimeJoinedHeader" style={{ paddingLeft: "2rem" }}>
+              <th
+                id="dateTimeJoinedHeader"
+                className={`lg:sticky`}
+                style={{ paddingLeft: "2rem" }}
+              >
                 Buyers
               </th>
-              <th id="dateTimeJoinedHeader">Date & time ordered</th>
+              <th id="dateTimeJoinedHeader" className={`lg:sticky`}>
+                Date & time ordered
+              </th>
             </tr>
           </thead>
           <tbody>
-          {data?.map((d, index) => {
+            {data?.map((d, index) => {
               const { date, time } = formatDateTime(d.dateOrdered);
               const formattedTransactionValue = formatAmount(d.amount);
 
@@ -204,7 +142,8 @@ const VendorOrderTable = ({data}: VendorTableProps) => {
 };
 export default VendorOrderTable;
 
-            {/* {data?.map((d, index) => (
+{
+  /* {data?.map((d, index) => (
               const { date, time } = formatDateTime(d.dateJoined); 
 
               return (
@@ -228,37 +167,42 @@ export default VendorOrderTable;
                       <div>{d.name}</div>
                     </div>
                   </div>
-                </td> */}
+                </td> */
+}
 
-                // <td
-                //   className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
-                //   id={`itemsSold_${index}`}
-                // >
-                //   {d.orderId}
-                // </td>
+// <td
+//   className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
+//   id={`itemsSold_${index}`}
+// >
+//   {d.orderId}
+// </td>
 
-                // <td
-                //   className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
-                //   id={`transactionValue_${index}`}
-                // >
-                //   {d.amount}
-                // </td>
+// <td
+//   className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
+//   id={`transactionValue_${index}`}
+// >
+//   {d.amount}
+// </td>
 
-                // <td id={`companyData_${index}`}>
-                //   <div
-                //     className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
-                //   >
-                    {/* <Image
+// <td id={`companyData_${index}`}>
+//   <div
+//     className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
+//   >
+{
+  /* <Image
                       src={d.avatar}
                       className="object-contain"
                       alt="Avatar"
                       id={`avatar_${index}`}
-                    /> */}
-                    // <div id={`companyDetails_${index}`}>
-                    //   <div>{d.buyers}</div>
-                      {/* <div className={`text-[#4B5565]`} id={`email_${index}`}>
+                    /> */
+}
+// <div id={`companyDetails_${index}`}>
+//   <div>{d.buyers}</div>
+{
+  /* <div className={`text-[#4B5565]`} id={`email_${index}`}>
                         {d.email}
-//                       </div> */}
+//                       </div> */
+}
 //                     </div>
 //                   </div>
 //                 </td>
@@ -273,7 +217,7 @@ export default VendorOrderTable;
 //                 </td>
 //               </tr>
 //             );
-//           })              
+//           })
 //         )}
 //           </tbody>
 //         </table>
@@ -286,4 +230,3 @@ export default VendorOrderTable;
 //     </div>
 //   );
 // }; */}
-

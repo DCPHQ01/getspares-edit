@@ -100,11 +100,11 @@ const ViewParticularOrderTable = ({
                           }}
                           wrapperClass="color-ring-wrapper"
                           colors={[
-                            "#000000",
-                            "#000000",
-                            "#000000",
-                            "#000000",
-                            "#000000",
+                            "#095AD3",
+                            "#095AD3",
+                            "#095AD3",
+                            "#095AD3",
+                            "#095AD3",
                           ]}
                         />
                       </div>
@@ -187,7 +187,7 @@ const ViewParticularOrderTable = ({
       </div>
 
       {details && (
-        <div className="absolute top-0 w-[100%] m-auto  h-[100vh]">
+        <div className="absolute top-0 w-[100%] m-auto h-[100vh]">
           <div className=" bg-white">
             <Details />
           </div>

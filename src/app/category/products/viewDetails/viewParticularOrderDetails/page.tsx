@@ -32,6 +32,7 @@ const ViewParticularOrderDetailsPage: React.FC = () => {
 
   // const { data, isLoading } = useGetOrderDetailsQuery({  id: id   });
   // console.log("data for order details", data);
+
   useEffect(() => {
     const storedId = sessionStorage.getItem("selectedOrderId");
     if (storedId) {
