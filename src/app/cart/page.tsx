@@ -5,7 +5,7 @@ import Cards from "../../components/Homepage/Card";
 import "react-multi-carousel/lib/styles.css";
 import HomeImage1 from "../../assets/images/homeImage1.png";
 
-import { MdChevronRight, MdCheckCircle } from "react-icons/md";
+import { MdChevronRight, MdCheckCircle, MdShoppingCart } from "react-icons/md";
 import { Alert, Card } from "@mui/material";
 import Footer from "../../components/footer/Footer";
 import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
@@ -162,9 +162,17 @@ const RemoveToCartPage = () => {
               <div className="md:flex md:gap-x-6">
                 <div className={"w-full"}>
                   {cart?.length === 0 ? (
-                    <p className="text-lg font-bold text-center mt-20">
-                      Your Cart is Empty!
-                    </p>
+                    <div className="flex flex-col items-center mt-40 ">
+                      <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
+                        <MdShoppingCart style={{ fontSize: "2rem", color: "#0852C0" }} />
+                      </div>
+                      <div className="flex flex-col mt-4">
+                        <p className="text-xl text-center">
+                          Your Cart is Empty!
+                        </p>
+                        <p className='text-gray-500'>All your orders will appear here</p>
+                      </div>
+                    </div>
                   ) : (
                     <div className="">
                       {cart?.map((cardCartItem, index) => (
