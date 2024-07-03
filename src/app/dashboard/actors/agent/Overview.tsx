@@ -31,15 +31,11 @@ function Overview() {
           subtitle={`Take a quick glance on what is happening with meca`}
           name={name}
         />
-        {/* <Cards cardProps={}/> */}
+
         <div
           className={`flex justify-between items-center mt-[3.25rem] mb-[1.25rem]`}
         >
           <Header title={`Recently sold parts`} />
-          {/* <PeriodRadios
-            activityPeriod={activityPeriod}
-            onPeriodChange={handlePeriodChange}
-          /> */}
         </div>
 
         <OverviewTable />
