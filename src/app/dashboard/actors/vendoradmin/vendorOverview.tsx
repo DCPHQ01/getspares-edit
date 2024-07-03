@@ -43,8 +43,19 @@ function VendorOverview() {
   }, [data]);
 
 
-  const userName = JSON.parse(sessionStorage.getItem("userDetails") || "");
-  const usersFirstName = userName?.firstName;
+  // const userName = JSON.parse(sessionStorage.getItem("userDetails") || "");
+  // const usersFirstName = userName?.firstName;
+
+  let usersFirstName = "";
+  try {
+    const userName = JSON.parse(sessionStorage.getItem("userDetails") || "");
+    usersFirstName = userName?.firstName;
+  } catch (error) {
+    console.error("Error parsing user details:", error);
+   
+  }
+  console.log("data for VendorOverview name: ", usersFirstName);
+
   return (
     <>
       <div>

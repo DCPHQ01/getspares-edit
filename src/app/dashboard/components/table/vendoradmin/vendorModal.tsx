@@ -29,7 +29,7 @@ const VendorModal: React.FC<VendorModalProps> = ({ handleModalClose }) => {
   };
 
   return (
-    <div className="fixed h-[100%] z-50 inset-0 bg-black bg-opacity-50">
+    <div className="fixed h-[100%] z-[1500] inset-0 bg-black bg-opacity-50">
       <div>
         <div id="iconbutton" className=" flex justify-end h-10 mt-10 mr-7 ">
           <IconButton>

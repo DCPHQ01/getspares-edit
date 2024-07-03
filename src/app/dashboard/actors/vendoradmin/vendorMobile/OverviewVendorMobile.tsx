@@ -48,13 +48,25 @@ function OverviewVendorMobile() {
   },[])
   const usersFirstName = usersName?.firstName;
 
+
+  let userFirstName = "";
+  try {
+    const userName = JSON.parse(sessionStorage.getItem("userDetails") || "");
+    userFirstName = userName?.firstName;
+  } catch (error) {
+    console.error("Error parsing user details:", error);
+   
+  }
+  console.log("data for VendorOverviewMobile name: ", usersFirstName);
+  console.log("data for VendorOverviewMobile names: ", userFirstName);
+
   return (
     <>
       <div>
         <div className={`justify-between items-center`}>
           <Header
             subtitle={`Take a quick glance on what is happening with meca`}
-            name={usersFirstName}
+            name={userFirstName}
           />
           <div className="mt-5 mb-5">
             <Link href={paths.toModalPage()}>

@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
 import BasicTabs from "../../../../dashboard/components/table/buyerAdmin/FeedBackTab";
 import ProductReview from "../../../../dashboard/components/table/buyerAdmin/ProductReview";
 import DetailsTable from "../../../../dashboard/components/table/buyerAdmin/tab";
-import BuyerModal from "../../../../dashboard/components/table/vendoradmin/vendorModal";
+import VendorModal from "../../../../dashboard/components/table/vendoradmin/vendorModal";
 import { paths } from "../../../../../path/paths";
 import { formatAmount2 } from "../../../../../components/utils";
 import { useGetViewBuyersProductDetailsQuery } from "../../../../../redux/features/feedback/feedbackQuery";
@@ -224,7 +224,7 @@ export default function Details() {
                           <div
                             id="moreImages"
                             className="absolute rounded-lg inset-0 flex justify-center items-center bg-mecaDarkBlueBackgroundOverlay bg-opacity-50"
-                            onClick={() => setShowAllImages(true)}
+                            onClick={handleOpenVendorModal}
                           >
                             <p className="text-white text-3xl font-nunito font-semibold">
                               +{remainingImages.length}
@@ -281,11 +281,13 @@ export default function Details() {
           </div>
         </div>
       </div>
-      <div>
-        <BuyerModal
-          handleModalClose={handleOpenVendorModal}
-         
-        />
+      <div >
+      {openVendorModal && (
+        <div className="">
+          <VendorModal handleModalClose={handleOpenVendorModal} />
+        </div>
+      )}
+       
       </div>
     </div>
   );
