@@ -20,6 +20,7 @@ export type CartProduct = {
       model: string;
       productionDimension: string;
       voltage: string;
+      quantity:number;
    };
 }
 
