@@ -42,7 +42,7 @@ const DropdownPage: React.FC<DropdownPageProps> = ({ closeDropdown }) => {
 
   const router = useRouter();
   const { data: getCategoriesData, isFetching } = useGetCategoryQuery({});
-  console.log("buyers category  ", getCategoriesData);
+
   const handleProductDescription = (
     categoryName: string,
     categoryId: string

@@ -78,7 +78,6 @@ export default function MobileNavbarList({ handleNav }: MobileNavProps) {
   const toggle = (id: number) => {
     if (id === active) {
       setIsCategoryOptionOpen((prev) => !prev);
-      "category ", isCategoryOptionOpened;
     }
     return isCategoryOptionOpened;
   };

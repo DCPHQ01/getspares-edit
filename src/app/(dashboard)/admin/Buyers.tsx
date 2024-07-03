@@ -42,8 +42,6 @@ function Buyers() {
     }
   }, [data]);
 
-  "The BuyerList:", first, last;
-
   const handlePreviousPage = () => {
     if (last) {
       setPage((prevPage) => prevPage - 1);

@@ -24,7 +24,6 @@ interface JwtPayload extends BaseJwtPayload {
 
 function Index({ header, subheader, overviewRoles }: IProps) {
   const { user } = useAppSelector((state) => state.user);
-  "dashboard ", user;
 
   const userDetails = JSON.parse(sessionStorage.getItem("userDetails") || "");
   const name = userDetails?.firstName;

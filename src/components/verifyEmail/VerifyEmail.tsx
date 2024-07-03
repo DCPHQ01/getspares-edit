@@ -80,7 +80,6 @@ export default function VerifyEmail({
       inputsRef.current[index - 1]?.focus();
     }
   };
-  otp.join("");
 
   useEffect(() => {
     inputsRef.current[0]?.focus();
@@ -95,7 +94,7 @@ export default function VerifyEmail({
       email: userEmail,
       otpCode: otp.join(""),
     };
-    data, "data";
+
     setIsLoading(true);
     try {
       let response: any;
@@ -186,7 +185,6 @@ export default function VerifyEmail({
       setOpen(true);
     }
   };
-  "email error ", emailError;
   return (
     <>
       <div

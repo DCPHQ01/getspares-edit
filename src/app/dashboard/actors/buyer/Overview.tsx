@@ -24,8 +24,6 @@ function Overview() {
     }
   }, [data]);
 
-  "total element", data;
-
   const router = useRouter();
   const handleMore = () => {
     router.push(paths.toHome());

@@ -1,6 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import {useEffect, useState, RefObject} from "react";
+import { useEffect, useState, RefObject } from "react";
 
 const cloud_name = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
 const cloudinary_url = `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`;
@@ -38,7 +38,7 @@ export const uploadImage = async (
       //   ("image url ", data);
       image_url = data.url;
       setImage(image_url);
-      "image url ", image_url;
+
       return image_url;
     });
 };
@@ -161,7 +161,10 @@ export const formatAmount3 = (price: string) => {
 //   return state;
 // };
 
-export const useNewFocus = (ref: RefObject<HTMLElement>, defaultState: boolean = false): boolean => {
+export const useNewFocus = (
+  ref: RefObject<HTMLElement>,
+  defaultState: boolean = false
+): boolean => {
   const [state, setState] = useState<boolean>(defaultState);
 
   useEffect(() => {
@@ -172,17 +175,16 @@ export const useNewFocus = (ref: RefObject<HTMLElement>, defaultState: boolean =
     const onFocus = () => setState(true);
     const onBlur = () => setState(false);
 
-    ref.current.addEventListener('focus', onFocus);
-    ref.current.addEventListener('blur', onBlur);
+    ref.current.addEventListener("focus", onFocus);
+    ref.current.addEventListener("blur", onBlur);
 
     return () => {
       if (ref.current) {
-        ref.current.removeEventListener('focus', onFocus);
-        ref.current.removeEventListener('blur', onBlur);
+        ref.current.removeEventListener("focus", onFocus);
+        ref.current.removeEventListener("blur", onBlur);
       }
     };
   }, [ref]);
 
   return state;
 };
-

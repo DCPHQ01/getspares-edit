@@ -21,7 +21,6 @@ function stringToColor(string: string) {
     const value = (hash >> (i * 8)) & 0xff;
     color += `00${value.toString(16)}`.slice(-2);
   }
-  /* eslint-enable no-bitwise */
 
   return color;
 }
@@ -57,7 +56,7 @@ const Profile = () => {
     const userDetails = sessionStorage.getItem("userDetails");
     if (userDetails) {
       const parsedUserDetails = JSON.parse(userDetails);
-      "User details:", parsedUserDetails;
+
       setFormData({
         firstName: parsedUserDetails.firstName || "",
         lastName: parsedUserDetails.lastName || "",

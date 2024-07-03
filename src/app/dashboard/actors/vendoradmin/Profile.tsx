@@ -78,7 +78,6 @@ const Profile = () => {
   };
 
   const { data, isLoading, isError } = useGetCompanyProfileQuery({});
-  "profile details", data;
 
   const [viewProfile, setViewProfile] = useState<viewProfilesForActors>({
     name: "",

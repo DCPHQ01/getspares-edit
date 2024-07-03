@@ -77,7 +77,6 @@ const FilterFixedPage = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const handleOpeningFilterButton = () => {
     setIsFilterOpen(!isFilterOpen);
-    isFilterOpen, "isFilterOpen";
   };
 
   const router = useRouter();

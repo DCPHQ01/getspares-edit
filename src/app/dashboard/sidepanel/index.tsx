@@ -35,8 +35,6 @@ function Index({ sidePanelRoles }: any) {
 
   const router = useRouter();
 
-  roles, " roles";
-
   const buttons = [
     {
       icon: <MdDashboard />,

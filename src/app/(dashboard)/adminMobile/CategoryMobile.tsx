@@ -78,7 +78,6 @@ function CategoryMobile() {
       setLast(lists.last);
     }
   }, [data]);
-  "THIS IS CATEGORY", categoryList;
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);

@@ -102,7 +102,6 @@ export default function SendEmail() {
       email: userMail,
       otpCode: otp.join(""),
     };
-    data, "data";
 
     setIsLoading(true);
     try {
@@ -131,8 +130,6 @@ export default function SendEmail() {
     }
     setOtp(Array(6).fill(""));
   };
-
-  otpError, "otp";
 
   return (
     <>

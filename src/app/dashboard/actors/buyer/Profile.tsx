@@ -53,7 +53,6 @@ const Profile = () => {
     }
   }, []);
 
-  "saved details ", details;
   return (
     <div>
       <Header subtitle={``} title={`Profile`} amount={``} />

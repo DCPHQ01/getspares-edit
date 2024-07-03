@@ -42,8 +42,6 @@ function Inventory() {
       const resultList = await getInventory(requestBody).unwrap();
       const list = resultList.data.content;
       const totalElements = resultList.data.totalElements;
-      // ('Success is: ',resultList.data);
-      "Total elements:", totalElements;
       setInventory(list);
       setTotalElement(totalElements);
 
@@ -60,8 +58,6 @@ function Inventory() {
   useEffect(() => {
     fetchInventoryData(activeTab);
   }, [activeTab, page]);
-
-  "Inventory: ", inventory;
 
   const tabs = [
     { label: "In stock", count: inStockCount, status: "IN_STOCK" },

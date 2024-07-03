@@ -170,12 +170,13 @@ const UpdateCompanyStepOne: React.FC<PageOneProps> = ({ companyData }) => {
 
   const handleNextPage = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    let res;
 
     if (Object.values(errors).some((error) => error)) {
       return;
     }
     try {
-      const res = await updateCompanyDetails(inputs).unwrap()(res.data);
+      res = await updateCompanyDetails(inputs).unwrap();
       dispatch(setCurrentStep(1));
     } catch (e: any) {
       e.data;

@@ -57,19 +57,9 @@ const ReviewModal: React.FC<ReviewModalProps> = ({
       }).unwrap();
       closeModal();
       if ("data" in res) {
-        "create comment", res.data.data;
       }
     } catch (error) {}
   };
-
-  // useEffect(() => {
-  //   if (orderId && productId) {
-  //     sessionStorage.setItem("orderId", orderId);
-  //     sessionStorage.setItem("orderId", orderId);
-  //     ("Stored in session storage", {orderId, productId})
-  //   }
-
-  // }, [orderId, productId]);
 
   return (
     <Dialog

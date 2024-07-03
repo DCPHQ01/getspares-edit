@@ -46,9 +46,6 @@ function Overview() {
     }
   }, [data]);
 
-  // ("data", mecaAdminOverviewData);
-  "topVendors", topVendors;
-
   const handlePeriodChange = () => {
     setActivityPeriod((prevValue) =>
       prevValue === "month" ? "year" : "month"

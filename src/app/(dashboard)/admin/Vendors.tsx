@@ -50,7 +50,7 @@ function Vendors() {
       setHasPrevious(vendorData.hasPrevious);
       setIsPaginationLoading(false);
     }
-  }, [data])("The dataList: ", data)("The vendors: ", vendors);
+  }, [data]);
 
   const handleNextPage = () => {
     if (hasNext) {

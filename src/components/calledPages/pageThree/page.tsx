@@ -52,10 +52,7 @@ const CalledPagesPageThreePages = () => {
 
       router.push(paths.toDashboard());
       data;
-    } catch (error) {
-      //todo: handle error in a better way
-      error, "error";
-    }
+    } catch (error) {}
   }
 
   return (

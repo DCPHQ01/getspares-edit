@@ -82,7 +82,7 @@ export default function CreateNewPassword({
       otpCode: dataForOtp.otpCode,
       newPassword: password.newPassword,
     };
-    data, "data";
+
     setIsLoading(true);
     try {
       response = await resetPassword(data);

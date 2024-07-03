@@ -13,8 +13,6 @@ function Page() {
   const userRole = useUserRole();
   const role: any = userRole;
 
-  "role from main page=>", role;
-
   const router = useRouter();
   switch (role) {
     case roles.MECA_ADMIN:
@@ -29,12 +27,6 @@ function Page() {
     default:
       return null;
   }
-  // return (
-  //     <div>
-  //
-  //         <MecaAdmin/>
-  //     </div>
-  // );
 }
 
 export default withAuth(Page);

@@ -87,7 +87,6 @@ const SideFilter = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const handleOpeningFilterButton = () => {
     setIsFilterOpen(!isFilterOpen);
-    isFilterOpen, "isFilterOpen";
   };
 
   const router = useRouter();
@@ -100,7 +99,6 @@ const SideFilter = () => {
   const segments = searchParams.split("/");
   const searches = segments[3];
   const searchWords = segments[3]?.replace(/([A-Z])/g, " $1")?.trim();
-  // const searchWords = search ? search.replace(/([A-Z])/g, " $1").trim() : "";
 
   const handleProductDescription = (id: number) => {
     router.push(`/category/products/${searches}/${id}`);
