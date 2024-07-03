@@ -132,7 +132,7 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
                 </tr>
               </thead>
               <tbody className="-z-50">
-                {isLoading ? (
+                {/* {isLoading ? (
                   <div className="text-center  mt-28 relative left-[130%] right[130%]">
                     <ColorRing
                       visible={true}
@@ -154,8 +154,8 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
                       ]}
                     />
                     <p>Loading Inventory...</p>
-                  </div>
-                ) : inventoryData?.length === 0 ? (
+                  </div> */}
+                { inventoryData?.length === 0 ? (
                   <div className="relative right-[100%] left-[100%] flex flex-col justify-center items-center pt-32 leading-10">
                     <div className=" h-28">
                       <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
