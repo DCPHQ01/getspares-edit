@@ -14,22 +14,6 @@ import {
   TextareaAutosize,
 } from "@mui/base/TextareaAutosize";
 
-interface Address {
-  streetNumber: string;
-  town: string;
-  city: string;
-  state: string;
-}
-
-interface ChildProps {
-  step: number;
-  setStep: React.Dispatch<React.SetStateAction<number>>;
-}
-
-interface ImageUploadProps {
-  onUpload: (files: FileList) => void;
-}
-
 import { useAppSelector } from "../../../redux";
 import { useAppDispatch } from "../../../redux/hooks";
 import { RootState } from "../../../redux";
@@ -42,8 +26,12 @@ import {
 } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import { paths } from "../../../path/paths";
-import { uploadImage, uploadSeveralImages } from "../../../components/utils";
+import { uploadSeveralImages } from "../../../components/utils";
 import { ColorRing } from "react-loader-spinner";
+
+interface ImageProps {
+  images: string[];
+}
 
 const CalledPagesPageTwoPages = () => {
   const [productName, setProductName] = useState("");
@@ -134,9 +122,16 @@ const CalledPagesPageTwoPages = () => {
       setDescription(parsedBasicInfoValues.productDescription);
     }
   }, []);
+  const productImage = useAppSelector(
+    (state) => state.company.productData as ImageProps
+  );
+  console.log("images ", productImage);
 
-  console.log("file images ", images);
-  console.log("set images ", imagesUrl);
+  useEffect(() => {
+    if (productImage) {
+      setImagesUrl(productImage?.images);
+    }
+  }, [productImage]);
 
   return (
     <div className="" style={{ width: "48%" }} id="pageTwo1">
@@ -390,217 +385,6 @@ const CalledPagesPageTwoPages = () => {
             </div>
           </div>
         </div>
-
-        {/* mobile */}
-
-        {/* <div className="absolute  w-11/12" id="pageTwo13">
-          <div className="md:hidden m-auto " id="pageTwo14">
-            <div className="mb-16 mt-10 pageHeader" id="pageTwo15">
-              <header className="font-bold text-base" id="pageTwo16">
-                Location
-              </header>
-              <div className="flex subheaders" id="subhea1">
-                <sub className="text-xs font-normal" id="pageTwo17">
-                  Provide details
-                </sub>
-                <form method="dialog" id="pageTwo18">
-                  <button
-                    className="text-sm font-semibold skip "
-                    id="skipper34"
-                  >
-                    Skip
-                  </button>
-                </form>
-              </div>
-              <Box
-                className="form-display flex flex-col flex-col-reverse mt-8"
-                id="pageTwo19"
-              >
-                <form onSubmit={handleSubmit} id="pageTwo20">
-                  <Box className="companyInputWrap">
-                    <Box className="">
-                      <TextField
-                        required={true}
-                        id="filleasic"
-                        label="Email address"
-                        variant="filled"
-                        type="email"
-                        name="email"
-                        placeholder="Enter email"
-                        InputProps={{ disableUnderline: true }}
-
-                        className="  w-full lg:w-[364px]  2xl:w-[35rem]"
-
-                        value={company.companyForm.email}
-                        onChange={(e) =>
-                          dispatch(
-                            setCompanyForm({
-                              ...company.companyForm,
-                              email: e.target.value,
-                            })
-                          )
-                        }
-                        onBlur={handleEmailChange}
-                      />
-
-                    </Box>
-
-                    <br></br>
-                    <Box className="">
-                      <TextField
-                        required={true}
-                        id="fillesic"
-                        label="Phone number"
-                        variant="filled"
-                        type="number"
-                        name="number"
-                        placeholder="09000000000"
-                        InputProps={{ disableUnderline: true }}
-
-                        className="  w-full lg:w-[364px]  2xl:w-[35rem]"
-
-                        value={company.companyForm.phoneNumber}
-                        onChange={(e) =>
-                          dispatch(
-                            setCompanyForm({
-                              ...company.companyForm,
-                              phoneNumber: e.target.value,
-                            })
-                          )
-                        }
-                        onBlur={handlePhoneChange}
-                      />
-
-                    </Box>
-
-                    <br></br>
-
-                    <Box>
-                      {" "}
-                      <div id="pageTwo21">
-                        {addresses.map((address, index) => (
-                          <div key={index}>
-                            <p>{address.streetNumber}</p>
-                            <p>{address.town}</p>
-                            <p>{address.city}</p>
-                            <p>{address.state}</p>
-                          </div>
-                        ))}
-                        {inputValues.map((inputValue, index) => (
-                          <div key={index} className="mb-6" id="pageTwo22">
-                            <TextField
-                              type="text"
-                              required={true}
-                              id="filasic"
-                              label="Address"
-                              variant="filled"
-                              name="address"
-                              style={{ backgroundColor: "#EEF2F6" }}
-                              InputProps={{ disableUnderline: true }}
-                              className="  w-full lg:w-[364px]  2xl:w-[35rem] "
-                              placeholder="Enter address (Street Number, Town, City, State)"
-                              value={company.companyForm.address}
-                              onChange={(e) =>
-                                dispatch(
-                                  setCompanyForm({
-                                    ...company.companyForm,
-                                    address: e.target.value,
-                                  })
-                                )
-                              }
-
-                            />
-
-                          </div>
-                        ))}
-
-                        <button
-                          onClick={handleAddAddress}
-                          className="add-address"
-                          id="addAnotheraddress"
-                        >
-                          Add another address
-                        </button>
-                      </div>
-                    </Box>
-                  </Box>
-                </form>
-
-                <Box>
-                  <div className="inputImage imagetext h-[283px] w-[316px] pt-6">
-                    <div className="">
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleImageChange}
-                        ref={fileInputRef}
-                        className="hidden w-full px-3 py-2 "
-                      />
-                    </div>
-
-                    {formImage ? (
-                      <div className="">
-                        <form
-                          method="dialog"
-                          id="confirmpageButton"
-                          className="absolute right-0 pr-4"
-
-                        >
-                          <Link href="/modalPage">
-                            <button
-                              id="cancelbtn"
-                              className="btn btn-sm btn-circle btn-ghost font-bold w-3 h-3 "
-                            >
-                              ✕
-                            </button>
-                          </Link>
-                        </form>
-
-                        <div className="h-[237px] w-[237px] m-auto">
-                          <img
-                            src={formImage}
-                            alt="Uploaded"
-                            className="w-full h-full object-cover rounded-full"
-                          />
-                        </div>
-                      </div>
-                    ) : (
-                      <div
-                        id="prevImgState"
-                        onClick={handleImageClick}
-                        className="w-full px-3 py-2 border rounded-md flex flex-col items-center justify-center cursor-pointer border-none"
-                      >
-                        <MdPhotoLibrary className="text-gray-600 text-7xl relative top-12" />
-                        <div className="text-gray-600 text-base  text-center relative top-16">
-                          <p className="font-bold">Add logo</p>
-                          <p className="font-normal">
-                            by clicking or drag and drop
-                          </p>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </Box>
-              </Box>
-
-              <div className="flex gap-x-5 justify-between mt-40">
-                <div
-                  onClick={goToPreviousPage}
-                  className="previousbtn"
-                  id="seondPreviousbtn4"
-                >
-                  <button type="submit">Previous</button>
-                </div>
-                <div onClick={goToNextPage} className="nextbtn nextmobile ">
-                  <button type="submit" id="secondFormSubmitNext">
-                    Next
-                  </button>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div> */}
       </div>
     </div>
   );

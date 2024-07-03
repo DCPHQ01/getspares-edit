@@ -124,7 +124,7 @@ const AddProductImage = () => {
         handleOpen();
       }
     } catch (error: any) {
-      console.log(error);
+      error;
       setError(error.message);
     }
   };
@@ -140,7 +140,7 @@ const AddProductImage = () => {
     if (data) {
       dispatch(setProductData(data?.data));
     }
-  }, []);
+  }, [data]);
   return (
     <div className="z-50 fixed top-0 h-40 w-[100%]">
       <div className="bg-white">

@@ -23,7 +23,6 @@ const ProductReview = () => {
   const { data, isLoading, isError } = useGetAllBuyersFeedbackQuery({
     productId: "666877a5b48207256da90429",
   });
-  console.log("The feedbacks", data);
   const [viewFeedbacks, setViewFeedbacks] = useState<viewAllFeedBack[]>([]);
 
   useEffect(() => {
@@ -33,11 +32,7 @@ const ProductReview = () => {
     }
   }, [data]);
 
-  console.log("The feedback list: ", viewFeedbacks);
-
   const firstTwoItem = viewFeedbacks.slice(0, 2);
-
-  console.log("First two item", firstTwoItem);
 
   const [value, setValue] = React.useState<number | null>(2);
   const [openModal, setOpenModal] = React.useState<boolean>(false);

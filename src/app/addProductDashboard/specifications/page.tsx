@@ -12,6 +12,7 @@ import {
   MdPhotoLibrary,
 } from "react-icons/md";
 import { paths } from "../../../path/paths";
+import { useAppSelector } from "../../../redux/hooks";
 
 const CalledPagesPageFourPages = () => {
   const [productName, setProductName] = useState("");
@@ -82,6 +83,34 @@ const CalledPagesPageFourPages = () => {
     }
   }, []);
 
+  const productSpec = useAppSelector((state) => state.company.productData);
+  console.log("product spec  ", productSpec);
+
+  const populateData = (userData: any) => {
+    const userDataKeys = Object.keys(specifications);
+    if (userData) {
+      userDataKeys.forEach((key) => {
+        if (key === "color") {
+          console.log("quantity ", userData?.productInformation?.color);
+          setSpecifications((values: any) => ({
+            ...values,
+            [key]: userData?.productInformation?.color,
+          }));
+        } else {
+          setSpecifications((values) => ({
+            ...values,
+            [key]: userData[key] ? userData[key] : "",
+          }));
+        }
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (productSpec) {
+      populateData(productSpec);
+    }
+  }, [productSpec]);
   return (
     <>
       <div className="" style={{ width: "48%" }} id="pageone1">

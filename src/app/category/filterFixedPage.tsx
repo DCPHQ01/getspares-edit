@@ -6,7 +6,6 @@ import { Checkbox, Radio } from "@mui/material";
 import Switches from "../../components/switch/Switches";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-
 interface ItemsDataProps {
   id: number;
   desc: string;
@@ -74,12 +73,10 @@ const itemsData: ItemsDataProps[] = [
   },
 ];
 
-
 const FilterFixedPage = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const handleOpeningFilterButton = () => {
     setIsFilterOpen(!isFilterOpen);
-    console.log(isFilterOpen, "isFilterOpen");
   };
 
   const router = useRouter();

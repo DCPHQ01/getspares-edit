@@ -21,7 +21,7 @@ import { useRouter } from "next/navigation";
 
 function Index({ sidePanelRoles }: any) {
   //   const { user } = useAppSelector((state) => state.user);
-  //   console.log("dashboard ", user);
+  //   ("dashboard ", user);
   //   const dispatch = useAppDispatch();
   //   let decoded: JwtPayload = JWT.jwtDecode(user.access_token);
 
@@ -31,12 +31,9 @@ function Index({ sidePanelRoles }: any) {
   const dispatch = useAppDispatch();
   const [activeButton, setActiveButton] = useState(0);
 
-
   const role = sidePanelRoles;
 
   const router = useRouter();
-
-  console.log(roles, " roles");
 
   const buttons = [
     {
@@ -96,7 +93,7 @@ function Index({ sidePanelRoles }: any) {
       title: "Profile",
       size: 18,
       onClick: () => {
-        console.log("Profile Button Clicked");
+        ("Profile Button Clicked");
       },
     },
     {

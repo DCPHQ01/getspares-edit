@@ -20,7 +20,7 @@ const companySlice = createSlice({
   },
   reducers: {
     setCompanyForm: (state, action) => {
-      console.log(action.payload, "store");
+      action.payload, "store";
       state.companyForm = action.payload;
     },
     setStep: (state, action) => {
