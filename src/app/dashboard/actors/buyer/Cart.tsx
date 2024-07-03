@@ -24,6 +24,7 @@ import {
   MdKeyboardArrowDown,
   MdDeleteOutline,
   MdCheckCircle,
+  MdShoppingCart,
 } from "react-icons/md";
 import HeaderPage from "../../../reusables/Header/page";
 import Parts from "../../../../assets/images/parts.png";
@@ -160,16 +161,24 @@ const Cart = () => {
                 title={`Cart`}
                 // amount={totalElement}
               />
-              <div className="flex justify-end">
+              {/* <div className="flex justify-end">
                 <Searchbox />
-              </div>
+              </div> */}
             </div>
               <div className="md:flex md:gap-x-6">
                 <div className={"w-full"}>
                   {cart?.length === 0 ? (
-                    <p className="text-lg font-bold text-center mt-20">
-                      Your Cart is Empty!
-                    </p>
+                    <div className="flex flex-col items-center mt-40 ">
+                      <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
+                        <MdShoppingCart style={{ fontSize: "2rem", color: "#0852C0" }} />
+                      </div>
+                      <div className="flex flex-col mt-4">
+                        <p className="text-xl text-center">
+                          Your Cart is Empty!
+                        </p>
+                        <p className='text-gray-500'>All your orders will appear here</p>
+                      </div>
+                  </div>
                   ) : (
                     <div className="">
                       {cart?.map((cardCartItem, index) => (

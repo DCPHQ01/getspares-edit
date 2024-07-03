@@ -6,6 +6,7 @@ import { formatAmount } from "../../../../../components/utils";
 import ViewParticularOrderDetailsPage from "../../../../category/products/viewDetails/viewParticularOrderDetails/page";
 import { formatAllDate, formatAllTime } from "../../utils/utils";
 import { MdBusinessCenter } from "react-icons/md";
+import EmptyState from "../../../../../components/utils/emptyState";
 
 interface Overview {
   orderId: string;
@@ -72,24 +73,8 @@ const OverviewTable: React.FC<OverviewTableProps> = ({
                     "#095AD3",
                   ]}
                 />
-                <p>Loading Overview...</p>
               </div>
-            ) : overviewList?.length === 0 ? (
-              <div className="relative -z-50 right-[100%] left-[100%] flex flex-col justify-center items-center pt-32 leading-10">
-                <div className=" h-28">
-                  <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
-                    <MdBusinessCenter
-                      style={{ fontSize: "2rem", color: "#0852C0" }}
-                    />
-                  </div>
-                </div>
-                <div className="text-center">
-                  <h1 className="text-xl">No order created yet</h1>
-                  <h1 className="text-gray-500">
-                    All your orders will appear here
-                  </h1>
-                </div>
-              </div>
+          
             ) : (
               overviewList?.map((d, index) => {
                 return (
@@ -130,6 +115,7 @@ const OverviewTable: React.FC<OverviewTableProps> = ({
             )}
           </tbody>
         </table>
+        <EmptyState datad={overviewList} />
       </div>
       {selectedOrderId && (
         <div className="ml-[18%] fixed inset-0 z-50 flex items-center justify-center bg-white">
