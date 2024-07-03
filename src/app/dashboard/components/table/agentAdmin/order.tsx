@@ -3,6 +3,7 @@ import styles from "../styles.module.css";
 import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
 import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
+import EmptyState from "../../../../../components/utils/emptyState";
 
 const data = [
   {
@@ -111,51 +112,9 @@ const Order = () => {
               <th id="dateTimeJoinedHeader">Date & time ordered</th>
             </tr>
           </thead>
-
-          <tbody>
-            {data.map((d, index) => (
-              <tr
-                key={index}
-                id={`row_${index}`}
-                className="cursor-pointer truncate"
-              >
-                <td
-                  className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
-                  id={`itemsSold_${index}`}
-                >
-                  {d.sale}
-                </td>
-
-                <td
-                  className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
-                  id={`transactionValue_${index}`}
-                >
-                  {d.vale}
-                </td>
-
-                <td id={`companyData_${index}`}>
-                  <div
-                    className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
-                  >
-                    <div id={`companyDetails_${index}`}>
-                      <div>{d.name}</div>
-                    </div>
-                  </div>
-                </td>
-
-                <td id={`dateJoined_${index}`}>
-                  <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
-                    <div id={`date_${index}`}>{d.date}</div>
-                    <div className={`text-[#4B5565]`} id={`time_${index}`}>
-                      {d.time}
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
         </table>
       </div>
+      <EmptyState />
     </div>
   );
 };
