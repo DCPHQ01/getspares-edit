@@ -33,6 +33,7 @@ const Index = ({ checkOpened }: any) => {
   const { data, isError, isLoading } = useGetOverviewRecentProductImageQuery(
     {}
   );
+  console.log("recently viewed images", data);
   const [imageList, setImageList] = useState<RecentProductImages[]>([]);
   const [details, setDetails] = useState(false);
 

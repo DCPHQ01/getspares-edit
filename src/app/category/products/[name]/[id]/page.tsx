@@ -44,7 +44,6 @@ import { CartProduct } from "../../../../../types/cart/product";
 import { paths } from "../../../../../path/paths";
 import { ColorRing } from "react-loader-spinner";
 import { useAddSingleProductToCartMutation } from "../../../../../redux/features/cart/cartQuery";
-import TruncateText from "../../../../../components/utils/utils";
 
 interface State extends SnackbarOrigin {
   open: boolean;
@@ -80,22 +79,24 @@ const responsive = {
   },
 };
 
-const images = [
-  tractor,
-  tractor,
-  tractor,
-  tractor,
-  tractor,
-  tractor,
-  tractor,
-  tractor,
-];
+// const images = [
+//   tractor,
+//   tractor,
+//   tractor,
+//   tractor,
+//   tractor,
+//   tractor,
+//   tractor,
+//   tractor,
+// ];
 
 export default function ProductDescription() {
   const [openVendorModal, setOpenVendorModal] = useState(false);
   const handleOpenVendorModal = () => {
-    setOpenVendorModal((val)=> !val);
+    setOpenVendorModal((val) => !val);
   };
+
+  const [images, setImages] = useState([]);
 
   const [opens, setOpens] = React.useState<boolean>(false);
   const handleOpen = () => setOpens(true);
@@ -119,13 +120,14 @@ export default function ProductDescription() {
   const { data, isFetching } = useGetAProductQuery(productId, {
     skip: !productId,
   });
+  console.log(data, "data");
 
   const { vertical, horizontal, open } = state;
 
   const dispatch = useAppDispatch();
 
-  const firstImages = images.slice(0, 5);
-  const remainingImages = images.slice(5);
+  const firstImages = images?.slice(0, 5);
+  const remainingImages = images?.slice(5);
   const carouselRef = useRef<Carousel>(null);
 
   const { data: relatedProductData } = useGetRelatedProductQuery(productId, {
@@ -178,6 +180,10 @@ export default function ProductDescription() {
   };
 
   useEffect(() => {
+    setImages(data?.data.images);
+  }, [data]);
+
+  useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (!token) {
       setIsAuthenticated(false);
@@ -197,8 +203,8 @@ export default function ProductDescription() {
         };
       });
       const payload = {
-        itemRequests: data
-      }
+        itemRequests: data,
+      };
       try {
         const res = await addToCart(payload).unwrap();
         setState({ ...newState, open: true });
@@ -298,19 +304,23 @@ export default function ProductDescription() {
                     id="imageDiv"
                     className="w-full h-[76%] cursor-pointer bg-mecaSearchColor flex justify-center items-center"
                   >
-                    <Image src={tractor} alt="tractor parts" />
+                    <img
+                      src={data?.data.images[0]}
+                      alt="tractor parts"
+                      className="w-[86%] h-[86%]"
+                    />
                   </div>
 
                   <div
                     id="otherImagesDiv"
                     className="w-full flex item-center gap-x-4"
                   >
-                    {firstImages.map((image, i) => (
+                    {firstImages?.map((image, i) => (
                       <div
                         className="w-[30%] h-[88px] rounded-lg flex justify-center items-center bg-mecaSearchColor relative"
                         key={i}
                       >
-                        <Image
+                        <img
                           src={image}
                           alt="tractor parts"
                           className="h-full w-full"
@@ -545,6 +555,7 @@ export default function ProductDescription() {
                         image={HomeImage1}
                         productName={product.name}
                         price={product.price}
+                        productImage={product.image}
                       />
                     )
                   )}
