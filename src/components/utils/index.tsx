@@ -172,9 +172,8 @@ export const useNewFocus = (ref: RefObject<HTMLElement>, defaultState: boolean =
 
     const onFocus = () => setState(true);
     const onBlur = () => setState(false);
-    if(onFocus){
-      ref.current.focus();
-    }
+
+    ref.current.addEventListener('focus', onFocus);
     ref.current.addEventListener('blur', onBlur);
 
     return () => {

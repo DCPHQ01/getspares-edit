@@ -23,11 +23,9 @@ export const CheckOutCard = ({ cardCartItem }: Props) => {
     [key: string]: boolean;
   }>({});
   const [isInputVisible, setIsInputVisible] = useState(false);
-  const [quantity, setQuantity] = useState<string | number>("");
-  const [quantityNumber, setQuantityNumber] = useState([])
+  const [quantity, setQuantity] = useState<any>("");
+  const [quantityNumber, setQuantityNumber] = useState<any>([])
 
-  const inputRef = useRef();
-  const focusedButton = useNewFocus(inputRef);
 
 
 
@@ -42,7 +40,6 @@ export const CheckOutCard = ({ cardCartItem }: Props) => {
     const value = e.target.value;
     if (value === "10+") {
       setIsInputVisible(true);
-      // setQuantity("");
     } else {
       setIsInputVisible(false);
       setQuantity(value);
@@ -56,9 +53,9 @@ export const CheckOutCard = ({ cardCartItem }: Props) => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
-    let { value, min, max } = e.target;
-    value = Math.max(min, Math.min(max,value));
-    setQuantity(value);
+    const{ value, min, max } = e.target;
+    const newVal = Math.max(Number(min), Math.min(Number(max), Number(value)));
+    setQuantity(String(newVal));
   };
 
   const handleUpdateQuantity = (val: any) => {
@@ -97,7 +94,7 @@ export const CheckOutCard = ({ cardCartItem }: Props) => {
         const newNum = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10+"];
         setQuantityNumber(newNum)
       }else{
-        let val = populateNumber(cardCartItem?.productInformation?.quantity)
+        let val = populateNumber(cardCartItem.productInformation.quantity)
         setQuantityNumber(val)
       }
 
@@ -226,7 +223,7 @@ export const CheckOutCard = ({ cardCartItem }: Props) => {
                       name="categoria"
                       id="categoriesIdDiv"
                     >
-                      {quantityNumber.map((obj, index) => (
+                      {quantityNumber.map((obj:any, index:number) => (
                         <option key={index} value={obj}>
                           {obj}
                         </option>
