@@ -61,11 +61,12 @@ const Profile = () => {
           className="bg-mecaActiveBackgroundNavColor -z-50 text-mecaBluePrimaryColor w-16 h-16 text-4xl"
           {...stringAvatar(`${details?.firstName} ${details?.lastName}`)}
         />
-        <Header
-          subtitle={`${details?.email}`}
-          title={`${details?.firstName} ${details?.lastName}`}
-          amount={``}
-        />
+        <div>
+          <Header
+             subtitle={`${details?.email}`}
+             title={`${details?.firstName} ${details?.lastName}`}
+          />
+        </div>
       </div>
 
       <hr></hr>

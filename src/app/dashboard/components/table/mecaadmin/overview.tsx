@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
+// @ts-ignore
 import styles from "../styles.module.css";
-import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
-import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
+// import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
+// import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { ColorRing } from "react-loader-spinner";
@@ -9,6 +10,7 @@ import { useGetTopPerformingVendorsQuery } from "../../../../../redux/features/d
 import dayjs from "dayjs";
 import { formatAmount } from "../../../../../components/utils";
 import { MdYard } from "react-icons/md";
+import {formatDateTime} from "../../../../../components/utils/utils";
 
 interface TopVendors {
   avatar?: string;
@@ -27,11 +29,7 @@ interface OverviewTableProps {
 }
 
 function Overview({ data, isLoading }: OverviewTableProps) {
-  const formatDateTime = (dateTime: string) => {
-    const date = dayjs(dateTime).format("DD-MM-YYYY");
-    const time = dayjs(dateTime).format("HH:mm");
-    return { date, time };
-  };
+
 
   return (
     <div
@@ -41,12 +39,12 @@ function Overview({ data, isLoading }: OverviewTableProps) {
       <table id="adminTable" className={`w-full`}>
         <thead>
           <tr className="truncate">
-            <th id="companyNameHeader">Company name</th>
-            <th id="totalItemsSoldHeader">Total items sold</th>
-            <th id="transactionValueHeader" style={{ paddingLeft: "2.5rem" }}>
+            <th id="companyNameHeader" className={`sticky`}>Company name</th>
+            <th id="totalItemsSoldHeader" className={`sticky`}>Total items sold</th>
+            <th id="transactionValueHeader" className={`sticky`} style={{ paddingLeft: "2.5rem" }}>
               Transaction value
             </th>
-            <th id="dateTimeJoinedHeader">Date & time joined</th>
+            <th id="dateTimeJoinedHeader" className={`sticky`}>Date & time joined</th>
           </tr>
         </thead>
         <tbody>
@@ -85,9 +83,9 @@ function Overview({ data, isLoading }: OverviewTableProps) {
               </div>)  : (
             data.map((d, index) => {
 
-            
 
-              const { date, time } = formatDateTime(d.dateJoined); 
+
+              const { date, time } = formatDateTime(d.dateJoined);
               const formattedTransactionValue = formatAmount(d.transactionValue);
 
 

@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import Header from "../../dashboard/components/ui/header";
 import Avatar from "@mui/material/Avatar";
-
 import SearchBox from "../../dashboard/components/ui/searchbox";
 import PeriodRadios from "../../dashboard/components/ui/periodradios";
 import AddButton from "../../dashboard/components/ui/addbutton";
@@ -76,7 +75,7 @@ const style = {
 };
 
 function Category() {
-  const [activityPeriod, setActivityPeriod] = useState("monthly");
+  const [activityPeriod, setActivityPeriod] = useState("month");
   const [page, setPage] = useState(0);
   const size = 10;
   const [totalElements, setTotalElements] = useState(0);
@@ -111,7 +110,7 @@ function Category() {
     setErrorMessage("");
     setOpen(true);
   };
-  
+
   const handleClose = () => {
     setOpen(false);
     resetModal();
@@ -125,7 +124,7 @@ function Category() {
   };
 
   const handleImageChange = async (
-    event: React.ChangeEvent<HTMLInputElement>
+      event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -133,7 +132,7 @@ function Category() {
       reader.onloadend = () => {
         setFormImage(reader.result as string);
       };
-      uploadImage(file, setImage_url);
+      await uploadImage(file, setImage_url);
 
       reader.readAsDataURL(file);
     }
@@ -149,9 +148,9 @@ function Category() {
     e.preventDefault();
     const lowerCaseCategoryName = categoryName.toLowerCase();
     if (categoryList.some((category) => category.name.toLowerCase() === lowerCaseCategoryName)) {
-    setErrorMessage("Category name already exists.");
-    return;
-  }
+      setErrorMessage("Category name already exists.");
+      return;
+    }
     try {
       const response = await categoryData({
         name: categoryName,
@@ -169,8 +168,8 @@ function Category() {
     }
   };
 
-  const handlePeriodChange = (newPeriod: string) => {
-    setActivityPeriod(newPeriod as string);
+  const handlePeriodChange = () => {
+    setActivityPeriod((prevValue) => (prevValue === 'month' ? 'year' : 'month'));
   };
 
   const handleNextPage = () => {
@@ -187,183 +186,178 @@ function Category() {
   const handleFocus = () => {
     setError("");
   };
+
   return (
-    <>
-      <div
-        className="mb-[1.25rem] flex justify-between items-center"
-        id="cateParentDiv"
-      >
-        <Header
-          subtitle="Keep track of categories and their products"
-          title="Category"
-          amount={totalElements}
-        />
-
-        <button
-          id="addButton"
-          onClick={handleOpen}
-          className="bg-[#095AD3] lg:w-[15%] w-[100%] text-white rounded-full py-[0.38rem] px-[1.5rem]"
+      <>
+        <div
+            className="mb-[1.25rem] flex justify-between items-center"
+            id="cateParentDiv"
         >
-          <div className="flex text-white items-center justify-center">
-            <MdAdd size={20} className="mr-1" />
-            <span>Create</span>
-          </div>
-        </button>
+          <Header
+              subtitle="Keep track of categories and their products"
+              title="Category"
+              amount={totalElements}
+          />
 
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <div className="flex justify-between" id="createCategory">
-              <div>
-                <p className="text-lg font-semibold">Create category</p>
-                <p className="text-sm text-mecaGrayBodyText">
-                  Create category for your product items
-                </p>
-              </div>
-              <MdClose
-                className="text-2xl cursor-pointer"
-                onClick={handleClose}
-              />
+          <button
+              id="addButton"
+              onClick={handleOpen}
+              className="bg-[#095AD3] lg:w-[15%] w-[100%] text-white rounded-full py-[0.38rem] px-[1.5rem]"
+          >
+            <div className="flex text-white items-center justify-center">
+              <MdAdd size={20} className="mr-1" />
+              <span>Create</span>
             </div>
+          </button>
 
-            <div className="h-[283px] w-[316px] pt-6" id="createCollection">
-              <input
-                title="image inputs"
-                type="file"
-                accept="image/*"
-                onChange={handleImageChange}
-                ref={fileInputRef}
-                className="hidden"
-                onFocus={handleFocus}
-              />
-
-              {formImage ? (
-                <div className="w-20 h-20 m-auto" id="imgDiv">
-                  <img
-                    src={formImage}
-                    alt="Uploaded"
-                    className="w-full h-full object-cover rounded-full"
-                  />
+          <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <div className="flex justify-between" id="createCategory">
+                <div>
+                  <p className="text-lg font-semibold">Create category</p>
+                  <p className="text-sm text-mecaGrayBodyText">
+                    Create category for your product items
+                  </p>
                 </div>
-              ) : (
-                <div
-                  id="prevImgState"
-                  onClick={handleImageClick}
-                  className="w-full px-3 py-2 border rounded-md flex flex-col items-center justify-center cursor-pointer"
-                >
-                  <MdPhotoLibrary className="text-gray-600 text-7xl" />
-                  {/* <Avatar {...stringAvatar('Moyin Tola')}/> */}
-                </div>
-              )}
-
-              <div className="text-gray-600 text-base mt-2 text-center">
-                <p className="font-bold">Add image</p>
-                <p className="font-normal">by clicking or drag and drop</p>
+                <MdClose
+                    className="text-2xl cursor-pointer"
+                    onClick={handleClose}
+                />
               </div>
 
-              <TextField
-                required
-                id="filled-basic"
-                label="Category name"
-                variant="filled"
-                type="text"
-                name="categoryName"
-                placeholder="Enter name"
-                InputProps={{ disableUnderline: true }}
-                className="w-[21rem] mt-10"
-                value={categoryName}
-                onFocus={handleFocus}
-                onChange={(e) => setCategoryName(e.target.value)}
-                sx={{ backgroundColor: "porcelain", marginTop: "1rem" }}
-              />
+              <div className="h-[283px] w-[316px] pt-6" id="createCollection">
+                <input
+                    title="image inputs"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                    ref={fileInputRef}
+                    className="hidden"
+                    onFocus={handleFocus}
+                />
 
-              {errorMessage && (
-                <Typography
-                  color="error"
-                  className="mt-2 text-center"
-                  id="errorMessage"
-                >
-                  {errorMessage}
-                </Typography>
-              )}
-
-              <button
-                id="addButton"
-                onClick={handleSubmit}
-                className="bg-[#095AD3] flex justify-center items-center mt-8 w-[21rem] text-white rounded-full py-[0.38rem] px-[1.5rem]"
-              >
-                {isLoading ? (
-                  <ColorRing
-                    visible
-                    height="40"
-                    width="40"
-                    ariaLabel="color-ring-loading"
-                    wrapperStyle={{}}
-                    wrapperClass="color-ring-wrapper"
-                    colors={["#ffff", "#ffff", "#ffff", "#ffff", "#ffff"]}
-                  />
+                {formImage ? (
+                    <div className="w-20 h-20 m-auto" id="imgDiv">
+                      <img
+                          src={formImage}
+                          alt="Uploaded"
+                          className="w-full h-full object-cover rounded-full"
+                      />
+                    </div>
                 ) : (
-                  <div
-                    className="flex text-white items-center justify-center"
-                    id="addCategory"
-                  >
-                    Create category
-                  </div>
+                    <div
+                        id="prevImgState"
+                        onClick={handleImageClick}
+                        className="w-full px-3 py-2 border rounded-md flex flex-col items-center justify-center cursor-pointer"
+                    >
+                      <MdPhotoLibrary className="text-gray-600 text-7xl" />
+                      {/* <Avatar {...stringAvatar('Moyin Tola')}/> */}
+                    </div>
                 )}
-              </button>
-              {error && <p className="text-red-500">{error}</p>}
-            </div>
-          </Box>
-        </Modal>
-      </div>
 
-      <div
-        className="flex flex-row-reverse justify-between items-center mb-[1.25rem]"
-        id="searchBox"
-      >
-        <SearchBox placeholder="Search for category" />
-        <PeriodRadios
-          activityPeriod={activityPeriod}
-          onPeriodChange={handlePeriodChange}
-        />
-      </div>
+                <div className="text-gray-600 text-base mt-2 text-center">
+                  <p className="font-bold">Add image</p>
+                  <p className="font-normal">by clicking or drag and drop</p>
+                </div>
 
-      {/* <CategoryTable
-        categoryList={getMecaCategory?.data.content}
-        isLoading={isFetching}
-      /> */}
+                <TextField
+                    required
+                    id="filled-basic"
+                    label="Category name"
+                    variant="filled"
+                    type="text"
+                    name="categoryName"
+                    placeholder="Enter name"
+                    InputProps={{ disableUnderline: true }}
+                    className="w-[21rem] mt-10"
+                    value={categoryName}
+                    onFocus={handleFocus}
+                    onChange={(e) => setCategoryName(e.target.value)}
+                    sx={{ backgroundColor: "porcelain", marginTop: "1rem" }}
+                />
 
-      <CategoryTable categoryList={categoryList} isLoading={isLoading}
-      />
+                {errorMessage && (
+                    <Typography
+                        color="error"
+                        className="mt-2 text-center"
+                        id="errorMessage"
+                    >
+                      {errorMessage}
+                    </Typography>
+                )}
 
-      <div className="flex gap-[89%] md:gap-[85%] mt-10 text-mecaBluePrimaryColor font-bold text-lg">
-        <button
-          className={`flex gap-x-2  ${
-            first ? "text-gray-400 cursor-not-allowed" : ""
-          }`}
-          onClick={handlePreviousPage}
-          disabled={first}
+                <button
+                    id="addButton123"
+                    onClick={handleSubmit}
+                    className="bg-[#095AD3] flex justify-center items-center mt-8 w-[21rem] text-white rounded-full py-[0.38rem] px-[1.5rem]"
+                >
+                  {isLoading ? (
+                      <ColorRing
+                          visible
+                          height="40"
+                          width="40"
+                          ariaLabel="color-ring-loading"
+                          wrapperStyle={{}}
+                          wrapperClass="color-ring-wrapper"
+                          colors={["#ffff", "#ffff", "#ffff", "#ffff", "#ffff"]}
+                      />
+                  ) : (
+                      <div
+                          className="flex text-white items-center justify-center"
+                          id="addCategory123"
+                      >
+                        Create category
+                      </div>
+                  )}
+                </button>
+                {error && <p className="text-red-500">{error}</p>}
+              </div>
+            </Box>
+          </Modal>
+        </div>
+
+        <div
+            className="flex flex-row-reverse justify-between items-center mb-[1.25rem]"
+            id="searchBox"
         >
-          <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
-        </button>
-        <button
-          className={`flex gap-x-2  ${
-            last ? "text-gray-400 cursor-not-allowed" : ""
-          }`}
-          onClick={handleNextPage}
-          disabled={last}
-        >
-          Next
-          <span>
+          <SearchBox placeholder="Search" />
+          <PeriodRadios
+              activityPeriod={activityPeriod}
+              onPeriodChange={handlePeriodChange}
+          />
+        </div>
+
+        <CategoryTable categoryList={categoryList} isLoading={isLoading} />
+
+        <div className="flex gap-[89%] md:gap-[85%] mt-10 text-mecaBluePrimaryColor font-bold text-lg">
+          <button
+              className={`flex gap-x-2  ${
+                  first ? "text-gray-400 cursor-not-allowed" : ""
+              }`}
+              onClick={handlePreviousPage}
+              disabled={first}
+          >
+            <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
+          </button>
+          <button
+              className={`flex gap-x-2  ${
+                  last ? "text-gray-400 cursor-not-allowed" : ""
+              }`}
+              onClick={handleNextPage}
+              disabled={last}
+          >
+            Next
+            <span>
             <MdChevronRight className="mt-[2px] text-2xl" />{" "}
           </span>
-        </button>
-      </div>
-    </>
+          </button>
+        </div>
+      </>
   );
 }
 

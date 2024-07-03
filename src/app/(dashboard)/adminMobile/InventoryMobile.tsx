@@ -27,8 +27,12 @@ function Inventory() {
   const [getInventory,{isLoading,isError}] = useGetMecaAdminInventoryMutation();
   const [inventory, setInventory] = useState<InventoryData[]>([]);
   const [activeTab, setActiveTab] = useState('IN_STOCK');
+  const [totalElement, setTotalElement] = useState(0);
+  const [inStockCount, setInStockCount] = useState(0);
+  const [outOfStockCount, setOutOfStockCount] = useState()
   const [page, setPage] = useState(0);
-  const size = 10; 
+  const size = 10;
+
 
   const fetchInventoryData = async (status: string) => {
     try {
@@ -39,15 +43,23 @@ function Inventory() {
       };
       const resultList = await getInventory(requestBody).unwrap();
       const list = resultList.data.content
-      console.log('Success:',list);
-
+      const totalElements = resultList.data.totalElements;
+      // console.log('Success is: ',resultList.data);
+      console.log('Total elements:', totalElements);
       setInventory(list)
+      setTotalElement(totalElements);
 
-    } 
-   catch (error) {
-      console.error('Failed to add vendor:', error);
-     
+      if (status === 'IN_STOCK') {
+        setInStockCount(totalElements);
+      } else if (status === 'OUT_OF_STOCK') {
+        setOutOfStockCount(totalElements);
+      }
     }
+    catch (error) {
+      console.error('Failed to add vendor:', error);
+
+    }
+
 
   };
 
@@ -55,30 +67,28 @@ function Inventory() {
     fetchInventoryData(activeTab);
   }, [activeTab, page]);
 
-  console.log("InventoryMobile: ", inventory);
+  console.log("Inventory: ", inventory);
 
-  const inStockCount = inventory.filter(item => {
-    return activeTab === 'IN_STOCK'; 
-  }).length;
 
-  const outOfStockCount = inventory.filter(item => {
-    return activeTab === 'OUT_OF_STOCK' ; 
-  }).length;
 
   const tabs = [
-    { label: 'In stock', count: inStockCount,status: 'IN_STOCK'  },
+    { label: 'In stock', count: inStockCount, status: 'IN_STOCK'  },
     { label: 'Out of stock', count: outOfStockCount, status: 'OUT_OF_STOCK' },
-];
+  ];
 
-const handleNextPage = () => {
-  setPage(prevPage => prevPage + 1);
-};
+  const handleNextPage = () => {
+    if (inventory.length === size) {
+      setPage(prevPage => prevPage + 1);
+    }
+  };
 
-const handlePreviousPage = () => {
-  if (page > 0) {
-    setPage(prevPage => prevPage - 1);
-  }
-};
+  const handlePreviousPage = () => {
+    if (page > 0) {
+      setPage(prevPage => prevPage - 1);
+    }
+  };
+  const status = tabs.filter(tab => tab.status === activeTab);
+
 
 
   return (
@@ -86,7 +96,7 @@ const handlePreviousPage = () => {
       <Header
         subtitle={`Keep track of how each item is performing.`}
         title={`Inventory`}
-        amount={`433,112`}
+        amount={totalElement}
       />
       <div className={`flex justify-between my-[1.25rem]`}>
         <Stock 

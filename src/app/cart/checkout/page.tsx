@@ -81,14 +81,29 @@ const Checkout = () => {
     paths.toHome();
   };
 
-  const getAllTotalPrice = () => {
-    if(cart.length !== 0){
-      let total = cart.map( item => (Number(item.amount) * Number(item.quantity))).reduce( (a,b) => a+b);
-      setTotalItemPrice(String(total))
-    }
-  }
+  // const getAllTotalPrice = () => {
+  //   if(cart.length !== 0){
+  //     let total = cart.map( item => (Number(item.amount) * Number(item.quantity))).reduce( (a,b) => a+b);
+  //     setTotalItemPrice(String(total))
+  //   }
+  // }
 
-  useLayoutEffect(()=>{
+  const getAllTotalPrice = () => {
+    let newTotal = "0";
+
+    if (cart.length !== 0) {
+      const total = cart
+         .map((item) => Number(item.amount) * Number(item.quantity))
+         .reduce((a, b) => a + b, 0);
+
+      newTotal = String(total);
+    }
+    if (totalItemPrice !== newTotal) {
+      setTotalItemPrice(newTotal);
+    }
+  };
+
+  useEffect(()=>{
     getAllTotalPrice()
 
   },[cart])
@@ -105,16 +120,15 @@ const Checkout = () => {
   };
 
   useEffect(() => {
-    let userDetails = sessionStorage.getItem('userDetails') || '';
-    const parsedUserDetails = JSON.parse(userDetails);
-    console.log("user details:", parsedUserDetails);
-    setFormData({
-      ...formData,
-      firstName: parsedUserDetails.firstName || '',
-      lastName: parsedUserDetails.lastName,
+    let parsedUserDetails = JSON.parse(sessionStorage.getItem('userDetails')!);
+    if(parsedUserDetails){
+      setFormData({
+        ...formData,
+        firstName: parsedUserDetails.firstName || '',
+        lastName: parsedUserDetails.lastName,
 
-    });
-
+      });
+    }
   }, [router]);
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -131,6 +145,8 @@ const Checkout = () => {
         console.log(response.data.data);
         setOpen(true);
       }
+      localStorage.removeItem('savedCartItems');
+      router.push(`/`)
     } catch (error) {
       console.log(error);
     }

@@ -49,7 +49,6 @@ export default function ProductCarousel() {
   const carouselRef = useRef<Carousel>(null);
 
   const { data: categoryData, isLoading } = useGetCategoryQuery({});
-  console.log("category data ", categoryData);
 
   const handleNext = () => {
     if (carouselRef.current) carouselRef.current.next(0);
@@ -156,6 +155,7 @@ export default function ProductCarousel() {
           ) : (
             (categoryData?.data || []).map((data: DataProps) => (
               <Card
+                 key={data.id}
                 image={data.image ? data.image : Bulldozer}
                 type={data.name}
                 categoryId={data.id}

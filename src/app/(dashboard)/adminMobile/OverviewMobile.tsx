@@ -19,7 +19,6 @@ interface CardData {
   onClick: () => void;
 };
 
-
 interface VendorData {
   companyName: string;
   totalItemSold: number;
@@ -28,46 +27,50 @@ interface VendorData {
 };
 
 function Overview() {
-  const [activityPeriod, setActivityPeriod] = useState("monthly"); 
-  const handlePeriodChange = (newPeriod: string) => {
-    setActivityPeriod(newPeriod);
+  const [activityPeriod, setActivityPeriod] = useState("month");
+  const handlePeriodChange = () => {
+    setActivityPeriod((prevValue) => (prevValue === 'month' ? 'year' : 'month'));
   };
 
-  const { data: mecaAdminOverviewData,  isLoading} = useGetMecaAdminOverviewQuery({});
-  const [adminOverview, setAdminOverview] = useState(mecaAdminOverviewData?.data ?? { 
+  const { data: mecaAdminOverviewData, isLoading } = useGetMecaAdminOverviewQuery({});
+
+  const [adminOverview, setAdminOverview] = useState({
     totalNumberOfPartOrdered: 0,
     totalNumberOfAgent: 0,
     totalTransactionValue: 0,
     totalNumberOfVendor: 0,
   });
 
+  useEffect(() => {
+    if (mecaAdminOverviewData) {
+      setAdminOverview(mecaAdminOverviewData.data);
+    }
+  }, [mecaAdminOverviewData]);
+
   const [role, setRoles] = useState('');
   const [name, setName] = useState("");
   useEffect(() => {
     const role =
-      typeof window !== "undefined" && window.sessionStorage
-        ? JSON.parse(sessionStorage.getItem("userDetails") || "{}")
-        : [];
+        typeof window !== "undefined" && window.sessionStorage
+            ? JSON.parse(sessionStorage.getItem("userDetails") || "{}")
+            : [];
     setRoles(role.role);
     setName(role.firstName);
   }, []);
 
-  const {data,  isLoading: isVendorsLoading,
-    isError: isVendorsError,} = useGetTopPerformingVendorsQuery({ period: activityPeriod});
-  const [topVendors, setTopVendors] = useState<VendorData[]>([]); 
+  const { data, isLoading: isVendorsLoading, isError: isVendorsError } = useGetTopPerformingVendorsQuery({ period: activityPeriod });
+
+  const [topVendors, setTopVendors] = useState<VendorData[]>([]);
 
   useEffect(() => {
-    if(data) {
+    if (data) {
       const resultList = data.data;
-        setTopVendors(resultList);
-      }else {
-        console.error("Expected data.content to be an array, but got:", data)
-      }
-    }, [data]);
+      setTopVendors(resultList);
+    }
+  }, [data]);
 
-    const [currentPage, setCurrentPage] = useState(1); // State for current page
-    const [itemsPerPage] = useState(10);
-
+  const [currentPage, setCurrentPage] = useState(1); // State for current page
+  const [itemsPerPage] = useState(10);
 
   const handlePreviousPage = () => {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
@@ -77,43 +80,45 @@ function Overview() {
     setCurrentPage((prevPage) => prevPage + 1);
   };
 
-    
   return (
-    <>
-      <div>
-        <Header
-          subtitle={`Take a quick glance on what is happening with meca`}
-          name={`, ${name}`}
-        />
-        <div className="lg:flex flex-col mt-10">
-          <Cards cardField={adminOverview}/>
-        </div>
-        <div
-          className={`lg:flex flex-col justify-between items-center mt-[3.25rem] mb-[1.25rem]`}
-        >
+      <>
+        <div>
           <Header
-            subtitle={`A quick glance on vendors with highest sales on meca`}
-            title={`Top performing vendors`}
+              subtitle={`Take a quick glance on what is happening with meca`}
+              name={`${name}`}
           />
-          <div className="mt-5">
-            <PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange}/>
+          <div className="lg:flex flex-col mt-10">
+            <Cards cardField={adminOverview} />
+          </div>
+          <div
+              className={`lg:flex flex-col justify-between items-center mt-[3.25rem] mb-[1.25rem]`}
+          >
+            <Header
+                subtitle={`A quick glance on vendors with highest sales on meca`}
+                title={`Top performing vendors`}
+            />
+            <div className="mt-5">
+              <PeriodRadios
+                  activityPeriod={activityPeriod}
+                  onPeriodChange={handlePeriodChange}
+              />
+            </div>
+          </div>
+          <OverviewTable data={topVendors} isLoading={isVendorsLoading} />
+
+          <div className="flex justify-between mt-10 mb-10 font-bold text-lg">
+            <button className="flex gap-x-2 border border-[#EAECF0] rounded-md h-[36px] w-[36px] pl-1"
+                    onClick={handlePreviousPage}
+                    disabled={currentPage === 1}>
+              <MdChevronLeft className="mt-1 text-2xl" />
+            </button>
+            <button className="flex gap-x-2 border border-[#EAECF0] rounded-md h-[36px] w-[36px] pl-1"
+                    onClick={handleNextPage}>
+              <MdChevronRight className="mt-1 text-2xl" />
+            </button>
           </div>
         </div>
-        <OverviewTable data={topVendors} isLoading={isVendorsLoading}/>
-
-        <div className=" flex justify-between mt-10 mb-10 font-bold text-lg">
-          <button className="flex gap-x-2 border border-[#EAECF0]  rounded-md h-[36px] w-[36px] pl-1"
-          onClick={handlePreviousPage}
-          disabled={currentPage === 1}>
-            <MdChevronLeft className="mt-1 text-2xl" />
-          </button>
-          <button className="flex gap-x-2 border border-[#EAECF0] rounded-md h-[36px] w-[36px] pl-1"
-          onClick={handleNextPage}>
-            <MdChevronRight className="mt-1 text-2xl" />
-          </button>
-        </div>
-      </div>
-    </>
+      </>
   );
 }
 

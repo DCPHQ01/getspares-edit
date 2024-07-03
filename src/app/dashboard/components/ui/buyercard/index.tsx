@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react';
 import engine from "../../../../../assets/dashboardAssets/engine.png";
 // import Image from "next/image";
 import { FaStar } from "react-icons/fa6";
-import { formatAmount2 } from '../../../../../components/utils';
 import { useGetOverviewRecentProductImageQuery } from "../../../../../redux/features/dashboard/buyerQuery";
 import Details from '../../../../category/products/viewDetails/[details]/page';
+import {formatAmount2, formatAmount3} from "../../../../../components/utils";
 
 interface RecentProductImages {
   id: string;
@@ -29,11 +29,13 @@ interface OrderInfo {
   orderItems: RecentProductImages[];
 };
 
-const Index = () => {
+
+
+const Index = ({checkOpened}: any) => {
   const { data, isError, isLoading } = useGetOverviewRecentProductImageQuery({});
   const [imageList, setImageList] = useState<RecentProductImages[]>([]);
   const [details, setDetails] = useState(false);
-  
+
   useEffect(() => {
     if (data && Array.isArray(data.data)) {
       setImageList(data.data);
@@ -50,10 +52,11 @@ const Index = () => {
 
   const handleParticularDetails = () => {
     setDetails(!details);
+    checkOpened();
   };
 
   return (
-    <div className="relative flex gap-x-5 justify-between overflow-y-scroll scrollbar-none">
+    <div className=" flex gap-x-5 justify-between scrollbar-none">
       {imageLists.map((detail, index) => (
         <div key={index} className="lg:w-[22rem]"
         onClick={handleParticularDetails}
@@ -71,13 +74,13 @@ const Index = () => {
             </div> */}
           </div>
           <p className="border rounded-full px-[0.5rem] inline-block">
-            {formatAmount2(detail.price)}
+            {formatAmount3(detail.price)}
             {/* <p>{detail.price}</p> */}
           </p>
         </div>
       ))}
       {details && (
-        <div className="absolute inset-0 w-full h-full bg-white z-index">
+        <div className=" pl-[16%] absolute inset-0 w-full h-full bg-white z-index">
           <Details />
         </div>
       )}

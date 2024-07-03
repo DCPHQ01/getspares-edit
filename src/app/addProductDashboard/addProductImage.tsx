@@ -1,10 +1,185 @@
+// import Image from "next/image";
+// import addProduct from "../../assets/images/addProduct.svg";
+// import { useCreateProductMutation } from "../../redux/features/product/productsQuery";
+// import { ColorRing } from "react-loader-spinner";
+
+// import { paths } from "../../path/paths";
+// import { Router } from "next/router";
+// import { useRouter, useSearchParams } from "next/navigation";
+// import { Suspense, useState } from "react";
+// import { Modal } from "@mui/base";
+// import { Box } from "@mui/material";
+// import { useGetAProductQuery } from "../../redux/features/users/authQuery";
+
+// const style = {
+//   position: "absolute" as "absolute",
+//   top: "50%",
+//   left: "50%",
+//   transform: "translate(-50%, -50%)",
+//   width: 400,
+//   bgcolor: "background.paper",
+//   // border: '1px solid #000',
+//   boxShadow: 24,
+//   p: 4,
+//   borderRadius: "8px",
+// };
+// const AddProductImage = () => {
+//   const router = useRouter();
+//   const [error, setError] = useState("");
+//   const [addProductdata, { isLoading }] = useCreateProductMutation();
+//   const [open, setOpen] = useState(false);
+//   const handleOpen = () => setOpen(true);
+//   const handleClose = () => setOpen(false);
+//   const handleDashBoard = () => {
+//     router.push(paths.toDashboard());
+//   };
+//   const basicInfoData =
+//     typeof window !== "undefined" && window.sessionStorage
+//       ? JSON.parse(sessionStorage.getItem("basicInfoValues") || "{}")
+//       : {};
+
+//   const imagesData =
+//     typeof window !== "undefined" && window.sessionStorage
+//       ? JSON.parse(sessionStorage.getItem("clickedImage") || "[]")
+//       : [];
+
+//   const specsData =
+//     typeof window !== "undefined" && window.sessionStorage
+//       ? JSON.parse(sessionStorage.getItem("specInfo") || "{}")
+//       : {};
+//   const detailsData =
+//     typeof window !== "undefined" && window.sessionStorage
+//       ? JSON.parse(sessionStorage.getItem("detailsInfo") || "{}")
+//       : {};
+
+//   const userDetails =
+//     typeof window !== "undefined" && window.sessionStorage
+//       ? JSON.parse(sessionStorage.getItem("userDetails") || "{}")
+//       : {};
+//   function isDataValid() {
+//     const isBasicInfoValid = Object.keys(basicInfoData).length > 0;
+//     const areImagesPresent = imagesData.length > 0;
+//     const isSpecsDataValid = Object.keys(specsData).length > 0;
+
+//     return isBasicInfoValid && areImagesPresent && isSpecsDataValid;
+//   }
+//   const priceWithoutCommas = basicInfoData?.price?.replace(/,/g, "");
+//   // console.log("company name ", userDetails.companyDetails[0].name);
+//   const handleAddProduct = async (e: React.MouseEvent<HTMLButtonElement>) => {
+//     e.preventDefault();
+//     if (!isDataValid()) {
+//       return;
+//     }
+
+//     try {
+//       const response = await addProductdata({
+//         name: basicInfoData.productName,
+//         price: {
+//           amount: priceWithoutCommas,
+//           currency: "NGN",
+//         },
+//         description: basicInfoData.productDescription,
+//         categoryName: basicInfoData.productCategory,
+//         productCondition: "NEW",
+//         productImages: [...imagesData],
+//         productInformation: {
+//           manufacturer: detailsData.manufacturer,
+//           brand: detailsData.brand,
+//           model: detailsData.model,
+//           itemWeight: detailsData.weight,
+//           productionDimension: detailsData.dimension,
+//           countryOfOrigin: detailsData.countryOfOrigin,
+//           itemModelNumber: "string",
+//           manufacturerPartNumber: detailsData.manufacturerParts,
+//         },
+//         productSpecification: {
+//           color: specsData.color,
+//           quantityInPack: +specsData.quantityInPack,
+//         },
+//         quantity: +basicInfoData.quantity,
+//         tags: ["string"],
+//         companyName: userDetails.companyDetails[0].name,
+//       }).unwrap();
+//       if (response) {
+//         handleOpen();
+//         router.push(paths.toDashboard());
+//       }
+//     } catch (error: any) {
+//       console.log(error);
+//       setError(error);
+//     }
+//   };
+
+//   const searchParams = useSearchParams();
+//   const productId = searchParams?.get("id");
+
+//   const { data, isFetching } = useGetAProductQuery(productId || "", {
+//     skip: !productId,
+//   });
+
+//   console.log("error ", error);
+
+//   return (
+//     <div className=" z-50 fixed top-0  h-40 w-[100%]">
+//       <div className="bg-white h-">
+//         <div className="pt-[3rem] mb-3 w-[80%] m-auto flex justify-between">
+//           <h1 className="text-xl font-semibold">
+//             {productId ? "Edit product" : "Add new product"}
+//           </h1>
+
+//           <button
+//             onClick={handleAddProduct}
+//             disabled={!isDataValid()}
+//             className={`text-base flex justify-center items-center text-white w-40 h-10 rounded-full font-semibold ${
+//               !isDataValid()
+//                 ? "bg-gray-500 text-white"
+//                 : "bg-mecaBluePrimaryColor"
+//             }`}
+//           >
+//             {productId ? "Save" : "Publish now"}
+//           </button>
+//           {error && <p className="text-red-500">{error}</p>}
+//           <Modal
+//             open={open}
+//             onClose={handleClose}
+//             aria-labelledby="modal-modal-title"
+//             aria-describedby="modal-modal-description"
+//           >
+//             <Box sx={style}>
+//               <div className="flex flex-col justify-center items-center gap-4">
+//                 <p id="modal-modal-title" className="text-2xl font-nunito">
+//                   Product added successfully.
+//                 </p>
+//                 <button
+//                   onClick={handleDashBoard}
+//                   className="text-base flex justify-center items-center bg-mecaBluePrimaryColor text-white w-40 h-10 rounded-full font-semibold "
+//                 >
+//                   Go to dashboard
+//                 </button>
+//               </div>
+//             </Box>
+//           </Modal>
+//         </div>
+//         <hr className="w-[80%] m-auto "></hr>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default AddProductImage;
+
+// export function WrappedAddProductImage() {
+//   return (
+//     <Suspense>
+//       <AddProductImage />;
+//     </Suspense>
+//   );
+// }
 import Image from "next/image";
 import addProduct from "../../assets/images/addProduct.svg";
 import { useCreateProductMutation } from "../../redux/features/product/productsQuery";
 import { ColorRing } from "react-loader-spinner";
-
 import { paths } from "../../path/paths";
-import { Router } from "next/router";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
 import { Modal } from "@mui/base";
@@ -18,11 +193,11 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: 400,
   bgcolor: "background.paper",
-  // border: '1px solid #000',
   boxShadow: 24,
   p: 4,
   borderRadius: "8px",
 };
+
 const AddProductImage = () => {
   const router = useRouter();
   const [error, setError] = useState("");
@@ -48,6 +223,7 @@ const AddProductImage = () => {
     typeof window !== "undefined" && window.sessionStorage
       ? JSON.parse(sessionStorage.getItem("specInfo") || "{}")
       : {};
+
   const detailsData =
     typeof window !== "undefined" && window.sessionStorage
       ? JSON.parse(sessionStorage.getItem("detailsInfo") || "{}")
@@ -58,12 +234,32 @@ const AddProductImage = () => {
       ? JSON.parse(sessionStorage.getItem("userDetails") || "{}")
       : {};
 
+  function isDataValid() {
+    const isBasicInfoValid =
+      Object.keys(basicInfoData).length > 0 &&
+      basicInfoData.productName &&
+      basicInfoData.price &&
+      basicInfoData.productDescription &&
+      basicInfoData.productCategory &&
+      basicInfoData.quantity;
+    const areImagesPresent = imagesData.length > 0;
+    return isBasicInfoValid && areImagesPresent;
+  }
+
   const priceWithoutCommas = basicInfoData?.price?.replace(/,/g, "");
-  // console.log("company name ", userDetails.companyDetails[0].name);
+
   const handleAddProduct = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    if (!isDataValid()) {
+      setError("Please fill all the required fields.");
+      return;
+    }
 
     try {
+      const companyName = userDetails.companyDetails?.[0]?.name;
+      if (!companyName) {
+        throw new Error("Company details are missing.");
+      }
       const response = await addProductdata({
         name: basicInfoData.productName,
         price: {
@@ -75,59 +271,60 @@ const AddProductImage = () => {
         productCondition: "NEW",
         productImages: [...imagesData],
         productInformation: {
-          manufacturer: detailsData.manufacturer,
-          brand: detailsData.brand,
-          model: detailsData.model,
-          itemWeight: detailsData.weight,
-          productionDimension: detailsData.dimension,
-          countryOfOrigin: detailsData.countryOfOrigin,
+          manufacturer: detailsData?.manufacturer,
+          brand: detailsData?.brand,
+          model: detailsData?.model,
+          itemWeight: detailsData?.weight,
+          productionDimension: detailsData?.dimension,
+          countryOfOrigin: detailsData?.countryOfOrigin,
           itemModelNumber: "string",
-          manufacturerPartNumber: detailsData.manufacturerParts,
+          manufacturerPartNumber: detailsData?.manufacturerParts,
         },
         productSpecification: {
-          color: specsData.color,
-          quantityInPack: +specsData.quantityInPack,
+          color: specsData?.color,
+          quantityInPack: +specsData?.quantityInPack,
         },
         quantity: +basicInfoData.quantity,
         tags: ["string"],
         companyName: userDetails.companyDetails[0].name,
       }).unwrap();
-      router.push("/dashboard");
+
+      if (response) {
+        handleOpen();
+      }
     } catch (error: any) {
       console.log(error);
-      setError(error);
+      setError(error.message);
     }
   };
+
   const searchParams = useSearchParams();
   const productId = searchParams?.get("id");
-  // const { data: getAproduct, isFetching } = useGetAProductQuery(productId, {
-  //   skip: !productId,
-  // });
-  // console.log("get a product ", getAproduct);
-  return (
-    <div className=" z-50 fixed top-0  h-40 w-[100%]">
-      <div>
-        {/* <div className="">
-          <Image
-            className="h-40 w-[100%] object-cover"
-            src={addProduct}
-            id="add product"
-            alt="mobile spear part image"
-          />
-        </div> */}
-      </div>
 
-      <div className="bg-white h-">
-        <div className="pt-[3rem]  mb-3 w-[80%] m-auto flex justify-between">
+  const { data, isFetching } = useGetAProductQuery(productId || "", {
+    skip: !productId,
+  });
+
+  return (
+    <div className="z-50 fixed top-0 h-40 w-[100%]">
+      <div className="bg-white">
+        <div className="pt-[3rem] mb-3 w-[80%] m-auto flex justify-between">
           <h1 className="text-xl font-semibold">
             {productId ? "Edit product" : "Add new product"}
           </h1>
           {error && <p className="text-red-500">{error}</p>}
           <button
             onClick={handleAddProduct}
-            className="text-base flex justify-center items-center bg-mecaBluePrimaryColor text-white w-40 h-10 rounded-full font-semibold"
+            disabled={!isDataValid() || isLoading}
+            className={`text-base flex justify-center items-center text-white w-40 h-10 rounded-full font-semibold ${
+              !isDataValid() || isLoading
+                ? "bg-gray-500"
+                : "bg-mecaBluePrimaryColor"
+            }`}
           >
-            {isLoading ? (
+            {productId ? (
+              "Save"
+            ) : isLoading ? (
               <ColorRing
                 visible={true}
                 height="40"
@@ -135,28 +332,31 @@ const AddProductImage = () => {
                 ariaLabel="color-ring-loading"
                 wrapperStyle={{}}
                 wrapperClass="color-ring-wrapper"
-                colors={["#ffff", "#ffff", "#ffff", "#ffff", "#ffff"]}
+                colors={["#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF"]}
               />
-            ) : productId ? (
-              "Save"
             ) : (
               "Publish now"
             )}
           </button>
+
           <Modal
             open={open}
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
+            className="backdrop"
           >
             <Box sx={style}>
-              <div className="flex flex-col justify-center items-center gap-4">
-                <p id="modal-modal-title" className="text-2xl font-nunito">
+              <div className="flex h-56 flex-col justify-center items-center gap-4">
+                <p
+                  id="modal-modal-title"
+                  className="text-xl text-mecaBluePrimaryColor font-nunito"
+                >
                   Product added successfully.
                 </p>
                 <button
                   onClick={handleDashBoard}
-                  className="text-base flex justify-center items-center bg-mecaBluePrimaryColor text-white w-40 h-10 rounded-full font-semibold "
+                  className="text-base flex justify-center items-center bg-mecaBluePrimaryColor text-white w-40 h-10 rounded-full font-semibold"
                 >
                   Go to dashboard
                 </button>
@@ -175,7 +375,7 @@ export default AddProductImage;
 export function WrappedAddProductImage() {
   return (
     <Suspense>
-      <AddProductImage />;
+      <AddProductImage />
     </Suspense>
   );
 }

@@ -5,7 +5,7 @@ import SortButton from "../../components/ui/sortbutton";
 import SearchBox from "../../components/ui/searchbox";
 import PeriodRadios from "../../components/ui/periodradios";
 import VendorAgentTable from "../../components/table/vendoradmin/vendorAgentTable";
-import { MdChevronLeft, MdChevronRight } from "react-icons/md";
+import {MdChevronLeft, MdChevronRight, MdInventory2} from "react-icons/md";
 
 function VendorAgents() {
   const tabs = [
@@ -21,14 +21,22 @@ function VendorAgents() {
       />
       <div className={`flex justify-between items-center my-[1.5rem]`}>
         <Tabs
-         tabs={tabs} 
+         tabs={tabs}
          activeTab="with_sales"
-         onTabChange={(status) => console.log(status)}
          />
         <div className={`flex gap-3`}>
           <SearchBox />
         </div>
       </div>
+
+       <div className="right-[100%] left-[100%] flex flex-col justify-center items-center pt-32 leading-10">
+          <div className=" h-28">
+             <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
+                <MdInventory2 style={{fontSize:"2rem", color:"#0852C0"}}/>
+             </div>
+          </div>
+          <h1 className="text-xl text-gray-500">No agents associated yet</h1>
+       </div>
 
       {/* <VendorAgentTable /> */}
 

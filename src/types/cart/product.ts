@@ -20,5 +20,9 @@ export type CartProduct = {
       model: string;
       productionDimension: string;
       voltage: string;
-   } | string;
+   };
 }
+
+export type CartState = {
+   cart: CartProduct[];
+};

@@ -28,11 +28,10 @@ function VendorOverview() {
       totalOrderValue: 0,
     }
   );
-  console.log("data for VendorOverviews: ", overView);
+
   const [topPerformingProducts, setTopPerformingProducts] = useState<
     VendorOverview[]
   >([]);
-  console.log("data for VendorOverview: ", data);
 
   useEffect(() => {
     if (data) {
@@ -43,21 +42,32 @@ function VendorOverview() {
     }
   }, [data]);
 
-  console.log("The overView: ", overView);
 
-  console.log("The topPerformingProducts: ", topPerformingProducts);
+  // const userName = JSON.parse(sessionStorage.getItem("userDetails") || "");
+  // const usersFirstName = userName?.firstName;
 
-  const userName = JSON.parse(sessionStorage.getItem("userDetails") || "");
-  const usersFirstName = userName?.firstName;
+  let usersFirstName = "";
+  try {
+    const userName = JSON.parse(sessionStorage.getItem("userDetails") || "");
+    usersFirstName = userName?.firstName;
+  } catch (error) {
+    console.error("Error parsing user details:", error);
+   
+  }
+  console.log("data for VendorOverview name: ", usersFirstName);
+
   return (
     <>
       <div>
         <div className={`flex justify-between items-center`}>
-          <Header
-            subtitle={`Take a quick glance on what is happening with meca`}
-            name={usersFirstName}
-          />
-          <Link href={paths.toModalPage()} className="font-semibold">
+          <div>
+            <Header
+               subtitle={`Take a quick glance on what is happening with meca`}
+               name={usersFirstName}
+            />
+          </div>
+
+          <Link href={paths.toModalPageVendor()} className="font-semibold">
             <Addbutton title={`Update Company`} />
           </Link>
         </div>

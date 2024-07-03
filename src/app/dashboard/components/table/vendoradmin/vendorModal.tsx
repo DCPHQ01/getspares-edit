@@ -54,8 +54,9 @@ const VendorModal: React.FC<VendorModalProps> = ({open,handleClose}) => {
           }}
         >  
             <div id='container'>
-            <div id='iconbutton' className=' relative h-10 mt-10 lg:left-[31%]'>
-              <IconButton style={{ position: 'absolute', right: 0 }} onClick={handleClose}>
+            <div id='iconbutton'  style={{ position: 'absolute', right: 8 }}  className=' h-10 mt-10 '>
+              
+              <IconButton onClick={handleClose}>
                 <MdCancel style={{color:"white",zIndex:"4px",fontSize:"2.2rem"}}/>
               </IconButton>
               </div>
@@ -71,7 +72,7 @@ const VendorModal: React.FC<VendorModalProps> = ({open,handleClose}) => {
               padding: '24px',
               borderRadius: '8px',
               boxShadow: 24,
-              
+              marginTop: 25
              
              
                }}>
@@ -84,13 +85,13 @@ const VendorModal: React.FC<VendorModalProps> = ({open,handleClose}) => {
                     >
                      
                       <Image 
-                           className={`${slide === idx ? 'rounded-md shadow-md ' : 'hidden'}`}
+                           className={`${slide === idx ? 'rounded-md ' : 'hidden'}`}
                            src={item.src}  
                            alt={item.alt}
                            key={idx}
                            layout="fixed" 
-                           width={1200} 
-                           height={1000} 
+                          //  width={1000} 
+                          //  height={1000} 
                            />
                            </div>
                   } )
