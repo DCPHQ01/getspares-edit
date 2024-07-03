@@ -37,20 +37,20 @@ function Overview({ data, isLoading }: OverviewTableProps) {
       <table id="adminTable" className={`w-full`}>
         <thead>
           <tr className="truncate">
-            <th id="companyNameHeader" className={`sticky`}>
+            <th id="companyNameHeader" className={`lg:sticky`}>
               Company name
             </th>
-            <th id="totalItemsSoldHeader" className={`sticky`}>
+            <th id="totalItemsSoldHeader" className={`lg:sticky`}>
               Total items sold
             </th>
             <th
               id="transactionValueHeader"
-              className={`sticky`}
+              className={`lg:sticky`}
               style={{ paddingLeft: "2.5rem" }}
             >
               Transaction value
             </th>
-            <th id="dateTimeJoinedHeader" className={`sticky`}>
+            <th id="dateTimeJoinedHeader" className={`lg:sticky`}>
               Date & time joined
             </th>
           </tr>
@@ -75,18 +75,23 @@ function Overview({ data, isLoading }: OverviewTableProps) {
                       "#095AD3",
                     ]}
                   />
+                  <p>Loading Overview Table...</p>
                 </div>
               </td>
             </tr>
           ) : data.length === 0 ? (
-            <div className="relative right-[100%] left-[100%] flex flex-col justify-center items-center pt-32 leading-10">
+            <div className="relative -z-50 right-[100%] lg:left-[100%] left-[130%] flex flex-col justify-center items-center pt-24 leading-10">
               <div className=" h-28">
                 <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
                   <MdYard style={{ fontSize: "2rem", color: "#0852C0" }} />
                 </div>
               </div>
-              <h1 className="text-xl">No item here yet</h1>
-              <h1 className="text-gray-500">All your item will appear here</h1>
+              <div className="text-center">
+                <h1 className="text-xl">No item here yet</h1>
+                <h1 className="text-gray-500">
+                  All your item will appear here
+                </h1>
+              </div>
             </div>
           ) : (
             data.map((d, index) => {

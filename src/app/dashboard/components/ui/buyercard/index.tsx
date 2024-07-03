@@ -41,9 +41,6 @@ const Index = ({ checkOpened }: any) => {
       setImageList(data.data);
     }
   }, [data]);
-
-  "Images ata the top data: ", data;
-
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error loading data</div>;
   if (!data || !Array.isArray(data.data) || data.data.length === 0)

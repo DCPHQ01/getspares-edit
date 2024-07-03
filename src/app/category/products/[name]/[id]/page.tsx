@@ -1,5 +1,4 @@
 "use client";
-
 import Card from "../../../../../components/Homepage/Card";
 import TopBar from "../../../../reusables/TopBar/page";
 import Carousel from "react-multi-carousel";
@@ -29,7 +28,7 @@ import {
   SnackbarOrigin,
   Typography,
 } from "@mui/material";
-
+import VendorModal from "../../../../dashboard/components/table/vendoradmin/vendorModal";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import TopBarWhileInside from "../../../../reusables/TopBarWhileInside/page";
 import { useAppDispatch, useAppSelector } from "../../../../../redux/hooks";
@@ -93,6 +92,14 @@ const images = [
 ];
 
 export default function ProductDescription() {
+  const [openVendorModal, setOpenVendorModal] = useState(false);
+  const handleOpenVendorModal = () => {
+    setOpenVendorModal((val)=> !val);
+  };
+
+  const [opens, setOpens] = React.useState<boolean>(false);
+  const handleOpen = () => setOpens(true);
+  const handleClose = () => setOpens(false);
   const [productImages, setProductImages] = useState([]);
   const searchParams = usePathname();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -189,8 +196,11 @@ export default function ProductDescription() {
           quantity: Number(item.quantity),
         };
       });
+      const payload = {
+        itemRequests: data
+      }
       try {
-        const res = await addToCart(data).unwrap();
+        const res = await addToCart(payload).unwrap();
         setState({ ...newState, open: true });
 
         setTimeout(() => {
@@ -225,6 +235,11 @@ export default function ProductDescription() {
     <div className="relative">
       <TopBarWhileInside />
       <div id="mainContainer" className="container mx-auto px-2">
+        {openVendorModal && (
+          <div>
+            <VendorModal handleModalClose={handleOpenVendorModal} />
+          </div>
+        )}
         <div
           className="flex flex-col space-y-8 mt-40 w-full"
           id="productDescriptionContentContainer"
@@ -281,17 +296,18 @@ export default function ProductDescription() {
                 >
                   <div
                     id="imageDiv"
-                    className="w-full h-[76%] bg-mecaSearchColor flex justify-center items-center"
+                    className="w-full h-[76%] cursor-pointer bg-mecaSearchColor flex justify-center items-center"
                   >
                     <Image src={tractor} alt="tractor parts" />
                   </div>
+
                   <div
                     id="otherImagesDiv"
                     className="w-full flex item-center gap-x-4"
                   >
                     {firstImages.map((image, i) => (
                       <div
-                        className="w-[30%] h-[88px] cursor-pointer rounded-lg flex justify-center items-center bg-mecaSearchColor relative"
+                        className="w-[30%] h-[88px] rounded-lg flex justify-center items-center bg-mecaSearchColor relative"
                         key={i}
                       >
                         <Image
@@ -302,8 +318,9 @@ export default function ProductDescription() {
                         {i === firstImages.length - 1 &&
                           remainingImages.length > 0 && (
                             <div
+                              onClick={handleOpenVendorModal}
                               id="moreImages"
-                              className="absolute rounded-lg inset-0 flex justify-center items-center bg-mecaDarkBlueBackgroundOverlay bg-opacity-50"
+                              className="absolute cursor-pointer rounded-lg inset-0 flex justify-center items-center bg-mecaDarkBlueBackgroundOverlay bg-opacity-50"
                             >
                               <p className="text-white text-3xl font-nunito font-semibold">
                                 +{remainingImages.length}

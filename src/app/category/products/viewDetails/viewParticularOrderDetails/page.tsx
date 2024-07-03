@@ -31,7 +31,8 @@ const ViewParticularOrderDetailsPage: React.FC = () => {
   // }, []);
 
   // const { data, isLoading } = useGetOrderDetailsQuery({  id: id   });
-  // ("data for order details", data);
+  // console.log("data for order details", data);
+
   useEffect(() => {
     const storedId = sessionStorage.getItem("selectedOrderId");
     if (storedId) {
@@ -59,7 +60,7 @@ const ViewParticularOrderDetailsPage: React.FC = () => {
   //      }
   //    }
   //  }, [isLoading, data, selectedProductName]);
-  data, "hhfhfh";
+
   const [orderDetails, setOrderDetails] = useState<OrderInfo>({
     orderDate: "",
     deliveryAddress: {},
@@ -68,7 +69,6 @@ const ViewParticularOrderDetailsPage: React.FC = () => {
 
   useEffect(() => {
     if (data) {
-      "Received data for order details:", data;
       const resultList = data?.data;
       if (resultList) {
         setOrderDetails(resultList);

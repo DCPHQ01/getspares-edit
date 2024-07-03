@@ -29,21 +29,20 @@ function Index() {
     setClicked(!clicked);
   };
 
-  "clicked: ", clicked;
   const DropdownMenu = () => {
     const { data, isLoading, isError } = useGetCategoryQuery({});
     const [nameCategoryItems, setNameCategoryItems] = useState<
       nameCategoryItem[]
     >([]);
 
-    const categories = data?.data("data for categories", categories);
+    const categories = data?.data;
+    console.log("data for categories", categories);
 
     useEffect(() => {
       if (data && data.data) {
         setNameCategoryItems(data.data);
       }
     }, [data]);
-    "nameCategoryItems: ", nameCategoryItems;
 
     return (
       <div
@@ -80,7 +79,7 @@ function Index() {
   };
 
   return (
-    <div className="relative inline-block">
+    <div className="relative inline-block -z-50">
       <button
         className={`bg-[#F8FAFC] border cursor-pointer border-[#CDD5DF] inline-block rounded-full px-3 py-2 mb-[0.5rem]`}
         onClick={handleButtonClicked}

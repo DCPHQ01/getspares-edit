@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styles from "../styles.module.css";
 import dayjs from "dayjs";
-import { AccountCircle } from "@mui/icons-material";
 import { ColorRing } from "react-loader-spinner";
 import { formatAmount } from "../../../../../components/utils";
 import ViewParticularOrderDetailsPage from "../../../../category/products/viewDetails/viewParticularOrderDetails/page";
@@ -41,25 +40,24 @@ const OverviewTable: React.FC<OverviewTableProps> = ({
   };
 
   return (
-    <div id="tableContainer" className="relative">
-      <div
-        className={`my-[1.25rem] w-full max-h-[34rem] overflow-y-auto scrollbar-none ${styles.table}`}
-      >
+    <div id="tableContainer" className="relative -z-50">
+
+      <div className={`my-[1.25rem] w-full max-h-[34rem] overflow-y-auto scrollbar-none ${styles.table}`}>
         <table id="adminTable" className={`w-full`}>
           <thead>
-            <tr className="truncate">
-              <th id="totalItemsSoldHeader" style={{ paddingLeft: "5rem" }}>
+            <tr className="truncate ">
+              <th id="totalItemsSoldHeader" style={{ paddingLeft: "5rem" }} >
                 Tracking Order ID
               </th>
-              <th id="dateTimeJoinedHeader" style={{ paddingLeft: "3rem" }}>
+              <th id="dateTimeJoinedHeader" style={{ paddingLeft: "3rem" }} >
                 Amount
               </th>
-              <th id="dateTimeJoinedHeader">Order Date & Time</th>
+              <th id="dateTimeJoinedHeader" >Order Date & Time</th>
             </tr>
           </thead>
           <tbody>
             {isLoading ? (
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <div className="absolute -z-50 inset-0 flex flex-col items-center justify-center">
                 <ColorRing
                   visible={true}
                   height="40"
@@ -77,7 +75,7 @@ const OverviewTable: React.FC<OverviewTableProps> = ({
                 <p>Loading Overview...</p>
               </div>
             ) : overviewList?.length === 0 ? (
-              <div className="relative right-[100%] left-[100%] flex flex-col justify-center items-center pt-32 leading-10">
+              <div className="relative -z-50 right-[100%] left-[100%] flex flex-col justify-center items-center pt-32 leading-10">
                 <div className=" h-28">
                   <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
                     <MdBusinessCenter
@@ -85,10 +83,12 @@ const OverviewTable: React.FC<OverviewTableProps> = ({
                     />
                   </div>
                 </div>
-                <h1 className="text-xl">No order created yet</h1>
-                <h1 className="text-gray-500">
-                  All your orders will appear here
-                </h1>
+                <div className="text-center">
+                  <h1 className="text-xl">No order created yet</h1>
+                  <h1 className="text-gray-500">
+                    All your orders will appear here
+                  </h1>
+                </div>
               </div>
             ) : (
               overviewList?.map((d, index) => {
@@ -96,7 +96,7 @@ const OverviewTable: React.FC<OverviewTableProps> = ({
                   <tr
                     key={index}
                     id={`row_${index}`}
-                    className="cursor-pointer truncate"
+                    className="cursor-pointer truncate -z-50"
                     onClick={() => handleDetails(d.orderId)}
                   >
                     <td id={`companyData_${index}`}>
@@ -141,82 +141,5 @@ const OverviewTable: React.FC<OverviewTableProps> = ({
     </div>
   );
 };
-//     <div id="tableContainer" className="relative">
-//       {isLoading ? (
-//         <div className="absolute inset-0 flex flex-col items-center justify-center">
-//           <ColorRing
-//             visible={true}
-//             height="40"
-//             width="40"
-//             ariaLabel="color-ring-loading"
-//             wrapperClass="color-ring-wrapper"
-//             colors={["#000000", "#000000", "#000000", "#000000", "#000000"]}
-//           />
-//           <p>Loading Overview...</p>
-//         </div>
-//       ) : (
-//         <div
-//           id="mecaAdminTable"
-//           className={`my-[1.25rem] w-full max-h-[34rem] overflow-y-auto scrollbar-none ${styles.table}`}
-//         >
-//           <table id="adminTable" className={`w-full`}>
-//             <thead>
-//               <tr className="truncate">
-//                 <th id="totalItemsSoldHeader" style={{ paddingLeft: "5rem" }}>
-//                   Tracking Order ID
-//                 </th>
-//                 <th id="dateTimeJoinedHeader" style={{ paddingLeft: "3rem" }}>
-//                   Amount
-//                 </th>
-//                 <th id="dateTimeJoinedHeader">Order Date & Time</th>
-//               </tr>
-//             </thead>
-//             <tbody>
-//               {overviewList?.map((d, index) => {
-//                 const { date, time } = formatDateTime(d.dateCreated);
-
-//                 return (
-//                   <tr
-//                     key={index}
-//                     id={`row_${index}`}
-//                     className="cursor-pointer truncate"
-//                     onClick={()=> handleDetails(d.orderId)}
-//                   >
-//                     <td id={`companyData_${index}`}>
-//                       <div className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}>
-//                         <div id={`companyDetails_${index}`}>
-//                           <div className="mt-2">{d.trackingOrderId}</div>
-//                         </div>
-//                       </div>
-//                     </td>
-//                     <td className={`text-[0.88rem] py-[1rem] px-[3.13rem]`} id={`itemsSold_${index}`}>
-//                       {/* {d.price} */}
-//                       {formatAmount(d.amount)}
-//                     </td>
-//                     <td id={`dateJoined_${index}`}>
-//                       <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
-//                         <div id={`date_${index}`}>{date}</div>
-//                         <div className={`text-[#4B5565]`} id={`time_${index}`}>
-//                           {time}
-//                         </div>
-//                       </div>
-//                     </td>
-//                   </tr>
-//                 );
-//               })}
-//             </tbody>
-//           </table>
-//           {selectedOrderId && (
-//         <div className="mt-8 ml-10 lg:left-60 right-0 lg:top-0 h-[100vh] lg:w-[84%] w-[100%] lg:h-[100vh]">
-//           <div className="bg-white h-[100vh] w-full">
-//             <ViewParticularOrderDetailsPage />
-//           </div>
-//         </div>
-//       )}
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
 
 export default OverviewTable;

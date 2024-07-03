@@ -118,35 +118,33 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
             className={`my-[1.25rem] w-full max-h-[40rem] overflow-y-auto scrollbar-none overscroll-contain ${styles.table}`}
           >
             <table id="adminTable" className={`w-full`}>
-              <thead style={{ position: "sticky", zIndex: 1000 }}>
+              <thead style={{ zIndex: 1000 }} className={`lg:sticky`}>
                 <tr className="truncate">
-                  <th style={{ position: "sticky" }} id="companyNameHeader">
+                  <th className={`lg:sticky`} id="companyNameHeader">
                     Item name
                   </th>
-                  <th
-                    style={{ position: "sticky" }}
-                    id="transactionValueHeader"
-                  >
+                  <th className={`lg:sticky`} id="transactionValueHeader">
                     Price
                   </th>
-                  <th style={{ position: "sticky" }} id="totalItemsSoldHeader">
+                  <th className={`lg:sticky`} id="totalItemsSoldHeader">
                     Quantity sold
                   </th>
                   <th
                     id="transactionValueHeader"
-                    style={{ paddingLeft: "2rem", position: "sticky" }}
+                    style={{ paddingLeft: "2rem" }}
+                    className={`lg:sticky`}
                   >
                     Category
                   </th>
-                  <th style={{ position: "sticky" }} id="dateTime">
+                  <th className={`lg:sticky`} id="dateTime">
                     Date and Time
                   </th>
-                  <th style={{ position: "sticky" }} id="actionHeader"></th>
+                  <th className={`lg:sticky`} id="actionHeader"></th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="-z-50">
                 {isLoading ? (
-                  <div className="text-center mt-28 relative left-[130%] right[130%]">
+                  <div className="text-center  mt-28 relative left-[130%] right[130%]">
                     <ColorRing
                       visible={true}
                       height="40"

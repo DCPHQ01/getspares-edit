@@ -14,22 +14,6 @@ import {
   TextareaAutosize,
 } from "@mui/base/TextareaAutosize";
 
-interface Address {
-  streetNumber: string;
-  town: string;
-  city: string;
-  state: string;
-}
-
-interface ChildProps {
-  step: number;
-  setStep: React.Dispatch<React.SetStateAction<number>>;
-}
-
-interface ImageUploadProps {
-  onUpload: (files: FileList) => void;
-}
-
 import { useAppSelector } from "../../../redux";
 import { useAppDispatch } from "../../../redux/hooks";
 import { RootState } from "../../../redux";

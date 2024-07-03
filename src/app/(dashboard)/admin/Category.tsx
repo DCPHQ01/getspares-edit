@@ -95,6 +95,9 @@ function Category() {
   const [categoryData, { isLoading }] = useAddCategoryMutation();
   const [error, setError] = useState<string>("");
 
+  console.log("activityPeriod", activityPeriod);
+  console.log("data", data);
+
   useEffect(() => {
     if (data && Array.isArray(data.data.content)) {
       const list = data.data.content;
@@ -161,13 +164,13 @@ function Category() {
         image: image_url,
       }).unwrap();
       if ("data" in response) {
-        response.data.data;
+        console.log(response.data.data);
         setCategoryList((prev) => [response.data.data, ...prev]);
         refetch();
         handleClose();
       }
     } catch (error: any) {
-      error;
+      console.log(error);
       setError(error.data.message);
     }
   };
@@ -199,11 +202,13 @@ function Category() {
         className="mb-[1.25rem] flex justify-between items-center"
         id="cateParentDiv"
       >
-        <Header
-          subtitle="Keep track of categories and their products"
-          title="Category"
-          amount={totalElements}
-        />
+        <div>
+          <Header
+            subtitle="Keep track of categories and their products"
+            title="Category"
+            amount={totalElements}
+          />
+        </div>
 
         <button
           id="addButton"

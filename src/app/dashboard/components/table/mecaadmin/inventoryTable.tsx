@@ -27,133 +27,6 @@ interface InventoryTableProps {
   status: string;
 }
 
-// const data = [
-//   {
-//     avatar: image1,
-//     name: "Ebuka & Sons International",
-//     email: "Ebukainternional.com",
-//     sale: 12,
-//     vale: "₦ 200,000.00",
-//     rating: (
-//       <Stack spacing={1}>
-//         {/* <Rating name="half-rating" defaultValue={2.5} precision={0.5} /> */}
-//       </Stack>
-//     ),
-//     date: "24 June 2022",
-//     time: "12:00PM",
-//   },
-//   {
-//     avatar: image2,
-//     name: "Ebuka & Sons International",
-//     email: "ebuka&sons@gmail.com",
-//     sale: 83,
-//     vale: "₦ 1,000,000.00",
-//     rating: (
-//       <Stack spacing={1}>
-//         {/* <Rating name="half-rating" defaultValue={2.5} precision={0.5} /> */}
-//       </Stack>
-//     ),
-//     date: "30 June 2023",
-//     time: "06:00PM",
-//   },
-//   {
-//     avatar: image1,
-//     name: "Ebuka & Sons International",
-//     email: "ebuka&sons@gmail.com",
-//     sale: 45,
-//     vale: "₦ 600,000.00",
-//     // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
-//     date: "12 May 2024",
-//     time: "08:45PM",
-//   },
-//   {
-//     avatar: image2,
-//     name: "Ebuka & Sons International",
-//     email: "ebuka&sons@gmail.com",
-//     sale: 10,
-//     vale: "₦ 120,000.00",
-//     // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
-
-//     date: "02 Sep 2022",
-//     time: "11:15AM",
-//   },
-//   {
-//     avatar: image1,
-//     name: "Ebuka & Sons International",
-//     email: "ebuka&sons@gmail.com",
-//     sale: 67,
-//     vale: "₦ 700,000,00",
-//     // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
-//     date: "30 Aug 2022",
-//     time: "04:00PM",
-//   },
-//   {
-//     avatar: image1,
-//     name: "Ebuka & Sons International",
-//     email: "ebuka&sons@gmail.com",
-//     sale: 67,
-//     vale: "₦ 700,000,00",
-//     // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
-//     date: "30 Aug 2022",
-//     time: "04:00PM",
-//   },
-
-//   {
-//     avatar: image1,
-//     name: "Ebuka & Sons International",
-//     email: "ebuka&sons@gmail.com",
-//     sale: 67,
-//     vale: "₦ 700,000,00",
-//     // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
-//     date: "30 Aug 2022",
-//     time: "04:00PM",
-//   },
-
-//   {
-//     avatar: image1,
-//     name: "Ebuka & Sons International",
-//     email: "ebuka&sons@gmail.com",
-//     sale: 67,
-//     vale: "₦ 700,000,00",
-//     // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
-//     date: "30 Aug 2022",
-//     time: "04:00PM",
-//   },
-
-//   {
-//     avatar: image1,
-//     name: "Ebuka & Sons International",
-//     email: "ebuka&sons@gmail.com",
-//     sale: 67,
-//     vale: "₦ 700,000,00",
-//     // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
-//     date: "30 Aug 2022",
-//     time: "04:00PM",
-//   },
-
-//   {
-//     avatar: image1,
-//     name: "Ebuka & Sons International",
-//     email: "ebuka&sons@gmail.com",
-//     sale: 67,
-//     vale: "₦ 700,000,00",
-//     // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
-//     date: "30 Aug 2022",
-//     time: "04:00PM",
-//   },
-
-//   {
-//     avatar: image1,
-//     name: "Ebuka & Sons International",
-//     email: "ebuka&sons@gmail.com",
-//     sale: 67,
-//     vale: "₦ 700,000,00",
-//     // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
-//     date: "30 Aug 2022",
-//     time: "04:00PM",
-//   },
-// ];
-
 const InventoryTable: React.FC<InventoryTableProps> = ({
   inventoryData,
   isLoading,
@@ -168,25 +41,25 @@ const InventoryTable: React.FC<InventoryTableProps> = ({
         <table id="adminTable" className={`w-full`}>
           <thead className="sticky">
             <tr className="truncate">
-              <th id="companyNameHeader" className={`sticky`}>
+              <th id="companyNameHeader" className={`lg:sticky`}>
                 Product name
               </th>
-              <th id="dateTimeJoinedHeader" className={`sticky`}>
+              <th id="dateTimeJoinedHeader" className={`lg:sticky`}>
                 Vendors
               </th>
-              <th id="totalItemsSoldHeader" className={`sticky`}>
+              <th id="totalItemsSoldHeader" className={`lg:sticky`}>
                 Quantity sold
               </th>
               <th
                 id="transactionValueHeader"
-                className={`sticky`}
+                className={`lg:sticky`}
                 style={{ paddingLeft: "2.3rem" }}
               >
                 Transaction value
               </th>
             </tr>
           </thead>
-          <tbody className=" h-[25rem]">
+          <tbody className="-z-50 h-[25rem]">
             {isLoading ? (
               <div className="text-center mt-28 relative lg:left-[100%] lg:right[100%] h-[30rem]">
                 <ColorRing
@@ -208,6 +81,7 @@ const InventoryTable: React.FC<InventoryTableProps> = ({
                     "#095AD3",
                   ]}
                 />
+                <p>Loading Inventory Table...</p>
               </div>
             ) : inventoryData.length === 0 ? (
               <div className="relative right-[100%] left-[100%] flex flex-col justify-center items-center pt-32 leading-10">

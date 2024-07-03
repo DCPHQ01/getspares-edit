@@ -28,7 +28,6 @@ function OverviewVendorMobile() {
   const [topPerformingProducts, setTopPerformingProducts] = useState<
     VendorOverview[]
   >([]);
-  "data for VendorOverview: ", data;
 
   useEffect(() => {
     if (data) {
@@ -49,13 +48,23 @@ function OverviewVendorMobile() {
   }, []);
   const usersFirstName = usersName?.firstName;
 
+  let userFirstName = "";
+  try {
+    const userName = JSON.parse(sessionStorage.getItem("userDetails") || "");
+    userFirstName = userName?.firstName;
+  } catch (error) {
+    console.error("Error parsing user details:", error);
+  }
+  console.log("data for VendorOverviewMobile name: ", usersFirstName);
+  console.log("data for VendorOverviewMobile names: ", userFirstName);
+
   return (
     <>
       <div>
         <div className={`justify-between items-center`}>
           <Header
             subtitle={`Take a quick glance on what is happening with meca`}
-            name={usersFirstName}
+            name={userFirstName}
           />
           <div className="mt-5 mb-5">
             <Link href={paths.toModalPage()}>
@@ -79,15 +88,6 @@ function OverviewVendorMobile() {
           topPerformingProduct={topPerformingProducts}
           isLoading={isLoading}
         />
-
-        {/* <div className=" flex justify-between mt-10 mb-10 font-bold text-lg">
-          <button className="flex gap-x-2 border border-[#EAECF0]  rounded-md h-[36px] w-[36px] pl-1">
-            <MdChevronLeft className="mt-1 text-2xl" />
-          </button>
-          <button className="flex gap-x-2 border border-[#EAECF0] rounded-md h-[36px] w-[36px] pl-1">
-            <MdChevronRight className="mt-1 text-2xl" />
-          </button>
-        </div> */}
       </div>
     </>
   );

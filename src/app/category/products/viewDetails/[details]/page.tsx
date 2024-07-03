@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
 import BasicTabs from "../../../../dashboard/components/table/buyerAdmin/FeedBackTab";
 import ProductReview from "../../../../dashboard/components/table/buyerAdmin/ProductReview";
 import DetailsTable from "../../../../dashboard/components/table/buyerAdmin/tab";
-import BuyerModal from "../../../../dashboard/components/table/vendoradmin/vendorModal";
+import VendorModal from "../../../../dashboard/components/table/vendoradmin/vendorModal";
 import { paths } from "../../../../../path/paths";
 import { formatAmount2 } from "../../../../../components/utils";
 import { useGetViewBuyersProductDetailsQuery } from "../../../../../redux/features/feedback/feedbackQuery";
@@ -156,6 +156,10 @@ export default function Details() {
   "view ", viewBuyerProducts;
   "The productInformation: ", productInformations;
 
+    const [openVendorModal, setOpenVendorModal] = useState(false);
+    const handleOpenVendorModal = () => {
+      setOpenVendorModal((val) => !val);
+    };
   return (
     <div className="relative pt-5" id="detailsDiv">
       <div id="mainContainer" className="container px-4 md:px-8 lg:px-16">
@@ -214,19 +218,19 @@ export default function Details() {
                         alt={image.alt}
                         className="h-full w-full object-cover"
                       />
-                      {/* {!showAllImages &&
+                      {!showAllImages &&
                         i === firstImages.length - 1 &&
                         remainingImages.length > 0 && (
                           <div
                             id="moreImages"
                             className="absolute rounded-lg inset-0 flex justify-center items-center bg-mecaDarkBlueBackgroundOverlay bg-opacity-50"
-                            onClick={() => setShowAllImages(true)}
+                            onClick={handleOpenVendorModal}
                           >
                             <p className="text-white text-3xl font-nunito font-semibold">
                               +{remainingImages.length}
                             </p>
                           </div>
-                        )} */}
+                        )}
                     </div>
                   ))}
                 </div>
@@ -277,8 +281,13 @@ export default function Details() {
           </div>
         </div>
       </div>
-      <div>
-        <BuyerModal open={opens} handleClose={handleClose} />
+      <div >
+      {openVendorModal && (
+        <div className="">
+          <VendorModal handleModalClose={handleOpenVendorModal} />
+        </div>
+      )}
+       
       </div>
     </div>
   );
