@@ -1,0 +1,20 @@
+input:focus + .bar{
+    display: block
+}
+.bar{
+    display: none;
+}
+
+.tip {
+    display: inline-block;
+    font-size: 0.9em;
+    color: rgba(0,0,0,0.5);
+    opacity: 0;
+    transform: translateY(2px);
+    transition: all 0.25s;
+}
+.is-focused .tip {
+    opacity: 1;
+    transform: translateY(0);
+    background-color: red;
+}

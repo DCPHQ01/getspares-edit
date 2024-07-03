@@ -4,11 +4,12 @@ import { CartProduct } from "../../types/cart/product";
 import Image from "next/image";
 import Parts from "../../assets/images/parts.png";
 import { MdDeleteOutline, MdMoreVert } from "react-icons/md";
-import { formatAmount } from "../utils";
-import { useEffect, useState } from "react";
+import {formatAmount, useNewFocus} from "../utils";
+import {useEffect, useRef, useState} from "react";
 import { setCart } from "../../redux/features/product/productSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import TruncateText from "../utils/utils";
+import style from '../cart/styles/checkOutcard.module.css'
 
 type Props = {
   cardCartItem: CartProduct;
@@ -23,10 +24,16 @@ export const CheckOutCard = ({ cardCartItem }: Props) => {
   }>({});
   const [isInputVisible, setIsInputVisible] = useState(false);
   const [quantity, setQuantity] = useState<string | number>("");
+  const [quantityNumber, setQuantityNumber] = useState([])
 
-  const num = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10+"];
+  const inputRef = useRef();
+  const focusedButton = useNewFocus(inputRef);
+
+
+
 
   const { cart } = useAppSelector((state) => state.product);
+
 
   const handleDropdownChange = (
     e: React.ChangeEvent<HTMLSelectElement>,
@@ -35,7 +42,7 @@ export const CheckOutCard = ({ cardCartItem }: Props) => {
     const value = e.target.value;
     if (value === "10+") {
       setIsInputVisible(true);
-      setQuantity("");
+      // setQuantity("");
     } else {
       setIsInputVisible(false);
       setQuantity(value);
@@ -48,7 +55,10 @@ export const CheckOutCard = ({ cardCartItem }: Props) => {
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuantity(e.target.value);
+
+    let { value, min, max } = e.target;
+    value = Math.max(min, Math.min(max,value));
+    setQuantity(value);
   };
 
   const handleUpdateQuantity = (val: any) => {
@@ -58,6 +68,9 @@ export const CheckOutCard = ({ cardCartItem }: Props) => {
 
     dispatch(setCart(newCart));
     localStorage.setItem("savedCartItems", JSON.stringify(newCart));
+    if(quantity < 10){
+      setIsInputVisible(false);
+    }
   };
 
   const toggleButton = (id: string) => {
@@ -67,11 +80,32 @@ export const CheckOutCard = ({ cardCartItem }: Props) => {
     }));
   };
 
+  const populateNumber = (id: number) => {
+    let numbers = [];
+
+    for (let i = 1; i <= id; i++) {
+      numbers.push(i);
+    }
+    return numbers
+  }
+
   useEffect(() => {
+
     if (cardCartItem) {
       setQuantity(cardCartItem.quantity!);
+      if(cardCartItem?.productInformation?.quantity > 9){
+        const newNum = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10+"];
+        setQuantityNumber(newNum)
+      }else{
+        let val = populateNumber(cardCartItem?.productInformation?.quantity)
+        setQuantityNumber(val)
+      }
+
     }
   }, [cardCartItem]);
+
+
+
 
   const removeItem = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
     e.preventDefault();
@@ -160,32 +194,39 @@ export const CheckOutCard = ({ cardCartItem }: Props) => {
                 <div className={"flex items-center gap-2"}>
                   <div className="text-black font-normal text-sm">Quantity</div>
                   {isInputVisible || Number(cardCartItem.quantity) > 9 ? (
-                    <div className="flex gap-x-2 cursor-pointer">
+
+                    <div className={`flex gap-x-2 cursor-pointer`}>
                       <input
                         title="quantity"
                         type="number"
-                        min="10"
+                        min={1}
+                        max={cardCartItem?.productInformation?.quantity}
                         value={quantity}
+                        // onChange={(e) => {
+                        //   if(e.target.value <= cardCartItem?.productInformation?.quantity){
+                        //     handleInputChange(e)
+                        //   }
+                        // }}
                         onChange={handleInputChange}
-                        className="w-16 h-9 rounded border-2 p-2 border-mecaVerificationCodeColor mt-2"
+                        className={`w-16 h-9 rounded border-2 p-2 border-mecaVerificationCodeColor mt-2`}
                       />
-                      <button
-                        onClick={() => handleUpdateQuantity(cardCartItem)}
-                        className="bg-mecaBluePrimaryColor rounded-lg mt-2 text-white cursor-pointer w-16 h-9"
-                      >
-                        Update
-                      </button>
+                       <button
+                          onClickCapture={() => handleUpdateQuantity(cardCartItem)}
+                          className={`bg-mecaBluePrimaryColor rounded-lg mt-2 text-white cursor-pointer w-16 h-9`}
+                       >
+                         Update
+                       </button>
                     </div>
                   ) : (
                     <select
                       onChange={(e) => handleDropdownChange(e, cardCartItem)}
                       title="quantity"
-                      value={cardCartItem.quantity}
-                      className="w-16 h-9 cursor-pointer rounded border-2 p-2 border-mecaVerificationCodeColor mt-2"
+                      value={quantity}
+                      className="w-16 h-9 cursor-pointer rounded border-2 p-1 border-mecaVerificationCodeColor mt-2"
                       name="categoria"
                       id="categoriesIdDiv"
                     >
-                      {num.map((obj, index) => (
+                      {quantityNumber.map((obj, index) => (
                         <option key={index} value={obj}>
                           {obj}
                         </option>
