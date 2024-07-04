@@ -12,9 +12,9 @@ function AgentOrder() {
         title={`Orders`}
         amount={`0`}
       />
-      <div className="mt-5">
+      {/* <div className="mt-5">
         <Searchbox />
-      </div>
+      </div> */}
       <Order />
     </div>
   );
