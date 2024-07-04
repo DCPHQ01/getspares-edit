@@ -63,9 +63,9 @@ function Buyers() {
         title={`Buyers`}
         amount={totalElement}
       />
-      <div className={`my-[1.25rem] flex justify-end`}>
+      {/* <div className={`my-[1.25rem] flex justify-end`}>
         <SearchBox placeholder={`Search`} />
-      </div>
+      </div> */}
       <BuyerTable data={buyerList} isLoading={isLoading} isError={isError} />
 
       <div className="flex mt-10 text-mecaBluePrimaryColor font-bold text-lg">

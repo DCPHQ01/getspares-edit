@@ -28,7 +28,7 @@ function BuyerOrderMobile() {
         title={`Orders`}
         amount={`430,607`}
       />
-      <Searchbox />
+      {/* <Searchbox /> */}
       <OrderTable data={buyerOrderList} isLoading={isLoading}/>
 
       <div className=" flex justify-end mt-10 mb-10 font-bold text-lg">

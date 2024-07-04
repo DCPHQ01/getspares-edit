@@ -76,9 +76,9 @@ function Vendors() {
         />
         {/* <AddButton title={`Add vendor`}/> */}
       </div>
-      <div className={`flex justify-end gap-2 mt-[1.25rem]`}>
+      {/* <div className={`flex justify-end gap-2 mt-[1.25rem]`}>
         <SearchBox placeholder={`Search for vendor`} />
-      </div>
+      </div> */}
       <VendorTable
         vendorList={vendorList}
         isLoading={isPaginationLoading || isLoading}

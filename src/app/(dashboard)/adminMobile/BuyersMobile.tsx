@@ -40,9 +40,9 @@ function Buyers() {
         title={`Buyers`}
         amount={`433,112`}
       />
-      <div className={`my-[1.25rem]`}>
+      {/* <div className={`my-[1.25rem]`}>
         <SearchBox placeholder={`Search for buyers`} />
-      </div>
+      </div> */}
 
       <BuyerTable data={buyerList} isLoading={isLoading} isError={isError} />
 

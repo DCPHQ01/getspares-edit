@@ -12,9 +12,9 @@ function Orders() {
         title={`Orders`}
         amount={`0`}
       />
-      <div className="mt-5 flex justify-end">
+      {/* <div className="mt-5 flex justify-end">
         <Searchbox />
-      </div>
+      </div> */}
       <Order />
     </div>
   );
