@@ -44,6 +44,12 @@ const manufacturerData = [
   { id: 32, manufacturer: "ISUZU" },
   { id: 33, manufacturer: "ACURA" },
 ];
+
+const conditionOptions = [
+  { id: 1, condition: "New" },
+  { id: 2, condition: "Refurbished" },
+];
+
 const CalledPagesPageFivePages = () => {
   const [productName, setProductName] = useState("");
   const [price, setPrice] = useState("");
@@ -53,18 +59,17 @@ const CalledPagesPageFivePages = () => {
   const [technicalDetails, setTechnicalDetails] = useState({
     manufacturer: "",
     manufacturerParts: "",
-    brand: "",
+    condition: "",
     model: "",
     weight: "",
     dimension: "",
     countryOfOrigin: "",
   });
-
   useEffect(() => {
-    const storedBasicInfoValues = sessionStorage?.getItem("basicInfoValues");
+    const storedBasicInfoValues = sessionStorage.getItem("basicInfoValues");
 
     const parsedBasicInfoValues =
-      storedBasicInfoValues && JSON?.parse(storedBasicInfoValues);
+      storedBasicInfoValues && JSON.parse(storedBasicInfoValues);
 
     if (parsedBasicInfoValues) {
       setProductName(parsedBasicInfoValues.productName);
@@ -74,10 +79,10 @@ const CalledPagesPageFivePages = () => {
   }, []);
 
   useEffect(() => {
-    const savedImages = sessionStorage?.getItem("clickedImage");
+    const savedImages = sessionStorage.getItem("clickedImage");
 
     if (savedImages) {
-      setImages(JSON?.parse(savedImages));
+      setImages(JSON.parse(savedImages));
     }
   }, []);
   const handleViewPreviousImages = () => {
@@ -136,7 +141,7 @@ const CalledPagesPageFivePages = () => {
       });
     }
   };
-  const productSpec = useAppSelector((state) => state?.company?.productData);
+  const productSpec = useAppSelector((state) => state.company.productData);
   console.log("product spec  ", productSpec);
   useEffect(() => {
     if (productSpec) {
@@ -175,6 +180,9 @@ const CalledPagesPageFivePages = () => {
                       })
                     }
                   >
+                    <option id={`manufacturer`} value="" disabled selected>
+                      Brand
+                    </option>
                     {manufacturerData.map((data) => (
                       <option
                         key={data.id}
@@ -200,19 +208,50 @@ const CalledPagesPageFivePages = () => {
                   onChange={handleTechnicalDetails}
                 />
 
-                <TextField
-                  required={true}
-                  id="filledbasic"
-                  label="Brand"
-                  variant="filled"
-                  type="text"
-                  name="brand"
-                  placeholder="E765"
-                  InputProps={{ disableUnderline: true }}
-                  className=" w-[29.4rem] mb-5 bg-mecaInputBgColor"
-                  value={technicalDetails.brand}
-                  onChange={handleTechnicalDetails}
-                />
+                {/*<TextField*/}
+                {/*  required={true}*/}
+                {/*  id="filledbasic"*/}
+                {/*  label="Brand"*/}
+                {/*  variant="filled"*/}
+                {/*  type="text"*/}
+                {/*  name="brand"*/}
+                {/*  placeholder="E765"*/}
+                {/*  InputProps={{ disableUnderline: true }}*/}
+                {/*  className=" w-[29.4rem] mb-5 bg-mecaInputBgColor"*/}
+                {/*  value={technicalDetails.brand}*/}
+                {/*  onChange={handleTechnicalDetails}*/}
+                {/*/>*/}
+
+                <div>
+                  <select
+                    id="condition"
+                    name="condition"
+                    style={{ backgroundColor: "porcelain" }}
+                    required={true}
+                    className="w-[29.4rem] h-14 border bg-mecaInputBgColor rounded-md pl-2 mb-5 outline-none"
+                    title="condition"
+                    value={technicalDetails.condition}
+                    onChange={(e) =>
+                      setTechnicalDetails({
+                        ...technicalDetails,
+                        condition: e.target.value,
+                      })
+                    }
+                  >
+                    <option id={`condition`} value="" disabled selected>
+                      Condition
+                    </option>
+                    {conditionOptions.map((option) => (
+                      <option
+                        key={option.id}
+                        value={option.condition}
+                        className="border border-b-2 border-gray-400"
+                      >
+                        {option.condition}
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
                 <TextField
                   required={true}

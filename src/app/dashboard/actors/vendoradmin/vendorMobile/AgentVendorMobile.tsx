@@ -17,7 +17,7 @@ function AgentVendorMobile() {
       <Header
         subtitle={`Keep track your agents and their transactions`}
         title={`Agents`}
-        amount={`430,607`}
+        amount={`0`}
       />
       <div className={` justify-between items-center my-[1.5rem]`}>
         <Tabs
@@ -25,11 +25,11 @@ function AgentVendorMobile() {
           activeTab="with_sales"
           onTabChange={(status) => status}
         />
-        <div className={` flex mt-5`}>
-          <div className="">{/* <SortButton /> */}</div>
+        {/* <div className={` flex mt-5`}> */}
+          {/* <div className=""><SortButton /></div> */}
 
-          <SearchBox />
-        </div>
+          {/* <SearchBox />
+        </div> */}
       </div>
 
       <VendorAgentTable />
