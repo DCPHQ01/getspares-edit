@@ -85,8 +85,8 @@ const CalledPagesPageTwoPages = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const savedImages = sessionStorage.getItem("clickedImage");
-    setImages(JSON.parse(savedImages || "[]") as string[]);
+    const savedImages = sessionStorage?.getItem("clickedImage");
+    setImages(JSON?.parse(savedImages || "[]") as string[]);
   }, []);
 
   const handleViewPreviousImages = () => {

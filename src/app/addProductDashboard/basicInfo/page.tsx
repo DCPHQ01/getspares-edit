@@ -21,7 +21,7 @@ interface ProductData {
 }
 const CalledPagesPageOnePages = () => {
   const productData = useAppSelector(
-    (state) => state.company.productData as ProductData
+    (state) => state?.company?.productData as ProductData
   );
   const [descriptionError, setDescriptionError] = useState("");
   const [basicInfoValues, setBasicInfoValues] = useState({
@@ -36,9 +36,9 @@ const CalledPagesPageOnePages = () => {
   getCategoriesData?.data, "get categories data";
 
   useEffect(() => {
-    const savedData = sessionStorage.getItem("basicInfoValues");
+    const savedData = sessionStorage?.getItem("basicInfoValues");
     if (savedData) {
-      setBasicInfoValues(JSON.parse(savedData));
+      setBasicInfoValues(JSON?.parse(savedData));
     } else if (productData) {
       populateData(productData);
     }

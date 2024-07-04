@@ -402,11 +402,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
         {navData.map(
           (item) =>
             active === item.id && (
-              <div
-                className="flex justify-center"
-                ref={dropdownRef}
-                key={item.id}
-              >
+              <div className="flex justify-center" key={item.id}>
                 <div className="absolute left-96 top-40 z-50">
                   {item.dropdownComponent &&
                     React.cloneElement(item.dropdownComponent, {

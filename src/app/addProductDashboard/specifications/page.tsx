@@ -26,10 +26,10 @@ const CalledPagesPageFourPages = () => {
   });
 
   useEffect(() => {
-    const storedBasicInfoValues = sessionStorage.getItem("basicInfoValues");
+    const storedBasicInfoValues = sessionStorage?.getItem("basicInfoValues");
 
     const parsedBasicInfoValues =
-      storedBasicInfoValues && JSON.parse(storedBasicInfoValues);
+      storedBasicInfoValues && JSON?.parse(storedBasicInfoValues);
 
     if (parsedBasicInfoValues) {
       setProductName(parsedBasicInfoValues.productName);
@@ -39,10 +39,10 @@ const CalledPagesPageFourPages = () => {
   }, []);
 
   useEffect(() => {
-    const savedImages = sessionStorage.getItem("clickedImage");
+    const savedImages = sessionStorage?.getItem("clickedImage");
 
     if (savedImages) {
-      setImages(JSON.parse(savedImages));
+      setImages(JSON?.parse(savedImages));
     }
   }, []);
   const handleViewPreviousImages = () => {
@@ -77,9 +77,9 @@ const CalledPagesPageFourPages = () => {
   };
 
   useEffect(() => {
-    const savedData = sessionStorage.getItem("specInfo");
+    const savedData = sessionStorage?.getItem("specInfo");
     if (savedData) {
-      setSpecifications(JSON.parse(savedData));
+      setSpecifications(JSON?.parse(savedData));
     }
   }, []);
 
