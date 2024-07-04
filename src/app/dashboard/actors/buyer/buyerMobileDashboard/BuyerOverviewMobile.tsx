@@ -27,6 +27,7 @@ function BuyerOverviewMobile() {
   }, [data]);
 
   const router = useRouter();
+
   const handleMore = () => {
     router.push(paths.toHome());
   };
@@ -37,7 +38,7 @@ function BuyerOverviewMobile() {
         className={`flex items-center justify-between relative bottom-5 -z-50`}
       >
         <p className={`font-semibold text-[1.9rem]`}>Recently added parts</p>
-        <i className={`underline text-[#095AD3]`}>View more</i>
+        <p className={`underline text-[#095AD3]`} onClick={handleMore}>View more</p>
       </div>
       <div className={` mb-[4rem]  w-[100%] truncate`}>
         <BuyerCard />

@@ -4,12 +4,7 @@ import "../../../../../styles/profile.css";
 import Header from "../../../../dashboard/components/ui/header";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
-import Addbutton from "../../../components/ui/addbutton";
-import TextareaAutosize from "@mui/material/TextareaAutosize";
 import Modal from "@mui/material/Modal";
-import Button from "@mui/material/Button";
 import "../../../../../styles/addCompanyPageStyle/addCompanyModal.css";
 import { useGetUserAllUsersProfileQuery } from "../../../../../redux/features/profile/profileQuery";
 
@@ -104,11 +99,10 @@ const Profile = () => {
             className="bg-mecaActiveBackgroundNavColor text-mecaBluePrimaryColor w-16 h-16 text-4xl -z-50"
             {...stringAvatar(`${viewProfile.name}`)}
           />
-          <div>
+          <div className="mt-1">
             <Header
               subtitle={`${viewProfile.companyEmail}`}
               title={`${viewProfile.name}`}
-              amount={``}
             />
           </div>
         </div>
@@ -201,16 +195,20 @@ const Profile = () => {
               className="text-wrap lg:w-[364px] pl-5 pt-3 w-[100%] 2xl:w-[35rem] rounded  bg-mecaBorderColor"
               style={{ backgroundColor: "porcelain" }}
             >
-              <p className="text-xs text-gray-500">Address1</p>
-              <p>{viewProfile.address1}</p>
+              <p className="text-xs text-gray-500 ">Address1</p>
+              <p className="scrollbar-none overflow-x-scroll w-[100%]">
+                {viewProfile.address1}
+              </p>
             </div>
 
             <div
               className="lg:w-[364px] pl-5 pt-3 w-[100%] 2xl:w-[35rem] rounded  bg-mecaBorderColor"
               style={{ backgroundColor: "porcelain" }}
             >
-              <p className="text-xs text-gray-500">Address2</p>
-              <p>{viewProfile.address2}</p>
+              <p className="text-xs w-[100%] text-gray-500 ">Address2</p>
+              <p className="scrollbar-none overflow-x-scroll w-[100%]">
+                {viewProfile.address2}
+              </p>
             </div>
           </div>
           <div className="flex gap-x-4 mt-5">

@@ -13,7 +13,6 @@ import IconButton from "@mui/material/IconButton";
 import DropdownPage from "./dropdown/page";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
-import Button from "@mui/material/Button";
 import { JwtPayload as BaseJwtPayload } from "jsonwebtoken";
 import * as JWT from "jwt-decode";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -22,7 +21,12 @@ import BrandPage from "./brand/page";
 import { paths } from "../../path/paths";
 import { setCart } from "../../redux/features/product/productSlice";
 import { CartProduct } from "../../types/cart/product";
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
 import MecaGlobalSearch from "./MecaGlobalSearch";
+
+import MenuItem from "@mui/material/MenuItem";
+import Fade from "@mui/material/Fade";
 
 const navData = [
   {
@@ -137,219 +141,272 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
     }
   }, [active]);
 
-  return (
-     <>
-       <nav className="w-full bg-white relative" id="navbarContainer">
-         {/* mobile and tab */}
-         <div
-            className="w-full h-[60px] border-b-2 z-50 border-b-mecaBottomBorder px-4 flex justify-between items-center lg:hidden"
-            id="contentContainer"
-         >
-           <p
-              className="text-mecaActiveIconsNavColor text-xl font-nunito font-bold cursor-pointer"
-              onClick={() => router.push(paths.toHome())}
-           >
-             e-meca
-           </p>
-           <div className="flex items-center gap-x-2" id="menuSearchCart">
-             <MdSearch size={18} />
-             <Link href={paths.toCart()}>
-               <div
-                  className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1"
-                  id="textCartMobTab"
-               >
-                 <MdOutlineShoppingCart
-                    size={18}
-                    className="text-mecaBluePrimaryColor"
-                 />
-                 <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
-                   {cart?.length || 0}
-                 </p>
-               </div>
-             </Link>
-             <div
-                id="mobileMenuBtn"
-                className="cursor-pointer"
-                onClick={() => setOpen(!open)}
-             >
-               <MdMenu size={18} />
-             </div>
-           </div>
-         </div>
-         {/* desktop */}
-         <div
-            className="hidden lg:flex flex-col border-b-2 border-b-mecaBottomBorder px-10"
-            id="menuContainerDesktop"
-         >
-           <div
-              className="w-full h-[83px] flex justify-between items-center"
-              id="desktopNavContentContainer"
-           >
-             <div className="w-[20%]" id="mecaLogoDesktop">
-               <p
-                  className="text-mecaActiveIconsNavColor text-3xl font-nunito font-bold cursor-pointer"
-                  onClick={() => router.push(paths.toHome())}
-               >
-                 e-meca
-               </p>
-             </div>
-             <div
-                className="flex-grow flex justify-center items-center gap-x-2 relative"
-                id="searchDesktop"
-             >
-               <div className="relative w-full max-w-[580px]">
-                 <MecaGlobalSearch/>
-               </div>
-             </div>
-             <div
-                className="w-[28%] h-8 flex justify-end items-center gap-x-2"
-                id="cartDesktop"
-             >
-               <Link href={paths.toCart()}>
-                 <div
-                    className="w-[49px] h-[28px] ml-8 flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1 cursor-pointer"
-                    id="textCart"
-                 >
-                   <MdOutlineShoppingCart
-                      size={18}
-                      className="text-mecaBluePrimaryColor"
-                   />
-                   <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
-                     {cart?.length || 0}
-                   </p>
-                 </div>
-               </Link>
-               <div className="w-full flex items-center h-full">
-                 {!tokens ? (
-                    <div className="w-full flex justify-end items-center h-full gap-4">
-                      <button
-                         type="button"
-                         className="w-[28%] xl:w-[38%] h-full border border-mecaBluePrimaryColor bg-white text-mecaBluePrimaryColor text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
-                         id="startShoppingBtnMainNavBar"
-                         onClick={handleLogin}
-                      >
-                        Login
-                      </button>
-                      <button
-                         type="button"
-                         className="w-[58%] xl:w-[52%] h-full bg-mecaBluePrimaryColor text-white text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
-                         id="startShoppingBtn"
-                         onClick={handleStartShopping}
-                      >
-                        Create an account
-                      </button>
-                    </div>
-                 ) : (
-                    <button
-                       onClick={profile}
-                       className="flex gap-2"
-                       type="button"
-                       id="profileBtnMainNav"
-                    >
-                      <MdOutlineAccountCircle className="w-8 h-8 text-mecaProfileColor" />
-                      <p className="mt-2 font-normal text-mecaDarkBlueBackgroundOverlay text-sm">
-                        Hi, {name}
-                      </p>
-                      {toggleProfile ? (
-                         <MdExpandLess className="text-mecaGoBackArrow w-5 h-5 mt-2" />
-                      ) : (
-                         <MdExpandMore className="text-mecaGoBackArrow w-5 h-5 mt-2" />
-                      )}
-                    </button>
-                 )}
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const openNavbar = Boolean(anchorEl);
+  const handleNavbarClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
-                 {toggleProfile && (
-                    <div
-                       className="w-52 h-24 rounded-lg p-1 bg-white absolute top-16 right-24 "
-                       style={{ boxShadow: "0px 2px 8px 0px #63636333" }}
+  return (
+    <nav className="w-full bg-white relative" id="navbarContainer">
+      {/* mobile and tab */}
+      <div
+        className="w-full h-[60px] border-b-2 z-50 border-b-mecaBottomBorder px-4 flex justify-between items-center lg:hidden"
+        id="contentContainer"
+      >
+        <p
+          className="text-mecaActiveIconsNavColor text-xl font-nunito font-bold cursor-pointer"
+          onClick={() => router.push(paths.toHome())}
+        >
+          e-meca
+        </p>
+        <div className="flex items-center gap-x-2" id="menuSearchCart">
+          <MdSearch size={18} />
+          <Link href={paths.toCart()}>
+            <div
+              className="w-[49px] h-[28px] flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1"
+              id="textCartMobTab"
+            >
+              <MdOutlineShoppingCart
+                size={18}
+                className="text-mecaBluePrimaryColor"
+              />
+              <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
+                {cart?.length || 0}
+              </p>
+            </div>
+          </Link>
+          <div
+            id="mobileMenuBtn"
+            className="cursor-pointer"
+            onClick={() => setOpen(!open)}
+          >
+            <MdMenu size={18} />
+          </div>
+        </div>
+      </div>
+      {/* desktop */}
+      <div
+        className="hidden lg:flex flex-col border-b-2 border-b-mecaBottomBorder px-10"
+        id="menuContainerDesktop"
+      >
+        <div
+          className="w-full h-[83px] flex justify-between items-center"
+          id="desktopNavContentContainer"
+        >
+          <div className="w-[20%]" id="mecaLogoDesktop">
+            <p
+              className="text-mecaActiveIconsNavColor text-3xl font-nunito font-bold cursor-pointer"
+              onClick={() => router.push(paths.toHome())}
+            >
+              e-meca
+            </p>
+          </div>
+          <div
+            className="flex-grow flex justify-center items-center gap-x-2 relative"
+            id="searchDesktop"
+          >
+            <div className="relative w-full max-w-[580px]">
+              <MecaGlobalSearch/>
+            </div>
+          </div>
+          <div
+            className="w-[28%] h-8 flex justify-end items-center gap-x-2"
+            id="cartDesktop"
+          >
+            <Link href={paths.toCart()}>
+              <div
+                className="w-[49px] h-[28px]  flex items-center gap-x-2 bg-mecaActiveBackgroundNavColor border border-bg-mecaCartColor rounded-full px-1 cursor-pointer"
+                id="textCart"
+              >
+                <MdOutlineShoppingCart
+                  size={18}
+                  className="text-mecaBluePrimaryColor"
+                />
+                <p className="text-mecaBluePrimaryColor text-sm font-nunito font-semibold">
+                  {cart?.length || 0}
+                </p>
+              </div>
+            </Link>
+            <div className="w-full flex items-center h-full">
+              {!tokens ? (
+                <div className="w-full flex justify-end items-center h-full gap-4">
+                  <button
+                    type="button"
+                    className="w-[28%] xl:w-[38%] h-full border border-mecaBluePrimaryColor bg-white text-mecaBluePrimaryColor text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
+                    id="startShoppingBtnMainNavBar"
+                    onClick={handleLogin}
+                  >
+                    Login
+                  </button>
+                  <button
+                    type="button"
+                    className="w-[75%] xl:w-[52%] h-full bg-mecaBluePrimaryColor text-white text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
+                    id="startShoppingBtn"
+                    onClick={handleStartShopping}
+                  >
+                    Create an account
+                  </button>
+                </div>
+              ) : (
+                <div className="">
+                  <Button
+                    id="fadebutton"
+                    aria-controls={openNavbar ? "fade-menu" : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={openNavbar ? "true" : undefined}
+                    onClick={handleNavbarClick}
+                  >
+                    <div className="flex gap-x-2">
+                      <div className="">
+                        <p className="mt-1 capitalize  text-mecaDarkBlueBackgroundOverlay text-base font-medium">
+                          Hi, {name}
+                        </p>
+                      </div>
+                      <div className="">
+                        {toggleProfile ? (
+                          <MdExpandLess className="text-mecaGoBackArrow w-5 h-5 mt-1.5" />
+                        ) : (
+                          <MdExpandMore className="text-mecaGoBackArrow w-5 h-5 mt-1.5" />
+                        )}
+                      </div>
+                    </div>
+                  </Button>
+                </div>
+              )}
+              <Menu
+                id="fade-menu"
+                MenuListProps={{
+                  "aria-labelledby": "fade-button",
+                }}
+                className="z-[2000]"
+                anchorEl={anchorEl}
+                open={openNavbar}
+                onClose={handleClose}
+              >
+                <button
+                  id="profileBtn"
+                  onClick={handleClose}
+                  className="flex gap-2 w-44 m-auto  h-10 p-2 pt-3 hover:bg-mecaActiveBackgroundNavColor hover:text-mecaActiveIconsNavColor"
+                >
+                  <MdOutlineAccountCircle className="text-mecaProfileColor w-6 h-6 " />
+                  <span
+                    className="w-24 h-6 flex gap-1 font-normal text-base text-mecaDarkBlueBackgroundOverlay hover:text-mecaActiveIconsNavColor"
+                    onClick={handleDashboard}
+                  >
+                    <span>My</span>
+                    <span>Dashboard</span>
+                  </span>
+                </button>
+
+                <div className="mt-1">
+                  <button
+                    onClick={handleClose}
+                    className="flex gap-2 m-auto w-44 h-10 p-2 pt-3 hover:bg-mecaActiveBackgroundNavColor hover:text-mecaActiveIconsNavColor"
+                  >
+                    <MdLogout className="text-mecaProfileColor w-6 h-6 " />
+                    <span
+                      className="h-6 font-normal text-base text-mecaDarkBlueBackgroundOverlay hover:text-mecaActiveIconsNavColor"
+                      onClick={logOut}
                     >
-                      <button
-                         id="profileBtn"
-                         onClick={profile}
-                         className="flex gap-2 w-48 m-auto  h-10 p-2 pt-3 hover:bg-mecaActiveBackgroundNavColor hover:text-mecaActiveIconsNavColor"
-                      >
-                        <MdOutlineAccountCircle className="text-mecaProfileColor w-6 h-6 " />
-                        <span
-                           className="w-24 h-6 flex gap-1 font-normal text-base text-mecaDarkBlueBackgroundOverlay hover:text-mecaActiveIconsNavColor"
-                           onClick={handleDashboard}
-                        >
+                      Logout
+                    </span>
+                  </button>
+                </div>
+
+                {/* <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={handleClose}>Logout</MenuItem> */}
+              </Menu>
+              {/* {toggleProfile && (
+                <div
+                  className="w-52 h-24 rounded-lg p-1 bg-white absolute top-16 right-24 "
+                  style={{ boxShadow: "0px 2px 8px 0px #63636333" }}
+                >
+                  <button
+                    id="profileBtn"
+                    onClick={profile}
+                    className="flex gap-2 w-48 m-auto  h-10 p-2 pt-3 hover:bg-mecaActiveBackgroundNavColor hover:text-mecaActiveIconsNavColor"
+                  >
+                    <MdOutlineAccountCircle className="text-mecaProfileColor w-6 h-6 " />
+                    <span
+                      className="w-24 h-6 flex gap-1 font-normal text-base text-mecaDarkBlueBackgroundOverlay hover:text-mecaActiveIconsNavColor"
+                      onClick={handleDashboard}
+                    >
                       <span>My</span>
                       <span>Dashboard</span>
                     </span>
-                      </button>
-                      <div className="mt-1">
-                        <button
-                           onClick={profile}
-                           className="flex gap-2 m-auto w-48 h-10 p-2 pt-3 hover:bg-mecaActiveBackgroundNavColor hover:text-mecaActiveIconsNavColor"
-                        >
-                          <MdLogout className="text-mecaProfileColor w-6 h-6 " />
-                          <span
-                             className="h-6 font-normal text-base text-mecaDarkBlueBackgroundOverlay hover:text-mecaActiveIconsNavColor"
-                             onClick={logOut}
-                          >
+                  </button>
+                  <div className="mt-1">
+                    <button
+                      onClick={profile}
+                      className="flex gap-2 m-auto w-48 h-10 p-2 pt-3 hover:bg-mecaActiveBackgroundNavColor hover:text-mecaActiveIconsNavColor"
+                    >
+                      <MdLogout className="text-mecaProfileColor w-6 h-6 " />
+                      <span
+                        className="h-6 font-normal text-base text-mecaDarkBlueBackgroundOverlay hover:text-mecaActiveIconsNavColor"
+                        onClick={logOut}
+                      >
                         Logout
                       </span>
-                        </button>
-                      </div>
-                    </div>
-                 )}
-               </div>
-             </div>
-           </div>
-         </div>
-         <div
-            className="hidden w-full h-20 lg:flex justify-center items-center"
-            id="navigationData"
-         >
-           {navData.map((item) => (
-              <div
-                 className={`w-[110px] h-8 flex justify-center items-center px-3 cursor-pointer ${
-                    active === item.id ? "bg-mecaActiveBackgroundNavColor" : ""
-                 } rounded-full`}
-                 id="navItem"
-                 onClick={() => handleClick(item.id)}
-                 key={item.id}
-              >
-                <p
-                   className={`${
-                      active === item.id
-                         ? "text-mecaBluePrimaryColor"
-                         : "text-mecaDarkBlueBackgroundOverlay"
-                   } text-sm font-nunito font-semibold capitalize`}
-                   onClick={() => router.push(item.link)}
-                >
-                  {item.title}
-                </p>
-                <div>
-                  {item.id === active ? (
-                     <p>{item.icon2}</p>
-                  ) : (
-                     <p className="text-mecaGoBackArrow">{item.icon}</p>
-                  )}
+                    </button>
+                  </div>
+                </div>
+              )} */}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="hidden w-full h-20 lg:flex justify-center items-center"
+        id="navigationData"
+      >
+        {navData.map((item) => (
+          <div
+            className={`w-[110px] h-8 flex justify-center items-center px-3 cursor-pointer ${
+              active === item.id ? "bg-mecaActiveBackgroundNavColor" : ""
+            } rounded-full`}
+            id="navItem"
+            onClick={() => handleClick(item.id)}
+            key={item.id}
+          >
+            <p
+              className={`${
+                active === item.id
+                  ? "text-mecaBluePrimaryColor"
+                  : "text-mecaDarkBlueBackgroundOverlay"
+              } text-sm font-nunito font-semibold capitalize`}
+              onClick={() => router.push(item.link)}
+            >
+              {item.title}
+            </p>
+            <div>
+              {item.id === active ? (
+                <p>{item.icon2}</p>
+              ) : (
+                <p className="text-mecaGoBackArrow">{item.icon}</p>
+              )}
+            </div>
+          </div>
+        ))}
+
+        {navData.map(
+          (item) =>
+            active === item.id && (
+              <div className="flex justify-center" key={item.id}>
+                <div className="absolute left-96 top-40 z-50">
+                  {item.dropdownComponent &&
+                    React.cloneElement(item.dropdownComponent, {
+                      closeDropdown,
+                    })}
                 </div>
               </div>
-           ))}
-
-           {navData.map(
-              (item) =>
-                 active === item.id && (
-                    <div
-                       className="flex justify-center"
-                       ref={dropdownRef}
-                       key={item.id}
-                    >
-                      <div className="absolute left-96 top-40 z-50">
-                        {item.dropdownComponent &&
-                           React.cloneElement(item.dropdownComponent, {
-                             closeDropdown,
-                           })}
-                      </div>
-                    </div>
-                 )
-           )}
-         </div>
-       </nav>
-
-     </>
+            )
+        )}
+      </div>
+    </nav>
   );
 }
