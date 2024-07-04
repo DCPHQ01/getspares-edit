@@ -118,7 +118,7 @@ export const formatAmount2 = (price: string | number) => {
   }
 };
 
-export const format = (price: string | number) => {
+export const format = (price:  number | string) => {
   if (price !== undefined && price !== null) {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
@@ -136,6 +136,26 @@ export const formatAmount3 = (price: string) => {
       style: "currency",
       currency: newStr[0] && "NGN",
     }).format(Number(newStr[1]));
+  } else {
+    return "₦0.00";
+  }
+};
+
+
+export const formatAmount4 = (price: string) => {
+  console.log(price);
+
+  if (price) {
+    // Convert the price to a number
+    const amount = parseFloat(price.replace(/,/g, ''));
+    // Format the amount with thousands separator
+    const formattedAmount = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'NGN',
+      minimumFractionDigits: 2,
+    }).format(amount);
+    // Remove the currency symbol and use the desired symbol '₦'
+    return '₦' + formattedAmount.replace('NGN', '').trim();
   } else {
     return "₦0.00";
   }
