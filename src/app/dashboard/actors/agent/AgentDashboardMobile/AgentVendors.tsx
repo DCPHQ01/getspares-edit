@@ -17,11 +17,11 @@ function AgentVendors() {
           amount={`0`}
         />
       </div>
-      <div className={`flex flex-col-reverse`}>
+      {/* <div className={`flex flex-col-reverse`}>
         <div className="mb-5">
           <Searchbox />
         </div>
-      </div>
+      </div> */}
 
       <VendorTable />
     </>

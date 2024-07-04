@@ -67,7 +67,7 @@ const Profile = () => {
           className="bg-mecaActiveBackgroundNavColor text-mecaBluePrimaryColor w-16 h-16 text-4xl -z-50"
           {...stringAvatar(fullName)}
         />
-        <div>
+        <div className="mt-1">
           <Header subtitle={formData.email} title={fullName} />
         </div>
       </div>

@@ -332,16 +332,16 @@ function Category() {
         </Modal>
       </div>
 
-      <div
+      {/* <div
         className="flex flex-row-reverse justify-between items-center mb-[1.25rem]"
         id="searchBox"
-      >
+        >
         <SearchBox placeholder="Search" />
-        <PeriodRadios
+        </div> */}
+      <PeriodRadios
           activityPeriod={activityPeriod}
           onPeriodChange={handlePeriodChange}
         />
-      </div>
 
       <CategoryTable categoryList={categoryList} isLoading={isLoading} />
 

@@ -145,6 +145,15 @@ const AddProductImage = () => {
     <div className="z-50 fixed top-0 h-40 w-[100%]">
       <div className="bg-white">
         <div className="pt-[3rem] mb-3 w-[80%] m-auto flex justify-between">
+          <div>
+            <span
+              onClick={() => router.push(paths.toDashboard())}
+              id="e-mecaLogod"
+              className="font-bold text-2xl cursor-pointer text-mecaActiveIconsNavColor"
+            >
+              e-meca
+            </span>
+          </div>
           <h1 className="text-xl font-semibold">
             {productId ? "Edit product" : "Add new product"}
           </h1>

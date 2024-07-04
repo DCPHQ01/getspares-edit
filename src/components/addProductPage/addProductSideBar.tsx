@@ -129,26 +129,26 @@ function ResponsiveDrawer({ step, setStep }: any) {
       <div className="hidden md:flex gap-x-4 w-full h-1/2  " id="sidebardiv2">
         <div className="flex flex-col justify-center gap-y-12" id="sidebardiv3">
           <div
-            className="flex flex-col justify-center h-full w-[200px]"
+            className="flex flex-col justify-center h-full w-[200px] gap-y-2"
             id="sidebardiv4"
           >
-            {details.map((item: dataObject) => (
+            {details.map((item: dataObject, index: number) => (
               <div
                 className="flex justify-between items-center cursor-pointer"
                 id="sidebardiv5"
-                key={item.id}
+                key={index}
                 onClick={() => handleToggle(item.id, item.link)}
               >
                 <div
                   id="sidebardiv6"
-                  className={`text-gray-400 flex flex-col h-10 py-2 px-4   ${
+                  className={`text-gray-400 cursor-pointer flex flex-col${
                     activeTab === item.title
                       ? "text-mecaAddProductSidebarList text-base font-semibold bg-mecaSearchColor"
                       : "`text-mecaAddProductSidebarList font-normal text-sm"
                   }`}
                 >
                   <p
-                    className="font-bold    text-base font-nunito_sans "
+                    className="font-bold text-base font-nunito_sans"
                     id="sidebardivHeader"
                   >
                     {item.title}

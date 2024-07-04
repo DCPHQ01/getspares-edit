@@ -67,9 +67,9 @@ function Agents() {
           title={`Agents`}
           amount={totalElements}
         />
-        <div className={`my-[1.25rem] flex justify-end`}>
+        {/* <div className={`my-[1.25rem] flex justify-end`}>
           <SearchBox placeholder={`Search for agent`} />
-        </div>
+        </div> */}
       </div>
 
       <AgentTable agentList={agentList} isLoading={isLoading}/>

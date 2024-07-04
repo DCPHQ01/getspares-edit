@@ -273,7 +273,7 @@ function CategoryMobile() {
       <div
         className={`flex justify-between gap-[100px] mr-[2rem] items-center mb-[1.25rem]`}
       >
-        <SearchBox placeholder={`Search for category`} />
+        {/* <SearchBox placeholder={`Search for category`} /> */}
         {/*<PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange} />*/}
 
         <PeriodRadios

@@ -38,9 +38,9 @@ function OrderVendorMobile() {
       <Header
         subtitle={`Keep track of buyers, items bought and their transaction values.`}
         title={`Orders`}
-        amount={`430,607`}
+        amount={`0`}
       />
-      <Searchbox />
+      {/* <Searchbox /> */}
 
       <VendorOrderTable data={vendorOrderList} isLoading={isLoading} />
 

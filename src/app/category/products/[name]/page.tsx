@@ -234,11 +234,12 @@ export default function Products() {
                           id="itemImageDiv"
                         >
                           {item?.image ? (
-                            <Image
+                            <img
                               src={item?.image}
                               alt="tractor image"
-                              width={144}
-                              height={106}
+                              className="w-[144px] h-[106px]"
+                              // width={144}
+                              // height={106}
                             />
                           ) : null}
                         </div>
@@ -452,11 +453,12 @@ export default function Products() {
                       id="itemImage"
                     >
                       {item?.image ? (
-                        <Image
+                        <img
                           src={item?.image}
                           alt="tractor image"
-                          width={144}
-                          height={106}
+                          className="w-[144px] h-[106px]"
+                          // width={144}
+                          // height={106}
                         />
                       ) : null}
                     </div>
