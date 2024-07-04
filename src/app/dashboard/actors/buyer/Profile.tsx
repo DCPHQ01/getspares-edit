@@ -53,10 +53,9 @@ const Profile = () => {
     }
   }, []);
 
-  console.log("saved details ", details);
   return (
     <div>
-      <Header subtitle={``} title={`Profile`} amount={``} />
+      <Header subtitle={``} title={`Profile`} />
       <div className="flex gap-x-2 mb-12 mt-4">
         <Avatar
           className="bg-mecaActiveBackgroundNavColor text-mecaBluePrimaryColor w-16 h-16 text-4xl"
@@ -64,8 +63,8 @@ const Profile = () => {
         />
         <div>
           <Header
-             subtitle={`${details?.email}`}
-             title={`${details?.firstName} ${details?.lastName}`}
+            subtitle={`${details?.email}`}
+            title={`${details?.firstName} ${details?.lastName}`}
           />
         </div>
       </div>

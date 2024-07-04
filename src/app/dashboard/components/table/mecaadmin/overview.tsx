@@ -75,7 +75,6 @@ function Overview({ data, isLoading }: OverviewTableProps) {
                       "#095AD3",
                     ]}
                   />
-                  <p>Loading Overview Table...</p>
                 </div>
               </td>
             </tr>

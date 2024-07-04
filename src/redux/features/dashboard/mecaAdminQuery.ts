@@ -26,9 +26,10 @@ export const mecaAdminQuery = createApi({
       }),
     }),
     getMecaAdminBuyer: builder.query({
-      query: ({ page, size }) => ({
-        url: `/dashboard/meca-buyers?page=${page}&size=${size}`,
-        method:"GET"
+      query: (body) => ({
+        url: `/auth/view-all-users-by-role`,
+        method:"POST",
+        body
       }),
     }),
     getMecaAdminDashboardVendor: builder.query({
@@ -60,10 +61,10 @@ export const mecaAdminQuery = createApi({
 });
 
 // export const {useGetMecaAdminInventoryMutation, useAddCategoryMutation, useGetMecaAdminOverviewQuery, useGetTopPerformingVendorsQuery, useGetMecaAdminBuyerQuery,useGetMecaAdminDashboardVendorQuery,useGetViewAllMecaAdminCategoryQuery  } = mecaAdminQuery;
-export const {useGetMecaAdminInventoryMutation,useAddCategoryMutation, useGetMecaAdminOverviewQuery, 
+export const {useGetMecaAdminInventoryMutation,useAddCategoryMutation, useGetMecaAdminOverviewQuery,
               useGetTopPerformingVendorsQuery, useGetMecaAdminBuyerQuery,
-              useGetMecaAdminDashboardVendorQuery,useGetViewAllMecaAdminCategoryQuery, 
-              useGetMecaAdminAgentQuery  
+              useGetMecaAdminDashboardVendorQuery,useGetViewAllMecaAdminCategoryQuery,
+              useGetMecaAdminAgentQuery
             } = mecaAdminQuery;
 
 

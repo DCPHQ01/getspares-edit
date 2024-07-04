@@ -19,7 +19,7 @@ const Index: React.FC<CardProps> = ({ cardField }) => {
       amount: cardField.totalNumberOfPartOrdered,
       percentage: 32,
       onClick: () => {
-        console.log("View total number of parts ordered");
+        ("View total number of parts ordered");
       },
     },
     {
@@ -27,7 +27,7 @@ const Index: React.FC<CardProps> = ({ cardField }) => {
       amount: cardField.totalNumberOfAgent,
       percentage: 10,
       onClick: () => {
-        console.log("View total number of agents");
+        ("View total number of agents");
       },
     },
     {
@@ -35,7 +35,7 @@ const Index: React.FC<CardProps> = ({ cardField }) => {
       amount: cardField.totalTransactionValue,
       percentage: 59,
       onClick: () => {
-        console.log("View total transaction value");
+        ("View total transaction value");
       },
     },
     {
@@ -43,27 +43,27 @@ const Index: React.FC<CardProps> = ({ cardField }) => {
       amount: cardField.totalNumberOfVendor,
       percentage: 43,
       onClick: () => {
-        console.log("View total number of vendors");
+        ("View total number of vendors");
       },
     },
   ];
 
   return (
-      <div
-          id="cardContainer"
-          className={`lg:mt-[1rem] mb-[1rem] gap-4 lg:flex justify-between w-full`}
-      >
-        {cardProps?.map((card, index) => (
-            <div id={`card_${index}`} key={index} className="">
-              <Card
-                  total={card.total}
-                  amount={card.amount}
-                  percentage={card.percentage}
-                  onClick={card.onClick}
-              />
-            </div>
-        ))}
-      </div>
+    <div
+      id="cardContainer"
+      className={`lg:mt-[1rem] mb-[1rem] gap-4 lg:flex justify-between w-full`}
+    >
+      {cardProps?.map((card, index) => (
+        <div id={`card_${index}`} key={index} className="">
+          <Card
+            total={card.total}
+            amount={card.amount}
+            percentage={card.percentage}
+            onClick={card.onClick}
+          />
+        </div>
+      ))}
+    </div>
   );
 };
 

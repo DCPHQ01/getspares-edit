@@ -9,7 +9,7 @@ import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { useGetMecaVendorOverviewQuery } from "../../../../redux/features/dashboard/mecaVendorQuery";
 import { paths } from "../../../../path/paths";
 import PeriodRadios from "../../components/ui/periodradios";
-import Card from "../../../../components/cards/indexTwo"
+import Card from "../../../../components/cards/indexTwo";
 
 interface VendorOverview {
   dateJoined: string;
@@ -42,17 +42,25 @@ function VendorOverview() {
     }
   }, [data]);
 
+  // const userName = JSON.parse(sessionStorage.getItem("userDetails") || "");
+  // const usersFirstName = userName?.firstName;
 
-  const userName = JSON.parse(sessionStorage.getItem("userDetails") || "");
-  const usersFirstName = userName?.firstName;
+  let usersFirstName = "";
+  try {
+    const userName = JSON.parse(sessionStorage.getItem("userDetails") || "");
+    usersFirstName = userName?.firstName;
+  } catch (error) {
+    console.error("Error parsing user details:", error);
+  }
+
   return (
     <>
       <div>
         <div className={`flex justify-between items-center`}>
           <div>
             <Header
-               subtitle={`Take a quick glance on what is happening with meca`}
-               name={usersFirstName}
+              subtitle={`Take a quick glance on what is happening with meca`}
+              name={usersFirstName}
             />
           </div>
 
@@ -62,7 +70,10 @@ function VendorOverview() {
         </div>
         <Card cardField={overView} />
 
-        <OverviewTable topPerformingProduct={topPerformingProducts} isLoading={isLoading}/>
+        <OverviewTable
+          topPerformingProduct={topPerformingProducts}
+          isLoading={isLoading}
+        />
       </div>
     </>
   );

@@ -9,8 +9,8 @@ import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 function AgentVendorMobile() {
   const tabs = [
-    { label: "With sales ", count: 122,status: "with_sales"  },
-    { label: "Without sales ", count: 122,status: "without_sales" },
+    { label: "With sales ", count: 122, status: "with_sales" },
+    { label: "Without sales ", count: 122, status: "without_sales" },
   ];
   return (
     <>
@@ -20,10 +20,10 @@ function AgentVendorMobile() {
         amount={`430,607`}
       />
       <div className={` justify-between items-center my-[1.5rem]`}>
-        <Tabs 
-        tabs={tabs} 
-        activeTab="with_sales"
-        onTabChange={(status) => console.log(status)}
+        <Tabs
+          tabs={tabs}
+          activeTab="with_sales"
+          onTabChange={(status) => status}
         />
         <div className={` flex mt-5`}>
           <div className="">{/* <SortButton /> */}</div>
@@ -31,15 +31,6 @@ function AgentVendorMobile() {
           <SearchBox />
         </div>
       </div>
-      {/* <div className={`justify-between items-center gap-3`}>
-        <Header
-          subtitle={`A quick glance on agents performance`}
-          title={`Top performing agents`}
-        />
-        <div className="mt-5">
-          <PeriodRadios />
-        </div>
-      </div> */}
 
       <VendorAgentTable />
 
@@ -47,7 +38,10 @@ function AgentVendorMobile() {
         {/* <button className="flex gap-x-2 border border-[#EAECF0]  rounded-md h-[36px] w-[36px] pl-1">
           <MdChevronLeft className="mt-1 text-2xl" />
         </button> */}
-        <button className="flex gap-x-2 border border-[#EAECF0] rounded-md h-[36px] w-[36px] pl-1">
+        <button
+          title="right"
+          className="flex gap-x-2 border border-[#EAECF0] rounded-md h-[36px] w-[36px] pl-1"
+        >
           <MdChevronRight className="mt-1 text-2xl" />
         </button>
       </div>

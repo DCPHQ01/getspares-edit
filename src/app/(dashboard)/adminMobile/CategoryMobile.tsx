@@ -78,7 +78,6 @@ function CategoryMobile() {
       setLast(lists.last);
     }
   }, [data]);
-  console.log("THIS IS CATEGORY", categoryList);
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -123,13 +122,13 @@ function CategoryMobile() {
         image: image_url,
       }).unwrap();
       if ("data" in response) {
-        console.log(response.data.data);
+        response.data.data;
         setCategoryList((prev) => [response.data.data, ...prev]);
         refetch();
         handleClose();
       }
     } catch (error: any) {
-      console.log(error);
+      error;
       setError(error.data.message);
     }
   };
