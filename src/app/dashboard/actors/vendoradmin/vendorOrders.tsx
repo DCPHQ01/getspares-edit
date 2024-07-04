@@ -54,9 +54,9 @@ function VendorOrders() {
                 amount={'0'}
              />
            </div>
-           <div>
+           {/* <div>
              <Searchbox />
-           </div>
+           </div> */}
          </div>
          <div className={'h-[40rem] mt-5'}>
            <VendorOrderTable data={vendorOrderList} isLoading={isLoading} />

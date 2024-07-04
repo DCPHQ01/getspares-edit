@@ -78,10 +78,10 @@ function InventoryVendorMobile() {
           <Addbutton title={`Add product`} />
         </div>
       </div>
-      <div className={` items-center gap-3 mt-[1.5rem] flex flex-row-reverse`}>
+      {/* <div className={` items-center gap-3 mt-[1.5rem] flex flex-row-reverse`}>
         <Searchbox />
         <Categories />
-      </div>
+      </div>  */}
 
       <div className="">
         <VendorInventoryTable inventoryData={inventory} isLoading={isLoading} />

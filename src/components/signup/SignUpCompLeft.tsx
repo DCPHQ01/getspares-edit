@@ -121,31 +121,42 @@ const SignUpComponentLeft = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    try {
-      setIsLoading(true);
-      let userEmail = "";
-      let response;
-      switch (userType) {
-        case "vendor":
-          response = await registerVendor(userVendorDetails).unwrap();
-          userEmail = userVendorDetails.email;
-          break;
-        case "agent":
-          response = await registerAgent(userAgentDetails).unwrap();
-          userEmail = userAgentDetails.email;
-          break;
-        case "buyer":
-          response = await registerBuyer(userBuyerDetails).unwrap();
-          userEmail = userBuyerDetails.email;
-          break;
+    if (
+      !validateEmail(
+        userBuyerDetails.email ||
+          userVendorDetails.email ||
+          userAgentDetails.email
+      )
+    ) {
+      setEmailError("Please enter a valid email address.");
+      return;
+    } else {
+      try {
+        setIsLoading(true);
+        let userEmail = "";
+        let response;
+        switch (userType) {
+          case "vendor":
+            response = await registerVendor(userVendorDetails).unwrap();
+            userEmail = userVendorDetails.email;
+            break;
+          case "agent":
+            response = await registerAgent(userAgentDetails).unwrap();
+            userEmail = userAgentDetails.email;
+            break;
+          case "buyer":
+            response = await registerBuyer(userBuyerDetails).unwrap();
+            userEmail = userBuyerDetails.email;
+            break;
+        }
+        router.push(paths.toVerifyEmail());
+        sessionStorage.setItem("userEmail", userEmail);
+      } catch (error: any) {
+        console.error(error);
+        setRegisterError(error);
+      } finally {
+        setIsLoading(false);
       }
-      router.push(paths.toVerifyEmail());
-      sessionStorage.setItem("userEmail", userEmail);
-    } catch (error: any) {
-      console.error(error);
-      setRegisterError(error);
-    } finally {
-      setIsLoading(false);
     }
   };
   const routerToHomePage = () => {
@@ -170,7 +181,7 @@ const SignUpComponentLeft = () => {
             <span
               onClick={routerToHomePage}
               id="e-mecaLogod"
-              className="font-bold text-2xl  text-mecaActiveIconsNavColor"
+              className="font-bold text-2xl cursor-pointer text-mecaActiveIconsNavColor"
             >
               e-meca
             </span>

@@ -24,9 +24,9 @@ function VendorAgents() {
          tabs={tabs}
          activeTab="with_sales"
          />
-        <div className={`flex gap-3`}>
+        {/* <div className={`flex gap-3`}>
           <SearchBox />
-        </div>
+        </div> */}
       </div>
 
        <div className="right-[100%] left-[100%] flex flex-col justify-center items-center pt-32 leading-10">

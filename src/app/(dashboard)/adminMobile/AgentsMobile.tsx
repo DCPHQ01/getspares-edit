@@ -58,9 +58,9 @@ function AgentsMobile() {
         title={`Agents`}
         amount={`500,607`}
       />
-      <div className={`my-[1.25rem] lg:`}>
+      {/* <div className={`my-[1.25rem] lg:`}>
         <SearchBox placeholder={`Search for agent`} />
-      </div>
+      </div> */}
 
       <div className="">
         <AgentTable agentList={agentList} isLoading={isLoading} />
