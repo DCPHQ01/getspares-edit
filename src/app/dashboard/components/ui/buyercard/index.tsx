@@ -1,11 +1,11 @@
 "use client";
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import engine from "../../../../../assets/dashboardAssets/engine.png";
 // import Image from "next/image";
 import { FaStar } from "react-icons/fa6";
 import { useGetOverviewRecentProductImageQuery } from "../../../../../redux/features/dashboard/buyerQuery";
-import Details from '../../../../category/products/viewDetails/[details]/page';
-import {formatAmount2, formatAmount3} from "../../../../../components/utils";
+import Details from "../../../../category/products/viewDetails/[details]/page";
+import { formatAmount2, formatAmount3 } from "../../../../../components/utils";
 
 interface RecentProductImages {
   id: string;
@@ -27,12 +27,12 @@ interface OrderInfo {
   orderDate: string;
   deliveryAddress: any;
   orderItems: RecentProductImages[];
-};
+}
 
-
-
-const Index = ({checkOpened}: any) => {
-  const { data, isError, isLoading } = useGetOverviewRecentProductImageQuery({});
+const Index = ({ checkOpened }: any) => {
+  const { data, isError, isLoading } = useGetOverviewRecentProductImageQuery(
+    {}
+  );
   const [imageList, setImageList] = useState<RecentProductImages[]>([]);
   const [details, setDetails] = useState(false);
 
@@ -42,11 +42,12 @@ const Index = ({checkOpened}: any) => {
     }
   }, [data]);
 
-  console.log("Images at the top data: ", data)
+  console.log("Images at the top data: ", data);
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error loading data</div>;
-  if (!data || !Array.isArray(data.data) || data.data.length === 0) return <div>No data available</div>;
+  if (!data || !Array.isArray(data.data) || data.data.length === 0)
+    return <div>No data available</div>;
 
   const imageLists = imageList.slice(0, 3);
 
@@ -58,9 +59,7 @@ const Index = ({checkOpened}: any) => {
   return (
     <div className=" flex gap-x-5 justify-between scrollbar-none">
       {imageLists.map((detail, index) => (
-        <div key={index} className="lg:w-[22rem]"
-        onClick={handleParticularDetails}
-        >
+        <div key={index} className="w-[100%]" onClick={handleParticularDetails}>
           <div className="px-[1.2rem] py-[1.3rem] bg-[#F8FAFC] flex justify-center rounded-[8px] mb-[1rem]">
             <img src={detail.image} alt="engine" />
           </div>

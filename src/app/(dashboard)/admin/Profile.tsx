@@ -72,13 +72,13 @@ const Profile = () => {
 
   return (
     <div>
-      <Header subtitle={``} title={`Profile`} amount={``} />
+      <Header subtitle={``} title={`Profile`} />
       <div className="flex gap-x-2 mb-12">
         <Avatar
           className="bg-mecaActiveBackgroundNavColor text-mecaBluePrimaryColor w-16 h-16 text-4xl"
           {...stringAvatar(fullName)}
         />
-        <div>
+        <div className="mt-1">
           <Header
              subtitle={formData.email}
              title={fullName}

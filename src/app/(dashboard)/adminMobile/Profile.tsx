@@ -4,8 +4,8 @@ import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
-import {useEffect, useState} from "react";
-import {useRouter} from "next/navigation";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 function stringToColor(string: string) {
   let hash = 0;
@@ -36,26 +36,25 @@ function stringAvatar(name: string) {
 }
 
 const Profile = () => {
-
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    deliveryAddress: ''
+    firstName: "",
+    lastName: "",
+    email: "",
+    deliveryAddress: "",
   });
 
   const router = useRouter();
 
   useEffect(() => {
-    const userDetails = sessionStorage.getItem('userDetails');
+    const userDetails = sessionStorage.getItem("userDetails");
     if (userDetails) {
       const parsedUserDetails = JSON.parse(userDetails);
       console.log("User details:", parsedUserDetails);
       setFormData({
-        firstName: parsedUserDetails.firstName || '',
-        lastName: parsedUserDetails.lastName || '',
-        email: parsedUserDetails.email || '',
-        deliveryAddress: parsedUserDetails.deliveryAddress || ''
+        firstName: parsedUserDetails.firstName || "",
+        lastName: parsedUserDetails.lastName || "",
+        email: parsedUserDetails.email || "",
+        deliveryAddress: parsedUserDetails.deliveryAddress || "",
       });
     }
   }, [router]);
@@ -70,13 +69,9 @@ const Profile = () => {
           className="bg-mecaActiveBackgroundNavColor text-mecaBluePrimaryColor w-16 h-16 text-4xl -z-50"
           {...stringAvatar(fullName)}
         />
-        <div>
-          <Header
-              subtitle={formData.email}
-              title={fullName}
-          />
+        <div className="mt-1">
+          <Header subtitle={formData.email} title={fullName} />
         </div>
-
       </div>
 
       <hr></hr>

@@ -80,7 +80,7 @@ const Profile = () => {
         <div className="border-2 w-[100%] h-[100%] p-5 rounded-xl ">
           <div className="flex justify-between gap-x-5">
             <div className=" h-16 mb-5  pl-5 pt-3 lg:w-[364px] rounded w-[100%] 2xl:w-[35rem]  bg-mecaBorderColor">
-              <p className="text-sm text-gray-500">Fistname</p>
+              <p className="text-sm text-gray-500">Firstname</p>
               <p className="text-lg">{details?.firstName}</p>
             </div>
 
