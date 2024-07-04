@@ -61,10 +61,10 @@ const CalledPagesPageFivePages = () => {
   });
 
   useEffect(() => {
-    const storedBasicInfoValues = sessionStorage.getItem("basicInfoValues");
+    const storedBasicInfoValues = sessionStorage?.getItem("basicInfoValues");
 
     const parsedBasicInfoValues =
-      storedBasicInfoValues && JSON.parse(storedBasicInfoValues);
+      storedBasicInfoValues && JSON?.parse(storedBasicInfoValues);
 
     if (parsedBasicInfoValues) {
       setProductName(parsedBasicInfoValues.productName);
@@ -74,10 +74,10 @@ const CalledPagesPageFivePages = () => {
   }, []);
 
   useEffect(() => {
-    const savedImages = sessionStorage.getItem("clickedImage");
+    const savedImages = sessionStorage?.getItem("clickedImage");
 
     if (savedImages) {
-      setImages(JSON.parse(savedImages));
+      setImages(JSON?.parse(savedImages));
     }
   }, []);
   const handleViewPreviousImages = () => {
@@ -136,7 +136,7 @@ const CalledPagesPageFivePages = () => {
       });
     }
   };
-  const productSpec = useAppSelector((state) => state.company.productData);
+  const productSpec = useAppSelector((state) => state?.company?.productData);
   console.log("product spec  ", productSpec);
   useEffect(() => {
     if (productSpec) {
