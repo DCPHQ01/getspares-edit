@@ -57,7 +57,7 @@ function VendorInventory() {
   };
 
   const handlePreviousPage = () => {
-    if (hasPrevious){
+    if (page < totalPages){
     setPage((prevPage) => prevPage - 1);
     }
    
@@ -89,7 +89,7 @@ function VendorInventory() {
         />
       </div>
       <div className="flex justify-between mt-10 text-mecaBluePrimaryColor font-bold text-lg">
-        { hasPrevious ? (
+        { page > 0 ? (
           <button className={`flex gap-x-2`} onClick={handlePreviousPage}>
             <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
           </button>
