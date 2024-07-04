@@ -43,8 +43,6 @@ function Buyers() {
     }
   }, [data]);
 
-  console.log("The BuyerList:", first, last);
-
 
 
   const handlePreviousPage = () => {
