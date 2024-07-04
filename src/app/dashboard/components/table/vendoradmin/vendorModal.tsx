@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import { MdCancel } from "react-icons/md";
 import tractor from "../../../../../assets/images/tractors.png";
-import caterpillar from "../../../../../assets/images/caterpilla.jpg";
+// import caterpillar from "../../../../../assets/images/caterpilla.jpg";
 import Image from "next/image";
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
 

@@ -75,7 +75,9 @@ const OverviewTable: React.FC<OverviewTableProps> = ({
                 />
               </div>
           
-            ) : (
+            ) :overviewList.length === 0 ? (<div className="relative right-[60%] left-[60%]">
+              <EmptyState datad={overviewList} />
+              </div>) :  (
               overviewList?.map((d, index) => {
                 return (
                   <tr
@@ -112,10 +114,11 @@ const OverviewTable: React.FC<OverviewTableProps> = ({
                   </tr>
                 );
               })
-            )}
+            ) }
+
           </tbody>
         </table>
-        <EmptyState datad={overviewList} />
+        {/* {overviewList.length === 0 ? <EmptyState datad={overviewList} /> : ""} */}
       </div>
       {selectedOrderId && (
         <div className="ml-[18%] fixed inset-0 z-50 flex items-center justify-center bg-white">
