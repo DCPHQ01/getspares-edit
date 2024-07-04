@@ -144,6 +144,8 @@ const Checkout = () => {
       otherInformation: "Some other information",
       phoneNumber: formData.phoneNumber,
     };
+    localStorage.removeItem("savedCartItems");
+    dispatch(setCart([]));
 
 
     try {
