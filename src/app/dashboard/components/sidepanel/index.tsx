@@ -41,7 +41,7 @@ import { paths } from "../../../../path/paths";
 
 function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
   //   const { user } = useAppSelector((state) => state.user);
-  //   console.log("dashboard ", user);
+  //   ("dashboard ", user);
   //   const dispatch = useAppDispatch();
   //   let decoded: JwtPayload = JWT.jwtDecode(user.access_token);
 
@@ -65,7 +65,7 @@ function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
     router.push(paths.toHome());
   };
 
-  // console.log(roles, " roles");
+  // (roles, " roles");
 
   const profileBtn = () => {
     handleButtonClick(sidePanel.PROFILE);

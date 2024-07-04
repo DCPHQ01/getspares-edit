@@ -67,8 +67,6 @@ export default function Products() {
     pageNumber: 0,
     pageSize: 100,
   });
-  console.log("data for categories: ", data);
-  console.log("category id: ", categoryId);
 
   useEffect(() => {
     const savedItems = sessionStorage.getItem("categoryId");
@@ -148,9 +146,6 @@ export default function Products() {
       ],
     },
   ];
-  // useEffect(() => {
-  //   setIsFilterOpen(false);
-  // }, []);
 
   return (
     <section id="productCategory w-full">

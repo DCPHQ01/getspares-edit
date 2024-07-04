@@ -53,7 +53,7 @@ export default function EnterEmail({ setHaveSentEmail }: EnterEmailProps) {
         setIsLoading(false);
       }
     } catch (error: any) {
-      console.log(error.message);
+      error.message;
       setIsLoading(false);
     }
   };

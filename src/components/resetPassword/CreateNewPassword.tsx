@@ -82,12 +82,12 @@ export default function CreateNewPassword({
       otpCode: dataForOtp.otpCode,
       newPassword: password.newPassword,
     };
-    console.log(data, "data");
+
     setIsLoading(true);
     try {
       response = await resetPassword(data);
       if ("data" in response) {
-        console.log(response.data.message, " verify");
+        response.data.message, " verify";
         if (response?.data?.message === "Password changed successful") {
           setIsLoading(false);
           setHavePasswordReset(true);
@@ -97,7 +97,7 @@ export default function CreateNewPassword({
         }
       }
     } catch (error: any) {
-      console.log(error.message);
+      error.message;
     }
   };
 

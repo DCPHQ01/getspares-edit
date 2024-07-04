@@ -24,16 +24,17 @@ interface JwtPayload extends BaseJwtPayload {
 
 function Index({ header, subheader, overviewRoles }: IProps) {
   const { user } = useAppSelector((state) => state.user);
-  console.log("dashboard ", user);
 
   const userDetails = JSON.parse(sessionStorage.getItem("userDetails") || "");
   const name = userDetails?.firstName;
 
   const role: any = overviewRoles;
-  
+
   const [activityPeriod, setActivityPeriod] = useState("month");
   const handlePeriodChange = () => {
-    setActivityPeriod((prevValue) => (prevValue === 'month' ? 'year' : 'month'));
+    setActivityPeriod((prevValue) =>
+      prevValue === "month" ? "year" : "month"
+    );
   };
 
   // const cardProps = [
@@ -42,7 +43,7 @@ function Index({ header, subheader, overviewRoles }: IProps) {
   //     amount: 2250,
   //     percentage: 32,
   //     onClick: () => {
-  //       console.log("View total number of parts ordered");
+  //       ("View total number of parts ordered");
   //     },
   //   },
   //   {
@@ -50,7 +51,7 @@ function Index({ header, subheader, overviewRoles }: IProps) {
   //     amount: 1475,
   //     percentage: 10,
   //     onClick: () => {
-  //       console.log("View total number of agents");
+  //       ("View total number of agents");
   //     },
   //   },
   //   {
@@ -58,7 +59,7 @@ function Index({ header, subheader, overviewRoles }: IProps) {
   //     amount: 1250,
   //     percentage: 59,
   //     onClick: () => {
-  //       console.log("View total transaction value");
+  //       ("View total transaction value");
   //     },
   //   },
   //   {
@@ -66,7 +67,7 @@ function Index({ header, subheader, overviewRoles }: IProps) {
   //     amount: 1280,
   //     percentage: 43,
   //     onClick: () => {
-  //       console.log("View total number of vendors");
+  //       ("View total number of vendors");
   //     },
   //   },
   // ];
@@ -111,7 +112,10 @@ function Index({ header, subheader, overviewRoles }: IProps) {
           </p>
         </div>
         <div>
-          <PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange}/>
+          <PeriodRadios
+            activityPeriod={activityPeriod}
+            onPeriodChange={handlePeriodChange}
+          />
         </div>
       </div>
       <div id="tableContainer">

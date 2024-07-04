@@ -92,15 +92,15 @@ const RemoveToCartPage = () => {
       });
 
       const payload = {
-        itemRequests:data
-      }
+        itemRequests: data,
+      };
       try {
         const res = await addToCart(payload).unwrap();
         setSnackState({ ...newState, open: true });
         router.push(paths.toCheckout());
-        console.log(res.data);
+        res.data;
       } catch (error: any) {
-        console.log(error.data);
+        error.data;
       }
     }
   };
