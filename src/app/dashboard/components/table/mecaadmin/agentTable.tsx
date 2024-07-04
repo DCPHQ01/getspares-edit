@@ -130,7 +130,7 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading }) => {
                     <td id={`dateJoined_${index}`}>
                       <div className={`text-[0.88rem] py-[0.5rem] px-[1.5rem]`}>
                         <div id={`date_${index}`}>
-                          {formatAllDate(d.dateAdded)}
+                          {formatAllDate(d.dateAdded, 'DD:MM:YYYY')}
                         </div>
                         <div
                           className={`text-[#4B5565] truncate`}

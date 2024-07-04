@@ -33,16 +33,16 @@ export const formatAllDate = (date: string, format = "YYYY-MM-DD") => {
 };
 
 export const formatAllTime = (time: string) => {
-  if (time) {
-    // let val = time.split(' ')[1];
-    // (val)
+  if(time){
+    let val = time.split(' ')[1];
+    // console.log(val)
     // const finalTime = dayjs(val, 'HH:MM').format("hh:mm A");
-    // (finalTime)
+    // console.log(finalTime)
     // return finalTime;
-    let [hours, minutes] = time.split(":").map(Number);
-    const ampm = hours >= 12 ? "PM" : "AM";
+    let [hours, minutes] = val.split(':').map(Number);
+    const ampm = hours >= 12 ? 'PM' : 'AM';
     hours = hours % 12 || 12; // Convert 0 to 12 for 12 AM
-    return `${hours}:${minutes.toString().padStart(2, "0")} ${ampm}`;
+    return `${hours}:${minutes.toString().padStart(2, '0')} ${ampm}`;
   }
 };
 
