@@ -12,7 +12,15 @@ export const mecaVendorQuery = createApi({
             method: "GET",
           }) 
         }),
-        getVendorAdminInventory: builder.mutation({
+        getVendorAdminInventory: builder.query({
+          query: (body: { pageNumber: number; pageSize: number })=> ({
+            url: "/product/vendor/view-all",
+            method: "POST",
+            body,
+    
+          })
+        }),
+        getVendorInventory: builder.mutation({
           query: (body: { pageNumber: number; pageSize: number })=> ({
             url: "/product/vendor/view-all",
             method: "POST",
@@ -30,4 +38,4 @@ export const mecaVendorQuery = createApi({
   })
 })
 
-export const {useGetMecaVendorOverviewQuery, useGetMecaVendorOrdersQuery,useGetVendorAdminInventoryMutation} = mecaVendorQuery;
+export const {useGetVendorInventoryMutation,useGetMecaVendorOverviewQuery, useGetMecaVendorOrdersQuery,useGetVendorAdminInventoryQuery} = mecaVendorQuery;
