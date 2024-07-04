@@ -16,20 +16,22 @@ function Buyers() {
   const { data, isLoading, isError, error } = useGetMecaAdminBuyerQuery({
     page,
     size,
+    roleName:'BUYER'
   });
   const [totalElement, setTotalElement] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
-  const [first, setFirst] = useState(false);
+  const[first,setFirst] = useState(false);
   const [last, setLast] = useState(false);
+
 
   const [buyerList, setBuyerList] = useState([]);
   useEffect(() => {
     if (data) {
       setTotalElement(data.data?.totalElements);
-      setPage(data.data?.pageable.pageNumber);
-      setSize(data.data?.pageable.pageSize);
-      setFirst(data.data?.first);
-      setLast(data.data?.last);
+      setPage(data.data?.pageNumber);
+      setSize(data.data?.pageSize);
+      setFirst(data.data?.hasNext);
+      setLast(data.data?.hasPrevious);
       const resultList = data.data?.content;
       if (resultList) {
         setBuyerList(resultList);
