@@ -87,7 +87,7 @@ export default function SendEmail() {
         setIsLoading(false);
       }
     } catch (error: any) {
-      console.log(error.message);
+      error.message;
       setIsLoading(false);
     }
   };
@@ -102,13 +102,12 @@ export default function SendEmail() {
       email: userMail,
       otpCode: otp.join(""),
     };
-    console.log(data, "data");
 
     setIsLoading(true);
     try {
       response = await verifyEmail(data).unwrap();
       if ("data" in response) {
-        console.log(response.data.message, " verify");
+        response.data.message, " verify";
         if (
           response?.data?.message ===
           "User email has been verified successfully"
@@ -131,8 +130,6 @@ export default function SendEmail() {
     }
     setOtp(Array(6).fill(""));
   };
-
-  console.log(otpError, "otp");
 
   return (
     <>

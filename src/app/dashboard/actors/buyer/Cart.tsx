@@ -24,6 +24,7 @@ import {
   MdKeyboardArrowDown,
   MdDeleteOutline,
   MdCheckCircle,
+  MdShoppingCart,
 } from "react-icons/md";
 import HeaderPage from "../../../reusables/Header/page";
 import Parts from "../../../../assets/images/parts.png";
@@ -54,8 +55,6 @@ import { useAddSingleProductToCartMutation } from "../../../../redux/features/ca
 interface SnackState extends SnackbarOrigin {
   open: boolean;
 }
-
-
 
 const Cart = () => {
   const router = useRouter();
@@ -95,17 +94,16 @@ const Cart = () => {
           quantity: Number(item.quantity),
         };
       });
-
       const payload = {
-        itemRequests:data
-      }
+        itemRequests: data,
+      };
       try {
         const res = await addToCart(payload).unwrap();
         setSnackState({ ...newState, open: true });
         router.push(paths.toCheckout());
-        console.log(res.data);
+        res.data;
       } catch (error: any) {
-        console.log(error.data);
+        error.data;
       }
     }
   };
@@ -120,19 +118,18 @@ const Cart = () => {
   //       .map((item) => Number(item.amount) * Number(item.quantity))
   //       .reduce((a, b) => a + b);
   //
-  //     console.log(total, 'hi');
+  //     (total, 'hi');
   //     setTotalItemPrice(String(total));
   //   }
   // };
-
 
   const getAllTotalPrice = () => {
     let newTotal = "0";
 
     if (cart.length !== 0) {
       const total = cart
-         .map((item) => Number(item.amount) * Number(item.quantity))
-         .reduce((a, b) => a + b, 0);
+        .map((item) => Number(item.amount) * Number(item.quantity))
+        .reduce((a, b) => a + b, 0);
 
       newTotal = String(total);
     }
@@ -141,47 +138,55 @@ const Cart = () => {
     }
   };
 
-
   useEffect(() => {
     getAllTotalPrice();
   }, [cart]);
 
-
   return (
     <div className="">
-        {/* desktop */}
-        <div id="contentContainerAddToCartDesktop">
-          <div className="w-[95%] md:w-[90%]" style={{ margin: "0px auto" }}>
-
-            <div>
+      {/* desktop */}
+      <div id="contentContainerAddToCartDesktop">
+        <div className="w-[95%] md:w-[90%]" style={{ margin: "0px auto" }}>
+          <div>
             <div className={`flex flex-col gap-6`}>
               <Header
                 subtitle={`Keep track of items in your cart.`}
                 title={`Cart`}
                 // amount={totalElement}
               />
-              <div className="flex justify-end">
+              {/* <div className="flex justify-end">
                 <Searchbox />
-              </div>
+              </div> */}
             </div>
-              <div className="md:flex md:gap-x-6">
-                <div className={"w-full"}>
-                  {cart?.length === 0 ? (
-                    <p className="text-lg font-bold text-center mt-20">
-                      Your Cart is Empty!
-                    </p>
-                  ) : (
-                    <div className="">
-                      {cart?.map((cardCartItem, index) => (
-                        <CheckOutCard
-                          key={index}
-                          cardCartItem={cardCartItem}
-                          getPrice={getAllTotalPrice}
-                        />
-                      ))}
+            <div className="md:flex md:gap-x-6">
+              <div className={"w-full"}>
+                {cart?.length === 0 ? (
+                  <div className="flex flex-col items-center mt-40 ">
+                    <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
+                      <MdShoppingCart
+                        style={{ fontSize: "2rem", color: "#0852C0" }}
+                      />
                     </div>
-                  )}
-                </div>
+                    <div className="flex flex-col mt-4">
+                      <p className="text-xl text-center">Your Cart is Empty!</p>
+                      <p className="text-gray-500">
+                        All your orders will appear here
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="">
+                    {cart?.map((cardCartItem, index) => (
+                      <CheckOutCard
+                        key={index}
+                        cardCartItem={cardCartItem}
+                        getPrice={getAllTotalPrice}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+              {cart.length !== 0 && (
                 <div className="mt-6 w-full md:w-[45%]">
                   <div className="h-64 bg-mecaSearchColor  rounded-lg pt-5">
                     <div className="w-[90%] m-auto">
@@ -225,36 +230,77 @@ const Cart = () => {
                           Checkout
                         </button>
                       </div>
+                      <hr className="mt-5"></hr>
+                      <div className="flex justify-between mt-5 mb-9 font-semibold text-xl">
+                        <p>Subtotal</p>
+                        <p>
+                          {totalItemPrice ? formatAmount(totalItemPrice) : "0"}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="">
+                      <button
+                        onClick={handleCheckout({
+                          vertical: "top",
+                          horizontal: "center",
+                        })}
+                        className="w-full h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer"
+                      >
+                        Checkout
+                      </button>
                     </div>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
-
-          <Snackbar
-            anchorOrigin={{ vertical, horizontal }}
-            open={open}
-            onClose={handleSuccessClose}
-            key={vertical + horizontal}
-          >
-            <Alert
-              onClose={handleSuccessClose}
-              // severity="success"
-              variant="filled"
-              sx={{ width: "100%" }}
-            >
-              <div className="flex gap-x-3">
-                <span>
-                  <MdCheckCircle className="w-5 h-5" />
-                </span>
-
-                <span>Item has been removed successfully</span>
-              </div>
-            </Alert>
-          </Snackbar>
         </div>
+
+        <Snackbar
+          anchorOrigin={{ vertical, horizontal }}
+          open={open}
+          onClose={handleSuccessClose}
+          key={vertical + horizontal}
+        >
+          <Alert
+            onClose={handleSuccessClose}
+            // severity="success"
+            variant="filled"
+            sx={{ width: "100%" }}
+          >
+            <div className="flex gap-x-3">
+              <span>
+                <MdCheckCircle className="w-5 h-5" />
+              </span>
+
+              <span>Item has been added successfully</span>
+            </div>
+          </Alert>
+        </Snackbar>
       </div>
+
+      <Snackbar
+        anchorOrigin={{ vertical, horizontal }}
+        open={open}
+        onClose={handleSuccessClose}
+        key={vertical + horizontal}
+      >
+        <Alert
+          onClose={handleSuccessClose}
+          // severity="success"
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          <div className="flex gap-x-3">
+            <span>
+              <MdCheckCircle className="w-5 h-5" />
+            </span>
+
+            <span>Item has been removed successfully</span>
+          </div>
+        </Alert>
+      </Snackbar>
+    </div>
   );
 };
 

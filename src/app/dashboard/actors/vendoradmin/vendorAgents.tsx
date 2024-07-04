@@ -35,7 +35,10 @@ function VendorAgents() {
                 <MdInventory2 style={{fontSize:"2rem", color:"#0852C0"}}/>
              </div>
           </div>
-          <h1 className="text-xl text-gray-500">No agents associated yet</h1>
+          <div>
+            <h1 className="text-xl">No agents associated yet</h1>
+            <h1 className="text-gray-500">All your agents will appear here</h1>
+          </div>
        </div>
 
       {/* <VendorAgentTable /> */}

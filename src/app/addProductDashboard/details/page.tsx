@@ -7,6 +7,7 @@ import { MdChevronLeft, MdChevronRight, MdPhotoLibrary } from "react-icons/md";
 import { paths } from "../../../path/paths";
 import { FormControl, MenuItem, Select } from "@mui/base";
 import { InputLabel, OutlinedInput, SelectChangeEvent } from "@mui/material";
+import { useAppSelector } from "../../../redux/hooks";
 
 const manufacturerData = [
   { id: 1, manufacturer: "Toyota" },
@@ -103,8 +104,6 @@ const CalledPagesPageFivePages = () => {
     });
   };
 
-  console.log("the manufacturer data ", technicalDetails.manufacturer);
-
   const handlePreviousPage = () => {
     router.push(paths.toAddProductDashboardSpecifications());
   };
@@ -115,13 +114,43 @@ const CalledPagesPageFivePages = () => {
       setTechnicalDetails(JSON.parse(savedData));
     }
   }, []);
+  const populateData = (userData: any) => {
+    const userDataKeys = Object.keys(technicalDetails);
+    if (userData) {
+      userDataKeys.forEach((key) => {
+        if (key === "productInformation") {
+          console.log(
+            "technical details ",
+            userData?.productInformation?.brand
+          );
+          setTechnicalDetails((values: any) => ({
+            ...values,
+            [key]: userData?.productInformation?.color,
+          }));
+        } else {
+          setTechnicalDetails((values) => ({
+            ...values,
+            [key]: userData[key] ? userData[key] : "",
+          }));
+        }
+      });
+    }
+  };
+  const productSpec = useAppSelector((state) => state.company.productData);
+  console.log("product spec  ", productSpec);
+  useEffect(() => {
+    if (productSpec) {
+      populateData(productSpec);
+    }
+  }, [productSpec]);
+
   return (
     <>
       <div className="" style={{ width: "48%" }} id="pageone1">
         <div className="pageWrapper" id="pageone2">
           <div className="hidden md:flex flex-col mt-[4.5rem]" id="pageone3">
             <div className="flex gap-x-10 justify-between">
-              <div className="">
+              <div className="flex flex-col gap-y-6">
                 <div className="mb-10 pageHeader w-94" id="pageone4">
                   <header className="font-bold text-lg" id="pageone5">
                     Technical details

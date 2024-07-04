@@ -44,7 +44,6 @@ import { CartProduct } from "../../../../../types/cart/product";
 import { paths } from "../../../../../path/paths";
 import { ColorRing } from "react-loader-spinner";
 import { useAddSingleProductToCartMutation } from "../../../../../redux/features/cart/cartQuery";
-import TruncateText from "../../../../../components/utils/utils";
 
 interface State extends SnackbarOrigin {
   open: boolean;
@@ -80,22 +79,24 @@ const responsive = {
   },
 };
 
-const images = [
-  tractor,
-  tractor,
-  tractor,
-  tractor,
-  tractor,
-  tractor,
-  tractor,
-  tractor,
-];
+// const images = [
+//   tractor,
+//   tractor,
+//   tractor,
+//   tractor,
+//   tractor,
+//   tractor,
+//   tractor,
+//   tractor,
+// ];
 
 export default function ProductDescription() {
   const [openVendorModal, setOpenVendorModal] = useState(false);
   const handleOpenVendorModal = () => {
-    setOpenVendorModal((val)=> !val);
+    setOpenVendorModal((val) => !val);
   };
+
+  const [images, setImages] = useState([]);
 
   const [opens, setOpens] = React.useState<boolean>(false);
   const handleOpen = () => setOpens(true);
@@ -119,15 +120,14 @@ export default function ProductDescription() {
   const { data, isFetching } = useGetAProductQuery(productId, {
     skip: !productId,
   });
-
-  console.log("data here ", data?.data);
+  console.log(data, "data");
 
   const { vertical, horizontal, open } = state;
 
   const dispatch = useAppDispatch();
 
-  const firstImages = images.slice(0, 5);
-  const remainingImages = images.slice(5);
+  const firstImages = images?.slice(0, 5);
+  const remainingImages = images?.slice(5);
   const carouselRef = useRef<Carousel>(null);
 
   const { data: relatedProductData } = useGetRelatedProductQuery(productId, {
@@ -180,6 +180,10 @@ export default function ProductDescription() {
   };
 
   useEffect(() => {
+    setImages(data?.data.images);
+  }, [data]);
+
+  useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (!token) {
       setIsAuthenticated(false);
@@ -199,8 +203,8 @@ export default function ProductDescription() {
         };
       });
       const payload = {
-        itemRequests: data
-      }
+        itemRequests: data,
+      };
       try {
         const res = await addToCart(payload).unwrap();
         setState({ ...newState, open: true });
@@ -210,7 +214,7 @@ export default function ProductDescription() {
         }, 3000);
         router.push(paths.toCheckout());
       } catch (error: any) {
-        console.log(error.data);
+        error.data;
       }
     }
   };
@@ -232,8 +236,6 @@ export default function ProductDescription() {
   useLayoutEffect(() => {
     setProductImages(data?.data.images);
   }, [data]);
-
-  console.log("product images ", productImages);
 
   return (
     <div className="relative">
@@ -302,19 +304,23 @@ export default function ProductDescription() {
                     id="imageDiv"
                     className="w-full h-[76%] cursor-pointer bg-mecaSearchColor flex justify-center items-center"
                   >
-                    <Image src={tractor} alt="tractor parts" />
+                    <img
+                      src={data?.data.images[0]}
+                      alt="tractor parts"
+                      className="w-[86%] h-[86%]"
+                    />
                   </div>
 
                   <div
                     id="otherImagesDiv"
                     className="w-full flex item-center gap-x-4"
                   >
-                    {firstImages.map((image, i) => (
+                    {firstImages?.map((image, i) => (
                       <div
                         className="w-[30%] h-[88px] rounded-lg flex justify-center items-center bg-mecaSearchColor relative"
                         key={i}
                       >
-                        <Image
+                        <img
                           src={image}
                           alt="tractor parts"
                           className="h-full w-full"
@@ -526,22 +532,6 @@ export default function ProductDescription() {
             <p className="text-3xl font-semibold" id="carouselTitleOne">
               More Products Like This
             </p>
-            {/*<span className="flex gap-8" id="carouselButtonSpanOne">*/}
-            {/*  <div*/}
-            {/*    id="previousBtnOne"*/}
-            {/*    className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay cursor-pointer"*/}
-            {/*    onClick={handlePrevious}*/}
-            {/*  >*/}
-            {/*    <MdChevronLeft size={40} />*/}
-            {/*  </div>*/}
-            {/*  <div*/}
-            {/*    id="nextBtnOne"*/}
-            {/*    className="text-mecaVerificationCodeColor bg-mecaGrayBackgroundColor rounded-full flex justify-center items-center w-[60px] h-[60px] hover:text-mecaDarkBlueBackgroundOverlay cursor-pointer"*/}
-            {/*    onClick={handleNext}*/}
-            {/*  >*/}
-            {/*    <MdChevronRight size={40} />*/}
-            {/*  </div>*/}
-            {/*</span>*/}
           </div>
           <div id="carouselProductDescription">
             <React.Fragment>
@@ -565,6 +555,7 @@ export default function ProductDescription() {
                         image={HomeImage1}
                         productName={product.name}
                         price={product.price}
+                        productImage={product.image}
                       />
                     )
                   )}

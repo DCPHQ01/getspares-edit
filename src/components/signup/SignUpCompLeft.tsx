@@ -118,8 +118,6 @@ const SignUpComponentLeft = () => {
   const [registerAgent, { data: AgentData, error: AgentError }] =
     useRegisterAgentMutation();
 
-  console.log("registration error ", registerError);
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -156,7 +154,6 @@ const SignUpComponentLeft = () => {
 
   const handleFocus = () => {
     setRegisterError("");
-    setEmailError(null);
   };
 
   return (
@@ -458,13 +455,13 @@ const SignUpComponentLeft = () => {
                       </p>
                     )}
                     {registerError.data?.message && (
-                        <p className="text-red-500 text-xs mt-2">
-                          {registerError.data.message === "Name should be provided"
-                              ? "Please provide company name"
-                              : registerError.data.message}
-                        </p>
+                      <p className="text-red-500 text-xs mt-2">
+                        {registerError.data.message ===
+                        "Name should be provided"
+                          ? "Please provide company name"
+                          : registerError.data.message}
+                      </p>
                     )}
-
                   </>
                 )}
               </form>

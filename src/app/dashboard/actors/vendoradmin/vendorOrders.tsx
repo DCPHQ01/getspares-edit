@@ -68,9 +68,9 @@ function VendorOrders() {
                       <MdBusinessCenter size={40} color="#0852C0" />
                     </div>
                   </div>
-                  <div className="text-center">
-                    <p className="text-xl font-semibold">No orders made yet</p>
-                    <p className="text-base font-normal text-mecaLightGrayText">
+                  <div className="text-center mt-4">
+                    <p className="text-xl">No orders made yet</p>
+                    <p className="text-mecaLightGrayText">
                       All your orders will appear here
                     </p>
                   </div>

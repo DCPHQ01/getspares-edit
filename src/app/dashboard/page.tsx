@@ -13,8 +13,6 @@ function Page() {
   const userRole = useUserRole();
   const role: any = userRole;
 
-  console.log("role from main page=>", role);
-
   const router = useRouter();
   switch (role) {
     case roles.MECA_ADMIN:
@@ -29,12 +27,6 @@ function Page() {
     default:
       return null;
   }
-  // return (
-  //     <div>
-  //
-  //         <MecaAdmin/>
-  //     </div>
-  // );
 }
 
 export default withAuth(Page);
@@ -59,7 +51,7 @@ export default withAuth(Page);
 //
 // function Page() {
 //   const { user } = useAppSelector((state) => state.user);
-//   console.log("dashboard ", user);
+//   ("dashboard ", user);
 //
 //   let decoded: JwtPayload | null = null;
 //   try {
@@ -78,7 +70,7 @@ export default withAuth(Page);
 //   const userRole = "MECA_ADMIN"
 //   const names = decoded;
 //
-//   console.log(names, " names");
+//   (names, " names");
 //   const SidePanelButton = () => {
 //     const role: any = userRole;
 //     let header = "";

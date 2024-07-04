@@ -5,7 +5,7 @@ import Cards from "../../components/Homepage/Card";
 import "react-multi-carousel/lib/styles.css";
 import HomeImage1 from "../../assets/images/homeImage1.png";
 
-import { MdChevronRight, MdCheckCircle } from "react-icons/md";
+import { MdChevronRight, MdCheckCircle, MdShoppingCart } from "react-icons/md";
 import { Alert, Card } from "@mui/material";
 import Footer from "../../components/footer/Footer";
 import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
@@ -92,15 +92,15 @@ const RemoveToCartPage = () => {
       });
 
       const payload = {
-        itemRequests:data
-      }
+        itemRequests: data,
+      };
       try {
         const res = await addToCart(payload).unwrap();
         setSnackState({ ...newState, open: true });
         router.push(paths.toCheckout());
-        console.log(res.data);
+        res.data;
       } catch (error: any) {
-        console.log(error.data);
+        error.data;
       }
     }
   };
@@ -162,9 +162,17 @@ const RemoveToCartPage = () => {
               <div className="md:flex md:gap-x-6">
                 <div className={"w-full"}>
                   {cart?.length === 0 ? (
-                    <p className="text-lg font-bold text-center mt-20">
-                      Your Cart is Empty!
-                    </p>
+                    <div className="flex flex-col items-center mt-40 ">
+                      <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
+                        <MdShoppingCart style={{ fontSize: "2rem", color: "#0852C0" }} />
+                      </div>
+                      <div className="flex flex-col mt-4">
+                        <p className="text-xl text-center">
+                          Your Cart is Empty!
+                        </p>
+                        <p className='text-gray-500'>All your orders will appear here</p>
+                      </div>
+                    </div>
                   ) : (
                     <div className="">
                       {cart?.map((cardCartItem, index) => (
@@ -177,52 +185,52 @@ const RemoveToCartPage = () => {
                     </div>
                   )}
                 </div>
-                <div className="mt-6 w-full md:w-[45%]">
-                  <div className="h-64 bg-mecaSearchColor  rounded-lg pt-5">
-                    <div className="w-[90%] m-auto">
-                      <div>
-                        <div className="flex justify-between">
-                          <div className="flex font-normal text-sm">
-                            <p> Item{cart?.length > 1 && "s"}</p>
-                            <p> ({cart?.length})</p>
-                          </div>
+                {cart.length !== 0 && <div className="mt-6 w-full md:w-[45%]">
+                     <div className="h-64 bg-mecaSearchColor  rounded-lg pt-5">
+                       <div className="w-[90%] m-auto">
+                         <div>
+                           <div className="flex justify-between">
+                             <div className="flex font-normal text-sm">
+                               <p> Item{cart?.length > 1 && "s"}</p>
+                               <p> ({cart?.length})</p>
+                             </div>
 
-                          <div className=" font-normal text-sm">
-                            <p>
-                              {totalItemPrice
-                                ? formatAmount(totalItemPrice)
-                                : "0"}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="flex justify-between mt-5 font-normal text-sm">
-                          <p>Shipping</p>
-                          <p>{"₦0"}</p>
-                        </div>
-                        <hr className="mt-5"></hr>
-                        <div className="flex justify-between mt-5 mb-9 font-semibold text-xl">
-                          <p>Subtotal</p>
-                          <p>
-                            {totalItemPrice
-                              ? formatAmount(totalItemPrice)
-                              : "0"}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="">
-                        <button
-                          onClick={handleCheckout({
-                            vertical: "top",
-                            horizontal: "center",
-                          })}
-                          className="w-full h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer"
-                        >
-                          Checkout
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                             <div className=" font-normal text-sm">
+                               <p>
+                                 {totalItemPrice
+                                    ? formatAmount(totalItemPrice)
+                                    : "0"}
+                               </p>
+                             </div>
+                           </div>
+                           <div className="flex justify-between mt-5 font-normal text-sm">
+                             <p>Shipping</p>
+                             <p>{"₦0"}</p>
+                           </div>
+                           <hr className="mt-5"></hr>
+                           <div className="flex justify-between mt-5 mb-9 font-semibold text-xl">
+                             <p>Subtotal</p>
+                             <p>
+                               {totalItemPrice
+                                  ? formatAmount(totalItemPrice)
+                                  : "0"}
+                             </p>
+                           </div>
+                         </div>
+                         <div className="">
+                           <button
+                              onClick={handleCheckout({
+                                vertical: "top",
+                                horizontal: "center",
+                              })}
+                              className="w-full h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer"
+                           >
+                             Checkout
+                           </button>
+                         </div>
+                       </div>
+                     </div>
+                   </div>}
               </div>
             </div>
           </div>
@@ -244,7 +252,7 @@ const RemoveToCartPage = () => {
                   <MdCheckCircle className="w-5 h-5" />
                 </span>
 
-                <span>Item has been removed successfully</span>
+                <span>Item has been added successfully</span>
               </div>
             </Alert>
           </Snackbar>
