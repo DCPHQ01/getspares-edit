@@ -254,7 +254,10 @@ export default function ProductDescription() {
             id="productDescriptionBreadcrumbs"
             className="flex items-center gap-x-2"
           >
-            <p className="text-[12px] font-nunito cursor-pointer font-normal text-mecaDarkBlueBackgroundOverlay">
+            <p
+              className="text-[12px] font-nunito cursor-pointer font-normal text-mecaDarkBlueBackgroundOverlay"
+              onClick={() => router.push("/")}
+            >
               Home
             </p>
             <MdChevronRight size={20} />

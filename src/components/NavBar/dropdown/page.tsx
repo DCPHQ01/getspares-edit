@@ -1,4 +1,3 @@
-
 "use client";
 
 import Card from "@mui/material/Card";
@@ -23,23 +22,23 @@ const DropdownPage: React.FC<DropdownPageProps> = ({ closeDropdown }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  // const dropdownRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        closeDropdown();
-      }
-    };
+  // useEffect(() => {
+  //   const handleClickOutside = (event: MouseEvent) => {
+  //     if (
+  //       dropdownRef.current &&
+  //       !dropdownRef.current.contains(event.target as Node)
+  //     ) {
+  //       closeDropdown();
+  //     }
+  //   };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [closeDropdown]);
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, [closeDropdown]);
 
   const router = useRouter();
   const { data: getCategoriesData, isFetching } = useGetCategoryQuery({});
@@ -60,7 +59,7 @@ const DropdownPage: React.FC<DropdownPageProps> = ({ closeDropdown }) => {
   };
   useEffect(() => setOpen(true), []);
   return (
-    <div ref={dropdownRef} className="">
+    <div className="">
       <div className="hidden lg:flex flex-col">
         <Menu
           id="demo-positioned-menu"
@@ -89,7 +88,6 @@ const DropdownPage: React.FC<DropdownPageProps> = ({ closeDropdown }) => {
                     justifyContent: "space-between",
                   }}
                 >
-                  {/* <div className="" id="mobiledropviewcontainer3"> */}
                   <div
                     className="font-nunito font-bold"
                     id="mobiledropviewcontainer4"
@@ -99,15 +97,12 @@ const DropdownPage: React.FC<DropdownPageProps> = ({ closeDropdown }) => {
                     <span className="text-lg"> Category</span>
                   </div>
 
-                  {/* <Link href="../app/reusables/NavBar/page"> */}
                   <MdClear
                     onClick={handleNav}
                     id="mobiledropviewcontainer5"
                     size={20}
                     className="text-mecaGoBackArrow cursor-pointer"
                   />
-                  {/* </Link> */}
-                  {/* </div> */}
                 </div>
               </div>
               <hr id="mobiledropviewcontainer6" className=""></hr>
@@ -152,7 +147,7 @@ const DropdownPage: React.FC<DropdownPageProps> = ({ closeDropdown }) => {
 
       {/* mobile */}
 
-      <div className="lg:hidden">
+      <div className="lg:hidden flex">
         <Card
           className="w-full  lg:h-96 h-[100vh]  scrollbar-none overflow-y-scroll  "
           style={{
@@ -171,7 +166,6 @@ const DropdownPage: React.FC<DropdownPageProps> = ({ closeDropdown }) => {
                     justifyContent: "space-between",
                   }}
                 >
-                  {/* <div className="" id="mobiledropviewcontainer3"> */}
                   <div
                     className="font-nunito font-bold"
                     id="mobiledropviewcontainer4"
