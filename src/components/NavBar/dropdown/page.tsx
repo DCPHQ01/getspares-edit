@@ -249,7 +249,7 @@ interface DropdownPageProps {
 
 const DropdownPage: React.FC<DropdownPageProps> = ({ closeDropdown }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const openA = Boolean(anchorEl);
+  // const openA = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };

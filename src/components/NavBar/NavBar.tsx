@@ -22,6 +22,7 @@ import BrandPage from "./brand/page";
 import { paths } from "../../path/paths";
 import { setCart } from "../../redux/features/product/productSlice";
 import { CartProduct } from "../../types/cart/product";
+import { Menu } from "@mui/material";
 
 const navData = [
   {
@@ -67,11 +68,17 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [active, setActive] = useState<number | null>(1);
+
   const handleClick = (id: number) => {
     setActive(id);
   };
   const closeDropdown = () => {
     setActive(null);
+  };
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const openMenu = Boolean(anchorEl);
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
   const { cart } = useAppSelector((state) => state.product);
@@ -101,9 +108,11 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
   };
   const [toggleProfile, setToggleProfile] = useState(false);
   const [tokens, setTokens] = useState("");
-  const dropdownRef = useRef<HTMLDivElement | null>(null);
-  const profile = () => {
+
+  // const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const profile = (event: React.MouseEvent<HTMLButtonElement>) => {
     setToggleProfile((prev) => !prev);
+    setAnchorEl(event.currentTarget);
   };
   let decoded: JwtPayload | null = null;
 
@@ -265,13 +274,18 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
               )}
 
               {toggleProfile && (
-                <div
-                  className="w-52 h-24 rounded-lg p-1 bg-white absolute top-16 right-24 "
-                  style={{ boxShadow: "0px 2px 8px 0px #63636333" }}
+                <Menu
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    "aria-labelledby": "basic-button",
+                  }}
                 >
                   <button
                     id="profileBtn"
-                    onClick={profile}
+                    // onClick={profile}
                     className="flex gap-2 w-48 m-auto  h-10 p-2 pt-3 hover:bg-mecaActiveBackgroundNavColor hover:text-mecaActiveIconsNavColor"
                   >
                     <MdOutlineAccountCircle className="text-mecaProfileColor w-6 h-6 " />
@@ -297,7 +311,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                       </span>
                     </button>
                   </div>
-                </div>
+                </Menu>
               )}
             </div>
           </div>
