@@ -10,7 +10,7 @@ import { MdInventory2 } from "react-icons/md";
 interface VendorOverview {
   dateAndTimeAdded?: string;
   imageUrl?: string;
-  orderValue?: number | string;
+  orderValue?: number | string | undefined;
   totalSold?: number;
   productName?: string;
 }
@@ -69,9 +69,6 @@ const Overview: React.FC<VendorTableProps> = ({
             </div>
           ) : (
             topPerformingProduct?.map((d, index) => {
-              const formattedTransactionValue = formatAmount(
-                d.orderValue
-              );
               return (
                 <tr key={index} id={`row_${index}`} className="truncate">
                   <td>
@@ -104,8 +101,7 @@ const Overview: React.FC<VendorTableProps> = ({
                     className={`text-[0.88rem] py-[1rem] px-[3.125rem]`}
                     id={`transactionValue_${index}`}
                   >
-                    {format(d.orderValue)}
-                    {d.orderValue}
+                    {format(d?.orderValue ?? "")}
                   </td>
                   <td id={`dateAndTimeAdded_${index}`}>
                     <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
