@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import { useEffect, useState } from "react";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 function stringToColor(string: string) {
   let hash = 0;
@@ -21,17 +21,16 @@ function stringToColor(string: string) {
     const value = (hash >> (i * 8)) & 0xff;
     color += `00${value.toString(16)}`.slice(-2);
   }
-  /* eslint-enable no-bitwise */
 
   return color;
 }
 
 function stringAvatar(name: string) {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    deliveryAddress: ''
+    firstName: "",
+    lastName: "",
+    email: "",
+    deliveryAddress: "",
   });
 
   const router = useRouter();
@@ -44,26 +43,25 @@ function stringAvatar(name: string) {
 }
 
 const Profile = () => {
-
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    deliveryAddress: ''
+    firstName: "",
+    lastName: "",
+    email: "",
+    deliveryAddress: "",
   });
 
   const router = useRouter();
 
   useEffect(() => {
-    const userDetails = sessionStorage.getItem('userDetails');
+    const userDetails = sessionStorage.getItem("userDetails");
     if (userDetails) {
       const parsedUserDetails = JSON.parse(userDetails);
-      console.log("User details:", parsedUserDetails);
+
       setFormData({
-        firstName: parsedUserDetails.firstName || '',
-        lastName: parsedUserDetails.lastName || '',
-        email: parsedUserDetails.email || '',
-        deliveryAddress: parsedUserDetails.deliveryAddress || ''
+        firstName: parsedUserDetails.firstName || "",
+        lastName: parsedUserDetails.lastName || "",
+        email: parsedUserDetails.email || "",
+        deliveryAddress: parsedUserDetails.deliveryAddress || "",
       });
     }
   }, [router]);
@@ -79,12 +77,8 @@ const Profile = () => {
           {...stringAvatar(fullName)}
         />
         <div>
-          <Header
-             subtitle={formData.email}
-             title={fullName}
-          />
+          <Header subtitle={formData.email} title={fullName} />
         </div>
-
       </div>
 
       <hr></hr>
@@ -109,7 +103,6 @@ const Profile = () => {
               InputProps={{ disableUnderline: true }}
               className="lg:w-[364px]  w-[100%] 2xl:w-[35rem] rounded"
               sx={{ backgroundColor: "porcelain" }}
-
             />
 
             <TextField
@@ -123,7 +116,6 @@ const Profile = () => {
               InputProps={{ disableUnderline: true }}
               className="lg:w-[364px]  w-[100%] mb-10 2xl:w-[35rem]"
               sx={{ backgroundColor: "porcelain" }}
-
             />
           </Box>
 
@@ -139,7 +131,6 @@ const Profile = () => {
               InputProps={{ disableUnderline: true }}
               className="  w-[100%] rounded"
               sx={{ backgroundColor: "porcelain" }}
-
             />
           </Box>
         </div>

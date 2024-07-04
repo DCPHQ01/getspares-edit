@@ -124,3 +124,4 @@ const Index = ({ activityPeriod, onPeriodChange }: PeriodRadiosProps) => {
 }
 
 export default Index;
+

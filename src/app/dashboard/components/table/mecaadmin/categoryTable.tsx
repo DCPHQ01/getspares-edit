@@ -6,6 +6,8 @@ import { AccountCircle } from "@mui/icons-material";
 import dayjs from "dayjs";
 import { ColorRing } from "react-loader-spinner";
 import { CldImage } from "next-cloudinary";
+import { MdInventory2 } from "react-icons/md";
+import EmptyState from "../../../../../components/utils/emptyState";
 
 interface Category {
   id: string;
@@ -47,25 +49,25 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
         <table id="adminTable" className={`w-full`}>
           <thead>
             <tr className="truncate">
-              <th id="companyNameHeader" className={`sticky`}>
+              <th id="companyNameHeader" className={`lg:sticky`}>
                 Category name
               </th>
-              <th id="totalItemsSoldHeader" className={`sticky`}>
+              <th id="totalItemsSoldHeader" className={`lg:sticky`}>
                 No of products
               </th>
               <th
                 id="transactionValueHeader"
-                className={`sticky`}
+                className={`lg:sticky`}
                 style={{ paddingLeft: "5rem" }}
               >
                 Created by
               </th>
-              <th id="dateTimeJoinedHeader" className={`sticky`}>
+              <th id="dateTimeJoinedHeader" className={`lg:sticky`}>
                 Date & time joined
               </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="-z-50">
             {isLoading ? (
               <div className="text-center mt-28 relative lg:left-[210%] lg:right[210%] md:left-[213%] md:right[213%] sm:left-[21">
                 <ColorRing
@@ -87,8 +89,8 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
                     "#095AD3",
                   ]}
                 />
-                <p>Loading Category.....</p>
               </div>
+             
             ) : (
               categoryList?.map((d, index) => {
                 const { date, time } = formatDateTime(d?.dateCreated);
@@ -182,6 +184,7 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
             )}
           </tbody>
         </table>
+        <EmptyState datad={categoryList} />
       </div>
     </div>
   );

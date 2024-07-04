@@ -5,7 +5,7 @@ import React from "react";
 interface MenuProps {
   anchorEl: HTMLElement | null;
   openOption: boolean;
-  handleOptionClose: () => void;
+  handleOptionClose: (e: any) => void;
   handleRouteInventory: (id: number, index: string) => void;
   optionData: any;
   tableId: string;

@@ -77,7 +77,6 @@ const Profile = () => {
     setViewAdminProfile(false);
   };
   const { data } = useGetUserAllUsersProfileQuery({});
-  console.log("profile details", data);
 
   const [viewProfile, setViewProfile] = useState<viewProfilesForActors>({
     name: "",
@@ -88,7 +87,7 @@ const Profile = () => {
     address1: "",
     address2: "",
     websiteUrl: "",
-    phoneNumber:''
+    phoneNumber: "",
   });
 
   useEffect(() => {
@@ -107,9 +106,9 @@ const Profile = () => {
           />
           <div>
             <Header
-               subtitle={`${viewProfile.companyEmail}`}
-               title={`${viewProfile.name}`}
-               amount={``}
+              subtitle={`${viewProfile.companyEmail}`}
+              title={`${viewProfile.name}`}
+              amount={``}
             />
           </div>
         </div>

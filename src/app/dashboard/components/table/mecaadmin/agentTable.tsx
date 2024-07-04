@@ -36,19 +36,20 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading }) => {
         <table id="adminTable" className={`w-full`}>
           <thead className={`w-full`}>
             <tr className="truncate">
-              <th style={{ position: "sticky" }} id="companyNameHeader">
+              <th className={`lg:sticky`} id="companyNameHeader">
                 Full name
               </th>
-              <th style={{ position: "sticky" }} id="totalItemsSoldHeader">
+              <th className={`lg:sticky`} id="totalItemsSoldHeader">
                 Quantity sold
               </th>
               <th
                 id="transactionValueHeader"
-                style={{ paddingLeft: "2.3rem", position: "sticky" }}
+                style={{ paddingLeft: "2.3rem" }}
+                className={`lg:sticky`}
               >
                 Transaction value
               </th>
-              <th style={{ position: "sticky" }} id="dateTimeJoinedHeader">
+              <th className={`lg:sticky`} id="dateTimeJoinedHeader">
                 Date & time added
               </th>
             </tr>
@@ -78,7 +79,7 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading }) => {
                 <p>Loading Agent........</p>
               </div>
             ) : agentList?.length === 0 ? (
-              <div className="relative right-[100%] left-[100%] flex flex-col justify-center items-center pt-32 leading-10">
+              <div className="relative -z-50 right-[100%] left-[100%] flex flex-col justify-center items-center pt-32 leading-10">
                 <div className=" h-28">
                   <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
                     <MdBusinessCenter
@@ -86,10 +87,12 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading }) => {
                     />
                   </div>
                 </div>
-                <h1 className="text-xl">No agent here yet</h1>
-                <h1 className="text-gray-500">
-                  All your agent will appear here
-                </h1>
+                <div className="text-center">
+                  <h1 className="text-xl">No agent here yet</h1>
+                  <h1 className="text-gray-500">
+                    All your agent will appear here
+                  </h1>
+                </div>
               </div>
             ) : (
               agentList?.map((d, index) => {
@@ -127,7 +130,7 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading }) => {
                     <td id={`dateJoined_${index}`}>
                       <div className={`text-[0.88rem] py-[0.5rem] px-[1.5rem]`}>
                         <div id={`date_${index}`}>
-                          {formatAllDate(d.dateAdded)}
+                          {formatAllDate(d.dateAdded, 'DD:MM:YYYY')}
                         </div>
                         <div
                           className={`text-[#4B5565] truncate`}

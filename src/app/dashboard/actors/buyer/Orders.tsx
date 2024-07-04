@@ -32,17 +32,12 @@ function Orders() {
         title={`Orders`}
         amount={totalElement}
       />
-      <div className="flex justify-end">
+      {/* <div className="flex justify-end">
         <Searchbox />
-      </div>
-      {!isLoading && buyerOrderList.length === 0 ? (
-        <div className="flex flex-col items-center justify-center h-64">
-          <MdBusinessCenter size={50} color="blue" style={{ border: '1px solid #D1E0FF'}}/>
-          <p className="text-xl font-semibold">No order is here yet</p>
-        </div>
-      ) : (
+      </div> */}
+      
         <OrderTable data={buyerOrderList} isLoading={isLoading} />
-      )}
+      
     </div>
    
   );

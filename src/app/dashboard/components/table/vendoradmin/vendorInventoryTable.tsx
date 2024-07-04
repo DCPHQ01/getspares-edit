@@ -63,13 +63,12 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
   const openOption = Boolean(anchorEl);
   const router = useRouter();
   const [id, setId] = useState("");
+  const [dropDownOption, setDropDownOption] = useState<string | null>(null);
 
-  // const { data, isLoading } = useGetAProductQuery(productId, {
-  //   skip: !productId,
-  // });
-
-  const handleOptionClose = () => {
+  const handleOptionClose = (e: any) => {
+    e.stopPropagation();
     setAnchorEl(null);
+    setDropDownOption(null);
   };
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -79,14 +78,12 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
   const [routInventory, setRoutInventory] = useState(false);
 
   const handleRoutInventory = (id: number, index: string) => {
-    console.log("before ", id, " id", index, " index");
     if (id === 1) {
       setRoutInventory(!routInventory);
     } else if (id === 2) {
-      console.log("after ", id, " id", index, " index");
-      // router.push(`/addProductDashboard/basicInfo/?id=${index}`);
+      sessionStorage.removeItem("basicInfoValues");
+      router.push(`/addProductDashboard/basicInfo/?id=${index}`);
     }
-    handleOptionClose();
   };
 
   const stopPagination = (event: React.MouseEvent<HTMLElement>) => {
@@ -98,6 +95,20 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
     setRoutInventory((routInventory) => !routInventory);
   };
 
+  const dropDownOptions = (
+    id: string,
+    event: React.MouseEvent<HTMLElement>
+  ) => {
+    if (dropDownOption !== id) {
+      inventoryData.find((itm) => {
+        itm.id === id ? setDropDownOption(id) : null;
+      });
+    } else {
+      setDropDownOption(null);
+    }
+    setAnchorEl(event.target as HTMLElement);
+  };
+
   return (
     <>
       <div id="tableContainer">
@@ -107,35 +118,33 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
             className={`my-[1.25rem] w-full max-h-[40rem] overflow-y-auto scrollbar-none overscroll-contain ${styles.table}`}
           >
             <table id="adminTable" className={`w-full`}>
-              <thead style={{ position: "sticky", zIndex: 1000 }}>
+              <thead style={{ zIndex: 1000 }} className={`lg:sticky`}>
                 <tr className="truncate">
-                  <th style={{ position: "sticky" }} id="companyNameHeader">
+                  <th className={`lg:sticky`} id="companyNameHeader">
                     Item name
                   </th>
-                  <th
-                    style={{ position: "sticky" }}
-                    id="transactionValueHeader"
-                  >
+                  <th className={`lg:sticky`} id="transactionValueHeader">
                     Price
                   </th>
-                  <th style={{ position: "sticky" }} id="totalItemsSoldHeader">
+                  <th className={`lg:sticky`} id="totalItemsSoldHeader">
                     Quantity sold
                   </th>
                   <th
                     id="transactionValueHeader"
-                    style={{ paddingLeft: "2rem", position: "sticky" }}
+                    style={{ paddingLeft: "2rem" }}
+                    className={`lg:sticky`}
                   >
                     Category
                   </th>
-                  <th style={{ position: "sticky" }} id="dateTime">
+                  <th className={`lg:sticky`} id="dateTime">
                     Date and Time
                   </th>
-                  <th style={{ position: "sticky" }} id="actionHeader"></th>
+                  <th className={`lg:sticky`} id="actionHeader"></th>
                 </tr>
               </thead>
-              <tbody>
-                {isLoading ? (
-                  <div className="text-center mt-28 relative left-[130%] right[130%]">
+              <tbody className="-z-50">
+                {/* {isLoading ? (
+                  <div className="text-center  mt-28 relative left-[130%] right[130%]">
                     <ColorRing
                       visible={true}
                       height="40"
@@ -155,9 +164,9 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
                         "#095AD3",
                       ]}
                     />
-                    <p>Loading Inventory...</p>
-                  </div>
-                ) : inventoryData?.length === 0 ? (
+                  <p>Loading Inventory...</p>
+                  </div> */}
+                {inventoryData?.length === 0 ? (
                   <div className="relative right-[100%] left-[100%] flex flex-col justify-center items-center pt-32 leading-10">
                     <div className=" h-28">
                       <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
@@ -226,49 +235,26 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
                           id={`transactionValue_${index}`}
                         >
                           <div>
-                            <IconButton onClick={handleClick}>
+                            <IconButton
+                              onClick={(event: React.MouseEvent<HTMLElement>) =>
+                                dropDownOptions(d.id, event)
+                              }
+                            >
                               <MdMoreVert />
                             </IconButton>
                           </div>
-                          <MenuOptions
-                            anchorEl={anchorEl}
-                            openOption={openOption}
-                            handleOptionClose={handleOptionClose}
-                            handleRouteInventory={handleRoutInventory}
-                            optionData={option}
-                            tableId={d.id}
-                          />
-
-                          {/* <Menu
-                            id="menu"
-                            MenuListProps={{ "aria-labelledby": "long-button" }}
-                            anchorEl={anchorEl}
-                            open={openOption}
-                            onClose={handleOptionClose}
-                            PaperProps={{
-                              style: {
-                                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                                borderRadius: "15px",
-                                backgroundColor: "#FFFFFF",
-                              },
-                            }}
-                          >
-                            {option.map((opt) => (
-                              <MenuItem
-                                key={opt.id}
-                                id={`option_${opt.id}`}
-                                selected={opt.id === 1}
-                                onClick={() =>
-                                  handleRoutInventory(opt.id, d?.id)
-                                }
-                              >
-                                {opt.icon}{" "}
-                                <span className=" ml-3 text-gray-500 text-sm">
-                                  {opt.title}
-                                </span>
-                              </MenuItem>
-                            ))}
-                          </Menu> */}
+                          {dropDownOption === d.id && (
+                            <MenuOptions
+                              anchorEl={anchorEl}
+                              openOption={openOption}
+                              handleOptionClose={(e: any) =>
+                                handleOptionClose(e)
+                              }
+                              handleRouteInventory={handleRoutInventory}
+                              optionData={option}
+                              tableId={d.id}
+                            />
+                          )}
                         </td>
                       </tr>
                     );

@@ -35,7 +35,7 @@ function Index() {
     const agentmobile = useAppSelector(
       (state) => state.dashboard.sidePanelButton
     );
-    console.log(agentmobile);
+    agentmobile;
     switch (agentmobile) {
       case sidePanel.OVERVIEW:
         return <Overview />;
@@ -55,14 +55,12 @@ function Index() {
 
   const role = useUserRole();
 
-  // console.log("role =>", role);
+  // ("role =>", role);
 
   const logOut = () => {
     dispatch(clearUser());
     router.push(paths.toHome());
   };
-
- 
 
   const buttons = [
     {

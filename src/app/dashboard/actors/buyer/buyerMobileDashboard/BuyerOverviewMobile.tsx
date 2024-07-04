@@ -6,8 +6,7 @@ import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { Card } from "@mui/material";
 import { useGetOverviewOrderTableQuery } from "../../../../../redux/features/dashboard/buyerQuery";
 import { paths } from "../../../../../path/paths";
-import { useRouter } from 'next/navigation';
-
+import { useRouter } from "next/navigation";
 
 interface Overview {
   orderId: string;
@@ -17,20 +16,20 @@ interface Overview {
 }
 
 function BuyerOverviewMobile() {
-  const {data, isError, isLoading} = useGetOverviewOrderTableQuery({});
+  const { data, isError, isLoading } = useGetOverviewOrderTableQuery({});
   const [overViewList, setOverviewList] = useState<Overview[]>([]);
 
-  useEffect(()=>{
-    if(data && Array.isArray(data.data)){
+  useEffect(() => {
+    if (data && Array.isArray(data.data)) {
       const list = data.data;
       setOverviewList(list);
     }
   }, [data]);
 
   const router = useRouter();
-  const handleMore =()=>{
-   router.push(paths.toHome());
-  }
+  const handleMore = () => {
+    router.push(paths.toHome());
+  };
 
   return (
     <>
@@ -50,16 +49,7 @@ function BuyerOverviewMobile() {
       />
 
       {/* <OverviewTable /> */}
-      <OverviewTable overviewList={overViewList} isLoading={isLoading}/>
-
-      {/* <div className=" flex justify-between mt-10 mb-10 font-bold text-lg">
-        <button className="flex gap-x-2 border border-[#EAECF0]  rounded-md h-[36px] w-[36px] pl-1">
-          <MdChevronLeft className="mt-1 text-2xl" />
-        </button>
-        <button className="flex gap-x-2 border border-[#EAECF0] rounded-md h-[36px] w-[36px] pl-1">
-          <MdChevronRight className="mt-1 text-2xl" />
-        </button>
-      </div> */}
+      <OverviewTable overviewList={overViewList} isLoading={isLoading} />
     </>
   );
 }
