@@ -89,7 +89,7 @@ const MecaGlobalSearch = () => {
                         No result found
                      </div>
                      </div> : <>
-                     {data?.data?.map((item)=><div onClick={()=>handleProductDescription(item.productId, item.categoryId, item.productCategory)} className={'text-bold text-base cursor-pointer hover:text-mecaBluePrimaryColor text-mecaGrayBodyText px-10 mb-2 mt-2'}>
+                     {data?.data?.map((item:any)=><div onClick={()=>handleProductDescription(item.productId, item.categoryId, item.productCategory)} className={'text-bold text-base cursor-pointer hover:text-mecaBluePrimaryColor text-mecaGrayBodyText px-10 mb-2 mt-2'}>
                         {item.productName}
                      </div>)}
                   </>
