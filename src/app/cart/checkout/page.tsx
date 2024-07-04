@@ -29,8 +29,9 @@ import HeaderPage from "../../reusables/Header/page";
 import NavBarWhileInsideApp from "../../reusables/TopBarWhileInside/NavBarWhileInsideApp/page";
 import { paths } from "../../../path/paths";
 import { useCheckoutMutation } from "../../../redux/features/dashboard/buyerQuery";
-import { useAppSelector } from "../../../redux/hooks";
+import {useAppDispatch, useAppSelector} from "../../../redux/hooks";
 import { formatAmount } from "../../../components/utils";
+import {setCart} from "../../../redux/features/product/productSlice";
 
 const style = {
   position: "absolute" as "absolute",
@@ -64,6 +65,7 @@ const itemSelected = [
 ];
 
 const Checkout = () => {
+  const dispatch = useAppDispatch();
   const [deliveryMode, setDeliveryMode] = useState("delivery");
   const [showAddressSelection, setShowAddressSelection] = useState(false);
   const [open, setOpen] = React.useState(false);
@@ -92,13 +94,6 @@ const Checkout = () => {
   const handleRouteToMarketPlace = () => {
     paths.toHome();
   };
-
-  // const getAllTotalPrice = () => {
-  //   if(cart.length !== 0){
-  //     let total = cart.map( item => (Number(item.amount) * Number(item.quantity))).reduce( (a,b) => a+b);
-  //     setTotalItemPrice(String(total))
-  //   }
-  // }
 
   const getAllTotalPrice = () => {
     let newTotal = "0";
@@ -141,6 +136,7 @@ const Checkout = () => {
     }
   }, [router]);
 
+
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const payload = {
@@ -149,16 +145,18 @@ const Checkout = () => {
       phoneNumber: formData.phoneNumber,
     };
 
+
     try {
-      const response = await checkoutData(payload);
+      const response = await checkoutData(payload).unwrap();
       if ("data" in response) {
         response.data.data;
         setOpen(true);
       }
       localStorage.removeItem("savedCartItems");
-      router.push(`/`);
+      dispatch(setCart([]));
+
     } catch (error) {
-      error;
+      console.log(error.data);
     }
   };
 
@@ -468,7 +466,12 @@ const Checkout = () => {
                   <div className="">
                     <button
                       onClick={handleSubmit}
-                      className="w-full h-11 bg-mecaBluePrimaryColor flex items-center justify-center rounded-full text-white cursor-pointer"
+                      disabled={!formData.deliveryAddress || !formData.phoneNumber}
+                      className={`w-full h-11 flex items-center justify-center rounded-full text-white cursor-pointer ${
+                      !formData.deliveryAddress || !formData.phoneNumber
+                         ? "bg-gray-500"
+                         : "bg-mecaBluePrimaryColor"
+                    }`}
                     >
                       {isLoading ? (
                         <ColorRing
