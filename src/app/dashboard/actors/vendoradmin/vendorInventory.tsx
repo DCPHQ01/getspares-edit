@@ -10,6 +10,7 @@ import { useGetVendorAdminInventoryQuery } from "../../../../redux/features/dash
 import { useState, useEffect } from "react";
 import { useGetAllVendorProductsQuery } from "../../../../redux/features/product/productsQuery";
 
+
 interface InventoryData {
   categoryName?: string;
   dateCreated: string;
