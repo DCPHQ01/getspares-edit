@@ -18,6 +18,7 @@ import { clearUser } from "../../../../redux/features/users/userSlice";
 import MobileNav from "../../../../components/MobileNav/mobileNavbarList";
 import NavBar from "../../../../components/NavBar/NavBar";
 import { paths } from "../../../../path/paths";
+import { Button, Menu } from "@mui/material";
 import MecaGlobalSearch from "../../../../components/NavBar/MecaGlobalSearch";
 
 interface JwtPayload extends BaseJwtPayload {
@@ -35,7 +36,6 @@ export default function NavBarWhileInsideApp() {
   const { user } = useAppSelector((state) => state.user);
 
   const { cart } = useAppSelector((state) => state.product);
-
 
   const [toggleProfile, setToggleProfile] = useState(false);
   const [openNavOptions, setOpenNavOptions] = useState(false);
@@ -73,6 +73,15 @@ export default function NavBarWhileInsideApp() {
   };
   const name = decoded?.given_name;
 
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const openNavbar = Boolean(anchorEl);
+  const handleNavbarClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <nav className="w-full bg-white relative" id="navbarContainer">
       {/* mobile and tab */}
@@ -97,27 +106,13 @@ export default function NavBarWhileInsideApp() {
                 e-meca
               </p>
             </div>
-            {/* <div
-          // w-1/3 flex items-center gap-x-2 relative
-            className="flex-grow flex justify-center items-center gap-x-2 relative"
-            id="searchDesktop"
-          >
-            <MdSearch
-              size={24}
-              className="absolute left-1 text-mecaGoBackArrow"
-            />
-            <input
-              id="inputSearchDesktop"
-              placeholder="Search for anything"
-              className="bg-mecaSearchColor w-[580px] h-[44px] rounded-full px-9 outline-none"
-            />
-          </div> */}
+
             <div
               className="flex-grow flex justify-center items-center gap-x-2 relative"
               id="searchDesktop"
             >
               <div className="relative w-full max-w-[580px]">
-                <MecaGlobalSearch/>
+                <MecaGlobalSearch />
               </div>
             </div>
             <div
@@ -140,7 +135,7 @@ export default function NavBarWhileInsideApp() {
                 </div>
               </Link>
 
-              <div className="w-full flex items-center h-full" id={"newMe"}>
+              {/* <div className="w-full flex items-center h-full" id={"newMe"}>
                 {!tokens ? (
                   <div className="w-full flex justify-end items-center h-full gap-4">
                     <button
@@ -174,6 +169,93 @@ export default function NavBarWhileInsideApp() {
                     <MdExpandLess className="text-mecaGoBackArrow w-5 h-5 mt-2" />
                   </button>
                 )}
+              </div> */}
+              <div className="w-full flex items-center h-full">
+                {!tokens ? (
+                  <div className="w-full flex justify-end items-center h-full gap-4">
+                    <button
+                      type="button"
+                      className="w-[28%] xl:w-[38%] h-full border border-mecaBluePrimaryColor bg-white text-mecaBluePrimaryColor text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
+                      id="startShoppingBtnMainNavBar"
+                      onClick={handleLogin}
+                    >
+                      Login
+                    </button>
+                    <button
+                      type="button"
+                      className="w-[75%] xl:w-[52%] h-full bg-mecaBluePrimaryColor text-white text-[12px] xl:text-sm font-nunito font-semibold rounded-full"
+                      id="startShoppingBtn"
+                      onClick={handleStartShopping}
+                    >
+                      Create an account
+                    </button>
+                  </div>
+                ) : (
+                  <div className="">
+                    <Button
+                      id="fadebutton"
+                      aria-controls={openNavbar ? "fade-menu" : undefined}
+                      aria-haspopup="true"
+                      aria-expanded={openNavbar ? "true" : undefined}
+                      onClick={handleNavbarClick}
+                    >
+                      <div className="flex gap-x-2">
+                        <div className="">
+                          <p className="mt-1 capitalize  text-mecaDarkBlueBackgroundOverlay text-base font-medium">
+                            Hi, {name}
+                          </p>
+                        </div>
+                        <div className="">
+                          {openNavbar ? (
+                            <MdExpandLess className="text-mecaGoBackArrow w-5 h-5 mt-1.5" />
+                          ) : (
+                            <MdExpandMore className="text-mecaGoBackArrow w-5 h-5 mt-1.5" />
+                          )}
+                        </div>
+                      </div>
+                    </Button>
+                  </div>
+                )}
+                <Menu
+                  id="fade-menu"
+                  MenuListProps={{
+                    "aria-labelledby": "fade-button",
+                  }}
+                  className="z-[2000]"
+                  anchorEl={anchorEl}
+                  open={openNavbar}
+                  onClose={handleClose}
+                >
+                  <button
+                    id="profileBtn"
+                    onClick={handleClose}
+                    className="flex gap-2 w-44 m-auto  h-10 p-2 pt-3 hover:bg-mecaActiveBackgroundNavColor hover:text-mecaActiveIconsNavColor"
+                  >
+                    <MdOutlineAccountCircle className="text-mecaProfileColor w-6 h-6 " />
+                    <span
+                      className="w-24 h-6 flex gap-1 font-normal text-base text-mecaDarkBlueBackgroundOverlay hover:text-mecaActiveIconsNavColor"
+                      onClick={handleDashboard}
+                    >
+                      <span>My</span>
+                      <span>Dashboard</span>
+                    </span>
+                  </button>
+
+                  <div className="mt-1">
+                    <button
+                      onClick={handleClose}
+                      className="flex gap-2 m-auto w-44 h-10 p-2 pt-3 hover:bg-mecaActiveBackgroundNavColor hover:text-mecaActiveIconsNavColor"
+                    >
+                      <MdLogout className="text-mecaProfileColor w-6 h-6 " />
+                      <span
+                        className="h-6 font-normal text-base text-mecaDarkBlueBackgroundOverlay hover:text-mecaActiveIconsNavColor"
+                        onClick={logOut}
+                      >
+                        Logout
+                      </span>
+                    </button>
+                  </div>
+                </Menu>
               </div>
             </div>
           </div>
