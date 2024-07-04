@@ -33,7 +33,6 @@ const CalledPagesPageOnePages = () => {
   });
 
   const { data: getCategoriesData, isFetching } = useGetCategoryQuery({});
-  getCategoriesData?.data, "get categories data";
 
   useEffect(() => {
     const savedData = sessionStorage?.getItem("basicInfoValues");
@@ -45,12 +44,9 @@ const CalledPagesPageOnePages = () => {
   }, [productData]);
 
   const router = useRouter();
-  console.log("product data: ", productData);
 
   const handleBasicInfoChange = (e: any) => {
     const { name, value } = e.target;
-
-    console.log(value);
 
     if (name === "amount") {
       const numericValue = value.replace(/[^0-9]/g, "");
