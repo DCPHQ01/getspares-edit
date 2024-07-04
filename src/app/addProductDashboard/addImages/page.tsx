@@ -166,7 +166,7 @@ const CalledPagesPageTwoPages = () => {
                       style={{ backgroundColor: "#EFF2F3" }}
                       className=" h-60 w-[27rem] mb-5 mt-10 pt-6 cursor-pointer"
                     >
-                      <div className="flex flex-col  items-center justify-center">
+                      <div id="addImage" className="flex flex-col  items-center justify-center">
                         <div className="border rounded-full mt-12 h-16 w-[60px] flex justify-center">
                           <div
                             id="prevImgState"
