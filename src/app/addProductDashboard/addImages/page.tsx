@@ -239,7 +239,7 @@ const CalledPagesPageTwoPages = () => {
                           Add image
                         </p>
                         <p className="font-normal">
-                          by clicking or drag and drop
+                          by clicking
                         </p>
                       </div>
                     </div>

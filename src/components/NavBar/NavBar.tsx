@@ -253,7 +253,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                   id="profileBtnMainNav"
                 >
                   <MdOutlineAccountCircle className="w-8 h-8 text-mecaProfileColor" />
-                  <p className="mt-2 font-normal text-mecaDarkBlueBackgroundOverlay text-sm">
+                  <p className="mt-2 font-normal text-mecaDarkBlueBackgroundOverlay text-sm capitalize">
                     Hi, {name}
                   </p>
                   {toggleProfile ? (
