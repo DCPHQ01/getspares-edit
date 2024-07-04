@@ -31,7 +31,7 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading }) => {
     <div id="tableContainer">
       <div
         id="mecaAdminTable"
-        className={`my-[1.25rem] w-full max-h-[34rem] overflow-y-auto scrollbar-none ${styles.table}`}
+        className={`my-[1.25rem] w-full max-h-[34rem] overflow-y-auto scrollbar-none h-[32rem] ${styles.table}`}
       >
         <table id="adminTable" className={`w-full`}>
           <thead className={`w-full`}>
