@@ -23,6 +23,8 @@ import { setCart } from "../../redux/features/product/productSlice";
 import { CartProduct } from "../../types/cart/product";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
+import MecaGlobalSearch from "./MecaGlobalSearch";
+
 import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
 
@@ -211,15 +213,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
             id="searchDesktop"
           >
             <div className="relative w-full max-w-[580px]">
-              <MdSearch
-                size={24}
-                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-mecaGoBackArrow"
-              />
-              <input
-                id="inputSearchDesktop"
-                placeholder="Search for anything"
-                className="bg-mecaSearchColor w-full h-[44px] rounded-full pl-12 pr-4 outline-none"
-              />
+              <MecaGlobalSearch/>
             </div>
           </div>
           <div
