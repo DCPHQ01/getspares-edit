@@ -29,7 +29,6 @@ function Index() {
     setClicked(!clicked);
   };
 
-  console.log("clicked: ", clicked);
   const DropdownMenu = () => {
     const { data, isLoading, isError } = useGetCategoryQuery({});
     const [nameCategoryItems, setNameCategoryItems] = useState<
@@ -44,7 +43,6 @@ function Index() {
         setNameCategoryItems(data.data);
       }
     }, [data]);
-    console.log("nameCategoryItems: ", nameCategoryItems);
 
     return (
       <div

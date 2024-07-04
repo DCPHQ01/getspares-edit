@@ -11,11 +11,11 @@ interface ReviewModalProps {
   setOpenModal: (value: boolean) => void;
 }
 
-interface BuyersDetails{
-    description: string,
-    rating: number,
-    productId: string,
-    orderId: string,
+interface BuyersDetails {
+  description: string;
+  rating: number;
+  productId: string;
+  orderId: string;
 }
 
 const CustomIconContainer = styled("span")({
@@ -26,7 +26,7 @@ const CustomIconContainer = styled("span")({
   marginRight: "4px",
 });
 
-const ReviewModal: React.FC<ReviewModalProps>  = ({
+const ReviewModal: React.FC<ReviewModalProps> = ({
   openModal,
   setOpenModal,
 }) => {
@@ -57,19 +57,9 @@ const ReviewModal: React.FC<ReviewModalProps>  = ({
       }).unwrap();
       closeModal();
       if ("data" in res) {
-        console.log("create comment", res.data.data);
       }
     } catch (error) {}
   };
-
-  // useEffect(() => {
-  //   if (orderId && productId) {
-  //     sessionStorage.setItem("orderId", orderId);
-  //     sessionStorage.setItem("orderId", orderId);
-  //     console.log("Stored in session storage", {orderId, productId})
-  //   }
-
-  // }, [orderId, productId]);
 
   return (
     <Dialog

@@ -1,11 +1,9 @@
 import dayjs from "dayjs";
-import customParseFormat from 'dayjs/plugin/customParseFormat';
-import localizedFormat from 'dayjs/plugin/localizedFormat'
+import customParseFormat from "dayjs/plugin/customParseFormat";
+import localizedFormat from "dayjs/plugin/localizedFormat";
 
 dayjs.extend(customParseFormat);
 dayjs.extend(localizedFormat);
-
-
 
 export enum sidePanel {
   OVERVIEW = "OVERVIEW",
@@ -26,9 +24,9 @@ export enum roles {
   AGENTS = "AGENT",
 }
 
-export const formatAllDate = (date: string, format='YYYY-MM-DD') => {
-  if(date){
-    let val = date.split(' ')[0];
+export const formatAllDate = (date: string, format = "YYYY-MM-DD") => {
+  if (date) {
+    let val = date.split(" ")[0];
     const finalDate = dayjs(val, format).format("DD-MM-YYYY");
     return finalDate;
   }

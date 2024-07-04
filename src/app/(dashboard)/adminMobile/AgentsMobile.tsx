@@ -19,14 +19,14 @@ import {
 } from "react-icons/md";
 
 function AgentsMobile() {
-  const [page, setPage] = useState(0)
-  const size = 10
+  const [page, setPage] = useState(0);
+  const size = 10;
   const [first, setFirst] = useState(false);
   const [last, setLast] = useState(false);
-  const { data, isLoading, isError} = useGetMecaAdminAgentQuery({
-    page:page,
-    size:size
-  })
+  const { data, isLoading, isError } = useGetMecaAdminAgentQuery({
+    page: page,
+    size: size,
+  });
   const [agentList, setAgentList] = useState<Agent[]>([]);
 
   useEffect(() => {
@@ -34,23 +34,22 @@ function AgentsMobile() {
       const list = data.data.content;
       const lists = data.data;
       setAgentList(list);
-      setFirst(lists.first)
-      setLast(lists.last)
+      setFirst(lists.first);
+      setLast(lists.last);
     }
   }, [data]);
 
-
-  const handleNextPage=()=>{
-    if(first){
-      setPage(prevPage => prevPage + 1);
+  const handleNextPage = () => {
+    if (first) {
+      setPage((prevPage) => prevPage + 1);
     }
-  }
+  };
 
-  const  handlePreviousPage=()=>{
+  const handlePreviousPage = () => {
     if (last) {
-      setPage(prevPage => prevPage - 1);
+      setPage((prevPage) => prevPage - 1);
     }
-  }
+  };
 
   return (
     <>
@@ -64,15 +63,23 @@ function AgentsMobile() {
       </div>
 
       <div className="">
-        <AgentTable agentList={agentList} isLoading={isLoading}/>
+        <AgentTable agentList={agentList} isLoading={isLoading} />
         <div className=" flex justify-end mt-10 mb-10 font-bold text-lg">
-          <button className={`flex gap-x-2 border border-[#EAECF0]  rounded-md h-[36px] w-[36px] pl-1  ${!last ? "text-gray-400 cursor-not-allowed" : ""}`}
-          onClick={handlePreviousPage}
-          disabled={first}
+          <button
+            title="arrow"
+            className={`flex gap-x-2 border border-[#EAECF0]  rounded-md h-[36px] w-[36px] pl-1  ${
+              !last ? "text-gray-400 cursor-not-allowed" : ""
+            }`}
+            onClick={handlePreviousPage}
+            disabled={first}
           >
             <MdChevronLeft className="mt-1 text-2xl" />
           </button>
-          <button className={`flex gap-x-2 border border-[#EAECF0] rounded-md h-[36px] w-[36px] pl-1  ${last ? "text-gray-400 cursor-not-allowed" : ""}`}
+          <button
+            title="arrow"
+            className={`flex gap-x-2 border border-[#EAECF0] rounded-md h-[36px] w-[36px] pl-1  ${
+              last ? "text-gray-400 cursor-not-allowed" : ""
+            }`}
             onClick={handleNextPage}
             disabled={last}
           >
