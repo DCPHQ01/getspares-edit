@@ -161,35 +161,36 @@ const CalledPagesPageFivePages = () => {
 
                 <div>
                   <select
-                    id="manufacturer"
-                    name="manufacturer"
-                    style={{ backgroundColor: "porcelain" }}
-                    required={true}
-                    className="w-[29.4rem] h-14 border bg-mecaInputBgColor rounded-md pl-2 mb-5 outline-none"
-                    title="manufacturer"
-                    value={technicalDetails.manufacturer}
-                    onChange={(e) =>
-                      setTechnicalDetails({
-                        ...technicalDetails,
-                        manufacturer: e.target.value,
-                      })
-                    }
+                      id="manufacturer"
+                      name="manufacturer"
+                      style={{backgroundColor: "porcelain"}}
+                      required={true}
+                      className="w-[29.4rem] h-14 border bg-mecaInputBgColor rounded-md pl-2 mb-5 outline-none"
+                      title="manufacturer"
+                      value={technicalDetails.manufacturer}
+                      onChange={(e) =>
+                          setTechnicalDetails({
+                            ...technicalDetails,
+                            manufacturer: e.target.value,
+                          })
+                      }
                   >
+                    <option id={`manufacturer`} value="" disabled selected>Brand</option>
                     {manufacturerData.map((data) => (
-                      <option
-                        key={data.id}
-                        value={data.manufacturer}
-                        className="border border-b-2 border-gray-400"
-                      >
-                        {data.manufacturer}
-                      </option>
+                        <option
+                            key={data.id}
+                            value={data.manufacturer}
+                            className="border border-b-2 border-gray-400"
+                        >
+                          {data.manufacturer}
+                        </option>
                     ))}
                   </select>
                 </div>
 
                 <TextField
-                  type="url"
-                  id="filledbasic"
+                    type="url"
+                    id="filledbasic"
                   label="Manufacturer part number"
                   variant="filled"
                   name="manufacturerParts"
