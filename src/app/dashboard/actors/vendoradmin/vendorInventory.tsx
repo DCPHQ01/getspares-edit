@@ -53,7 +53,7 @@ function VendorInventory() {
       {/* <div className={`flex justify-between items-center mt-[1.5rem]`}>
         <Categories />
         <Searchbox />
-      </div> */}
+      </div>  */}
 
       <div>
         <VendorInventoryTable
