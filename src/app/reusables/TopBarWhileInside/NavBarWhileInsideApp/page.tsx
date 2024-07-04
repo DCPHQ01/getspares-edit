@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   MdExpandLess,
   MdExpandMore,
@@ -18,6 +18,7 @@ import { clearUser } from "../../../../redux/features/users/userSlice";
 import MobileNav from "../../../../components/MobileNav/mobileNavbarList";
 import NavBar from "../../../../components/NavBar/NavBar";
 import { paths } from "../../../../path/paths";
+import MecaGlobalSearch from "../../../../components/NavBar/MecaGlobalSearch";
 
 interface JwtPayload extends BaseJwtPayload {
   role?: string;
@@ -116,15 +117,7 @@ export default function NavBarWhileInsideApp() {
               id="searchDesktop"
             >
               <div className="relative w-full max-w-[580px]">
-                <MdSearch
-                  size={24}
-                  className="absolute left-3 top-1/2 transform -translate-y-1/2 text-mecaGoBackArrow"
-                />
-                <input
-                  id="inputSearchDesktop"
-                  placeholder="Search for anything"
-                  className="bg-mecaSearchColor w-full h-[44px] rounded-full pl-12 pr-4 outline-none"
-                />
+                <MecaGlobalSearch/>
               </div>
             </div>
             <div
