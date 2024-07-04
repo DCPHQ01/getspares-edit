@@ -150,14 +150,11 @@ const Checkout = () => {
 
     try {
       const response = await checkoutData(payload).unwrap();
-      if ("data" in response) {
-        response.data.data;
-        setOpen(true);
-      }
+      setOpen(true);
       localStorage.removeItem("savedCartItems");
       dispatch(setCart([]));
 
-    } catch (error) {
+    } catch (error:any) {
       console.log(error.data);
     }
   };
