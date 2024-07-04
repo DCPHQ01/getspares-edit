@@ -16,7 +16,6 @@ function Buyers() {
   const { data, isLoading, isError, error } = useGetMecaAdminBuyerQuery({
     page,
     size,
-    roleName:'BUYER'
   });
   const [totalElement, setTotalElement] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
@@ -28,10 +27,10 @@ function Buyers() {
   useEffect(() => {
     if (data) {
       setTotalElement(data.data?.totalElements);
-      setPage(data.data?.pageNumber);
-      setSize(data.data?.pageSize);
-      setFirst(data.data?.hasNext);
-      setLast(data.data?.hasPrevious);
+      setPage(data.data?.pageable.pageNumber);
+      setSize(data.data?.pageable.pageSize);
+      setFirst(data.data?.last);
+      setLast(data.data?.first);
       const resultList = data.data?.content;
       if (resultList) {
         setBuyerList(resultList);
@@ -44,17 +43,26 @@ function Buyers() {
     }
   }, [data]);
 
+  console.log("The BuyerList:", first, last);
+
+
+
   const handlePreviousPage = () => {
-    if (last) {
-      setPage((prevPage) => prevPage - 1);
-    }
+    if(first) {
+      setPage(prevPage => prevPage - 1);
   };
+}
 
   const handleNextPage = () => {
-    if (first) {
-      setPage((prevPage) => prevPage + 1);
-    }
+    if(last) {
+      setPage(prevPage => prevPage + 1);
+      console.log(page)
   };
+  };
+
+
+
+
 
   return (
     <>
@@ -69,28 +77,24 @@ function Buyers() {
       <BuyerTable data={buyerList} isLoading={isLoading} isError={isError} />
 
       <div className="flex mt-10 text-mecaBluePrimaryColor font-bold text-lg">
-        {!last ? (
-          <button className={`flex gap-x-2`} onClick={handlePreviousPage}>
+      {!last ? (
+          <button className={`flex gap-x-2`}
+          onClick={handlePreviousPage}>
             <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
-          </button>
-        ) : (
-          <div>{""}</div>
-        )}
+          </button>) : (<div>{""}</div>)
+        }
 
-        {!first ? (
-          <button
-            className="flex gap-x-2 justify-end ml-auto"
-            onClick={handleNextPage}
-            // disabled={currentPage * size >= totalElement}
-          >
-            Next
-            <span>
-              <MdChevronRight className="mt-[2px] text-2xl" />{" "}
-            </span>
-          </button>
-        ) : (
-          <div>{""}</div>
-        )}
+        { !first? (
+        <button className="flex gap-x-2 justify-end ml-auto"
+          onClick={handleNextPage}
+          // disabled={currentPage * size >= totalElement}
+        >
+          Next
+          <span>
+            <MdChevronRight className="mt-[2px] text-2xl" />{" "}
+          </span>
+        </button>
+      ) : (<div>{""}</div>) }
       </div>
     </>
   );
