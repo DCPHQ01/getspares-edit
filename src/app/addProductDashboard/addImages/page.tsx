@@ -61,8 +61,6 @@ const CalledPagesPageTwoPages = () => {
     if (files && files.length > 0) {
       const newImages: string[] = [];
       const newImageFiles: File[] = Array.from(files);
-      const newImagesUrl: string[] = [];
-
       newImageFiles.forEach((file) => {
         const reader = new FileReader();
         reader.onloadend = () => {
@@ -177,7 +175,6 @@ const CalledPagesPageTwoPages = () => {
                         <div className="border rounded-full mt-12 h-16 w-[60px] flex justify-center">
                           <div
                             id="prevImgState"
-                            onClick={handleImageClick}
                             className="w-full px-2 py-2  rounded-md  cursor-pointer border-none"
                           >
                             <MdPhotoLibrary
@@ -197,18 +194,18 @@ const CalledPagesPageTwoPages = () => {
                             wrapperStyle={{}}
                             wrapperClass="color-ring-wrapper"
                             colors={[
-                              "#0000FF",
-                              "#0000FF",
-                              "#0000FF",
-                              "#0000FF",
-                              "#0000FF",
+                              "#095AD3",
+                              "#095AD3",
+                              "#095AD3",
+                              "#095AD3",
+                              "#095AD3",
                             ]}
                           />
                         </div>
                       )}
-                      {images && (
+                      {imagesUrl && (
                         <div className="flex absolute -bottom-16">
-                          {images.slice(0, 4).map((image, index) => (
+                          {imagesUrl.slice(0, 4).map((image, index) => (
                             <div
                               key={index}
                               className={`${
@@ -308,11 +305,11 @@ const CalledPagesPageTwoPages = () => {
                       />
                     </div>
 
-                    {images && images.length > 0 ? (
+                    {imagesUrl && imagesUrl.length > 0 ? (
                       <div className="relative flex justify-center">
                         <div className="rounded-full">
                           <img
-                            src={images[currentImageIndex]}
+                            src={imagesUrl[currentImageIndex]}
                             alt="Uploaded"
                             className="h-[283px] w-[28rem] object-cover"
                           />

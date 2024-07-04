@@ -47,15 +47,25 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
         <table id="adminTable" className={`w-full`}>
           <thead>
             <tr className="truncate">
-              <th id="companyNameHeader" className={`sticky`}>Category name</th>
-              <th id="totalItemsSoldHeader" className={`sticky`}>No of products</th>
-              <th id="transactionValueHeader" className={`sticky`} style={{ paddingLeft: "5rem" }}>
+              <th id="companyNameHeader" className={`lg:sticky`}>
+                Category name
+              </th>
+              <th id="totalItemsSoldHeader" className={`lg:sticky`}>
+                No of products
+              </th>
+              <th
+                id="transactionValueHeader"
+                className={`lg:sticky`}
+                style={{ paddingLeft: "5rem" }}
+              >
                 Created by
               </th>
-              <th id="dateTimeJoinedHeader" className={`sticky`}>Date & time joined</th>
+              <th id="dateTimeJoinedHeader" className={`lg:sticky`}>
+                Date & time joined
+              </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="-z-50">
             {isLoading ? (
               <div className="text-center mt-28 relative lg:left-[210%] lg:right[210%] md:left-[213%] md:right[213%] sm:left-[21">
                 <ColorRing
@@ -70,11 +80,11 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
                   }}
                   wrapperClass="color-ring-wrapper"
                   colors={[
-                    "#000000",
-                    "#000000",
-                    "#000000",
-                    "#000000",
-                    "#000000",
+                    "#095AD3",
+                    "#095AD3",
+                    "#095AD3",
+                    "#095AD3",
+                    "#095AD3",
                   ]}
                 />
                 <p>Loading Category.....</p>

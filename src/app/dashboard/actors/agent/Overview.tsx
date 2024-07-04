@@ -12,8 +12,8 @@ function Overview() {
 
   const [name, setName] = useState("");
 
-  const handlePeriodChange = (newPeriod: string) => {
-    setActivityPeriod(newPeriod);
+  const handlePeriodChange = () => {
+    setActivityPeriod((prevValue) => (prevValue === 'month' ? 'year' : 'month'));
   };
 
   useEffect(() => {

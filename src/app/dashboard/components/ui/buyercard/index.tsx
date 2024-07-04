@@ -42,7 +42,7 @@ const Index = ({checkOpened}: any) => {
     }
   }, [data]);
 
-  console.log("Images ata the top data: ", data)
+  console.log("Images at the top data: ", data)
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error loading data</div>;
