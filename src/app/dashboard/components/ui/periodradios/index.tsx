@@ -68,7 +68,7 @@ interface PeriodRadiosProps {
     onPeriodChange: () => void;
 }
 
-const Index: React.FC<PeriodRadiosProps> = ({ activityPeriod, onPeriodChange }) => {
+const Index = ({ activityPeriod, onPeriodChange }: PeriodRadiosProps) => {
     const [selectedValue, setSelectedValue] = useState(activityPeriod);
 
     useEffect(() => {
