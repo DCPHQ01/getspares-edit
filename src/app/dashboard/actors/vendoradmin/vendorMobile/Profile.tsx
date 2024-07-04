@@ -72,7 +72,6 @@ const Profile = () => {
     setViewAdminProfile(false);
   };
   const { data } = useGetUserAllUsersProfileQuery({});
-  console.log("profile details", data);
 
   const [viewProfile, setViewProfile] = useState<viewProfilesForActors>({
     name: "",

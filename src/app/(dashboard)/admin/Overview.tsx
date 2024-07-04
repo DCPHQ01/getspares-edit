@@ -10,10 +10,12 @@ import {
   MdChevronLeft,
   MdChevronRight,
 } from "react-icons/md";
-import { useGetMecaAdminOverviewQuery, useGetTopPerformingVendorsQuery } from "../../../redux/features/dashboard/mecaAdminQuery";
+import {
+  useGetMecaAdminOverviewQuery,
+  useGetTopPerformingVendorsQuery,
+} from "../../../redux/features/dashboard/mecaAdminQuery";
 import cardsData from "./Overview";
 import { error } from "console";
-
 
 interface VendorData {
   // avatar: string;
@@ -22,37 +24,39 @@ interface VendorData {
   totalItemSold: number;
   transactionValue: string;
   dateJoined: string;
-};
-
+}
 
 function Overview() {
   const [activityPeriod, setActivityPeriod] = useState("month");
-  const { data: mecaAdminOverviewData,  isLoading} = useGetMecaAdminOverviewQuery({});
-  const {data,  isLoading: isVendorsLoading, isError: isVendorsError,} = useGetTopPerformingVendorsQuery({ period: activityPeriod});
+  const { data: mecaAdminOverviewData, isLoading } =
+    useGetMecaAdminOverviewQuery({});
+  const {
+    data,
+    isLoading: isVendorsLoading,
+    isError: isVendorsError,
+  } = useGetTopPerformingVendorsQuery({ period: activityPeriod });
   const [adminOverview, setAdminOverview] = useState({});
   const [name, setName] = useState("");
   const [topVendors, setTopVendors] = useState<VendorData[]>([]);
 
   useEffect(() => {
-    if(data) {
+    if (data) {
       const resultList = data.data;
-        setTopVendors(resultList);
-      }
-    }, [data]);
-
-
-  // console.log("data", mecaAdminOverviewData);
-console.log("topVendors", topVendors);
+      setTopVendors(resultList);
+    }
+  }, [data]);
 
   const handlePeriodChange = () => {
-    setActivityPeriod((prevValue) => (prevValue === 'month' ? 'year' : 'month'));
+    setActivityPeriod((prevValue) =>
+      prevValue === "month" ? "year" : "month"
+    );
   };
 
-    useEffect(() => {
-      if(mecaAdminOverviewData?.data){
-        setAdminOverview(mecaAdminOverviewData.data)
-      }
-    },[mecaAdminOverviewData?.data])
+  useEffect(() => {
+    if (mecaAdminOverviewData?.data) {
+      setAdminOverview(mecaAdminOverviewData.data);
+    }
+  }, [mecaAdminOverviewData?.data]);
 
   useEffect(() => {
     const role =
@@ -69,32 +73,31 @@ console.log("topVendors", topVendors);
           subtitle={`Take a quick glance on what is happening with meca`}
           name={`${name}`}
         />
-         <Cards cardField={adminOverview}  />
+        <Cards cardField={adminOverview} />
         <div
           className={` flex justify-between items-center mt-[3.25rem] mb-[1.25rem]`}
         >
           <div>
             <Header
-                subtitle={`A quick glance on vendors with highest sales on meca`}
-                title={`Top performing vendors`}
+              subtitle={`A quick glance on vendors with highest sales on meca`}
+              title={`Top performing vendors`}
             />
           </div>
 
           <PeriodRadios
-              activityPeriod={activityPeriod}
-              onPeriodChange={handlePeriodChange}
+            activityPeriod={activityPeriod}
+            onPeriodChange={handlePeriodChange}
           />
         </div>
-        <OverviewTable data={topVendors} isLoading={isVendorsLoading}/>
-
+        <OverviewTable data={topVendors} isLoading={isVendorsLoading} />
 
         {/* <div className="flex justify-between mt-10 text-mecaBluePrimaryColor font-bold text-lg">
           <button className="flex gap-x-2">
             <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
           </button> */}
-          {/*<button className="flex gap-x-2">*/}
-          {/*  <MdChevronRight className="mt-1 text-2xl" /> <span>Next</span>*/}
-          {/*</button>*/}
+        {/*<button className="flex gap-x-2">*/}
+        {/*  <MdChevronRight className="mt-1 text-2xl" /> <span>Next</span>*/}
+        {/*</button>*/}
         {/* </div> */}
       </div>
     </>
@@ -102,5 +105,3 @@ console.log("topVendors", topVendors);
 }
 
 export default Overview;
-
-

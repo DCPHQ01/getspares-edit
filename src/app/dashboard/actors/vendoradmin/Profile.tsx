@@ -10,7 +10,7 @@ import TextareaAutosize from "@mui/material/TextareaAutosize";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import { useGetUserAllUsersProfileQuery } from "../../../../redux/features/profile/profileQuery";
-import {useGetCompanyProfileQuery} from "../../../../redux/features/company/companyQuery";
+import { useGetCompanyProfileQuery } from "../../../../redux/features/company/companyQuery";
 
 interface viewProfilesForActors {
   name?: string;
@@ -78,7 +78,6 @@ const Profile = () => {
   };
 
   const { data, isLoading, isError } = useGetCompanyProfileQuery({});
-  console.log("profile details", data);
 
   const [viewProfile, setViewProfile] = useState<viewProfilesForActors>({
     name: "",
@@ -89,7 +88,7 @@ const Profile = () => {
     address1: "",
     address2: "",
     websiteUrl: "",
-    phoneNumber:''
+    phoneNumber: "",
   });
 
   useEffect(() => {
@@ -109,8 +108,8 @@ const Profile = () => {
           />
           <div>
             <Header
-               subtitle={`${viewProfile.companyEmail}`}
-               title={`${viewProfile.name}`}
+              subtitle={`${viewProfile.companyEmail}`}
+              title={`${viewProfile.name}`}
             />
           </div>
         </div>
@@ -147,17 +146,11 @@ const Profile = () => {
               </div>
 
               <div className="flex justify-center">
-                <Header
-                  subtitle={``}
-                  title={`${viewProfile.name}`}
-                />
+                <Header subtitle={``} title={`${viewProfile.name}`} />
               </div>
 
               <div className="flex justify-center">
-                <Header
-                  subtitle={`${viewProfile.companyEmail}`}
-                  title={``}
-                />
+                <Header subtitle={`${viewProfile.companyEmail}`} title={``} />
               </div>
             </div>
 

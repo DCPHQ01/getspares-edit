@@ -4,18 +4,8 @@ import { useRouter } from "next/navigation";
 import Box from "@mui/material/Box";
 // import ImageComponent from "../../../components/imageComp/ImageComponent";
 import TextField from "@mui/material/TextField";
-import {
-  MdArrowForward,
-  MdArrowRight,
-  MdChevronRight,
-  MdClose,
-  MdPhotoLibrary,
-} from "react-icons/md";
+import { MdChevronRight, MdPhotoLibrary } from "react-icons/md";
 
-import {
-  TextareaAutosize as BaseTextareaAutosize,
-  TextareaAutosize,
-} from "@mui/base/TextareaAutosize";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 import { paths } from "../../../path/paths";
@@ -35,29 +25,34 @@ const CalledPagesPageOnePages = () => {
   );
   const [descriptionError, setDescriptionError] = useState("");
   const [basicInfoValues, setBasicInfoValues] = useState({
-    productName: productData?.name || "",
-    productCategory: productData?.category || "",
-    productDescription: productData?.description || "",
-    price: productData?.amount || "",
-    quantity: productData?.quantity || "",
+    name: "",
+    category: "",
+    description: "",
+    amount: "",
+    quantity: "",
   });
 
   const { data: getCategoriesData, isFetching } = useGetCategoryQuery({});
-  console.log(getCategoriesData?.data, "get categories data");
+  getCategoriesData?.data, "get categories data";
 
   useEffect(() => {
     const savedData = sessionStorage.getItem("basicInfoValues");
     if (savedData) {
       setBasicInfoValues(JSON.parse(savedData));
+    } else if (productData) {
+      populateData(productData);
     }
-  }, []);
+  }, [productData]);
 
   const router = useRouter();
+  console.log("product data: ", productData);
 
   const handleBasicInfoChange = (e: any) => {
     const { name, value } = e.target;
 
-    if (name === "price") {
+    console.log(value);
+
+    if (name === "amount") {
       const numericValue = value.replace(/[^0-9]/g, "");
       const formattedValue = numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       setBasicInfoValues((prevValues) => {
@@ -74,38 +69,54 @@ const CalledPagesPageOnePages = () => {
     }
   };
 
-  console.log("category data ", getCategoriesData);
-
-  console.log("basic info ", productData);
+  const populateData = (userData: any) => {
+    const userDataKeys = Object.keys(basicInfoValues);
+    if (userData) {
+      userDataKeys.forEach((key) => {
+        if (key === "quantity") {
+          console.log("quantity ", userData?.productInformation?.quantity);
+          setBasicInfoValues((values: any) => ({
+            ...values,
+            [key]: userData?.productInformation?.quantity,
+          }));
+        } else {
+          setBasicInfoValues((values: any) => ({
+            ...values,
+            [key]: userData[key] ? userData[key] : "",
+          }));
+        }
+      });
+    }
+  };
 
   const [errors, setErrors] = useState({
-    productName: "",
-    productCategory: "",
-    productDescription: "",
-    price: "",
+    name: "",
+    category: "",
+    description: "",
+    amount: "",
     quantity: "",
   });
 
   const handleNextPage = () => {
     let newErrors = {
-      productName: "",
-      productCategory: "",
-      productDescription: "",
-      price: "",
+      name: "",
+      category: "",
+      description: "",
+      amount: "",
       quantity: "",
     };
 
-    if (!basicInfoValues.productName) {
-      newErrors.productName = "Product name is required";
+    if (!basicInfoValues.name) {
+      newErrors.name = "Product name is required";
     }
-    if (!basicInfoValues.productCategory) {
-      newErrors.productCategory = "Product category is required";
+    if (!basicInfoValues.category) {
+      newErrors.category = "Product category is required";
     }
-    if (!basicInfoValues.productDescription) {
-      newErrors.productDescription = "Product description is required";
+    if (!basicInfoValues.description) {
+      newErrors.description = "Product description is required";
     }
-    if (!basicInfoValues.price) {
-      newErrors.price = "Product price is required";
+    if (!basicInfoValues.amount) {
+      newErrors.amount = "Product amount is required";
     }
     if (!basicInfoValues.quantity) {
       newErrors.quantity = "Quantity is required";
@@ -114,10 +125,10 @@ const CalledPagesPageOnePages = () => {
     setErrors(newErrors);
 
     if (
-      !newErrors.productName &&
-      !newErrors.productCategory &&
-      !newErrors.productDescription &&
-      !newErrors.price &&
+      !newErrors.name &&
+      !newErrors.category &&
+      !newErrors.description &&
+      !newErrors.amount &&
       !newErrors.quantity
     ) {
       router.push(paths.toAddProductDashboardAddImages());
@@ -131,12 +142,17 @@ const CalledPagesPageOnePages = () => {
       setDescriptionError("");
       setBasicInfoValues((prevValues) => ({
         ...prevValues,
-        productDescription: value,
+        description: value,
       }));
     }
   };
 
-  console.log("values ", basicInfoValues);
+  // useEffect(() => {
+  //   if (productData) {
+  //     populateData(productData);
+  //   }
+  // }, [productData]);
+
   return (
     <>
       <div className="" style={{ width: "80%" }} id="pageone1">
@@ -162,7 +178,7 @@ const CalledPagesPageOnePages = () => {
                   />
                 </div>
               ) : (
-                <Fragment>
+                <>
                   <div className=" ">
                     <div className="mb-10 pageHeader w-94" id="pageone4">
                       <header className="font-bold text-lg" id="pageone5">
@@ -184,20 +200,18 @@ const CalledPagesPageOnePages = () => {
                       <Box>
                         <TextField
                           required={true}
-                          id="productName"
+                          id="name"
                           label="Product name"
                           variant="filled"
                           type="text"
-                          name="productName"
+                          name="name"
                           placeholder="Enter name"
                           InputProps={{ disableUnderline: true }}
                           className=" w-[29.4rem] mb-5 "
-                          value={
-                            productData?.name || basicInfoValues.productName
-                          }
+                          value={basicInfoValues.name}
                           onChange={handleBasicInfoChange}
-                          error={!!errors.productName}
-                          helperText={errors.productName || ""}
+                          error={!!errors.name}
+                          helperText={errors.name || ""}
                         />
                       </Box>
 
@@ -215,11 +229,11 @@ const CalledPagesPageOnePages = () => {
                           labelId="demo-simple-select-filled-label"
                           id="demo-simple-select-filled"
                           disableUnderline
-                          value={basicInfoValues.productCategory}
-                          name="productCategory"
+                          value={basicInfoValues.category}
+                          name="category"
                           onChange={handleBasicInfoChange}
                           renderValue={(selected) => {
-                            if (!basicInfoValues.productCategory) {
+                            if (!basicInfoValues.category) {
                               return <p>Select a category</p>;
                             }
                             return selected;
@@ -240,9 +254,9 @@ const CalledPagesPageOnePages = () => {
 
                       <TextField
                         required={true}
-                        id="productDescription"
+                        id="description"
                         aria-label="Description"
-                        name="productDescription"
+                        name="description"
                         label="Description"
                         multiline
                         InputProps={{ disableUnderline: true }}
@@ -251,10 +265,7 @@ const CalledPagesPageOnePages = () => {
                         variant="filled"
                         minRows={4}
                         maxRows={6}
-                        value={
-                          productData?.description ||
-                          basicInfoValues.productDescription
-                        }
+                        value={basicInfoValues.description}
                         onChange={(e) => checkDescriptionLength(e.target.value)}
                         error={!!descriptionError}
                         helperText={descriptionError}
@@ -263,33 +274,31 @@ const CalledPagesPageOnePages = () => {
                       <Box>
                         <TextField
                           required={true}
-                          id="productPrice"
+                          id="productamount"
                           type="text"
-                          label="Product price"
+                          label="Product amount"
                           variant="filled"
-                          name="price"
+                          name="amount"
                           placeholder="NGN 2000.00"
                           InputProps={{ disableUnderline: true }}
                           className="w-[29.4rem] mb-5"
                           sx={{ backgroundColor: "porcelain" }}
-                          value={productData?.amount || basicInfoValues.price}
+                          value={basicInfoValues.amount}
                           onChange={handleBasicInfoChange}
-                          error={!!errors.price}
-                          helperText={errors.price || ""}
+                          error={!!errors.amount}
+                          helperText={errors.amount || ""}
                         />
                       </Box>
 
                       <Box>
                         <TextField
                           required={true}
-                          type="url"
-                          id="quantityAvailable"
+                          type="number"
+                          id="quantity"
                           label="Quantity availability"
                           variant="filled"
                           name="quantity"
-                          value={
-                            productData?.quantity || basicInfoValues.quantity
-                          }
+                          value={basicInfoValues.quantity}
                           onChange={handleBasicInfoChange}
                           placeholder="Enter value"
                           InputProps={{ disableUnderline: true }}
@@ -331,9 +340,9 @@ const CalledPagesPageOnePages = () => {
                     <div className="">
                       <div className="flex justify-between">
                         <div className="flex flex-col w-[280px] justify-center h-[40px] px-2">
-                          {basicInfoValues.productName ? (
+                          {basicInfoValues.name ? (
                             <p className="capitalize font-bold text-lg text-mecaDarkBlueBackgroundOverlay">
-                              {basicInfoValues.productName}
+                              {basicInfoValues.name}
                             </p>
                           ) : (
                             <p className="capitalize font-bold text-lg text-mecaDarkBlueBackgroundOverlay">
@@ -342,13 +351,13 @@ const CalledPagesPageOnePages = () => {
                           )}
                         </div>
                         <div className="flex flex-col items-end justify-center w-[120px] h-[40px]">
-                          {basicInfoValues.price ? (
+                          {basicInfoValues.amount ? (
                             <p className="capitalize font-normal text-sm text-mecaDarkBlueBackgroundOverlay">
-                              ₦{basicInfoValues.price}
+                              ₦{basicInfoValues.amount}
                             </p>
                           ) : (
                             <p className="capitalize font-normal text-sm text-mecaDarkBlueBackgroundOverlay">
-                              price
+                              amount
                             </p>
                           )}
                         </div>
@@ -357,14 +366,14 @@ const CalledPagesPageOnePages = () => {
                         <p>Description</p>
                         <textarea
                           title="textArea"
-                          value={basicInfoValues.productDescription}
+                          value={basicInfoValues.description}
                           readOnly={true}
                           className="scrollbar-none border-white pl-0  w-full h-32 p-2 bg-white placeholder:text-black outline-none"
                         />
                       </div>
                     </div>
                   </div>
-                </Fragment>
+                </>
               )}
             </div>
 

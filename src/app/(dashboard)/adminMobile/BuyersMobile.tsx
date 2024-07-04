@@ -13,25 +13,26 @@ import { useGetMecaAdminBuyerQuery } from "../../../redux/features/dashboard/mec
 function Buyers() {
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(10);
-  const {data, isLoading, isError, error} = useGetMecaAdminBuyerQuery({page, size});
-
-  
+  const { data, isLoading, isError, error } = useGetMecaAdminBuyerQuery({
+    page,
+    size,
+  });
 
   const [buyerList, setBuyerList] = useState([]);
   useEffect(() => {
     if (data) {
-      console.log("Received data structure:", data);
-    
       const resultList = data.data?.content;
       if (resultList) {
         setBuyerList(resultList);
       } else {
-        console.error("Expected data.content to be an array, but got:", resultList);
+        console.error(
+          "Expected data.content to be an array, but got:",
+          resultList
+        );
       }
     }
   }, [data]);
 
-  console.log("The BuyerList:", buyerList);
   return (
     <>
       <Header
@@ -39,17 +40,20 @@ function Buyers() {
         title={`Buyers`}
         amount={`433,112`}
       />
-      <div className={`my-[1.25rem]`}>
+      {/* <div className={`my-[1.25rem]`}>
         <SearchBox placeholder={`Search for buyers`} />
-      </div>
+      </div> */}
 
-      <BuyerTable data={buyerList} isLoading={isLoading} isError={isError}/>
+      <BuyerTable data={buyerList} isLoading={isLoading} isError={isError} />
 
       <div className=" flex justify-end mt-10 mb-10 font-bold text-lg">
         {/* <button className="flex gap-x-2 border border-[#EAECF0]  rounded-md h-[36px] w-[36px] pl-1">
           <MdChevronLeft className="mt-1 text-2xl" />
         </button> */}
-        <button className="flex gap-x-2 border border-[#EAECF0] rounded-md h-[36px] w-[36px] pl-1">
+        <button
+          title="right"
+          className="flex gap-x-2 border border-[#EAECF0] rounded-md h-[36px] w-[36px] pl-1"
+        >
           <MdChevronRight className="mt-1 text-2xl" />
         </button>
       </div>

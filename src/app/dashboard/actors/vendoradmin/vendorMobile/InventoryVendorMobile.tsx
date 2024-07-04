@@ -36,7 +36,6 @@ function InventoryVendorMobile() {
 
       const resultList = await getInventory(requestBody).unwrap();
       const list = resultList.data.content;
-      console.log("it is a Mobile Success:", list);
       setInventory(list);
       const lists = resultList.data;
       setdatas(lists);
@@ -52,8 +51,6 @@ function InventoryVendorMobile() {
   useEffect(() => {
     fetchVendorData();
   }, []);
-
-  console.log("The Vendor Inventory Mobile: ", inventory);
 
   const handleNextPage = () => {
     if (hasNext) {
@@ -81,10 +78,10 @@ function InventoryVendorMobile() {
           <Addbutton title={`Add product`} />
         </div>
       </div>
-      <div className={` items-center gap-3 mt-[1.5rem] flex flex-row-reverse`}>
+      {/* <div className={` items-center gap-3 mt-[1.5rem] flex flex-row-reverse`}>
         <Searchbox />
         <Categories />
-      </div>
+      </div>  */}
 
       <div className="">
         <VendorInventoryTable inventoryData={inventory} isLoading={isLoading} />

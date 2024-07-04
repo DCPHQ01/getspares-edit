@@ -68,7 +68,7 @@ interface PeriodRadiosProps {
     onPeriodChange: () => void;
 }
 
-const Index: React.FC<PeriodRadiosProps> = ({ activityPeriod, onPeriodChange }) => {
+const Index = ({ activityPeriod, onPeriodChange }: PeriodRadiosProps) => {
     const [selectedValue, setSelectedValue] = useState(activityPeriod);
 
     useEffect(() => {
@@ -89,7 +89,7 @@ const Index: React.FC<PeriodRadiosProps> = ({ activityPeriod, onPeriodChange }) 
                 aria-labelledby="period-radios"
                 name="customized-radios"
             >
-                <div className="flex w-full -z-50">
+                <div className="flex w-full">
                     <div>
                         <FormControlLabel
                             value="month"
@@ -124,3 +124,4 @@ const Index: React.FC<PeriodRadiosProps> = ({ activityPeriod, onPeriodChange }) 
 }
 
 export default Index;
+

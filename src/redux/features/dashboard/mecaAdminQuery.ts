@@ -60,10 +60,10 @@ export const mecaAdminQuery = createApi({
 });
 
 // export const {useGetMecaAdminInventoryMutation, useAddCategoryMutation, useGetMecaAdminOverviewQuery, useGetTopPerformingVendorsQuery, useGetMecaAdminBuyerQuery,useGetMecaAdminDashboardVendorQuery,useGetViewAllMecaAdminCategoryQuery  } = mecaAdminQuery;
-export const {useGetMecaAdminInventoryMutation,useAddCategoryMutation, useGetMecaAdminOverviewQuery, 
+export const {useGetMecaAdminInventoryMutation,useAddCategoryMutation, useGetMecaAdminOverviewQuery,
               useGetTopPerformingVendorsQuery, useGetMecaAdminBuyerQuery,
-              useGetMecaAdminDashboardVendorQuery,useGetViewAllMecaAdminCategoryQuery, 
-              useGetMecaAdminAgentQuery  
+              useGetMecaAdminDashboardVendorQuery,useGetViewAllMecaAdminCategoryQuery,
+              useGetMecaAdminAgentQuery
             } = mecaAdminQuery;
 
 

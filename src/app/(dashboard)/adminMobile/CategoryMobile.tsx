@@ -78,7 +78,6 @@ function CategoryMobile() {
       setLast(lists.last);
     }
   }, [data]);
-  console.log("THIS IS CATEGORY", categoryList);
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -123,13 +122,13 @@ function CategoryMobile() {
         image: image_url,
       }).unwrap();
       if ("data" in response) {
-        console.log(response.data.data);
+        response.data.data;
         setCategoryList((prev) => [response.data.data, ...prev]);
         refetch();
         handleClose();
       }
     } catch (error: any) {
-      console.log(error);
+      error;
       setError(error.data.message);
     }
   };
@@ -274,7 +273,7 @@ function CategoryMobile() {
       <div
         className={`flex justify-between gap-[100px] mr-[2rem] items-center mb-[1.25rem]`}
       >
-        <SearchBox placeholder={`Search for category`} />
+        {/* <SearchBox placeholder={`Search for category`} /> */}
         {/*<PeriodRadios activityPeriod={activityPeriod} onPeriodChange={handlePeriodChange} />*/}
 
         <PeriodRadios

@@ -6,6 +6,8 @@ import { AccountCircle } from "@mui/icons-material";
 import dayjs from "dayjs";
 import { ColorRing } from "react-loader-spinner";
 import { CldImage } from "next-cloudinary";
+import { MdInventory2 } from "react-icons/md";
+import EmptyState from "../../../../../components/utils/emptyState";
 
 interface Category {
   id: string;
@@ -87,8 +89,8 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
                     "#095AD3",
                   ]}
                 />
-                <p>Loading Category.....</p>
               </div>
+             
             ) : (
               categoryList?.map((d, index) => {
                 const { date, time } = formatDateTime(d?.dateCreated);
@@ -182,6 +184,7 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
             )}
           </tbody>
         </table>
+        <EmptyState datad={categoryList} />
       </div>
     </div>
   );

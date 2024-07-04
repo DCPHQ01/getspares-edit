@@ -29,10 +29,8 @@ interface OrderInfo {
   orderItems: RecentProductImages[];
 }
 
-const Index = ({ checkOpened }: any) => {
-  const { data, isError, isLoading } = useGetOverviewRecentProductImageQuery(
-    {}
-  );
+const Index = ({checkOpened}: any) => {
+  const { data, isError, isLoading } = useGetOverviewRecentProductImageQuery({});
   const [imageList, setImageList] = useState<RecentProductImages[]>([]);
   const [details, setDetails] = useState(false);
 
@@ -42,7 +40,7 @@ const Index = ({ checkOpened }: any) => {
     }
   }, [data]);
 
-  console.log("Images at the top data: ", data);
+  console.log("Images at the top data: ", data)
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error loading data</div>;
@@ -59,7 +57,9 @@ const Index = ({ checkOpened }: any) => {
   return (
     <div className=" flex gap-x-5 justify-between scrollbar-none">
       {imageLists.map((detail, index) => (
-        <div key={index} className="w-[100%]" onClick={handleParticularDetails}>
+        <div key={index} className="lg:w-[22rem]"
+        onClick={handleParticularDetails}
+        >
           <div className="px-[1.2rem] py-[1.3rem] bg-[#F8FAFC] flex justify-center rounded-[8px] mb-[1rem]">
             <img src={detail.image} alt="engine" />
           </div>

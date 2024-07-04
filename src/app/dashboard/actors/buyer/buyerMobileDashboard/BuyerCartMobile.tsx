@@ -1,5 +1,5 @@
 "use client";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import { Nunito_Sans } from "next/font/google";
 import Carousel from "react-multi-carousel";
 import Cards from "../../../../../components/Homepage/Card";
@@ -13,10 +13,7 @@ const nunito = Nunito_Sans({
   adjustFontFallback: false,
   display: "swap",
 });
-import {
-
-  MdCheckCircle,
-} from "react-icons/md";
+import { MdCheckCircle } from "react-icons/md";
 
 import { Alert, Card } from "@mui/material";
 import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
@@ -25,10 +22,10 @@ import { useRouter } from "next/navigation";
 import { useAppSelector } from "../../../../../redux/hooks";
 import Header from "../../../components/ui/header";
 import Searchbox from "../../../components/ui/searchbox";
-import {CheckOutCard} from "../../../../../components/cart/CheckOutCard";
-import {paths} from "../../../../../path/paths";
-import {useAddSingleProductToCartMutation} from "../../../../../redux/features/cart/cartQuery";
-import {formatAmount} from "../../../../../components/utils";
+import { CheckOutCard } from "../../../../../components/cart/CheckOutCard";
+import { paths } from "../../../../../path/paths";
+import { useAddSingleProductToCartMutation } from "../../../../../redux/features/cart/cartQuery";
+import { formatAmount } from "../../../../../components/utils";
 
 interface State extends SnackbarOrigin {
   open: boolean;
@@ -55,7 +52,6 @@ const responsive = {
   },
 };
 
-
 const BuyerCartMobile = () => {
   const router = useRouter();
 
@@ -70,9 +66,8 @@ const BuyerCartMobile = () => {
 
   const { cart } = useAppSelector((state) => state.product);
 
-
   const [addToCart, { isLoading: cartLoading }] =
-     useAddSingleProductToCartMutation();
+    useAddSingleProductToCartMutation();
 
   const handleSucessClick = (newState: SnackbarOrigin) => () => {
     setState({ ...newState, open: true });
@@ -81,8 +76,6 @@ const BuyerCartMobile = () => {
   const handleSucessClose = () => {
     setState({ ...state, open: false });
   };
-
-
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -110,21 +103,20 @@ const BuyerCartMobile = () => {
         const res = await addToCart(payload).unwrap();
         setState({ ...newState, open: true });
         router.push(paths.toCheckout());
-        console.log(res.data);
+        res.data;
       } catch (error: any) {
-        console.log(error.data);
+        error.data;
       }
     }
   };
-
 
   const getAllTotalPrice = () => {
     let newTotal = "0";
 
     if (cart.length !== 0) {
       const total = cart
-         .map((item) => Number(item.amount) * Number(item.quantity))
-         .reduce((a, b) => a + b, 0);
+        .map((item) => Number(item.amount) * Number(item.quantity))
+        .reduce((a, b) => a + b, 0);
 
       newTotal = String(total);
     }
@@ -149,7 +141,7 @@ const BuyerCartMobile = () => {
                 title={`Cart`}
                 amount={``}
               />
-              <Searchbox />
+              {/* <Searchbox /> */}
             </div>
 
             <div className="flex  flex-col w-full">
@@ -160,12 +152,13 @@ const BuyerCartMobile = () => {
                   </p>
                 ) : (
                   <div className="">
-                    {cart.map((cardCartItem,index) => (
-                       <CheckOutCard
-                          key={index}
-                          cardCartItem={cardCartItem}
-                          getPrice={getAllTotalPrice}
-                       />                    ))}
+                    {cart.map((cardCartItem, index) => (
+                      <CheckOutCard
+                        key={index}
+                        cardCartItem={cardCartItem}
+                        getPrice={getAllTotalPrice}
+                      />
+                    ))}
                   </div>
                 )}
               </div>
@@ -184,8 +177,8 @@ const BuyerCartMobile = () => {
                         <div className=" font-normal text-sm">
                           <p>
                             {totalItemPrice
-                               ? formatAmount(totalItemPrice)
-                               : "0"}
+                              ? formatAmount(totalItemPrice)
+                              : "0"}
                           </p>
                         </div>
                       </div>
@@ -197,19 +190,17 @@ const BuyerCartMobile = () => {
                       <div className="flex justify-between mt-5 mb-9 font-semibold text-xl">
                         <p>Subtotal</p>
                         <p>
-                          {totalItemPrice
-                             ? formatAmount(totalItemPrice)
-                             : "0"}
+                          {totalItemPrice ? formatAmount(totalItemPrice) : "0"}
                         </p>
                       </div>
                     </div>
                     <div className="">
                       <button
-                         onClick={handleCheckout({
-                           vertical: "top",
-                           horizontal: "center",
-                         })}
-                         className="w-full h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer"
+                        onClick={handleCheckout({
+                          vertical: "top",
+                          horizontal: "center",
+                        })}
+                        className="w-full h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer"
                       >
                         Checkout
                       </button>

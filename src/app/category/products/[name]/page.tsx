@@ -67,8 +67,6 @@ export default function Products() {
     pageNumber: 0,
     pageSize: 100,
   });
-  console.log("data for categories: ", data);
-  console.log("category id: ", categoryId);
 
   useEffect(() => {
     const savedItems = sessionStorage.getItem("categoryId");
@@ -148,9 +146,6 @@ export default function Products() {
       ],
     },
   ];
-  // useEffect(() => {
-  //   setIsFilterOpen(false);
-  // }, []);
 
   return (
     <section id="productCategory w-full">
@@ -239,11 +234,12 @@ export default function Products() {
                           id="itemImageDiv"
                         >
                           {item?.image ? (
-                            <Image
+                            <img
                               src={item?.image}
                               alt="tractor image"
-                              width={144}
-                              height={106}
+                              className="w-[144px] h-[106px]"
+                              // width={144}
+                              // height={106}
                             />
                           ) : null}
                         </div>

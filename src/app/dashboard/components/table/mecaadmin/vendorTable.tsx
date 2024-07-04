@@ -130,16 +130,7 @@ interface VendorTableProps {
 //     time: "04:00PM",
 //   },
 
-//   {
-//     avatar: image1,
-//     name: "Ebuka & Sons International",
-//     email: "ebuka&sons@gmail.com",
-//     sale: 67,
-//     vale: "₦ 700,000,00",
-//     // rating: <Rating name="half-rating" defaultValue={2.5} precision={0.5} />,
-//     date: "30 Aug 2022",
-//     time: "04:00PM",
-//   },
+
 
 // ];
 
@@ -153,7 +144,7 @@ const VendorTable: React.FC<VendorTableProps> = ({ vendorList, isLoading }) => {
 
   //   const resultList = await addVendor(requestBody).unwrap();
   //   const list = resultList.data.content
-  //   console.log('Success:',list);
+  //   ('Success:',list);
 
   //   setVendorList(list)
 

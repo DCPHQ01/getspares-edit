@@ -53,7 +53,6 @@ const Profile = () => {
     }
   }, []);
 
-  console.log("saved details ", details);
   return (
     <div>
       <Header subtitle={``} title={`Profile`} />

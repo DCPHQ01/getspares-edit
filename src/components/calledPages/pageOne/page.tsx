@@ -6,9 +6,7 @@ import ImageComponent from "../../../components/imageComp/ImageComponent";
 import TextField from "@mui/material/TextField";
 import { MdPhotoLibrary } from "react-icons/md";
 
-import {
-  TextareaAutosize,
-} from "@mui/base/TextareaAutosize";
+import { TextareaAutosize } from "@mui/base/TextareaAutosize";
 import formLogo from "../../../assets/images/formLogo.jpg";
 import { useAppSelector } from "../../../redux";
 import { useAppDispatch } from "../../../redux/hooks";
@@ -82,13 +80,11 @@ interface PageOneProps {
     phoneNumber: string;
     cac: string;
     address1: string;
-    address2:string;
+    address2: string;
   };
 }
 
-
-
-const CalledPagesPageOnePages: React.FC<PageOneProps> = ({companyData}) => {
+const CalledPagesPageOnePages: React.FC<PageOneProps> = ({ companyData }) => {
   const [website, setWebsite] = useState("");
   const [fullName, setFullName] = useState("");
   const [cacNumber, setCacNumber] = useState("");
@@ -103,7 +99,6 @@ const CalledPagesPageOnePages: React.FC<PageOneProps> = ({companyData}) => {
     website: "",
   };
   const [inputs, setInputs] = useState(initialFormState);
-
 
   const validateWebsite = () => {
     const websiteRegex =
@@ -181,13 +176,13 @@ const CalledPagesPageOnePages: React.FC<PageOneProps> = ({companyData}) => {
     validateImage();
 
     if (!Object.values(errors).some((error) => error)) {
-      console.log("Form submitted successfully");
+      ("Form submitted successfully");
     }
   };
 
   const dispatch = useAppDispatch();
 
-  const {companyForm} = useAppSelector((state: RootState) => state.company);
+  const { companyForm } = useAppSelector((state: RootState) => state.company);
 
   const [formImage, setFormImage] = useState<string | null>(() => {
     if (typeof window !== "undefined") {
@@ -220,21 +215,23 @@ const CalledPagesPageOnePages: React.FC<PageOneProps> = ({companyData}) => {
     dispatch(setCurrentStep(1));
   };
 
-  const populateData = (userData:any) => {
-    const userDataKeys = Object.keys(inputs)
-    if(userData){
-      userDataKeys.forEach(key => {
-        setInputs((values) => ({ ...values, [key]: userData[key] ? userData[key] : '' }));
-      })
+  const populateData = (userData: any) => {
+    const userDataKeys = Object.keys(inputs);
+    if (userData) {
+      userDataKeys.forEach((key) => {
+        setInputs((values) => ({
+          ...values,
+          [key]: userData[key] ? userData[key] : "",
+        }));
+      });
     }
-  }
-
+  };
 
   useEffect(() => {
-    if(companyData){
-      populateData(companyData)
+    if (companyData) {
+      populateData(companyData);
     }
-  },[companyData])
+  }, [companyData]);
 
   return (
     <>
@@ -253,7 +250,6 @@ const CalledPagesPageOnePages: React.FC<PageOneProps> = ({companyData}) => {
               </div>
             </div>
 
-
             <Box
               component="form"
               id="pageone8"
@@ -262,7 +258,7 @@ const CalledPagesPageOnePages: React.FC<PageOneProps> = ({companyData}) => {
               onSubmit={handleSubmit}
               autoComplete="off"
             >
-              <Box className={'flex flex-col gap-8'}>
+              <Box className={"flex flex-col gap-8"}>
                 <Box>
                   <TextField
                     required={true}
@@ -280,7 +276,6 @@ const CalledPagesPageOnePages: React.FC<PageOneProps> = ({companyData}) => {
                   />
                 </Box>
                 <Box>
-
                   <TextField
                     required={true}
                     id="filledbasic"
@@ -298,20 +293,20 @@ const CalledPagesPageOnePages: React.FC<PageOneProps> = ({companyData}) => {
                 </Box>
                 <Box>
                   <TextField
-                     required={true}
-                     id="filledbasic"
-                     label="Description"
-                     variant="filled"
-                     type="text"
-                     name="cacNumber"
-                     multiline
-                     minRows={7}
-                     maxRows={9}
-                     placeholder="Say something about your company"
-                     InputProps={{ disableUnderline: true }}
-                     className="lg:w-[364px] w-[100%] mb-10 2xl:w-[35rem]"
-                     sx={{ backgroundColor: "porcelain" }}
-                     value={inputs.description}
+                    required={true}
+                    id="filledbasic"
+                    label="Description"
+                    variant="filled"
+                    type="text"
+                    name="cacNumber"
+                    multiline
+                    minRows={7}
+                    maxRows={9}
+                    placeholder="Say something about your company"
+                    InputProps={{ disableUnderline: true }}
+                    className="lg:w-[364px] w-[100%] mb-10 2xl:w-[35rem]"
+                    sx={{ backgroundColor: "porcelain" }}
+                    value={inputs.description}
                   />
 
                   {/* {errors.message && (
@@ -472,22 +467,22 @@ const CalledPagesPageOnePages: React.FC<PageOneProps> = ({companyData}) => {
                       <br></br>
 
                       <textarea
-                       required={true}
-                       value={companyForm?.description}
-                       onChange={(e) =>
+                        required={true}
+                        value={companyForm?.description}
+                        onChange={(e) =>
                           dispatch(
-                             setCompanyForm({
-                               ...companyForm,
-                               description: e.target.value,
-                             })
+                            setCompanyForm({
+                              ...companyForm,
+                              description: e.target.value,
+                            })
                           )
-                       }
-                       onBlur={validateMessage}
-                       name="message"
-                       id="messageid2"
-                       placeholder="Description Say something about your company"
-                       className=" companyInput inputText w-full mb-8 lg:w-[364px]"
-                       />
+                        }
+                        onBlur={validateMessage}
+                        name="message"
+                        id="messageid2"
+                        placeholder="Description Say something about your company"
+                        className=" companyInput inputText w-full mb-8 lg:w-[364px]"
+                      />
                       {/* {errors.message && (
                         <p className="error-color">{errors.message}</p>
                       )} */}
@@ -516,7 +511,6 @@ const CalledPagesPageOnePages: React.FC<PageOneProps> = ({companyData}) => {
                         <p className="error-color">{errors.website}</p>
                       )} */}
                       <br></br>
-
                     </div>
 
                     <Box>

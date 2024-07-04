@@ -329,7 +329,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
               </Menu>
               {/* {toggleProfile && (
                 <div
-                  className="w-52 h-24 rounded-lg p-1 bg-white absolute top-12 right-24 "
+                  className="w-52 h-24 rounded-lg p-1 bg-white absolute top-16 right-24 "
                   style={{ boxShadow: "0px 2px 8px 0px #63636333" }}
                 >
                   <button

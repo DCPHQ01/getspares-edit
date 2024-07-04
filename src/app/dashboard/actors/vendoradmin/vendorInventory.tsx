@@ -28,8 +28,6 @@ function VendorInventory() {
   };
   const { data, isFetching } = useGetAllVendorProductsQuery({ requestBody });
 
-  console.log("inventory data ", data);
-
   const handleNextPage = () => {
     setPage((prevPage) => prevPage + 1);
   };
@@ -52,10 +50,10 @@ function VendorInventory() {
           <Addbutton title={`Add product`} />
         </Link>
       </div>
-      <div className={`flex justify-between items-center mt-[1.5rem]`}>
-        {/*<Categories />*/}
+      {/* <div className={`flex justify-between items-center mt-[1.5rem]`}>
+        <Categories />
         <Searchbox />
-      </div>
+      </div>  */}
 
       <div>
         <VendorInventoryTable

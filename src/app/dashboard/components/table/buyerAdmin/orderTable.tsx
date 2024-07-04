@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
 import styles from "../styles.module.css";
 import { useRouter } from "next/navigation";
@@ -8,6 +7,7 @@ import { ColorRing } from "react-loader-spinner";
 import { formatAmount } from "../../../../../components/utils";
 import dayjs from "dayjs";
 import { MdBusinessCenter } from "react-icons/md";
+// import EmptyState from "../../../../../components/utils/emptyState";
 
 type BuyerOrderData = {
   id: string,
@@ -143,7 +143,7 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
               )}
             </tbody>
           </table>
-           <EmptyState datad={data} />
+          { data.length === 0 ? <EmptyState datad={data.length === 0} /> : ""}
         </div>
       </div>
       {selectedOrderId && (
