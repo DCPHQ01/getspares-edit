@@ -13,14 +13,14 @@ import { ColorLens } from "@mui/icons-material";
 import { ColorRing } from "react-loader-spinner";
 
 interface CardProps {
-  image: StaticImageData | string;
+  image: string | StaticImageData;
   type: string;
   categoryId?: string | undefined;
 }
 
 interface DataProps {
   name: string;
-  image: string;
+  imageUrl: string;
   id: string;
 }
 
@@ -67,18 +67,20 @@ export default function ProductCarousel() {
       }
       router.push(paths.toCategoryProducts(urlType));
     };
+    console.log("category data ", categoryData);
     return (
       <div
         className="relative cursor-pointer"
         id="productContainer"
         onClick={handleRouteToProductPage}
       >
-        <Image
-          src={image}
+        <img
+          src={image?.toString()}
           alt=""
+          className="w-[630px] h-[564px] object-cover"
           width={630}
           height={564}
-          placeholder="blur"
+          // placeholder="blur"
           id="productImage"
         />
         <span
@@ -100,7 +102,6 @@ export default function ProductCarousel() {
           </button>
         </span>
       </div>
-      // </Link>
     );
   };
 
@@ -158,7 +159,13 @@ export default function ProductCarousel() {
             (categoryData?.data || []).map((data: DataProps) => (
               <Card
                 key={data.id}
-                image={data.image ? data.image : Bulldozer}
+                image={
+                  data?.imageUrl === "" ||
+                  (data?.imageUrl || "").includes("image.png") ||
+                  (data?.imageUrl || "").includes("string")
+                    ? Tractor
+                    : data.imageUrl
+                }
                 type={data.name}
                 categoryId={data.id}
               />
