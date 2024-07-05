@@ -122,15 +122,6 @@ const CalledPagesPageTwoPages = () => {
 
   const router = useRouter();
 
-  console.log("imagesUrl", imagesUrl);
-
-  // useEffect(() => {
-  //   const savedImages = sessionStorage?.getItem("clickedImage");
-  //   if (savedImages) {
-  //     setImagesUrl(JSON.parse(savedImages) as string[]);
-  //   }
-  // }, []);
-
   const handleViewPreviousImages = () => {
     setCurrentImageIndex((prevIndex) =>
       prevIndex > 0 ? prevIndex - 1 : imagesUrl.length - 1
@@ -151,7 +142,6 @@ const CalledPagesPageTwoPages = () => {
   const handleNextPage = () => {
     router.push(paths.toAddProductDashboardSpecifications());
     sessionStorage.setItem("images", JSON.stringify(imagesUrl));
-    // sessionStorage.setItem("clickedImage", JSON.stringify(imagesUrl));
   };
   useEffect(() => {
     const storedBasicInfoValues = sessionStorage.getItem("basicInfoValues");
@@ -175,12 +165,10 @@ const CalledPagesPageTwoPages = () => {
     if (savedImages) {
       setImagesUrl(JSON.parse(savedImages));
     }
-  }, []);
-  // useEffect(() => {
-  //   if (productImage) {
-  //     setImagesUrl(productImage?.images);
-  //   }
-  // }, [productImage]);
+    if (productImage) {
+      setImagesUrl(productImage?.images);
+    }
+  }, [productImage]);
 
   return (
     <div className="" style={{ width: "48%" }} id="pageTwo1">
