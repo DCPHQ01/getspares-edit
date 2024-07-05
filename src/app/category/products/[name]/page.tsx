@@ -62,10 +62,64 @@ export default function Products() {
     router.push(`/category/products/${searches}/${id}`);
   };
 
+  // const { data, isFetching } = useGetProductInCategoryQuery({
+  //
+  //   productId: "",
+  //   filters: {
+  //     additionalProp1: [],
+  //     additionalProp2: [],
+  //     additionalProp3: [],
+  //   },
+  //   categoryId,
+  //   pageNumber: 0,
+  //   pageSize: 100,
+  //   // categoryId,
+  //   // pageNumber: 0,
+  //   // pageSize: 100,
+  // });
+
+
+  const [selectedBrand, setSelectedBrand] = useState<string[]>(["brand"]);
+  const [selectedCondition, setSelectedCondition] = useState<string[]>(["new"]);
+  const [selectedPrice, setSelectedPrice] = useState<string[]>(["4000", "2000"]);
+
+  const handleBrandChange = (event: React.SyntheticEvent, checked: boolean) => {
+    if (event.target instanceof HTMLInputElement) {
+      const { value } = event.target;
+      setSelectedBrand((prev) =>
+          checked ? [...prev, value] : prev.filter((item) => item !== value)
+      );
+    }
+  };
+
+  const handleConditionChange = (event: React.SyntheticEvent, checked: boolean) => {
+    if(event.target instanceof HTMLInputElement) {
+      const {value} = event.target;
+      setSelectedCondition((prev) =>
+          checked ? [...prev, value] : prev.filter((item) => item !== value)
+      );
+    }
+  };
+
+  const handlePriceChange = (event: React.SyntheticEvent, checked: boolean) => {
+    if(event.target instanceof HTMLInputElement) {
+      const {value} = event.target;
+      setSelectedPrice((prev) =>
+          checked ? [value] : []
+      );
+    }
+  };
+
+
   const { data, isFetching } = useGetProductInCategoryQuery({
     categoryId,
     pageNumber: 0,
     pageSize: 100,
+    filters: {
+      brand: selectedBrand,
+      condition: selectedCondition,
+      price: selectedPrice,
+    },
   });
 
   useEffect(() => {
@@ -367,25 +421,30 @@ export default function Products() {
                         </p>
                       </AccordionSummary>
                       <AccordionDetails>
-                        <div className="flex flex-col gap-y-4">
-                          <FormControl>
-                            <RadioGroup
-                              aria-labelledby="demo-radio-buttons-group-label"
-                              name="radio-buttons-group"
-                              defaultValue={data.items[0].title}
-                            >
-                              {data.items.map((item: any) => (
-                                <div
-                                  className="flex items-center gap-4"
-                                  key={item.id}
-                                  id="checkboxItemList"
-                                >
+                        <div>
+                          <FormControl component="fieldset">
+                            <RadioGroup aria-label={data.title} name={data.title}>
+                              {data.items.map((item) => (
                                   <FormControlLabel
-                                    className="text-mecaGoBackText text-sm font-nunito"
-                                    control={item.icon}
-                                    label={`${item.title}`}
+                                      key={item.id}
+                                      control={<Checkbox/>}
+                                      label={item.title}
+                                      onChange={(event, checked) => {
+                                        switch (data.title) {
+                                          case 'Brand':
+                                            handleBrandChange(event, checked);
+                                            break;
+                                          case 'Conditions':
+                                            handleConditionChange(event, checked);
+                                            break;
+                                          case 'Price':
+                                            handlePriceChange(event, checked);
+                                            break;
+                                          default:
+                                            break;
+                                        }
+                                      }}
                                   />
-                                </div>
                               ))}
                             </RadioGroup>
                           </FormControl>
@@ -396,16 +455,16 @@ export default function Products() {
                 ))}
                 <div className="mt-8 flex flex-col justify-center gap-y-4 w-[273px] h-[100px]">
                   <button
-                    type="button"
-                    className="w-full h-[48px] bg-mecaBluePrimaryColor text-white font-nunito font-semibold text-sm rounded-full"
-                    id="applyFilterButton"
+                      type="button"
+                      className="w-full h-[48px] bg-mecaBluePrimaryColor text-white font-nunito font-semibold text-sm rounded-full"
+                      id="applyFilterButton"
                   >
                     Apply Filter
                   </button>
                   <button
-                    type="button"
-                    className="w-full h-[48px] border border-mecaBluePrimaryColor text-mecaBluePrimaryColor font-nunito font-semibold text-sm rounded-full"
-                    id="clearFilterButton"
+                      type="button"
+                      className="w-full h-[48px] border border-mecaBluePrimaryColor text-mecaBluePrimaryColor font-nunito font-semibold text-sm rounded-full"
+                      id="clearFilterButton"
                   >
                     Cancel Filter
                   </button>
@@ -413,11 +472,11 @@ export default function Products() {
               </div>
             )}
             <div
-              className="flex flex-wrap justify-between w-full"
-              id="allItemsContainerDivDesktop"
+                className="flex flex-wrap justify-between w-full"
+                id="allItemsContainerDivDesktop"
             >
               {isFetching ? (
-                <div className="w-full h-[615px] flex justify-center items-center">
+                  <div className="w-full h-[615px] flex justify-center items-center">
                   <ColorRing
                     visible={true}
                     height="100"
