@@ -53,6 +53,8 @@ type Filter = {
 };
 
 export default function Products() {
+  const pathLocation = useSearchParams();
+  const id = pathLocation?.get("id");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const router = useRouter();
   const [showFilter, setShowFilter] = useState(true);
@@ -70,11 +72,10 @@ export default function Products() {
     conditionStatus: [] as string[],
     price: [] as string[],
   });
-  const savedItems = sessionStorage.getItem("categoryId");
 
 
   const [payload, setPayload] = useState({
-    categoryId:savedItems,
+    categoryId:id,
     pageNumber: 0,
     pageSize: 100,
   })
@@ -138,12 +139,16 @@ export default function Products() {
     });
     setApplyFilter(true);
 
-    setPayload({...payload, filters: {
+    let newObj = {
+      ...payload,  filters: {
         model: [],
         brand: localFilters.brand,
         conditionStatus: localFilters.conditionStatus,
         price: localFilters.price,
-      }})
+      }
+    }
+
+    setPayload(newObj)
   };
 
   const cancelFilters = () => {
@@ -151,7 +156,7 @@ export default function Products() {
     setSelectedCondition([])
     setSelectedPrice([])
     setPayload({
-      categoryId:savedItems,
+      categoryId:id,
       pageNumber: 0,
       pageSize: 100,})
   }
@@ -166,8 +171,8 @@ export default function Products() {
 
 
   useEffect(() => {
-    if (savedItems) {
-      setCategoryId(savedItems);
+    if (id) {
+      setCategoryId(id);
     }
   }, []);
 

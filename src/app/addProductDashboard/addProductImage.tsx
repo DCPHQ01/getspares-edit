@@ -534,12 +534,6 @@ const AddProductImage = () => {
   const areImagesPresent = imagesData.length > 0;
   const validData = Boolean(isBasicInfoValid && areImagesPresent);
 
-  // Debugging logs
-  console.log("Basic Info Data:", basicInfoData);
-  console.log("Images Data:", imagesData);
-  console.log("Is Basic Info Valid:", isBasicInfoValid);
-  console.log("Are Images Present:", areImagesPresent);
-  console.log("Valid Data:", validData);
 
   const priceWithoutCommas = basicInfoData?.price?.replace(/,/g, "");
 
