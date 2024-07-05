@@ -39,6 +39,19 @@ interface ItemsDataProps {
   name: string;
 }
 
+type FilterItem = {
+  id: number;
+  title: string;
+  price?: string[];
+  icon: React.ReactNode;
+};
+
+type Filter = {
+  id: number;
+  title: string;
+  items: FilterItem[];
+};
+
 export default function Products() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const handleOpeningFilterButton = () => {
@@ -62,11 +75,65 @@ export default function Products() {
     router.push(`/category/products/${searches}/${id}`);
   };
 
-  const { data, isFetching } = useGetProductInCategoryQuery({
+  const [selectedBrand, setSelectedBrand] = useState<string[]>([]);
+  const [selectedCondition, setSelectedCondition] = useState<string[]>([]);
+  const [selectedPrice, setSelectedPrice] = useState<string[]>([]);
+
+  const handleBrandChange = (checked: boolean, filterName:string) => {
+      setSelectedBrand((prev) =>
+          checked ? [...prev, filterName] : prev.filter((item) => item !== filterName)
+      );
+  };
+
+  const handleConditionChange = (checked: boolean, filterName: string) => {
+      setSelectedCondition((prev) =>
+          checked ? [...prev, filterName] : prev.filter((item) => item !== filterName)
+      );
+  };
+
+  const handlePriceChange = (checked: boolean, price: string[] | undefined) => {
+    setSelectedPrice((prev) =>
+        checked && price ? price : []
+    );
+  };
+
+  const [applyFilter, setApplyFilter] = useState(false);
+  const [localFilters, setLocalFilters] = useState({
+    brand: [] as string[],
+    conditionStatus: [] as string[],
+    price: [] as string[],
+  });
+
+  const applyFilters = () => {
+    setLocalFilters({
+      brand: selectedBrand,
+      conditionStatus: selectedCondition,
+      price: selectedPrice,
+    });
+    setApplyFilter(true);
+  };
+
+  useEffect(() => {
+    if (applyFilter) {
+      setApplyFilter(false);
+    }
+  }, [applyFilter]);
+
+  const queryArgs = {
     categoryId,
     pageNumber: 0,
     pageSize: 100,
-  });
+    ...(applyFilter && {
+      filters: {
+        model: [],
+        brand: localFilters.brand,
+        conditionStatus: localFilters.conditionStatus,
+        price: localFilters.price,
+      },
+    }),
+  };
+
+  const { data, isFetching } = useGetProductInCategoryQuery(queryArgs);
 
   useEffect(() => {
     const savedItems = sessionStorage.getItem("categoryId");
@@ -75,7 +142,8 @@ export default function Products() {
     }
   }, []);
 
-  const filterData = [
+
+  const filterData: Filter[] = [
     {
       id: 1,
       title: "Brand",
@@ -130,18 +198,27 @@ export default function Products() {
       items: [
         {
           id: 1,
-          title: "200,000",
-          icon: <Radio value={"200000"} />,
+          title: "Less than 10,000",
+          price: ["0", "10,000"],
+          icon: <Radio value={["0", "10,000"]} />,
         },
         {
           id: 2,
-          title: "300,000",
-          icon: <Radio value={"300000"} />,
+          title: "10,000 - 50,000",
+          price: ["10,000", "50,000"],
+          icon: <Radio value={["10,000", "50,000"]} />,
         },
         {
           id: 3,
-          title: "1,000,000",
-          icon: <Radio value={"1000000"} />,
+          title: "50,000 - 500,000",
+          price: ["50,000", "500,000"],
+          icon: <Radio value={["50,000", "500,000"]} />,
+        },
+        {
+          id: 3,
+          title: "More than 500,000",
+          price: ["500,000", "1,000,000"],
+          icon: <Radio value={["500,000, 1,000,000"]} />,
         },
       ],
     },
@@ -209,9 +286,9 @@ export default function Products() {
                         wrapperClass="color-ring-wrapper"
                         colors={[
                           "#0000FF",
-                          "#0000FF",
-                          "#0000FF",
-                          "#0000FF",
+                          "#0099ff",
+                          "#4800ff",
+                          "#00bbff",
                           "#0000FF",
                         ]}
                       />
@@ -368,25 +445,30 @@ export default function Products() {
                         </p>
                       </AccordionSummary>
                       <AccordionDetails>
-                        <div className="flex flex-col gap-y-4">
-                          <FormControl>
-                            <RadioGroup
-                              aria-labelledby="demo-radio-buttons-group-label"
-                              name="radio-buttons-group"
-                              defaultValue={data.items[0].title}
-                            >
-                              {data.items.map((item: any) => (
-                                <div
-                                  className="flex items-center gap-4"
-                                  key={item.id}
-                                  id="checkboxItemList"
-                                >
+                        <div>
+                          <FormControl component="fieldset">
+                            <RadioGroup aria-label={data.title} name={data.title}>
+                              {data.items.map((item) => (
                                   <FormControlLabel
-                                    className="text-mecaGoBackText text-sm font-nunito"
-                                    control={item.icon}
-                                    label={`${item.title}`}
+                                      key={item.id}
+                                      control={<Checkbox/>}
+                                      label={item.title}
+                                      onChange={(event, checked) => {
+                                        switch (data.title) {
+                                          case 'Brand':
+                                            handleBrandChange(checked, item.title);
+                                            break;
+                                          case 'Conditions':
+                                            handleConditionChange(checked, item.title);
+                                            break;
+                                          case 'Price':
+                                            handlePriceChange(checked, item.price);
+                                            break;
+                                          default:
+                                            break;
+                                        }
+                                      }}
                                   />
-                                </div>
                               ))}
                             </RadioGroup>
                           </FormControl>
@@ -397,16 +479,17 @@ export default function Products() {
                 ))}
                 <div className="mt-8 flex flex-col justify-center gap-y-4 w-[273px] h-[100px]">
                   <button
-                    type="button"
-                    className="w-full h-[48px] bg-mecaBluePrimaryColor text-white font-nunito font-semibold text-sm rounded-full"
-                    id="applyFilterButton"
+                      type="button"
+                      className="w-full h-[48px] bg-mecaBluePrimaryColor text-white font-nunito font-semibold text-sm rounded-full"
+                      id="applyFilterButton"
+                      onClick={applyFilters}
                   >
                     Apply Filter
                   </button>
                   <button
-                    type="button"
-                    className="w-full h-[48px] border border-mecaBluePrimaryColor text-mecaBluePrimaryColor font-nunito font-semibold text-sm rounded-full"
-                    id="clearFilterButton"
+                      type="button"
+                      className="w-full h-[48px] border border-mecaBluePrimaryColor text-mecaBluePrimaryColor font-nunito font-semibold text-sm rounded-full"
+                      id="clearFilterButton"
                   >
                     Cancel Filter
                   </button>
@@ -414,11 +497,11 @@ export default function Products() {
               </div>
             )}
             <div
-              className="flex flex-wrap justify-between w-full"
-              id="allItemsContainerDivDesktop"
+                className="flex flex-wrap justify-between w-full"
+                id="allItemsContainerDivDesktop"
             >
               {isFetching ? (
-                <div className="w-full h-[615px] flex justify-center items-center">
+                  <div className="w-full h-[615px] flex justify-center items-center">
                   <ColorRing
                     visible={true}
                     height="100"

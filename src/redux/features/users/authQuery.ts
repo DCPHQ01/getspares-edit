@@ -89,17 +89,35 @@ export const authQuery = createApi({
     getCategory: builder.query({
       query: () => "/category/categories",
     }),
+    // getProductInCategory: builder.query({
+    //   query: (body: {
+    //     categoryId: string;
+    //     pageNumber: number;
+    //     pageSize: number;
+    //   }) => ({
+    //     url: "/product",
+    //     method: "POST",
+    //     body,
+    //   }),
+    // }),
     getProductInCategory: builder.query({
       query: (body: {
         categoryId: string;
         pageNumber: number;
         pageSize: number;
+        filters?: {
+          model: string[];
+          brand: string[];
+          conditionStatus: string[];
+          price: string[];
+        };
       }) => ({
         url: "/product",
         method: "POST",
         body,
       }),
     }),
+
     resetPasswordVerifyEmail: builder.mutation({
       query: (email) => ({
         url: `/auth/reset-password-verify-email?email=${email}`,
