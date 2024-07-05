@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { use, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Box from "@mui/material/Box";
 import ImageComponent from "../../../components/imageComp/ImageComponent";
@@ -38,13 +38,6 @@ const CalledPagesPageFourPages = () => {
     }
   }, []);
 
-  useEffect(() => {
-    const savedImages = sessionStorage?.getItem("clickedImage");
-
-    if (savedImages) {
-      setImages(JSON?.parse(savedImages));
-    }
-  }, []);
   const handleViewPreviousImages = () => {
     setCurrentImageIndex((prevIndex) =>
       prevIndex > 0 ? prevIndex - 1 : images.length - 1
@@ -52,6 +45,13 @@ const CalledPagesPageFourPages = () => {
   };
 
   const router = useRouter();
+
+  useEffect(() => {
+    const savedData = sessionStorage?.getItem("clickedImage");
+    if (savedData) {
+      setImages(JSON?.parse(savedData));
+    }
+  }, []);
 
   const handleViewNextImages = () => {
     setCurrentImageIndex((prevIndex) =>
