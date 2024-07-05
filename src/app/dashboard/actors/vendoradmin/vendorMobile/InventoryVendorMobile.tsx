@@ -5,7 +5,7 @@ import Categories from "../../../components/ui/categories";
 import VendorInventoryTable from "../../../components/table/vendoradmin/vendorInventoryTable";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { useState, useEffect } from "react";
-import { useGetVendorAdminInventoryMutation } from "../../../../../redux/features/dashboard/mecaVendorQuery";
+import { useGetVendorInventoryMutation } from "../../../../../redux/features/dashboard/mecaVendorQuery";
 
 interface InventoryData {
   categoryName?: string;
@@ -18,7 +18,7 @@ interface InventoryData {
 
 function InventoryVendorMobile() {
   const [getInventory, { isLoading, isError }] =
-    useGetVendorAdminInventoryMutation();
+    useGetVendorInventoryMutation();
   const [inventory, setInventory] = useState<InventoryData[]>([]);
   const [datas, setdatas] = useState();
   const [totalPages, setTotalPages] = useState(0);
@@ -78,10 +78,10 @@ function InventoryVendorMobile() {
           <Addbutton title={`Add product`} />
         </div>
       </div>
-      <div className={` items-center gap-3 mt-[1.5rem] flex flex-row-reverse`}>
+      {/* <div className={` items-center gap-3 mt-[1.5rem] flex flex-row-reverse`}>
         <Searchbox />
         <Categories />
-      </div>
+      </div>  */}
 
       <div className="">
         <VendorInventoryTable inventoryData={inventory} isLoading={isLoading} />

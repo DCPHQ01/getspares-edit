@@ -134,6 +134,18 @@ export const authQuery = createApi({
         body,
       }),
     }),
+    searchAllProducts: builder.query({
+      query: (payloadText: string) => ({
+        url: `/product/search/${payloadText}`,
+        method: "GET",
+      }),
+    }),
+    getAllCompanies: builder.query({
+      query: (payloadText: string) => ({
+        url: `/company/search-company?prefix=${payloadText}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -152,4 +164,6 @@ export const {
   useGetProductInCategoryQuery,
   useResetPasswordVerifyEmailMutation,
   useResetPasswordMutation,
+  useSearchAllProductsQuery,
+   useGetAllCompaniesQuery,
 } = authQuery;

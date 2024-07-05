@@ -332,41 +332,37 @@ function Category() {
         </Modal>
       </div>
 
-      <div
+      {/* <div
         className="flex flex-row-reverse justify-between items-center mb-[1.25rem]"
         id="searchBox"
-      >
+        >
         <SearchBox placeholder="Search" />
-        <PeriodRadios
+        </div> */}
+      <PeriodRadios
           activityPeriod={activityPeriod}
           onPeriodChange={handlePeriodChange}
         />
-      </div>
 
       <CategoryTable categoryList={categoryList} isLoading={isLoading} />
 
-      <div className="flex gap-[89%] md:gap-[85%] mt-10 text-mecaBluePrimaryColor font-bold text-lg">
-        <button
-          className={`flex gap-x-2  ${
-            first ? "text-gray-400 cursor-not-allowed" : ""
-          }`}
+      <div className="flex justify-between mt-10 text-mecaBluePrimaryColor font-bold text-lg">
+       {!first ? ( <button
+          className={`flex gap-x-2 `}
           onClick={handlePreviousPage}
-          disabled={first}
+          // disabled={first}
         >
           <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
-        </button>
-        <button
-          className={`flex gap-x-2  ${
-            last ? "text-gray-400 cursor-not-allowed" : ""
-          }`}
+        </button>) :  <div>{""}</div> }
+        {!last ? (<button
+          className={`flex gap-x-2  `}
           onClick={handleNextPage}
-          disabled={last}
+          // disabled={last}
         >
           Next
           <span>
             <MdChevronRight className="mt-[2px] text-2xl" />{" "}
           </span>
-        </button>
+        </button>) : <div>{""}</div>}
       </div>
     </>
   );

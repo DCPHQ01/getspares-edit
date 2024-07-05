@@ -70,6 +70,7 @@ const Card: React.FC<CardProps> = ({
           width={315}
           height={247}
           id="cardImage"
+          className="w-full h-[248px] object-cover"
         />
       </div>
       <span className="flex justify-between py-4 w-full gap-4" id="cardSpan">

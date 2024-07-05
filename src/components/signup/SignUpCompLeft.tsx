@@ -15,8 +15,9 @@ import {
 } from "react-icons/md";
 import { Button, Checkbox, Snackbar, SnackbarOrigin } from "@mui/material";
 import Link from "next/link";
-import React, { FormEvent, useState } from "react";
+import React, {FormEvent, useEffect, useState} from "react";
 import {
+  useGetAllCompaniesQuery,
   useRegisterAgentMutation,
   useRegisterBuyerMutation,
   useRegisterVendorMutation,
@@ -78,6 +79,16 @@ const SignUpComponentLeft = () => {
   const [registerError, setRegisterError] = useState<RegisterError>("");
   const router = useRouter();
   const [emailError, setEmailError] = useState<string | null>(null);
+  const [companyError, setCompanyError] = useState<string | null>(null);
+  const [agentCompanyError, setAgentCompanyError] = useState<string | null>(null);
+
+
+
+  const {data:companyData, isFetching} = useGetAllCompaniesQuery(
+     userVendorDetails.companyName.charAt(0) || userAgentDetails.companyName.charAt(0),
+     {skip:!userVendorDetails.companyName && !userAgentDetails.companyName}
+  )
+
 
   const [state, setState] = React.useState<State>({
     open: false,
@@ -102,14 +113,60 @@ const SignUpComponentLeft = () => {
       setUserBuyerDetails((values) => ({ ...values, [id]: value }));
     }
 
-    if (id === "email") {
-      if (validateEmail(value)) {
+    // if (id === "email") {
+    //   if (userBuyer.email || userAgentDetails.email || userVendorDetails.email && validateEmail(value)) {
+    //     setEmailError(null);
+    //   } else {
+    //     setEmailError("Please enter a valid email address.");
+    //   }
+    // }
+  };
+
+  useEffect(()=> {
+    setUserVendorDetails(userVendor)
+    setUserAgentDetails(userAgent)
+    setUserBuyerDetails(userBuyer)
+    setEmailError(null)
+    setCompanyError(null)
+    setAgentCompanyError(null)
+  },[userType])
+
+
+  const handleEmailError = () => {
+    if (userBuyerDetails.email || userAgentDetails.email || userVendorDetails.email) {
+      if (validateEmail(userBuyerDetails.email || userAgentDetails.email || userVendorDetails.email)) {
         setEmailError(null);
       } else {
         setEmailError("Please enter a valid email address.");
       }
+    }else{
+      setEmailError(null);
     }
-  };
+  }
+
+  const handleCompanyError = () => {
+    if (userVendorDetails.companyName || userAgentDetails.companyName) {
+      if (!companyData.data.includes(userVendorDetails.companyName || userAgentDetails.companyName)) {
+        setCompanyError(null);
+      } else {
+        setCompanyError("Company already exist");
+      }
+    }else{
+      setCompanyError(null);
+    }
+  }
+
+  const handleAgentCompanyError = () => {
+    if (userAgentDetails.companyName) {
+      if (!companyData.data.includes(userAgentDetails.companyName)) {
+        setAgentCompanyError("Company does not exist");
+      } else {
+        setAgentCompanyError(null);
+      }
+    }else{
+      setAgentCompanyError(null);
+    }
+  }
 
   const [registerVendor, { data: VendorData, error: VendorError }] =
     useRegisterVendorMutation();
@@ -121,31 +178,38 @@ const SignUpComponentLeft = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    try {
-      setIsLoading(true);
-      let userEmail = "";
-      let response;
-      switch (userType) {
-        case "vendor":
-          response = await registerVendor(userVendorDetails).unwrap();
-          userEmail = userVendorDetails.email;
-          break;
-        case "agent":
-          response = await registerAgent(userAgentDetails).unwrap();
-          userEmail = userAgentDetails.email;
-          break;
-        case "buyer":
-          response = await registerBuyer(userBuyerDetails).unwrap();
-          userEmail = userBuyerDetails.email;
-          break;
+    if (
+       emailError ||
+      companyError||
+    agentCompanyError
+    ) {
+      return;
+    } else {
+      try {
+        setIsLoading(true);
+        let userEmail = "";
+        let response;
+        switch (userType) {
+          case "vendor":
+            response = await registerVendor(userVendorDetails).unwrap();
+            userEmail = userVendorDetails.email;
+            break;
+          case "agent":
+            response = await registerAgent(userAgentDetails).unwrap();
+            userEmail = userAgentDetails.email;
+            break;
+          case "buyer":
+            response = await registerBuyer(userBuyerDetails).unwrap();
+            userEmail = userBuyerDetails.email;
+            break;
+        }
+        router.push(paths.toVerifyEmail());
+        sessionStorage.setItem("userEmail", userEmail);
+      } catch (error: any) {
+        setRegisterError(error);
+      } finally {
+        setIsLoading(false);
       }
-      router.push(paths.toVerifyEmail());
-      sessionStorage.setItem("userEmail", userEmail);
-    } catch (error: any) {
-      console.error(error);
-      setRegisterError(error);
-    } finally {
-      setIsLoading(false);
     }
   };
   const routerToHomePage = () => {
@@ -170,7 +234,7 @@ const SignUpComponentLeft = () => {
             <span
               onClick={routerToHomePage}
               id="e-mecaLogod"
-              className="font-bold text-2xl  text-mecaActiveIconsNavColor"
+              className="font-bold text-2xl cursor-pointer text-mecaActiveIconsNavColor"
             >
               e-meca
             </span>
@@ -289,6 +353,7 @@ const SignUpComponentLeft = () => {
                       id="email"
                       disableUnderline
                       onFocus={handleFocus}
+                      onMouseLeave={handleEmailError}
                       required
                       onChange={handleChange}
                       className="bg-mecaInputBgColor w-full rounded-t-[4px] hover:bg-mecaInputBgColor border focus-within:bg-mecaInputBgColor"
@@ -302,7 +367,7 @@ const SignUpComponentLeft = () => {
                       error={!!emailError}
                     />
                     {emailError && (
-                      <span className="text-red-500 text-lg">{emailError}</span>
+                      <span className="text-mecaErrorText text-base">{emailError}</span>
                     )}
                   </FormControl>
 
@@ -317,6 +382,7 @@ const SignUpComponentLeft = () => {
                         disableUnderline
                         onFocus={handleFocus}
                         onChange={handleChange}
+                        onMouseLeave={handleCompanyError}
                         className="bg-mecaInputBgColor w-full rounded-t-[4px] hover:bg-mecaInputBgColor border focus-within:bg-mecaInputBgColor"
                         value={
                           userType === "vendor"
@@ -324,6 +390,9 @@ const SignUpComponentLeft = () => {
                             : ""
                         }
                       />
+                      {companyError && (
+                         <span className="text-mecaErrorText text-base">{companyError}</span>
+                      )}
                     </FormControl>
                   ) : null}
 
@@ -337,6 +406,7 @@ const SignUpComponentLeft = () => {
                         id={userType === "agent" ? "companyName" : ""}
                         disableUnderline
                         onFocus={handleFocus}
+                        onMouseLeave={handleAgentCompanyError}
                         onChange={handleChange}
                         className="bg-mecaInputBgColor w-full rounded-t-[4px] hover:bg-mecaInputBgColor border focus-within:bg-mecaInputBgColor"
                         value={
@@ -349,6 +419,9 @@ const SignUpComponentLeft = () => {
                       <span className="text-xs  font-normal text-mecaGoBackArrow">
                         More sellers can be added later
                       </span>
+                      {agentCompanyError && (
+                         <span className="text-mecaErrorText text-base">{agentCompanyError}</span>
+                      )}
                     </FormControl>
                   ) : null}
 

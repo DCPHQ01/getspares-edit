@@ -12,11 +12,11 @@ import PeriodRadios from "../../components/ui/periodradios";
 import Card from "../../../../components/cards/indexTwo";
 
 interface VendorOverview {
-  dateJoined: string;
-  imageUrl?: string;
-  transactionValue: number | string;
-  totalItemSold: number;
-  itemName: string;
+  dateAndTimeAdded: string;
+  // imageUrl?: string;
+  orderValue?: number | string;
+  totalSold: number;
+  productName: string;
 }
 
 function VendorOverview() {

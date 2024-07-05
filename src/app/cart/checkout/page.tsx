@@ -29,8 +29,9 @@ import HeaderPage from "../../reusables/Header/page";
 import NavBarWhileInsideApp from "../../reusables/TopBarWhileInside/NavBarWhileInsideApp/page";
 import { paths } from "../../../path/paths";
 import { useCheckoutMutation } from "../../../redux/features/dashboard/buyerQuery";
-import { useAppSelector } from "../../../redux/hooks";
+import {useAppDispatch, useAppSelector} from "../../../redux/hooks";
 import { formatAmount } from "../../../components/utils";
+import {setCart} from "../../../redux/features/product/productSlice";
 
 const style = {
   position: "absolute" as "absolute",
@@ -64,6 +65,7 @@ const itemSelected = [
 ];
 
 const Checkout = () => {
+  const dispatch = useAppDispatch();
   const [deliveryMode, setDeliveryMode] = useState("delivery");
   const [showAddressSelection, setShowAddressSelection] = useState(false);
   const [open, setOpen] = React.useState(false);
@@ -92,13 +94,6 @@ const Checkout = () => {
   const handleRouteToMarketPlace = () => {
     paths.toHome();
   };
-
-  // const getAllTotalPrice = () => {
-  //   if(cart.length !== 0){
-  //     let total = cart.map( item => (Number(item.amount) * Number(item.quantity))).reduce( (a,b) => a+b);
-  //     setTotalItemPrice(String(total))
-  //   }
-  // }
 
   const getAllTotalPrice = () => {
     let newTotal = "0";
@@ -141,6 +136,7 @@ const Checkout = () => {
     }
   }, [router]);
 
+
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const payload = {
@@ -150,15 +146,13 @@ const Checkout = () => {
     };
 
     try {
-      const response = await checkoutData(payload);
-      if ("data" in response) {
-        response.data.data;
-        setOpen(true);
-      }
+      const response = await checkoutData(payload).unwrap();
+      setOpen(true);
       localStorage.removeItem("savedCartItems");
-      router.push(`/`);
-    } catch (error) {
-      error;
+      dispatch(setCart([]));
+
+    } catch (error:any) {
+      console.log(error.data);
     }
   };
 
@@ -468,7 +462,12 @@ const Checkout = () => {
                   <div className="">
                     <button
                       onClick={handleSubmit}
-                      className="w-full h-11 bg-mecaBluePrimaryColor flex items-center justify-center rounded-full text-white cursor-pointer"
+                      disabled={!formData.deliveryAddress || !formData.phoneNumber}
+                      className={`w-full h-11 flex items-center justify-center rounded-full text-white cursor-pointer ${
+                      !formData.deliveryAddress || !formData.phoneNumber
+                         ? "bg-gray-500"
+                         : "bg-mecaBluePrimaryColor"
+                    }`}
                     >
                       {isLoading ? (
                         <ColorRing
@@ -519,12 +518,13 @@ const Checkout = () => {
                     className="text-sm font-normal text-mecaCheckoutMessage"
                   >
                     Thank you for your purchase. Your order has been placed
-                    successfully. A confirmation email with your order details
-                    will be sent shortly.
+                    successfully.
                   </p>
                 </div>
                 <div className="mt-4">
                   <button
+                    type="button"
+                    title="go to home page"
                     onClick={handleRouteToMarketPlace}
                     className="w-full h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer"
                   >

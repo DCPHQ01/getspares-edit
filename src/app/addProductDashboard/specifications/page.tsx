@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { use, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Box from "@mui/material/Box";
 import ImageComponent from "../../../components/imageComp/ImageComponent";
@@ -26,10 +26,10 @@ const CalledPagesPageFourPages = () => {
   });
 
   useEffect(() => {
-    const storedBasicInfoValues = sessionStorage.getItem("basicInfoValues");
+    const storedBasicInfoValues = sessionStorage?.getItem("basicInfoValues");
 
     const parsedBasicInfoValues =
-      storedBasicInfoValues && JSON.parse(storedBasicInfoValues);
+      storedBasicInfoValues && JSON?.parse(storedBasicInfoValues);
 
     if (parsedBasicInfoValues) {
       setProductName(parsedBasicInfoValues.productName);
@@ -38,13 +38,6 @@ const CalledPagesPageFourPages = () => {
     }
   }, []);
 
-  useEffect(() => {
-    const savedImages = sessionStorage.getItem("clickedImage");
-
-    if (savedImages) {
-      setImages(JSON.parse(savedImages));
-    }
-  }, []);
   const handleViewPreviousImages = () => {
     setCurrentImageIndex((prevIndex) =>
       prevIndex > 0 ? prevIndex - 1 : images.length - 1
@@ -52,6 +45,12 @@ const CalledPagesPageFourPages = () => {
   };
 
   const router = useRouter();
+  useEffect(() => {
+    const savedImages = sessionStorage.getItem("images");
+    if (savedImages) {
+      setImages(JSON.parse(savedImages));
+    }
+  }, []);
 
   const handleViewNextImages = () => {
     setCurrentImageIndex((prevIndex) =>
@@ -75,13 +74,6 @@ const CalledPagesPageFourPages = () => {
       return newValues;
     });
   };
-
-  useEffect(() => {
-    const savedData = sessionStorage.getItem("specInfo");
-    if (savedData) {
-      setSpecifications(JSON.parse(savedData));
-    }
-  }, []);
 
   const productSpec = useAppSelector((state) => state.company.productData);
   console.log("product spec  ", productSpec);
@@ -107,10 +99,14 @@ const CalledPagesPageFourPages = () => {
   };
 
   useEffect(() => {
-    if (productSpec) {
+    const savedSpec = sessionStorage.getItem("specInfo");
+    if (savedSpec) {
+      setSpecifications(JSON.parse(savedSpec));
+    } else if (productSpec) {
       populateData(productSpec);
     }
   }, [productSpec]);
+  console.log("specifications ", specifications);
   return (
     <>
       <div className="" style={{ width: "48%" }} id="pageone1">

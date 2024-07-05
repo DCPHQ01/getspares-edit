@@ -2,7 +2,7 @@ import React from "react";
 
 interface CardProps {
   total: string;
-  amount: number ;
+  amount: number | string ;
   percentage: number;
   onClick: () => void;
 }
