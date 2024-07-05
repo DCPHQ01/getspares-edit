@@ -53,8 +53,6 @@ type Filter = {
 };
 
 export default function Products() {
-  const pathLocation = useSearchParams();
-  const id = pathLocation?.get("id");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const router = useRouter();
   const [showFilter, setShowFilter] = useState(true);
@@ -73,9 +71,15 @@ export default function Products() {
     price: [] as string[],
   });
 
+  const savedItems =
+     typeof window !== "undefined" && window.sessionStorage
+        ? sessionStorage.getItem("categoryId") || ""
+        : '';
+  // const savedItems = sessionStorage.getItem("categoryId");
+
 
   const [payload, setPayload] = useState({
-    categoryId:id,
+    categoryId:savedItems,
     pageNumber: 0,
     pageSize: 100,
   })
@@ -156,7 +160,7 @@ export default function Products() {
     setSelectedCondition([])
     setSelectedPrice([])
     setPayload({
-      categoryId:id,
+      categoryId:savedItems,
       pageNumber: 0,
       pageSize: 100,})
   }
@@ -171,8 +175,8 @@ export default function Products() {
 
 
   useEffect(() => {
-    if (id) {
-      setCategoryId(id);
+    if (savedItems) {
+      setCategoryId(savedItems);
     }
   }, []);
 
