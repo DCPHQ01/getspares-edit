@@ -45,11 +45,10 @@ const CalledPagesPageFourPages = () => {
   };
 
   const router = useRouter();
-
   useEffect(() => {
-    const savedData = sessionStorage?.getItem("clickedImage");
-    if (savedData) {
-      setImages(JSON?.parse(savedData));
+    const savedImages = sessionStorage.getItem("images");
+    if (savedImages) {
+      setImages(JSON.parse(savedImages));
     }
   }, []);
 
@@ -76,13 +75,6 @@ const CalledPagesPageFourPages = () => {
     });
   };
 
-  useEffect(() => {
-    const savedData = sessionStorage?.getItem("specInfo");
-    if (savedData) {
-      setSpecifications(JSON?.parse(savedData));
-    }
-  }, []);
-
   const productSpec = useAppSelector((state) => state.company.productData);
   console.log("product spec  ", productSpec);
 
@@ -107,10 +99,14 @@ const CalledPagesPageFourPages = () => {
   };
 
   useEffect(() => {
-    if (productSpec) {
+    const savedSpec = sessionStorage.getItem("specInfo");
+    if (savedSpec) {
+      setSpecifications(JSON.parse(savedSpec));
+    } else if (productSpec) {
       populateData(productSpec);
     }
   }, [productSpec]);
+  console.log("specifications ", specifications);
   return (
     <>
       <div className="" style={{ width: "48%" }} id="pageone1">

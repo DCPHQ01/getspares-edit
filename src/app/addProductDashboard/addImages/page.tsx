@@ -37,35 +37,11 @@ const CalledPagesPageTwoPages = () => {
   const [productName, setProductName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
-  const [images, setImages] = useState<string[]>([]);
+  // const [images, setImages] = useState<string[]>([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [imagesUrl, setImagesUrl] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleImageUpload: React.ChangeEventHandler<HTMLInputElement> = (
-    event
-  ) => {
-    const files = event.target.files;
-    if (files && files.length > 0) {
-      const newImages: string[] = [];
-      const newImageFiles: File[] = Array.from(files);
-      newImageFiles.forEach((file) => {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          newImages.push(reader.result as string);
-          if (newImages.length === newImageFiles.length) {
-            // Ensuring all images are loaded before updating the state
-            setImagesUrl((prevImages) => [...newImages, ...(prevImages || [])]);
-          }
-        };
-        reader.readAsDataURL(file);
-      });
-      setIsLoading(true);
-
-      uploadSeveralImages(newImageFiles, handleImage);
-    }
-    setIsLoading(false);
-  };
   // const handleImageUpload: React.ChangeEventHandler<HTMLInputElement> = (
   //   event
   // ) => {
@@ -73,23 +49,61 @@ const CalledPagesPageTwoPages = () => {
   //   if (files && files.length > 0) {
   //     const newImages: string[] = [];
   //     const newImageFiles: File[] = Array.from(files);
-  //     let loadedImages = 0;
-
   //     newImageFiles.forEach((file) => {
   //       const reader = new FileReader();
   //       reader.onloadend = () => {
   //         newImages.push(reader.result as string);
-  //         loadedImages += 1;
   //         if (newImages.length === newImageFiles.length) {
+  //           // Ensuring all images are loaded before updating the state
   //           setImagesUrl((prevImages) => [...newImages, ...(prevImages || [])]);
   //         }
   //       };
   //       reader.readAsDataURL(file);
   //     });
+  //     setIsLoading(true);
 
   //     uploadSeveralImages(newImageFiles, handleImage);
   //   }
+  //   setIsLoading(false);
   // };
+  const handleImageUpload: React.ChangeEventHandler<HTMLInputElement> = async (
+    event
+  ) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const newImages: string[] = [];
+      const newImageFiles: File[] = Array.from(files);
+
+      setIsLoading(true);
+
+      // Using Promise.all to ensure all images are read and uploaded
+      await Promise.all(
+        newImageFiles.map((file) => {
+          return new Promise<void>((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+              newImages.push(reader.result as string);
+              resolve();
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+          });
+        })
+      );
+
+      // Update the state with new images
+      setImagesUrl((prevImages) => [...newImages, ...(prevImages || [])]);
+
+      // Upload images to Cloudinary
+      try {
+        await uploadSeveralImages(newImageFiles, handleImage);
+      } catch (error) {
+        console.error("Error uploading images:", error);
+      }
+
+      setIsLoading(false);
+    }
+  };
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -98,22 +112,15 @@ const CalledPagesPageTwoPages = () => {
   };
 
   const handleImageRemove = (index: number) => {
-    const newImages = [...images];
+    const newImages = [...imagesUrl];
     newImages.splice(index, 1);
-    setImages(newImages);
+    setImagesUrl(newImages);
     if (currentImageIndex > 0) {
       setCurrentImageIndex(currentImageIndex - 1);
     }
   };
 
   const router = useRouter();
-
-  useEffect(() => {
-    const savedImages = sessionStorage?.getItem("clickedImage");
-    if (savedImages) {
-      setImagesUrl(JSON.parse(savedImages) as string[]);
-    }
-  }, []);
 
   const handleViewPreviousImages = () => {
     setCurrentImageIndex((prevIndex) =>
@@ -134,7 +141,7 @@ const CalledPagesPageTwoPages = () => {
   };
   const handleNextPage = () => {
     router.push(paths.toAddProductDashboardSpecifications());
-    sessionStorage.setItem("clickedImage", JSON.stringify(imagesUrl));
+    sessionStorage.setItem("images", JSON.stringify(imagesUrl));
   };
   useEffect(() => {
     const storedBasicInfoValues = sessionStorage.getItem("basicInfoValues");
@@ -154,6 +161,10 @@ const CalledPagesPageTwoPages = () => {
   console.log("images ", productImage);
 
   useEffect(() => {
+    const savedImages = sessionStorage.getItem("images");
+    if (savedImages) {
+      setImagesUrl(JSON.parse(savedImages));
+    }
     if (productImage) {
       setImagesUrl(productImage?.images);
     }
@@ -250,10 +261,10 @@ const CalledPagesPageTwoPages = () => {
                                     alt={`Uploaded ${index}`}
                                     className="w-full h-full object-cover"
                                   />
-                                  {index === 3 && images.length > 4 && (
+                                  {index === 3 && imagesUrl.length > 4 && (
                                     <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
                                       <p className="text-white text-2xl">{`${
-                                        images.length - 4
+                                        imagesUrl.length - 4
                                       }+`}</p>
                                     </div>
                                   )}
