@@ -39,6 +39,19 @@ interface ItemsDataProps {
   name: string;
 }
 
+type FilterItem = {
+  id: number;
+  title: string;
+  price?: string[];
+  icon: React.ReactNode;
+};
+
+type Filter = {
+  id: number;
+  title: string;
+  items: FilterItem[];
+};
+
 export default function Products() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const handleOpeningFilterButton = () => {
@@ -62,65 +75,68 @@ export default function Products() {
     router.push(`/category/products/${searches}/${id}`);
   };
 
-  // const { data, isFetching } = useGetProductInCategoryQuery({
-  //
-  //   productId: "",
-  //   filters: {
-  //     additionalProp1: [],
-  //     additionalProp2: [],
-  //     additionalProp3: [],
-  //   },
-  //   categoryId,
-  //   pageNumber: 0,
-  //   pageSize: 100,
-  //   // categoryId,
-  //   // pageNumber: 0,
-  //   // pageSize: 100,
-  // });
 
+  const [selectedBrand, setSelectedBrand] = useState<string[]>([]);
+  const [selectedCondition, setSelectedCondition] = useState<string[]>([]);
+  const [selectedPrice, setSelectedPrice] = useState<string[]>([]);
 
-  const [selectedBrand, setSelectedBrand] = useState<string[]>(["brand"]);
-  const [selectedCondition, setSelectedCondition] = useState<string[]>(["new"]);
-  const [selectedPrice, setSelectedPrice] = useState<string[]>(["4000", "2000"]);
-
-  const handleBrandChange = (event: React.SyntheticEvent, checked: boolean) => {
-    if (event.target instanceof HTMLInputElement) {
-      const { value } = event.target;
+  const handleBrandChange = (checked: boolean, filterName:string) => {
       setSelectedBrand((prev) =>
-          checked ? [...prev, value] : prev.filter((item) => item !== value)
+          checked ? [...prev, filterName] : prev.filter((item) => item !== filterName)
       );
-    }
   };
 
-  const handleConditionChange = (event: React.SyntheticEvent, checked: boolean) => {
-    if(event.target instanceof HTMLInputElement) {
-      const {value} = event.target;
+  const handleConditionChange = (checked: boolean, filterName: string) => {
       setSelectedCondition((prev) =>
-          checked ? [...prev, value] : prev.filter((item) => item !== value)
+          checked ? [...prev, filterName] : prev.filter((item) => item !== filterName)
       );
-    }
   };
 
-  const handlePriceChange = (event: React.SyntheticEvent, checked: boolean) => {
-    if(event.target instanceof HTMLInputElement) {
-      const {value} = event.target;
-      setSelectedPrice((prev) =>
-          checked ? [value] : []
-      );
-    }
+  const handlePriceChange = (checked: boolean, price: string[] | undefined) => {
+    setSelectedPrice((prev) =>
+        checked && price ? price : []
+    );
   };
 
 
-  const { data, isFetching } = useGetProductInCategoryQuery({
+
+  const [applyFilter, setApplyFilter] = useState(false);
+  const [localFilters, setLocalFilters] = useState({
+    brand: [] as string[],
+    conditionStatus: [] as string[],
+    price: [] as string[],
+  });
+
+  const applyFilters = () => {
+    setLocalFilters({
+      brand: selectedBrand,
+      conditionStatus: selectedCondition,
+      price: selectedPrice,
+    });
+    setApplyFilter(true);
+  };
+
+  useEffect(() => {
+    if (applyFilter) {
+      setApplyFilter(false);
+    }
+  }, [applyFilter]);
+
+  const queryArgs = {
     categoryId,
     pageNumber: 0,
     pageSize: 100,
-    filters: {
-      brand: selectedBrand,
-      condition: selectedCondition,
-      price: selectedPrice,
-    },
-  });
+    ...(applyFilter && {
+      filters: {
+        model: [],
+        brand: localFilters.brand,
+        conditionStatus: localFilters.conditionStatus,
+        price: localFilters.price,
+      },
+    }),
+  };
+
+  const { data, isFetching } = useGetProductInCategoryQuery(queryArgs);
 
   useEffect(() => {
     const savedItems = sessionStorage.getItem("categoryId");
@@ -129,7 +145,8 @@ export default function Products() {
     }
   }, []);
 
-  const filterData = [
+
+  const filterData: Filter[] = [
     {
       id: 1,
       title: "Brand",
@@ -184,18 +201,27 @@ export default function Products() {
       items: [
         {
           id: 1,
-          title: "200,000",
-          icon: <Radio value={"200000"} />,
+          title: "Less than 10,000",
+          price: ["0", "10,000"],
+          icon: <Radio value={["0", "10,000"]} />,
         },
         {
           id: 2,
-          title: "300,000",
-          icon: <Radio value={"300000"} />,
+          title: "10,000 - 50,000",
+          price: ["10,000", "50,000"],
+          icon: <Radio value={["10,000", "50,000"]} />,
         },
         {
           id: 3,
-          title: "1,000,000",
-          icon: <Radio value={"1000000"} />,
+          title: "50,000 - 500,000",
+          price: ["50,000", "500,000"],
+          icon: <Radio value={["50,000", "500,000"]} />,
+        },
+        {
+          id: 3,
+          title: "More than 500,000",
+          price: ["500,000", "1,000,000"],
+          icon: <Radio value={["500,000, 1,000,000"]} />,
         },
       ],
     },
@@ -263,9 +289,9 @@ export default function Products() {
                         wrapperClass="color-ring-wrapper"
                         colors={[
                           "#0000FF",
-                          "#0000FF",
-                          "#0000FF",
-                          "#0000FF",
+                          "#0099ff",
+                          "#4800ff",
+                          "#00bbff",
                           "#0000FF",
                         ]}
                       />
@@ -433,13 +459,13 @@ export default function Products() {
                                       onChange={(event, checked) => {
                                         switch (data.title) {
                                           case 'Brand':
-                                            handleBrandChange(event, checked);
+                                            handleBrandChange(checked, item.title);
                                             break;
                                           case 'Conditions':
-                                            handleConditionChange(event, checked);
+                                            handleConditionChange(checked, item.title);
                                             break;
                                           case 'Price':
-                                            handlePriceChange(event, checked);
+                                            handlePriceChange(checked, item.price);
                                             break;
                                           default:
                                             break;
@@ -459,6 +485,7 @@ export default function Products() {
                       type="button"
                       className="w-full h-[48px] bg-mecaBluePrimaryColor text-white font-nunito font-semibold text-sm rounded-full"
                       id="applyFilterButton"
+                      onClick={applyFilters}
                   >
                     Apply Filter
                   </button>

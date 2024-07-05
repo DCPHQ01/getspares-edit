@@ -105,9 +105,10 @@ export const authQuery = createApi({
         categoryId: string;
         pageNumber: number;
         pageSize: number;
-        filters: {
+        filters?: {
+          model: string[];
           brand: string[];
-          condition: string[];
+          conditionStatus: string[];
           price: string[];
         };
       }) => ({
