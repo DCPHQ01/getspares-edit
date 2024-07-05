@@ -75,7 +75,6 @@ export default function Products() {
     router.push(`/category/products/${searches}/${id}`);
   };
 
-
   const [selectedBrand, setSelectedBrand] = useState<string[]>([]);
   const [selectedCondition, setSelectedCondition] = useState<string[]>([]);
   const [selectedPrice, setSelectedPrice] = useState<string[]>([]);
@@ -97,8 +96,6 @@ export default function Products() {
         checked && price ? price : []
     );
   };
-
-
 
   const [applyFilter, setApplyFilter] = useState(false);
   const [localFilters, setLocalFilters] = useState({
