@@ -90,11 +90,8 @@ const CalledPagesPageTwoPages = () => {
           });
         })
       );
-
-      // Update the state with new images
       setImagesUrl((prevImages) => [...newImages, ...(prevImages || [])]);
 
-      // Upload images to Cloudinary
       try {
         await uploadSeveralImages(newImageFiles, handleImage);
       } catch (error) {
