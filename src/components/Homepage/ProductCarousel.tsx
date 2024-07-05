@@ -76,32 +76,31 @@ export default function ProductCarousel() {
       >
         <img
           src={image?.toString()}
-          alt=""
-          className="w-[630px] h-[564px] object-cover"
-          width={630}
-          height={564}
+          alt="category image"
+          className="w-full h-[564px] object-cover"
           // placeholder="blur"
           id="productImage"
         />
-
-        <span
-          className="absolute bg-mecaBluePrimaryColor w-[320px] py-4 px-6 lg:bottom-16 bottom-8 lg:left-16 left-6 flex flex-col lg:gap-10 gap-6"
-          id="subContainer"
-        >
-          <p
-            className="text-white lg:text-3xl text-xl font-bold"
-            id="productText"
+        <div className="w-full h-[206px] p-6 bg-mecaOverlay bg-opacity-60 rounded-lg">
+          <span
+            className="absolute lg:bottom-16 bottom-8 lg:left-16 left-6 flex flex-col lg:gap-10 gap-6"
+            id="subContainer"
           >
-            {type}
-          </p>
-          <button
-            type="button"
-            className="lg:text-lg text-sm text-mecaBluePrimaryColor font-semibold bg-white w-fit rounded-[36px] lg:py-[10px] py-[6px] px-6"
-            id="exploreBtn"
-          >
-            Explore parts
-          </button>
-        </span>
+            <p
+              className="text-white lg:text-3xl text-xl font-bold"
+              id="productText"
+            >
+              {type}
+            </p>
+            <button
+              type="button"
+              className="lg:text-lg text-sm text-mecaBluePrimaryColor font-semibold bg-white w-fit rounded-[36px] lg:py-[10px] py-[6px] px-6"
+              id="exploreBtn"
+            >
+              Explore parts
+            </button>
+          </span>
+        </div>
       </div>
     );
   };

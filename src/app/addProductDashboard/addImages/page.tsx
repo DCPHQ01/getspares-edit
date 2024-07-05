@@ -90,8 +90,11 @@ const CalledPagesPageTwoPages = () => {
           });
         })
       );
+
+      // Update the state with new images
       setImagesUrl((prevImages) => [...newImages, ...(prevImages || [])]);
 
+      // Upload images to Cloudinary
       try {
         await uploadSeveralImages(newImageFiles, handleImage);
       } catch (error) {
@@ -139,6 +142,7 @@ const CalledPagesPageTwoPages = () => {
   const handleNextPage = () => {
     router.push(paths.toAddProductDashboardSpecifications());
     sessionStorage.setItem("images", JSON.stringify(imagesUrl));
+    // sessionStorage.setItem("clickedImage", JSON.stringify(imagesUrl));
   };
   useEffect(() => {
     const storedBasicInfoValues = sessionStorage.getItem("basicInfoValues");
@@ -166,6 +170,11 @@ const CalledPagesPageTwoPages = () => {
       setImagesUrl(productImage?.images);
     }
   }, [productImage]);
+  // useEffect(() => {
+  //   if (productImage) {
+  //     setImagesUrl(productImage?.images);
+  //   }
+  // }, [productImage]);
 
   return (
     <div className="" style={{ width: "48%" }} id="pageTwo1">
