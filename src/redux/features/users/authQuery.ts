@@ -101,17 +101,7 @@ export const authQuery = createApi({
     //   }),
     // }),
     getProductInCategory: builder.query({
-      query: (body: {
-        categoryId: string;
-        pageNumber: number;
-        pageSize: number;
-        filters?: {
-          model: string[];
-          brand: string[];
-          conditionStatus: string[];
-          price: string[];
-        };
-      }) => ({
+      query: (body) => ({
         url: "/product",
         method: "POST",
         body,

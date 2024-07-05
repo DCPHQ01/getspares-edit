@@ -120,7 +120,6 @@ export default function ProductDescription() {
   const { data, isFetching } = useGetAProductQuery(productId, {
     skip: !productId,
   });
-  console.log(data, "data");
 
   const { vertical, horizontal, open } = state;
 
@@ -264,7 +263,7 @@ export default function ProductDescription() {
             <p
               className="text-[12px] cursor-pointer  font-nunito font-normal text-mecaDarkBlueBackgroundOverlay"
               onClick={() =>
-                router.push(paths.toCategoryProducts(data?.data.category))
+                router.push(paths.toCategoryProducts(data?.data.category) + `?id=${data?.data.categoryId}`)
               }
             >
               {" "}

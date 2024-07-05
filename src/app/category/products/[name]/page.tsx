@@ -26,7 +26,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import FilterFixedPage from "../../filterFixedPage";
 import SideFilter from "../../sideFilter";
 import TopBarWhileInside from "../../../reusables/TopBarWhileInside/page";
-import { useGetProductInCategoryQuery } from "../../../../redux/features/users/authQuery";
+import {useGetProductInCategoryQuery} from "../../../../redux/features/users/authQuery";
 import { ColorRing } from "react-loader-spinner";
 import { formatAmount } from "../../../../components/utils";
 
@@ -53,30 +53,61 @@ type Filter = {
 };
 
 export default function Products() {
+  const pathLocation = useSearchParams();
+  const id = pathLocation?.get("id");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const handleOpeningFilterButton = () => {
-    setIsFilterOpen(!isFilterOpen);
-  };
-
   const router = useRouter();
   const [showFilter, setShowFilter] = useState(true);
   const [categoryId, setCategoryId] = useState<string>("");
-  const handleToggleFilter = () => {
-    setShowFilter(!showFilter);
-  };
-
   const searchParams = usePathname()!;
   const segments = searchParams.split("/");
   const searches = segments[3];
   const searchWords = segments[3]?.replace(/([A-Z])/g, " $1")?.trim();
+  const [selectedBrand, setSelectedBrand] = useState<string[]>([]);
+  const [selectedCondition, setSelectedCondition] = useState<string[]>([]);
+  const [selectedPrice, setSelectedPrice] = useState<string[]>([]);
+  const [applyFilter, setApplyFilter] = useState(false);
+  const [localFilters, setLocalFilters] = useState({
+    brand: [] as string[],
+    conditionStatus: [] as string[],
+    price: [] as string[],
+  });
+
+
+  const [payload, setPayload] = useState({
+    categoryId:id,
+    pageNumber: 0,
+    pageSize: 100,
+  })
+
+  const queryArgs = {
+    categoryId,
+    pageNumber: 0,
+    pageSize: 100,
+    ...(applyFilter && {
+      filters: {
+        model: [],
+        brand: localFilters.brand,
+        conditionStatus: localFilters.conditionStatus,
+        price: localFilters.price,
+      },
+    }),
+  };
+  const { data, isFetching } = useGetProductInCategoryQuery(payload);
+
+  console.log("data here: ", data?.data.content);
+
 
   const handleProductDescription = (id: number) => {
     router.push(`/category/products/${searches}/${id}`);
   };
 
-  const [selectedBrand, setSelectedBrand] = useState<string[]>([]);
-  const [selectedCondition, setSelectedCondition] = useState<string[]>([]);
-  const [selectedPrice, setSelectedPrice] = useState<string[]>([]);
+  const handleOpeningFilterButton = () => {
+    setIsFilterOpen(!isFilterOpen);
+  };
+  const handleToggleFilter = () => {
+    setShowFilter(!showFilter);
+  };
 
   const handleBrandChange = (checked: boolean, filterName: string) => {
     setSelectedBrand((prev) =>
@@ -98,51 +129,50 @@ export default function Products() {
     setSelectedPrice((prev) => (checked && price ? price : []));
   };
 
-  console.log("selected: ", selectedBrand, selectedCondition, selectedPrice);
 
-  const [applyFilter, setApplyFilter] = useState(false);
-  const [localFilters, setLocalFilters] = useState({
-    brand: [] as string[],
-    conditionStatus: [] as string[],
-    price: [] as string[],
-  });
 
-  const applyFilters = () => {
+  const applyFilters = async () => {
     setLocalFilters({
       brand: selectedBrand,
       conditionStatus: selectedCondition,
       price: selectedPrice,
     });
     setApplyFilter(true);
-  };
 
-  useEffect(() => {
-    if (applyFilter) {
-      setApplyFilter(false);
-    }
-  }, [applyFilter]);
-
-  const queryArgs = {
-    categoryId,
-    pageNumber: 0,
-    pageSize: 100,
-    ...(applyFilter && {
-      filters: {
+    let newObj = {
+      ...payload,  filters: {
         model: [],
         brand: localFilters.brand,
         conditionStatus: localFilters.conditionStatus,
         price: localFilters.price,
-      },
-    }),
+      }
+    }
+
+    setPayload(newObj)
   };
 
-  const { data, isFetching, refetch } = useGetProductInCategoryQuery(queryArgs);
-  console.log("data here: ", data?.data.content);
+  const cancelFilters = () => {
+    setSelectedBrand([])
+    setSelectedCondition([])
+    setSelectedPrice([])
+    setPayload({
+      categoryId:id,
+      pageNumber: 0,
+      pageSize: 100,})
+  }
+
 
   useEffect(() => {
-    const savedItems = sessionStorage.getItem("categoryId");
-    if (savedItems) {
-      setCategoryId(savedItems);
+    if (data?.data) {
+      setApplyFilter(false);
+    }
+  }, [data?.data]);
+
+
+
+  useEffect(() => {
+    if (id) {
+      setCategoryId(id);
     }
   }, []);
 
@@ -272,9 +302,6 @@ export default function Products() {
     },
   ];
 
-  // useEffect(() => {
-  //   refetch();
-  // }, [selectedBrand, selectedCondition, selectedPrice]);
 
   return (
     <section id="productCategory w-full">
@@ -472,7 +499,6 @@ export default function Products() {
             className="mt-8 px-8 flex gap-x-4 justify-between"
             id="filterDivForDesktopContainer"
           >
-            {data?.data?.content?.length > 0 && (
               <div
                 className={`flex flex-col ${showFilter ? "w-[28%]" : "hidden"}`}
                 id="filterSideBarContainer"
@@ -546,6 +572,7 @@ export default function Products() {
                   </button>
                   <button
                     type="button"
+                    onClick={cancelFilters}
                     className="w-full h-[48px] border border-mecaBluePrimaryColor text-mecaBluePrimaryColor font-nunito font-semibold text-sm rounded-full"
                     id="clearFilterButton"
                   >
@@ -553,7 +580,6 @@ export default function Products() {
                   </button>
                 </div>
               </div>
-            )}
             <div
               className="flex flex-wrap justify-between w-full"
               id="allItemsContainerDivDesktop"
