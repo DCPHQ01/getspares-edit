@@ -41,11 +41,15 @@ function Agents() {
       setTotalElements(lists.totalElements)
     }
   }, [data]);
-
+  
+  const totalPages = Math.ceil(totalElements / size);
 
   const handleNextPage=()=>{
-    if(size === 10){
-      setPage(prevPage => prevPage + 1);
+    // if(size === 10){
+    //   setPage(prevPage => prevPage + 1);
+    // }
+    if (page + 1 < totalPages) {
+      setPage((prevPage) => prevPage + 1);
     }
   }
 
