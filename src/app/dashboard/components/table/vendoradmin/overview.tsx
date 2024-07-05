@@ -6,6 +6,7 @@ import Image from "next/image";
 import { AccountCircle } from "@mui/icons-material";
 import { format, formatAmount } from "../../../../../components/utils";
 import { MdInventory2 } from "react-icons/md";
+import dayjs from "dayjs";
 
 interface VendorOverview {
   dateAndTimeAdded?: string;
@@ -19,6 +20,12 @@ interface VendorTableProps {
   topPerformingProduct: VendorOverview[];
   isLoading: boolean;
 }
+
+const formatDateTime = (dateTime: string) => {
+  const date = dayjs(dateTime).format("DD-MM-YYYY");
+  const time = dayjs(dateTime).format("hh:mm A");
+  return { date, time };
+};
 
 const Overview: React.FC<VendorTableProps> = ({
   topPerformingProduct,
@@ -69,6 +76,7 @@ const Overview: React.FC<VendorTableProps> = ({
             </div>
           ) : (
             topPerformingProduct?.map((d, index) => {
+              const { date, time } = formatDateTime(d?.dateAndTimeAdded  ?? "");
               return (
                 <tr key={index} id={`row_${index}`} className="truncate">
                   <td>
@@ -105,9 +113,9 @@ const Overview: React.FC<VendorTableProps> = ({
                   </td>
                   <td id={`dateAndTimeAdded_${index}`}>
                     <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
-                      <div id={`date_${index}`}>{d.dateAndTimeAdded}</div>
+                      <div id={`date_${index}`}>{date}</div>
                       <div className={`text-[#4B5565]`} id={`time_${index}`}>
-                        {/* {time} */}
+                        {time}
                       </div>
                     </div>
                   </td>

@@ -21,7 +21,7 @@ function Buyers() {
   const [currentPage, setCurrentPage] = useState(0);
   const[first,setFirst] = useState(false);
   const [last, setLast] = useState(false);
-
+  const [totalPage,setTotalPage] = useState(0);
 
   const [buyerList, setBuyerList] = useState([]);
   useEffect(() => {
@@ -31,6 +31,7 @@ function Buyers() {
       setSize(data.data?.pageable.pageSize);
       setFirst(data.data?.last);
       setLast(data.data?.first);
+      setTotalPage(data.data?.totalPages)
       const resultList = data.data?.content;
       if (resultList) {
         setBuyerList(resultList);
@@ -43,16 +44,16 @@ function Buyers() {
     }
   }, [data]);
 
-
+   console.log(totalPage);
 
   const handlePreviousPage = () => {
-    if(first) {
+    if(page > 0) {
       setPage(prevPage => prevPage - 1);
   };
 }
 
   const handleNextPage = () => {
-    if(last) {
+    if(page + 1 < totalPage) {
       setPage(prevPage => prevPage + 1);
       console.log(page)
   };
