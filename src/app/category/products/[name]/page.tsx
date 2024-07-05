@@ -69,7 +69,6 @@ export default function Products() {
   const segments = searchParams.split("/");
   const searches = segments[3];
   const searchWords = segments[3]?.replace(/([A-Z])/g, " $1")?.trim();
-  // const searchWords = search ? search.replace(/([A-Z])/g, " $1").trim() : "";
 
   const handleProductDescription = (id: number) => {
     router.push(`/category/products/${searches}/${id}`);
@@ -79,23 +78,27 @@ export default function Products() {
   const [selectedCondition, setSelectedCondition] = useState<string[]>([]);
   const [selectedPrice, setSelectedPrice] = useState<string[]>([]);
 
-  const handleBrandChange = (checked: boolean, filterName:string) => {
-      setSelectedBrand((prev) =>
-          checked ? [...prev, filterName] : prev.filter((item) => item !== filterName)
-      );
+  const handleBrandChange = (checked: boolean, filterName: string) => {
+    setSelectedBrand((prev) =>
+      checked
+        ? [...prev, filterName]
+        : prev.filter((item) => item !== filterName)
+    );
   };
 
   const handleConditionChange = (checked: boolean, filterName: string) => {
-      setSelectedCondition((prev) =>
-          checked ? [...prev, filterName] : prev.filter((item) => item !== filterName)
-      );
+    setSelectedCondition((prev) =>
+      checked
+        ? [...prev, filterName]
+        : prev.filter((item) => item !== filterName)
+    );
   };
 
   const handlePriceChange = (checked: boolean, price: string[] | undefined) => {
-    setSelectedPrice((prev) =>
-        checked && price ? price : []
-    );
+    setSelectedPrice((prev) => (checked && price ? price : []));
   };
+
+  console.log("selected: ", selectedBrand, selectedCondition, selectedPrice);
 
   const [applyFilter, setApplyFilter] = useState(false);
   const [localFilters, setLocalFilters] = useState({
@@ -133,7 +136,8 @@ export default function Products() {
     }),
   };
 
-  const { data, isFetching } = useGetProductInCategoryQuery(queryArgs);
+  const { data, isFetching, refetch } = useGetProductInCategoryQuery(queryArgs);
+  console.log("data here: ", data?.data.content);
 
   useEffect(() => {
     const savedItems = sessionStorage.getItem("categoryId");
@@ -142,7 +146,6 @@ export default function Products() {
     }
   }, []);
 
-
   const filterData: Filter[] = [
     {
       id: 1,
@@ -150,22 +153,72 @@ export default function Products() {
       items: [
         {
           id: 1,
-          title: "JCB Agriculture",
+          title: "John Deere",
           icon: <Checkbox />,
         },
         {
           id: 2,
-          title: "AGCO Challenger",
+          title: "Sonalika",
           icon: <Checkbox />,
         },
         {
           id: 3,
-          title: "Deutz-Fahr",
+          title: "Farm Track",
           icon: <Checkbox />,
         },
         {
           id: 4,
-          title: "Kuhn",
+          title: "Mahindra",
+          icon: <Checkbox />,
+        },
+        {
+          id: 5,
+          title: "Preet",
+          icon: <Checkbox />,
+        },
+        {
+          id: 6,
+          title: "CASE",
+          icon: <Checkbox />,
+        },
+        {
+          id: 7,
+          title: "Tata",
+          icon: <Checkbox />,
+        },
+        {
+          id: 8,
+          title: "Caterpillar",
+          icon: <Checkbox />,
+        },
+        {
+          id: 9,
+          title: "Mack",
+          icon: <Checkbox />,
+        },
+        {
+          id: 10,
+          title: "IVECO",
+          icon: <Checkbox />,
+        },
+        {
+          id: 11,
+          title: "Komatsu",
+          icon: <Checkbox />,
+        },
+        {
+          id: 12,
+          title: "DAF",
+          icon: <Checkbox />,
+        },
+        {
+          id: 13,
+          title: "Volvo",
+          icon: <Checkbox />,
+        },
+        {
+          id: 14,
+          title: "Changan",
           icon: <Checkbox />,
         },
       ],
@@ -183,11 +236,6 @@ export default function Products() {
         {
           id: 2,
           title: "Refurbished",
-          icon: <Checkbox />,
-        },
-        {
-          id: 3,
-          title: "Not specified",
           icon: <Checkbox />,
         },
       ],
@@ -215,7 +263,7 @@ export default function Products() {
           icon: <Radio value={["50,000", "500,000"]} />,
         },
         {
-          id: 3,
+          id: 4,
           title: "More than 500,000",
           price: ["500,000", "1,000,000"],
           icon: <Radio value={["500,000, 1,000,000"]} />,
@@ -223,6 +271,10 @@ export default function Products() {
       ],
     },
   ];
+
+  // useEffect(() => {
+  //   refetch();
+  // }, [selectedBrand, selectedCondition, selectedPrice]);
 
   return (
     <section id="productCategory w-full">
@@ -447,28 +499,34 @@ export default function Products() {
                       <AccordionDetails>
                         <div>
                           <FormControl component="fieldset">
-                            <RadioGroup aria-label={data.title} name={data.title}>
+                            <RadioGroup
+                              aria-label={data.title}
+                              name={data.title}
+                            >
                               {data.items.map((item) => (
-                                  <FormControlLabel
-                                      key={item.id}
-                                      control={<Checkbox/>}
-                                      label={item.title}
-                                      onChange={(event, checked) => {
-                                        switch (data.title) {
-                                          case 'Brand':
-                                            handleBrandChange(checked, item.title);
-                                            break;
-                                          case 'Conditions':
-                                            handleConditionChange(checked, item.title);
-                                            break;
-                                          case 'Price':
-                                            handlePriceChange(checked, item.price);
-                                            break;
-                                          default:
-                                            break;
-                                        }
-                                      }}
-                                  />
+                                <FormControlLabel
+                                  key={item.id}
+                                  control={<Checkbox />}
+                                  label={item.title}
+                                  onChange={(event, checked) => {
+                                    switch (data.title) {
+                                      case "Brand":
+                                        handleBrandChange(checked, item.title);
+                                        break;
+                                      case "Conditions":
+                                        handleConditionChange(
+                                          checked,
+                                          item.title
+                                        );
+                                        break;
+                                      case "Price":
+                                        handlePriceChange(checked, item.price);
+                                        break;
+                                      default:
+                                        break;
+                                    }
+                                  }}
+                                />
                               ))}
                             </RadioGroup>
                           </FormControl>
@@ -479,17 +537,17 @@ export default function Products() {
                 ))}
                 <div className="mt-8 flex flex-col justify-center gap-y-4 w-[273px] h-[100px]">
                   <button
-                      type="button"
-                      className="w-full h-[48px] bg-mecaBluePrimaryColor text-white font-nunito font-semibold text-sm rounded-full"
-                      id="applyFilterButton"
-                      onClick={applyFilters}
+                    type="button"
+                    className="w-full h-[48px] bg-mecaBluePrimaryColor text-white font-nunito font-semibold text-sm rounded-full"
+                    id="applyFilterButton"
+                    onClick={applyFilters}
                   >
                     Apply Filter
                   </button>
                   <button
-                      type="button"
-                      className="w-full h-[48px] border border-mecaBluePrimaryColor text-mecaBluePrimaryColor font-nunito font-semibold text-sm rounded-full"
-                      id="clearFilterButton"
+                    type="button"
+                    className="w-full h-[48px] border border-mecaBluePrimaryColor text-mecaBluePrimaryColor font-nunito font-semibold text-sm rounded-full"
+                    id="clearFilterButton"
                   >
                     Cancel Filter
                   </button>
@@ -497,11 +555,11 @@ export default function Products() {
               </div>
             )}
             <div
-                className="flex flex-wrap justify-between w-full"
-                id="allItemsContainerDivDesktop"
+              className="flex flex-wrap justify-between w-full"
+              id="allItemsContainerDivDesktop"
             >
               {isFetching ? (
-                  <div className="w-full h-[615px] flex justify-center items-center">
+                <div className="w-full h-[615px] flex justify-center items-center">
                   <ColorRing
                     visible={true}
                     height="100"
