@@ -43,7 +43,7 @@ const AddProductImage = () => {
 
   const imagesData =
     typeof window !== "undefined" && window.sessionStorage
-      ? JSON.parse(sessionStorage?.getItem("clickedImage") || "[]")
+      ? JSON.parse(sessionStorage?.getItem("images") || "[]")
       : [];
 
   const specsData =
@@ -63,7 +63,7 @@ const AddProductImage = () => {
 
   function isDataValid() {
     const isBasicInfoValid =
-      Object.keys(basicInfoData).length > 0 &&
+      // Object.keys(basicInfoData).length > 0 &&
       basicInfoData.productName &&
       basicInfoData.price &&
       basicInfoData.productDescription &&
@@ -118,7 +118,7 @@ const AddProductImage = () => {
 
       if (response) {
         sessionStorage.removeItem("basicInfoValues");
-        sessionStorage.removeItem("clickedImage");
+        sessionStorage.removeItem("images");
         sessionStorage.removeItem("specInfo");
         sessionStorage.removeItem("detailsInfo");
         handleOpen();

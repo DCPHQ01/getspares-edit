@@ -79,7 +79,7 @@ const CalledPagesPageFivePages = () => {
   }, []);
 
   useEffect(() => {
-    const savedImages = sessionStorage.getItem("clickedImage");
+    const savedImages = sessionStorage.getItem("images");
 
     if (savedImages) {
       setImages(JSON.parse(savedImages));
@@ -113,12 +113,6 @@ const CalledPagesPageFivePages = () => {
     router.push(paths.toAddProductDashboardSpecifications());
   };
 
-  useEffect(() => {
-    const savedData = sessionStorage.getItem("detailsInfo");
-    if (savedData) {
-      setTechnicalDetails(JSON.parse(savedData));
-    }
-  }, []);
   const populateData = (userData: any) => {
     const userDataKeys = Object.keys(technicalDetails);
     if (userData) {
@@ -144,7 +138,10 @@ const CalledPagesPageFivePages = () => {
   const productSpec = useAppSelector((state) => state.company.productData);
   console.log("product spec  ", productSpec);
   useEffect(() => {
-    if (productSpec) {
+    const savedData = sessionStorage.getItem("detailsInfo");
+    if (savedData) {
+      setTechnicalDetails(JSON.parse(savedData));
+    } else if (productSpec) {
       populateData(productSpec);
     }
   }, [productSpec]);
