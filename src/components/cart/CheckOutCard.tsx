@@ -4,12 +4,12 @@ import { CartProduct } from "../../types/cart/product";
 import Image from "next/image";
 import Parts from "../../assets/images/parts.png";
 import { MdDeleteOutline, MdMoreVert } from "react-icons/md";
-import {formatAmount, useNewFocus} from "../utils";
-import {useEffect, useRef, useState} from "react";
+import { formatAmount, useNewFocus } from "../utils";
+import { useEffect, useRef, useState } from "react";
 import { setCart } from "../../redux/features/product/productSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import TruncateText from "../utils/utils";
-import style from '../cart/styles/checkOutcard.module.css'
+import style from "../cart/styles/checkOutcard.module.css";
 
 type Props = {
   cardCartItem: CartProduct;
@@ -24,14 +24,9 @@ export const CheckOutCard = ({ cardCartItem }: Props) => {
   }>({});
   const [isInputVisible, setIsInputVisible] = useState(false);
   const [quantity, setQuantity] = useState<any>("");
-  const [quantityNumber, setQuantityNumber] = useState<any>([])
-
-
-
-
+  const [quantityNumber, setQuantityNumber] = useState<any>([]);
 
   const { cart } = useAppSelector((state) => state.product);
-
 
   const handleDropdownChange = (
     e: React.ChangeEvent<HTMLSelectElement>,
@@ -52,8 +47,7 @@ export const CheckOutCard = ({ cardCartItem }: Props) => {
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-
-    const{ value, min, max } = e.target;
+    const { value, min, max } = e.target;
     const newVal = Math.max(Number(min), Math.min(Number(max), Number(value)));
     setQuantity(String(newVal));
   };
@@ -65,7 +59,7 @@ export const CheckOutCard = ({ cardCartItem }: Props) => {
 
     dispatch(setCart(newCart));
     localStorage.setItem("savedCartItems", JSON.stringify(newCart));
-    if(quantity < 10){
+    if (quantity < 10) {
       setIsInputVisible(false);
     }
   };
@@ -83,26 +77,21 @@ export const CheckOutCard = ({ cardCartItem }: Props) => {
     for (let i = 1; i <= id; i++) {
       numbers.push(i);
     }
-    return numbers
-  }
+    return numbers;
+  };
 
   useEffect(() => {
-
     if (cardCartItem) {
       setQuantity(cardCartItem.quantity!);
-      if(cardCartItem?.productInformation?.quantity > 9){
+      if (cardCartItem?.productInformation?.quantity > 9) {
         const newNum = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10+"];
-        setQuantityNumber(newNum)
-      }else{
-        let val = populateNumber(cardCartItem.productInformation.quantity)
-        setQuantityNumber(val)
+        setQuantityNumber(newNum);
+      } else {
+        let val = populateNumber(cardCartItem.productInformation.quantity);
+        setQuantityNumber(val);
       }
-
     }
   }, [cardCartItem]);
-
-
-
 
   const removeItem = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
     e.preventDefault();
@@ -123,13 +112,15 @@ export const CheckOutCard = ({ cardCartItem }: Props) => {
         style={{ boxShadow: "0px 0px 0px 1px rgba(42, 59, 81, 0.12)" }}
       >
         <div className="flex w-full gap-5">
-          <div className="bg-mecaActiveBackgroundNavColor rounded-lg">
-            <Image
-              className="w-45 m-auto p-3"
-              src={Parts}
-              id="cardCartItemImage"
-              alt="mobile spear part image"
-            />
+          <div className="bg-mecaActiveBackgroundNavColor rounded-lg w-[180px] h-[129px] flex justify-center items-center">
+            {cardCartItem?.images.length > 0 && (
+              <img
+                className="w-[108px] h-[86px] m-auto p-3"
+                src={cardCartItem?.images[0]}
+                id="cardCartItemImage"
+                alt="mobile spear part image"
+              />
+            )}
           </div>
           <div className={"w-full"}>
             <div className="w-full">
@@ -191,7 +182,6 @@ export const CheckOutCard = ({ cardCartItem }: Props) => {
                 <div className={"flex items-center gap-2"}>
                   <div className="text-black font-normal text-sm">Quantity</div>
                   {isInputVisible || Number(cardCartItem.quantity) > 9 ? (
-
                     <div className={`flex gap-x-2 cursor-pointer`}>
                       <input
                         title="quantity"
@@ -207,12 +197,14 @@ export const CheckOutCard = ({ cardCartItem }: Props) => {
                         onChange={handleInputChange}
                         className={`w-16 h-9 rounded border-2 p-2 border-mecaVerificationCodeColor mt-2`}
                       />
-                       <button
-                          onClickCapture={() => handleUpdateQuantity(cardCartItem)}
-                          className={`bg-mecaBluePrimaryColor rounded-lg mt-2 text-white cursor-pointer w-16 h-9`}
-                       >
-                         Update
-                       </button>
+                      <button
+                        onClickCapture={() =>
+                          handleUpdateQuantity(cardCartItem)
+                        }
+                        className={`bg-mecaBluePrimaryColor rounded-lg mt-2 text-white cursor-pointer w-16 h-9`}
+                      >
+                        Update
+                      </button>
                     </div>
                   ) : (
                     <select
@@ -223,7 +215,7 @@ export const CheckOutCard = ({ cardCartItem }: Props) => {
                       name="categoria"
                       id="categoriesIdDiv"
                     >
-                      {quantityNumber.map((obj:any, index:number) => (
+                      {quantityNumber.map((obj: any, index: number) => (
                         <option key={index} value={obj}>
                           {obj}
                         </option>
