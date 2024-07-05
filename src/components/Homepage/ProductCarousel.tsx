@@ -83,8 +83,9 @@ export default function ProductCarousel() {
           // placeholder="blur"
           id="productImage"
         />
+
         <span
-          className="absolute lg:bottom-16 bottom-8 lg:left-16 left-6 flex flex-col lg:gap-10 gap-6"
+          className="absolute bg-mecaBluePrimaryColor w-[320px] py-4 px-6 lg:bottom-16 bottom-8 lg:left-16 left-6 flex flex-col lg:gap-10 gap-6"
           id="subContainer"
         >
           <p

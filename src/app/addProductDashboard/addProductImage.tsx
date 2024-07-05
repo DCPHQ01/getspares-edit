@@ -61,23 +61,21 @@ const AddProductImage = () => {
       ? JSON.parse(sessionStorage.getItem("userDetails") || "{}")
       : {};
 
-  function isDataValid() {
-    const isBasicInfoValid =
-      // Object.keys(basicInfoData).length > 0 &&
-      basicInfoData.productName &&
-      basicInfoData.price &&
-      basicInfoData.productDescription &&
-      basicInfoData.productCategory &&
-      basicInfoData.quantity;
-    const areImagesPresent = imagesData.length > 0;
-    return isBasicInfoValid && areImagesPresent;
-  }
+  const isBasicInfoValid =
+    Object.keys(basicInfoData).length > 0 &&
+    basicInfoData.productName &&
+    basicInfoData.price &&
+    basicInfoData.productDescription &&
+    basicInfoData.productCategory &&
+    basicInfoData.quantity;
+  const areImagesPresent = imagesData.length > 0;
+  const validData = Boolean(isBasicInfoValid && areImagesPresent);
 
   const priceWithoutCommas = basicInfoData?.price?.replace(/,/g, "");
 
   const handleAddProduct = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (!isDataValid()) {
+    if (!validData) {
       setError("Please fill all the required fields.");
       return;
     }
@@ -160,9 +158,9 @@ const AddProductImage = () => {
           {error && <p className="text-red-500">{error}</p>}
           <button
             onClick={handleAddProduct}
-            disabled={!isDataValid() || isLoading}
+            disabled={!validData || isLoading}
             className={`text-base flex justify-center items-center text-white w-40 h-10 rounded-full font-semibold ${
-              !isDataValid() || isLoading
+              !validData || isLoading
                 ? "bg-gray-500"
                 : "bg-mecaBluePrimaryColor"
             }`}
