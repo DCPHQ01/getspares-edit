@@ -279,7 +279,7 @@ const DropdownPage: React.FC<DropdownPageProps> = ({ closeDropdown }) => {
     if (categoryId) {
       sessionStorage.setItem("categoryId", categoryId);
     }
-    router.push(paths.toCategoryProducts(categoryName) + `?id=${categoryId}`);
+    router.push(paths.toCategoryProducts(categoryName));
   };
 
   const [open, setOpen] = useState(false);
