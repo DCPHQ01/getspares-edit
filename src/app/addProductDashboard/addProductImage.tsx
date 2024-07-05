@@ -43,7 +43,7 @@ const AddProductImage = () => {
 
   const imagesData =
     typeof window !== "undefined" && window.sessionStorage
-      ? JSON.parse(sessionStorage.getItem("clickedImage") || "[]")
+      ? JSON.parse(sessionStorage?.getItem("clickedImage") || "[]")
       : [];
 
   const specsData =

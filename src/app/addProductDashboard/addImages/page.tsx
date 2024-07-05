@@ -39,7 +39,7 @@ const CalledPagesPageTwoPages = () => {
   const [description, setDescription] = useState("");
   const [images, setImages] = useState<string[]>([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [imagesUrl, setImagesUrl] = useState<string[]>([] || "");
+  const [imagesUrl, setImagesUrl] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleImageUpload: React.ChangeEventHandler<HTMLInputElement> = (
@@ -55,7 +55,7 @@ const CalledPagesPageTwoPages = () => {
           newImages.push(reader.result as string);
           if (newImages.length === newImageFiles.length) {
             // Ensuring all images are loaded before updating the state
-            setImages((prevImages) => [...newImages, ...prevImages]);
+            setImagesUrl((prevImages) => [...newImages, ...(prevImages || [])]);
           }
         };
         reader.readAsDataURL(file);
@@ -66,6 +66,30 @@ const CalledPagesPageTwoPages = () => {
     }
     setIsLoading(false);
   };
+  // const handleImageUpload: React.ChangeEventHandler<HTMLInputElement> = (
+  //   event
+  // ) => {
+  //   const files = event.target.files;
+  //   if (files && files.length > 0) {
+  //     const newImages: string[] = [];
+  //     const newImageFiles: File[] = Array.from(files);
+  //     let loadedImages = 0;
+
+  //     newImageFiles.forEach((file) => {
+  //       const reader = new FileReader();
+  //       reader.onloadend = () => {
+  //         newImages.push(reader.result as string);
+  //         loadedImages += 1;
+  //         if (newImages.length === newImageFiles.length) {
+  //           setImagesUrl((prevImages) => [...newImages, ...(prevImages || [])]);
+  //         }
+  //       };
+  //       reader.readAsDataURL(file);
+  //     });
+
+  //     uploadSeveralImages(newImageFiles, handleImage);
+  //   }
+  // };
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -86,12 +110,14 @@ const CalledPagesPageTwoPages = () => {
 
   useEffect(() => {
     const savedImages = sessionStorage?.getItem("clickedImage");
-    setImages(JSON?.parse(savedImages || "[]") as string[]);
+    if (savedImages) {
+      setImagesUrl(JSON.parse(savedImages) as string[]);
+    }
   }, []);
 
   const handleViewPreviousImages = () => {
     setCurrentImageIndex((prevIndex) =>
-      prevIndex > 0 ? prevIndex - 1 : images.length - 1
+      prevIndex > 0 ? prevIndex - 1 : imagesUrl.length - 1
     );
   };
   const handleImage = (nf: string[]) => {
@@ -99,7 +125,7 @@ const CalledPagesPageTwoPages = () => {
   };
   const handleViewNextImages = () => {
     setCurrentImageIndex((prevIndex) =>
-      prevIndex < images.length - 1 ? prevIndex + 1 : 0
+      prevIndex < imagesUrl.length - 1 ? prevIndex + 1 : 0
     );
   };
 
@@ -166,7 +192,10 @@ const CalledPagesPageTwoPages = () => {
                       style={{ backgroundColor: "#EFF2F3" }}
                       className=" h-60 w-[27rem] mb-5 mt-10 pt-6 cursor-pointer"
                     >
-                      <div id="addImage" className="flex flex-col  items-center justify-center">
+                      <div
+                        id="addImage"
+                        className="flex flex-col  items-center justify-center"
+                      >
                         <div className="border rounded-full mt-12 h-16 w-[60px] flex justify-center">
                           <div
                             id="prevImgState"
@@ -238,9 +267,7 @@ const CalledPagesPageTwoPages = () => {
                         <p className="font-bold text-mecaBluePrimaryColor">
                           Add image
                         </p>
-                        <p className="font-normal">
-                          by clicking
-                        </p>
+                        <p className="font-normal">by clicking</p>
                       </div>
                     </div>
                   </Box>

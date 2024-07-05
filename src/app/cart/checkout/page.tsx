@@ -518,12 +518,13 @@ const Checkout = () => {
                     className="text-sm font-normal text-mecaCheckoutMessage"
                   >
                     Thank you for your purchase. Your order has been placed
-                    successfully. A confirmation email with your order details
-                    will be sent shortly.
+                    successfully.
                   </p>
                 </div>
                 <div className="mt-4">
                   <button
+                    type="button"
+                    title="go to home page"
                     onClick={handleRouteToMarketPlace}
                     className="w-full h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer"
                   >
