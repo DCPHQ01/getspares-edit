@@ -122,6 +122,15 @@ const CalledPagesPageTwoPages = () => {
 
   const router = useRouter();
 
+  console.log("imagesUrl", imagesUrl);
+
+  // useEffect(() => {
+  //   const savedImages = sessionStorage?.getItem("clickedImage");
+  //   if (savedImages) {
+  //     setImagesUrl(JSON.parse(savedImages) as string[]);
+  //   }
+  // }, []);
+
   const handleViewPreviousImages = () => {
     setCurrentImageIndex((prevIndex) =>
       prevIndex > 0 ? prevIndex - 1 : imagesUrl.length - 1
@@ -166,10 +175,7 @@ const CalledPagesPageTwoPages = () => {
     if (savedImages) {
       setImagesUrl(JSON.parse(savedImages));
     }
-    if (productImage) {
-      setImagesUrl(productImage?.images);
-    }
-  }, [productImage]);
+  }, []);
   // useEffect(() => {
   //   if (productImage) {
   //     setImagesUrl(productImage?.images);
