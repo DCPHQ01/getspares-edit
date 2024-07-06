@@ -493,25 +493,22 @@ const AddProductImage = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
   const handleDashBoard = () => {
     router.push(paths.toDashboard());
   };
 
   const dispatch = useAppDispatch();
 
-  const [basicInfoData, setBasicInfoData] = useState(() => {
-    if (typeof window !== "undefined" && window.sessionStorage) {
-      return JSON.parse(sessionStorage.getItem("basicInfoValues") || "{}");
-    }
-    return {};
-  });
+  const basicInfoData =
+    typeof window !== "undefined" && window.sessionStorage
+      ? JSON.parse(sessionStorage.getItem("basicInfoValues") || "{}")
+      : {};
 
-  const [imagesData, setImagesData] = useState(() => {
-    if (typeof window !== "undefined" && window.sessionStorage) {
-      return JSON.parse(sessionStorage.getItem("images") || "[]");
-    }
-    return [];
-  });
+  const imagesData =
+    typeof window !== "undefined" && window.sessionStorage
+      ? JSON.parse(sessionStorage.getItem("images") || "{}")
+      : {};
 
   const specsData =
     typeof window !== "undefined" && window.sessionStorage
@@ -534,8 +531,7 @@ const AddProductImage = () => {
   const areImagesPresent = imagesData.length > 0;
   const validData = Boolean(isBasicInfoValid && areImagesPresent);
 
-
-  const priceWithoutCommas = basicInfoData?.price?.replace(/,/g, "");
+  const priceWithoutCommas = basicInfoData?.amount?.replace(/,/g, "");
 
   const handleAddProduct = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -550,18 +546,18 @@ const AddProductImage = () => {
         throw new Error("Company details are missing.");
       }
       const response = await addProductdata({
-        name: basicInfoData.productName,
+        name: basicInfoData.name,
+        brand: detailsData?.brand,
         price: {
           amount: priceWithoutCommas,
           currency: "NGN",
         },
-        description: basicInfoData.productDescription,
-        categoryName: basicInfoData.productCategory,
-        productCondition: "NEW",
+        description: basicInfoData.description,
+        categoryName: basicInfoData.category,
+        productCondition: detailsData?.condition,
         productImages: [...imagesData],
         productInformation: {
           manufacturer: detailsData?.manufacturer,
-          brand: detailsData?.brand,
           model: detailsData?.model,
           itemWeight: detailsData?.weight,
           productionDimension: detailsData?.dimension,
@@ -603,29 +599,30 @@ const AddProductImage = () => {
     }
   }, [data]);
 
-  useEffect(() => {
-    const handleStorageChange = () => {
-      const newBasicInfoData = JSON.parse(
-        sessionStorage.getItem("basicInfoValues") || "{}"
-      );
-      const newImagesData = JSON.parse(
-        sessionStorage.getItem("images") || "[]"
-      );
-      setBasicInfoData(newBasicInfoData);
-      setImagesData(newImagesData);
+  // useEffect(() => {
+  //   const handleStorageChange = () => {
+  //     const newBasicInfoData = JSON.parse(
+  //       sessionStorage.getItem("basicInfoValues") || "{}"
+  //     );
+  //     const newImagesData = JSON.parse(
+  //       sessionStorage.getItem("images") || "[]"
+  //     );
+  //     setBasicInfoData(newBasicInfoData);
+  //     setImagesData(newImagesData);
 
-      // Additional logs for debugging
-      console.log("Updated Basic Info Data:", newBasicInfoData);
-      console.log("Updated Images Data:", newImagesData);
-    };
+  //     // Additional logs for debugging
+  //     console.log("Updated Basic Info Data:", newBasicInfoData);
+  //     console.log("Updated Images Data:", newImagesData);
+  //   };
 
-    window.addEventListener("storage", handleStorageChange);
+  //   window.addEventListener("storage", handleStorageChange);
 
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
-  }, []);
-
+  //   return () => {
+  //     window.removeEventListener("storage", handleStorageChange);
+  //   };
+  // }, []);
+  console.log("brand", detailsData?.brand);
+  console.log("category", detailsData?.condition);
   return (
     <div className="z-50 fixed top-0 h-40 w-[100%]">
       <div className="bg-white">

@@ -10,7 +10,6 @@ import { useGetVendorAdminInventoryQuery } from "../../../../redux/features/dash
 import { useState, useEffect } from "react";
 import { useGetAllVendorProductsQuery } from "../../../../redux/features/product/productsQuery";
 
-
 interface InventoryData {
   categoryName?: string;
   dateCreated: string;
@@ -22,45 +21,49 @@ interface InventoryData {
 function VendorInventory() {
   const [page, setPage] = useState(0);
   const [totalElement, setTotalElement] = useState(0);
-  const [hasNext,setHasNext] = useState(false)
-  const [hasPrevious,setHasPrevious] = useState(false)
-  const [totalPages,setTotalPages] = useState(0);
+  const [hasNext, setHasNext] = useState(false);
+  const [hasPrevious, setHasPrevious] = useState(false);
+  const [totalPages, setTotalPages] = useState(0);
   const size = 10;
 
   const requestBody = {
     pageNo: page,
     pageSize: size,
   };
-  const { data, isFetching } = useGetVendorAdminInventoryQuery({ pageNumber:page,pageSize:size });
-  
- 
-  
+  const { data, isFetching } = useGetVendorAdminInventoryQuery({
+    pageNumber: page,
+    pageSize: size,
+  });
 
   useEffect(() => {
-    if (data){
-       setTotalElement(data.data?.totalElements);
-       setHasNext(data?.data.hasNext)
-       setHasPrevious(data?.data.hasPrevious)
-       setPage(data?.data.pageNo)
-       setTotalPages(data?.data.totalPages)
+    if (data) {
+      setTotalElement(data.data?.totalElements);
+      setHasNext(data?.data.hasNext);
+      setHasPrevious(data?.data.hasPrevious);
+      setPage(data?.data.pageNo);
+      setTotalPages(data?.data.totalPages);
     }
   }, [data]);
-   
-   console.log(data)
-  
-   
+
+  console.log(data);
+
+  useEffect(() => {
+    sessionStorage.removeItem("basicInfoValues");
+    sessionStorage.removeItem("images");
+    sessionStorage.removeItem("specInfo");
+    sessionStorage.removeItem("detailsInfo");
+  }, []);
 
   const handleNextPage = () => {
     if (page + 1 < totalPages) {
-    setPage((prevPage) => prevPage + 1);
+      setPage((prevPage) => prevPage + 1);
     }
   };
 
   const handlePreviousPage = () => {
-    if (page < totalPages){
-    setPage((prevPage) => prevPage - 1);
+    if (page < totalPages) {
+      setPage((prevPage) => prevPage - 1);
     }
-   
   };
 
   return (
@@ -89,7 +92,7 @@ function VendorInventory() {
         />
       </div>
       <div className="flex justify-between mt-10 text-mecaBluePrimaryColor font-bold text-lg">
-        { page > 0 ? (
+        {page > 0 ? (
           <button className={`flex gap-x-2`} onClick={handlePreviousPage}>
             <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
           </button>
@@ -97,7 +100,7 @@ function VendorInventory() {
           <div>{""}</div>
         )}
 
-        {hasNext ?(
+        {hasNext ? (
           <button className={`flex gap-x-2`} onClick={handleNextPage}>
             Next
             <span>

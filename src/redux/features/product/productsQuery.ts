@@ -13,17 +13,17 @@ export const productsQuery = createApi({
     createProduct: builder.mutation({
       query: (body: {
         name: string;
+        brand: string;
         price: {
-          amount: Number;
+          amount: number;
           currency: string;
         };
         description: string;
         categoryName: string;
-        productCondition: "NEW";
+        productCondition: string;
         productImages: string[];
         productInformation: {
           manufacturer: string;
-          brand: string;
           model: string;
           itemWeight: string;
           productionDimension: string;
@@ -33,11 +33,38 @@ export const productsQuery = createApi({
         };
         productSpecification: {
           color: string;
-          quantityInPack: Number;
+          quantityInPack: number;
         };
         quantity: number;
         tags: string[];
         companyName: string;
+        // name: string;
+        // brand: string;
+
+        // price: {
+        //   amount: Number;
+        //   currency: string;
+        // };
+        // description: string;
+        // categoryName: string;
+        // productCondition: "NEW";
+        // productImages: string[];
+        // productInformation: {
+        //   manufacturer: string;
+        //   model: string;
+        //   itemWeight: string;
+        //   productionDimension: string;
+        //   countryOfOrigin: string;
+        //   itemModelNumber: string;
+        //   manufacturerPartNumber: string;
+        // };
+        // productSpecification: {
+        //   color: string;
+        //   quantityInPack: Number;
+        // };
+        // quantity: number;
+        // tags: string[];
+        // companyName: string;
       }) => ({
         url: "/product/create-product",
         method: "POST",
@@ -92,11 +119,11 @@ export const productsQuery = createApi({
       }),
     }),
     getAllVendorProducts: builder.query({
-      query:(body) =>  ({
+      query: (body) => ({
         url: "/product/vendor/view-all",
         method: "POST",
-        body
-      })
+        body,
+      }),
     }),
   }),
 });
@@ -109,5 +136,5 @@ export const {
   useAddProductToCartMutation,
   useRemoveProductFromCartMutation,
   useViewCartQuery,
-   useGetAllVendorProductsQuery,
+  useGetAllVendorProductsQuery,
 } = productsQuery;
