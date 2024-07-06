@@ -32,9 +32,9 @@ const CalledPagesPageFourPages = () => {
       storedBasicInfoValues && JSON?.parse(storedBasicInfoValues);
 
     if (parsedBasicInfoValues) {
-      setProductName(parsedBasicInfoValues.productName);
-      setPrice(parsedBasicInfoValues.price);
-      setDescription(parsedBasicInfoValues.productDescription);
+      setProductName(parsedBasicInfoValues.name);
+      setPrice(parsedBasicInfoValues.amount);
+      setDescription(parsedBasicInfoValues.description);
     }
   }, []);
 
