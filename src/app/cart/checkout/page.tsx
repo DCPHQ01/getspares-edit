@@ -429,7 +429,7 @@ const Checkout = () => {
                         <FormControlLabel
                           className="text-black text-sm font-normal"
                           value="pickup"
-                          control={<Radio />}
+                          control={<Radio disabled  />}
                           label="Pickup"
                         />
                       </div>
