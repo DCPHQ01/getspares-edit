@@ -23,6 +23,8 @@ import { setCart } from "../../redux/features/product/productSlice";
 import { CartProduct } from "../../types/cart/product";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
+import MecaGlobalSearch from "./MecaGlobalSearch";
+
 import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
 
@@ -70,6 +72,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [active, setActive] = useState<number | null>(1);
+
   const handleClick = (id: number) => {
     setActive(id);
   };
@@ -104,9 +107,11 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
   };
   const [toggleProfile, setToggleProfile] = useState(false);
   const [tokens, setTokens] = useState("");
-  const dropdownRef = useRef<HTMLDivElement | null>(null);
-  const profile = () => {
+
+  // const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const profile = (event: React.MouseEvent<HTMLButtonElement>) => {
     setToggleProfile((prev) => !prev);
+    setAnchorEl(event.currentTarget);
   };
   let decoded: JwtPayload | null = null;
 
@@ -208,15 +213,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
             id="searchDesktop"
           >
             <div className="relative w-full max-w-[580px]">
-              <MdSearch
-                size={24}
-                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-mecaGoBackArrow"
-              />
-              <input
-                id="inputSearchDesktop"
-                placeholder="Search for anything"
-                className="bg-mecaSearchColor w-full h-[44px] rounded-full pl-12 pr-4 outline-none"
-              />
+              <MecaGlobalSearch/>
             </div>
           </div>
           <div
@@ -273,7 +270,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                         </p>
                       </div>
                       <div className="">
-                        {toggleProfile ? (
+                        {openNavbar ? (
                           <MdExpandLess className="text-mecaGoBackArrow w-5 h-5 mt-1.5" />
                         ) : (
                           <MdExpandMore className="text-mecaGoBackArrow w-5 h-5 mt-1.5" />
@@ -322,46 +319,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
                     </span>
                   </button>
                 </div>
-
-                {/* <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
-                <MenuItem onClick={handleClose}>Logout</MenuItem> */}
               </Menu>
-              {/* {toggleProfile && (
-                <div
-                  className="w-52 h-24 rounded-lg p-1 bg-white absolute top-16 right-24 "
-                  style={{ boxShadow: "0px 2px 8px 0px #63636333" }}
-                >
-                  <button
-                    id="profileBtn"
-                    onClick={profile}
-                    className="flex gap-2 w-48 m-auto  h-10 p-2 pt-3 hover:bg-mecaActiveBackgroundNavColor hover:text-mecaActiveIconsNavColor"
-                  >
-                    <MdOutlineAccountCircle className="text-mecaProfileColor w-6 h-6 " />
-                    <span
-                      className="w-24 h-6 flex gap-1 font-normal text-base text-mecaDarkBlueBackgroundOverlay hover:text-mecaActiveIconsNavColor"
-                      onClick={handleDashboard}
-                    >
-                      <span>My</span>
-                      <span>Dashboard</span>
-                    </span>
-                  </button>
-                  <div className="mt-1">
-                    <button
-                      onClick={profile}
-                      className="flex gap-2 m-auto w-48 h-10 p-2 pt-3 hover:bg-mecaActiveBackgroundNavColor hover:text-mecaActiveIconsNavColor"
-                    >
-                      <MdLogout className="text-mecaProfileColor w-6 h-6 " />
-                      <span
-                        className="h-6 font-normal text-base text-mecaDarkBlueBackgroundOverlay hover:text-mecaActiveIconsNavColor"
-                        onClick={logOut}
-                      >
-                        Logout
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              )} */}
             </div>
           </div>
         </div>
@@ -402,11 +360,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
         {navData.map(
           (item) =>
             active === item.id && (
-              <div
-                className="flex justify-center"
-                ref={dropdownRef}
-                key={item.id}
-              >
+              <div className="flex justify-center" key={item.id}>
                 <div className="absolute left-96 top-40 z-50">
                   {item.dropdownComponent &&
                     React.cloneElement(item.dropdownComponent, {

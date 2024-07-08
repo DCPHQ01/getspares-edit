@@ -4,21 +4,28 @@ import image1 from "../../../../../assets/dashboardAssets/Avatar2.png";
 import image2 from "../../../../../assets/dashboardAssets/Avatar3.png";
 import Image from "next/image";
 import { AccountCircle } from "@mui/icons-material";
-import { format } from "../../../../../components/utils";
+import { format, formatAmount } from "../../../../../components/utils";
 import { MdInventory2 } from "react-icons/md";
+import dayjs from "dayjs";
 
 interface VendorOverview {
-  dateJoined: string;
+  dateAndTimeAdded?: string;
   imageUrl?: string;
-  transactionValue: string | number;
-  totalItemSold: number;
-  itemName: string;
+  orderValue?: number | string | undefined;
+  totalSold?: number;
+  productName?: string;
 }
 
 interface VendorTableProps {
   topPerformingProduct: VendorOverview[];
   isLoading: boolean;
 }
+
+const formatDateTime = (dateTime: string) => {
+  const date = dayjs(dateTime).format("DD-MM-YYYY");
+  const time = dayjs(dateTime).format("hh:mm A");
+  return { date, time };
+};
 
 const Overview: React.FC<VendorTableProps> = ({
   topPerformingProduct,
@@ -69,13 +76,14 @@ const Overview: React.FC<VendorTableProps> = ({
             </div>
           ) : (
             topPerformingProduct?.map((d, index) => {
+              const { date, time } = formatDateTime(d?.dateAndTimeAdded  ?? "");
               return (
                 <tr key={index} id={`row_${index}`} className="truncate">
                   <td>
                     <div
                       className={`flex gap-3 items-center text-[0.88rem] py-[1rem] px-[1.5rem]`}
                     >
-                      {d.imageUrl ? (
+                      {/* {d.imageUrl ? (
                         <Image
                           src={d.imageUrl}
                           className="object-contain"
@@ -87,27 +95,27 @@ const Overview: React.FC<VendorTableProps> = ({
                           style={{ fontSize: 50 }}
                           className=" text-gray-400"
                         />
-                      )}
-                      <p id={`itemName_${index}`}>{d.itemName}</p>
+                      )} */}
+                      <p id={`itemName_${index}`}>{d.productName}</p>
                     </div>
                   </td>
                   <td
                     className={`text-[0.88rem] py-[1rem] px-[3.125rem]`}
                     id={`totalSold_${index}`}
                   >
-                    {d.totalItemSold}
+                    {d.totalSold}
                   </td>
                   <td
                     className={`text-[0.88rem] py-[1rem] px-[3.125rem]`}
                     id={`transactionValue_${index}`}
                   >
-                    {format(d.transactionValue)}
+                    {format(d?.orderValue ?? "")}
                   </td>
-                  <td>
+                  <td id={`dateAndTimeAdded_${index}`}>
                     <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
-                      <div id={`date_${index}`}>{d.dateJoined}</div>
+                      <div id={`date_${index}`}>{date}</div>
                       <div className={`text-[#4B5565]`} id={`time_${index}`}>
-                        {/* {d.time} */}
+                        {time}
                       </div>
                     </div>
                   </td>

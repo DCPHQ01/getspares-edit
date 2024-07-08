@@ -21,7 +21,7 @@ interface ProductData {
 }
 const CalledPagesPageOnePages = () => {
   const productData = useAppSelector(
-    (state) => state.company.productData as ProductData
+    (state) => state?.company?.productData as ProductData
   );
   const [descriptionError, setDescriptionError] = useState("");
   const [basicInfoValues, setBasicInfoValues] = useState({
@@ -33,24 +33,20 @@ const CalledPagesPageOnePages = () => {
   });
 
   const { data: getCategoriesData, isFetching } = useGetCategoryQuery({});
-  getCategoriesData?.data, "get categories data";
 
   useEffect(() => {
-    const savedData = sessionStorage.getItem("basicInfoValues");
+    const savedData = sessionStorage?.getItem("basicInfoValues");
     if (savedData) {
-      setBasicInfoValues(JSON.parse(savedData));
+      setBasicInfoValues(JSON?.parse(savedData));
     } else if (productData) {
       populateData(productData);
     }
   }, [productData]);
 
   const router = useRouter();
-  console.log("product data: ", productData);
 
   const handleBasicInfoChange = (e: any) => {
     const { name, value } = e.target;
-
-    console.log(value);
 
     if (name === "amount") {
       const numericValue = value.replace(/[^0-9]/g, "");

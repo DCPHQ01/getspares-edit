@@ -115,7 +115,7 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
         {!routInventory && (
           <div
             id="mecaAdminTable"
-            className={`my-[1.25rem] w-full max-h-[40rem] overflow-y-auto scrollbar-none overscroll-contain ${styles.table}`}
+            className={`my-[1.25rem] w-full max-h-[40rem] overflow-y-auto scrollbar-none overscroll-contain h-[32rem] ${styles.table}`}
           >
             <table id="adminTable" className={`w-full`}>
               <thead style={{ zIndex: 1000 }} className={`lg:sticky`}>
