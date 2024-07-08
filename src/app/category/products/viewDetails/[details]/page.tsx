@@ -125,14 +125,15 @@ export default function Details() {
   const handleImageClick = (index: number) => {
     setSelectedImageIndex(index);
   };
+  const [images, setImages]= useState([])
 
   const [productDescription, setProductDescription] = useState(false);
   const handleProductDescription = () => {
     setProductDescription(!productDescription);
   };
 
-  const firstImages = images.slice(0, 5);
-  const remainingImages = images.slice(5);
+  const firstImages = images?.slice(0, 5);
+  const remainingImages = images?.slice(5);
 
   const productId = sessionStorage.getItem("productId");
 
@@ -141,7 +142,7 @@ export default function Details() {
   });
   const [viewBuyerProducts, setViewBuyerProducts] =
     useState<viewBuyersProductDetails>();
-
+  console.log("buyers data: ", data)
   useEffect(() => {
     if (data) {
       const viewOfProduct = data.data;
@@ -151,6 +152,12 @@ export default function Details() {
     }
   }, [data]);
 
+
+  useEffect(()=> {
+    setImages(data?.data.images)
+  }, [data])
+
+  console.log("images after effect ", images)
   const [openVendorModal, setOpenVendorModal] = useState(false);
   const handleOpenVendorModal = () => {
     setOpenVendorModal((val) => !val);
@@ -184,23 +191,23 @@ export default function Details() {
             >
               <div
                 id="productImage"
-                className="lg:w-1/2 w-full flex flex-col gap-y-4"
+                className="lg:w-1/2 w-[458px] h-[361px] flex flex-col gap-y-4"
               >
                 <div
                   id="imageDiv"
-                  className="w-full bg-mecaSearchColor flex justify-start items-center"
+                  className="w-[458px] h-[266px] bg-mecaSearchColor flex justify-center items-center"
                   onClick={handleOpen}
                 >
-                  <Image
-                    src={images[selectedImageIndex].src}
-                    alt={images[selectedImageIndex].alt}
-                    className="max-w-full max-h-full"
+                  <img
+                    src={data?.data.images[selectedImageIndex]}
+                    alt="product image"
+                    className="w-[272px] h-[190px]"
                   />
                 </div>
-                <div id="otherImagesDiv" className="w-full flex gap-5">
-                  {(showAllImages ? images : firstImages).map((image, i) => (
+                <div id="otherImagesDiv" className="w-[458px] h-[75px] flex gap-5">
+                  {(showAllImages ? images : firstImages)?.map((image, i) => (
                     <div
-                      className={`w-1/6 h-24 cursor-pointer rounded-lg flex justify-center items-center bg-mecaSearchColor relative ${
+                      className={`w-[98px] h-[75px] cursor-pointer rounded-lg flex justify-center items-center bg-mecaSearchColor relative ${
                         selectedImageIndex === i
                           ? "border-4 border-blue-500"
                           : ""
@@ -208,14 +215,14 @@ export default function Details() {
                       key={i}
                       onClick={() => handleImageClick(i)}
                     >
-                      <Image
-                        src={image.src}
-                        alt={image.alt}
-                        className="h-full w-full object-cover"
+                      <img
+                        src={image}
+                        alt="images"
+                        className="h-[45px] w-[59px] object-cover"
                       />
                       {!showAllImages &&
-                        i === firstImages.length - 1 &&
-                        remainingImages.length > 0 && (
+                        i === firstImages?.length - 1 &&
+                        remainingImages?.length > 0 && (
                           <div
                             id="moreImages"
                             className="absolute rounded-lg inset-0 flex justify-center items-center bg-mecaDarkBlueBackgroundOverlay bg-opacity-50"
@@ -232,7 +239,7 @@ export default function Details() {
               </div>
               <div
                 id="productDetails"
-                className="lg:w-1/2 w-full flex flex-col h-auto mt-8 lg:mt-0"
+                className="lg:w-1/2 max-w-full flex flex-col h-auto mt-8 lg:mt-0"
               >
                 <div
                   id="titleCompanyDiv"
