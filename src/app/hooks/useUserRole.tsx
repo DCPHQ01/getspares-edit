@@ -9,7 +9,7 @@ interface JwtPayload extends BaseJwtPayload {
 }
 
 export function useUserRole() {
-  // const { user } = useAppSelector((state: RootState) => state.user);
+  const userRoles = process.env.NEXT_PUBLIC_KEYCLOAK_REALM;
   const getToken = () => {
     if (typeof window !== "undefined") {
       return JSON.parse(sessionStorage.getItem("token") || "{}");
@@ -31,6 +31,6 @@ export function useUserRole() {
     console.error("Failed to decode token:", error);
   }
 
-  const userRole = decoded?.resource_access["e-meca"]?.roles[0];
+  const userRole = decoded?.resource_access[`${userRoles}`]?.roles[0];
   return userRole;
 }
