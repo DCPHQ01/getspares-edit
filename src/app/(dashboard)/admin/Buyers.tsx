@@ -44,8 +44,6 @@ function Buyers() {
     }
   }, [data]);
 
-   console.log(totalPage);
-
   const handlePreviousPage = () => {
     if(page > 0) {
       setPage(prevPage => prevPage - 1);
@@ -55,7 +53,7 @@ function Buyers() {
   const handleNextPage = () => {
     if(page + 1 < totalPage) {
       setPage(prevPage => prevPage + 1);
-      console.log(page)
+  
   };
   };
 

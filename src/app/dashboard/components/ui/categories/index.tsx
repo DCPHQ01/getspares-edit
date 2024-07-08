@@ -36,7 +36,7 @@ function Index() {
     >([]);
 
     const categories = data?.data;
-    console.log("data for categories", categories);
+
 
     useEffect(() => {
       if (data && data.data) {

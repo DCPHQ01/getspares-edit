@@ -65,94 +65,6 @@ const itemSelected = [
 ];
 
 const Checkout = () => {
-  // const dispatch = useAppDispatch();
-  // const [deliveryMode, setDeliveryMode] = useState("delivery");
-  // const [showAddressSelection, setShowAddressSelection] = useState(false);
-  // const [open, setOpen] = React.useState(false);
-  // const [totalItemPrice, setTotalItemPrice] = useState<string>("");
-
-  // const handleOpen = () => setOpen(true);
-  // const handleClose = () => setOpen(false);
-  // const [formData, setFormData] = useState({
-  //   firstName: "",
-  //   lastName: "",
-  //   phoneNumber: "",
-  //   deliveryAddress: "",
-  // });
-
-  // const router = useRouter();
-  // const { cart } = useAppSelector((state) => state.product);
-
-  // const [checkoutData, { isLoading, error }] = useCheckoutMutation();
-
-  // const handleDeliveryModeChange = (
-  //   event: React.ChangeEvent<HTMLInputElement>
-  // ) => {
-  //   setDeliveryMode(event.target.value);
-  // };
-
-  // const handleRouteToMarketPlace = () => {
-  //   router.push(paths.toHome());
-  // };
-
-  // const getAllTotalPrice = () => {
-  //   let newTotal = "0";
-
-  //   if (cart.length !== 0) {
-  //     const total = cart
-  //       .map((item) => Number(item.amount) * Number(item.quantity))
-  //       .reduce((a, b) => a + b, 0);
-
-  //     newTotal = String(total);
-  //   }
-  //   if (totalItemPrice !== newTotal) {
-  //     setTotalItemPrice(newTotal);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getAllTotalPrice();
-  // }, [cart]);
-
-  // const handleAddressSelectionToggle = () => {
-  //   setShowAddressSelection(!showAddressSelection);
-  // };
-
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setFormData({
-  //     ...formData,
-  //     [e.target.id]: e.target.value,
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   let parsedUserDetails = JSON.parse(sessionStorage.getItem("userDetails")!);
-  //   if (parsedUserDetails) {
-  //     setFormData({
-  //       ...formData,
-  //       firstName: parsedUserDetails.firstName || "",
-  //       lastName: parsedUserDetails.lastName,
-  //     });
-  //   }
-  // }, [router]);
-
-  // const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
-  //   e.preventDefault();
-  //   const payload = {
-  //     location: formData.deliveryAddress,
-  //     otherInformation: "Some other information",
-  //     phoneNumber: formData.phoneNumber,
-  //   };
-
-  //   try {
-  //     const response = await checkoutData(payload).unwrap();
-  //     setOpen(true);
-  //     localStorage.removeItem("savedCartItems");
-  //     dispatch(setCart([]));
-  //   } catch (error: any) {
-  //     console.log(error.data);
-  //   }
-  // };
   const dispatch = useAppDispatch();
   const [deliveryMode, setDeliveryMode] = useState("delivery");
   const [showAddressSelection, setShowAddressSelection] = useState(false);
@@ -261,7 +173,7 @@ const Checkout = () => {
       localStorage.removeItem("savedCartItems");
       dispatch(setCart([]));
     } catch (error: any) {
-      console.log(error.data);
+ 
       setErrors({ ...errors, checkOutError: error?.data.message });
     }
   };
@@ -429,7 +341,7 @@ const Checkout = () => {
                         <FormControlLabel
                           className="text-black text-sm font-normal"
                           value="pickup"
-                          control={<Radio disabled  />}
+                          control={<Radio disabled />}
                           label="Pickup"
                         />
                       </div>

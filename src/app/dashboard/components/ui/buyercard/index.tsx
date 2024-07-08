@@ -43,7 +43,6 @@ const Index = () => {
     }
   }, [data]);
 
-  console.log("Images at the top data: ", data);
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error loading data</div>;
@@ -62,7 +61,7 @@ const Index = () => {
         <div
           key={index}
           className="lg:w-[22rem]"
-          // onClick={handleParticularDetails}
+      
         >
           <div className="px-[1.2rem] py-[1.3rem] w-[353px] h-[287px] bg-[#F8FAFC] flex justify-center rounded-[8px] mb-[1rem]">
             <img

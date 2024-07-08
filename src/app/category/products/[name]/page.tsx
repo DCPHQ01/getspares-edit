@@ -99,7 +99,6 @@ export default function Products() {
   };
   const { data, isFetching } = useGetProductInCategoryQuery(payload);
 
-  console.log("data here: ", data?.data.content);
 
 
   const handleProductDescription = (id: number) => {
