@@ -297,7 +297,10 @@ const CalledPagesPageOnePages = () => {
                           value={basicInfoValues.quantity}
                           onChange={handleBasicInfoChange}
                           placeholder="Enter value"
-                          InputProps={{ disableUnderline: true }}
+                          InputProps={{
+                            disableUnderline: true,
+                            inputProps: { min: 0 },
+                          }}
                           className="w-[29.4rem] mb-5 outline-none"
                           sx={{ backgroundColor: "porcelain" }}
                           error={!!errors.quantity}

@@ -42,9 +42,6 @@ function VendorOverview() {
     }
   }, [data]);
 
-  // const userName = JSON.parse(sessionStorage.getItem("userDetails") || "");
-  // const usersFirstName = userName?.firstName;
-
   let usersFirstName = "";
   try {
     const userName = JSON.parse(sessionStorage.getItem("userDetails") || "");

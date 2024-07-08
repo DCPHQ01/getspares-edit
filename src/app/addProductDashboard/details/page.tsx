@@ -46,8 +46,8 @@ const manufacturerData = [
 ];
 
 const conditionOptions = [
-  { id: 1, condition: "New" },
-  { id: 2, condition: "Refurbished" },
+  { id: 1, condition: "NEW" },
+  { id: 2, condition: "REFURBISHED" },
 ];
 
 const CalledPagesPageFivePages = () => {
@@ -57,13 +57,14 @@ const CalledPagesPageFivePages = () => {
   const [images, setImages] = useState<string[]>([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [technicalDetails, setTechnicalDetails] = useState({
-    manufacturer: "",
+    brand: "",
     manufacturerParts: "",
     condition: "",
     model: "",
     weight: "",
     dimension: "",
     countryOfOrigin: "",
+    manufacturer: "",
   });
   useEffect(() => {
     const storedBasicInfoValues = sessionStorage.getItem("basicInfoValues");
@@ -72,14 +73,14 @@ const CalledPagesPageFivePages = () => {
       storedBasicInfoValues && JSON.parse(storedBasicInfoValues);
 
     if (parsedBasicInfoValues) {
-      setProductName(parsedBasicInfoValues.productName);
-      setPrice(parsedBasicInfoValues.price);
-      setDescription(parsedBasicInfoValues.productDescription);
+      setProductName(parsedBasicInfoValues.name);
+      setPrice(parsedBasicInfoValues.amount);
+      setDescription(parsedBasicInfoValues.description);
     }
   }, []);
 
   useEffect(() => {
-    const savedImages = sessionStorage.getItem("clickedImage");
+    const savedImages = sessionStorage.getItem("images");
 
     if (savedImages) {
       setImages(JSON.parse(savedImages));
@@ -113,12 +114,6 @@ const CalledPagesPageFivePages = () => {
     router.push(paths.toAddProductDashboardSpecifications());
   };
 
-  useEffect(() => {
-    const savedData = sessionStorage.getItem("detailsInfo");
-    if (savedData) {
-      setTechnicalDetails(JSON.parse(savedData));
-    }
-  }, []);
   const populateData = (userData: any) => {
     const userDataKeys = Object.keys(technicalDetails);
     if (userData) {
@@ -144,7 +139,10 @@ const CalledPagesPageFivePages = () => {
   const productSpec = useAppSelector((state) => state.company.productData);
   console.log("product spec  ", productSpec);
   useEffect(() => {
-    if (productSpec) {
+    const savedData = sessionStorage.getItem("detailsInfo");
+    if (savedData) {
+      setTechnicalDetails(JSON.parse(savedData));
+    } else if (productSpec) {
       populateData(productSpec);
     }
   }, [productSpec]);
@@ -166,19 +164,14 @@ const CalledPagesPageFivePages = () => {
 
                 <div>
                   <select
-                    id="manufacturer"
-                    name="manufacturer"
+                    id="brand"
+                    name="brand"
                     style={{ backgroundColor: "porcelain" }}
                     required={true}
                     className="w-[29.4rem] h-14 border bg-mecaInputBgColor rounded-md pl-2 mb-5 outline-none"
-                    title="manufacturer"
-                    value={technicalDetails.manufacturer}
-                    onChange={(e) =>
-                      setTechnicalDetails({
-                        ...technicalDetails,
-                        manufacturer: e.target.value,
-                      })
-                    }
+                    title="brand"
+                    value={technicalDetails.brand}
+                    onChange={handleTechnicalDetails}
                   >
                     <option id={`manufacturer`} value="" disabled selected>
                       Brand
@@ -228,7 +221,7 @@ const CalledPagesPageFivePages = () => {
                     name="condition"
                     style={{ backgroundColor: "porcelain" }}
                     required={true}
-                    className="w-[29.4rem] h-14 border bg-mecaInputBgColor rounded-md pl-2 mb-5 outline-none"
+                    className="w-[29.4rem] h-14 border capitalize bg-mecaInputBgColor rounded-md pl-2 mb-5 outline-none"
                     title="condition"
                     value={technicalDetails.condition}
                     onChange={(e) =>
@@ -299,7 +292,7 @@ const CalledPagesPageFivePages = () => {
                   variant="filled"
                   type="text"
                   name="countryOfOrigin"
-                  placeholder="Aba"
+                  placeholder="Nigeria"
                   InputProps={{ disableUnderline: true }}
                   className=" w-[29.4rem] mb-5 bg-mecaInputBgColor"
                   value={technicalDetails.countryOfOrigin}

@@ -48,8 +48,9 @@ const config: Config = {
         mecaProfileColor: "#D0D5DD",
         mecaAddProductSidebarList: "#364152",
         mecaCheckoutMessage: "#72757A",
-        mecaErrorBackground: '#FDA29B',
-        mecaErrorText: '#F04438'
+        mecaErrorBackground: "#FDA29B",
+        mecaErrorText: "#F04438",
+        mecaOverlay: "#4B4D5099",
       },
       fontFamily: {
         nunito: ["var(--font-nunito_sans)"],

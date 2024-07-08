@@ -120,7 +120,6 @@ export default function ProductDescription() {
   const { data, isFetching } = useGetAProductQuery(productId, {
     skip: !productId,
   });
-  console.log(data, "data");
 
   const { vertical, horizontal, open } = state;
 
