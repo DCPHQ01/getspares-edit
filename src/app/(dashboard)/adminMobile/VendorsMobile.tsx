@@ -47,10 +47,10 @@ function Vendors() {
         </div>
         <div className="mt-4">{/* <AddButton title={`Add vendor`} /> */}</div>
       </div>
-      <div className={`flex gap-2 mt-[1.25rem]`}>
+      {/* <div className={`flex gap-2 mt-[1.25rem]`}>
         <SearchBox placeholder={`Search for vendor`} />
         <SortButton />
-      </div>
+      </div> */}
 
       <VendorTable vendorList={vendorList} />
 

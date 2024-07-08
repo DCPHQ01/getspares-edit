@@ -141,7 +141,7 @@ const BuyerCartMobile = () => {
                 title={`Cart`}
                 amount={``}
               />
-              <Searchbox />
+              {/* <Searchbox /> */}
             </div>
 
             <div className="flex  flex-col w-full">

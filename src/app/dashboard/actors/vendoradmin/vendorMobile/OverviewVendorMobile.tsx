@@ -40,6 +40,11 @@ function OverviewVendorMobile() {
 
   let usersName: any;
 
+  const savedItems =
+     typeof window !== "undefined" && window.sessionStorage
+        ? sessionStorage.getItem("categoryId") || ""
+        : '';
+
   useEffect(() => {
     const userName = sessionStorage.getItem("userDetails");
     if (userName) {
@@ -50,13 +55,15 @@ function OverviewVendorMobile() {
 
   let userFirstName = "";
   try {
-    const userName = JSON.parse(sessionStorage.getItem("userDetails") || "");
+    const userName =
+       typeof window !== "undefined" && window.sessionStorage
+          ? JSON.parse(sessionStorage.getItem("userDetails") || "")
+          : '';
+    // const userName = JSON.parse(sessionStorage.getItem("userDetails") || "");
     userFirstName = userName?.firstName;
   } catch (error) {
     console.error("Error parsing user details:", error);
   }
-  console.log("data for VendorOverviewMobile name: ", usersFirstName);
-  console.log("data for VendorOverviewMobile names: ", userFirstName);
 
   return (
     <>

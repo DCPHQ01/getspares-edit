@@ -44,7 +44,7 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
     <div id="tableContainer">
       <div
         id="mecaAdminTable"
-        className={`my-[1.25rem] w-full max-h-[32rem] overflow-y-auto scrollbar-none ${styles.table}`}
+        className={`my-[1.25rem] w-full max-h-[32rem] overflow-y-auto scrollbar-none h-[32rem] ${styles.table}`}
       >
         <table id="adminTable" className={`w-full`}>
           <thead>
@@ -91,7 +91,11 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
                 />
               </div>
              
-            ) : (
+            ) : categoryList.length === 0 ? (<div
+            className="relative right-[80%] left-[80%]"
+            >
+              <EmptyState datad={categoryList} />
+              </div>) : (
               categoryList?.map((d, index) => {
                 const { date, time } = formatDateTime(d?.dateCreated);
                 return (
@@ -184,7 +188,7 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
             )}
           </tbody>
         </table>
-        <EmptyState datad={categoryList} />
+        {/* {categoryList.length === 0 ? <EmptyState datad={categoryList} /> :  ""} */}
       </div>
     </div>
   );

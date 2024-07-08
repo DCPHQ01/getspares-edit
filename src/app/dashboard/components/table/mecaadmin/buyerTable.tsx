@@ -3,7 +3,7 @@ import styles from "../styles.module.css";
 import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
 import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
-import { formatAmount } from "../../../../../components/utils";
+import {formatAmount, formatAmount2} from "../../../../../components/utils";
 import { ColorRing } from "react-loader-spinner";
 import { MdBusinessCenter } from "react-icons/md";
 
@@ -121,7 +121,7 @@ const BuyerTable = ({
           //   </div>
           ) : (
             data?.map((d, index) => {
-              const formattedTransactionValue = formatAmount(
+              const formattedTransactionValue = formatAmount2(
                 d.transactionValue
               );
 

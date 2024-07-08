@@ -90,7 +90,7 @@ function Inventory() {
           activeTab={activeTab}
           onTabChange={(status) => setActiveTab(status)}
         />
-        <SearchBox placeholder={`Search`} />
+        {/* <SearchBox placeholder={`Search`} /> */}
       </div>
 
       <InventoryTable

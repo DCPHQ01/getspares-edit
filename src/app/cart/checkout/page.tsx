@@ -29,8 +29,9 @@ import HeaderPage from "../../reusables/Header/page";
 import NavBarWhileInsideApp from "../../reusables/TopBarWhileInside/NavBarWhileInsideApp/page";
 import { paths } from "../../../path/paths";
 import { useCheckoutMutation } from "../../../redux/features/dashboard/buyerQuery";
-import { useAppSelector } from "../../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { formatAmount } from "../../../components/utils";
+import { setCart } from "../../../redux/features/product/productSlice";
 
 const style = {
   position: "absolute" as "absolute",
@@ -64,13 +65,104 @@ const itemSelected = [
 ];
 
 const Checkout = () => {
+  // const dispatch = useAppDispatch();
+  // const [deliveryMode, setDeliveryMode] = useState("delivery");
+  // const [showAddressSelection, setShowAddressSelection] = useState(false);
+  // const [open, setOpen] = React.useState(false);
+  // const [totalItemPrice, setTotalItemPrice] = useState<string>("");
+
+  // const handleOpen = () => setOpen(true);
+  // const handleClose = () => setOpen(false);
+  // const [formData, setFormData] = useState({
+  //   firstName: "",
+  //   lastName: "",
+  //   phoneNumber: "",
+  //   deliveryAddress: "",
+  // });
+
+  // const router = useRouter();
+  // const { cart } = useAppSelector((state) => state.product);
+
+  // const [checkoutData, { isLoading, error }] = useCheckoutMutation();
+
+  // const handleDeliveryModeChange = (
+  //   event: React.ChangeEvent<HTMLInputElement>
+  // ) => {
+  //   setDeliveryMode(event.target.value);
+  // };
+
+  // const handleRouteToMarketPlace = () => {
+  //   router.push(paths.toHome());
+  // };
+
+  // const getAllTotalPrice = () => {
+  //   let newTotal = "0";
+
+  //   if (cart.length !== 0) {
+  //     const total = cart
+  //       .map((item) => Number(item.amount) * Number(item.quantity))
+  //       .reduce((a, b) => a + b, 0);
+
+  //     newTotal = String(total);
+  //   }
+  //   if (totalItemPrice !== newTotal) {
+  //     setTotalItemPrice(newTotal);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   getAllTotalPrice();
+  // }, [cart]);
+
+  // const handleAddressSelectionToggle = () => {
+  //   setShowAddressSelection(!showAddressSelection);
+  // };
+
+  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setFormData({
+  //     ...formData,
+  //     [e.target.id]: e.target.value,
+  //   });
+  // };
+
+  // useEffect(() => {
+  //   let parsedUserDetails = JSON.parse(sessionStorage.getItem("userDetails")!);
+  //   if (parsedUserDetails) {
+  //     setFormData({
+  //       ...formData,
+  //       firstName: parsedUserDetails.firstName || "",
+  //       lastName: parsedUserDetails.lastName,
+  //     });
+  //   }
+  // }, [router]);
+
+  // const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  //   e.preventDefault();
+  //   const payload = {
+  //     location: formData.deliveryAddress,
+  //     otherInformation: "Some other information",
+  //     phoneNumber: formData.phoneNumber,
+  //   };
+
+  //   try {
+  //     const response = await checkoutData(payload).unwrap();
+  //     setOpen(true);
+  //     localStorage.removeItem("savedCartItems");
+  //     dispatch(setCart([]));
+  //   } catch (error: any) {
+  //     console.log(error.data);
+  //   }
+  // };
+  const dispatch = useAppDispatch();
   const [deliveryMode, setDeliveryMode] = useState("delivery");
   const [showAddressSelection, setShowAddressSelection] = useState(false);
   const [open, setOpen] = React.useState(false);
   const [totalItemPrice, setTotalItemPrice] = useState<string>("");
+  const [errors, setErrors] = useState({
+    phoneNumber: "",
+    checkOutError: "",
+  });
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -90,15 +182,8 @@ const Checkout = () => {
   };
 
   const handleRouteToMarketPlace = () => {
-    paths.toHome();
+    router.push(paths.toHome());
   };
-
-  // const getAllTotalPrice = () => {
-  //   if(cart.length !== 0){
-  //     let total = cart.map( item => (Number(item.amount) * Number(item.quantity))).reduce( (a,b) => a+b);
-  //     setTotalItemPrice(String(total))
-  //   }
-  // }
 
   const getAllTotalPrice = () => {
     let newTotal = "0";
@@ -124,14 +209,35 @@ const Checkout = () => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+
+    const numericValue = value.replace(/\D/g, "");
+
     setFormData({
       ...formData,
       [e.target.id]: e.target.value,
     });
+
+    if (id === "phoneNumber") {
+      const phoneRegex = /^[0-9]{11}$/;
+      if (!phoneRegex.test(numericValue)) {
+        setErrors({
+          ...errors,
+          phoneNumber: "Phone number must be at least 11 digits",
+        });
+      } else {
+        setErrors({
+          ...errors,
+          phoneNumber: "",
+        });
+      }
+    }
   };
 
   useEffect(() => {
-    let parsedUserDetails = JSON.parse(sessionStorage.getItem("userDetails")!);
+    const parsedUserDetails = JSON.parse(
+      sessionStorage.getItem("userDetails")!
+    );
     if (parsedUserDetails) {
       setFormData({
         ...formData,
@@ -150,15 +256,13 @@ const Checkout = () => {
     };
 
     try {
-      const response = await checkoutData(payload);
-      if ("data" in response) {
-        response.data.data;
-        setOpen(true);
-      }
+      const response = await checkoutData(payload).unwrap();
+      setOpen(true);
       localStorage.removeItem("savedCartItems");
-      router.push(`/`);
-    } catch (error) {
-      error;
+      dispatch(setCart([]));
+    } catch (error: any) {
+      console.log(error.data);
+      setErrors({ ...errors, checkOutError: error?.data.message });
     }
   };
 
@@ -280,7 +384,7 @@ const Checkout = () => {
                         <FilledInput
                           id="phoneNumber"
                           disableUnderline
-                          placeholder="Enter phone number"
+                          placeholder="08000000000"
                           className="bg-mecaInputBgColor w-full rounded-t-[4px] hover:bg-mecaInputBgColor border focus-within:bg-mecaInputBgColor"
                           inputProps={{
                             style: { color: "#364152" },
@@ -293,6 +397,11 @@ const Checkout = () => {
                         />
                       </FormControl>
                     </div>
+                    {errors.phoneNumber && (
+                      <div className="text-red-500 text-sm font-normal">
+                        {errors.phoneNumber}
+                      </div>
+                    )}
                   </FormControl>
 
                   <FormControl>
@@ -468,7 +577,14 @@ const Checkout = () => {
                   <div className="">
                     <button
                       onClick={handleSubmit}
-                      className="w-full h-11 bg-mecaBluePrimaryColor flex items-center justify-center rounded-full text-white cursor-pointer"
+                      disabled={
+                        !formData.deliveryAddress || !formData.phoneNumber
+                      }
+                      className={`w-full h-11 flex items-center justify-center rounded-full text-white cursor-pointer ${
+                        !formData.deliveryAddress || !formData.phoneNumber
+                          ? "bg-gray-500"
+                          : "bg-mecaBluePrimaryColor"
+                      }`}
                     >
                       {isLoading ? (
                         <ColorRing
@@ -484,13 +600,16 @@ const Checkout = () => {
                         "Place Order"
                       )}
                     </button>
+                    {errors.checkOutError && (
+                      <div className="text-red-500 text-sm font-normal mt-2">
+                        {errors.checkOutError}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
             </div>
             <Modal
-              // open={open}
-              // onClose={handleClose}
               open={open}
               onClose={() => setOpen(false)}
               aria-labelledby="modal-modal-title"
@@ -519,12 +638,13 @@ const Checkout = () => {
                     className="text-sm font-normal text-mecaCheckoutMessage"
                   >
                     Thank you for your purchase. Your order has been placed
-                    successfully. A confirmation email with your order details
-                    will be sent shortly.
+                    successfully.
                   </p>
                 </div>
                 <div className="mt-4">
                   <button
+                    type="button"
+                    title="go to home page"
                     onClick={handleRouteToMarketPlace}
                     className="w-full h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer"
                   >

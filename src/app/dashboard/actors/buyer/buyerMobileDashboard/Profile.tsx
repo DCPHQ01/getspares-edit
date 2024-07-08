@@ -54,17 +54,17 @@ const Profile = () => {
   }, []);
   return (
     <div>
-      <Header subtitle={``} title={`Profile`} amount={``} />
+      <Header subtitle={``} title={`Profile`} />
 
       <div className="flex gap-x-2 mb-12">
         <Avatar
           className="bg-mecaActiveBackgroundNavColor -z-50 text-mecaBluePrimaryColor w-16 h-16 text-4xl"
           {...stringAvatar(`${details?.firstName} ${details?.lastName}`)}
         />
-        <div>
+        <div className="mt-1">
           <Header
-             subtitle={`${details?.email}`}
-             title={`${details?.firstName} ${details?.lastName}`}
+            subtitle={`${details?.email}`}
+            title={`${details?.firstName} ${details?.lastName}`}
           />
         </div>
       </div>
@@ -82,7 +82,7 @@ const Profile = () => {
         <div className="border-2 w-[100%] mt-10 h-[100%] p-5 rounded-xl ">
           <div>
             <div className=" h-16 mb-5  pl-5 pt-3 w-[100%] rounded  bg-mecaBorderColor">
-              <p className="text-sm text-gray-500">Fistname</p>
+              <p className="text-sm text-gray-500">Firstname</p>
               <p className="text-lg">{details?.firstName}</p>
             </div>
           </div>

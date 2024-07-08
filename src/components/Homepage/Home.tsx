@@ -18,6 +18,7 @@ import {
 } from "../../redux/features/users/authQuery";
 import { paths } from "../../path/paths";
 import { useRouter } from "next/navigation";
+import {useEffect, useState} from "react";
 
 interface CustomDotProps {
   onClick: () => void;
@@ -82,6 +83,17 @@ const responsives = {
 
 export default function Home() {
   const router = useRouter();
+
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      setIsAuthenticated(false);
+    } else {
+      setIsAuthenticated(true);
+    }
+  }, [router]);
 
   const handleSignUp = () => {
     router.push(paths.toSignUp());
@@ -234,18 +246,30 @@ export default function Home() {
             Showcase your items on our platform and we will take it from there.
             Worry less about the number of people that will buy your products.
           </p>
-          <div className="mt-4" id="homeImage3ButtonContainer">
+          {!isAuthenticated && <div className="mt-4" id="homeImage3ButtonContainer">
             <Button
-              id="exploreEnginesBtn"
-              className="bg-white normal-case text-mecaBluePrimaryColor lg:text-lg text-sm  rounded-[436px] disabled:bg-mecaBgDisableColor disabled:text-white hover:bg-white lg:my-6 py-[10px] px-6"
-              variant="contained"
-              onClick={handleSignUp}
-              endIcon={<MdChevronRight />}
-              disableElevation
+               id="exploreEnginesBtn"
+               className="bg-white normal-case text-mecaBluePrimaryColor lg:text-lg text-sm  rounded-[436px] disabled:bg-mecaBgDisableColor disabled:text-white hover:bg-white lg:my-6 py-[10px] px-6"
+               variant="contained"
+               onClick={handleSignUp}
+               endIcon={<MdChevronRight />}
+               disableElevation
             >
               Get started
             </Button>
-          </div>
+          </div>}
+
+          {isAuthenticated && <Button
+                id="exploreEnginesBtn"
+                sx={{width:'250px'}}
+                className="bg-mecaBluePrimaryColor normal-case text-white lg:text-lg text-sm font-semibold rounded-[36px] disabled:bg-mecaBgDisableColor disabled:text-white h-12 py-[10px] px-2 hover:bg-mecaBluePrimaryColor"
+                variant="contained"
+                endIcon={<MdChevronRight />}
+                disableElevation
+             >
+               Explore engines
+             </Button>}
+
         </span>
       </div>
       <div

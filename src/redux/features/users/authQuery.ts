@@ -89,17 +89,25 @@ export const authQuery = createApi({
     getCategory: builder.query({
       query: () => "/category/categories",
     }),
+    // getProductInCategory: builder.query({
+    //   query: (body: {
+    //     categoryId: string;
+    //     pageNumber: number;
+    //     pageSize: number;
+    //   }) => ({
+    //     url: "/product",
+    //     method: "POST",
+    //     body,
+    //   }),
+    // }),
     getProductInCategory: builder.query({
-      query: (body: {
-        categoryId: string;
-        pageNumber: number;
-        pageSize: number;
-      }) => ({
+      query: (body) => ({
         url: "/product",
         method: "POST",
         body,
       }),
     }),
+
     resetPasswordVerifyEmail: builder.mutation({
       query: (email) => ({
         url: `/auth/reset-password-verify-email?email=${email}`,
@@ -115,6 +123,18 @@ export const authQuery = createApi({
         url: "/auth/reset-password",
         method: "POST",
         body,
+      }),
+    }),
+    searchAllProducts: builder.query({
+      query: (payloadText: string) => ({
+        url: `/product/search/${payloadText}`,
+        method: "GET",
+      }),
+    }),
+    getAllCompanies: builder.query({
+      query: (payloadText: string) => ({
+        url: `/company/search-company?prefix=${payloadText}`,
+        method: "GET",
       }),
     }),
   }),
@@ -135,4 +155,6 @@ export const {
   useGetProductInCategoryQuery,
   useResetPasswordVerifyEmailMutation,
   useResetPasswordMutation,
+  useSearchAllProductsQuery,
+   useGetAllCompaniesQuery,
 } = authQuery;

@@ -26,10 +26,9 @@ export const mecaAdminQuery = createApi({
       }),
     }),
     getMecaAdminBuyer: builder.query({
-      query: (body) => ({
-        url: `/auth/view-all-users-by-role`,
-        method:"POST",
-        body
+      query: ({ page, size }) => ({
+        url: `/dashboard/meca-buyers?page=${page}&size=${size}`,
+        method:"GET"
       }),
     }),
     getMecaAdminDashboardVendor: builder.query({

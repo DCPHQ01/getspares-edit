@@ -26,7 +26,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import FilterFixedPage from "../../filterFixedPage";
 import SideFilter from "../../sideFilter";
 import TopBarWhileInside from "../../../reusables/TopBarWhileInside/page";
-import { useGetProductInCategoryQuery } from "../../../../redux/features/users/authQuery";
+import {useGetProductInCategoryQuery} from "../../../../redux/features/users/authQuery";
 import { ColorRing } from "react-loader-spinner";
 import { formatAmount } from "../../../../components/utils";
 
@@ -39,65 +39,220 @@ interface ItemsDataProps {
   name: string;
 }
 
+type FilterItem = {
+  id: number;
+  title: string;
+  price?: string[];
+  icon: React.ReactNode;
+};
+
+type Filter = {
+  id: number;
+  title: string;
+  items: FilterItem[];
+};
+
 export default function Products() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const handleOpeningFilterButton = () => {
-    setIsFilterOpen(!isFilterOpen);
-  };
-
   const router = useRouter();
   const [showFilter, setShowFilter] = useState(true);
   const [categoryId, setCategoryId] = useState<string>("");
-  const handleToggleFilter = () => {
-    setShowFilter(!showFilter);
-  };
-
   const searchParams = usePathname()!;
   const segments = searchParams.split("/");
   const searches = segments[3];
   const searchWords = segments[3]?.replace(/([A-Z])/g, " $1")?.trim();
-  // const searchWords = search ? search.replace(/([A-Z])/g, " $1").trim() : "";
+  const [selectedBrand, setSelectedBrand] = useState<string[]>([]);
+  const [selectedCondition, setSelectedCondition] = useState<string[]>([]);
+  const [selectedPrice, setSelectedPrice] = useState<string[]>([]);
+  const [applyFilter, setApplyFilter] = useState(false);
+  const [localFilters, setLocalFilters] = useState({
+    brand: [] as string[],
+    conditionStatus: [] as string[],
+    price: [] as string[],
+  });
+
+  const savedItems =
+     typeof window !== "undefined" && window.sessionStorage
+        ? sessionStorage.getItem("categoryId") || ""
+        : '';
+  // const savedItems = sessionStorage.getItem("categoryId");
+
+
+  const [payload, setPayload] = useState({
+    categoryId:savedItems,
+    pageNumber: 0,
+    pageSize: 100,
+  })
+
+  const queryArgs = {
+    categoryId,
+    pageNumber: 0,
+    pageSize: 100,
+    ...(applyFilter && {
+      filters: {
+        model: [],
+        brand: localFilters.brand,
+        conditionStatus: localFilters.conditionStatus,
+        price: localFilters.price,
+      },
+    }),
+  };
+  const { data, isFetching } = useGetProductInCategoryQuery(payload);
+
+  console.log("data here: ", data?.data.content);
+
 
   const handleProductDescription = (id: number) => {
     router.push(`/category/products/${searches}/${id}`);
   };
 
-  const { data, isFetching } = useGetProductInCategoryQuery({
-    categoryId,
-    pageNumber: 0,
-    pageSize: 100,
-  });
+  const handleOpeningFilterButton = () => {
+    setIsFilterOpen(!isFilterOpen);
+  };
+  const handleToggleFilter = () => {
+    setShowFilter(!showFilter);
+  };
+
+  const handleBrandChange = (checked: boolean, filterName: string) => {
+    setSelectedBrand((prev) =>
+      checked
+        ? [...prev, filterName]
+        : prev.filter((item) => item !== filterName)
+    );
+  };
+
+  const handleConditionChange = (checked: boolean, filterName: string) => {
+    setSelectedCondition((prev) =>
+      checked
+        ? [...prev, filterName]
+        : prev.filter((item) => item !== filterName)
+    );
+  };
+
+  const handlePriceChange = (checked: boolean, price: string[] | undefined) => {
+    setSelectedPrice((prev) => (checked && price ? price : []));
+  };
+
+
+
+  const applyFilters = async () => {
+    setLocalFilters({
+      brand: selectedBrand,
+      conditionStatus: selectedCondition,
+      price: selectedPrice,
+    });
+    setApplyFilter(true);
+
+    let newObj = {
+      ...payload,  filters: {
+        model: [],
+        brand: localFilters.brand,
+        conditionStatus: localFilters.conditionStatus,
+        price: localFilters.price,
+      }
+    }
+
+    setPayload(newObj)
+  };
+
+  const cancelFilters = () => {
+    setSelectedBrand([])
+    setSelectedCondition([])
+    setSelectedPrice([])
+    setPayload({
+      categoryId:savedItems,
+      pageNumber: 0,
+      pageSize: 100,})
+  }
+
 
   useEffect(() => {
-    const savedItems = sessionStorage.getItem("categoryId");
+    if (data?.data) {
+      setApplyFilter(false);
+    }
+  }, [data?.data]);
+
+
+
+  useEffect(() => {
     if (savedItems) {
       setCategoryId(savedItems);
     }
   }, []);
 
-  const filterData = [
+  const filterData: Filter[] = [
     {
       id: 1,
       title: "Brand",
       items: [
         {
           id: 1,
-          title: "JCB Agriculture",
+          title: "John Deere",
           icon: <Checkbox />,
         },
         {
           id: 2,
-          title: "AGCO Challenger",
+          title: "Sonalika",
           icon: <Checkbox />,
         },
         {
           id: 3,
-          title: "Deutz-Fahr",
+          title: "Farm Track",
           icon: <Checkbox />,
         },
         {
           id: 4,
-          title: "Kuhn",
+          title: "Mahindra",
+          icon: <Checkbox />,
+        },
+        {
+          id: 5,
+          title: "Preet",
+          icon: <Checkbox />,
+        },
+        {
+          id: 6,
+          title: "CASE",
+          icon: <Checkbox />,
+        },
+        {
+          id: 7,
+          title: "Tata",
+          icon: <Checkbox />,
+        },
+        {
+          id: 8,
+          title: "Caterpillar",
+          icon: <Checkbox />,
+        },
+        {
+          id: 9,
+          title: "Mack",
+          icon: <Checkbox />,
+        },
+        {
+          id: 10,
+          title: "IVECO",
+          icon: <Checkbox />,
+        },
+        {
+          id: 11,
+          title: "Komatsu",
+          icon: <Checkbox />,
+        },
+        {
+          id: 12,
+          title: "DAF",
+          icon: <Checkbox />,
+        },
+        {
+          id: 13,
+          title: "Volvo",
+          icon: <Checkbox />,
+        },
+        {
+          id: 14,
+          title: "Changan",
           icon: <Checkbox />,
         },
       ],
@@ -117,11 +272,6 @@ export default function Products() {
           title: "Refurbished",
           icon: <Checkbox />,
         },
-        {
-          id: 3,
-          title: "Not specified",
-          icon: <Checkbox />,
-        },
       ],
     },
     {
@@ -130,22 +280,32 @@ export default function Products() {
       items: [
         {
           id: 1,
-          title: "200,000",
-          icon: <Radio value={"200000"} />,
+          title: "Less than 10,000",
+          price: ["0", "10,000"],
+          icon: <Radio value={["0", "10,000"]} />,
         },
         {
           id: 2,
-          title: "300,000",
-          icon: <Radio value={"300000"} />,
+          title: "10,000 - 50,000",
+          price: ["10,000", "50,000"],
+          icon: <Radio value={["10,000", "50,000"]} />,
         },
         {
           id: 3,
-          title: "1,000,000",
-          icon: <Radio value={"1000000"} />,
+          title: "50,000 - 500,000",
+          price: ["50,000", "500,000"],
+          icon: <Radio value={["50,000", "500,000"]} />,
+        },
+        {
+          id: 4,
+          title: "More than 500,000",
+          price: ["500,000", "1,000,000"],
+          icon: <Radio value={["500,000, 1,000,000"]} />,
         },
       ],
     },
   ];
+
 
   return (
     <section id="productCategory w-full">
@@ -209,9 +369,9 @@ export default function Products() {
                         wrapperClass="color-ring-wrapper"
                         colors={[
                           "#0000FF",
-                          "#0000FF",
-                          "#0000FF",
-                          "#0000FF",
+                          "#0099ff",
+                          "#4800ff",
+                          "#00bbff",
                           "#0000FF",
                         ]}
                       />
@@ -234,11 +394,12 @@ export default function Products() {
                           id="itemImageDiv"
                         >
                           {item?.image ? (
-                            <Image
+                            <img
                               src={item?.image}
                               alt="tractor image"
-                              width={144}
-                              height={106}
+                              className="w-[144px] h-[106px]"
+                              // width={144}
+                              // height={106}
                             />
                           ) : null}
                         </div>
@@ -342,7 +503,6 @@ export default function Products() {
             className="mt-8 px-8 flex gap-x-4 justify-between"
             id="filterDivForDesktopContainer"
           >
-            {data?.data?.content?.length > 0 && (
               <div
                 className={`flex flex-col ${showFilter ? "w-[28%]" : "hidden"}`}
                 id="filterSideBarContainer"
@@ -367,25 +527,36 @@ export default function Products() {
                         </p>
                       </AccordionSummary>
                       <AccordionDetails>
-                        <div className="flex flex-col gap-y-4">
-                          <FormControl>
+                        <div>
+                          <FormControl component="fieldset">
                             <RadioGroup
-                              aria-labelledby="demo-radio-buttons-group-label"
-                              name="radio-buttons-group"
-                              defaultValue={data.items[0].title}
+                              aria-label={data.title}
+                              name={data.title}
                             >
-                              {data.items.map((item: any) => (
-                                <div
-                                  className="flex items-center gap-4"
+                              {data.items.map((item) => (
+                                <FormControlLabel
                                   key={item.id}
-                                  id="checkboxItemList"
-                                >
-                                  <FormControlLabel
-                                    className="text-mecaGoBackText text-sm font-nunito"
-                                    control={item.icon}
-                                    label={`${item.title}`}
-                                  />
-                                </div>
+                                  control={<Checkbox />}
+                                  label={item.title}
+                                  onChange={(event, checked) => {
+                                    switch (data.title) {
+                                      case "Brand":
+                                        handleBrandChange(checked, item.title);
+                                        break;
+                                      case "Conditions":
+                                        handleConditionChange(
+                                          checked,
+                                          item.title
+                                        );
+                                        break;
+                                      case "Price":
+                                        handlePriceChange(checked, item.price);
+                                        break;
+                                      default:
+                                        break;
+                                    }
+                                  }}
+                                />
                               ))}
                             </RadioGroup>
                           </FormControl>
@@ -399,11 +570,13 @@ export default function Products() {
                     type="button"
                     className="w-full h-[48px] bg-mecaBluePrimaryColor text-white font-nunito font-semibold text-sm rounded-full"
                     id="applyFilterButton"
+                    onClick={applyFilters}
                   >
                     Apply Filter
                   </button>
                   <button
                     type="button"
+                    onClick={cancelFilters}
                     className="w-full h-[48px] border border-mecaBluePrimaryColor text-mecaBluePrimaryColor font-nunito font-semibold text-sm rounded-full"
                     id="clearFilterButton"
                   >
@@ -411,7 +584,6 @@ export default function Products() {
                   </button>
                 </div>
               </div>
-            )}
             <div
               className="flex flex-wrap justify-between w-full"
               id="allItemsContainerDivDesktop"
@@ -452,11 +624,12 @@ export default function Products() {
                       id="itemImage"
                     >
                       {item?.image ? (
-                        <Image
+                        <img
                           src={item?.image}
                           alt="tractor image"
-                          width={144}
-                          height={106}
+                          className="w-[144px] h-[106px]"
+                          // width={144}
+                          // height={106}
                         />
                       ) : null}
                     </div>

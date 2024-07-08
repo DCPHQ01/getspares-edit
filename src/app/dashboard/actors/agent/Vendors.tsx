@@ -24,9 +24,9 @@ function Vendors() {
         />
         {/* <Addbutton title={`Add vendor`} /> */}
       </div>
-      <div className={`flex justify-end items-center`}>
+      {/* <div className={`flex justify-end items-center`}>
         <Searchbox />
-      </div>
+      </div> */}
 
       <VendorTable />
     </>
