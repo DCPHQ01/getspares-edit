@@ -30,9 +30,9 @@ const CustomDropdown = () => {
         };
     }, []);
 
-    const saveValueAndDoSomethingWithIt = async (value: string) => 
+    const saveValueAndDoSomethingWithIt = async (value: string) => {
         // do something
-    };
+     };
 
     const generateNumbersArray = (count: number): number[] => {
         return Array.from({ length: count }, (_, i) => i + 1);
