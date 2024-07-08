@@ -70,7 +70,7 @@ const CalledPagesPageOnePages = () => {
     if (userData) {
       userDataKeys.forEach((key) => {
         if (key === "quantity") {
-          console.log("quantity ", userData?.productInformation?.quantity);
+   
           setBasicInfoValues((values: any) => ({
             ...values,
             [key]: userData?.productInformation?.quantity,

@@ -67,7 +67,7 @@ export default function ProductCarousel() {
       }
       router.push(paths.toCategoryProducts(urlType));
     };
-    console.log("category data ", categoryData);
+
     return (
       <div
         className="relative cursor-pointer w-[560px]"

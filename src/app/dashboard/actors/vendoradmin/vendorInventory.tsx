@@ -45,7 +45,7 @@ function VendorInventory() {
     }
   }, [data]);
 
-  console.log(data);
+
 
   useEffect(() => {
     sessionStorage.removeItem("basicInfoValues");

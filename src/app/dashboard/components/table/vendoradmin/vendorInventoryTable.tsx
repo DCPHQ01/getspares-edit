@@ -127,7 +127,7 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
                     Price
                   </th>
                   <th className={`lg:sticky`} id="totalItemsSoldHeader">
-                    Quantity sold
+                    Quantity available
                   </th>
                   <th
                     id="transactionValueHeader"

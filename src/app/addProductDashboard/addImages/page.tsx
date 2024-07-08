@@ -96,7 +96,7 @@ const CalledPagesPageTwoPages = () => {
 
   const router = useRouter();
 
-  console.log("imagesUrl", imagesUrl);
+
 
   const handleViewPreviousImages = () => {
     setCurrentImageIndex((prevIndex) =>
@@ -135,7 +135,6 @@ const CalledPagesPageTwoPages = () => {
   const productImage = useAppSelector(
     (state) => state.company.productData as ImageProps
   );
-  console.log("images ", productImage);
 
   useEffect(() => {
     const savedImages = sessionStorage.getItem("images");

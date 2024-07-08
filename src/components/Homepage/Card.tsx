@@ -2,6 +2,7 @@ import Image, { StaticImageData } from "next/image";
 import { useRouter } from "next/navigation";
 import { MdStar } from "react-icons/md";
 import { ColorRing } from "react-loader-spinner";
+import TruncateText from "../utils/utils";
 
 interface CardProps {
   image: StaticImageData;
@@ -73,7 +74,7 @@ const Card: React.FC<CardProps> = ({
       </div>
       <span className="flex justify-between py-4 w-full gap-4" id="cardSpan">
         <p className="lg:text-lg text-sm truncate" id="cardText">
-          {productName}
+          {<TruncateText text={productName} maxLength={20} />}
         </p>
         <button
           type="button"

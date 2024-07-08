@@ -95,8 +95,6 @@ function Category() {
   const [categoryData, { isLoading }] = useAddCategoryMutation();
   const [error, setError] = useState<string>("");
 
-  console.log("activityPeriod", activityPeriod);
-  console.log("data", data);
 
   useEffect(() => {
     if (data && Array.isArray(data.data.content)) {
@@ -164,13 +162,13 @@ function Category() {
         image: image_url,
       }).unwrap();
       if ("data" in response) {
-        console.log(response.data.data);
+   
         setCategoryList((prev) => [response.data.data, ...prev]);
         refetch();
         handleClose();
       }
     } catch (error: any) {
-      console.log(error);
+ 
       setError(error.data.message);
     }
   };

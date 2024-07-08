@@ -118,7 +118,7 @@ export const formatAmount2 = (price: string | number) => {
   }
 };
 
-export const format = (price:  number | string) => {
+export const format = (price: number | string) => {
   if (price !== undefined && price !== null) {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
@@ -141,45 +141,22 @@ export const formatAmount3 = (price: string) => {
   }
 };
 
-
 export const formatAmount4 = (price: string) => {
-  console.log(price);
-
   if (price) {
     // Convert the price to a number
-    const amount = parseFloat(price.replace(/,/g, ''));
+    const amount = parseFloat(price.replace(/,/g, ""));
     // Format the amount with thousands separator
-    const formattedAmount = new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'NGN',
+    const formattedAmount = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "NGN",
       minimumFractionDigits: 2,
     }).format(amount);
     // Remove the currency symbol and use the desired symbol '₦'
-    return '₦' + formattedAmount.replace('NGN', '').trim();
+    return "₦" + formattedAmount.replace("NGN", "").trim();
   } else {
     return "₦0.00";
   }
 };
-
-// export const setInputFocus = (ref, defaultState = false) => {
-//   const [state, setState] = useState(defaultState);
-//   console.log(ref.current)
-//
-//   useEffect(() => {
-//     const onFocus = () => setState(true);
-//     const onBlur = () => setState(false);
-//
-//     ref.current.addEventListener("focus", onFocus);
-//     ref.current.addEventListener("blur", onBlur);
-//
-//     return () => {
-//       ref.current.removeEventListener("focus", onFocus);
-//       ref.current.removeEventListener("blur", onBlur);
-//     };
-//   }, []);
-//
-//   return state;
-// };
 
 export const useNewFocus = (
   ref: RefObject<HTMLElement>,

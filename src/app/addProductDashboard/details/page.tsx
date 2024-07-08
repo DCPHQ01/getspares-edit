@@ -119,10 +119,7 @@ const CalledPagesPageFivePages = () => {
     if (userData) {
       userDataKeys.forEach((key) => {
         if (key === "productInformation") {
-          console.log(
-            "technical details ",
-            userData?.productInformation?.brand
-          );
+         
           setTechnicalDetails((values: any) => ({
             ...values,
             [key]: userData?.productInformation?.color,
@@ -137,7 +134,7 @@ const CalledPagesPageFivePages = () => {
     }
   };
   const productSpec = useAppSelector((state) => state.company.productData);
-  console.log("product spec  ", productSpec);
+
   useEffect(() => {
     const savedData = sessionStorage.getItem("detailsInfo");
     if (savedData) {
