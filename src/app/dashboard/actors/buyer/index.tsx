@@ -19,7 +19,7 @@ import { useUserRole } from "../../../hooks/useUserRole";
 import Image from "next/image";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import featuredicons from "../../../../assets/images/Featuredicon.svg"
+import featuredicons from "../../../../assets/images/Featuredicon.svg";
 
 const style = {
   position: "absolute" as "absolute",
@@ -33,7 +33,6 @@ const style = {
   borderRadius: "20px",
   p: 2,
 };
-
 
 import {
   MdBusinessCenter,
@@ -74,7 +73,7 @@ function Index() {
   );
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);  
+  const handleClose = () => setOpen(false);
 
   const userRole = useUserRole();
   const role = userRole;
@@ -164,7 +163,7 @@ function Index() {
       icon: <MdLogout />,
       title: "Logout",
       size: 18,
-      onClick:handleOpen,
+      onClick: handleOpen,
       // onClick: () => {
       //   sessionStorage.clear();
       //   sessionStorage.removeItem("userDetails");
@@ -338,55 +337,55 @@ function Index() {
           <BuyerMobileDashboardPage />
         </div>
         <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <div className="">
-            <div className="flex justify-between">
-              <div className="">
-                <Image
-                  className="h-12 w-12"
-                  src={featuredicons}
-                  id="featured icon"
-                  alt="featured icon"
-                />
-              </div>
-              <div className="cursor-pointer ">
-                <MdClose className="text-2xl" onClick={handleClose} />
-              </div>
-            </div>
-
-            <div className="text-gray-600 text-base mt-2">
-              <p className="font-bold text-xl text-black ">Confirm logout</p>
-              <p className="font-semibold text-lg ">
-                Are you sure you want to log out?
-              </p>
-            </div>
-            <div className="flex justify-between mb-10 mt-12 font-semibold">
-              <div className=" border-2 border-mecaBluePrimaryColor rounded-full">
-                <button
-                  onClick={handleClose}
-                  className="w-40 h-12 text-mecaBluePrimaryColor "
-                >
-                  Cancel
-                </button>
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <div className="">
+              <div className="flex justify-between">
+                <div className="">
+                  <Image
+                    className="h-12 w-12"
+                    src={featuredicons}
+                    id="featured icon"
+                    alt="featured icon"
+                  />
+                </div>
+                <div className="cursor-pointer ">
+                  <MdClose className="text-2xl" onClick={handleClose} />
+                </div>
               </div>
 
-              <div className="">
-                <button
-                  onClick={logoutCompletely}
-                  className="w-40 h-12 text-white bottom-2 bg-mecaBluePrimaryColor rounded-full"
-                >
-                  Logout
-                </button>
+              <div className="text-gray-600 text-base mt-2">
+                <p className="font-bold text-xl text-black ">Confirm logout</p>
+                <p className="font-semibold text-lg ">
+                  Are you sure you want to log out?
+                </p>
+              </div>
+              <div className="flex justify-between mb-10 mt-12 font-semibold">
+                <div className=" border-2 border-mecaBluePrimaryColor rounded-full">
+                  <button
+                    onClick={handleClose}
+                    className="w-40 h-12 text-mecaBluePrimaryColor "
+                  >
+                    Cancel
+                  </button>
+                </div>
+
+                <div className="">
+                  <button
+                    onClick={logoutCompletely}
+                    className="w-40 h-12 text-white bottom-2 bg-mecaBluePrimaryColor rounded-full"
+                  >
+                    Logout
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        </Box>
-      </Modal>
+          </Box>
+        </Modal>
       </div>
     </>
   );
