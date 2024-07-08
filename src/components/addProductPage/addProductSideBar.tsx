@@ -33,7 +33,7 @@ function ResponsiveDrawer({ step, setStep }: any) {
 
   const imagesData =
     typeof window !== "undefined" && window.sessionStorage
-      ? JSON.parse(sessionStorage.getItem("clickedImage") || "[]")
+      ? JSON.parse(sessionStorage.getItem("images") || "[]")
       : [];
 
   const specsData =

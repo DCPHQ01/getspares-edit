@@ -10,6 +10,10 @@ interface VendorModalProps {
   handleModalClose: () => void;
 }
 
+interface ImageProps {
+  
+}
+
 const images = [
   { src: tractor, alt: "Front View" },
   { src: tractor, alt: "Back View" },
