@@ -30,7 +30,7 @@ const CustomDropdown = () => {
         };
     }, []);
 
-    const saveValueAndDoSomethingWithIt = async (value: string) => {
+    const saveValueAndDoSomethingWithIt = async (value: string) => 
         // do something
     };
 
