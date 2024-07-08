@@ -83,7 +83,7 @@ const ViewParticularOrderDetailsPage: React.FC = () => {
     <div className="">
       <div>
         <div className="">
-          <h1 className="ml-10 mt-5 flex text-base  gap-x-3">
+          <h1 className="ml-10 mt-5 flex text-base gap-x-3">
             <div className="">Orders</div>
             <div className="flex text-mecaGrayBodyText font-light ">
               <MdChevronRight className="mt-1" /> <span> order details</span>

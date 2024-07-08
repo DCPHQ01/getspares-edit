@@ -114,8 +114,14 @@ const CalledPagesPageOnePages = () => {
     if (!basicInfoValues.amount) {
       newErrors.amount = "Product amount is required";
     }
+    if (Number(basicInfoValues.amount) <= 0){
+      newErrors.amount = "Price can not be zero"
+    }
     if (!basicInfoValues.quantity) {
       newErrors.quantity = "Quantity is required";
+    }
+    if (Number(basicInfoValues.quantity) <= 0){
+      newErrors.quantity = "Quantity can not be zero"
     }
 
     setErrors(newErrors);
