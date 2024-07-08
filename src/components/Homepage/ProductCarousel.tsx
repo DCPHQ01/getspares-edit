@@ -70,14 +70,14 @@ export default function ProductCarousel() {
     console.log("category data ", categoryData);
     return (
       <div
-        className="relative cursor-pointer"
+        className="relative cursor-pointer w-[560px]"
         id="productContainer"
         onClick={handleRouteToProductPage}
       >
         <img
           src={image?.toString()}
           alt="category image"
-          className="w-full h-[564px] object-cover"
+          className="w-full h-[564px] p-4 object-cover"
           // placeholder="blur"
           id="productImage"
         />
