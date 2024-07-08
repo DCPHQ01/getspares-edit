@@ -39,7 +39,7 @@ interface JwtPayload extends BaseJwtPayload {
 
 export default function Login() {
   const router = useRouter();
-
+  const userRoles = process.env.NEXT_PUBLIC_KEYCLOAK_REALM;
   const [state, setState] = useState({
     showPassword: false,
     email: "",
@@ -115,7 +115,7 @@ export default function Login() {
           sessionStorage.setItem("userDetails", JSON.stringify(userDetails));
         }
 
-        switch (decoded?.resource_access["e-meca"]?.roles[0]) {
+        switch (decoded?.resource_access[`${userRoles}`]?.roles[0]) {
           case "MECA_ADMIN":
             router.push(paths.toAdmin());
             break;
