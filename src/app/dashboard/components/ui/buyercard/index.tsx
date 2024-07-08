@@ -29,8 +29,10 @@ interface OrderInfo {
   orderItems: RecentProductImages[];
 }
 
-const Index = ({checkOpened}: any) => {
-  const { data, isError, isLoading } = useGetOverviewRecentProductImageQuery({});
+const Index = () => {
+  const { data, isError, isLoading } = useGetOverviewRecentProductImageQuery(
+    {}
+  );
   const [imageList, setImageList] = useState<RecentProductImages[]>([]);
   const [details, setDetails] = useState(false);
 
@@ -40,7 +42,7 @@ const Index = ({checkOpened}: any) => {
     }
   }, [data]);
 
-  console.log("Images at the top data: ", data)
+  console.log("Images at the top data: ", data);
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error loading data</div>;
@@ -51,14 +53,15 @@ const Index = ({checkOpened}: any) => {
 
   const handleParticularDetails = () => {
     setDetails(!details);
-    checkOpened();
   };
 
   return (
     <div className=" flex gap-x-5 justify-between scrollbar-none">
       {imageLists.map((detail, index) => (
-        <div key={index} className="lg:w-[22rem]"
-        onClick={handleParticularDetails}
+        <div
+          key={index}
+          className="lg:w-[22rem]"
+          // onClick={handleParticularDetails}
         >
           <div className="px-[1.2rem] py-[1.3rem] bg-[#F8FAFC] flex justify-center rounded-[8px] mb-[1rem]">
             <img src={detail.image} alt="engine" />
@@ -78,11 +81,11 @@ const Index = ({checkOpened}: any) => {
           </p>
         </div>
       ))}
-      {details && (
+      {/* {details && (
         <div className=" pl-[16%] absolute inset-0 w-full h-full bg-white z-index">
           <Details />
         </div>
-      )}
+      )} */}
     </div>
   );
 };

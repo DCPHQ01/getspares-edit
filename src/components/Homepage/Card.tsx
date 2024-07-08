@@ -60,17 +60,15 @@ const Card: React.FC<CardProps> = ({
         </div>
       )}
       <div
-        className="bg-mecaGrayBackgroundColor w-full flex justify-center items-center h-[287px] rounded-lg"
+        className="bg-mecaGrayBackgroundColor w-[413px] flex justify-center items-center h-[287px] rounded-lg"
         id="cardImageContainer"
         key={id}
       >
         <img
           src={productImage}
           alt="image of an engine"
-          width={315}
-          height={247}
           id="cardImage"
-          className="w-full h-[248px] object-cover"
+          className="w-[268px] h-[219px] object-cover"
         />
       </div>
       <span className="flex justify-between py-4 w-full gap-4" id="cardSpan">
