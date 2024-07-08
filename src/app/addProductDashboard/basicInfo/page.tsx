@@ -135,6 +135,9 @@ const CalledPagesPageOnePages = () => {
     ) {
       router.push(paths.toAddProductDashboardAddImages());
     }
+    else{
+      sessionStorage.setItem("basicInfoValues", JSON.stringify(basicInfoValues));
+    }
   };
 
   const checkDescriptionLength = (value: string) => {
