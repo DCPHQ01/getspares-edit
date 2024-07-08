@@ -69,15 +69,13 @@ export default function Index() {
                             <div className={`flex gap-3 items-center`}>
                                 <p>Quantity</p>
                                 <Numbers/>
+                             
                             </div>
                             <p className={`font-bold`}>{item.price}</p>
                         </div>
                     </div>
-
                 </div>
             ))}
-
-
         </>
     );
 }
