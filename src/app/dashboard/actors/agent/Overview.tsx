@@ -35,7 +35,7 @@ function Overview() {
         <div
           className={`flex justify-between items-center mt-[3.25rem] mb-[1.25rem]`}
         >
-          <Header title={`Recently sold parts`} />
+          <Header title={`Recently sold parts`} /> 
         </div>
 
         <OverviewTable />

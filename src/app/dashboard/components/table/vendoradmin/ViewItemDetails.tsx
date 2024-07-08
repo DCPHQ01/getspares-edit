@@ -110,22 +110,22 @@ const ViewItemDetails : React.FC<NavProps> = ({routeBack, productId}) => {
                      >
                         <div
                            id="imageDiv"
-                           className="w-full h-auto bg-mecaSearchColor flex justify-center items-center cursor-pointer"
+                           className="w-[458px] h-[266px] bg-mecaSearchColor flex justify-center items-center cursor-pointer"
                            onClick={handleOpen}
                         >
-                           <Image
-                              src={images[selectedImageIndex].src}
+                           <img
+                              src={data?.data.images[selectedImageIndex]}
                               alt={images[selectedImageIndex].alt}
-                              className="max-w-full max-h-full"
+                              className="w-[272px] h-[190px]"
                            />
                         </div>
                         <div
                            id="otherImagesDiv"
                            className="w-full flex flex-wrap gap-10 justify-center lg:justify-start"
                         >
-                           {images.map((image, i) => (
+                           {data?.data.images.map((image: string, i: number) => (
                               <div
-                                 className={` w-1/5 h-24 cursor-pointer rounded-lg flex justify-center items-center bg-mecaSearchColor relative ${
+                                 className={`h-[75px] w-[98px] cursor-pointer rounded-lg flex justify-center items-center bg-mecaSearchColor relative ${
                                     selectedImageIndex === i
                                        ? "border-4 border-blue-500"
                                        : ""
@@ -133,10 +133,10 @@ const ViewItemDetails : React.FC<NavProps> = ({routeBack, productId}) => {
                                  key={i}
                                  onClick={() => handleImageClick(i)}
                               >
-                                 <Image
-                                    src={image.src}
-                                    alt={image.alt}
-                                    className="h-full w-full object-cover"
+                                 <img
+                                    src={image}
+                                    alt="images"
+                                    className=" h-[45px] w-[59px]object-cover"
                                  />
                               </div>
                            ))}
@@ -144,7 +144,7 @@ const ViewItemDetails : React.FC<NavProps> = ({routeBack, productId}) => {
                      </div>
                      <div
                         id="productDetails"
-                        className="lg:w-[42%] w-full flex flex-col h-auto mt-8 lg:mt-0"
+                        className="lg:w-[42%] max-w-full flex flex-col h-auto mt-8 lg:mt-0"
                      >
                         <div
                            id="titleCompanyDiv"

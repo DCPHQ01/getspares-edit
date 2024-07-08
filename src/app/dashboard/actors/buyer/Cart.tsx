@@ -187,8 +187,8 @@ const Cart = () => {
                 )}
               </div>
               {cart.length !== 0 && (
-                <div className="mt-6 w-full md:w-[45%]">
-                  <div className="h-64 bg-mecaSearchColor  rounded-lg pt-5">
+                <div className="mt-6 max-w-full md:w-[45%]">
+                  <div className="h-64 bg-mecaSearchColor w-full rounded-lg pt-5">
                     <div className="w-[90%] m-auto">
                       <div>
                         <div className="flex justify-between">
@@ -210,9 +210,9 @@ const Cart = () => {
                           <p>{"₦0"}</p>
                         </div>
                         <hr className="mt-5"></hr>
-                        <div className="flex justify-between mt-5 mb-9 font-semibold text-xl">
+                        <div className="flex max-w-max justify-between mt-5 mb-9 font-semibold text-xl">
                           <p>Subtotal</p>
-                          <p>
+                          <p className="w-full">
                             {totalItemPrice
                               ? formatAmount(totalItemPrice)
                               : "0"}
@@ -231,23 +231,6 @@ const Cart = () => {
                         </button>
                       </div>
                       <hr className="mt-5"></hr>
-                      <div className="flex justify-between mt-5 mb-9 font-semibold text-xl">
-                        <p>Subtotal</p>
-                        <p>
-                          {totalItemPrice ? formatAmount(totalItemPrice) : "0"}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="">
-                      <button
-                        onClick={handleCheckout({
-                          vertical: "top",
-                          horizontal: "center",
-                        })}
-                        className="w-full h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer"
-                      >
-                        Checkout
-                      </button>
                     </div>
                   </div>
                 </div>
