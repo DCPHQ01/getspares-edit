@@ -10,7 +10,6 @@ const CustomDropdown = () => {
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
     };
-
     const handleOptionClick = (value: string) => {
         setSelectedValue(value);
         setIsOpen(false);
