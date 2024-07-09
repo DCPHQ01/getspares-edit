@@ -26,7 +26,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import FilterFixedPage from "../../filterFixedPage";
 import SideFilter from "../../sideFilter";
 import TopBarWhileInside from "../../../reusables/TopBarWhileInside/page";
-import {useGetProductInCategoryQuery} from "../../../../redux/features/users/authQuery";
+import { useGetProductInCategoryQuery } from "../../../../redux/features/users/authQuery";
 import { ColorRing } from "react-loader-spinner";
 import { formatAmount } from "../../../../components/utils";
 
@@ -72,17 +72,16 @@ export default function Products() {
   });
 
   const savedItems =
-     typeof window !== "undefined" && window.sessionStorage
-        ? sessionStorage.getItem("categoryId") || ""
-        : '';
+    typeof window !== "undefined" && window.sessionStorage
+      ? sessionStorage.getItem("categoryId") || ""
+      : "";
   // const savedItems = sessionStorage.getItem("categoryId");
 
-
   const [payload, setPayload] = useState({
-    categoryId:savedItems,
+    categoryId: savedItems,
     pageNumber: 0,
     pageSize: 100,
-  })
+  });
 
   const queryArgs = {
     categoryId,
@@ -98,8 +97,6 @@ export default function Products() {
     }),
   };
   const { data, isFetching } = useGetProductInCategoryQuery(payload);
-
-
 
   const handleProductDescription = (id: number) => {
     router.push(`/category/products/${searches}/${id}`);
@@ -132,8 +129,6 @@ export default function Products() {
     setSelectedPrice((prev) => (checked && price ? price : []));
   };
 
-
-
   const applyFilters = async () => {
     setLocalFilters({
       brand: selectedBrand,
@@ -143,35 +138,34 @@ export default function Products() {
     setApplyFilter(true);
 
     let newObj = {
-      ...payload,  filters: {
+      ...payload,
+      filters: {
         model: [],
         brand: localFilters.brand,
         conditionStatus: localFilters.conditionStatus,
         price: localFilters.price,
-      }
-    }
+      },
+    };
 
-    setPayload(newObj)
+    setPayload(newObj);
   };
 
   const cancelFilters = () => {
-    setSelectedBrand([])
-    setSelectedCondition([])
-    setSelectedPrice([])
+    setSelectedBrand([]);
+    setSelectedCondition([]);
+    setSelectedPrice([]);
     setPayload({
-      categoryId:savedItems,
+      categoryId: savedItems,
       pageNumber: 0,
-      pageSize: 100,})
-  }
-
+      pageSize: 100,
+    });
+  };
 
   useEffect(() => {
     if (data?.data) {
       setApplyFilter(false);
     }
   }, [data?.data]);
-
-
 
   useEffect(() => {
     if (savedItems) {
@@ -304,7 +298,6 @@ export default function Products() {
       ],
     },
   ];
-
 
   return (
     <section id="productCategory w-full">
@@ -502,87 +495,84 @@ export default function Products() {
             className="mt-8 px-8 flex gap-x-4 justify-between"
             id="filterDivForDesktopContainer"
           >
-              <div
-                className={`flex flex-col ${showFilter ? "w-[28%]" : "hidden"}`}
-                id="filterSideBarContainer"
-              >
-                <p className="text-lg font-medium text-nunito text-mecaDarkBlueBackgroundOverlay">
-                  Filter by
-                </p>
-                {filterData.map((data) => (
-                  <div className="-ml-4" id="navDatum" key={data.id}>
-                    <Accordion
-                      defaultExpanded
-                      className="w-full"
-                      style={{ boxShadow: "none" }}
+            <div
+              className={`flex flex-col ${showFilter ? "w-[28%]" : "hidden"}`}
+              id="filterSideBarContainer"
+            >
+              <p className="text-lg font-medium text-nunito text-mecaDarkBlueBackgroundOverlay">
+                Filter by
+              </p>
+              {filterData.map((data) => (
+                <div className="-ml-4" id="navDatum" key={data.id}>
+                  <Accordion
+                    defaultExpanded
+                    className="w-full"
+                    style={{ boxShadow: "none" }}
+                  >
+                    <AccordionSummary
+                      expandIcon={<MdExpandMore size={28} />}
+                      aria-controls="panel1a-content"
+                      id="panel1a-header"
                     >
-                      <AccordionSummary
-                        expandIcon={<MdExpandMore size={28} />}
-                        aria-controls="panel1a-content"
-                        id="panel1a-header"
-                      >
-                        <p className="text-mecaGoBackText text-[16px] font-semibold font-nunito capitalize">
-                          {data.title}
-                        </p>
-                      </AccordionSummary>
-                      <AccordionDetails>
-                        <div>
-                          <FormControl component="fieldset">
-                            <RadioGroup
-                              aria-label={data.title}
-                              name={data.title}
-                            >
-                              {data.items.map((item) => (
-                                <FormControlLabel
-                                  key={item.id}
-                                  control={<Checkbox />}
-                                  label={item.title}
-                                  onChange={(event, checked) => {
-                                    switch (data.title) {
-                                      case "Brand":
-                                        handleBrandChange(checked, item.title);
-                                        break;
-                                      case "Conditions":
-                                        handleConditionChange(
-                                          checked,
-                                          item.title
-                                        );
-                                        break;
-                                      case "Price":
-                                        handlePriceChange(checked, item.price);
-                                        break;
-                                      default:
-                                        break;
-                                    }
-                                  }}
-                                />
-                              ))}
-                            </RadioGroup>
-                          </FormControl>
-                        </div>
-                      </AccordionDetails>
-                    </Accordion>
-                  </div>
-                ))}
-                <div className="mt-8 flex flex-col justify-center gap-y-4 w-[273px] h-[100px]">
-                  <button
-                    type="button"
-                    className="w-full h-[48px] bg-mecaBluePrimaryColor text-white font-nunito font-semibold text-sm rounded-full"
-                    id="applyFilterButton"
-                    onClick={applyFilters}
-                  >
-                    Apply Filter
-                  </button>
-                  <button
-                    type="button"
-                    onClick={cancelFilters}
-                    className="w-full h-[48px] border border-mecaBluePrimaryColor text-mecaBluePrimaryColor font-nunito font-semibold text-sm rounded-full"
-                    id="clearFilterButton"
-                  >
-                    Cancel Filter
-                  </button>
+                      <p className="text-mecaGoBackText text-[16px] font-semibold font-nunito capitalize">
+                        {data.title}
+                      </p>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <div>
+                        <FormControl component="fieldset">
+                          <RadioGroup aria-label={data.title} name={data.title}>
+                            {data.items.map((item) => (
+                              <FormControlLabel
+                                key={item.id}
+                                control={<Checkbox />}
+                                label={item.title}
+                                onChange={(event, checked) => {
+                                  switch (data.title) {
+                                    case "Brand":
+                                      handleBrandChange(checked, item.title);
+                                      break;
+                                    case "Conditions":
+                                      handleConditionChange(
+                                        checked,
+                                        item.title
+                                      );
+                                      break;
+                                    case "Price":
+                                      handlePriceChange(checked, item.price);
+                                      break;
+                                    default:
+                                      break;
+                                  }
+                                }}
+                              />
+                            ))}
+                          </RadioGroup>
+                        </FormControl>
+                      </div>
+                    </AccordionDetails>
+                  </Accordion>
                 </div>
+              ))}
+              <div className="mt-8 flex flex-col justify-center gap-y-4 w-[273px] h-[100px]">
+                <button
+                  type="button"
+                  className="w-full h-[48px] bg-mecaBluePrimaryColor text-white font-nunito font-semibold text-sm rounded-full"
+                  id="applyFilterButton"
+                  onClick={applyFilters}
+                >
+                  Apply Filter
+                </button>
+                <button
+                  type="button"
+                  onClick={cancelFilters}
+                  className="w-full h-[48px] border border-mecaBluePrimaryColor text-mecaBluePrimaryColor font-nunito font-semibold text-sm rounded-full"
+                  id="clearFilterButton"
+                >
+                  Cancel Filter
+                </button>
               </div>
+            </div>
             <div
               className="flex flex-wrap justify-between w-full"
               id="allItemsContainerDivDesktop"
