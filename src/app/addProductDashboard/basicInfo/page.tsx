@@ -70,7 +70,6 @@ const CalledPagesPageOnePages = () => {
     if (userData) {
       userDataKeys.forEach((key) => {
         if (key === "quantity") {
-   
           setBasicInfoValues((values: any) => ({
             ...values,
             [key]: userData?.productInformation?.quantity,
@@ -114,14 +113,14 @@ const CalledPagesPageOnePages = () => {
     if (!basicInfoValues.amount) {
       newErrors.amount = "Product amount is required";
     }
-    if (Number(basicInfoValues.amount) <= 0){
-      newErrors.amount = "Price can not be zero"
+    if (Number(basicInfoValues.amount) <= 0) {
+      newErrors.amount = "Price can not be zero";
     }
     if (!basicInfoValues.quantity) {
       newErrors.quantity = "Quantity is required";
     }
-    if (Number(basicInfoValues.quantity) <= 0){
-      newErrors.quantity = "Quantity can not be zero"
+    if (Number(basicInfoValues.quantity) <= 0) {
+      newErrors.quantity = "Quantity can not be zero";
     }
 
     setErrors(newErrors);
@@ -157,10 +156,10 @@ const CalledPagesPageOnePages = () => {
 
   return (
     <>
-      <div className="" style={{ width: "80%" }} id="pageone1">
+      <div className="lg:w-[80%]  w-[100%] " id="pageone1">
         <div className="pageWrapper" id="pageone2">
-          <div className="hidden md:flex flex-col mt-[4.5rem]" id="pageone3">
-            <div className="flex gap-x-10 justify-between">
+          <div className=" md:flex flex-col mt-[4.5rem]" id="pageone3">
+            <div className="lg:flex lg:gap-x-10 lg:justify-between">
               {isFetching ? (
                 <div className="w-full h-[50vh] flex justify-center items-center">
                   <ColorRing
@@ -181,13 +180,13 @@ const CalledPagesPageOnePages = () => {
                 </div>
               ) : (
                 <>
-                  <div className=" ">
-                    <div className="mb-10 pageHeader w-94" id="pageone4">
+                  <div className="mt-[12rem] lg:mt-0 ">
+                    <div className="mb-10 pageHeader w-[100%]" id="pageone4">
                       <header className="font-bold text-lg" id="pageone5">
                         Basic information
                       </header>
 
-                      <hr className="w-[100%]"></hr>
+                      <hr className="lg:w-[80%] w-[100%]"></hr>
                     </div>
 
                     {/* here */}
@@ -195,33 +194,31 @@ const CalledPagesPageOnePages = () => {
                     <Box
                       component="form"
                       id="pageone8"
-                      className="flex flex-col gap-y-4 lg:items-start"
+                      className="flex flex-col gap-y-4 items-start"
                       noValidate
                       autoComplete="off"
                     >
-                      <Box>
-                        <TextField
-                          required={true}
-                          id="name"
-                          label="Product name"
-                          variant="filled"
-                          type="text"
-                          name="name"
-                          placeholder="Enter name"
-                          InputProps={{ disableUnderline: true }}
-                          className=" w-[29.4rem] mb-5 "
-                          value={basicInfoValues.name}
-                          onChange={handleBasicInfoChange}
-                          error={!!errors.name}
-                          helperText={errors.name || ""}
-                        />
-                      </Box>
+                      <TextField
+                        required={true}
+                        id="name"
+                        label="Product name"
+                        variant="filled"
+                        type="text"
+                        name="name"
+                        placeholder="Enter name"
+                        InputProps={{ disableUnderline: true }}
+                        className=" lg:w-[29.4rem] w-[100%] mb-5 "
+                        value={basicInfoValues.name}
+                        onChange={handleBasicInfoChange}
+                        error={!!errors.name}
+                        helperText={errors.name || ""}
+                      />
 
                       <FormControl
                         variant="filled"
+                        className="lg:w-[470px] w-[100%]"
                         sx={{
                           borderBottom: "none",
-                          width: "470px",
                         }}
                       >
                         <InputLabel id="demo-simple-select-filled-label">
@@ -263,7 +260,7 @@ const CalledPagesPageOnePages = () => {
                         multiline
                         InputProps={{ disableUnderline: true }}
                         placeholder="Say something about the product"
-                        className="w-[29.4rem] mb-5 outline-none"
+                        className="lg:w-[29.4rem] w-[100%] mb-5 outline-none"
                         variant="filled"
                         minRows={4}
                         maxRows={6}
@@ -273,50 +270,46 @@ const CalledPagesPageOnePages = () => {
                         helperText={descriptionError}
                       />
 
-                      <Box>
-                        <TextField
-                          required={true}
-                          id="productamount"
-                          type="text"
-                          label="Product amount"
-                          variant="filled"
-                          name="amount"
-                          placeholder="NGN 2000.00"
-                          InputProps={{ disableUnderline: true }}
-                          className="w-[29.4rem] mb-5"
-                          sx={{ backgroundColor: "porcelain" }}
-                          value={basicInfoValues.amount}
-                          onChange={handleBasicInfoChange}
-                          error={!!errors.amount}
-                          helperText={errors.amount || ""}
-                        />
-                      </Box>
+                      <TextField
+                        required={true}
+                        id="productamount"
+                        type="text"
+                        label="Product amount"
+                        variant="filled"
+                        name="amount"
+                        placeholder="NGN 2000.00"
+                        InputProps={{ disableUnderline: true }}
+                        className="lg:w-[29.4rem] w-[100%] mb-5"
+                        sx={{ backgroundColor: "porcelain" }}
+                        value={basicInfoValues.amount}
+                        onChange={handleBasicInfoChange}
+                        error={!!errors.amount}
+                        helperText={errors.amount || ""}
+                      />
 
-                      <Box>
-                        <TextField
-                          required={true}
-                          type="number"
-                          id="quantity"
-                          label="Quantity availability"
-                          variant="filled"
-                          name="quantity"
-                          value={basicInfoValues.quantity}
-                          onChange={handleBasicInfoChange}
-                          placeholder="Enter value"
-                          InputProps={{
-                            disableUnderline: true,
-                            inputProps: { min: 0 },
-                          }}
-                          className="w-[29.4rem] mb-5 outline-none"
-                          sx={{ backgroundColor: "porcelain" }}
-                          error={!!errors.quantity}
-                          helperText={errors.quantity || ""}
-                        />
-                      </Box>
+                      <TextField
+                        required={true}
+                        type="number"
+                        id="quantity"
+                        label="Quantity availability"
+                        variant="filled"
+                        name="quantity"
+                        value={basicInfoValues.quantity}
+                        onChange={handleBasicInfoChange}
+                        placeholder="Enter value"
+                        InputProps={{
+                          disableUnderline: true,
+                          inputProps: { min: 0 },
+                        }}
+                        className="lg:w-[29.4rem] w-[100%]  mb-5 outline-none"
+                        sx={{ backgroundColor: "porcelain" }}
+                        error={!!errors.quantity}
+                        helperText={errors.quantity || ""}
+                      />
                     </Box>
                   </div>
 
-                  <div className="">
+                  <div className="hidden lg:block">
                     <div className="mb-10 pageHeader w-[100%]" id="pageone4">
                       <header className="font-bold text-lg" id="pageone5">
                         Product preview
@@ -383,7 +376,7 @@ const CalledPagesPageOnePages = () => {
             </div>
 
             <div className=" flex">
-              <hr className="w-44 mt-10"></hr>
+              <hr className="lg:w-44 w-[50%] lg:mt-10 mt-20"></hr>
 
               <div className=" ">
                 <div className="w-[100%] m-auto">
@@ -391,7 +384,7 @@ const CalledPagesPageOnePages = () => {
                     onClick={handleNextPage}
                     type="submit"
                     id="thirdFormSubmit"
-                    className="w-[116px] flex justify-center gap-x-3 pt-2 h-10 font-semibold border rounded-full text-mecaBluePrimaryColor border-mecaBluePrimaryColor mt-5 mb-6 "
+                    className="w-[116px] flex justify-center gap-x-3 pt-2 h-10 font-semibold border rounded-full text-mecaBluePrimaryColor border-mecaBluePrimaryColor mt-16  lg:mt-5 mb-6 "
                   >
                     <p>Next </p>
                     <span>
@@ -401,7 +394,7 @@ const CalledPagesPageOnePages = () => {
                 </div>
               </div>
 
-              <hr className="w-44 mt-10"></hr>
+              <hr className="lg:w-44 w-[50%] lg:mt-10 mt-20"></hr>
             </div>
           </div>
         </div>

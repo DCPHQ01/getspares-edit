@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import addProduct from "../../assets/images/addProduct.svg";
 import { useCreateProductMutation } from "../../redux/features/product/productsQuery";
 import { ColorRing } from "react-loader-spinner";
@@ -137,74 +137,169 @@ const AddProductImage = () => {
   }, [data]);
 
   return (
-    <div className="z-50 fixed top-0 h-40 w-[100%]">
-      <div className="bg-white">
-        <div className="pt-[3rem] mb-3 w-[80%] m-auto flex justify-between">
-          <div>
-            <span
-              onClick={() => router.push(paths.toDashboard())}
-              id="e-mecaLogod"
-              className="font-bold text-2xl cursor-pointer text-mecaActiveIconsNavColor"
-            >
-              e-meca
-            </span>
-          </div>
-          <h1 className="text-xl font-semibold">
-            {productId ? "Edit product" : "Add new product"}
-          </h1>
-          {error && <p className="text-red-500">{error}</p>}
-          <button
-            onClick={handleAddProduct}
-            disabled={!validData || isLoading}
-            className={`text-base flex justify-center items-center text-white w-40 h-10 rounded-full font-semibold ${
-              !validData || isLoading
-                ? "bg-gray-500"
-                : "bg-mecaBluePrimaryColor"
-            }`}
-          >
-            {productId ? (
-              "Save"
-            ) : isLoading ? (
-              <ColorRing
-                visible={true}
-                height="40"
-                width="40"
-                ariaLabel="color-ring-loading"
-                wrapperStyle={{}}
-                wrapperClass="color-ring-wrapper"
-                colors={["#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF"]}
-              />
-            ) : (
-              "Publish now"
-            )}
-          </button>
+    <div className="">
+      {/* web view */}
+      <div className="hidden lg:flex">
+        <div className="z-50 fixed top-0 h-40 w-[100%]">
+          <div className="bg-white">
+            <div className="pt-[3rem] mb-3 w-[80%] m-auto flex justify-between">
+              <div>
+                <span
+                  onClick={() => router.push(paths.toDashboard())}
+                  id="e-mecaLogod"
+                  className="font-bold text-2xl cursor-pointer text-mecaActiveIconsNavColor"
+                >
+                  e-meca
+                </span>
+              </div>
 
-          <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-            className="backdrop"
-          >
-            <Box sx={style}>
-              <div className="flex h-56 flex-col justify-center items-center gap-4">
-                <p
-                  id="modal-modal-title"
-                  className="text-xl text-mecaBluePrimaryColor font-nunito"
+              <h1 className="text-xl font-semibold ">
+                {productId ? "Edit product" : "Add new product"}
+              </h1>
+              {error && <p className="text-red-500">{error}</p>}
+              <button
+                onClick={handleAddProduct}
+                disabled={!validData || isLoading}
+                className={`text-base flex justify-center items-center text-white w-40 h-10 rounded-full font-semibold  ${
+                  !validData || isLoading
+                    ? "bg-gray-500"
+                    : "bg-mecaBluePrimaryColor"
+                }`}
+              >
+                {productId ? (
+                  "Save"
+                ) : isLoading ? (
+                  <ColorRing
+                    visible={true}
+                    height="40"
+                    width="40"
+                    ariaLabel="color-ring-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="color-ring-wrapper"
+                    colors={[
+                      "#FFFFFF",
+                      "#FFFFFF",
+                      "#FFFFFF",
+                      "#FFFFFF",
+                      "#FFFFFF",
+                    ]}
+                  />
+                ) : (
+                  "Publish now"
+                )}
+              </button>
+
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+                className="backdrop"
+              >
+                <Box sx={style}>
+                  <div className="flex h-56 flex-col justify-center items-center gap-4">
+                    <p
+                      id="modal-modal-title"
+                      className="text-xl text-mecaBluePrimaryColor font-nunito"
+                    >
+                      Product added successfully.
+                    </p>
+                    <button
+                      onClick={handleDashBoard}
+                      className="text-base flex justify-center items-center bg-mecaBluePrimaryColor text-white w-40 h-10 rounded-full font-semibold"
+                    >
+                      Go to dashboard
+                    </button>
+                  </div>
+                </Box>
+              </Modal>
+            </div>
+            <hr className="w-[80%] m-auto "></hr>
+          </div>
+        </div>
+      </div>
+
+      {/* mobile view */}
+      <div className="lg:hidden w-full">
+        <div className="z-50 fixed top-0 h-40 w-[100%]">
+          <div className="bg-white">
+            <div className="pt-[3rem] mb-3 w-[80%] m-auto">
+              <div>
+                <span
+                  onClick={() => router.push(paths.toDashboard())}
+                  id="e-mecaLogod"
+                  className="font-bold text-2xl cursor-pointer mb-10 text-mecaActiveIconsNavColor"
                 >
-                  Product added successfully.
-                </p>
+                  e-meca
+                </span>
+              </div>
+              <hr className="w-[100%] m-auto "></hr>
+              <div className=" flex justify-between mt-10">
+                <h1 className="text-xl font-semibold ">
+                  {productId ? "Edit product" : "Add new product"}
+                </h1>
+                {error && <p className="text-red-500">{error}</p>}
                 <button
-                  onClick={handleDashBoard}
-                  className="text-base flex justify-center items-center bg-mecaBluePrimaryColor text-white w-40 h-10 rounded-full font-semibold"
+                  onClick={handleAddProduct}
+                  disabled={!validData || isLoading}
+                  className={`text-base flex justify-center items-center text-white w-40 h-10 rounded-full font-semibold  ${
+                    !validData || isLoading
+                      ? "bg-gray-500"
+                      : "bg-mecaBluePrimaryColor"
+                  }`}
                 >
-                  Go to dashboard
+                  {productId ? (
+                    "Save"
+                  ) : isLoading ? (
+                    <ColorRing
+                      visible={true}
+                      height="40"
+                      width="40"
+                      ariaLabel="color-ring-loading"
+                      wrapperStyle={{}}
+                      wrapperClass="color-ring-wrapper"
+                      colors={[
+                        "#FFFFFF",
+                        "#FFFFFF",
+                        "#FFFFFF",
+                        "#FFFFFF",
+                        "#FFFFFF",
+                      ]}
+                    />
+                  ) : (
+                    "Publish now"
+                  )}
                 </button>
               </div>
-            </Box>
-          </Modal>
+
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+                className="backdrop"
+              >
+                <Box sx={style}>
+                  <div className="flex h-56 flex-col justify-center items-center gap-4">
+                    <p
+                      id="modal-modal-title"
+                      className="text-xl text-mecaBluePrimaryColor font-nunito"
+                    >
+                      Product added successfully.
+                    </p>
+                    <button
+                      onClick={handleDashBoard}
+                      className="text-base flex justify-center items-center bg-mecaBluePrimaryColor text-white w-40 h-10 rounded-full font-semibold"
+                    >
+                      Go to dashboard
+                    </button>
+                  </div>
+                </Box>
+              </Modal>
+            </div>
+            <hr className="w-[80%] m-auto"></hr>
+          </div>
         </div>
-        <hr className="w-[80%] m-auto "></hr>
       </div>
     </div>
   );

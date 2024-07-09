@@ -96,8 +96,6 @@ const CalledPagesPageTwoPages = () => {
 
   const router = useRouter();
 
-
-
   const handleViewPreviousImages = () => {
     setCurrentImageIndex((prevIndex) =>
       prevIndex > 0 ? prevIndex - 1 : imagesUrl.length - 1
@@ -149,11 +147,11 @@ const CalledPagesPageTwoPages = () => {
   // }, [productImage]);
 
   return (
-    <div className="" style={{ width: "48%" }} id="pageTwo1">
+    <div className="lg:w-[48%] w-[100%]" id="pageTwo1">
       <div className="pageWrapper" id="pageTwo2">
-        <div className="hidden md:flex flex-col mt-[4.5rem]" id="pageTwo3">
+        <div className=" md:flex flex-col lg:mt-[4.5rem] mt-56" id="pageTwo3">
           <div className="mb-10 pageHeader w-94" id="pageone4">
-            <div className="flex gap-x-10 justify-between">
+            <div className="lg:flex lg:gap-x-10 lg:justify-between">
               <div className="">
                 <div className="">
                   <div className="flex gap-x-5">
@@ -175,91 +173,89 @@ const CalledPagesPageTwoPages = () => {
                   noValidate
                   autoComplete="off"
                 >
-                  <Box>
+                  <div
+                    onClick={handleImageClick}
+                    style={{ backgroundColor: "#EFF2F3" }}
+                    className=" h-60 lg:w-[27rem] w-[100%] mb-5 mt-10 pt-6 cursor-pointer"
+                  >
                     <div
-                      onClick={handleImageClick}
-                      style={{ backgroundColor: "#EFF2F3" }}
-                      className=" h-60 w-[27rem] mb-5 mt-10 pt-6 cursor-pointer"
+                      id="addImage"
+                      className="flex flex-col  items-center justify-center"
                     >
-                      <div
-                        id="addImage"
-                        className="flex flex-col  items-center justify-center"
-                      >
-                        <div className="border rounded-full mt-12 h-16 w-[60px] flex justify-center">
-                          <div
-                            id="prevImgState"
-                            className="w-full px-2 py-2  rounded-md  cursor-pointer border-none"
-                          >
-                            <MdPhotoLibrary
-                              className="text-gray-600 text-7xl w-10 pb-6 "
-                              style={{ backgroundColor: "porcelain" }}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      {isLoading && (
-                        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                          <ColorRing
-                            visible={true}
-                            height="40"
-                            width="40"
-                            ariaLabel="color-ring-loading"
-                            wrapperStyle={{}}
-                            wrapperClass="color-ring-wrapper"
-                            colors={[
-                              "#095AD3",
-                              "#095AD3",
-                              "#095AD3",
-                              "#095AD3",
-                              "#095AD3",
-                            ]}
+                      <div className="border rounded-full mt-12 h-16 w-[60px] flex justify-center">
+                        <div
+                          id="prevImgState"
+                          className="w-full px-2 py-2  rounded-md  cursor-pointer border-none"
+                        >
+                          <MdPhotoLibrary
+                            className="text-gray-600 text-7xl w-10 pb-6 "
+                            style={{ backgroundColor: "porcelain" }}
                           />
                         </div>
-                      )}
-                      {imagesUrl && (
-                        <div className="flex absolute -bottom-16">
-                          {imagesUrl.slice(0, 4).map((image, index) => (
-                            <div
-                              key={index}
-                              className={`${
-                                index === currentImageIndex
-                                  ? "border border-red-600"
-                                  : ""
-                              }  w-20 h-16 bg-mecaProfileColor m-2 relative`}
-                            >
-                              <MdClose
-                                size={14}
-                                className="absolute right-0 cursor-pointer"
-                                onClick={() => handleImageRemove(index)}
-                              />
-                              <div className="w-11 h-10 m-auto">
-                                <div className="mt-3 h-10 w-11 relative">
-                                  <img
-                                    src={image}
-                                    alt={`Uploaded ${index}`}
-                                    className="w-full h-full object-cover"
-                                  />
-                                  {index === 3 && imagesUrl.length > 4 && (
-                                    <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                                      <p className="text-white text-2xl">{`${
-                                        imagesUrl.length - 4
-                                      }+`}</p>
-                                    </div>
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                      <div className="text-gray-600 text-base mt-2 text-center">
-                        <p className="font-bold text-mecaBluePrimaryColor">
-                          Add image
-                        </p>
-                        <p className="font-normal">by clicking</p>
                       </div>
                     </div>
-                  </Box>
+                    {isLoading && (
+                      <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                        <ColorRing
+                          visible={true}
+                          height="40"
+                          width="40"
+                          ariaLabel="color-ring-loading"
+                          wrapperStyle={{}}
+                          wrapperClass="color-ring-wrapper"
+                          colors={[
+                            "#095AD3",
+                            "#095AD3",
+                            "#095AD3",
+                            "#095AD3",
+                            "#095AD3",
+                          ]}
+                        />
+                      </div>
+                    )}
+                    {imagesUrl && (
+                      <div className="flex absolute -bottom-16">
+                        {imagesUrl.slice(0, 4).map((image, index) => (
+                          <div
+                            key={index}
+                            className={`${
+                              index === currentImageIndex
+                                ? "border border-red-600"
+                                : ""
+                            }  w-20 h-16 bg-mecaProfileColor m-2 relative`}
+                          >
+                            <MdClose
+                              size={14}
+                              className="absolute right-0 cursor-pointer"
+                              onClick={() => handleImageRemove(index)}
+                            />
+                            <div className="w-11 h-10 m-auto">
+                              <div className="mt-3 h-10 w-11 relative">
+                                <img
+                                  src={image}
+                                  alt={`Uploaded ${index}`}
+                                  className="w-full h-full object-cover"
+                                />
+                                {index === 3 && imagesUrl.length > 4 && (
+                                  <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                                    <p className="text-white text-2xl">{`${
+                                      imagesUrl.length - 4
+                                    }+`}</p>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    <div className="text-gray-600 text-base mt-2 text-center">
+                      <p className="font-bold text-mecaBluePrimaryColor">
+                        Add image
+                      </p>
+                      <p className="font-normal">by clicking</p>
+                    </div>
+                  </div>
                 </Box>
 
                 <div className="flex  justify-between w-[100%] mt-32 ">
@@ -291,7 +287,7 @@ const CalledPagesPageTwoPages = () => {
                 </div>
               </div>
 
-              <div className="">
+              <div className="hidden lg:block">
                 <div className="mb-10 pageHeader w-[100%]" id="pageone4">
                   <header className="font-bold text-lg" id="pageone5">
                     Product preview
