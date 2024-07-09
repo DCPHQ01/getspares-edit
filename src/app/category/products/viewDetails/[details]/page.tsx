@@ -142,7 +142,7 @@ export default function Details() {
   });
   const [viewBuyerProducts, setViewBuyerProducts] =
     useState<viewBuyersProductDetails>();
-  console.log("buyers data: ", data)
+
   useEffect(() => {
     if (data) {
       const viewOfProduct = data.data;
@@ -157,7 +157,7 @@ export default function Details() {
     setImages(data?.data.images)
   }, [data])
 
-  console.log("images after effect ", images)
+
   const [openVendorModal, setOpenVendorModal] = useState(false);
   const handleOpenVendorModal = () => {
     setOpenVendorModal((val) => !val);

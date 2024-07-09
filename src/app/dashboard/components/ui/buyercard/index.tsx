@@ -6,6 +6,7 @@ import { FaStar } from "react-icons/fa6";
 import { useGetOverviewRecentProductImageQuery } from "../../../../../redux/features/dashboard/buyerQuery";
 import Details from "../../../../category/products/viewDetails/[details]/page";
 import { formatAmount2, formatAmount3 } from "../../../../../components/utils";
+import TruncateText from "../../../../../components/utils/utils";
 
 interface RecentProductImages {
   id: string;
@@ -42,7 +43,6 @@ const Index = () => {
     }
   }, [data]);
 
-  console.log("Images at the top data: ", data);
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error loading data</div>;
@@ -61,19 +61,23 @@ const Index = () => {
         <div
           key={index}
           className="lg:w-[22rem]"
-          // onClick={handleParticularDetails}
+      
         >
-          <div className="px-[1.2rem] py-[1.3rem] bg-[#F8FAFC] flex justify-center rounded-[8px] mb-[1rem]">
-            <img src={detail.image} alt="engine" className="w-[315px] h-[247]" />
+          <div className="px-[1.2rem] py-[1.3rem] w-[353px] h-[287px] bg-[#F8FAFC] flex justify-center rounded-[8px] mb-[1rem]">
+            <img
+              src={detail.image}
+              alt="engine"
+              className="w-[315px] h-[247]"
+            />
           </div>
           <div className="flex justify-between mb-[1rem]">
-            {/* <p>{detail.name}</p> */}
-            {/* <div className="border rounded-full px-[0.5rem] inline-block">
+            <p>{<TruncateText text={detail.name} maxLength={15} />}</p>
+            <div className="border rounded-full px-[0.5rem] inline-block">
               <div className="flex gap-1 items-center">
                 <FaStar color="#FEC84B" />
                 <p>{detail.quantity}</p>
               </div>
-            </div> */}
+            </div>
           </div>
           <p className="border rounded-full px-[0.5rem] inline-block">
             {formatAmount3(detail.price)}

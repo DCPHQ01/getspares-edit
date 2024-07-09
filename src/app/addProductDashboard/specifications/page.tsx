@@ -76,14 +76,14 @@ const CalledPagesPageFourPages = () => {
   };
 
   const productSpec = useAppSelector((state) => state.company.productData);
-  console.log("product spec  ", productSpec);
+ 
 
   const populateData = (userData: any) => {
     const userDataKeys = Object.keys(specifications);
     if (userData) {
       userDataKeys.forEach((key) => {
         if (key === "color") {
-          console.log("quantity ", userData?.productInformation?.color);
+         
           setSpecifications((values: any) => ({
             ...values,
             [key]: userData?.productInformation?.color,
@@ -106,7 +106,7 @@ const CalledPagesPageFourPages = () => {
       populateData(productSpec);
     }
   }, [productSpec]);
-  console.log("specifications ", specifications);
+  
   return (
     <>
       <div className="" style={{ width: "48%" }} id="pageone1">
