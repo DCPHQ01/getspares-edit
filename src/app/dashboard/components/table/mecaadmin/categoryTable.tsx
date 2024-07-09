@@ -8,6 +8,7 @@ import { ColorRing } from "react-loader-spinner";
 import { CldImage } from "next-cloudinary";
 import { MdInventory2 } from "react-icons/md";
 import EmptyState from "../../../../../components/utils/emptyState";
+import TruncateText from "../../../../../components/utils/utils";
 
 interface Category {
   id: string;
@@ -131,7 +132,9 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
                           />
                         )}
                         <div id={`companyDetails_${index}`}>
-                          <div className="truncate mt-2">{d?.name}</div>
+                          <div className="truncate mt-2">
+                            {<TruncateText text={d?.name} maxLength={40} />}
+                          </div>
                           <div
                             className={`text-[#4B5565] truncate`}
                             id={`email_${index}`}

@@ -118,7 +118,7 @@ const InventoryTable: React.FC<InventoryTableProps> = ({
                           {
                             <TruncateText
                               text={d?.productName || ""}
-                              maxLength={40}
+                              maxLength={20}
                             />
                           }
                         </div>

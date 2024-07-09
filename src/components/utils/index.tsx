@@ -14,10 +14,24 @@ export const formatAmount = (price: string | number) => {
   if (price) {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
-      currency: "₦",
+      currency: "NGN",
     }).format(Number(price));
   }
-  console.log("price", price);
+};
+export const formattedAmount = (price: string | number, currency: string) => {
+  if (price) {
+    const formattedPrice = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: currency,
+    }).format(Number(price));
+
+    if (currency === "NGN") {
+      return formattedPrice.replace("NGN", "₦");
+    }
+
+    return formattedPrice;
+  }
+  return "";
 };
 
 export const uploadImage = async (
