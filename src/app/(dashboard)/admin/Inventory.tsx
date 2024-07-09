@@ -11,9 +11,9 @@ import {
 } from "react-icons/md";
 import { useGetMecaAdminInventoryMutation } from "../../../redux/features/dashboard/mecaAdminQuery";
 
-interface InventoryData {
+interface InventoryDataProps {
   productImage?: string;
-  productName?: number;
+  productName?: string | undefined;
   vendorName: string;
   vendorEmail: string;
   transactionValue: number;
@@ -24,7 +24,7 @@ interface InventoryData {
 function Inventory() {
   const [getInventory, { isLoading, isError }] =
     useGetMecaAdminInventoryMutation();
-  const [inventory, setInventory] = useState<InventoryData[]>([]);
+  const [inventory, setInventory] = useState<InventoryDataProps[]>([]);
   const [activeTab, setActiveTab] = useState("IN_STOCK");
   const [totalElement, setTotalElement] = useState(0);
   const [inStockCount, setInStockCount] = useState(0);

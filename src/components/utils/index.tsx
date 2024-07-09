@@ -14,9 +14,10 @@ export const formatAmount = (price: string | number) => {
   if (price) {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
-      currency: "NGN",
+      currency: "₦",
     }).format(Number(price));
   }
+  console.log("price", price);
 };
 
 export const uploadImage = async (

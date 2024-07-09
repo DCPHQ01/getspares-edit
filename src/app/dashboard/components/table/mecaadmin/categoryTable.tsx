@@ -35,11 +35,12 @@ const formatDateTime = (dateTime: string) => {
 //   const time = dayjs(dateTime).format("hh:mm A"); // Updated to 12-hour format with AM/PM
 //   return { date, time };
 // };
-
 const CategoryTable: React.FC<CategoryTableProps> = ({
   categoryList,
   isLoading,
 }) => {
+  console.log("category lists ", categoryList);
+
   return (
     <div id="tableContainer">
       <div
@@ -90,12 +91,11 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
                   ]}
                 />
               </div>
-             
-            ) : categoryList.length === 0 ? (<div
-            className="relative right-[80%] left-[80%]"
-            >
-              <EmptyState datad={categoryList} />
-              </div>) : (
+            ) : categoryList.length === 0 ? (
+              <div className="relative right-[80%] left-[80%]">
+                <EmptyState datad={categoryList} />
+              </div>
+            ) : (
               categoryList?.map((d, index) => {
                 const { date, time } = formatDateTime(d?.dateCreated);
                 return (

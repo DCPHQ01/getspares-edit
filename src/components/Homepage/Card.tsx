@@ -39,7 +39,7 @@ const Card: React.FC<CardProps> = ({
     const numericPrice = parseFloat(price?.replace(/[^0-9.-]+/g, ""));
     return new Intl.NumberFormat("en-US", {
       style: "currency",
-      currency: "NGN",
+      currency: "₦",
     }).format(numericPrice);
   };
   return (
