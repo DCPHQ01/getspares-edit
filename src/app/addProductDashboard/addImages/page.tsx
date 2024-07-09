@@ -141,7 +141,10 @@ const CalledPagesPageTwoPages = () => {
     if (savedImages) {
       setImagesUrl(JSON.parse(savedImages));
     }
-  }, []);
+    else{
+          setImagesUrl(productImage?.images);
+        }
+  }, [productImage]);
   // useEffect(() => {
   //   if (productImage) {
   //     setImagesUrl(productImage?.images);
