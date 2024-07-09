@@ -43,6 +43,26 @@ export const uploadImage = async (
     });
 };
 
+export const formatAmountToNaira = (price: string | number) => {
+  const numericPrice = Number(price);
+
+  if (!isNaN(numericPrice)) {
+    const customFormat = (value: number) => {
+      return value.toLocaleString("en-US", {
+        style: "currency",
+        currency: "USD", 
+        minimumFractionDigits: 2,
+      }).replace("$", "₦"); 
+    };
+
+    
+    return customFormat(numericPrice);
+  } else {
+    
+    return "₦0.00"; 
+  }
+};
+
 // export const uploadSeveralImages = async (
 //   files: File[],
 //   setImages: (url: string[]) => void
