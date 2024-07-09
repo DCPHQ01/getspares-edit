@@ -134,19 +134,30 @@ const CalledPagesPageOnePages = () => {
     ) {
       router.push(paths.toAddProductDashboardAddImages());
     }
+    else{
+      sessionStorage.setItem("basicInfoValues", JSON.stringify(basicInfoValues));
+    }
   };
 
   const checkDescriptionLength = (value: string) => {
+    console.log('New value:', value);
     if (value.length > 5000) {
       setDescriptionError("Description exceeds the 5000 word limit.");
     } else {
       setDescriptionError("");
-      setBasicInfoValues((prevValues) => ({
-        ...prevValues,
-        description: value,
-      }));
+      setBasicInfoValues((prevValues) => {
+        const newValues = { ...prevValues, description: value };
+        sessionStorage.setItem("basicInfoValues", JSON.stringify(newValues));
+        return newValues;
+      });
+    
     }
   };
+
+    // setBasicInfoValues((prevValues) => ({
+        // ...prevValues,
+        // description: value,
+      // }));
 
   // useEffect(() => {
   //   if (productData) {
