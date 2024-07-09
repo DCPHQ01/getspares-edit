@@ -30,6 +30,7 @@ const Card: React.FC<CardProps> = ({
   const handleProductDescription = (id: string, categoryId: string) => {
     if (categoryId) {
       sessionStorage.setItem("categoryId", categoryId);
+      console.log("searches here: ", searches);
     }
     router.push(`/category/products/${searches}/${id}`);
   };
