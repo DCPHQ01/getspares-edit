@@ -14,7 +14,7 @@ import { useGetMecaAdminInventoryMutation } from "../../../redux/features/dashbo
 
 interface InventoryData {
   productImage?: string;
-  productName?: number;
+  productName?: string;
   vendorName: string;
   vendorEmail: string;
   transactionValue: number;
