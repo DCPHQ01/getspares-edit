@@ -602,73 +602,77 @@ export default function Products() {
                   </p>
                 </div>
               ) : (
-                data?.data?.content.map((item: ItemsDataProps) => (
+                <div className="grid grid-cols-3 w-full gap-[20px] h-[50%]">
+                {data?.data?.content.map((item: ItemsDataProps) => (
                   <div
-                    className="flex flex-col w-[30.4%] cursor-pointer"
+                    className="flex flex-col cursor-pointer items-start"
                     key={item.id}
                     onClick={() => handleProductDescription(item.id)}
                   >
-                    <div
-                      className="w-full h-[194px] flex justify-center items-center bg-mecaSearchColor"
-                      id="itemImage"
-                    >
-                      {item?.image ? (
-                        <img
-                          src={item?.image}
-                          alt="tractor image"
-                          className="w-[144px] h-[106px]"
-                          // width={144}
-                          // height={106}
-                        />
-                      ) : null}
-                    </div>
-                    <div
-                      className="w-full flex flex-col gap-y-4 mt-4"
-                      id="itemContent"
-                    >
-                      <div className="flex justify-between items-center">
-                        <TruncateText text={item.name} maxLength={50} />
-                        <div
-                          id="ratingContainerDesktop"
-                          className="flex items-center gap-x-1"
-                        >
-                          <Image
-                            src={star}
-                            alt="rating"
-                            width={12}
-                            height={12}
+                    {/* <div className="w-[80.4%]"> */}
+                      <div
+                        className="w-full flex justify-center grow-0  items-center bg-mecaSearchColor"
+                        id="itemImage"
+                      >
+                        {item?.image ? (
+                          <img
+                            src={item?.image}
+                            alt="tractor image"
+                            className="w-[230px] h-[210px]"
+                            // width={144}
+                            // height={106}
                           />
-                          <p className="text-[12px] text-mecaDarkBlueBackgroundOverlay">
-                            {item.rating}
-                          </p>
-                        </div>
+                        ) : null}
                       </div>
                       <div
-                        id="priceContainer"
-                        className="flex items-center mb-4"
+                        className="w-full flex flex-col gap-y-4 mt-4"
+                        id="itemContent"
                       >
-                        <p className="text-mecaDarkBlueBackgroundOverlay text-sm font-nunito font-bold text-center">
-                          {formatAmount(Number(item.price))}
-                        </p>
-                      </div>
-                      <div className="hidden md:flex justify-between items-center lg:hidden">
-                        <TruncateText text={item.description} maxLength={25} />
+                        <div className="flex justify-between items-center">
+                          <TruncateText text={item.name} maxLength={50} />
+                          <div
+                            id="ratingContainerDesktop"
+                            className="flex items-center gap-x-1"
+                          >
+                            <Image
+                              src={star}
+                              alt="rating"
+                              width={12}
+                              height={12}
+                            />
+                            <p className="text-[12px] text-mecaDarkBlueBackgroundOverlay">
+                              {item.rating}
+                            </p>
+                          </div>
+                        </div>
                         <div
-                          id="ratingContainerTab"
-                          className="flex items-center"
+                          id="priceContainer"
+                          className="flex items-center mb-4"
                         >
-                          <Image
-                            src={star}
-                            alt="rating"
-                            width={10}
-                            height={10}
-                          />
-                          <p>{item.rating}</p>
+                          <p className="text-mecaDarkBlueBackgroundOverlay text-sm font-nunito font-bold text-center">
+                            {formatAmount(Number(item.price))}
+                          </p>
+                        </div>
+                        <div className="hidden md:flex justify-between items-center lg:hidden">
+                          <TruncateText text={item.description} maxLength={25} />
+                          <div
+                            id="ratingContainerTab"
+                            className="flex items-center"
+                          >
+                            <Image
+                              src={star}
+                              alt="rating"
+                              width={10}
+                              height={10}
+                            />
+                            <p>{item.rating}</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                      {/* </div> */}
                   </div>
-                ))
+                ))}
+                </div>
               )}
             </div>
           </div>
