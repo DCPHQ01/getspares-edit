@@ -228,7 +228,7 @@ export default function ProductDescription() {
   const formatPrice = (price: string, currency: string) => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
-      currency: currency && "₦",
+      currency: currency && "NGN",
     }).format(Number(price));
   };
 

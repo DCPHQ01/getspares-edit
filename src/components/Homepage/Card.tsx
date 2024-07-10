@@ -30,7 +30,6 @@ const Card: React.FC<CardProps> = ({
   const handleProductDescription = (id: string, categoryId: string) => {
     if (categoryId) {
       sessionStorage.setItem("categoryId", categoryId);
-      console.log("searches here: ", searches);
     }
     router.push(`/category/products/${searches}/${id}`);
   };
@@ -39,7 +38,7 @@ const Card: React.FC<CardProps> = ({
     const numericPrice = parseFloat(price?.replace(/[^0-9.-]+/g, ""));
     return new Intl.NumberFormat("en-US", {
       style: "currency",
-      currency: "₦",
+      currency: "NGN",
     }).format(numericPrice);
   };
   return (
@@ -73,31 +72,33 @@ const Card: React.FC<CardProps> = ({
           className="w-[268px] h-[219px] object-cover"
         />
       </div>
-      <span className="flex justify-between py-4 w-full gap-4" id="cardSpan">
-        <p className="lg:text-lg text-sm truncate" id="cardText">
-          {<TruncateText text={productName} maxLength={20} />}
-        </p>
-        <button
-          type="button"
-          className="text-sm bg-mecaGrayLightBg flex items-center gap-1 outline-none border border-mecaBorderColor rounded-[20px] lg:py-[2px] lg:px-2 px-1 h-fit"
-          id="cardBtn"
-        >
-          <MdStar
-            className="text-mecaYellowStarColor lg:text-[15px] text-sm"
-            id="starIcon"
-          />
-          5
-        </button>
-      </span>
-      <span className="flex justify-start w-full items-center" id="cardSpan2">
-        <button
-          type="button"
-          className="lg:text-lg text-sm font-bold bg-mecaGrayBackgroundColor rounded-[32px] py-2 px-3"
-          id="cardBtn2"
-        >
-          {price === null ? 0 : formatPrice(price)}
-        </button>
-      </span>
+      <div className="w-[400px] h-full" id="productDescriptionSpanDiv">
+        <span className="flex justify-between py-4 w-full gap-4" id="cardSpan">
+          <p className="lg:text-lg text-sm truncate" id="cardText">
+            {<TruncateText text={productName} maxLength={20} />}
+          </p>
+          <button
+            type="button"
+            className="text-sm bg-mecaGrayLightBg flex items-center gap-1 outline-none border border-mecaBorderColor rounded-[20px] lg:py-[2px] lg:px-2 px-1 h-fit"
+            id="cardBtn"
+          >
+            <MdStar
+              className="text-mecaYellowStarColor lg:text-[15px] text-sm"
+              id="starIcon"
+            />
+            5
+          </button>
+        </span>
+        <span className="flex justify-start w-full items-center" id="cardSpan2">
+          <button
+            type="button"
+            className="lg:text-lg text-sm font-bold bg-mecaGrayBackgroundColor rounded-[32px] py-2 px-3"
+            id="cardBtn2"
+          >
+            {price === null ? 0 : formatPrice(price)}
+          </button>
+        </span>
+      </div>
     </div>
   );
 };
