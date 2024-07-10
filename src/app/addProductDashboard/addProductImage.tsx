@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import addProduct from "../../assets/images/addProduct.svg";
 import { useCreateProductMutation } from "../../redux/features/product/productsQuery";
 import { ColorRing } from "react-loader-spinner";
@@ -87,7 +87,7 @@ const AddProductImage = () => {
         brand: detailsData?.brand,
         price: {
           amount: priceWithoutCommas,
-          currency: "NGN",
+          currency: "₦",
         },
         description: basicInfoData.description,
         categoryName: basicInfoData.category,

@@ -18,6 +18,21 @@ export const formatAmount = (price: string | number) => {
     }).format(Number(price));
   }
 };
+export const formattedAmount = (price: string | number, currency: string) => {
+  if (price) {
+    const formattedPrice = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: currency,
+    }).format(Number(price));
+
+    if (currency === "NGN") {
+      return formattedPrice.replace("NGN", "₦");
+    }
+
+    return formattedPrice;
+  }
+  return "";
+};
 
 export const uploadImage = async (
   file: File,

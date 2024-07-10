@@ -70,7 +70,6 @@ const CalledPagesPageOnePages = () => {
     if (userData) {
       userDataKeys.forEach((key) => {
         if (key === "quantity") {
-   
           setBasicInfoValues((values: any) => ({
             ...values,
             [key]: userData?.productInformation?.quantity,
@@ -114,14 +113,14 @@ const CalledPagesPageOnePages = () => {
     if (!basicInfoValues.amount) {
       newErrors.amount = "Product amount is required";
     }
-    if (Number(basicInfoValues.amount) <= 0){
-      newErrors.amount = "Price can not be zero"
+    if (Number(basicInfoValues.amount) <= 0) {
+      newErrors.amount = "Price can not be zero";
     }
     if (!basicInfoValues.quantity) {
       newErrors.quantity = "Quantity is required";
     }
-    if (Number(basicInfoValues.quantity) <= 0){
-      newErrors.quantity = "Quantity can not be zero"
+    if (Number(basicInfoValues.quantity) <= 0) {
+      newErrors.quantity = "Quantity can not be zero";
     }
 
     setErrors(newErrors);
@@ -134,14 +133,16 @@ const CalledPagesPageOnePages = () => {
       !newErrors.quantity
     ) {
       router.push(paths.toAddProductDashboardAddImages());
-    }
-    else{
-      sessionStorage.setItem("basicInfoValues", JSON.stringify(basicInfoValues));
+    } else {
+      sessionStorage.setItem(
+        "basicInfoValues",
+        JSON.stringify(basicInfoValues)
+      );
     }
   };
 
   const checkDescriptionLength = (value: string) => {
-    console.log('New value:', value);
+    console.log("New value:", value);
     if (value.length > 5000) {
       setDescriptionError("Description exceeds the 5000 word limit.");
     } else {
@@ -151,14 +152,13 @@ const CalledPagesPageOnePages = () => {
         sessionStorage.setItem("basicInfoValues", JSON.stringify(newValues));
         return newValues;
       });
-    
     }
   };
 
-    // setBasicInfoValues((prevValues) => ({
-        // ...prevValues,
-        // description: value,
-      // }));
+  // setBasicInfoValues((prevValues) => ({
+  // ...prevValues,
+  // description: value,
+  // }));
 
   // useEffect(() => {
   //   if (productData) {
@@ -292,7 +292,7 @@ const CalledPagesPageOnePages = () => {
                           label="Product amount"
                           variant="filled"
                           name="amount"
-                          placeholder="NGN 2000.00"
+                          placeholder="₦ 2000.00"
                           InputProps={{ disableUnderline: true }}
                           className="w-[29.4rem] mb-5"
                           sx={{ backgroundColor: "porcelain" }}

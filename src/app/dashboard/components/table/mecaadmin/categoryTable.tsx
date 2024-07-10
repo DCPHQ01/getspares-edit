@@ -8,6 +8,7 @@ import { ColorRing } from "react-loader-spinner";
 import { CldImage } from "next-cloudinary";
 import { MdInventory2 } from "react-icons/md";
 import EmptyState from "../../../../../components/utils/emptyState";
+import TruncateText from "../../../../../components/utils/utils";
 
 interface Category {
   id: string;
@@ -35,11 +36,12 @@ const formatDateTime = (dateTime: string) => {
 //   const time = dayjs(dateTime).format("hh:mm A"); // Updated to 12-hour format with AM/PM
 //   return { date, time };
 // };
-
 const CategoryTable: React.FC<CategoryTableProps> = ({
   categoryList,
   isLoading,
 }) => {
+  console.log("category lists ", categoryList);
+
   return (
     <div id="tableContainer">
       <div
@@ -90,12 +92,11 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
                   ]}
                 />
               </div>
-             
-            ) : categoryList.length === 0 ? (<div
-            className="relative right-[80%] left-[80%]"
-            >
-              <EmptyState datad={categoryList} />
-              </div>) : (
+            ) : categoryList.length === 0 ? (
+              <div className="relative right-[80%] left-[80%]">
+                <EmptyState datad={categoryList} />
+              </div>
+            ) : (
               categoryList?.map((d, index) => {
                 const { date, time } = formatDateTime(d?.dateCreated);
                 return (
@@ -131,7 +132,9 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
                           />
                         )}
                         <div id={`companyDetails_${index}`}>
-                          <div className="truncate mt-2">{d?.name}</div>
+                          <div className="truncate mt-2">
+                            {<TruncateText text={d?.name} maxLength={40} />}
+                          </div>
                           <div
                             className={`text-[#4B5565] truncate`}
                             id={`email_${index}`}
