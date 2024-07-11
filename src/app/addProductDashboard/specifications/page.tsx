@@ -4,13 +4,7 @@ import { useRouter } from "next/navigation";
 import Box from "@mui/material/Box";
 import ImageComponent from "../../../components/imageComp/ImageComponent";
 import TextField from "@mui/material/TextField";
-import {
-  MdArrowForward,
-  MdArrowRight,
-  MdChevronLeft,
-  MdChevronRight,
-  MdPhotoLibrary,
-} from "react-icons/md";
+import { MdChevronLeft, MdChevronRight, MdPhotoLibrary } from "react-icons/md";
 import { paths } from "../../../path/paths";
 import { useAppSelector } from "../../../redux/hooks";
 
