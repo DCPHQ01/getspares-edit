@@ -153,7 +153,7 @@ const ViewItemDetails: React.FC<NavProps> = ({ routeBack, productId }) => {
                       <p className="text-mecaDarkBlueBackgroundOverlay text-3xl font-extrabold">
                         {formatAmount44(data?.data?.amount)}
                       </p>
-                      {data?.data?.availabilityStatus !== "IN_STOCK" ? (
+                      {data?.data?.availabilityStatus === "IN_STOCK" ? (
                         <div
                           id="inStockBtn"
                           className="w-[68px] h-[22px] bg-mecaSuccess rounded-full flex justify-center items-center"

@@ -44,6 +44,7 @@ interface BasicProps {
     itemWeight?:string,
     productDimension?:string,
     countryOfOrigin?:string
+    brand?: string
   }
 }
 
@@ -91,13 +92,13 @@ const BasicTabs : React.FC<BasicProps> = ({productInformation}) => {
              <Box component="section" sx={{ p: 2,  border: 'shadow', backgroundColor: "#EEF2F6" }}>
                <div className='flex flex-col'>
                  <div className=' font-thin'>Brand</div>
-                 <div>{productInformation?.manufacturer || 'Not specified'}</div>
+                 <div>{productInformation?.brand || 'Not specified'}</div>
                </div>
              </Box>
              <Box component="section" sx={{ p: 2,  border: 'shadow', backgroundColor: "#EEF2F6" }}>
                <div className='flex flex-col'>
                  <div className=' font-thin'>Model</div>
-                 <div>{productInformation?.model} {productInformation?.itemModelNumber}</div>
+                 <div>{productInformation?.model}</div>
                </div>
              </Box>
              <Box component="section" sx={{ p: 2,  border: 'shadow', backgroundColor: "#EEF2F6" }}>
