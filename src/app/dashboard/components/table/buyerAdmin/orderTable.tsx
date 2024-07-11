@@ -127,7 +127,7 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
 
                       <td id={`dateJoined_${index}`}>
                         <div
-                          className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}
+                          className={`text-[0.88rem] py-[1rem] px-[2.75rem] `}
                         >
                           <div id={`date_${index}`}>{formatAllDateTwo(d.dateCreated)}</div>
                           <div

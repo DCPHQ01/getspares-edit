@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "../styles.module.css";
 import image1 from "../../../../../assets/dashboardAssets/Avatar2.png";
 import image2 from "../../../../../assets/dashboardAssets/Avatar3.png";
-import Image from "next/image";
+// import Image from "next/image";
 import { AccountCircle } from "@mui/icons-material";
 import { format, formatAmount4 } from "../../../../../components/utils";
 import { MdInventory2 } from "react-icons/md";
