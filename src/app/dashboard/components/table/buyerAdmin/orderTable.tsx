@@ -4,9 +4,10 @@ import styles from "../styles.module.css";
 import { useRouter } from "next/navigation";
 import ViewParticularOrderDetailsPage from "../../../../category/products/viewDetails/viewParticularOrderDetails/page";
 import { ColorRing } from "react-loader-spinner";
-import { formatAmount } from "../../../../../components/utils";
+import { formatAmount,formatAmount5 } from "../../../../../components/utils";
 import dayjs from "dayjs";
 import { MdBusinessCenter } from "react-icons/md";
+import { formatAllDateTwo, formatAllTime } from "../../utils/utils";
 // import EmptyState from "../../../../../components/utils/emptyState";
 
 type BuyerOrderData = {
@@ -101,7 +102,7 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
               ) : (
                 data?.map((d, index) => {
                   const { date, time } = formatDateTime(d.dateCreated);
-                  const formattedTransactionValue = formatAmount(d.totalAmount);
+                  const formattedTransactionValue = formatAmount5(d.totalAmount.toString());
 
                   return (
                     <tr
@@ -128,12 +129,13 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
                         <div
                           className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}
                         >
-                          <div id={`date_${index}`}>{date}</div>
+                          <div id={`date_${index}`}>{formatAllDateTwo(d.dateCreated)}</div>
                           <div
                             className={`text-[#4B5565]`}
                             id={`time_${index}`}
                           >
-                            {time}
+                            {/* {time} */}
+                            {formatAllTime(d.dateCreated)}
                           </div>
                         </div>
                       </td>

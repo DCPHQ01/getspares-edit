@@ -6,6 +6,7 @@ import { AccountCircle } from "@mui/icons-material";
 import { ColorRing } from "react-loader-spinner";
 import { MdInventory2 } from "react-icons/md";
 import TruncateText from "../../../../../components/utils/utils";
+import { formatAmount4 } from "../../../../../components/utils";
 
 interface InventoryData {
   productName?: string;
@@ -167,7 +168,7 @@ const InventoryTable: React.FC<InventoryTableProps> = ({
                     className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
                     id={`transactionValue_${index}`}
                   >
-                    {d.transactionValue}
+                    {formatAmount4(d.transactionValue.toString())}
                   </td>
                 </tr>
               ))

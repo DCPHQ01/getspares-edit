@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "../styles.module.css";
 import dayjs from "dayjs";
 import { ColorRing } from "react-loader-spinner";
-import { formatAmount } from "../../../../../components/utils";
+import { formatAmount,formatAmount5 } from "../../../../../components/utils";
 import ViewParticularOrderDetailsPage from "../../../../category/products/viewDetails/viewParticularOrderDetails/page";
 import { formatAllDate, formatAllTime } from "../../utils/utils";
 import { MdBusinessCenter } from "react-icons/md";
@@ -99,7 +99,7 @@ const OverviewTable: React.FC<OverviewTableProps> = ({
                       className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
                       id={`itemsSold_${index}`}
                     >
-                      {formatAmount(d.amount)}
+                      {formatAmount5(d.amount.toString())}
                     </td>
                     <td id={`dateJoined_${index}`}>
                       <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>

@@ -22,9 +22,10 @@ import ViewItemDetails from "./ViewItemDetails";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import dayjs from "dayjs";
 import { formatAmount,formatAmount4 } from "../../../../../components/utils";
-import { formatAllTime, formatAllDate } from "../../utils/utils";
+import { formatAllTime, formatAllDate,formatAllDateTwo } from "../../utils/utils";
 import MenuOptions from "../../menu/MenuOptions";
 import TruncateText from "../../../../../components/utils/utils";
+
 
 dayjs.extend(customParseFormat);
 
@@ -55,6 +56,12 @@ const option = [
     id: 3,
   },
 ];
+
+const formatDateTime = (dateTime: string) => {
+  const date = dayjs(dateTime).format("DD-MM-YYYY");
+  const time = dayjs(dateTime).format("hh:mm A");
+  return { date, time };
+};
 
 const VendorInventoryTable: React.FC<InventoryTableProps> = ({
   inventoryData,
@@ -183,6 +190,7 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
                   </div>
                 ) : (
                   inventoryData?.map((d, index) => {
+                    const { date, time } = formatDateTime(d?.dateCreated ?? "");
                     return (
                       <tr
                         key={index}
@@ -232,8 +240,10 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
                           id={`transactionValue_${index}`}
                         >
                           <div>
-                            {formatAllDate(d.dateCreated)}
+                            {formatAllDateTwo(d.dateCreated)}
+                            {/* {date} */}
                             <br />
+                            {/* {formatAllTime(d.dateCreated)} */}
                             {formatAllTime(d.dateCreated)}
                           </div>
                         </td>

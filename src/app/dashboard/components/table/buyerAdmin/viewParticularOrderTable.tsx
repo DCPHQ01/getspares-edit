@@ -11,6 +11,7 @@ import BasicTabs from "./FeedBackTab";
 import ViewParticularOrderDetailsPage from "../../../../category/products/viewDetails/viewParticularOrderDetails/page";
 import { ColorRing } from "react-loader-spinner";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { formatAmount4 } from "../../../../../components/utils";
 
 interface OrderItem {
   price: number;
@@ -151,7 +152,7 @@ const ViewParticularOrderTable = ({
                         <div
                           className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}
                         >
-                          {d.price}
+                          {formatAmount4(d.price.toString())}
                         </div>
                       </td>
                     </tr>

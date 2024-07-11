@@ -5,7 +5,7 @@ import engine from "../../../../../assets/dashboardAssets/engine.png";
 import { FaStar } from "react-icons/fa6";
 import { useGetOverviewRecentProductImageQuery } from "../../../../../redux/features/dashboard/buyerQuery";
 import Details from "../../../../category/products/viewDetails/[details]/page";
-import { formatAmount2, formatAmount3 } from "../../../../../components/utils";
+import { formatAmount6, formatAmount3 } from "../../../../../components/utils";
 import TruncateText from "../../../../../components/utils/utils";
 
 interface RecentProductImages {
@@ -80,7 +80,7 @@ const Index = () => {
             </div>
           </div>
           <p className="border rounded-full px-[0.5rem] inline-block">
-            {formatAmount3(detail.price)}
+            {formatAmount6(detail.price.toString())}
             {/* <p>{detail.price}</p> */}
           </p>
         </div>

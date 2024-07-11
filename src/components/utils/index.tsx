@@ -198,6 +198,19 @@ export const formatAmount5 = (price: string) => {
   }
 };
 
+export const formatAmount6 = (price: string) => {
+  if (price) {
+    const newStr = price.split(" ");
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: newStr[0] && "NGN",
+      currencyDisplay: "narrowSymbol",
+    }).format(Number(newStr[1]));
+  } else {
+    return "₦0.00";
+  }
+};
+
 export const useNewFocus = (
   ref: RefObject<HTMLElement>,
   defaultState: boolean = false

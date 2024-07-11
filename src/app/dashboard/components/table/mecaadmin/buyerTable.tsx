@@ -7,6 +7,7 @@ import { formatAmount, formatAmount2 } from "../../../../../components/utils";
 import { ColorRing } from "react-loader-spinner";
 import { MdBusinessCenter } from "react-icons/md";
 import TruncateText from "../../../../../components/utils/utils";
+import { formatAmount4 } from "../../../../../components/utils";
 
 type BuyerData = {
   // avatar: string;
@@ -103,8 +104,8 @@ const BuyerTable = ({
             </tr>
           ) : (
             data?.map((d, index) => {
-              const formattedTransactionValue = formatAmount2(
-                d.transactionValue
+              const formattedTransactionValue = formatAmount4(
+                d.transactionValue.toString()
               );
 
               return (
