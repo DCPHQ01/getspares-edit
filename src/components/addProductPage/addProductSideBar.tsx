@@ -125,45 +125,50 @@ function ResponsiveDrawer({ step, setStep }: any) {
   }, [pathname]);
 
   return (
-    <div className="relative md:flex h-[800px] w-full" id="side">
-      <div className="hidden md:flex gap-x-4 w-full h-1/2  " id="sidebardiv2">
-        <div className="flex flex-col justify-center gap-y-12" id="sidebardiv3">
+    <div className="hidden lg:block">
+      <div className="relative md:flex h-[800px] w-full " id="side">
+        <div className=" md:flex gap-x-4 w-full h-1/2  " id="sidebardiv2">
           <div
-            className="flex flex-col justify-center h-full w-[200px] gap-y-2"
-            id="sidebardiv4"
+            className="flex flex-col justify-center gap-y-12"
+            id="sidebardiv3"
           >
-            {details.map((item: dataObject, index: number) => (
-              <div
-                className="flex justify-between items-center cursor-pointer"
-                id="sidebardiv5"
-                key={index}
-                onClick={() => handleToggle(item.id, item.link)}
-              >
+            <div
+              className="flex flex-col justify-center h-full w-[200px] gap-y-2"
+              id="sidebardiv4"
+            >
+              {details.map((item: dataObject, index: number) => (
                 <div
-                  id="sidebardiv6"
-                  className={`text-gray-400 cursor-pointer flex flex-col${
-                    activeTab === item.title
-                      ? "text-mecaAddProductSidebarList text-base font-semibold bg-mecaSearchColor"
-                      : "`text-mecaAddProductSidebarList font-normal text-sm"
-                  }`}
+                  className="flex justify-between items-center cursor-pointer"
+                  id="sidebardiv5"
+                  key={index}
+                  onClick={() => handleToggle(item.id, item.link)}
                 >
-                  <p
-                    className="font-bold text-base font-nunito_sans"
-                    id="sidebardivHeader"
-                  >
-                    {item.title}
-                  </p>
-                </div>
-                {item.isCompleted === true && (
                   <div
-                    id="iconCompletedDiv"
-                    className="flex justify-start w-[28px] h-full items-center"
+                    id="sidebardiv6"
+                    className={`text-gray-400 cursor-pointer flex flex-col${
+                      activeTab === item.title
+                        ? "text-mecaAddProductSidebarList text-base font-semibold bg-mecaSearchColor"
+                        : "`text-mecaAddProductSidebarList font-normal text-sm"
+                    }`}
                   >
-                    <MdCheckCircle className="text-mecaBluePrimaryColor w-3 h-3" />
+                    <p
+                      className="font-bold text-base font-nunito_sans"
+                      id="sidebardivHeader"
+                    >
+                      {item.title}
+                    </p>
                   </div>
-                )}
-              </div>
-            ))}
+                  {item.isCompleted === true && (
+                    <div
+                      id="iconCompletedDiv"
+                      className="flex justify-start w-[28px] h-full items-center"
+                    >
+                      <MdCheckCircle className="text-mecaBluePrimaryColor w-3 h-3" />
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

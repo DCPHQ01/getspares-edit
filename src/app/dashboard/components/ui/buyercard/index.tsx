@@ -5,7 +5,12 @@ import engine from "../../../../../assets/dashboardAssets/engine.png";
 import { FaStar } from "react-icons/fa6";
 import { useGetOverviewRecentProductImageQuery } from "../../../../../redux/features/dashboard/buyerQuery";
 import Details from "../../../../category/products/viewDetails/[details]/page";
-import { formatAmount6, formatAmount3 } from "../../../../../components/utils";
+import {
+  formatAmount4,
+  formatAmount442,
+  formatAmount443,
+  formatAmount6
+} from "../../../../../components/utils";
 import TruncateText from "../../../../../components/utils/utils";
 
 interface RecentProductImages {
@@ -43,7 +48,6 @@ const Index = () => {
     }
   }, [data]);
 
-
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error loading data</div>;
   if (!data || !Array.isArray(data.data) || data.data.length === 0)
@@ -58,11 +62,7 @@ const Index = () => {
   return (
     <div className=" flex gap-x-5 justify-between scrollbar-none">
       {imageLists.map((detail, index) => (
-        <div
-          key={index}
-          className="lg:w-[22rem]"
-      
-        >
+        <div key={index} className="lg:w-[22rem]">
           <div className="px-[1.2rem] py-[1.3rem] w-[353px] h-[287px] bg-[#F8FAFC] flex justify-center rounded-[8px] mb-[1rem]">
             <img
               src={detail.image}

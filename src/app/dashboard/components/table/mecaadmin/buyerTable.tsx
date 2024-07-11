@@ -3,7 +3,11 @@ import styles from "../styles.module.css";
 import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
 import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
-import { formatAmount, formatAmount2 } from "../../../../../components/utils";
+import {
+  formatAmount4,
+  formatAmount44,
+  formatAmount442,
+} from "../../../../../components/utils";
 import { ColorRing } from "react-loader-spinner";
 import { MdBusinessCenter } from "react-icons/md";
 import TruncateText from "../../../../../components/utils/utils";
@@ -105,7 +109,7 @@ const BuyerTable = ({
           ) : (
             data?.map((d, index) => {
               const formattedTransactionValue = formatAmount4(
-                d.transactionValue.toString()
+                String(d.transactionValue)
               );
 
               return (

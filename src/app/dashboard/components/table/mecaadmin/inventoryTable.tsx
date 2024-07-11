@@ -168,7 +168,7 @@ const InventoryTable: React.FC<InventoryTableProps> = ({
                     className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
                     id={`transactionValue_${index}`}
                   >
-                    {formatAmount4(d.transactionValue.toString())}
+                    {formatAmount4(String(d.transactionValue))}
                   </td>
                 </tr>
               ))

@@ -149,10 +149,8 @@ const ViewParticularOrderTable = ({
                         {d.quantity}
                       </td>
                       <td id={`dateJoined_${index}`}>
-                        <div
-                          className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}
-                        >
-                          {formatAmount4(d.price.toString())}
+                        <div className={`text-[0.88rem] py-[1rem]`}>
+                          {formatAmount4(String(d.price))}
                         </div>
                       </td>
                     </tr>

@@ -41,13 +41,13 @@ export const formatAllDateTwo = (date: string, inputFormat = "DD:MM:YYYY HH:mm",
 };
 
 export const formatAllTime = (time: string) => {
-  if(time){
-    let val = time.split(' ')[1];
-    
-    let [hours, minutes] = val.split(':').map(Number);
-    const ampm = hours >= 12 ? 'PM' : 'AM';
+  if (time) {
+    let val = time.split(" ")[1];
+
+    let [hours, minutes] = val.split(":").map(Number);
+    const ampm = hours >= 12 ? "PM" : "AM";
     hours = hours % 12 || 12; // Convert 0 to 12 for 12 AM
-    return `${hours}:${minutes.toString().padStart(2, '0')} ${ampm}`;
+    return `${hours}:${minutes.toString().padStart(2, "0")} ${ampm}`;
   }
 };
 

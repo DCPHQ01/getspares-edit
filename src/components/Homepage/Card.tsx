@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import { MdStar } from "react-icons/md";
 import { ColorRing } from "react-loader-spinner";
 import TruncateText from "../utils/utils";
+import { formatAmount4 } from "../utils";
 
 interface CardProps {
   image: StaticImageData;
@@ -95,7 +96,7 @@ const Card: React.FC<CardProps> = ({
             className="lg:text-lg text-sm font-bold bg-mecaGrayBackgroundColor rounded-[32px] py-2 px-3"
             id="cardBtn2"
           >
-            {price === null ? 0 : formatPrice(price)}
+            {price === null ? 0 : formatAmount4(price)}
           </button>
         </span>
       </div>

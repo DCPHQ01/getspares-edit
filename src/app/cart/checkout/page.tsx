@@ -30,7 +30,7 @@ import NavBarWhileInsideApp from "../../reusables/TopBarWhileInside/NavBarWhileI
 import { paths } from "../../../path/paths";
 import { useCheckoutMutation } from "../../../redux/features/dashboard/buyerQuery";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import { formatAmount } from "../../../components/utils";
+import { formatAmount44 } from "../../../components/utils";
 import { setCart } from "../../../redux/features/product/productSlice";
 
 const style = {
@@ -173,7 +173,6 @@ const Checkout = () => {
       localStorage.removeItem("savedCartItems");
       dispatch(setCart([]));
     } catch (error: any) {
- 
       setErrors({ ...errors, checkOutError: error?.data.message });
     }
   };
@@ -473,7 +472,7 @@ const Checkout = () => {
                       </div>
 
                       <div className=" font-normal text-sm">
-                        <p>{formatAmount(totalItemPrice)}</p>
+                        <p>{formatAmount44(totalItemPrice)}</p>
                       </div>
                     </div>
                     <div className="flex justify-between mt-5 font-normal text-sm">
@@ -483,7 +482,7 @@ const Checkout = () => {
                     <hr className="mt-5"></hr>
                     <div className="flex justify-between mt-5 mb-9 font-semibold text-xl">
                       <p>Subtotal</p>
-                      <p>{formatAmount(totalItemPrice)}</p>
+                      <p>{formatAmount44(totalItemPrice)}</p>
                     </div>
                   </div>
                   <div className="">

@@ -134,7 +134,7 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading }) => {
                       className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
                       id={`transactionValue_${index}`}
                     >
-                      {formatAmount4(d.transactionValue.toString())}
+                      {formatAmount4(String(d.transactionValue))}
                     </td>
                     <td id={`dateJoined_${index}`}>
                       <div className={`text-[0.88rem] py-[0.5rem] px-[1.5rem]`}>
