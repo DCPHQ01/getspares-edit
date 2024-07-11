@@ -9,9 +9,9 @@ import {
   MdOutlineAccountCircle,
   MdLogout,
 } from "react-icons/md";
-import IconButton from "@mui/material/IconButton";
+// import IconButton from "@mui/material/IconButton";
 import DropdownPage from "./dropdown/page";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { JwtPayload as BaseJwtPayload } from "jsonwebtoken";
 import * as JWT from "jwt-decode";
@@ -25,8 +25,6 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MecaGlobalSearch from "./MecaGlobalSearch";
 
-import MenuItem from "@mui/material/MenuItem";
-import Fade from "@mui/material/Fade";
 
 const navData = [
   {
