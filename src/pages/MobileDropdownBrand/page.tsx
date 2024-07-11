@@ -87,7 +87,7 @@ const MobileDropdownBrandPage = () => {
     <div className={nunito.className}>
       {open && (
         <div
-          className="w-[98%] h-screen bg-white z-[2000] left-1 px-2   fixed top-0 overflow-hidden cursor-pointer"
+          className="w-[98%] h-screen bg-white z-[4000] left-1 px-2 absolute top-0 overflow-hidden cursor-pointer"
           id="mobiledropviewcontainer1"
         >
           <div

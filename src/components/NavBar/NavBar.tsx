@@ -213,7 +213,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
             id="searchDesktop"
           >
             <div className="relative w-full max-w-[580px]">
-              <MecaGlobalSearch/>
+              <MecaGlobalSearch />
             </div>
           </div>
           <div
@@ -360,11 +360,15 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
         {navData.map(
           (item) =>
             active === item.id && (
-              <div className="flex justify-center" key={item.id}>
+              <div
+                onClick={closeDropdown}
+                className="flex justify-center"
+                key={item.id}
+              >
                 <div className="absolute left-96 top-40 z-50">
                   {item.dropdownComponent &&
                     React.cloneElement(item.dropdownComponent, {
-                      closeDropdown,
+                      // closeDropdown,
                     })}
                 </div>
               </div>

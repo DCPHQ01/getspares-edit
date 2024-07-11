@@ -119,7 +119,6 @@ const CalledPagesPageFivePages = () => {
     if (userData) {
       userDataKeys.forEach((key) => {
         if (key === "productInformation") {
-         
           setTechnicalDetails((values: any) => ({
             ...values,
             [key]: userData?.productInformation?.color,
@@ -146,17 +145,20 @@ const CalledPagesPageFivePages = () => {
 
   return (
     <>
-      <div className="" style={{ width: "48%" }} id="pageone1">
+      <div className="lg:w-[48%] w-[100%]" id="pageone1">
         <div className="pageWrapper" id="pageone2">
-          <div className="hidden md:flex flex-col mt-[4.5rem]" id="pageone3">
-            <div className="flex gap-x-10 justify-between">
+          <div className="lg:flex flex-col mt-[4.5rem]" id="pageone3">
+            <div className="lg:flex lg:gap-x-10 lg:justify-between">
               <div className="flex flex-col gap-y-6">
-                <div className="mb-10 pageHeader w-94" id="pageone4">
+                <div
+                  className="mb-10 lg:mt-0 mt-32 pageHeader w-94"
+                  id="pageone4"
+                >
                   <header className="font-bold text-lg" id="pageone5">
                     Technical details
                   </header>
 
-                  <hr className="w-[80%]"></hr>
+                  <hr className="lg:w-[80%] w-[100%]"></hr>
                 </div>
 
                 <div>
@@ -165,7 +167,7 @@ const CalledPagesPageFivePages = () => {
                     name="brand"
                     style={{ backgroundColor: "porcelain" }}
                     required={true}
-                    className="w-[29.4rem] h-14 border bg-mecaInputBgColor rounded-md pl-2 mb-5 outline-none"
+                    className="lg:w-[29.4rem] w-[100%]  h-14 border bg-mecaInputBgColor rounded-md pl-2 mb-5 outline-none"
                     title="brand"
                     value={technicalDetails.brand}
                     onChange={handleTechnicalDetails}
@@ -193,7 +195,7 @@ const CalledPagesPageFivePages = () => {
                   name="manufacturerParts"
                   placeholder="12345"
                   InputProps={{ disableUnderline: true }}
-                  className="w-[29.4rem] mb-5 bg-mecaInputBgColor"
+                  className="lg:w-[29.4rem] w-[100%]  mb-5 bg-mecaInputBgColor"
                   value={technicalDetails.manufacturerParts}
                   onChange={handleTechnicalDetails}
                 />
@@ -218,7 +220,7 @@ const CalledPagesPageFivePages = () => {
                     name="condition"
                     style={{ backgroundColor: "porcelain" }}
                     required={true}
-                    className="w-[29.4rem] h-14 border capitalize bg-mecaInputBgColor rounded-md pl-2 mb-5 outline-none"
+                    className="lg:w-[29.4rem] w-[100%]  h-14 border capitalize bg-mecaInputBgColor rounded-md pl-2 mb-5 outline-none"
                     title="condition"
                     value={technicalDetails.condition}
                     onChange={(e) =>
@@ -252,7 +254,7 @@ const CalledPagesPageFivePages = () => {
                   name="model"
                   placeholder="E765"
                   InputProps={{ disableUnderline: true }}
-                  className=" w-[29.4rem] mb-5 bg-mecaInputBgColor"
+                  className=" lg:w-[29.4rem] w-[100%]  mb-5 bg-mecaInputBgColor"
                   value={technicalDetails.model}
                   onChange={handleTechnicalDetails}
                 />
@@ -265,7 +267,7 @@ const CalledPagesPageFivePages = () => {
                   name="weight"
                   placeholder="786 kg"
                   InputProps={{ disableUnderline: true }}
-                  className=" w-[29.4rem] mb-5 bg-mecaInputBgColor"
+                  className=" lg:w-[29.4rem] w-[100%]  mb-5 bg-mecaInputBgColor"
                   value={technicalDetails.weight}
                   onChange={handleTechnicalDetails}
                 />
@@ -278,7 +280,7 @@ const CalledPagesPageFivePages = () => {
                   name="dimension"
                   placeholder="Medium"
                   InputProps={{ disableUnderline: true }}
-                  className=" w-[29.4rem] mb-5 bg-mecaInputBgColor"
+                  className=" lg:w-[29.4rem] w-[100%]  mb-5 bg-mecaInputBgColor"
                   value={technicalDetails.dimension}
                   onChange={handleTechnicalDetails}
                 />
@@ -291,17 +293,17 @@ const CalledPagesPageFivePages = () => {
                   name="countryOfOrigin"
                   placeholder="Nigeria"
                   InputProps={{ disableUnderline: true }}
-                  className=" w-[29.4rem] mb-5 bg-mecaInputBgColor"
+                  className=" lg:w-[29.4rem] w-[100%]  mb-5 bg-mecaInputBgColor"
                   value={technicalDetails.countryOfOrigin}
                   onChange={handleTechnicalDetails}
                 />
 
-                <div className="flex w-full justify-center mt-8">
+                <div className="flex w-full justify-center mt-5 mb-10">
                   <div id="firstPreviousbtn9 flex justify-center">
                     <button
                       type="submit"
                       onClick={handlePreviousPage}
-                      className="w-[116px] flex justify-center gap-x-3 pt-2 h-10 font-semibold border rounded-full text-mecaBluePrimaryColor border-mecaBluePrimaryColor"
+                      className="w-[116px]  flex justify-center gap-x-3 pt-2 h-10 font-semibold border rounded-full text-mecaBluePrimaryColor border-mecaBluePrimaryColor"
                     >
                       <span>
                         <MdChevronLeft className="mt-1" />
@@ -312,7 +314,7 @@ const CalledPagesPageFivePages = () => {
                 </div>
               </div>
 
-              <div className="">
+              <div className="hidden lg:block">
                 <div className="mb-10 pageHeader w-[100%]" id="pageone4">
                   <header className="font-bold text-lg" id="pageone5">
                     Product preview
