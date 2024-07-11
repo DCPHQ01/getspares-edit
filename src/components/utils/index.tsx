@@ -163,16 +163,36 @@ export const formatAmount3 = (price: string) => {
 
 export const formatAmount4 = (price: string) => {
   if (price) {
-    // Convert the price to a number
     const amount = parseFloat(price.replace(/,/g, ""));
-    // Format the amount with thousands separator
     const formattedAmount = new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "NGN",
       minimumFractionDigits: 2,
     }).format(amount);
-    // Remove the currency symbol and use the desired symbol '₦'
     return "₦" + formattedAmount.replace("NGN", "").trim();
+  } else {
+    return "₦0.00";
+  }
+};
+
+export const formatAmount5 = (price: string) => {
+  if (price) {
+    const amount = parseFloat(price.replace(/,/g, ""));
+    
+    if (amount >= 1_000_000_000) {
+      const formattedAmount = (amount / 1_000_000_000).toFixed(1);
+      return `₦${formattedAmount}B`;
+    } else if (amount >= 1_000_000) {
+      const formattedAmount = (amount / 1_000_000).toFixed(1);
+      return `₦${formattedAmount}M`;
+    } else {
+      const formattedAmount = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "NGN",
+        minimumFractionDigits: 2,
+      }).format(amount);
+      return "₦" + formattedAmount.replace("NGN", "").trim();
+    }
   } else {
     return "₦0.00";
   }

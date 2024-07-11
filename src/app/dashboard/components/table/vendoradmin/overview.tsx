@@ -4,7 +4,7 @@ import image1 from "../../../../../assets/dashboardAssets/Avatar2.png";
 import image2 from "../../../../../assets/dashboardAssets/Avatar3.png";
 import Image from "next/image";
 import { AccountCircle } from "@mui/icons-material";
-import { format, formatAmount } from "../../../../../components/utils";
+import { format, formatAmount4 } from "../../../../../components/utils";
 import { MdInventory2 } from "react-icons/md";
 import dayjs from "dayjs";
 
@@ -109,7 +109,7 @@ const Overview: React.FC<VendorTableProps> = ({
                     className={`text-[0.88rem] py-[1rem] px-[3.125rem]`}
                     id={`transactionValue_${index}`}
                   >
-                    {format(d?.orderValue ?? "")}
+                    {formatAmount4(d?.orderValue?.toString() ?? "")}
                   </td>
                   <td id={`dateAndTimeAdded_${index}`}>
                     <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>

@@ -1,6 +1,6 @@
 import React from "react";
 import Card from "./card";
-import { formatAmount, formatAmount4, formatAmount3 } from "../utils";
+import { formatAmount, formatAmount4,formatAmount5, formatAmount3 } from "../utils";
 
 interface CardProp {
   totalNumberOfAgents: number;
@@ -25,8 +25,7 @@ const Index: React.FC<CardProps> = ({ cardField }) => {
     },
     {
       total: "Total transaction value",
-      // amount: cardField.totalOrderValue,
-      amount: formatAmount4(cardField.totalOrderValue.toString()),
+      amount: formatAmount5(cardField.totalOrderValue.toString()),
       percentage: 0,
       onClick: () => {
         ("View total transaction value");

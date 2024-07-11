@@ -10,7 +10,7 @@ import Image from "next/image";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import { ColorRing } from "react-loader-spinner";
-import { format } from "../../../../../components/utils";
+import { format,formatAmount4 } from "../../../../../components/utils";
 import { MdYard } from "react-icons/md";
 import dayjs from "dayjs";
 import { MdInventory2 } from "react-icons/md";
@@ -230,7 +230,7 @@ const VendorTable: React.FC<VendorTableProps> = ({ vendorList, isLoading }) => {
             ) : (
               vendorList?.map((d, index) => {
                 const { date, time } = formatDateTime(d?.dateJoined);
-                const transactionValue = format(d.transactionValue);
+                const transactionValue = formatAmount4(d.transactionValue.toString());
                 return (
                   <tr
                     key={index}

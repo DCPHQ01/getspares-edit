@@ -21,7 +21,7 @@ import { useGetAProductQuery } from "../../../../../redux/features/users/authQue
 import ViewItemDetails from "./ViewItemDetails";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import dayjs from "dayjs";
-import { formatAmount } from "../../../../../components/utils";
+import { formatAmount,formatAmount4 } from "../../../../../components/utils";
 import { formatAllTime, formatAllDate } from "../../utils/utils";
 import MenuOptions from "../../menu/MenuOptions";
 
@@ -203,7 +203,7 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
                           className={`text-[0.88rem] py-[1rem] px-[1.13rem]`}
                           id={`itemsSold_${index}`}
                         >
-                          {formatAmount(Number(d.price))}
+                          {formatAmount4(d?.price?.toString() ?? "")}
                         </td>
                         <td
                           className={`text-[0.88rem] py-[1rem] px-[2rem] `}
