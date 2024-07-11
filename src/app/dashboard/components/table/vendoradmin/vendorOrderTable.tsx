@@ -8,6 +8,7 @@ import dayjs from "dayjs";
 import { formatAmount44 } from "../../../../../components/utils";
 import { formatAmount44ToNaira } from "../../../../../components/utils";
 import { MdBusinessCenter } from "react-icons/md";
+import { formatAllDateTwo } from "../../utils/utils";
 
 type VendorData = {
   orderId: string;
@@ -95,8 +96,8 @@ const VendorOrderTable = ({ data }: VendorTableProps) => {
                   <tr
                     key={index}
                     id={`row_${index}`}
-                    className="cursor-pointer truncate"
-                    onClick={handleDetails}
+                    className=" truncate"
+                    // onClick={handleDetails}
                   >
                     {/* <td id={`companyData_${index}`}>
                   <div
@@ -139,7 +140,7 @@ const VendorOrderTable = ({ data }: VendorTableProps) => {
 
                     <td id={`dateOrdered${index}`}>
                       <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
-                        <div id={`date_${index}`}>{date}</div>
+                        <div id={`date_${index}`}>{formatAllDateTwo(d.dateOrdered)}</div>
                         <div className={`text-[#4B5565]`} id={`time_${index}`}>
                           {time}
                         </div>

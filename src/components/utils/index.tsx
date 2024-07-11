@@ -137,6 +137,7 @@ export const formatAmount443 = (price: string) => {
 
 export const formatAmount4 = (price: string) => {
   if (price) {
+    const amount = parseFloat(price.replace(/,/g, ""));
     const numericPrice = parseFloat(price?.replace(/[^0-9.-]+/g, ""));
     const formattedAmount = new Intl.NumberFormat("en-US", {
       style: "currency",
@@ -144,6 +145,42 @@ export const formatAmount4 = (price: string) => {
       minimumFractionDigits: 2,
     }).format(numericPrice);
     return "₦" + formattedAmount.replace("NGN", "").trim();
+  } else {
+    return "₦0.00";
+  }
+};
+
+export const formatAmount5 = (price: string) => {
+  if (price) {
+    const amount = parseFloat(price.replace(/,/g, ""));
+    
+    if (amount >= 1_000_000_000) {
+      const formattedAmount = (amount / 1_000_000_000).toFixed(1);
+      return `₦${formattedAmount}B`;
+    } else if (amount >= 1_000_000) {
+      const formattedAmount = (amount / 1_000_000).toFixed(1);
+      return `₦${formattedAmount}M`;
+    } else {
+      const formattedAmount = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "NGN",
+        minimumFractionDigits: 2,
+      }).format(amount);
+      return "₦" + formattedAmount.replace("NGN", "").trim();
+    }
+  } else {
+    return "₦0.00";
+  }
+};
+
+export const formatAmount6 = (price: string) => {
+  if (price) {
+    const newStr = price.split(" ");
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: newStr[0] && "NGN",
+      currencyDisplay: "narrowSymbol",
+    }).format(Number(newStr[1]));
   } else {
     return "₦0.00";
   }

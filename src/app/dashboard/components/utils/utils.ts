@@ -32,6 +32,14 @@ export const formatAllDate = (date: string, format = "YYYY-MM-DD") => {
   }
 };
 
+export const formatAllDateTwo = (date: string, inputFormat = "DD:MM:YYYY HH:mm", outputFormat = "DD-MM-YYYY") => {
+  if (date) {
+    const finalDate = dayjs(date, inputFormat).format(outputFormat);
+    return finalDate;
+  }
+  return null; 
+};
+
 export const formatAllTime = (time: string) => {
   if (time) {
     let val = time.split(" ")[1];

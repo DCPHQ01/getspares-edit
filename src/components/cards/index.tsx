@@ -2,6 +2,7 @@ import React from "react";
 import Card from "./card";
 import { paths } from "../../path/paths";
 import { sidePanel } from "../../app/dashboard/components/utils/utils";
+import { formatAmount5 } from "../utils";
 
 interface CardProp {
   totalNumberOfAgents?: number;
@@ -40,7 +41,7 @@ const Index: React.FC<CardProps> = ({ cardField }) => {
     },
     {
       total: "Transaction value",
-      amount: cardField.totalTransactionValue || cardField.totalOrderValue || 0,
+      amount: formatAmount5(cardField?.totalTransactionValue?.toString() ?? "") || cardField.totalOrderValue || 0,
       percentage: 59,
       onClick: () => {
         ("View total transaction value");

@@ -9,6 +9,7 @@ import {
   formatAmount4,
   formatAmount442,
   formatAmount443,
+  formatAmount6
 } from "../../../../../components/utils";
 import TruncateText from "../../../../../components/utils/utils";
 
@@ -79,7 +80,7 @@ const Index = () => {
             </div>
           </div>
           <p className="border rounded-full px-[0.5rem] inline-block">
-            {formatAmount4(detail.price)}
+            {formatAmount6(detail.price.toString())}
             {/* <p>{detail.price}</p> */}
           </p>
         </div>
