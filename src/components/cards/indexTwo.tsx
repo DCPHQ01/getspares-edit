@@ -1,7 +1,7 @@
 import React from "react";
 import Card from "./card";
 import { formatAmount4,formatAmount5 } from "../utils";
-// import { formatAmount4 } from "../utils";
+
 
 interface CardProp {
   totalNumberOfAgents: number;
