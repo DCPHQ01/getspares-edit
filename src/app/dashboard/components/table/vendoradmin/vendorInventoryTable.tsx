@@ -43,11 +43,11 @@ interface InventoryTableProps {
 }
 
 const option = [
-  {
-    icon: <MdPreview style={{ color: "gray" }} />,
-    title: "View Details",
-    id: 1,
-  },
+  // {
+  //   icon: <MdPreview style={{ color: "gray" }} />,
+  //   title: "View Details",
+  //   id: 1,
+  // },
   { icon: <MdEdit style={{ color: "gray" }} />, title: "Edit", id: 2 },
   {
     icon: <MdDeleteOutline style={{ color: "gray" }} />,
