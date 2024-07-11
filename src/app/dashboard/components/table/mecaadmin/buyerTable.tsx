@@ -12,6 +12,7 @@ import { ColorRing } from "react-loader-spinner";
 import { MdBusinessCenter } from "react-icons/md";
 import TruncateText from "../../../../../components/utils/utils";
 
+
 type BuyerData = {
   // avatar: string;
   name: string;

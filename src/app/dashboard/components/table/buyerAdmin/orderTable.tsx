@@ -7,6 +7,7 @@ import { ColorRing } from "react-loader-spinner";
 import { formatAmount4, formatAmount44 } from "../../../../../components/utils";
 import dayjs from "dayjs";
 import { MdBusinessCenter } from "react-icons/md";
+import { formatAllDateTwo, formatAllTime } from "../../utils/utils";
 // import EmptyState from "../../../../../components/utils/emptyState";
 
 type BuyerOrderData = {
@@ -125,14 +126,15 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
 
                       <td id={`dateJoined_${index}`}>
                         <div
-                          className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}
+                          className={`text-[0.88rem] py-[1rem] px-[2.75rem] `}
                         >
-                          <div id={`date_${index}`}>{date}</div>
+                          <div id={`date_${index}`}>{formatAllDateTwo(d.dateCreated)}</div>
                           <div
                             className={`text-[#4B5565]`}
                             id={`time_${index}`}
                           >
-                            {time}
+                            {/* {time} */}
+                            {formatAllTime(d.dateCreated)}
                           </div>
                         </div>
                       </td>
