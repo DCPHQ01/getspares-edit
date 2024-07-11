@@ -133,14 +133,16 @@ const CalledPagesPageOnePages = () => {
       !newErrors.quantity
     ) {
       router.push(paths.toAddProductDashboardAddImages());
-    }
-    else{
-      sessionStorage.setItem("basicInfoValues", JSON.stringify(basicInfoValues));
+    } else {
+      sessionStorage.setItem(
+        "basicInfoValues",
+        JSON.stringify(basicInfoValues)
+      );
     }
   };
 
   const checkDescriptionLength = (value: string) => {
-    console.log('New value:', value);
+    console.log("New value:", value);
     if (value.length > 5000) {
       setDescriptionError("Description exceeds the 5000 word limit.");
     } else {
@@ -150,14 +152,13 @@ const CalledPagesPageOnePages = () => {
         sessionStorage.setItem("basicInfoValues", JSON.stringify(newValues));
         return newValues;
       });
-    
     }
   };
 
-    // setBasicInfoValues((prevValues) => ({
-        // ...prevValues,
-        // description: value,
-      // }));
+  // setBasicInfoValues((prevValues) => ({
+  // ...prevValues,
+  // description: value,
+  // }));
 
   // useEffect(() => {
   //   if (productData) {
@@ -199,8 +200,6 @@ const CalledPagesPageOnePages = () => {
 
                       <hr className="lg:w-[80%] w-[100%]"></hr>
                     </div>
-
-                    {/* here */}
 
                     <Box
                       component="form"

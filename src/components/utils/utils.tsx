@@ -8,7 +8,7 @@ interface TruncateTextProps {
 
 const TruncateText: React.FC<TruncateTextProps> = ({ text, maxLength }) => {
   if (text?.length <= maxLength) {
-    return <span>{text}</span>;
+    return <span className="capitalize">{text}</span>;
   }
 
   const truncatedText = text?.substring(0, maxLength) + "...";

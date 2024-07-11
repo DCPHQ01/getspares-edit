@@ -1,5 +1,4 @@
 "use client";
-import Card from "../../../../../components/Homepage/Card";
 import TopBar from "../../../../reusables/TopBar/page";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -44,6 +43,7 @@ import { CartProduct } from "../../../../../types/cart/product";
 import { paths } from "../../../../../path/paths";
 import { ColorRing } from "react-loader-spinner";
 import { useAddSingleProductToCartMutation } from "../../../../../redux/features/cart/cartQuery";
+import Card from "../../../../../components/Homepage/Card";
 
 interface State extends SnackbarOrigin {
   open: boolean;
@@ -558,6 +558,7 @@ export default function ProductDescription() {
                         productName={product.name}
                         price={product.price}
                         productImage={product.image}
+                        categoryName={product.categoryName}
                       />
                     )
                   )}

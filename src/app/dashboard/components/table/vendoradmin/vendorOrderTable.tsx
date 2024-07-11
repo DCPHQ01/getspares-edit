@@ -6,11 +6,13 @@ import Image from "next/image";
 import Details from "../../../../category/products/viewDetails/[details]/page";
 import dayjs from "dayjs";
 import { formatAmount } from "../../../../../components/utils";
+import {formatAmountToNaira} from "../../../../../components/utils";
+import { MdBusinessCenter } from "react-icons/md";
 
 type VendorData = {
   orderId: string;
-  amount: string;
-  buyers: number;
+  transactionValue: string;
+  buyerName: string;
   dateOrdered: string;
 };
 
@@ -68,9 +70,23 @@ const VendorOrderTable = ({ data }: VendorTableProps) => {
             </tr>
           </thead>
           <tbody>
-            {data?.map((d, index) => {
+            {data.length === 0 ? (
+                <div className="h-28 mt-[35rem] relative right-[80%] left-[80%]">
+                  <div className="flex justify-center">
+                    <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
+                      <MdBusinessCenter size={40} color="#0852C0" />
+                    </div>
+                  </div>
+                  <div className="text-center mt-4">
+                    <p className="text-xl">No orders made yet</p>
+                    <p className="text-mecaLightGrayText">
+                      All your orders will appear here
+                    </p>
+                  </div>
+                </div>
+          ) : data?.map((d, index) => {
               const { date, time } = formatDateTime(d.dateOrdered);
-              const formattedTransactionValue = formatAmount(d.amount);
+              const formattedTransactionValue = formatAmountToNaira(d.transactionValue);
 
               return (
                 <tr
@@ -105,7 +121,8 @@ const VendorOrderTable = ({ data }: VendorTableProps) => {
                     className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
                     id={`transactionValue_${index}`}
                   >
-                    {d.amount}
+                    {formattedTransactionValue}
+
                   </td>
 
                   <td id={`companyData_${index}`}>
@@ -113,7 +130,7 @@ const VendorOrderTable = ({ data }: VendorTableProps) => {
                       className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
                     >
                       <div id={`companyDetails_${index}`}>
-                        <div>{d.buyers}</div>
+                        <div>{d.buyerName}</div>
                       </div>
                     </div>
                   </td>

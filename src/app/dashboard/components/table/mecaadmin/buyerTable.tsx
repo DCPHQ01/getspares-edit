@@ -3,9 +3,10 @@ import styles from "../styles.module.css";
 import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
 import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
-import {formatAmount, formatAmount2} from "../../../../../components/utils";
+import { formatAmount, formatAmount2 } from "../../../../../components/utils";
 import { ColorRing } from "react-loader-spinner";
 import { MdBusinessCenter } from "react-icons/md";
+import TruncateText from "../../../../../components/utils/utils";
 
 type BuyerData = {
   // avatar: string;
@@ -22,32 +23,29 @@ interface BuyerTableProps {
   isError?: boolean;
 }
 
-const EmptyState =({data}: {data: BuyerData[]}) => {
-  return(
-          <>
-            {
-              data.length === 0 ?(
-                <div className="-z-50 flex flex-col justify-center items-center pt-32 leading-10">
-                  <div className=" h-28">
-                    <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
-                      <MdBusinessCenter
-                        style={{ fontSize: "2rem", color: "#0852C0" }}
-                      />
-                    </div>
-                  </div>
-                  <div className="text-center">
-                    <h1 className="text-xl">No buyer created yet</h1>
-                    <h1 className="text-gray-500">
-                      All your buyers will appear here
-                    </h1>
-                  </div>
-                </div>
-              ) : <></>
-            }
-          </>
-        )
-
-}
+const EmptyState = ({ data }: { data: BuyerData[] }) => {
+  return (
+    <>
+      {data.length === 0 ? (
+        <div className="-z-50 flex flex-col justify-center items-center pt-32 leading-10">
+          <div className=" h-28">
+            <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
+              <MdBusinessCenter
+                style={{ fontSize: "2rem", color: "#0852C0" }}
+              />
+            </div>
+          </div>
+          <div className="text-center">
+            <h1 className="text-xl">No buyer created yet</h1>
+            <h1 className="text-gray-500">All your buyers will appear here</h1>
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
+    </>
+  );
+};
 
 const BuyerTable = ({
   data,
@@ -103,22 +101,6 @@ const BuyerTable = ({
                 </div>
               </td>
             </tr>
-          // ) : data?.length === 0 ? (
-          //   <div className="relative -z-50 right-[100%] left-[100%] flex flex-col justify-center items-center pt-32 leading-10">
-          //     <div className=" h-28">
-          //       <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
-          //         <MdBusinessCenter
-          //           style={{ fontSize: "2rem", color: "#0852C0" }}
-          //         />
-          //       </div>
-          //     </div>
-          //     <div className="text-center">
-          //       <h1 className="text-xl">No buyers here yet</h1>
-          //       <h1 className="text-gray-500">
-          //         All your buyers will appear here
-          //       </h1>
-          //     </div>
-          //   </div>
           ) : (
             data?.map((d, index) => {
               const formattedTransactionValue = formatAmount2(
@@ -133,7 +115,9 @@ const BuyerTable = ({
                     >
                       {/* <Image src={d.avatar} alt="Avatar" id={`avatar_${index}`} /> */}
                       <div id={`companyDetails_${index}`}>
-                        <div className="truncate">{d.name}</div>
+                        <div className="truncate">
+                          {<TruncateText text={d.name} maxLength={40} />}
+                        </div>
                         <div
                           className={`text-[#4B5565] truncate`}
                           id={`email_${index}`}

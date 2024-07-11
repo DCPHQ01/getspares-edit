@@ -87,7 +87,7 @@ const AddProductImage = () => {
         brand: detailsData?.brand,
         price: {
           amount: priceWithoutCommas,
-          currency: "NGN",
+          currency: "₦",
         },
         description: basicInfoData.description,
         categoryName: basicInfoData.category,

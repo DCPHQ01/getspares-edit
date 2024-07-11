@@ -95,7 +95,6 @@ function Category() {
   const [categoryData, { isLoading }] = useAddCategoryMutation();
   const [error, setError] = useState<string>("");
 
-
   useEffect(() => {
     if (data && Array.isArray(data.data.content)) {
       const list = data.data.content;
@@ -162,13 +161,11 @@ function Category() {
         image: image_url,
       }).unwrap();
       if ("data" in response) {
-   
         setCategoryList((prev) => [response.data.data, ...prev]);
         refetch();
         handleClose();
       }
     } catch (error: any) {
- 
       setError(error.data.message);
     }
   };
@@ -337,30 +334,38 @@ function Category() {
         <SearchBox placeholder="Search" />
         </div> */}
       <PeriodRadios
-          activityPeriod={activityPeriod}
-          onPeriodChange={handlePeriodChange}
-        />
+        activityPeriod={activityPeriod}
+        onPeriodChange={handlePeriodChange}
+      />
 
       <CategoryTable categoryList={categoryList} isLoading={isLoading} />
 
       <div className="flex justify-between mt-10 text-mecaBluePrimaryColor font-bold text-lg">
-       {!first ? ( <button
-          className={`flex gap-x-2 `}
-          onClick={handlePreviousPage}
-          // disabled={first}
-        >
-          <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
-        </button>) :  <div>{""}</div> }
-        {!last ? (<button
-          className={`flex gap-x-2  `}
-          onClick={handleNextPage}
-          // disabled={last}
-        >
-          Next
-          <span>
-            <MdChevronRight className="mt-[2px] text-2xl" />{" "}
-          </span>
-        </button>) : <div>{""}</div>}
+        {!first ? (
+          <button
+            className={`flex gap-x-2 `}
+            onClick={handlePreviousPage}
+            // disabled={first}
+          >
+            <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
+          </button>
+        ) : (
+          <div>{""}</div>
+        )}
+        {!last ? (
+          <button
+            className={`flex gap-x-2  `}
+            onClick={handleNextPage}
+            // disabled={last}
+          >
+            Next
+            <span>
+              <MdChevronRight className="mt-[2px] text-2xl" />{" "}
+            </span>
+          </button>
+        ) : (
+          <div>{""}</div>
+        )}
       </div>
     </>
   );

@@ -7,6 +7,7 @@ import { AccountCircle } from "@mui/icons-material";
 import { format, formatAmount } from "../../../../../components/utils";
 import { MdInventory2 } from "react-icons/md";
 import dayjs from "dayjs";
+import TruncateText from "../../../../../components/utils/utils";
 
 interface VendorOverview {
   dateAndTimeAdded?: string;
@@ -76,7 +77,7 @@ const Overview: React.FC<VendorTableProps> = ({
             </div>
           ) : (
             topPerformingProduct?.map((d, index) => {
-              const { date, time } = formatDateTime(d?.dateAndTimeAdded  ?? "");
+              const { date, time } = formatDateTime(d?.dateAndTimeAdded ?? "");
               return (
                 <tr key={index} id={`row_${index}`} className="truncate">
                   <td>
@@ -96,7 +97,14 @@ const Overview: React.FC<VendorTableProps> = ({
                           className=" text-gray-400"
                         />
                       )} */}
-                      <p id={`itemName_${index}`}>{d.productName}</p>
+                      <p id={`itemName_${index}`}>
+                        {
+                          <TruncateText
+                            text={d.productName || ""}
+                            maxLength={20}
+                          />
+                        }
+                      </p>
                     </div>
                   </td>
                   <td

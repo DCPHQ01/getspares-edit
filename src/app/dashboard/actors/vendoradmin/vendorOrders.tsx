@@ -6,20 +6,21 @@ import { useGetMecaVendorOrdersQuery } from "../../../../redux/features/dashboar
 import { useEffect, useState } from "react";
 import { MdBusinessCenter } from "react-icons/md";
 function VendorOrders() {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [size, setSize] = useState(10);
   const { data, isLoading, isError } = useGetMecaVendorOrdersQuery({
     page,
     size,
   });
-
+  const [hasLast,setHasLast] = useState(false);
   const [vendorOrderList, setVendorOrderList] = useState([]);
   const [hasOrders, setHasOrders] = useState(false);
-  const [totalElement, setTotalElement] = useState(0);
+  // const [totalElement, setTotalElement] = useState(0);
 
   useEffect(() => {
     if (data) {
-      setTotalElement(data.data?.totalElements);
+      setPage(data?.data.number)
+      setHasLast(data?.data.last)
       const resultList = data.data?.content;
       if (resultList && resultList.length > 0) {
         setVendorOrderList(resultList);
@@ -29,18 +30,23 @@ function VendorOrders() {
       }
     }
   }, [data]);
+  
+  const totalElement = data?.data.totalElements;
+  const totalPage = data?.data.totalPages;
+  
 
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(10);
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [itemsPerPage] = useState(10);
 
   const handlePreviousPage = () => {
-    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+    if(page > 0){
+      setPage((prevPage) => prevPage - 1)
+    }
   };
 
   const handleNextPage = () => {
-    if (currentPage * size < totalElement) {
-      setCurrentPage((prevPage) => prevPage + 1);
+    if (page + 1 < totalPage) {
+      setPage((prevPage) => prevPage + 1);
     }
   };
   return (
@@ -51,7 +57,7 @@ function VendorOrders() {
              <Header
                 subtitle={`Keep track of buyers, items bought and their transaction values.`}
                 title={`Orders`}
-                amount={'0'}
+                amount={totalElement}
              />
            </div>
            {/* <div>
@@ -60,42 +66,26 @@ function VendorOrders() {
          </div>
          <div className={'h-[40rem] mt-5'}>
            <VendorOrderTable data={vendorOrderList} isLoading={isLoading} />
-           <div className="">
-             {/*{!hasOrders && !isLoading && (*/}
-                <div className="h-28 mt-[15rem]">
-                  <div className="flex justify-center">
-                    <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
-                      <MdBusinessCenter size={40} color="#0852C0" />
-                    </div>
-                  </div>
-                  <div className="text-center mt-4">
-                    <p className="text-xl">No orders made yet</p>
-                    <p className="text-mecaLightGrayText">
-                      All your orders will appear here
-                    </p>
-                  </div>
-                </div>
-             {/*)}*/}
-           </div>
+           
          </div>
 
 
-         <div className="flex mt-10 text-mecaBluePrimaryColor font-bold text-lg">
-        {currentPage > 1 && (
+         <div className="flex mt-10 justify-between text-mecaBluePrimaryColor font-bold text-lg">
+        {page > 0 && (
           <button className={`flex gap-x-2`} onClick={handlePreviousPage}>
             <MdChevronLeft className="mt-1 text-2xl" /> <span>Previous</span>
           </button>
         )}
-         { vendorOrderList && vendorOrderList.length > 0 && <button
+         { !hasLast ?  (<button
           className="flex gap-x-2 justify-end ml-auto"
           onClick={handleNextPage}
-          disabled={currentPage * size >= totalElement}
+          // disabled={currentPage * size >= totalElement}
         >
           Next
           <span>
             <MdChevronRight className="mt-[2px] text-2xl" />{" "}
           </span>
-        </button>}
+        </button>): <div>{""}</div>}
       </div>
 
      </div>
