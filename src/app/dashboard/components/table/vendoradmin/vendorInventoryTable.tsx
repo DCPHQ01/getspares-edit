@@ -24,6 +24,7 @@ import dayjs from "dayjs";
 import { formatAmount,formatAmount4 } from "../../../../../components/utils";
 import { formatAllTime, formatAllDate } from "../../utils/utils";
 import MenuOptions from "../../menu/MenuOptions";
+import TruncateText from "../../../../../components/utils/utils";
 
 dayjs.extend(customParseFormat);
 
@@ -194,7 +195,14 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
                             className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
                           >
                             <div id={`companyDetails_${index}`}>
-                              <div>{d.itemName}</div>
+                              <div>
+                                {
+                                  <TruncateText
+                                    text={d.itemName || ""}
+                                    maxLength={20}
+                                  />
+                                }
+                              </div>
                             </div>
                           </div>
                         </td>

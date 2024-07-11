@@ -11,6 +11,7 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import { MdBusinessCenter } from "react-icons/md";
 import { formatAllDate, formatAllTime } from "../../utils/utils";
 import { formatAmount4 } from "../../../../../components/utils";
+import TruncateText from "../../../../../components/utils/utils";
 
 interface Agent {
   firstName: string;
@@ -106,7 +107,14 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading }) => {
                     <td id={`companyData_${index}`}>
                       <div className={`flex gap-3 text-[0.88rem] px-[1.25rem]`}>
                         <div id={`companyDetails_${index}`}>
-                          <div className="truncate">{d.firstName}</div>
+                          <div className="truncate">
+                            {
+                              <TruncateText
+                                text={d.firstName || ""}
+                                maxLength={40}
+                              />
+                            }
+                          </div>
                           <div
                             className={`text-[#4B5565] truncate`}
                             id={`email_${index}`}
@@ -131,7 +139,7 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading }) => {
                     <td id={`dateJoined_${index}`}>
                       <div className={`text-[0.88rem] py-[0.5rem] px-[1.5rem]`}>
                         <div id={`date_${index}`}>
-                          {formatAllDate(d.dateAdded, 'DD:MM:YYYY')}
+                          {formatAllDate(d.dateAdded, "DD:MM:YYYY")}
                         </div>
                         <div
                           className={`text-[#4B5565] truncate`}

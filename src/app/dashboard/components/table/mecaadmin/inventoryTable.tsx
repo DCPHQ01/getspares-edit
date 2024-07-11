@@ -1,18 +1,14 @@
 "use client";
 import React from "react";
 import styles from "../styles.module.css";
-import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
-import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
-import Stack from "@mui/material/Stack";
 import { AccountCircle } from "@mui/icons-material";
-// import "react-tabs/style/react-tabs.css";
 import { ColorRing } from "react-loader-spinner";
-import { format } from "../../../../../components/utils";
 import { MdInventory2 } from "react-icons/md";
+import TruncateText from "../../../../../components/utils/utils";
 
 interface InventoryData {
-  productName?: number;
+  productName?: string;
   productImage?: string;
   vendorName: string;
   vendorEmail: string;
@@ -118,7 +114,14 @@ const InventoryTable: React.FC<InventoryTableProps> = ({
                         />
                       )}
                       <div id={`companyDetails_${index}`}>
-                        <div className="truncate  mt-2">{d.productName}</div>
+                        <div className="truncate  mt-2">
+                          {
+                            <TruncateText
+                              text={d?.productName || ""}
+                              maxLength={20}
+                            />
+                          }
+                        </div>
                       </div>
                     </div>
                   </td>
