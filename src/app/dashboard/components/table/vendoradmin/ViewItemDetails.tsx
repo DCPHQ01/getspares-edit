@@ -10,7 +10,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useGetAProductQuery } from "../../../../../redux/features/users/authQuery";
 import { paths } from "../../../../../path/paths";
-import { formatAmount44 } from "../../../../../components/utils";
+import { formatAmount4, formatAmount44 } from "../../../../../components/utils";
 import BasicTabs from "./BasicTabs";
 
 interface State {
@@ -151,9 +151,9 @@ const ViewItemDetails: React.FC<NavProps> = ({ routeBack, productId }) => {
                   <div id="priceButtonDiv" className="flex flex-col mt-6">
                     <div id="priceDiv" className="flex gap-x-6 items-center">
                       <p className="text-mecaDarkBlueBackgroundOverlay text-3xl font-extrabold">
-                        {formatAmount44(data?.data?.amount)}
+                        {formatAmount4(String(data?.data?.amount))}
                       </p>
-                      {data?.data?.availabilityStatus !== "IN_STOCK" ? (
+                      {data?.data?.availabilityStatus === "IN_STOCK" ? (
                         <div
                           id="inStockBtn"
                           className="w-[68px] h-[22px] bg-mecaSuccess rounded-full flex justify-center items-center"
