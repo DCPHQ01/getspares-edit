@@ -6,7 +6,7 @@ import HomeImage1 from "../../assets/images/homeImage1.png";
 export default function Hero() {
   return (
     <div
-      className="bg-mecaActiveBackgroundNavColor lg:flex items-center gap-8 mt-52 rounded-lg lg:px-8 px-4 lg:py-16 py-6"
+      className="bg-mecaActiveBackgroundNavColor lg:flex items-center gap-8  rounded-lg lg:px-8 px-4 lg:py-16 py-6"
       id="container"
     >
       <div className="lg:w-1/2" id="leftSide">

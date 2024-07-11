@@ -4,13 +4,7 @@ import { useRouter } from "next/navigation";
 import Box from "@mui/material/Box";
 import ImageComponent from "../../../components/imageComp/ImageComponent";
 import TextField from "@mui/material/TextField";
-import {
-  MdArrowForward,
-  MdArrowRight,
-  MdChevronLeft,
-  MdChevronRight,
-  MdPhotoLibrary,
-} from "react-icons/md";
+import { MdChevronLeft, MdChevronRight, MdPhotoLibrary } from "react-icons/md";
 import { paths } from "../../../path/paths";
 import { useAppSelector } from "../../../redux/hooks";
 
@@ -76,14 +70,12 @@ const CalledPagesPageFourPages = () => {
   };
 
   const productSpec = useAppSelector((state) => state.company.productData);
- 
 
   const populateData = (userData: any) => {
     const userDataKeys = Object.keys(specifications);
     if (userData) {
       userDataKeys.forEach((key) => {
         if (key === "color") {
-         
           setSpecifications((values: any) => ({
             ...values,
             [key]: userData?.productInformation?.color,
@@ -106,20 +98,20 @@ const CalledPagesPageFourPages = () => {
       populateData(productSpec);
     }
   }, [productSpec]);
-  
+
   return (
     <>
-      <div className="" style={{ width: "48%" }} id="pageone1">
+      <div className="lg:w-[48%] w-[100%]" id="pageone1">
         <div className="pageWrapper" id="pageone2">
-          <div className="hidden md:flex flex-col mt-[4.5rem]" id="pageone3">
-            <div className="flex gap-x-10 justify-between ">
+          <div className="md:flex flex-col lg:mt-[4.5rem] mt-56" id="pageone3">
+            <div className="lg:flex lg:gap-x-10 lg::justify-between ">
               <div className="">
                 <div className="mb-10 pageHeader w-94" id="pageone4">
                   <header className="font-bold text-lg" id="pageone5">
                     Specifications
                   </header>
 
-                  <hr className="w-[80%]"></hr>
+                  <hr className="lg:w-[80%] w-[100%]"></hr>
                 </div>
                 <Box
                   component="form"
@@ -138,7 +130,7 @@ const CalledPagesPageFourPages = () => {
                       name="quantityInPack"
                       placeholder="12"
                       InputProps={{ disableUnderline: true }}
-                      className=" w-[29.4rem] mb-5 "
+                      className=" lg:w-[29.4rem] w-[100%] mb-5 "
                       sx={{ backgroundColor: "porcelain" }}
                       value={specifications.quantityInPack}
                       onChange={handleSpecChange}
@@ -155,7 +147,7 @@ const CalledPagesPageFourPages = () => {
                       name="color"
                       placeholder="Select color"
                       InputProps={{ disableUnderline: true }}
-                      className="w-[29.4rem] mb-5 "
+                      className="lg:w-[29.4rem] w-[100%]  mb-5 "
                       sx={{ backgroundColor: "porcelain" }}
                       value={specifications.color}
                       onChange={handleSpecChange}
@@ -192,7 +184,7 @@ const CalledPagesPageFourPages = () => {
                 </div>
               </div>
 
-              <div className="">
+              <div className="hidden lg:block">
                 <div className="mb-10 pageHeader w-[100%]" id="pageone4">
                   <header className="font-bold text-lg" id="pageone5">
                     Product preview
