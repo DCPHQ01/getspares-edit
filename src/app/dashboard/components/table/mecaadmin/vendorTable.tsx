@@ -4,7 +4,7 @@ import Link from "next/link";
 // @ts-ignore
 import styles from "../styles.module.css";
 import { AccountCircle } from "@mui/icons-material";
-// import image1 from "../../../../../assets/dashboardAssets/Avatar.png";
+
 // import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
 import Rating from "@mui/material/Rating";
