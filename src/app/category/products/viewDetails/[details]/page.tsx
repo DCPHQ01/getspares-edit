@@ -16,7 +16,7 @@ import ProductReview from "../../../../dashboard/components/table/buyerAdmin/Pro
 import DetailsTable from "../../../../dashboard/components/table/buyerAdmin/tab";
 import VendorModal from "../../../../dashboard/components/table/vendoradmin/vendorModal";
 import { paths } from "../../../../../path/paths";
-import { formatAmount2 } from "../../../../../components/utils";
+import { formatAmount442 } from "../../../../../components/utils";
 import { useGetViewBuyersProductDetailsQuery } from "../../../../../redux/features/feedback/feedbackQuery";
 import AmountComponentsPage from "../../../../reusables/AmountComponents/page";
 interface State {
@@ -125,7 +125,7 @@ export default function Details() {
   const handleImageClick = (index: number) => {
     setSelectedImageIndex(index);
   };
-  const [images, setImages]= useState([])
+  const [images, setImages] = useState([]);
 
   const [productDescription, setProductDescription] = useState(false);
   const handleProductDescription = () => {
@@ -152,11 +152,9 @@ export default function Details() {
     }
   }, [data]);
 
-
-  useEffect(()=> {
-    setImages(data?.data.images)
-  }, [data])
-
+  useEffect(() => {
+    setImages(data?.data.images);
+  }, [data]);
 
   const [openVendorModal, setOpenVendorModal] = useState(false);
   const handleOpenVendorModal = () => {
@@ -204,7 +202,10 @@ export default function Details() {
                     className="w-[272px] h-[190px]"
                   />
                 </div>
-                <div id="otherImagesDiv" className="w-[458px] h-[75px] flex gap-5">
+                <div
+                  id="otherImagesDiv"
+                  className="w-[458px] h-[75px] flex gap-5"
+                >
                   {(showAllImages ? images : firstImages)?.map((image, i) => (
                     <div
                       className={`w-[98px] h-[75px] cursor-pointer rounded-lg flex justify-center items-center bg-mecaSearchColor relative ${
@@ -259,7 +260,7 @@ export default function Details() {
                   <div id="priceButtonDiv" className="flex flex-col mt-6">
                     <div id="priceDiv" className="flex gap-x-6 items-center">
                       <p className="text-mecaDarkBlueBackgroundOverlay text-3xl font-semibold">
-                        {formatAmount2(viewBuyerProducts?.amount)}
+                        {formatAmount442(viewBuyerProducts?.amount)}
                         {/* {viewBuyerProducts?.amount} */}
                       </p>
                       <div

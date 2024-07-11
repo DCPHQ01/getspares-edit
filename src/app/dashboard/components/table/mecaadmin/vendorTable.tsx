@@ -10,7 +10,7 @@ import Image from "next/image";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import { ColorRing } from "react-loader-spinner";
-import { format } from "../../../../../components/utils";
+import { format, formatAmount4 } from "../../../../../components/utils";
 import { MdYard } from "react-icons/md";
 import dayjs from "dayjs";
 import { MdInventory2 } from "react-icons/md";
@@ -159,7 +159,7 @@ const VendorTable: React.FC<VendorTableProps> = ({ vendorList, isLoading }) => {
                       className={`text-[0.88rem] py-[1rem] px-[3.13rem] truncate`}
                       id={`transactionValue_${index}`}
                     >
-                      {transactionValue}
+                      {formatAmount4(String(transactionValue))}
                     </td>
                     <td
                       className={`text-[0.88rem] py-[1rem] px-[3.13rem] truncate`}
