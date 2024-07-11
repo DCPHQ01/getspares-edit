@@ -4,13 +4,13 @@ import styles from "../styles.module.css";
 import { useRouter } from "next/navigation";
 import ViewParticularOrderDetailsPage from "../../../../category/products/viewDetails/viewParticularOrderDetails/page";
 import { ColorRing } from "react-loader-spinner";
-import { formatAmount } from "../../../../../components/utils";
+import { formatAmount4, formatAmount44 } from "../../../../../components/utils";
 import dayjs from "dayjs";
 import { MdBusinessCenter } from "react-icons/md";
 // import EmptyState from "../../../../../components/utils/emptyState";
 
 type BuyerOrderData = {
-  id: string,
+  id: string;
   orderId: string;
   totalAmount: string;
   dateCreated: string;
@@ -22,33 +22,30 @@ interface BuyerOrderTableProps {
   isError?: boolean;
 }
 
-const EmptyState =({datad}:any) => {
+const EmptyState = ({ datad }: any) => {
   const data = [];
-  return(
-          <>
-            {
-              data.length === 0 ?(
-                <div className="-z-50 flex flex-col justify-center items-center pt-32 leading-10">
-                  <div className=" h-28">
-                    <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
-                      <MdBusinessCenter
-                        style={{ fontSize: "2rem", color: "#0852C0" }}
-                      />
-                    </div>
-                  </div>
-                  <div className="text-center">
-                    <h1 className="text-xl">No order created yet</h1>
-                    <h1 className="text-gray-500">
-                      All your orders will appear here
-                    </h1>
-                  </div>
-                </div>
-              ) : <></>
-            }
-          </>
-        )
-
-}
+  return (
+    <>
+      {data.length === 0 ? (
+        <div className="-z-50 flex flex-col justify-center items-center pt-32 leading-10">
+          <div className=" h-28">
+            <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
+              <MdBusinessCenter
+                style={{ fontSize: "2rem", color: "#0852C0" }}
+              />
+            </div>
+          </div>
+          <div className="text-center">
+            <h1 className="text-xl">No order created yet</h1>
+            <h1 className="text-gray-500">All your orders will appear here</h1>
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
+    </>
+  );
+};
 
 const formatDateTime = (dateTime: string) => {
   const date = dayjs(dateTime).format("DD-MM-YYYY");
@@ -101,7 +98,9 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
               ) : (
                 data?.map((d, index) => {
                   const { date, time } = formatDateTime(d.dateCreated);
-                  const formattedTransactionValue = formatAmount(d.totalAmount);
+                  const formattedTransactionValue = formatAmount4(
+                    String(d.totalAmount)
+                  );
 
                   return (
                     <tr
@@ -143,15 +142,13 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
               )}
             </tbody>
           </table>
-          { data.length === 0 ? <EmptyState datad={data.length === 0} /> : ""}
+          {data.length === 0 ? <EmptyState datad={data.length === 0} /> : ""}
         </div>
       </div>
       {selectedOrderId && (
         <div className="absolute bottom-0 mt-8 ml-10 lg:left-60 right-0 lg:top-0 h-[100vh] lg:w-[84%] w-[100%] lg:h-[100vh]">
           <div className="bg-white h-[100vh] w-full">
-
             <ViewParticularOrderDetailsPage />
-
           </div>
         </div>
       )}
@@ -161,5 +158,4 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
 
 export default OrderTable;
 
-// orderId={selectedOrderId} 
-
+// orderId={selectedOrderId}

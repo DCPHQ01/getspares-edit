@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "../styles.module.css";
 import dayjs from "dayjs";
 import { ColorRing } from "react-loader-spinner";
-import { formatAmount } from "../../../../../components/utils";
+import { formatAmount4, formatAmount44 } from "../../../../../components/utils";
 import ViewParticularOrderDetailsPage from "../../../../category/products/viewDetails/viewParticularOrderDetails/page";
 import { formatAllDate, formatAllTime } from "../../utils/utils";
 import { MdBusinessCenter } from "react-icons/md";
@@ -42,18 +42,19 @@ const OverviewTable: React.FC<OverviewTableProps> = ({
 
   return (
     <div id="tableContainer" className="relative -z-50">
-
-      <div className={`my-[1.25rem] w-full max-h-[34rem] overflow-y-auto scrollbar-none ${styles.table}`}>
+      <div
+        className={`my-[1.25rem] w-full max-h-[34rem] overflow-y-auto scrollbar-none ${styles.table}`}
+      >
         <table id="adminTable" className={`w-full`}>
           <thead>
             <tr className="truncate ">
-              <th id="totalItemsSoldHeader" style={{ paddingLeft: "5rem" }} >
+              <th id="totalItemsSoldHeader" style={{ paddingLeft: "5rem" }}>
                 Tracking Order ID
               </th>
-              <th id="dateTimeJoinedHeader" style={{ paddingLeft: "3rem" }} >
+              <th id="dateTimeJoinedHeader" style={{ paddingLeft: "3rem" }}>
                 Amount
               </th>
-              <th id="dateTimeJoinedHeader" >Order Date & Time</th>
+              <th id="dateTimeJoinedHeader">Order Date & Time</th>
             </tr>
           </thead>
           <tbody>
@@ -74,10 +75,11 @@ const OverviewTable: React.FC<OverviewTableProps> = ({
                   ]}
                 />
               </div>
-          
-            ) :overviewList.length === 0 ? (<div className="relative right-[60%] left-[60%]">
-              <EmptyState datad={overviewList} />
-              </div>) :  (
+            ) : overviewList.length === 0 ? (
+              <div className="relative right-[60%] left-[60%]">
+                <EmptyState datad={overviewList} />
+              </div>
+            ) : (
               overviewList?.map((d, index) => {
                 return (
                   <tr
@@ -99,7 +101,7 @@ const OverviewTable: React.FC<OverviewTableProps> = ({
                       className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
                       id={`itemsSold_${index}`}
                     >
-                      {formatAmount(d.amount)}
+                      {formatAmount4(String(d.amount))}
                     </td>
                     <td id={`dateJoined_${index}`}>
                       <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
@@ -114,8 +116,7 @@ const OverviewTable: React.FC<OverviewTableProps> = ({
                   </tr>
                 );
               })
-            ) }
-
+            )}
           </tbody>
         </table>
         {/* {overviewList.length === 0 ? <EmptyState datad={overviewList} /> : ""} */}
