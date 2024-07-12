@@ -70,26 +70,17 @@ export default function Details() {
 
   const handleOpen = () => setOpens(true);
   const handleClose = () => setOpens(false);
-
+  let productId = "";
   const [showAllImages, setShowAllImages] = useState(false);
+  const { data } = useGetViewBuyersProductDetailsQuery({
+    productId: productId as string,
+  });
   const tabs = [
     {
       label: "Details",
       content: (
         <div>
-          {" "}
-          <DetailsTable
-            manufacturer={productInformations?.manufacturer}
-            brand={productInformations?.brand}
-            model={productInformations?.model}
-            itemWeight={productInformations?.itemWeight}
-            itemModelNumber={productInformations?.itemModelNumber}
-            productDimension={productInformations?.productDimension}
-            countryOfOrigin={productInformations?.countryOfOrigin}
-            manufacturerPartNumber={productInformations?.manufacturerPartNumber}
-            voltage={productInformations?.voltage}
-            quantity={productInformations?.quantity}
-          />{" "}
+          <DetailsTable data={data} />{" "}
         </div>
       ),
     },
@@ -125,7 +116,7 @@ export default function Details() {
   const handleImageClick = (index: number) => {
     setSelectedImageIndex(index);
   };
-  const [images, setImages]= useState([])
+  const [images, setImages] = useState([]);
 
   const [productDescription, setProductDescription] = useState(false);
   const handleProductDescription = () => {
@@ -135,11 +126,15 @@ export default function Details() {
   const firstImages = images?.slice(0, 5);
   const remainingImages = images?.slice(5);
 
-  const productId = sessionStorage.getItem("productId");
+  // const productId = sessionStorage.getItem("productId");
+  useEffect(() => {
+    const savedId = sessionStorage.getItem("myProductId");
+    console.log("sessionstorage", savedId);
+    if (savedId) {
+      productId = JSON.parse(savedId);
+    }
+  }, []);
 
-  const { data } = useGetViewBuyersProductDetailsQuery({
-    productId: productId as string,
-  });
   const [viewBuyerProducts, setViewBuyerProducts] =
     useState<viewBuyersProductDetails>();
 
@@ -152,11 +147,9 @@ export default function Details() {
     }
   }, [data]);
 
-
-  useEffect(()=> {
-    setImages(data?.data.images)
-  }, [data])
-
+  useEffect(() => {
+    setImages(data?.data.images);
+  }, [data]);
 
   const [openVendorModal, setOpenVendorModal] = useState(false);
   const handleOpenVendorModal = () => {
@@ -204,7 +197,10 @@ export default function Details() {
                     className="w-[272px] h-[190px]"
                   />
                 </div>
-                <div id="otherImagesDiv" className="w-[458px] h-[75px] flex gap-5">
+                <div
+                  id="otherImagesDiv"
+                  className="w-[458px] h-[75px] flex gap-5"
+                >
                   {(showAllImages ? images : firstImages)?.map((image, i) => (
                     <div
                       className={`w-[98px] h-[75px] cursor-pointer rounded-lg flex justify-center items-center bg-mecaSearchColor relative ${

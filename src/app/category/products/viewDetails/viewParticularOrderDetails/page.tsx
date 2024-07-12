@@ -23,7 +23,6 @@ const ViewParticularOrderDetailsPage: React.FC = () => {
   const [id, setId] = useState<string | null>(null);
   const [orderId, setOrderId] = useState<string | null>(null);
 
-
   useEffect(() => {
     const storedId = sessionStorage.getItem("selectedOrderId");
     if (storedId) {
@@ -35,6 +34,7 @@ const ViewParticularOrderDetailsPage: React.FC = () => {
     { id: id || "" },
     { skip: !id }
   );
+
   //  const [selectedProductName, setSelectedProductName] = useState("");
   //  const [selectedProductId, setSelectedProductId] = useState("");
 
@@ -69,6 +69,7 @@ const ViewParticularOrderDetailsPage: React.FC = () => {
       }
     }
   }, [data]);
+  console.log("particular oder", data);
 
   return (
     <div className="">

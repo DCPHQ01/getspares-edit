@@ -12,25 +12,53 @@ import { useEffect, useState } from "react";
 
 interface viewAllFeedBack {
   comment: string;
-  createdBy: string;
+  reviewerFullName: string;
   productId: string;
   orderId: string;
   rating: number;
   dateCreated: string;
 }
 
+interface AllFeedbackGraph {
+  averageRating: 0;
+  totalNoOfReviewers: 0;
+  ratingPercentages: {
+    additionalProp1: 0;
+    additionalProp2: 0;
+    additionalProp3: 0;
+  };
+}
 const ProductReview = () => {
+  let productId = "";
+  useEffect(() => {
+    const savedId = sessionStorage.getItem("myProductId");
+    if (savedId) {
+      productId = JSON.parse(savedId);
+    }
+  }, []);
   const { data, isLoading, isError } = useGetAllBuyersFeedbackQuery({
-    productId: "666877a5b48207256da90429",
+    productId: productId,
   });
   const [viewFeedbacks, setViewFeedbacks] = useState<viewAllFeedBack[]>([]);
 
   useEffect(() => {
     if (data) {
-      const list = data.data;
+      const list = data?.data?.feedBackResponses;
       setViewFeedbacks(list);
     }
   }, [data]);
+  // console.log("viewAllFeedback", viewFeedbacks);
+
+  const [viewFeedbackGraph, setViewFeedbackGraph] =
+    useState<AllFeedbackGraph>();
+  useEffect(() => {
+    if (data) {
+      const listOfGraph = data?.data?.feedBackGraph;
+      setViewFeedbackGraph(listOfGraph);
+    }
+  }, [data]);
+
+  console.log("feedback graph", viewFeedbackGraph);
 
   const firstTwoItem = viewFeedbacks.slice(0, 2);
 
@@ -53,24 +81,24 @@ const ProductReview = () => {
     setSelectedRating(rating);
   };
 
-  const listOfReviews = [
-    {
-      name: "Femi chukwuemeka",
-      rate: 3,
-      description:
-        "Maintenance on this engine is a breeze thanks to its user-friendly design and easy access to components",
-      date: "May 15th, 2023",
-      time: "12:00",
-    },
-    {
-      name: "Femi chukwuemeka",
-      rate: 3,
-      description:
-        "Maintenance on this engine is a breeze thanks to its user-friendly design and easy access to components",
-      date: "May 15th, 2023",
-      time: "12:00",
-    },
-  ];
+  // const listOfReviews = [
+  //   {
+  //     name: "Femi chukwuemeka",
+  //     rate: 3,
+  //     description:
+  //       "Maintenance on this engine is a breeze thanks to its user-friendly design and easy access to components",
+  //     date: "May 15th, 2023",
+  //     time: "12:00",
+  //   },
+  //   {
+  //     name: "Femi chukwuemeka",
+  //     rate: 3,
+  //     description:
+  //       "Maintenance on this engine is a breeze thanks to its user-friendly design and easy access to components",
+  //     date: "May 15th, 2023",
+  //     time: "12:00",
+  //   },
+  // ];
 
   return (
     <div>
@@ -83,12 +111,15 @@ const ProductReview = () => {
           Give Feedback
         </button>
       </div>
+
       <div className={`lg:flex gap-16 mt-4`}>
         <div
           className={`border-gray-300 lg:w-[470px] w-[100%]  h-[344px] border bg-[#F8FAFC] rounded-lg p-3`}
         >
           <div className={`w-[242px] h-[72px] flex gap-6`}>
-            <div className={`text-6xl font-semibold`}>5.0</div>
+            <div className={`text-2xl font-semibold`}>
+              {viewFeedbackGraph?.averageRating}
+            </div>
             <div className={``}>
               <Rating
                 name="read-only"
@@ -96,7 +127,9 @@ const ProductReview = () => {
                 value={3}
                 readOnly
               />
-              <div className={`font-normal text-xs`}>Based on 200 ratings</div>
+              <div className={`font-normal text-xs`}>
+                Based on {viewFeedbackGraph?.totalNoOfReviewers} ratings
+              </div>
             </div>
           </div>
           <div className={`flex gap-4 mt-4`}>
@@ -106,7 +139,7 @@ const ProductReview = () => {
               </div>
               <div className="flex gap-x-2">
                 <div className="">5</div>
-                <div className="">(50%)</div>
+                <div className="">()</div>
               </div>
             </div>
             <ProgressBar percentage={50} />
@@ -160,6 +193,7 @@ const ProductReview = () => {
             <ProgressBar percentage={5} />
           </div>
         </div>
+
         <div className={`lg:w-[600px] w-[100%] lg:mt-0 mt-10 h-[436px]`}>
           <div className={`flex gap-2 mb-4`}>
             {[5, 4, 3, 2, 1].map((rating) => (
@@ -186,7 +220,7 @@ const ProductReview = () => {
             return (
               <div className={`mb-4`}>
                 <div className={`mb-2`}>
-                  <div>{firstTwoItem.createdBy}</div>
+                  <div>{firstTwoItem.reviewerFullName}</div>
                   <Rating
                     name="read-only"
                     sx={{ color: "#095AD3" }}
@@ -197,11 +231,11 @@ const ProductReview = () => {
                 <div className={`mb-1.5`}>{firstTwoItem.comment}</div>
                 <div className={`text-[#9AA4B2]`}>
                   {firstTwoItem.dateCreated}
-                  {/* .{review.time} */}
                 </div>
               </div>
             );
           })}
+
           <div
             onClick={handleOpenViewAllCommentsModal}
             className={`underline text-[#095AD3] cursor-pointer`}
@@ -210,12 +244,14 @@ const ProductReview = () => {
           </div>
         </div>
       </div>
-      <ReviewModal openModal={openModal} setOpenModal={setOpenModal} />
-      <ViewAllComments
-        viewAllFeedBack={viewFeedbacks}
-        openModal={openViewAllCommentsModal}
-        setOpenModal={setOpenViewAllCommentsModal}
-      />
+      <div className="">
+        <ReviewModal openModal={openModal} setOpenModal={setOpenModal} />
+        <ViewAllComments
+          viewAllFeedBack={viewFeedbacks}
+          openModal={openViewAllCommentsModal}
+          setOpenModal={setOpenViewAllCommentsModal}
+        />
+      </div>
     </div>
   );
 };

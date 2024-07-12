@@ -48,27 +48,17 @@ interface productInformation {
 }
 
 interface productInformationProps {
-  productInformation: productInformation[];
+  data: productInformation;
 }
 
-const DetailsTable: React.FC<productInformation> = ({
-  manufacturer,
-  brand,
-  itemWeight,
-  productDimension,
-  countryOfOrigin,
-  itemModelNumber,
-  manufacturerPartNumber,
-  voltage,
-  color,
-  quantity,
-}) => {
+const DetailsTable = ({ data }: productInformationProps) => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
+  console.log("data for buyers ", data);
   return (
     <div className="w-[100%]">
       <Box>
@@ -91,7 +81,7 @@ const DetailsTable: React.FC<productInformation> = ({
             >
               <div className="flex flex-col">
                 <div>Quantity Available</div>
-                <div>{quantity}</div>
+                <div>{data?.quantity}</div>
               </div>
             </Box>
             <Box
@@ -100,7 +90,7 @@ const DetailsTable: React.FC<productInformation> = ({
             >
               <div className="flex flex-col">
                 <div>Manufacturer</div>
-                <div>{manufacturer}</div>
+                <div>{data?.manufacturer}</div>
               </div>
             </Box>
             <Box
@@ -109,7 +99,7 @@ const DetailsTable: React.FC<productInformation> = ({
             >
               <div className="flex flex-col">
                 <div>Brand</div>
-                <div>{brand}</div>
+                <div>{data?.brand}</div>
               </div>
             </Box>
 
@@ -119,7 +109,7 @@ const DetailsTable: React.FC<productInformation> = ({
             >
               <div className="flex flex-col">
                 <div>Model</div>
-                <div>{itemModelNumber}</div>
+                <div>{data?.itemModelNumber}</div>
               </div>
             </Box>
 
@@ -129,7 +119,7 @@ const DetailsTable: React.FC<productInformation> = ({
             >
               <div className="flex flex-col">
                 <div>Color</div>
-                <div>{color}</div>
+                <div>{data?.color}</div>
               </div>
             </Box>
 
@@ -139,7 +129,7 @@ const DetailsTable: React.FC<productInformation> = ({
             >
               <div className="flex flex-col">
                 <div>Weight</div>
-                <div>{itemWeight}</div>
+                <div>{data?.itemWeight}</div>
               </div>
             </Box>
             <Box
@@ -148,7 +138,7 @@ const DetailsTable: React.FC<productInformation> = ({
             >
               <div className="flex flex-col">
                 <div>Dimensions</div>
-                <div>{productDimension}</div>
+                <div>{data?.productDimension}</div>
               </div>
             </Box>
             <Box
@@ -157,7 +147,7 @@ const DetailsTable: React.FC<productInformation> = ({
             >
               <div className="flex flex-col">
                 <div>Country of origin</div>
-                <div>{countryOfOrigin}</div>
+                <div>{data?.countryOfOrigin}</div>
               </div>
             </Box>
           </Box>
