@@ -42,17 +42,17 @@ jobs:
           echo "BRANCH_NAME=${BRANCH_NAME}" >> $GITHUB_ENV
           echo "COMMIT_AUTHOR=${COMMIT_AUTHOR}" >> $GITHUB_ENV
 
-      - name: Send build logs via email
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.gmail.com
-          server_port: 587
-          username: ${{ secrets.EMAIL_USERNAME }}
-          password: ${{ secrets.EMAIL_PASSWORD }}
+      -  name: Send build logs via email
+         uses: dawidd6/action-send-mail@v3
+         with:
+          server_address: ${{ secrets.SMTP_SERVER }}
+          server_port: ${{ secrets.SMTP_PORT }}
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
           subject: Build logs for ${{ github.repository }} (#${{ github.run_id }})
           to: ${{ env.EMAILS }}
-          from: ${{ secrets.EMAIL_USERNAME }}
+          from: ${{ secrets.SMTP_USERNAME }}
+          content_type: text/plain
           body: |
             Build logs for ${{ github.repository }} (#${{ github.run_id }}):
-
             ${{ steps.build_step.outputs.build_logs }}
