@@ -2,7 +2,7 @@ import React from "react";
 import Card from "./card";
 import { paths } from "../../path/paths";
 import { sidePanel } from "../../app/dashboard/components/utils/utils";
-import { formatAmount5 } from "../utils";
+import { formatAmount5,formatAmount4 } from "../utils";
 
 interface CardProp {
   totalNumberOfAgents?: number;
@@ -39,14 +39,14 @@ const Index: React.FC<CardProps> = ({ cardField }) => {
         ("View total number of agents");
       },
     },
-    {
-      total: "Transaction value",
-      amount: formatAmount5(cardField?.totalTransactionValue?.toString() ?? "") || cardField.totalOrderValue || 0,
-      percentage: 59,
-      onClick: () => {
-        ("View total transaction value");
-      },
-    },
+    // {
+    //   total: "Transaction value",
+    //   amount: formatAmount5(cardField?.totalTransactionValue?.toString() ?? "") || cardField.totalOrderValue || 0,
+    //   percentage: 59,
+    //   onClick: () => {
+    //     ("View total transaction value");
+    //   },
+    // },
     {
       total: "Number of vendors",
       amount:
@@ -60,6 +60,19 @@ const Index: React.FC<CardProps> = ({ cardField }) => {
     },
   ];
   return (
+    <div >
+      <div className="w-full">
+      <Card 
+      total="Transaction value"
+      amount={formatAmount4(String(cardField?.totalTransactionValue ?? ""))}
+      percentage={59}
+      onClick={() => {
+        ("View total transaction value");
+      }}
+      style= {`w-[100%]`}
+
+      />
+       </div>
     <div id="cardContainer" className={`mt-[1rem] flex justify-between w-full`}>
       {cardProps?.map((card, index) => (
         <div id={`card_${index}`} key={index}>
@@ -68,9 +81,11 @@ const Index: React.FC<CardProps> = ({ cardField }) => {
             amount={card.amount}
             percentage={card.percentage}
             onClick={card.onClick}
+            style = {`lg:w-[26.5vw] lg:h-[90%] h-[90%] `}
           />
         </div>
       ))}
+    </div>
     </div>
   );
 };
