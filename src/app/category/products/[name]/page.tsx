@@ -135,19 +135,38 @@ export default function Products() {
       conditionStatus: selectedCondition,
       price: selectedPrice,
     });
-    setApplyFilter(true);
+    // setApplyFilter(true);
 
+    // let newObj = {
+    //   ...payload,
+    //   filters: {
+    //     model: [],
+    //     brand: localFilters.brand,
+    //     conditionStatus: localFilters.conditionStatus,
+    //     price: localFilters.price,
+    //   },
+    // };
+
+    // setPayload(newObj);
+    console.log("filters ", localFilters);
+  };
+
+  const handleFiltering = async () => {
+    const filterObjects = {
+      brand: selectedBrand,
+      condition: selectedCondition,
+      price: selectedPrice,
+    };
     let newObj = {
       ...payload,
       filters: {
         model: [],
-        brand: localFilters.brand,
-        conditionStatus: localFilters.conditionStatus,
-        price: localFilters.price,
+        brand: filterObjects.brand,
+        conditionStatus: filterObjects.condition,
+        price: filterObjects.price,
       },
     };
-
-    setPayload(newObj);
+    const res = await setPayload(newObj);
   };
 
   const cancelFilters = () => {
@@ -390,8 +409,6 @@ export default function Products() {
                               src={item?.image}
                               alt="tractor image"
                               className="w-[144px] h-[106px]"
-                              // width={144}
-                              // height={106}
                             />
                           ) : null}
                         </div>
@@ -559,7 +576,7 @@ export default function Products() {
                   type="button"
                   className="w-full h-[48px] bg-mecaBluePrimaryColor text-white font-nunito font-semibold text-sm rounded-full"
                   id="applyFilterButton"
-                  onClick={applyFilters}
+                  onClick={handleFiltering}
                 >
                   Apply Filter
                 </button>

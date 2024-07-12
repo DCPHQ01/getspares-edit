@@ -14,6 +14,7 @@ interface CardProps {
   categoryName?: string;
   categoryId?: string;
   productImage?: string;
+  rating?: number;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -25,6 +26,7 @@ const Card: React.FC<CardProps> = ({
   categoryName,
   categoryId,
   productImage,
+  rating,
 }) => {
   const searches = categoryName?.replace(/ /g, "-") ?? "";
   const router = useRouter();
@@ -87,7 +89,7 @@ const Card: React.FC<CardProps> = ({
               className="text-mecaYellowStarColor lg:text-[15px] text-sm"
               id="starIcon"
             />
-            5
+            {rating}
           </button>
         </span>
         <span className="flex justify-start w-full items-center" id="cardSpan2">
