@@ -44,6 +44,7 @@ import { paths } from "../../../../../path/paths";
 import { ColorRing } from "react-loader-spinner";
 import { useAddSingleProductToCartMutation } from "../../../../../redux/features/cart/cartQuery";
 import Card from "../../../../../components/Homepage/Card";
+import { formatAmount4 } from "../../../../../components/utils";
 
 interface State extends SnackbarOrigin {
   open: boolean;
@@ -390,7 +391,7 @@ export default function ProductDescription() {
                               className="w-3 h-3"
                             />
                             <p className="text-[12px] text-mecaDarkBlueBackgroundOverlay font-normal font-nunito">
-                              4,894 reviews
+                              {data?.data.reviewers} reviews
                             </p>
                           </div>
                         </div>
@@ -426,7 +427,7 @@ export default function ProductDescription() {
                     <div id="priceButtonDiv" className="flex flex-col mt-6">
                       <div id="priceDiv" className="flex gap-x-6 items-center">
                         <p className="text-mecaDarkBlueBackgroundOverlay text-3xl font-extrabold">
-                          {formatPrice(data?.data.amount, data?.data.currency)}
+                          {formatAmount4(String(data?.data.amount))}
                         </p>
                         <div
                           id="inStockBtn"
