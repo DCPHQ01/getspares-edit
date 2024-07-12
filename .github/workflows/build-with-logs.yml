@@ -51,8 +51,7 @@ jobs:
           password: ${{ secrets.SMTP_PASSWORD }}
           subject: Build logs for ${{ github.repository }} (#${{ github.run_id }})
           to: ${{ env.EMAILS }}
-          from: ${{ secrets.SMTP_USERNAME }}
+          from: builds@semicolon.africa 
           body: |
             Build logs for ${{ github.repository }} (#${{ github.run_id }}):
             ${{ steps.build_step.outputs.build_logs }}
-
