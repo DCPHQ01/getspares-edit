@@ -16,7 +16,7 @@ import ProductReview from "../../../../dashboard/components/table/buyerAdmin/Pro
 import DetailsTable from "../../../../dashboard/components/table/buyerAdmin/tab";
 import VendorModal from "../../../../dashboard/components/table/vendoradmin/vendorModal";
 import { paths } from "../../../../../path/paths";
-import { formatAmount442 } from "../../../../../components/utils";
+import { formatAmount4, formatAmount442 } from "../../../../../components/utils";
 import { useGetViewBuyersProductDetailsQuery } from "../../../../../redux/features/feedback/feedbackQuery";
 import AmountComponentsPage from "../../../../reusables/AmountComponents/page";
 interface State {
@@ -37,16 +37,16 @@ interface viewBuyersProductDetails {
 }
 
 interface productInformation {
-  manufacturer: string;
-  brand: string;
-  model: string;
+  manufacturer?: string;
+  brand?: string;
+  model?: string;
   itemWeight: string;
-  productDimension: null;
-  countryOfOrigin: string;
-  itemModelNumber: string;
-  manufacturerPartNumber: string;
-  voltage: string;
-  quantity: number;
+  productDimension?: null;
+  countryOfOrigin?: string;
+  itemModelNumber?: string;
+  manufacturerPartNumber?: string;
+  voltage?: string;
+  quantity?: number;
 }
 
 const images = [
@@ -260,7 +260,7 @@ export default function Details() {
                   <div id="priceButtonDiv" className="flex flex-col mt-6">
                     <div id="priceDiv" className="flex gap-x-6 items-center">
                       <p className="text-mecaDarkBlueBackgroundOverlay text-3xl font-semibold">
-                        {formatAmount442(viewBuyerProducts?.amount)}
+                        {formatAmount4(String(viewBuyerProducts?.amount))}
                         {/* {viewBuyerProducts?.amount} */}
                       </p>
                       <div

@@ -62,7 +62,7 @@ export default function Products() {
   const searches = segments[3];
   const searchWords = segments[3]?.replace(/([A-Z])/g, " $1")?.trim();
   const [selectedBrand, setSelectedBrand] = useState<string[]>([]);
-  const [selectedCondition, setSelectedCondition] = useState<string[]>([]);
+  const [selectedCondition, setSelectedCondition] = useState<string>("");
   const [selectedPrice, setSelectedPrice] = useState<string[]>([]);
   const [applyFilter, setApplyFilter] = useState(false);
   const [localFilters, setLocalFilters] = useState({
@@ -117,39 +117,46 @@ export default function Products() {
     );
   };
 
-  const handleConditionChange = (checked: boolean, filterName: string) => {
-    setSelectedCondition((prev) =>
-      checked
-        ? [...prev, filterName]
-        : prev.filter((item) => item !== filterName)
-    );
+  // const handleConditionChange = (checked: boolean, filterName: string) => {
+  //   setSelectedCondition((prev) =>
+  //     checked
+  //       ? [...prev, filterName]
+  //       : prev.filter((item) => item !== filterName)
+  //   );
+  // };
+
+  const handleConditionChange = (value: string) => {
+    setSelectedCondition(value);
   };
 
-  const handlePriceChange = (checked: boolean, price: string[] | undefined) => {
-    setSelectedPrice((prev) => (checked && price ? price : []));
+  const handlePriceChange = (value: string[]) => {
+    setSelectedPrice(value);
   };
+  // const handlePriceChange = (checked: boolean, price: string[] | undefined) => {
+  //   setSelectedPrice((prev) => (checked && price ? price : []));
+  // };
 
-  const applyFilters = async () => {
-    setLocalFilters({
-      brand: selectedBrand,
-      conditionStatus: selectedCondition,
-      price: selectedPrice,
-    });
-    // setApplyFilter(true);
+  // const applyFilters = async () => {
+  //   setLocalFilters({
+  //     brand: selectedBrand,
+  //     conditionStatus: selectedCondition,
+  //     price: selectedPrice,
+  //   });
+  //   // setApplyFilter(true);
 
-    // let newObj = {
-    //   ...payload,
-    //   filters: {
-    //     model: [],
-    //     brand: localFilters.brand,
-    //     conditionStatus: localFilters.conditionStatus,
-    //     price: localFilters.price,
-    //   },
-    // };
+  //   // let newObj = {
+  //   //   ...payload,
+  //   //   filters: {
+  //   //     model: [],
+  //   //     brand: localFilters.brand,
+  //   //     conditionStatus: localFilters.conditionStatus,
+  //   //     price: localFilters.price,
+  //   //   },
+  //   // };
 
-    // setPayload(newObj);
-    console.log("filters ", localFilters);
-  };
+  //   // setPayload(newObj);
+  //   console.log("filters ", localFilters);
+  // };
 
   const handleFiltering = async () => {
     const filterObjects = {
@@ -171,7 +178,7 @@ export default function Products() {
 
   const cancelFilters = () => {
     setSelectedBrand([]);
-    setSelectedCondition([]);
+    setSelectedCondition("");
     setSelectedPrice([]);
     setPayload({
       categoryId: savedItems,
@@ -438,7 +445,7 @@ export default function Products() {
                             className="flex items-center ml-6"
                           >
                             <p className="text-mecaDarkBlueBackgroundOverlay text-sm font-nunito font-bold text-center">
-                              {formatAmount44(Number(item.price))}
+                              {formatAmount4(String(item.price))}
                             </p>
                           </div>
                           <div className="hidden md:flex justify-between items-center lg:hidden">
@@ -542,7 +549,18 @@ export default function Products() {
                             {data.items.map((item) => (
                               <FormControlLabel
                                 key={item.id}
-                                control={<Checkbox />}
+                                control={data.title === "Price" || data.title === "Conditions" ? (
+                                  <Radio
+                                      // checked={
+                                      //   data.title === "Price"
+                                      //     ? selectedPrice === item.price
+                                      //     : selectedCondition === item.title
+                                      // }
+                                      checked={item.id ? true : false}
+                                    />
+                                ) : (
+                                  <Checkbox />
+                                )}
                                 label={item.title}
                                 onChange={(event, checked) => {
                                   switch (data.title) {
@@ -550,13 +568,10 @@ export default function Products() {
                                       handleBrandChange(checked, item.title);
                                       break;
                                     case "Conditions":
-                                      handleConditionChange(
-                                        checked,
-                                        item.title
-                                      );
+                                      handleConditionChange(item.title)
                                       break;
                                     case "Price":
-                                      handlePriceChange(checked, item.price);
+                                      handlePriceChange(item.price || [])
                                       break;
                                     default:
                                       break;
