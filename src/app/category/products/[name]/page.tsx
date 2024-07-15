@@ -549,18 +549,38 @@ export default function Products() {
                             {data.items.map((item) => (
                               <FormControlLabel
                                 key={item.id}
-                                control={data.title === "Price" || data.title === "Conditions" ? (
-                                  <Radio
-                                      // checked={
-                                      //   data.title === "Price"
-                                      //     ? selectedPrice === item.price
-                                      //     : selectedCondition === item.title
-                                      // }
-                                      checked={item.id ? true : false}
-                                    />
-                                ) : (
-                                  <Checkbox />
-                                )}
+                                // control={data.title === "Price" || data.title === "Conditions" ? (
+                                //   <Radio
+                                //       checked={
+                                //         data.title === "Price"
+                                //           ? selectedPrice === item.price
+                                //           : selectedCondition === item.title
+                                //       }
+                                //     />
+                                // ) : (
+                                //   <Checkbox />
+                                // )}
+
+                                control={
+                                  data.title === "Price" ? (
+                                      <Radio
+                                          checked={
+                                              selectedPrice[0] === item.price?.[0] &&
+                                              selectedPrice[1] === item.price?.[1]
+                                          }
+                                          value={item.price}
+                                      />
+                                  ) : data.title === "Conditions" ? (
+                                      <Radio
+                                          checked={selectedCondition === item.title}
+                                          value={item.title}
+                                      />
+                                  ) : (
+                                      <Checkbox
+                                          checked={selectedBrand.includes(item.title)}
+                                      />
+                                  )
+                                }
                                 label={item.title}
                                 onChange={(event, checked) => {
                                   switch (data.title) {
@@ -586,6 +606,7 @@ export default function Products() {
                   </Accordion>
                 </div>
               ))}
+
               <div className="mt-8 flex flex-col justify-center gap-y-4 w-[273px] h-[100px]">
                 <button
                   type="button"
