@@ -7,7 +7,6 @@ import { ColorRing } from "react-loader-spinner";
 import { formatAmount } from "../../../../../components/utils";
 import dayjs from "dayjs";
 import { MdBusinessCenter } from "react-icons/md";
-// import EmptyState from "../../../../../components/utils/emptyState";
 
 type BuyerOrderData = {
   id: string;

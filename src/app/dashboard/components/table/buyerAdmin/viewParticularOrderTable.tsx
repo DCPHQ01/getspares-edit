@@ -28,7 +28,7 @@ interface OrderInfo {
   orderItems: OrderItem[];
 }
 
-const ViewParticularOrderTable = ({
+const   ViewParticularOrderTable = ({
   data,
   isLoading,
 }: {
