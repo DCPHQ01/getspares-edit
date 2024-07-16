@@ -1,7 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import styles from "../styles.module.css";
-import { useRouter } from "next/navigation";
 import ViewParticularOrderDetailsPage from "../../../../category/products/viewDetails/viewParticularOrderDetails/page";
 import { ColorRing } from "react-loader-spinner";
 import { formatAmount4, formatAmount44 } from "../../../../../components/utils";
@@ -61,6 +60,9 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
     sessionStorage.setItem("selectedOrderId", orderId);
     setSelectedOrderId(orderId);
   };
+  const id = sessionStorage.getItem("selectedOrderId");
+  // console.log("The orderId: ",id)
+
 
   return (
     <div>
