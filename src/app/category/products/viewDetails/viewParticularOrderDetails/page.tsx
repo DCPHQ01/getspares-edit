@@ -8,15 +8,20 @@ import { useEffect, useState } from "react";
 const ViewParticularOrderDetailsPage: React.FC = () => {
   const [id, setId] = useState<string | null>(null);
   const [orderId, setOrderId] = useState<string | null>(null);
+  const [isMounted, setIsMounted] = useState(false); // Track if component is mounted
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    setIsMounted(true); // Set isMounted to true after the component mounts
+  }, []);
+
+  useEffect(() => {
+    if (isMounted) {
       const storedId = sessionStorage.getItem("selectedOrderId");
       if (storedId) {
         setId(storedId);
       }
     }
-  }, []);
+  }, [isMounted]); // Run this effect only after the component has mounted
 
   const { data, isLoading } = useGetOrderDetailsQuery(
     { id: id || "" },
