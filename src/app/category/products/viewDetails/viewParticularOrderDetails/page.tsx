@@ -1,69 +1,27 @@
-"use client";
-
+"use client"; // Ensure this directive is at the top
 
 import { MdChevronRight } from "react-icons/md";
 import ViewParticularOrderTable from "../../../../dashboard/components/table/buyerAdmin/viewParticularOrderTable";
 import { useGetOrderDetailsQuery } from "../../../../../redux/features/dashboard/buyerQuery";
 import { useEffect, useState } from "react";
 
-// interface OrderItem {
-//   price: number;
-//   productId: string;
-//   productImage: string;
-//   productName: string;
-//   quantity: number;
-//   avatar?: any;
-// }
-
-// interface OrderInfo {
-//   orderDate: string;
-//   deliveryAddress: any;
-//   orderItems: OrderItem[];
-// }
-
 const ViewParticularOrderDetailsPage: React.FC = () => {
   const [id, setId] = useState<string | null>(null);
   const [orderId, setOrderId] = useState<string | null>(null);
 
-  // useEffect(() => {
-  //   const storedId = sessionStorage.getItem("selectedOrderId");
-  //   if (storedId) {
-  //     setId(storedId);
-  //   }
-  // }, []);
-
-    useEffect(() => {
-      if (typeof window !== "undefined") {
-        const storedId = sessionStorage.getItem("selectedOrderId");
-        if (storedId) {
-          setId(storedId);
-        }
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedId = sessionStorage.getItem("selectedOrderId");
+      if (storedId) {
+        setId(storedId);
       }
-    }, []);
-
-  
+    }
+  }, []);
 
   const { data, isLoading } = useGetOrderDetailsQuery(
     { id: id || "" },
     { skip: !id }
   );
-
-  //  const [selectedProductName, setSelectedProductName] = useState("");
-  //  const [selectedProductId, setSelectedProductId] = useState("");
-
-  //  useEffect(() => {
-  //    if (!isLoading && data && data?.data?.orderItems) {
-  //      // Find productId based on selectedProductName
-  //      const selectedProduct = data?.data?.orderItems.find(
-  //        (item:any) => item.productName === selectedProductName
-  //      );
-  //      (selectedProduct,'jj')
-  //      if (selectedProduct) {
-  //        setSelectedProductId(selectedProduct.productId);
-  //        sessionStorage.setItem("selectedProductId", selectedProduct.productId);
-  //      }
-  //    }
-  //  }, [isLoading, data, selectedProductName]);
 
   const [orderDetails, setOrderDetails] = useState({
     orderDate: "",
@@ -82,7 +40,8 @@ const ViewParticularOrderDetailsPage: React.FC = () => {
       }
     }
   }, [data]);
-  console.log("particular oder", data);
+
+  console.log("particular order", data);
 
   return (
     <div className="">
