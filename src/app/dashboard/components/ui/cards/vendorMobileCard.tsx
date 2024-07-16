@@ -3,10 +3,9 @@ import Card from "../../../../../components/cards/card";
 import { formatAmount4 } from "../../../../../components/utils";
 
 interface CardProp {
-  totalNumberOfAgent: number;
-  totalNumberOfPartOrdered: number;
-  totalTransactionValue: number;
-  totalNumberOfVendor: number;
+    totalNumberOfAgents: number;
+    totalNumberOfProductsSold: number;
+    totalOrderValue: number;
 }
 
 interface CardProps {
@@ -16,16 +15,16 @@ interface CardProps {
 const Index: React.FC<CardProps> = ({ cardField }) => {
   const cardProps = [
     {
-      total: "transaction value",
-      amount: formatAmount4(String(cardField.totalTransactionValue)),
+      total: "Total transaction value",
+      amount: formatAmount4(String(cardField.totalOrderValue)),
       percentage: 59,
       onClick: () => {
         ("View total transaction value");
       },
     },
     {
-      total: "number of parts ordered",
-      amount: cardField.totalNumberOfPartOrdered,
+      total: "Total number of agents",
+      amount: cardField.totalNumberOfAgents,
       percentage: 32,
       onClick: () => {
         ("View total number of parts ordered");
@@ -33,21 +32,14 @@ const Index: React.FC<CardProps> = ({ cardField }) => {
     },
     {
       total: "number of agents",
-      amount: cardField.totalNumberOfAgent,
+      amount: cardField.totalNumberOfProductsSold,
       percentage: 10,
       onClick: () => {
         ("View total number of agents");
       },
     },
   
-    {
-      total: "number of vendors",
-      amount: cardField.totalNumberOfVendor,
-      percentage: 43,
-      onClick: () => {
-        ("View total number of vendors");
-      },
-    },
+   
   ];
 
   return (

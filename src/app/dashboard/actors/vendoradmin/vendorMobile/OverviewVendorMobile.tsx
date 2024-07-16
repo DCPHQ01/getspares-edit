@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Header from "../../../components/ui/header";
-import Cards from "../../../components/ui/cards";
+import Cards from "../../../components/ui/cards/vendorMobileCard";
 import PeriodRadios from "../../../components/ui/periodradios";
 import OverviewTable from "../../../components/table/vendoradmin/overview";
 import Addbutton from "../../../components/ui/addbutton";
@@ -20,7 +20,7 @@ import { paths } from "../../../../../path/paths";
 
 function OverviewVendorMobile() {
   const { data, isLoading, isError } = useGetMecaVendorOverviewQuery({});
-  const [overView, setOverView] = useState({
+  const [overView, setOverView] = useState( data?.data ?? {
     totalNumberOfAgents: 0,
     totalNumberOfProductsSold: 0,
     totalOrderValue: 0,
@@ -79,7 +79,9 @@ function OverviewVendorMobile() {
             </Link>
           </div>
         </div>
-        {/* <Cards /> */}
+        <Cards 
+        cardField={overView}
+        />
         {/* <div
           className={` justify-between items-center mt-[3.25rem] mb-[1.25rem]`}
         >

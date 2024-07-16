@@ -21,10 +21,11 @@ import { useGetAProductQuery } from "../../../../../redux/features/users/authQue
 import ViewItemDetails from "./ViewItemDetails";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import dayjs from "dayjs";
-import { formatAmount } from "../../../../../components/utils";
-import { formatAllTime, formatAllDate } from "../../utils/utils";
+import { formatAmount4, formatAmount44 } from "../../../../../components/utils";
+import { formatAllTime, formatAllDateTwo } from "../../utils/utils";
 import MenuOptions from "../../menu/MenuOptions";
 import TruncateText from "../../../../../components/utils/utils";
+
 
 dayjs.extend(customParseFormat);
 
@@ -43,11 +44,11 @@ interface InventoryTableProps {
 }
 
 const option = [
-  {
-    icon: <MdPreview style={{ color: "gray" }} />,
-    title: "View Details",
-    id: 1,
-  },
+  // {
+  //   icon: <MdPreview style={{ color: "gray" }} />,
+  //   title: "View Details",
+  //   id: 1,
+  // },
   { icon: <MdEdit style={{ color: "gray" }} />, title: "Edit", id: 2 },
   {
     icon: <MdDeleteOutline style={{ color: "gray" }} />,
@@ -55,6 +56,12 @@ const option = [
     id: 3,
   },
 ];
+
+const formatDateTime = (dateTime: string) => {
+  const date = dayjs(dateTime).format("DD-MM-YYYY");
+  const time = dayjs(dateTime).format("hh:mm A");
+  return { date, time };
+};
 
 const VendorInventoryTable: React.FC<InventoryTableProps> = ({
   inventoryData,
@@ -183,6 +190,7 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
                   </div>
                 ) : (
                   inventoryData?.map((d, index) => {
+                    const { date, time } = formatDateTime(d?.dateCreated ?? "");
                     return (
                       <tr
                         key={index}
@@ -211,7 +219,7 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
                           className={`text-[0.88rem] py-[1rem] px-[1.13rem]`}
                           id={`itemsSold_${index}`}
                         >
-                          {formatAmount(Number(d.price))}
+                          {formatAmount4(String(d.price))}
                         </td>
                         <td
                           className={`text-[0.88rem] py-[1rem] px-[2rem] `}
@@ -232,8 +240,10 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
                           id={`transactionValue_${index}`}
                         >
                           <div>
-                            {formatAllDate(d.dateCreated)}
+                            {formatAllDateTwo(d.dateCreated)}
+                            {/* {date} */}
                             <br />
+                            {/* {formatAllTime(d.dateCreated)} */}
                             {formatAllTime(d.dateCreated)}
                           </div>
                         </td>

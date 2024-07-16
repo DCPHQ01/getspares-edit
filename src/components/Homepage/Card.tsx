@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import { MdStar } from "react-icons/md";
 import { ColorRing } from "react-loader-spinner";
 import TruncateText from "../utils/utils";
+import { formatAmount4 } from "../utils";
 
 interface CardProps {
   image: StaticImageData;
@@ -13,6 +14,7 @@ interface CardProps {
   categoryName?: string;
   categoryId?: string;
   productImage?: string;
+  rating?: number;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -24,6 +26,7 @@ const Card: React.FC<CardProps> = ({
   categoryName,
   categoryId,
   productImage,
+  rating,
 }) => {
   const searches = categoryName?.replace(/ /g, "-") ?? "";
   const router = useRouter();
@@ -86,7 +89,7 @@ const Card: React.FC<CardProps> = ({
               className="text-mecaYellowStarColor lg:text-[15px] text-sm"
               id="starIcon"
             />
-            5
+            {rating}
           </button>
         </span>
         <span className="flex justify-start w-full items-center" id="cardSpan2">
@@ -95,7 +98,7 @@ const Card: React.FC<CardProps> = ({
             className="lg:text-lg text-sm font-bold bg-mecaGrayBackgroundColor rounded-[32px] py-2 px-3"
             id="cardBtn2"
           >
-            {price === null ? 0 : formatPrice(price)}
+            {price === null ? 0 : formatAmount4(price)}
           </button>
         </span>
       </div>

@@ -10,7 +10,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const formatAmount = (price: string | number) => {
+export const formatAmount44 = (price: string | number) => {
   if (price) {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
@@ -43,51 +43,25 @@ export const uploadImage = async (
     });
 };
 
-export const formatAmountToNaira = (price: string | number) => {
+export const formatAmount44ToNaira = (price: string | number) => {
   const numericPrice = Number(price);
 
   if (!isNaN(numericPrice)) {
     const customFormat = (value: number) => {
-      return value.toLocaleString("en-US", {
-        style: "currency",
-        currency: "USD", 
-        minimumFractionDigits: 2,
-      }).replace("$", "₦"); 
+      return value
+        .toLocaleString("en-US", {
+          style: "currency",
+          currency: "USD",
+          minimumFractionDigits: 2,
+        })
+        .replace("$", "₦");
     };
 
-    
     return customFormat(numericPrice);
   } else {
-    
-    return "₦0.00"; 
+    return "₦0.00";
   }
 };
-
-// export const uploadSeveralImages = async (
-//   files: File[],
-//   setImages: (url: string[]) => void
-// ) => {
-//   let image_url: string[] = [];
-//   const formData = new FormData();
-//   files.forEach(async (file) => {
-//     formData.append("file", file);
-//     formData.append("upload_preset", my_preset);
-//     const urls = await Promise.all(
-//       files.map(async (file) => {
-//         const formData = new FormData();
-//         formData.append("file", file);
-//         formData.append("upload_preset", my_preset);
-//         const res = await fetch(cloudinary_url, {
-//           method: "POST",
-//           body: formData,
-//         });
-//         const data = await res.json();
-//         image_url.push(data.secure_url);
-//         return setImages(image_url);
-//       })
-//     );
-//   });
-// };
 
 export const uploadSeveralImages = async (
   files: File[],
@@ -114,7 +88,7 @@ export const uploadSeveralImages = async (
   setImages(image_urls);
 };
 
-export const formatAmount2 = (price: string | number) => {
+export const formatAmount442 = (price: string | number) => {
   if (price !== undefined && price !== null) {
     let amountString = price.toString().trim();
 
@@ -149,7 +123,7 @@ export const format = (price: number | string) => {
   }
 };
 
-export const formatAmount3 = (price: string) => {
+export const formatAmount443 = (price: string) => {
   if (price) {
     const newStr = price.split(" ");
     return new Intl.NumberFormat("en-US", {
@@ -163,16 +137,50 @@ export const formatAmount3 = (price: string) => {
 
 export const formatAmount4 = (price: string) => {
   if (price) {
-    // Convert the price to a number
     const amount = parseFloat(price.replace(/,/g, ""));
-    // Format the amount with thousands separator
+    const numericPrice = parseFloat(price?.replace(/[^0-9.-]+/g, ""));
     const formattedAmount = new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "NGN",
       minimumFractionDigits: 2,
-    }).format(amount);
-    // Remove the currency symbol and use the desired symbol '₦'
+    }).format(numericPrice);
     return "₦" + formattedAmount.replace("NGN", "").trim();
+  } else {
+    return "₦0.00";
+  }
+};
+
+export const formatAmount5 = (price: string) => {
+  if (price) {
+    const amount = parseFloat(price.replace(/,/g, ""));
+    
+    if (amount >= 1_000_000_000) {
+      const formattedAmount = (amount / 1_000_000_000).toFixed(1);
+      return `₦${formattedAmount}B`;
+    } else if (amount >= 1_000_000) {
+      const formattedAmount = (amount / 1_000_000).toFixed(1);
+      return `₦${formattedAmount}M`;
+    } else {
+      const formattedAmount = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "NGN",
+        minimumFractionDigits: 2,
+      }).format(amount);
+      return "₦" + formattedAmount.replace("NGN", "").trim();
+    }
+  } else {
+    return "₦0.00";
+  }
+};
+
+export const formatAmount6 = (price: string) => {
+  if (price) {
+    const newStr = price.split(" ");
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: newStr[0] && "NGN",
+      currencyDisplay: "narrowSymbol",
+    }).format(Number(newStr[1]));
   } else {
     return "₦0.00";
   }

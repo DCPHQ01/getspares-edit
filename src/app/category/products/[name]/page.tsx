@@ -28,7 +28,7 @@ import SideFilter from "../../sideFilter";
 import TopBarWhileInside from "../../../reusables/TopBarWhileInside/page";
 import { useGetProductInCategoryQuery } from "../../../../redux/features/users/authQuery";
 import { ColorRing } from "react-loader-spinner";
-import { formatAmount } from "../../../../components/utils";
+import { formatAmount4, formatAmount44 } from "../../../../components/utils";
 
 interface ItemsDataProps {
   id: number;
@@ -135,19 +135,38 @@ export default function Products() {
       conditionStatus: selectedCondition,
       price: selectedPrice,
     });
-    setApplyFilter(true);
+    // setApplyFilter(true);
 
+    // let newObj = {
+    //   ...payload,
+    //   filters: {
+    //     model: [],
+    //     brand: localFilters.brand,
+    //     conditionStatus: localFilters.conditionStatus,
+    //     price: localFilters.price,
+    //   },
+    // };
+
+    // setPayload(newObj);
+    console.log("filters ", localFilters);
+  };
+
+  const handleFiltering = async () => {
+    const filterObjects = {
+      brand: selectedBrand,
+      condition: selectedCondition,
+      price: selectedPrice,
+    };
     let newObj = {
       ...payload,
       filters: {
         model: [],
-        brand: localFilters.brand,
-        conditionStatus: localFilters.conditionStatus,
-        price: localFilters.price,
+        brand: filterObjects.brand,
+        conditionStatus: filterObjects.condition,
+        price: filterObjects.price,
       },
     };
-
-    setPayload(newObj);
+    const res = await setPayload(newObj);
   };
 
   const cancelFilters = () => {
@@ -390,8 +409,6 @@ export default function Products() {
                               src={item?.image}
                               alt="tractor image"
                               className="w-[144px] h-[106px]"
-                              // width={144}
-                              // height={106}
                             />
                           ) : null}
                         </div>
@@ -421,7 +438,7 @@ export default function Products() {
                             className="flex items-center ml-6"
                           >
                             <p className="text-mecaDarkBlueBackgroundOverlay text-sm font-nunito font-bold text-center">
-                              {formatAmount(Number(item.price))}
+                              {formatAmount44(Number(item.price))}
                             </p>
                           </div>
                           <div className="hidden md:flex justify-between items-center lg:hidden">
@@ -559,7 +576,7 @@ export default function Products() {
                   type="button"
                   className="w-full h-[48px] bg-mecaBluePrimaryColor text-white font-nunito font-semibold text-sm rounded-full"
                   id="applyFilterButton"
-                  onClick={applyFilters}
+                  onClick={handleFiltering}
                 >
                   Apply Filter
                 </button>
@@ -603,13 +620,13 @@ export default function Products() {
                 </div>
               ) : (
                 <div className="grid grid-cols-3 w-full gap-[20px] h-[50%]">
-                {data?.data?.content.map((item: ItemsDataProps) => (
-                  <div
-                    className="flex flex-col cursor-pointer items-start"
-                    key={item.id}
-                    onClick={() => handleProductDescription(item.id)}
-                  >
-                    {/* <div className="w-[80.4%]"> */}
+                  {data?.data?.content.map((item: ItemsDataProps) => (
+                    <div
+                      className="flex flex-col cursor-pointer items-start"
+                      key={item.id}
+                      onClick={() => handleProductDescription(item.id)}
+                    >
+                      {/* <div className="w-[80.4%]"> */}
                       <div
                         className="w-full flex justify-center grow-0  items-center bg-mecaSearchColor"
                         id="itemImage"
@@ -650,11 +667,14 @@ export default function Products() {
                           className="flex items-center mb-4"
                         >
                           <p className="text-mecaDarkBlueBackgroundOverlay text-sm font-nunito font-bold text-center">
-                            {formatAmount(Number(item.price))}
+                            {formatAmount4(item.price)}
                           </p>
                         </div>
                         <div className="hidden md:flex justify-between items-center lg:hidden">
-                          <TruncateText text={item.description} maxLength={25} />
+                          <TruncateText
+                            text={item.description}
+                            maxLength={25}
+                          />
                           <div
                             id="ratingContainerTab"
                             className="flex items-center"
@@ -670,8 +690,8 @@ export default function Products() {
                         </div>
                       </div>
                       {/* </div> */}
-                  </div>
-                ))}
+                    </div>
+                  ))}
                 </div>
               )}
             </div>

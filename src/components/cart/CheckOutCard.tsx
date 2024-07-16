@@ -4,7 +4,7 @@ import { CartProduct } from "../../types/cart/product";
 import Image from "next/image";
 import Parts from "../../assets/images/parts.png";
 import { MdDeleteOutline, MdMoreVert } from "react-icons/md";
-import { formatAmount, useNewFocus } from "../utils";
+import { formatAmount44, useNewFocus } from "../utils";
 import { useEffect, useRef, useState } from "react";
 import { setCart } from "../../redux/features/product/productSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -166,13 +166,13 @@ export const CheckOutCard = ({ cardCartItem }: Props) => {
                 </div>
               </div>
               <div>
-                <div className="flex font-normal text-sm text-mecaLightGrayText mb-1">
+                <div className="flex font-normal text-sm text-mecaLightGrayText mb-1 max-w-96">
                   {/* {cardCartItem.category}
                   <span>.</span> */}
                   {
                     <TruncateText
                       text={cardCartItem.description}
-                      maxLength={200}
+                      maxLength={100}
                     />
                   }
                 </div>
@@ -224,7 +224,7 @@ export const CheckOutCard = ({ cardCartItem }: Props) => {
                   )}
                 </div>
                 <div className="font-bold">
-                  <p>{formatAmount(cardCartItem.amount)}</p>
+                  <p>{formatAmount44(cardCartItem.amount)}</p>
                 </div>
               </div>
             </div>

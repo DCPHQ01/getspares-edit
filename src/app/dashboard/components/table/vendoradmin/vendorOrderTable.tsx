@@ -5,9 +5,10 @@ import image2 from "../../../../../assets/dashboardAssets/Avatar1.png";
 import Image from "next/image";
 import Details from "../../../../category/products/viewDetails/[details]/page";
 import dayjs from "dayjs";
-import { formatAmount } from "../../../../../components/utils";
-import {formatAmountToNaira} from "../../../../../components/utils";
+import { formatAmount44 } from "../../../../../components/utils";
+import { formatAmount44ToNaira } from "../../../../../components/utils";
 import { MdBusinessCenter } from "react-icons/md";
+import { formatAllDateTwo } from "../../utils/utils";
 
 type VendorData = {
   orderId: string;
@@ -71,31 +72,34 @@ const VendorOrderTable = ({ data }: VendorTableProps) => {
           </thead>
           <tbody>
             {data.length === 0 ? (
-                <div className="h-28 mt-[35rem] relative right-[80%] left-[80%]">
-                  <div className="flex justify-center">
-                    <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
-                      <MdBusinessCenter size={40} color="#0852C0" />
-                    </div>
-                  </div>
-                  <div className="text-center mt-4">
-                    <p className="text-xl">No orders made yet</p>
-                    <p className="text-mecaLightGrayText">
-                      All your orders will appear here
-                    </p>
+              <div className="h-28 mt-[35rem] relative right-[80%] left-[80%]">
+                <div className="flex justify-center">
+                  <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">
+                    <MdBusinessCenter size={40} color="#0852C0" />
                   </div>
                 </div>
-          ) : data?.map((d, index) => {
-              const { date, time } = formatDateTime(d.dateOrdered);
-              const formattedTransactionValue = formatAmountToNaira(d.transactionValue);
+                <div className="text-center mt-4">
+                  <p className="text-xl">No orders made yet</p>
+                  <p className="text-mecaLightGrayText">
+                    All your orders will appear here
+                  </p>
+                </div>
+              </div>
+            ) : (
+              data?.map((d, index) => {
+                const { date, time } = formatDateTime(d.dateOrdered);
+                const formattedTransactionValue = formatAmount44ToNaira(
+                  d.transactionValue
+                );
 
-              return (
-                <tr
-                  key={index}
-                  id={`row_${index}`}
-                  className="cursor-pointer truncate"
-                  onClick={handleDetails}
-                >
-                  {/* <td id={`companyData_${index}`}>
+                return (
+                  <tr
+                    key={index}
+                    id={`row_${index}`}
+                    className=" truncate"
+                    // onClick={handleDetails}
+                  >
+                    {/* <td id={`companyData_${index}`}>
                   <div
                     className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
                   >
@@ -110,42 +114,42 @@ const VendorOrderTable = ({ data }: VendorTableProps) => {
                     </div>
                   </div>
                 </td> */}
-                  <td
-                    className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
-                    id={`itemsSold_${index}`}
-                  >
-                    {d.orderId}
-                  </td>
-
-                  <td
-                    className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
-                    id={`transactionValue_${index}`}
-                  >
-                    {formattedTransactionValue}
-
-                  </td>
-
-                  <td id={`companyData_${index}`}>
-                    <div
-                      className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
+                    <td
+                      className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
+                      id={`itemsSold_${index}`}
                     >
-                      <div id={`companyDetails_${index}`}>
-                        <div>{d.buyerName}</div>
-                      </div>
-                    </div>
-                  </td>
+                      {d.orderId}
+                    </td>
 
-                  <td id={`dateOrdered${index}`}>
-                    <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
-                      <div id={`date_${index}`}>{date}</div>
-                      <div className={`text-[#4B5565]`} id={`time_${index}`}>
-                        {time}
+                    <td
+                      className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
+                      id={`transactionValue_${index}`}
+                    >
+                      {formattedTransactionValue}
+                    </td>
+
+                    <td id={`companyData_${index}`}>
+                      <div
+                        className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
+                      >
+                        <div id={`companyDetails_${index}`}>
+                          <div>{d.buyerName}</div>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                </tr>
-              );
-            })}
+                    </td>
+
+                    <td id={`dateOrdered${index}`}>
+                      <div className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}>
+                        <div id={`date_${index}`}>{formatAllDateTwo(d.dateOrdered)}</div>
+                        <div className={`text-[#4B5565]`} id={`time_${index}`}>
+                          {time}
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })
+            )}
           </tbody>
         </table>
       </div>

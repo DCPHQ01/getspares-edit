@@ -10,13 +10,14 @@ import { ColorRing } from "react-loader-spinner";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { MdBusinessCenter } from "react-icons/md";
 import { formatAllDate, formatAllTime } from "../../utils/utils";
+import { formatAmount4 } from "../../../../../components/utils";
 import TruncateText from "../../../../../components/utils/utils";
 
 interface Agent {
   firstName: string;
   email: string;
   quantitySold: number;
-  transactionValue: number;
+  transactionValue: number | string;
   dateAdded: string;
 }
 
@@ -133,7 +134,7 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading }) => {
                       className={`text-[0.88rem] py-[1rem] px-[3.13rem]`}
                       id={`transactionValue_${index}`}
                     >
-                      {d.transactionValue}
+                      {formatAmount4(String(d.transactionValue))}
                     </td>
                     <td id={`dateJoined_${index}`}>
                       <div className={`text-[0.88rem] py-[0.5rem] px-[1.5rem]`}>

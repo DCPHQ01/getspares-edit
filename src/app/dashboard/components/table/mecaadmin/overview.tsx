@@ -8,7 +8,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { ColorRing } from "react-loader-spinner";
 import { useGetTopPerformingVendorsQuery } from "../../../../../redux/features/dashboard/mecaAdminQuery";
 import dayjs from "dayjs";
-import { formatAmount } from "../../../../../components/utils";
+import { formatAmount4, formatAmount44 } from "../../../../../components/utils";
 import { MdYard } from "react-icons/md";
 import { formatDateTime } from "../../../../../components/utils/utils";
 
@@ -95,7 +95,7 @@ function Overview({ data, isLoading }: OverviewTableProps) {
           ) : (
             data.map((d, index) => {
               const { date, time } = formatDateTime(d.dateJoined);
-              const formattedTransactionValue = formatAmount(
+              const formattedTransactionValue = formatAmount44(
                 d.transactionValue
               );
 
@@ -137,7 +137,7 @@ function Overview({ data, isLoading }: OverviewTableProps) {
                   <td
                     className={`text-[0.88rem] py-[1rem] px-[3.13rem] truncate} id={transactionValue_${index}`}
                   >
-                    {formatAmount(d.transactionValue)}
+                    {formatAmount4(String(d.transactionValue))}
                   </td>
                   <td id={`dateJoined_${index}`}>
                     <div

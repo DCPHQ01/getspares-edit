@@ -3,9 +3,11 @@ import React, {  useState } from "react";
 import styles from "../styles.module.css";
 import ViewParticularOrderDetailsPage from "../../../../category/products/viewDetails/viewParticularOrderDetails/page";
 import { ColorRing } from "react-loader-spinner";
-import { formatAmount, formatAmount4 } from "../../../../../components/utils";
+import { formatAmount4, formatAmount44 } from "../../../../../components/utils";
 import dayjs from "dayjs";
 import { MdBusinessCenter } from "react-icons/md";
+import { formatAllDateTwo, formatAllTime } from "../../utils/utils";
+// import EmptyState from "../../../../../components/utils/emptyState";
 
 type BuyerOrderData = {
   id: string;
@@ -99,7 +101,9 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
               ) : (
                 data?.map((d, index) => {
                   const { date, time } = formatDateTime(d.dateCreated);
-                  const formattedTransactionValue = formatAmount4(String(d.totalAmount));
+                  const formattedTransactionValue = formatAmount4(
+                    String(d.totalAmount)
+                  );
 
                   return (
                     <tr
@@ -124,17 +128,16 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
 
                       <td id={`dateJoined_${index}`}>
                         <div
-                          className={`text-[0.88rem] py-[1rem] px-[2.75rem]`}
+                          className={`text-[0.88rem] py-[1rem] px-[2.75rem] `}
                         >
-                          <div id={`date_${index}`} className="w-2">
-                            {d.dateCreated}
-                          </div>
-                          {/* <div
+                          <div id={`date_${index}`}>{formatAllDateTwo(d.dateCreated)}</div>
+                          <div
                             className={`text-[#4B5565]`}
                             id={`time_${index}`}
                           >
-                            {time}
-                          </div> */}
+                            {/* {time} */}
+                            {formatAllTime(d.dateCreated)}
+                          </div>
                         </div>
                       </td>
                     </tr>

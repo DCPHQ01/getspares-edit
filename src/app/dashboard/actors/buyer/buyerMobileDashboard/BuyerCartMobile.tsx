@@ -25,7 +25,7 @@ import Searchbox from "../../../components/ui/searchbox";
 import { CheckOutCard } from "../../../../../components/cart/CheckOutCard";
 import { paths } from "../../../../../path/paths";
 import { useAddSingleProductToCartMutation } from "../../../../../redux/features/cart/cartQuery";
-import { formatAmount } from "../../../../../components/utils";
+import { formatAmount44 } from "../../../../../components/utils";
 
 interface State extends SnackbarOrigin {
   open: boolean;
@@ -97,8 +97,8 @@ const BuyerCartMobile = () => {
         };
       });
       const payload = {
-        itemRequests:data
-      }
+        itemRequests: data,
+      };
       try {
         const res = await addToCart(payload).unwrap();
         setState({ ...newState, open: true });
@@ -164,51 +164,54 @@ const BuyerCartMobile = () => {
               </div>
 
               {/* Subtotal items */}
-              {cart.length !== 0 && <div className="mb-10" style={{ width: "100%" }}>
-                <div className="h-64 bg-mecaSearchColor  rounded-lg pt-5">
-                  <div className="w-[90%] m-auto">
-                    <div>
-                      <div className="flex justify-between">
-                        <div className="flex font-normal text-sm">
-                          <p> Item{cart?.length > 1 && "s"}</p>
-                          <p> ({cart?.length})</p>
-                        </div>
+              {cart.length !== 0 && (
+                <div className="mb-10" style={{ width: "100%" }}>
+                  <div className="h-64 bg-mecaSearchColor  rounded-lg pt-5">
+                    <div className="w-[90%] m-auto">
+                      <div>
+                        <div className="flex justify-between">
+                          <div className="flex font-normal text-sm">
+                            <p> Item{cart?.length > 1 && "s"}</p>
+                            <p> ({cart?.length})</p>
+                          </div>
 
-                        <div className=" font-normal text-sm">
+                          <div className=" font-normal text-sm">
+                            <p>
+                              {totalItemPrice
+                                ? formatAmount44(totalItemPrice)
+                                : "0"}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="flex justify-between mt-5 font-normal text-sm">
+                          <p>Shipping</p>
+                          <p>{"₦0"}</p>
+                        </div>
+                        <hr className="mt-5"></hr>
+                        <div className="flex justify-between mt-5 mb-9 font-semibold text-xl">
+                          <p>Subtotal</p>
                           <p>
                             {totalItemPrice
-                              ? formatAmount(totalItemPrice)
+                              ? formatAmount44(totalItemPrice)
                               : "0"}
                           </p>
                         </div>
                       </div>
-                      <div className="flex justify-between mt-5 font-normal text-sm">
-                        <p>Shipping</p>
-                        <p>{"₦0"}</p>
+                      <div className="">
+                        <button
+                          onClick={handleCheckout({
+                            vertical: "top",
+                            horizontal: "center",
+                          })}
+                          className="w-full h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer"
+                        >
+                          Checkout
+                        </button>
                       </div>
-                      <hr className="mt-5"></hr>
-                      <div className="flex justify-between mt-5 mb-9 font-semibold text-xl">
-                        <p>Subtotal</p>
-                        <p>
-                          {totalItemPrice ? formatAmount(totalItemPrice) : "0"}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="">
-                      <button
-                        onClick={handleCheckout({
-                          vertical: "top",
-                          horizontal: "center",
-                        })}
-                        className="w-full h-11 bg-mecaBluePrimaryColor rounded-full text-white cursor-pointer"
-                      >
-                        Checkout
-                      </button>
                     </div>
                   </div>
                 </div>
-              </div>
-              }
+              )}
             </div>
           </div>
         </div>

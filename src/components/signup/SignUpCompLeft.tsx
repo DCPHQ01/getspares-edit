@@ -15,7 +15,7 @@ import {
 } from "react-icons/md";
 import { Button, Checkbox, Snackbar, SnackbarOrigin } from "@mui/material";
 import Link from "next/link";
-import React, {FormEvent, useEffect, useState} from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import {
   useGetAllCompaniesQuery,
   useRegisterAgentMutation,
@@ -63,7 +63,10 @@ interface State extends SnackbarOrigin {
   open: boolean;
 }
 
-const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+// const emailRegex = /^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$/;
+const passwordRegex =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
 type RegisterError = string | { data: { password?: string; message?: string } };
 
@@ -79,16 +82,17 @@ const SignUpComponentLeft = () => {
   const [registerError, setRegisterError] = useState<RegisterError>("");
   const router = useRouter();
   const [emailError, setEmailError] = useState<string | null>(null);
+  const [passwordError, setPasswordError] = useState<string | null>(null);
   const [companyError, setCompanyError] = useState<string | null>(null);
-  const [agentCompanyError, setAgentCompanyError] = useState<string | null>(null);
+  const [agentCompanyError, setAgentCompanyError] = useState<string | null>(
+    null
+  );
 
-
-
-  const {data:companyData, isFetching} = useGetAllCompaniesQuery(
-     userVendorDetails.companyName.charAt(0) || userAgentDetails.companyName.charAt(0),
-     {skip:!userVendorDetails.companyName && !userAgentDetails.companyName}
-  )
-
+  const { data: companyData, isFetching } = useGetAllCompaniesQuery(
+    userVendorDetails.companyName.charAt(0) ||
+      userAgentDetails.companyName.charAt(0),
+    { skip: !userVendorDetails.companyName && !userAgentDetails.companyName }
+  );
 
   const [state, setState] = React.useState<State>({
     open: false,
@@ -98,6 +102,10 @@ const SignUpComponentLeft = () => {
 
   const validateEmail = (email: string) => {
     return emailRegex.test(email);
+  };
+
+  const validatePassword = (password: string) => {
+    return passwordRegex.test(password);
   };
 
   const { vertical, horizontal, open } = state;
@@ -112,49 +120,79 @@ const SignUpComponentLeft = () => {
     } else {
       setUserBuyerDetails((values) => ({ ...values, [id]: value }));
     }
-
-    // if (id === "email") {
-    //   if (userBuyer.email || userAgentDetails.email || userVendorDetails.email && validateEmail(value)) {
-    //     setEmailError(null);
-    //   } else {
-    //     setEmailError("Please enter a valid email address.");
-    //   }
-    // }
   };
 
-  useEffect(()=> {
-    setUserVendorDetails(userVendor)
-    setUserAgentDetails(userAgent)
-    setUserBuyerDetails(userBuyer)
-    setEmailError(null)
-    setCompanyError(null)
-    setAgentCompanyError(null)
-  },[userType])
-
+  useEffect(() => {
+    setUserVendorDetails(userVendor);
+    setUserAgentDetails(userAgent);
+    setUserBuyerDetails(userBuyer);
+    setEmailError(null);
+    setPasswordError(null);
+    setCompanyError(null);
+    setAgentCompanyError(null);
+  }, [userType]);
 
   const handleEmailError = () => {
-    if (userBuyerDetails.email || userAgentDetails.email || userVendorDetails.email) {
-      if (validateEmail(userBuyerDetails.email || userAgentDetails.email || userVendorDetails.email)) {
+    if (
+      userBuyerDetails.email ||
+      userAgentDetails.email ||
+      userVendorDetails.email
+    ) {
+      if (
+        validateEmail(
+          userBuyerDetails.email ||
+            userAgentDetails.email ||
+            userVendorDetails.email
+        )
+      ) {
         setEmailError(null);
       } else {
         setEmailError("Please enter a valid email address.");
       }
-    }else{
+    } else {
       setEmailError(null);
     }
-  }
+  };
+
+  const handlePassword = () => {
+    if (
+      userBuyerDetails.password ||
+      userAgentDetails.password ||
+      userVendorDetails.password
+    ) {
+      if (
+        validatePassword(
+          userBuyerDetails.password ||
+            userAgentDetails.password ||
+            userVendorDetails.password
+        )
+      ) {
+        setPasswordError(null);
+      } else {
+        setPasswordError(
+          "Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special character."
+        );
+      }
+    } else {
+      setPasswordError(null);
+    }
+  };
 
   const handleCompanyError = () => {
     if (userVendorDetails.companyName || userAgentDetails.companyName) {
-      if (!companyData.data.includes(userVendorDetails.companyName || userAgentDetails.companyName)) {
+      if (
+        !companyData.data.includes(
+          userVendorDetails.companyName || userAgentDetails.companyName
+        )
+      ) {
         setCompanyError(null);
       } else {
         setCompanyError("Company already exist");
       }
-    }else{
+    } else {
       setCompanyError(null);
     }
-  }
+  };
 
   const handleAgentCompanyError = () => {
     if (userAgentDetails.companyName) {
@@ -163,10 +201,10 @@ const SignUpComponentLeft = () => {
       } else {
         setAgentCompanyError(null);
       }
-    }else{
+    } else {
       setAgentCompanyError(null);
     }
-  }
+  };
 
   const [registerVendor, { data: VendorData, error: VendorError }] =
     useRegisterVendorMutation();
@@ -178,11 +216,7 @@ const SignUpComponentLeft = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (
-       emailError ||
-      companyError||
-    agentCompanyError
-    ) {
+    if (emailError || companyError || agentCompanyError) {
       return;
     } else {
       try {
@@ -367,7 +401,9 @@ const SignUpComponentLeft = () => {
                       error={!!emailError}
                     />
                     {emailError && (
-                      <span className="text-mecaErrorText text-base">{emailError}</span>
+                      <span className="text-mecaErrorText text-base">
+                        {emailError}
+                      </span>
                     )}
                   </FormControl>
 
@@ -391,7 +427,9 @@ const SignUpComponentLeft = () => {
                         }
                       />
                       {companyError && (
-                         <span className="text-mecaErrorText text-base">{companyError}</span>
+                        <span className="text-mecaErrorText text-base">
+                          {companyError}
+                        </span>
                       )}
                     </FormControl>
                   ) : null}
@@ -420,7 +458,9 @@ const SignUpComponentLeft = () => {
                         More sellers can be added later
                       </span>
                       {agentCompanyError && (
-                         <span className="text-mecaErrorText text-base">{agentCompanyError}</span>
+                        <span className="text-mecaErrorText text-base">
+                          {agentCompanyError}
+                        </span>
                       )}
                     </FormControl>
                   ) : null}
@@ -441,8 +481,10 @@ const SignUpComponentLeft = () => {
                       type={showPassword ? "text" : "password"}
                       disableUnderline
                       onFocus={handleFocus}
+                      onMouseLeave={handlePassword}
                       required
                       onChange={handleChange}
+                      error={!!passwordError}
                       className="bg-mecaInputBgColor border w-full hover:bg-mecaInputBgColor focus-within:bg-mecaInputBgColor"
                       value={
                         userType === "vendor"
@@ -468,6 +510,11 @@ const SignUpComponentLeft = () => {
                         </InputAdornment>
                       }
                     />
+                    {passwordError && (
+                      <span className="text-mecaErrorText text-base">
+                        {passwordError}
+                      </span>
+                    )}
                   </FormControl>
                 </FormControl>
 

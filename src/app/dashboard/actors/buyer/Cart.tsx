@@ -48,7 +48,7 @@ import Searchbox from "../../components/ui/searchbox";
 import TruncateText from "../../../../components/utils/utils";
 import { paths } from "../../../../path/paths";
 import { CheckOutCard } from "../../../../components/cart/CheckOutCard";
-import { formatAmount } from "../../../../components/utils";
+import { formatAmount44 } from "../../../../components/utils";
 import { useGetRelatedProductQuery } from "../../../../redux/features/users/authQuery";
 import { useAddSingleProductToCartMutation } from "../../../../redux/features/cart/cartQuery";
 
@@ -200,7 +200,7 @@ const Cart = () => {
                           <div className=" font-normal text-sm">
                             <p>
                               {totalItemPrice
-                                ? formatAmount(totalItemPrice)
+                                ? formatAmount44(totalItemPrice)
                                 : "0"}
                             </p>
                           </div>
@@ -214,7 +214,7 @@ const Cart = () => {
                           <p>Subtotal</p>
                           <p className="w-full">
                             {totalItemPrice
-                              ? formatAmount(totalItemPrice)
+                              ? formatAmount44(totalItemPrice)
                               : "0"}
                           </p>
                         </div>
