@@ -61,7 +61,7 @@ const ProductReview = () => {
     }
   }, [data]);
 
-  console.log("feedback graph", viewFeedbackGraph);
+  console.log("feedback graph", viewFeedbackGraph?.averageRating);
 
   const firstTwoItem = viewFeedbacks.slice(0, 2);
 
@@ -142,8 +142,6 @@ const ProductReview = () => {
     },
   ];
 
-  console.log("ratings", viewFeedbackGraph?.ratingPercentages?.fiveStar);
-
   return (
     <div>
       <div className={`flex justify-between p-[2px]`}>
@@ -162,14 +160,14 @@ const ProductReview = () => {
         >
           <div className={`w-[242px] h-[72px] flex gap-6`}>
             <div className={`text-2xl font-semibold`}>
-              {viewFeedbackGraph?.totalNoOfReviewers}
+              {viewFeedbackGraph?.averageRating}
             </div>
 
             <div className={``}>
               <Rating
                 name="read-only"
                 sx={{ color: "#095AD3" }}
-                value={viewFeedbackGraph?.averageRating}
+                value={Number(viewFeedbackGraph?.averageRating)}
                 readOnly
               />
               <div className={`font-normal text-xs`}>
