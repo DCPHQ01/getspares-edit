@@ -34,7 +34,7 @@ const ProductReviews: React.FC = () => {
         <div>
             <div className="flex justify-between p-[2px]">
                 <div className="text-xl font-semibold">Feedbacks & Reviews</div>
-                <button onClick={handleOpenModal} className="w-[170px] h-[40px] text-[#095AD3] text-white rounded-full bg-[#095AD3]">Give Feedback</button>
+                {/* <button onClick={handleOpenModal} className="w-[170px] h-[40px] text-[#095AD3] text-white rounded-full bg-[#095AD3]">Give Feedback</button> */}
             </div>
             <div className="flex gap-16 mt-4">
                 <div className="border-gray-300 w-[470px] h-[344px] border bg-[#F8FAFC] rounded-lg p-3">
