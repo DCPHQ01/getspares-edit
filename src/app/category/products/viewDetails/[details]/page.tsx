@@ -1,24 +1,19 @@
 "use client";
 
-import TopBarWhileInside from "../../../../reusables/TopBarWhileInside/page";
 import tractor from "../../../../../assets/images/tractors.png";
 import { useState, useEffect } from "react";
 import { MdChevronRight } from "react-icons/md";
-import Image from "next/image";
 import * as React from "react";
 import { usePathname } from "next/navigation";
 import { useAppDispatch } from "../../../../../redux/hooks";
-import { addToCart } from "../../../../../redux/features/product/productSlice";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import BasicTabs from "../../../../dashboard/components/table/buyerAdmin/FeedBackTab";
 import ProductReview from "../../../../dashboard/components/table/buyerAdmin/ProductReview";
 import DetailsTable from "../../../../dashboard/components/table/buyerAdmin/tab";
 import VendorModal from "../../../../dashboard/components/table/vendoradmin/vendorModal";
-import { paths } from "../../../../../path/paths";
 import { formatAmount2 } from "../../../../../components/utils";
 import { useGetViewBuyersProductDetailsQuery } from "../../../../../redux/features/feedback/feedbackQuery";
-import AmountComponentsPage from "../../../../reusables/AmountComponents/page";
 interface State {
   open: boolean;
 }
@@ -37,16 +32,17 @@ interface viewBuyersProductDetails {
 }
 
 interface productInformation {
-  manufacturer: string;
-  brand: string;
-  model: string;
-  itemWeight: string;
-  productDimension: null;
-  countryOfOrigin: string;
-  itemModelNumber: string;
-  manufacturerPartNumber: string;
-  voltage: string;
-  quantity: number;
+  manufacturer?: string | null;
+  brand?: string | null;
+  model?: string | null;
+  itemWeight?: string | null;
+  productDimension?: string | null;
+  countryOfOrigin?: string | null;
+  itemModelNumber?: string | null;
+  manufacturerPartNumber?: string | null;
+  voltage?: string | null;
+  quantity?: number | null;
+  color?: string | null;
 }
 
 const images = [
@@ -63,24 +59,31 @@ const images = [
 export default function Details() {
   const [opens, setOpens] = React.useState<boolean>(false);
   const [productInformations, setProductInformations] =
-    useState<productInformation>();
+    useState<productInformation>({});
   const [state, setState] = React.useState<State>({
     open: false,
   });
 
   const handleOpen = () => setOpens(true);
   const handleClose = () => setOpens(false);
-  let productId = "";
+  const [productId, setProductId] = React.useState<string>("");
   const [showAllImages, setShowAllImages] = useState(false);
-  const { data } = useGetViewBuyersProductDetailsQuery({
-    productId: productId as string,
-  });
+
+  useEffect(() => {
+    const savedId = sessionStorage.getItem("myProductId");
+
+    if (savedId) {
+      setProductId(savedId);
+    }
+  }, []);
+
+  const { data } = useGetViewBuyersProductDetailsQuery({ productId });
   const tabs = [
     {
       label: "Details",
       content: (
         <div>
-          <DetailsTable data={data} />{" "}
+          <DetailsTable data={productInformations} />{" "}
         </div>
       ),
     },
@@ -127,13 +130,6 @@ export default function Details() {
   const remainingImages = images?.slice(5);
 
   // const productId = sessionStorage.getItem("productId");
-  useEffect(() => {
-    const savedId = sessionStorage.getItem("myProductId");
-    console.log("sessionstorage", savedId);
-    if (savedId) {
-      productId = JSON.parse(savedId);
-    }
-  }, []);
 
   const [viewBuyerProducts, setViewBuyerProducts] =
     useState<viewBuyersProductDetails>();
@@ -142,8 +138,8 @@ export default function Details() {
     if (data) {
       const viewOfProduct = data.data;
       setViewBuyerProducts(viewOfProduct);
-      const informationList = data.data.productInformation;
-      setProductInformations(informationList);
+
+      setProductInformations(data.data.productInformation);
     }
   }, [data]);
 
@@ -263,7 +259,7 @@ export default function Details() {
                         className="w-[68px] h-[22px] bg-mecaSuccess rounded-full flex justify-center items-center"
                       >
                         <p className="text-mecaIconSuccessColor text-sm font-normal">
-                          {viewBuyerProducts?.availabilityStatus.toLocaleLowerCase()}
+                          {viewBuyerProducts?.availabilityStatus}
                         </p>
                       </div>
                     </div>

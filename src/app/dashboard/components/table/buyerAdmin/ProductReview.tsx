@@ -23,22 +23,25 @@ interface AllFeedbackGraph {
   averageRating: 0;
   totalNoOfReviewers: 0;
   ratingPercentages: {
-    additionalProp1: 0;
-    additionalProp2: 0;
-    additionalProp3: 0;
+    threeStar: 0;
+    oneStar: 0;
+    fourStar: 0;
+    twoStar: 0;
+    fiveStar: 0;
   };
 }
 const ProductReview = () => {
+  // const [pd, setPd] = useState<string | null>(null);
   let productId = "";
-  useEffect(() => {
-    const savedId = sessionStorage.getItem("myProductId");
-    if (savedId) {
-      productId = JSON.parse(savedId);
-    }
-  }, []);
+
+  const storedProductId = sessionStorage.getItem("myProductId");
+  const parsedProductId = storedProductId ? storedProductId : "";
+  console.log("ProductId  sessionStorage:", parsedProductId);
+
   const { data, isLoading, isError } = useGetAllBuyersFeedbackQuery({
-    productId: productId,
+    productId: storedProductId || "",
   });
+  console.log(data, "hhh", productId);
   const [viewFeedbacks, setViewFeedbacks] = useState<viewAllFeedBack[]>([]);
 
   useEffect(() => {
@@ -81,24 +84,65 @@ const ProductReview = () => {
     setSelectedRating(rating);
   };
 
-  // const listOfReviews = [
-  //   {
-  //     name: "Femi chukwuemeka",
-  //     rate: 3,
-  //     description:
-  //       "Maintenance on this engine is a breeze thanks to its user-friendly design and easy access to components",
-  //     date: "May 15th, 2023",
-  //     time: "12:00",
-  //   },
-  //   {
-  //     name: "Femi chukwuemeka",
-  //     rate: 3,
-  //     description:
-  //       "Maintenance on this engine is a breeze thanks to its user-friendly design and easy access to components",
-  //     date: "May 15th, 2023",
-  //     time: "12:00",
-  //   },
-  // ];
+  const graph = [
+    {
+      id: 5,
+      starSharp: <IoStarSharp color="#095AD3" />,
+      number: 5,
+      progressbar: (
+        <ProgressBar
+          percentage={viewFeedbackGraph?.ratingPercentages?.fiveStar}
+        />
+      ),
+      percentage: viewFeedbackGraph?.ratingPercentages?.fiveStar,
+    },
+    {
+      id: 4,
+      starSharp: <IoStarSharp color="#095AD3" />,
+      number: 4,
+      progressbar: (
+        <ProgressBar
+          percentage={viewFeedbackGraph?.ratingPercentages?.fourStar}
+        />
+      ),
+      percentage: viewFeedbackGraph?.ratingPercentages?.fourStar,
+    },
+    {
+      id: 3,
+      starSharp: <IoStarSharp color="#095AD3" />,
+      number: 3,
+      progressbar: (
+        <ProgressBar
+          percentage={viewFeedbackGraph?.ratingPercentages?.threeStar}
+        />
+      ),
+      percentage: viewFeedbackGraph?.ratingPercentages?.threeStar,
+    },
+    {
+      id: 2,
+      starSharp: <IoStarSharp color="#095AD3" />,
+      number: 2,
+      progressbar: (
+        <ProgressBar
+          percentage={viewFeedbackGraph?.ratingPercentages?.twoStar}
+        />
+      ),
+      percentage: viewFeedbackGraph?.ratingPercentages?.twoStar,
+    },
+    {
+      id: 1,
+      starSharp: <IoStarSharp color="#095AD3" />,
+      number: 1,
+      progressbar: (
+        <ProgressBar
+          percentage={viewFeedbackGraph?.ratingPercentages?.oneStar || 0}
+        />
+      ),
+      percentage: viewFeedbackGraph?.ratingPercentages?.oneStar,
+    },
+  ];
+
+  console.log("ratings", viewFeedbackGraph?.ratingPercentages?.fiveStar);
 
   return (
     <div>
@@ -118,80 +162,36 @@ const ProductReview = () => {
         >
           <div className={`w-[242px] h-[72px] flex gap-6`}>
             <div className={`text-2xl font-semibold`}>
-              {viewFeedbackGraph?.averageRating}
+              {viewFeedbackGraph?.totalNoOfReviewers}
             </div>
+
             <div className={``}>
               <Rating
                 name="read-only"
                 sx={{ color: "#095AD3" }}
-                value={3}
+                value={viewFeedbackGraph?.averageRating}
                 readOnly
               />
               <div className={`font-normal text-xs`}>
-                Based on {viewFeedbackGraph?.totalNoOfReviewers} ratings
+                Based on {viewFeedbackGraph?.averageRating} ratings
               </div>
             </div>
           </div>
-          <div className={`flex gap-4 mt-4`}>
-            <div className={`flex gap-2 w-24`}>
-              <div className={`mt-0`}>
-                <IoStarSharp color="#095AD3" />
-              </div>
-              <div className="flex gap-x-2">
-                <div className="">5</div>
-                <div className="">()</div>
-              </div>
-            </div>
-            <ProgressBar percentage={50} />
-          </div>
-          <div className={`flex gap-4 mt-6`}>
-            <div className={`flex gap-2 w-24 `}>
-              <div className={`mt-0`}>
-                <IoStarSharp color="#095AD3" />
-              </div>
-              <div className="flex gap-x-2">
-                <div className="">4</div>
-                <div className="">(20%)</div>
+
+          {graph.map((graph, id) => (
+            <div className="" key={graph.id}>
+              <div className={`flex gap-4 mt-4`}>
+                <div className={`flex gap-2 w-24`}>
+                  <div className={`mt-0`}>{graph.starSharp}</div>
+                  <div className="flex gap-x-2">
+                    <div className="">{graph.number}</div>
+                    <div className="">({`${graph.percentage}%`})</div>
+                  </div>
+                </div>
+                {graph.progressbar}
               </div>
             </div>
-            <ProgressBar percentage={20} />
-          </div>
-          <div className={`flex gap-4 mt-6`}>
-            <div className={`flex gap-2 w-24`}>
-              <div className={`mt-0`}>
-                <IoStarSharp color="#095AD3" />
-              </div>
-              <div className="flex gap-x-2">
-                <div className="">3</div>
-                <div className="">(10%)</div>
-              </div>
-            </div>
-            <ProgressBar percentage={10} />
-          </div>
-          <div className={`flex gap-4 mt-6`}>
-            <div className={`flex gap-2  w-24`}>
-              <div className={`mt-0`}>
-                <IoStarSharp color="#095AD3" />
-              </div>
-              <div className="flex gap-x-2">
-                <div className="">2</div>
-                <div className="">(15%)</div>
-              </div>
-            </div>
-            <ProgressBar percentage={15} />
-          </div>
-          <div className={`flex gap-4 mt-6`}>
-            <div className={`flex gap-2 w-24`}>
-              <div className={`mt-0`}>
-                <IoStarSharp color="#095AD3" />
-              </div>
-              <div className="flex gap-x-2">
-                <div className="">1</div>
-                <div className="">(10%)</div>
-              </div>
-            </div>
-            <ProgressBar percentage={5} />
-          </div>
+          ))}
         </div>
 
         <div className={`lg:w-[600px] w-[100%] lg:mt-0 mt-10 h-[436px]`}>

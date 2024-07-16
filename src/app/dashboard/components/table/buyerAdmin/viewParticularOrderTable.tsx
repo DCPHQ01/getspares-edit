@@ -50,8 +50,8 @@ const   ViewParticularOrderTable = ({
   };
 
   const [details, setDetails] = useState(false);
-  const handleParticularDetails = (productId: any) => {
-    sessionStorage.setItem("myProductId", JSON.stringify(productId));
+  const handleParticularDetails = (productId: string) => {
+    sessionStorage.setItem("myProductId", productId);
     setDetails(!details);
   };
 

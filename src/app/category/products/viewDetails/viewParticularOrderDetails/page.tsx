@@ -69,7 +69,6 @@ const ViewParticularOrderDetailsPage: React.FC = () => {
       }
     }
   }, [data]);
-  console.log("particular oder", data);
 
   return (
     <div className="">

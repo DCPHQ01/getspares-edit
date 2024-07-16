@@ -1,10 +1,9 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import styles from "../styles.module.css";
-import { useRouter } from "next/navigation";
 import ViewParticularOrderDetailsPage from "../../../../category/products/viewDetails/viewParticularOrderDetails/page";
 import { ColorRing } from "react-loader-spinner";
-import { formatAmount } from "../../../../../components/utils";
+import { formatAmount, formatAmount4 } from "../../../../../components/utils";
 import dayjs from "dayjs";
 import { MdBusinessCenter } from "react-icons/md";
 
@@ -62,7 +61,6 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
   const id = sessionStorage.getItem("selectedOrderId");
   // console.log("The orderId: ",id)
 
-  console.log("buyer product details", data);
 
   return (
     <div>
@@ -101,7 +99,7 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
               ) : (
                 data?.map((d, index) => {
                   const { date, time } = formatDateTime(d.dateCreated);
-                  const formattedTransactionValue = formatAmount(d.totalAmount);
+                  const formattedTransactionValue = formatAmount4(String(d.totalAmount));
 
                   return (
                     <tr
