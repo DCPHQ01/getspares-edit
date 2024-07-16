@@ -25,7 +25,7 @@ import Searchbox from "../../../components/ui/searchbox";
 import { CheckOutCard } from "../../../../../components/cart/CheckOutCard";
 import { paths } from "../../../../../path/paths";
 import { useAddSingleProductToCartMutation } from "../../../../../redux/features/cart/cartQuery";
-import { formatAmount44 } from "../../../../../components/utils";
+import { formatAmount4, formatAmount44 } from "../../../../../components/utils";
 
 interface State extends SnackbarOrigin {
   open: boolean;
@@ -178,7 +178,7 @@ const BuyerCartMobile = () => {
                           <div className=" font-normal text-sm">
                             <p>
                               {totalItemPrice
-                                ? formatAmount44(totalItemPrice)
+                                ? formatAmount4(String(totalItemPrice))
                                 : "0"}
                             </p>
                           </div>

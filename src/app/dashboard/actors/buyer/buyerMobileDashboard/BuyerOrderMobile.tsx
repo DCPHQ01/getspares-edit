@@ -8,7 +8,7 @@ import { useGetViewAllOrdersQuery } from "../../../../../redux/features/dashboar
 function BuyerOrderMobile() {
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(10);
-  const {data, isLoading} = useGetViewAllOrdersQuery({pageNo, pageSize});
+  const { data, isLoading } = useGetViewAllOrdersQuery({ pageNo, pageSize });
 
   const [buyerOrderList, setBuyerOrderList] = useState([]);
   useEffect(() => {
@@ -29,13 +29,16 @@ function BuyerOrderMobile() {
         amount={`430,607`}
       />
       {/* <Searchbox /> */}
-      <OrderTable data={buyerOrderList} isLoading={isLoading}/>
+      <OrderTable data={buyerOrderList} isLoading={isLoading} />
 
       <div className=" flex justify-end mt-10 mb-10 font-bold text-lg">
         {/* <button className="flex gap-x-2 border border-[#EAECF0]  rounded-md h-[36px] w-[36px] pl-1">
           <MdChevronLeft className="mt-1 text-2xl" />
         </button> */}
-        <button className="flex gap-x-2 border border-[#EAECF0] rounded-md h-[36px] w-[36px] pl-1">
+        <button
+          title="right"
+          className="flex gap-x-2 border border-[#EAECF0] rounded-md h-[36px] w-[36px] pl-1"
+        >
           <MdChevronRight className="mt-1 text-2xl" />
         </button>
       </div>
