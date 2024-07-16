@@ -167,7 +167,7 @@ const ProductReview = () => {
               <Rating
                 name="read-only"
                 sx={{ color: "#095AD3" }}
-                value={3}
+                value={Number(viewFeedbackGraph?.averageRating)}
                 readOnly
               />
               <div className={`font-normal text-xs`}>
