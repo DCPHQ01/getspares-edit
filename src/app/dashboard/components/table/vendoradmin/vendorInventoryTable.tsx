@@ -26,7 +26,6 @@ import { formatAllTime, formatAllDateTwo } from "../../utils/utils";
 import MenuOptions from "../../menu/MenuOptions";
 import TruncateText from "../../../../../components/utils/utils";
 
-
 dayjs.extend(customParseFormat);
 
 interface InventoryData {
@@ -261,7 +260,7 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
                               <MdMoreVert />
                             </IconButton>
                           </div>
-                          {dropDownOption === d.id && (
+                          {/* {dropDownOption === d.id && (
                             <MenuOptions
                               anchorEl={anchorEl}
                               openOption={openOption}
@@ -272,7 +271,7 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
                               optionData={option}
                               tableId={d.id}
                             />
-                          )}
+                          )} */}
                         </td>
                       </tr>
                     );

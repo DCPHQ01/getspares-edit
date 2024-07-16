@@ -13,7 +13,10 @@ import ProductReview from "../../../../dashboard/components/table/buyerAdmin/Pro
 import DetailsTable from "../../../../dashboard/components/table/buyerAdmin/tab";
 import VendorModal from "../../../../dashboard/components/table/vendoradmin/vendorModal";
 import { paths } from "../../../../../path/paths";
-import { formatAmount4, formatAmount442 } from "../../../../../components/utils";
+import {
+  formatAmount4,
+  formatAmount442,
+} from "../../../../../components/utils";
 import { useGetViewBuyersProductDetailsQuery } from "../../../../../redux/features/feedback/feedbackQuery";
 interface State {
   open: boolean;
