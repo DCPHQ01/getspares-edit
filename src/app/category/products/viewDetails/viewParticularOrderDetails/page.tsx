@@ -6,20 +6,20 @@ import ViewParticularOrderTable from "../../../../dashboard/components/table/buy
 import { useGetOrderDetailsQuery } from "../../../../../redux/features/dashboard/buyerQuery";
 import { useEffect, useState } from "react";
 
-interface OrderItem {
-  price: number;
-  productId: string;
-  productImage: string;
-  productName: string;
-  quantity: number;
-  avatar?: any;
-}
+// interface OrderItem {
+//   price: number;
+//   productId: string;
+//   productImage: string;
+//   productName: string;
+//   quantity: number;
+//   avatar?: any;
+// }
 
-interface OrderInfo {
-  orderDate: string;
-  deliveryAddress: any;
-  orderItems: OrderItem[];
-}
+// interface OrderInfo {
+//   orderDate: string;
+//   deliveryAddress: any;
+//   orderItems: OrderItem[];
+// }
 
 const ViewParticularOrderDetailsPage: React.FC = () => {
   const [id, setId] = useState<string | null>(null);
@@ -65,7 +65,7 @@ const ViewParticularOrderDetailsPage: React.FC = () => {
   //    }
   //  }, [isLoading, data, selectedProductName]);
 
-  const [orderDetails, setOrderDetails] = useState<OrderInfo>({
+  const [orderDetails, setOrderDetails] = useState({
     orderDate: "",
     deliveryAddress: {},
     orderItems: [],
