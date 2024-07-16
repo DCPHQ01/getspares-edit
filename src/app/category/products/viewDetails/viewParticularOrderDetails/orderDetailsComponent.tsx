@@ -3,7 +3,7 @@ import { MdChevronRight } from "react-icons/md";
 import ViewParticularOrderTable from "../../../../dashboard/components/table/buyerAdmin/viewParticularOrderTable";
 import { useGetOrderDetailsQuery } from "../../../../../redux/features/dashboard/buyerQuery";
 
-const OrderDetailsComponent: React.FC = () => {
+const OrderDetailsComponent = () => {
   const [id, setId] = useState<string | null>(null);
   const [orderId, setOrderId] = useState<string | null>(null);
 

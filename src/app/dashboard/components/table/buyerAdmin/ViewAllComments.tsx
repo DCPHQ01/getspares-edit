@@ -38,6 +38,12 @@ const ViewAllComments: React.FC<ReviewModalProps> = ({
     setSelectedRating(rating);
   };
 
+  console.log("All feedbacks", viewAllFeedBack);
+  console.log(
+    "total ratings: ",
+    viewAllFeedBack.map((item) => item.rating)
+  );
+
   const listOfReviews = [
     {
       name: "Femi chukwuemeka",
@@ -110,7 +116,6 @@ const ViewAllComments: React.FC<ReviewModalProps> = ({
             ))}
           </div>
           {viewAllFeedBack?.map((review, index) => {
-            console.log("All feedbacks", viewAllFeedBack);
             return (
               <div className={`mb-6`}>
                 <div className={`mb-1.5`}>
@@ -123,10 +128,7 @@ const ViewAllComments: React.FC<ReviewModalProps> = ({
                   />
                 </div>
                 <div className={`mb-2`}>{review.comment}</div>
-                <div className={`text-[#9AA4B2]`}>
-                  {review.dateCreated}
-               
-                </div>
+                <div className={`text-[#9AA4B2]`}>{review.dateCreated}</div>
               </div>
             );
           })}
