@@ -46,7 +46,7 @@ const ReviewModal: React.FC<ReviewModalProps> = ({
   const [feedBackPostReview] = useCreateFeedbackMutation();
 
   const handleSubmit = async () => {
-    const productId = sessionStorage.getItem("productId");
+    const productId = sessionStorage.getItem("myProductId");
     const orderId = sessionStorage.getItem("selectedOrderId");
     try {
       const res = await feedBackPostReview({
