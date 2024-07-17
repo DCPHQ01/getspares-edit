@@ -16,9 +16,7 @@ import dayjs from "dayjs";
 import { formatAllDateTwo } from "../../../dashboard/components/utils/utils";
 
 
-interface VendorDetailsProps {
-  vendorId: string;
-}
+
 interface viewProfilesForActors {
   companyName?: string;
   companyEmail?: string;
@@ -34,6 +32,10 @@ interface viewProfilesForActors {
   dateCreated?: string;
   productOutOfStock?: string;
 };
+
+interface VendorDetailsProps {
+  vendorId?: viewProfilesForActors[];
+}
 
 
 const style = {
