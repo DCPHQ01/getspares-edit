@@ -32,6 +32,10 @@ interface viewProfilesForActors {
 };
 
 
+type VendorDetailsProps = {
+  vendorId: string;
+};
+
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
@@ -92,7 +96,7 @@ const formatTimeDate = (dateTime: string | undefined) => {
 };
 
 
-const VendorDetails = ({ vendorId }: { vendorId: string}) => {
+const VendorDetails: React.FC<VendorDetailsProps> = ({ vendorId }) => {
   const { data, isLoading, isError } = useGetVendorCompanyDetailsQuery({ vendorId });
   const [viewProfile, setViewProfile] = useState<viewProfilesForActors>({});
 
