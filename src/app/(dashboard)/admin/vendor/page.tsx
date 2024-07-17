@@ -32,7 +32,6 @@ interface viewProfilesForActors {
 };
 
 
-
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
