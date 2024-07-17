@@ -31,24 +31,7 @@ interface viewProfilesForActors {
   productOutOfStock?: string;
 };
 
-//  "companyName": "Zero Waste Chemicals",
-//         "companyEmail": null,
-//         "description": null,
-//         "addressOne": null,
-//         "addressTwo": null,
-//         "phoneNumber": null,
-//         "totalProductInInventory": 0,
-//         "totalProductSold": 0,
-//         "numberOfAgents": 0,
-//         "numberOfAvailableProducts": 0,
-//         "transactionValue": 0,
-//         "dateCreated": "11:57:17:05:2024",
-//         "productOutOfStock": 0
 
-// interface VendorTableProps {
-//   vendorList: Vendor[];
-//   isLoading?: boolean;
-// }
 
 const style = {
   position: "absolute" as "absolute",
@@ -124,25 +107,7 @@ const VendorDetails = ({ vendorId }: { vendorId: string}) => {
   };
 
 
-  // const [viewProfile, setViewProfile] = useState<viewProfilesForActors>({
-  //   name: "",
-  //   description: "",
-  //   cac: "",
-  //   companyEmail: "",
-  //   imageUrl: "",
-  //   address1: "",
-  //   address2: "",
-  //   websiteUrl: "",
-  //   phoneNumber: "",
-  //   agents: "",
-  //   totalProducts: "",
-  //   availableProducts: '',
-  //   totalItemSold: "",
-  //   dateAndTimeJoined: "",
-  //   outOfStock: "",
-  //   transactionValue: "",
-  //   lastActive: "",
-  // });
+
 
   useEffect(() => {
     if (data) {
