@@ -97,6 +97,7 @@ const formatTimeDate = (dateTime: string | undefined) => {
 
 
 const VendorDetails: React.FC<VendorDetailsProps> = ({ vendorId }) => {
+
   const { data, isLoading, isError } = useGetVendorCompanyDetailsQuery({ vendorId });
   const [viewProfile, setViewProfile] = useState<viewProfilesForActors>({});
 
@@ -139,8 +140,7 @@ const VendorDetails: React.FC<VendorDetailsProps> = ({ vendorId }) => {
         <div className="flex items-center gap-x-2 mb-12">
           <Avatar
             className="bg-mecaActiveBackgroundNavColor text-mecaBluePrimaryColor w-16 h-16 text-4xl"
-            // {...stringAvatar(`${viewProfile.name}`)}
-            {...stringAvatar(viewProfile.companyName || "")}
+            // {stringAvatar(`${viewProfile.name}`)}            {...stringAvatar(viewProfile.companyName || "")}
           />
           <div>
             <Header
