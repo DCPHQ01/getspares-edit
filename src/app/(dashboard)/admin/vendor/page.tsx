@@ -15,6 +15,10 @@ import { useGetVendorCompanyDetailsQuery } from "../../../../redux/features/dash
 import dayjs from "dayjs";
 import { formatAllDateTwo } from "../../../dashboard/components/utils/utils";
 
+
+interface VendorDetailsProps {
+  vendorId: string;
+}
 interface viewProfilesForActors {
   companyName?: string;
   companyEmail?: string;
@@ -31,10 +35,6 @@ interface viewProfilesForActors {
   productOutOfStock?: string;
 };
 
-
-type VendorDetailsProps = {
-  vendorId: string;
-};
 
 const style = {
   position: "absolute" as "absolute",
