@@ -37,15 +37,21 @@ interface VendorTableProps {
 }
 
 const VendorTable: React.FC<VendorTableProps> = ({ vendorList, isLoading }) => {
-  const [selectedVendor, setSelectedVendor] = useState<string | null>(null);
+  // const [selectedVendor, setSelectedVendor] = useState<string>("");
   const router = useRouter();
 
-  const handleVendorDetails = (vendorId: string) => {
-    sessionStorage.setItem("selectedVendor", vendorId);
-    setSelectedVendor(vendorId);
+  // const handleVendorDetails = (vendorId: string) => {
+  //   sessionStorage.setItem("selectedVendor", vendorId);
+  //   setSelectedVendor(vendorId);
+  // };
+
+  const [selectedVendorId, setSelectedVendorId] = useState<string | null>(null);
+
+  const handleRowClick = (vendorId: string) => {
+    setSelectedVendorId(vendorId);
   };
 
-  const vendorId = sessionStorage.getItem("selectedVendor");
+  // const vendorId = sessionStorage.getItem("selectedVendor");
 
   // const router = useRouter();
 
@@ -133,7 +139,7 @@ const VendorTable: React.FC<VendorTableProps> = ({ vendorList, isLoading }) => {
                     key={index}
                     id={`row_${index}`}
                     className="cursor-pointer"
-                    onClick={() => handleVendorDetails(d.vendorId)}
+                    onClick={() => handleRowClick(d.vendorId)}
                   >
                     <td id={`companyData_${index}`}>
                       <div
@@ -214,10 +220,10 @@ const VendorTable: React.FC<VendorTableProps> = ({ vendorList, isLoading }) => {
           </tbody>
         </table>
       </div>
-      {selectedVendor && (
+      {selectedVendorId && (
         <div className="fixed bottom-0 mt-8 ml-12 lg:left-60 right-0 lg:top-0 h-[100vh] lg:w-[84%] w-[100%] lg:h-[100vh]">
           <div className="bg-white h-[100vh] w-full">
-            <VendorDetails vendorId={selectedVendor}/>
+            <VendorDetails vendorId={selectedVendorId}/>
           </div>
         </div>
       )}
