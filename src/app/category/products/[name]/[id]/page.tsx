@@ -16,6 +16,7 @@ import {
 } from "react-icons/md";
 import Footer from "../../../../../components/footer/Footer";
 import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
 import Image from "next/image";
 import * as React from "react";
 import {
@@ -219,6 +220,10 @@ export default function ProductDescription() {
     }
   };
 
+  const routeToSellerPage = ()=> {
+    router.push(`category/products/${data?.data.categoryName}/sales`);
+  }
+
   useEffect(() => {
     if (cart.length !== 0) {
       let hasItem = cart.some((vendor) => vendor.id === String(productId));
@@ -236,6 +241,10 @@ export default function ProductDescription() {
   useLayoutEffect(() => {
     setProductImages(data?.data.images);
   }, [data]);
+
+  // const handleSeller =()=>{
+  //   router.push(paths.toDashboard());
+  // }
 
   return (
     <div className="relative">
@@ -396,18 +405,21 @@ export default function ProductDescription() {
                           </div>
                         </div>
                       </div>
-                      {/* <div
+                      <div
                     id="viewSellerButtonDiv"
                     className="w-[40%] flex justify-end items-center"
                   >
-                    <button
-                      type="button"
-                      id="viewSellerButton"
-                      className="w-[93px] h-[32px] text-sm text-mecaBluePrimaryColor bg-white rounded-lg"
-                    >
-                      View Seller
-                    </button>
-                  </div> */}
+                 
+                      <button
+                        type="button"
+                        id="viewSellerButton"
+                        className="w-[93px] h-[32px] text-sm text-bold text-mecaBluePrimaryColor rounded-lg cursor-pointer"
+                      
+                        >
+                        View Seller
+                      </button>
+                  
+                  </div>
                     </div>
                     <div id="aboutProduct" className="w-full mt-8">
                       <p className="text-sm font-nunito font-normal text-mecaGrayBodyText">

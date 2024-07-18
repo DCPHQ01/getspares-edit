@@ -105,7 +105,8 @@ const ViewItemDetails: React.FC<NavProps> = ({ routeBack, productId }) => {
                 >
                   <img
                     src={data?.data.images[selectedImageIndex]}
-                    alt={images[selectedImageIndex].alt}
+                    alt="images selected"
+                    // alt={images[selectedImageIndex]}
                     className="w-[272px] h-[190px]"
                   />
                 </div>

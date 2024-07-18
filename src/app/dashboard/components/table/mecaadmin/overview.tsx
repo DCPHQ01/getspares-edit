@@ -100,7 +100,7 @@ function Overview({ data, isLoading }: OverviewTableProps) {
               );
 
               return (
-                <tr key={index} id={`row_${index}`} className="cursor-pointer">
+                <tr key={index} id={`row_${index}`}>
                   <td id={`companyData_${index}`}>
                     <div
                       className={`flex items-center gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
