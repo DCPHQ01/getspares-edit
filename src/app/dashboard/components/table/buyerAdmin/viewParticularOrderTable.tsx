@@ -51,10 +51,13 @@ const ViewParticularOrderTable = ({
   };
 
   const [details, setDetails] = useState(false);
-  const handleParticularDetails = (productId: any) => {
-    sessionStorage.setItem("productId", productId);
+  const handleParticularDetails = (productId: string) => {
+    sessionStorage.setItem("myProductId", productId);
     setDetails(!details);
   };
+
+  const id = sessionStorage.getItem("myProductId");
+  console.log("The id: ", id);
   return (
     <div className="">
       <div className="w-[95%] lg:flex gap-x-10">
