@@ -38,12 +38,6 @@ const ViewAllComments: React.FC<ReviewModalProps> = ({
     setSelectedRating(rating);
   };
 
-  console.log("All feedbacks", viewAllFeedBack);
-  console.log(
-    "total ratings: ",
-    viewAllFeedBack.map((item) => item.rating)
-  );
-
   const listOfReviews = [
     {
       name: "Femi chukwuemeka",

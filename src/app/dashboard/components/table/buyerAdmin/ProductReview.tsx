@@ -36,12 +36,11 @@ const ProductReview = () => {
 
   const storedProductId = sessionStorage.getItem("myProductId");
   const parsedProductId = storedProductId ? storedProductId : "";
-  console.log("ProductId  sessionStorage:", parsedProductId);
 
   const { data, isLoading, isError } = useGetAllBuyersFeedbackQuery({
     productId: storedProductId || "",
   });
-  console.log(data, "hhh", productId);
+
   const [viewFeedbacks, setViewFeedbacks] = useState<viewAllFeedBack[]>([]);
 
   useEffect(() => {
@@ -50,7 +49,6 @@ const ProductReview = () => {
       setViewFeedbacks(list);
     }
   }, [data]);
-  // console.log("viewAllFeedback", viewFeedbacks);
 
   const [viewFeedbackGraph, setViewFeedbackGraph] =
     useState<AllFeedbackGraph>();
@@ -60,8 +58,6 @@ const ProductReview = () => {
       setViewFeedbackGraph(listOfGraph);
     }
   }, [data]);
-
-  console.log("feedback graph", viewFeedbackGraph?.averageRating);
 
   const firstTwoItem = viewFeedbacks.slice(0, 2);
 
