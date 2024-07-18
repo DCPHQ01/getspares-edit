@@ -44,7 +44,6 @@ jobs:
           args: >
             -Dsonar.projectKey=Meca-frontend
             -Dsonar.sources=src
-            -Dsonar.tests=tests
             -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info
 
 
