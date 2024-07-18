@@ -39,7 +39,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  // width: "40%",
   bgcolor: "background.paper",
   pt: 2,
   px: 4,
@@ -175,7 +175,7 @@ const VendorDetails = ({ vendorId }: VendorDetailsProps) => {
           <Box
             sx={{ ...style }}
             onClick={handleClose}
-            className="w-[30%] h-[399px] rounded-lg
+            className="w-[20%] h-[40%] rounded-lg opacity-6
             "
           >
             <div className=" mt-6 ">
@@ -197,11 +197,13 @@ const VendorDetails = ({ vendorId }: VendorDetailsProps) => {
 
             <div className="mt-5 text-sm mb-14">
               <div className="flex justify-between mb-6">
-                <p>Date onboarded</p>
-                <p>12:00pm, Jan 2023</p>
+                <p className="font-normal text-sm text-mecaGrayBodyText">Date onboarded</p>
+                <p className="font-bold text-sm">{formattedDateCreated}</p>
+                {/* <p>12:00pm, Jan 2023</p> */}
               </div>
             </div>
-            <div className="text-center">
+            <hr></hr>
+            <div className="text-center mt-4">
               <button
                 className="bg-mecaBluePrimaryColor w-40 text-lg font-semibold h-10 rounded-full pl-6 pr-6 text-center pt-2 pb-2 text-white"
                 onClick={handleClose}
