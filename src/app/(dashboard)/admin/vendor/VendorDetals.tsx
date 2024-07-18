@@ -9,11 +9,13 @@ import {MdChevronRight} from "react-icons/md";
 import Link from "next/link";
 import {useGetVendorCompanyDetailsQuery} from "../../../../redux/features/dashboard/mecaAdminQuery";
 import dayjs from "dayjs";
+import { paths } from "../../../../path/paths";
 
 
 interface viewProfilesForActors {
   companyName?: string;
   companyEmail?: string;
+  companyWebsiteUrl?: string;
   description?: string;
   addressOne?: string;
   addressTwo?: string;
@@ -29,8 +31,8 @@ interface viewProfilesForActors {
 
 
 interface VendorDetailsProps {
-  //@ts-ignore
-  vendorId?: viewProfilesForActors[];
+  vendorId?: string;
+
 }
 
 
@@ -123,18 +125,17 @@ const VendorDetails = ({ vendorId }: VendorDetailsProps) => {
 
   const formattedDateCreated = formatTimeDate(viewProfile.dateCreated);
 
-
   return (
     <div className="px-4 py-6">
       <div className="flex items-center gap-2">
-        <Link href="./vendors">
+        <Link href={paths.toAdmin()}>
           <p className="font-nunito text-sm font-medium text-mecaDarkBlueBackgroundOverlay hover:text-black hover:font-bold">
             Vendors
           </p>
         </Link>
         <MdChevronRight size={20} />
         <p className="font-nunito text-sm font-medium text-mecaGoBackArrow">
-          Order
+        {viewProfile.companyName}
         </p>
       </div>
 
@@ -142,13 +143,18 @@ const VendorDetails = ({ vendorId }: VendorDetailsProps) => {
         <div className="flex items-center gap-x-2 mb-12">
           <Avatar
             className="bg-mecaActiveBackgroundNavColor text-mecaBluePrimaryColor w-16 h-16 text-4xl"
-            // {stringAvatar(`${viewProfile.name}`)}
-            {...stringAvatar(viewProfile.companyName || "")}
+            {...stringAvatar(viewProfile?.companyName?.slice(0, 1).toUpperCase() || "")}
           />
           <div>
             <Header
               subtitle={`${viewProfile.companyEmail}`}
               title={`${viewProfile.companyName}`}
+              // website={
+              //   <Link href={viewProfile.companyWebsiteUrl ?? ""} target="_blank" rel="noopener noreferrer" className="flex items-center">
+              //     {data?.data.companyWebsiteUrl} <GoArrowUpRight className="ml-1" />
+              //   </Link>
+              // }
+              website={`${data?.data.companyWebSiteUrl}` }            
             />
             <p></p>
           </div>
@@ -182,7 +188,7 @@ const VendorDetails = ({ vendorId }: VendorDetailsProps) => {
               <div className="flex justify-center">
                 <Avatar
                   className="bg-mecaActiveBackgroundNavColor mb-3 text-mecaBluePrimaryColor w-16 h-16 text-4xl"
-                  {...stringAvatar(`${viewProfile.companyName}`)}
+                  {...stringAvatar(viewProfile?.companyName?.slice(0, 1).toUpperCase() || "")}
                 />
               </div>
 

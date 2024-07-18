@@ -18,7 +18,7 @@ import TruncateText, {
   formatDateTime,
 } from "../../../../../components/utils/utils";
 import { useRouter } from "next/navigation";
-import VendorDetails from "../../../../(dashboard)/admin/vendor/page";
+import VendorDetails from "../../../../(dashboard)/admin/vendor/VendorDetals";
 
 interface Vendor {
   vendorId: string;
