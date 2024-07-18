@@ -9,7 +9,7 @@ import Inventory from "./inventory/page";
 import Category from "./category/page";
 import { useAppSelector } from "../../../redux";
 import { sidePanel } from "../../dashboard/components/utils/utils";
-import Profile from "./Profile";
+import Profile from "./profile/page";
 import LogoutModal from "../../../components/logoutModal/LogoutModal";
 import AdminMobilePage from "../adminMobile/page";
 import Image from "next/image";
@@ -99,7 +99,8 @@ function Page() {
   };
 
   const profileBtn = () => {
-    handleButtonClick(sidePanel.PROFILE);
+    // handleButtonClick(sidePanel.PROFILE);
+    router.push("/admin/profile");
     setActiveButton(null);
     setBottomActiveButton(0);
   };

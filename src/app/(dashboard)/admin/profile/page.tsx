@@ -1,5 +1,5 @@
 "use client";
-import Header from "../../dashboard/components/ui/header";
+import Header from "../../../dashboard/components/ui/header";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -77,10 +77,7 @@ const Profile = () => {
           {...stringAvatar(fullName)}
         />
         <div className="mt-1">
-          <Header
-             subtitle={formData.email}
-             title={fullName}
-          />
+          <Header subtitle={formData.email} title={fullName} />
         </div>
       </div>
 
@@ -94,8 +91,8 @@ const Profile = () => {
           </span>
         </div>
 
-        <div className="border-2 w-[60%] h-full p-5 rounded-xl">
-          <Box className="flex gap-x-4 gap-y-20">
+        <div className="border-2 w-[60%] h-full p-5 rounded-xl flex flex-col gap-y-4">
+          <Box className="flex gap-x-4">
             <TextField
               inputProps={{ readOnly: true }}
               required={true}
@@ -104,7 +101,7 @@ const Profile = () => {
               value={formData.firstName}
               variant="filled"
               InputProps={{ disableUnderline: true }}
-              className="lg:w-[364px]  w-[100%] 2xl:w-[35rem] rounded"
+              className="lg:w-[364px] w-[100%] 2xl:w-[35rem] rounded"
               sx={{ backgroundColor: "porcelain" }}
             />
 
@@ -132,7 +129,7 @@ const Profile = () => {
               value={formData.email}
               variant="filled"
               InputProps={{ disableUnderline: true }}
-              className="  w-[100%] rounded"
+              className="mt-4 w-[100%] rounded"
               sx={{ backgroundColor: "porcelain" }}
             />
           </Box>

@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import Header from "../../../dashboard/components/ui/header";
+import Header from "../../components/ui/header";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";

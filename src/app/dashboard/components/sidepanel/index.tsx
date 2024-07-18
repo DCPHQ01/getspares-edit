@@ -50,6 +50,7 @@ function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
   const dispatch = useAppDispatch();
   const [activeButton, setActiveButton] = useState<number | null>(() => {
     const savedIndex = sessionStorage.getItem("activeButtonIndex");
+    const savedButtomBtn = sessionStorage.getItem("activeBottomButtonIndex");
     if (savedIndex) {
       return parseInt(savedIndex, 10);
     }
@@ -68,11 +69,6 @@ function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
 
   const router = useRouter();
 
-  const logOut = () => {
-    dispatch(clearUser());
-    router.push(paths.toHome());
-  };
-
   const profileBtn = () => {
     // handleButtonClick(sidePanel.PROFILE);
     setActiveButton(null);
@@ -84,7 +80,6 @@ function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
       icon: <MdDashboard />,
       title: "Overview",
       size: 18,
-      // link: `${handleDynamicRoutingByRoles}/overview`,
       link: `${
         role === "MECA_ADMIN"
           ? "/admin/overview"
@@ -170,7 +165,14 @@ function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
       icon: <MdPersonPin />,
       title: "Profile",
       size: 18,
-      onClick: profileBtn,
+      onClick: () => {
+        role === "MECA_ADMIN"
+          ? router.push("/admin/profile")
+          : role === "VENDOR_ADMIN"
+          ? router.push("/dashboard/vendor/profile")
+          : router.push("/dashboard/buyer/profile");
+        setActiveButton(null);
+      },
     },
     {
       icon: <MdLogout />,
