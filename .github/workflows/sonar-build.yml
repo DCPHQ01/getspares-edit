@@ -19,7 +19,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '22.5.0'  # Update to the required Node.js version
+          node-version: '18.17.0'  # Update to the required Node.js version
 
       - name: Cache Node.js modules
         uses: actions/cache@v3
@@ -46,6 +46,7 @@ jobs:
             -Dsonar.sources=src
             -Dsonar.tests=tests
             -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info
+
 
 
 
