@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Header from "../../components/ui/header";
-import Addbutton from "../../components/ui/addbutton";
-import PeriodRadios from "../../components/ui/periodradios";
-import Searchbox from "../../components/ui/searchbox";
-import VendorTable from "../../components/table/agentAdmin/vendorTable";
+import Header from "../../../components/ui/header";
+import Addbutton from "../../../components/ui/addbutton";
+import PeriodRadios from "../../../components/ui/periodradios";
+import Searchbox from "../../../components/ui/searchbox";
+import VendorTable from "../../../components/table/agentAdmin/vendorTable";
 
 function AgentVendors() {
   const [activityPeriod, setActivityPeriod] = useState("month");

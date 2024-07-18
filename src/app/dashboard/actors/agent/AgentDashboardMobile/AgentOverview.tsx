@@ -1,9 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Header from "../../components/ui/header";
-import Cards from "../../components/ui/cards";
-import PeriodRadios from "../../components/ui/periodradios";
-import OverviewTable from "../../components/table/agentAdmin/overviewTable";
+import Header from "../../../components/ui/header";
+import Cards from "../../../components/ui/cards";
+import PeriodRadios from "../../../components/ui/periodradios";
+import OverviewTable from "../../../components/table/agentAdmin/overviewTable";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 function AgentOverview() {

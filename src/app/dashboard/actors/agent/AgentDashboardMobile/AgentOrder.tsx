@@ -1,7 +1,7 @@
 import React from "react";
-import Header from "../../components/ui/header";
-import Searchbox from "../../components/ui/searchbox";
-import Order from "../../components/table/agentAdmin/order";
+import Header from "../../../components/ui/header";
+import Searchbox from "../../../components/ui/searchbox";
+import Order from "../../../components/table/agentAdmin/order";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 function AgentOrder() {

@@ -1,10 +1,10 @@
 import React from "react";
-import Header from "../../components/ui/header";
-import Tabs from "../../components/ui/tabs";
-import SortButton from "../../components/ui/sortbutton";
-import SearchBox from "../../components/ui/searchbox";
-import PeriodRadios from "../../components/ui/periodradios";
-import VendorAgentTable from "../../components/table/vendoradmin/vendorAgentTable";
+import Header from "../../../components/ui/header";
+import Tabs from "../../../components/ui/tabs";
+import SortButton from "../../../components/ui/sortbutton";
+import SearchBox from "../../../components/ui/searchbox";
+import PeriodRadios from "../../../components/ui/periodradios";
+import VendorAgentTable from "../../../components/table/vendoradmin/vendorAgentTable";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 function AgentVendorMobile() {

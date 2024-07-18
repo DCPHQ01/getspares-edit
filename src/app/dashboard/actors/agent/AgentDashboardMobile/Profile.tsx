@@ -1,5 +1,5 @@
 "use client";
-import Header from "../../components/ui/header";
+import Header from "../../../components/ui/header";
 import Avatar from "@mui/material/Avatar";
 import "../../../../../styles/profile.css";
 import Box from "@mui/material/Box";

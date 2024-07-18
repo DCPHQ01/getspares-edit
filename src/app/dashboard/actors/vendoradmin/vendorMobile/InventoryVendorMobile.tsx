@@ -1,11 +1,11 @@
-import Header from "../../components/ui/header";
-import Searchbox from "../../components/ui/searchbox";
-import Addbutton from "../../components/ui/addbutton";
-import Categories from "../../components/ui/categories";
-import VendorInventoryTable from "../../components/table/vendoradmin/vendorInventoryTable";
+import Header from "../../../components/ui/header";
+import Searchbox from "../../../components/ui/searchbox";
+import Addbutton from "../../../components/ui/addbutton";
+import Categories from "../../../components/ui/categories";
+import VendorInventoryTable from "../../../components/table/vendoradmin/vendorInventoryTable";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { useState, useEffect } from "react";
-import { useGetVendorInventoryMutation } from "../../../../redux/features/dashboard/mecaVendorQuery";
+import { useGetVendorInventoryMutation } from "../../../../../redux/features/dashboard/mecaVendorQuery";
 
 interface InventoryData {
   categoryName?: string;

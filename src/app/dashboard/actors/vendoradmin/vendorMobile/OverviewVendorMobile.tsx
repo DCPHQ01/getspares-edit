@@ -1,13 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Header from "../../components/ui/header";
-import Cards from "../../components/ui/cards/vendorMobileCard";
-import PeriodRadios from "../../components/ui/periodradios";
-import OverviewTable from "../../components/table/vendoradmin/overview";
-import Addbutton from "../../components/ui/addbutton";
+import Header from "../../../components/ui/header";
+import Cards from "../../../components/ui/cards/vendorMobileCard";
+import PeriodRadios from "../../../components/ui/periodradios";
+import OverviewTable from "../../../components/table/vendoradmin/overview";
+import Addbutton from "../../../components/ui/addbutton";
 import Link from "next/link";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
-import { useGetMecaVendorOverviewQuery } from "../../../../redux/features/dashboard/mecaVendorQuery";
+import { useGetMecaVendorOverviewQuery } from "../../../../../redux/features/dashboard/mecaVendorQuery";
 
 interface VendorOverview {
   dateJoined: string;
@@ -16,7 +16,7 @@ interface VendorOverview {
   totalItemSold: number;
   itemName: string;
 }
-import { paths } from "../../../../path/paths";
+import { paths } from "../../../../../path/paths";
 
 function OverviewVendorMobile() {
   const { data, isLoading, isError } = useGetMecaVendorOverviewQuery({});

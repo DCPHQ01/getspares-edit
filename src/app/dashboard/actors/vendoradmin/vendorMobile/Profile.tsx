@@ -1,12 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
 import "../../../../../styles/profile.css";
-import Header from "../../components/ui/header";
+import Header from "../../../../dashboard/components/ui/header";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import "../../../../../styles/addCompanyPageStyle/addCompanyModal.css";
-import { useGetUserAllUsersProfileQuery } from "../../../../redux/features/profile/profileQuery";
+import { useGetUserAllUsersProfileQuery } from "../../../../../redux/features/profile/profileQuery";
 
 interface viewProfilesForActors {
   name?: string;

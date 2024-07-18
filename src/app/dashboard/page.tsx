@@ -29,7 +29,7 @@ import { roles } from "../dashboard/components/utils/utils";
 import { useUserRole } from "../hooks/useUserRole";
 import { paths } from "../../path/paths";
 import withAuth from "../withAuth";
-import VendorMobilePage from "./vendor/vendorMobile/page";
+import VendorMobilePage from "./actors/vendoradmin/vendorMobile/page";
 
 const style = {
   position: "absolute" as "absolute",

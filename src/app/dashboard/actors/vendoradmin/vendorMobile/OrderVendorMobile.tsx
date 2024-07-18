@@ -3,11 +3,11 @@ import {
   MdChevronLeft,
   MdChevronRight,
 } from "react-icons/md";
-import VendorOrderTable from "../../components/table/vendoradmin/vendorOrderTable";
-import Header from "../../components/ui/header";
-import Searchbox from "../../components/ui/searchbox";
+import VendorOrderTable from "../../../components/table/vendoradmin/vendorOrderTable";
+import Header from "../../../components/ui/header";
+import Searchbox from "../../../components/ui/searchbox";
 import { useEffect, useState } from "react";
-import { useGetMecaVendorOrdersQuery } from "../../../../redux/features/dashboard/mecaVendorQuery";
+import { useGetMecaVendorOrdersQuery } from "../../../../../redux/features/dashboard/mecaVendorQuery";
 
 function OrderVendorMobile() {
   const [page, setPage] = useState(0);
@@ -81,7 +81,7 @@ function OrderVendorMobile() {
       <div className=" flex justify-end mt-5 mb-5 font-bold text-lg">
         {page > 0 && (
           <button
-          title="previous"
+            title="previous"
             className="flex gap-x-2 border border-[#EAECF0]  rounded-md h-[36px] w-[36px] pl-1"
             onClick={handlePreviousPage}
           >
