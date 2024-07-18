@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React,{useState} from "react";
 import styles from "../styles.module.css";
 import Image from "next/image";
 import { AccountCircle } from "@mui/icons-material";
@@ -7,6 +7,7 @@ import { ColorRing } from "react-loader-spinner";
 import { MdInventory2 } from "react-icons/md";
 import TruncateText from "../../../../../components/utils/utils";
 import { formatAmount4 } from "../../../../../components/utils";
+import ViewItemDetails from "./viewItemDetails";
 
 interface InventoryData {
   productName?: string;
@@ -16,6 +17,7 @@ interface InventoryData {
   transactionValue: number;
   noOfItemsSold: number;
   vendorImage: string;
+  productId: string;
 }
 
 interface InventoryTableProps {
@@ -29,8 +31,19 @@ const InventoryTable: React.FC<InventoryTableProps> = ({
   isLoading,
   status,
 }) => {
+
+  const [routInventory, setRoutInventory] = useState(false);
+  const [id, setId] = useState("");
+
+  const navigateTo = (productId: string) => {
+    setId(productId);
+    setRoutInventory((routInventory) => !routInventory);
+  };
   return (
     <div id="tableContainer">
+      {!routInventory && (
+            
+          
       <div
         id="mecaAdminTable"
         className={`my-[1.25rem] w-full max-h-[34rem] overflow-y-auto scrollbar-none h-[32rem] ${styles.table}`}
@@ -96,7 +109,11 @@ const InventoryTable: React.FC<InventoryTableProps> = ({
               </div>
             ) : (
               inventoryData?.map((d, index) => (
-                <tr key={index} id={`row_${index}`}>
+                <tr key={index} 
+                id={`row_${index}`}
+                onClick={() => navigateTo(d?.productId)}
+                className="cursor-pointer truncate hover:bg-gray-50"
+                >
                   <td id={`companyData_${index}`}>
                     <div
                       className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem]`}
@@ -175,7 +192,13 @@ const InventoryTable: React.FC<InventoryTableProps> = ({
             )}
           </tbody>
         </table>
-      </div>
+      </div> )}
+      {routInventory && (
+        <div className="absolute top-0 bg-white lg:w-[85%] w-[100%] h-[100vh] z-50 sm:left-0 lg:left-auto">
+          <ViewItemDetails routeBack={() => navigateTo("")} productId={id} />
+        </div>
+      )}
+
     </div>
   );
 };

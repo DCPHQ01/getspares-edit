@@ -75,6 +75,7 @@ export default function Products() {
     typeof window !== "undefined" && window.sessionStorage
       ? sessionStorage.getItem("categoryId") || ""
       : "";
+  // const savedItems = sessionStorage.getItem("categoryId");
 
   const [payload, setPayload] = useState({
     categoryId: savedItems,
@@ -116,6 +117,14 @@ export default function Products() {
     );
   };
 
+  // const handleConditionChange = (checked: boolean, filterName: string) => {
+  //   setSelectedCondition((prev) =>
+  //     checked
+  //       ? [...prev, filterName]
+  //       : prev.filter((item) => item !== filterName)
+  //   );
+  // };
+
   const handleConditionChange = (value: string) => {
     setSelectedCondition(value);
   };
@@ -123,6 +132,31 @@ export default function Products() {
   const handlePriceChange = (value: string[]) => {
     setSelectedPrice(value);
   };
+  // const handlePriceChange = (checked: boolean, price: string[] | undefined) => {
+  //   setSelectedPrice((prev) => (checked && price ? price : []));
+  // };
+
+  // const applyFilters = async () => {
+  //   setLocalFilters({
+  //     brand: selectedBrand,
+  //     conditionStatus: selectedCondition,
+  //     price: selectedPrice,
+  //   });
+  //   // setApplyFilter(true);
+
+  //   // let newObj = {
+  //   //   ...payload,
+  //   //   filters: {
+  //   //     model: [],
+  //   //     brand: localFilters.brand,
+  //   //     conditionStatus: localFilters.conditionStatus,
+  //   //     price: localFilters.price,
+  //   //   },
+  //   // };
+
+  //   // setPayload(newObj);
+  //   console.log("filters ", localFilters);
+  // };
 
   const handleFiltering = async () => {
     const filterObjects = {
@@ -515,40 +549,18 @@ export default function Products() {
                             {data.items.map((item) => (
                               <FormControlLabel
                                 key={item.id}
-                                // control={data.title === "Price" || data.title === "Conditions" ? (
-                                //   <Radio
-                                //       checked={
-                                //         data.title === "Price"
-                                //           ? selectedPrice === item.price
-                                //           : selectedCondition === item.title
-                                //       }
-                                //     />
-                                // ) : (
-                                //   <Checkbox />
-                                // )}
-
-                                control={
-                                  data.title === "Price" ? (
-                                    <Radio
-                                      checked={
-                                        selectedPrice[0] === item.price?.[0] &&
-                                        selectedPrice[1] === item.price?.[1]
-                                      }
-                                      value={item.price}
+                                control={data.title === "Price" || data.title === "Conditions" ? (
+                                  <Radio
+                                      // checked={
+                                      //   data.title === "Price"
+                                      //     ? selectedPrice === item.price
+                                      //     : selectedCondition === item.title
+                                      // }
+                      
                                     />
-                                  ) : data.title === "Conditions" ? (
-                                    <Radio
-                                      checked={selectedCondition === item.title}
-                                      value={item.title}
-                                    />
-                                  ) : (
-                                    <Checkbox
-                                      checked={selectedBrand.includes(
-                                        item.title
-                                      )}
-                                    />
-                                  )
-                                }
+                                ) : (
+                                  <Checkbox />
+                                )}
                                 label={item.title}
                                 onChange={(event, checked) => {
                                   switch (data.title) {
@@ -556,10 +568,10 @@ export default function Products() {
                                       handleBrandChange(checked, item.title);
                                       break;
                                     case "Conditions":
-                                      handleConditionChange(item.title);
+                                      handleConditionChange(item.title)
                                       break;
                                     case "Price":
-                                      handlePriceChange(item.price || []);
+                                      handlePriceChange(item.price || [])
                                       break;
                                     default:
                                       break;
@@ -574,7 +586,6 @@ export default function Products() {
                   </Accordion>
                 </div>
               ))}
-
               <div className="mt-8 flex flex-col justify-center gap-y-4 w-[273px] h-[100px]">
                 <button
                   type="button"

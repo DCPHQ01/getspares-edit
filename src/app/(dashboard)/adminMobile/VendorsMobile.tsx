@@ -8,6 +8,14 @@ import { MdChevronRight } from "react-icons/md";
 import { useGetMecaAdminDashboardVendorQuery } from "../../../redux/features/dashboard/mecaAdminQuery";
 
 interface Vendor {
+  // email: string;
+  // dateJoined: string;
+  // imageUrl?: string;
+  // companyName?: string;
+  // transactionValue: number;
+  // totalItemSold: number;
+  // ratings: number;
+  vendorId: string;
   email: string;
   dateJoined: string;
   imageUrl?: string;

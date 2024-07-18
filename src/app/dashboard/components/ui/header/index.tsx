@@ -1,15 +1,19 @@
 import React from "react";
 import { cn } from "../../../../../components/utils";
 import Greeting from "../../utils/Greeting";
+import { GoArrowUpRight } from "react-icons/go";
+import Link from "next/link";
+
 
 interface IProps {
   title?: string;
   subtitle?: string;
   amount?: number | string;
   name?: string;
+  website?: string | null;
 }
 
-const Index: React.FC<IProps> = ({ title, subtitle, amount, name }) => {
+const Index: React.FC<IProps> = ({ title, subtitle, amount, name, website }) => {
   return (
     <>
       <div className="flex items-center gap-0.5">
@@ -36,8 +40,21 @@ const Index: React.FC<IProps> = ({ title, subtitle, amount, name }) => {
       </div>
 
       <p id="topHeaderSubtitle" className={`text-[#4B5565]`}>
-        {subtitle}
+        {subtitle !== 'null' && subtitle}
       </p>
+      <div className="flex items-center gap-0.5">
+        <p id="topHeaderSubtitle" className={`text-mecaBluePrimaryColor`}>
+          {website !== 'null' && website}
+        </p>
+        {/* <GoArrowUpRight className="ml-1 text-mecaBluePrimaryColor" /> */}
+        {website && (
+          website !== 'null' && (<Link href={website} passHref>
+            {/* <a target="_blank" rel="noopener noreferrer"> */}
+              <GoArrowUpRight className="ml-1 text-mecaBluePrimaryColor" />
+            {/* </a> */}
+          </Link>)
+        )}
+      </div>
     </>
   );
 };
