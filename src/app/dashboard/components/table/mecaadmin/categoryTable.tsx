@@ -97,7 +97,6 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
                   <tr
                     key={index}
                     id={`row_${index}`}
-                    className="cursor-pointer"
                   >
                     <td id={`companyData_${index}`}>
                       <div className={`w-full flex items-center gap-x-4`}>
