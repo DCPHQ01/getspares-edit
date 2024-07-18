@@ -6,17 +6,22 @@ import TopBarWhileInside from '../../../../reusables/TopBarWhileInside/page'
 import sellerImage from '../../../../../assets/images/sellerImage.png'
 import emailIcon from '../../../../../assets/icons/emailIcon.png'
 import { MdChevronRight } from "react-icons/md";
+import { useGetAllSalesQuery } from '../../../../../redux/features/users/authQuery'
 import Card from '../../../../../components/Homepage/Card'
 
 const sales = () => {
   // const router = useRouter();
 
   interface productDetails {
+    vendorName: string;
+    vendorEmail: string;
+    companyImage?: string;
+    vendorId: string;
+    websiteUrl: string;
     id: string;
     name: string;
-    price: number;
-    image: string;
-    categoryName: string;
+    image?: string;
+    price: string;
   }
   
   return (
@@ -45,7 +50,6 @@ const sales = () => {
         </div>
         <p className='flex justify-start pt-10 text-3xl'>Inventory</p>
       </div>
-
 
       <div>
       {/* {salesProduct?.data?.content.map(card => (
