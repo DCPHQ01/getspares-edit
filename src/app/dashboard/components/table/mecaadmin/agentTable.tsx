@@ -102,7 +102,7 @@ const AgentTable: React.FC<AgentTableProps> = ({ agentList, isLoading }) => {
                   <tr
                     key={index}
                     id={`row_${index}`}
-                    className="cursor-pointer hover:bg-gray-50"
+                    className="hover:bg-gray-50"
                   >
                     <td id={`companyData_${index}`}>
                       <div className={`flex gap-3 text-[0.88rem] px-[1.25rem]`}>
