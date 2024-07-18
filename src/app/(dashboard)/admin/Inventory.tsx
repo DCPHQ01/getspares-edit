@@ -19,6 +19,7 @@ interface InventoryDataProps {
   transactionValue: number;
   noOfItemsSold: number;
   vendorImage: string;
+  productId: string;
 }
 
 function Inventory() {
