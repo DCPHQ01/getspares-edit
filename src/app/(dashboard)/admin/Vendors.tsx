@@ -14,6 +14,7 @@ import {
 import { useGetMecaAdminDashboardVendorQuery } from "../../../redux/features/dashboard/mecaAdminQuery";
 
 interface Vendor {
+  vendorId: string;
   email: string;
   dateJoined: string;
   imageUrl?: string;

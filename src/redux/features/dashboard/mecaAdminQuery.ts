@@ -56,6 +56,12 @@ export const mecaAdminQuery = createApi({
         method: "GET",
       }),
     }),
+    getVendorCompanyDetails: builder.query({
+      query: ({ vendorId }) => ({
+        url: `/company/viewCompanyProfile/${vendorId}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -63,7 +69,7 @@ export const mecaAdminQuery = createApi({
 export const {useGetMecaAdminInventoryMutation,useAddCategoryMutation, useGetMecaAdminOverviewQuery,
               useGetTopPerformingVendorsQuery, useGetMecaAdminBuyerQuery,
               useGetMecaAdminDashboardVendorQuery,useGetViewAllMecaAdminCategoryQuery,
-              useGetMecaAdminAgentQuery
+              useGetMecaAdminAgentQuery, useGetVendorCompanyDetailsQuery,
             } = mecaAdminQuery;
 
 

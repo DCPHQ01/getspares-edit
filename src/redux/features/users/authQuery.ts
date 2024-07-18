@@ -3,6 +3,7 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 import { LoginResponse } from "../../../models/loginResponse";
 import ResetPassword from "../../../app/forgot-password/page";
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+
 export const authQuery = createApi({
   reducerPath: "baseQuery",
   baseQuery: fetchBaseQuery({ baseUrl }),

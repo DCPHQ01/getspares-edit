@@ -80,7 +80,7 @@ const sales = () => {
         <p className='flex justify-start pt-10 text-3xl'>Inventory</p>
       </div>
       <div className="flex flex-wrap -mx-2">
-      {list?.map((product) => (
+      {list?.map((product:productDetails) => (
         <div key={product.id} className="w-full sm:w-1/2 md:w-1/3 p-2">
           <Card
             id={product.id}
