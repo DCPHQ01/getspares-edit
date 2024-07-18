@@ -17,8 +17,11 @@ import { MdInventory2 } from "react-icons/md";
 import TruncateText, {
   formatDateTime,
 } from "../../../../../components/utils/utils";
+import { useRouter } from "next/navigation";
+import VendorDetails from "../../../../(dashboard)/admin/vendor/VendorDetals";
 
 interface Vendor {
+  vendorId: string;
   email: string;
   dateJoined: string;
   imageUrl?: string;
@@ -34,6 +37,27 @@ interface VendorTableProps {
 }
 
 const VendorTable: React.FC<VendorTableProps> = ({ vendorList, isLoading }) => {
+  // const [selectedVendor, setSelectedVendor] = useState<string>("");
+  const router = useRouter();
+
+  // const handleVendorDetails = (vendorId: string) => {
+  //   sessionStorage.setItem("selectedVendor", vendorId);
+  //   setSelectedVendor(vendorId);
+  // };
+
+  const [selectedVendorId, setSelectedVendorId] = useState<string | null>(null);
+
+  const handleRowClick = (vendorId: string) => {
+    setSelectedVendorId(vendorId);
+  };
+
+  // const vendorId = sessionStorage.getItem("selectedVendor");
+
+  // const router = useRouter();
+
+  // const handleVendorDetails = () => {
+  //   router.push('/admin/vendor');
+  // };
   return (
     <div id="tableContainer">
       <div
@@ -58,7 +82,7 @@ const VendorTable: React.FC<VendorTableProps> = ({ vendorList, isLoading }) => {
               </th>
               <th
                 id="transactionRatings"
-                className={`lg:sticky z-10`}
+                className={`lg:sticky z-5`}
                 style={{ paddingLeft: "5.5rem" }}
               >
                 Ratings
@@ -115,6 +139,7 @@ const VendorTable: React.FC<VendorTableProps> = ({ vendorList, isLoading }) => {
                     key={index}
                     id={`row_${index}`}
                     className="cursor-pointer"
+                    onClick={() => handleRowClick(d.vendorId)}
                   >
                     <td id={`companyData_${index}`}>
                       <div
@@ -195,6 +220,13 @@ const VendorTable: React.FC<VendorTableProps> = ({ vendorList, isLoading }) => {
           </tbody>
         </table>
       </div>
+      {selectedVendorId && (
+        <div className="fixed bottom-0 mt-8 ml-12 lg:left-60 right-0 lg:top-0 h-[100vh] lg:w-[84%] w-[100%] lg:h-[100vh]">
+          <div className="bg-white h-[100vh] w-full">
+            <VendorDetails vendorId={selectedVendorId}/>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

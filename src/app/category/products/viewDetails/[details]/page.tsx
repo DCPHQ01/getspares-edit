@@ -60,7 +60,7 @@ const images = [
   { src: tractor, alt: "other side" },
 ];
 
-export default function Details() {
+const Details = () => {
   const [opens, setOpens] = React.useState<boolean>(false);
   const [productInformations, setProductInformations] =
     useState<productInformation>({});
@@ -289,3 +289,5 @@ export default function Details() {
     </div>
   );
 }
+
+export default Details;
