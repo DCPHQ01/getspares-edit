@@ -1,20 +1,14 @@
 "use client";
-import { useState, useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import Header from "../../../dashboard/components/ui/header";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
 // import Addbutton from "../../components/ui/addbutton";
-import TextareaAutosize from "@mui/material/TextareaAutosize";
 import Modal from "@mui/material/Modal";
-import Button from "@mui/material/Button";
-import { MdChevronRight } from "react-icons/md";
+import {MdChevronRight} from "react-icons/md";
 import Link from "next/link";
-import { useGetVendorCompanyDetailsQuery } from "../../../../redux/features/dashboard/mecaAdminQuery";
+import {useGetVendorCompanyDetailsQuery} from "../../../../redux/features/dashboard/mecaAdminQuery";
 import dayjs from "dayjs";
-import { formatAllDateTwo } from "../../../dashboard/components/utils/utils";
-
 
 
 interface viewProfilesForActors {
@@ -33,7 +27,9 @@ interface viewProfilesForActors {
   productOutOfStock?: string;
 };
 
+
 interface VendorDetailsProps {
+  //@ts-ignore
   vendorId?: viewProfilesForActors[];
 }
 
@@ -87,18 +83,22 @@ const formatDateTime = (dateTime: string) => {
   return { date, time };
 };
 
+
+
 const formatTimeDate = (dateTime: string | undefined) => {
-  const splittedDate = dateTime?.split(" ");
-  const gottenDate = splittedDate && splittedDate[0];
-  console.log("gottenDate", gottenDate);
-  const date = dayjs(gottenDate).format("DD MMM YYYY");
-  const time = dayjs(dateTime).format("HH A");
-  return `${time}, ${date}`;
-  // return { date, time };
+  if (!dateTime) return "";
+
+  const [hours, minutes, day, month, year] = dateTime.split(":");
+
+  const formattedDate = dayjs(`${year}-${month}-${day}`).format("DD MMM YYYY");
+  const formattedTime = dayjs(`${year}-${month}-${day} ${hours}:${minutes}`).format("hh:mm A");
+
+  return `${formattedTime}, ${formattedDate}`;
 };
 
 
-const VendorDetails: React.FC<VendorDetailsProps> = ({ vendorId }) => {
+
+const VendorDetails = ({ vendorId }: VendorDetailsProps) => {
 
   const { data, isLoading, isError } = useGetVendorCompanyDetailsQuery({ vendorId });
   const [viewProfile, setViewProfile] = useState<viewProfilesForActors>({});
@@ -114,7 +114,6 @@ const VendorDetails: React.FC<VendorDetailsProps> = ({ vendorId }) => {
 
 
 
-
   useEffect(() => {
     if (data) {
       const profileDet = data.data;
@@ -122,6 +121,7 @@ const VendorDetails: React.FC<VendorDetailsProps> = ({ vendorId }) => {
     }
   });
 
+  const formattedDateCreated = formatTimeDate(viewProfile.dateCreated);
 
 
   return (
@@ -138,11 +138,11 @@ const VendorDetails: React.FC<VendorDetailsProps> = ({ vendorId }) => {
         </p>
       </div>
 
-      <div className="flex justify-between w-full mt-5">       
+      <div className="flex justify-between w-full mt-5">
         <div className="flex items-center gap-x-2 mb-12">
           <Avatar
             className="bg-mecaActiveBackgroundNavColor text-mecaBluePrimaryColor w-16 h-16 text-4xl"
-            // {stringAvatar(`${viewProfile.name}`)}            
+            // {stringAvatar(`${viewProfile.name}`)}
             {...stringAvatar(viewProfile.companyName || "")}
           />
           <div>
@@ -248,7 +248,7 @@ const VendorDetails: React.FC<VendorDetailsProps> = ({ vendorId }) => {
             </div>
           </div>
 
-          <div className="flex gap-x-4 mt-5">          
+          <div className="flex gap-x-4 mt-5">
             <div
               className="lg:w-[364px] h-16 pl-5 pt-3 w-[100%] 2xl:w-[35rem] rounded  bg-mecaBorderColor"
               style={{ backgroundColor: "porcelain" }}
@@ -266,7 +266,7 @@ const VendorDetails: React.FC<VendorDetailsProps> = ({ vendorId }) => {
             </div>
           </div>
 
-          <div className="flex gap-x-4 mt-5"> 
+          <div className="flex gap-x-4 mt-5">
             <div
               className=" lg:w-[364px] h-16 pl-5 pt-3 w-[100%] 2xl:w-[35rem] rounded  bg-mecaBorderColor"
               style={{ backgroundColor: "porcelain" }}
@@ -285,7 +285,7 @@ const VendorDetails: React.FC<VendorDetailsProps> = ({ vendorId }) => {
 
           </div>
 
-          <div className="flex gap-x-4 mt-5">          
+          <div className="flex gap-x-4 mt-5">
             <div
               className=" lg:w-[364px] h-16 pl-5 pt-3 w-[100%] 2xl:w-[35rem] rounded  bg-mecaBorderColor"
               style={{ backgroundColor: "porcelain" }}
@@ -299,11 +299,11 @@ const VendorDetails: React.FC<VendorDetailsProps> = ({ vendorId }) => {
               style={{ backgroundColor: "porcelain" }}
             >
               <p className="text-xs text-gray-500">Date and time joined</p>
-              <p>{formatTimeDate(viewProfile.dateCreated)}</p>
+              <p>{formattedDateCreated}</p>
             </div>
           </div>
 
-          <div className="flex gap-x-4 mt-5"> 
+          <div className="flex gap-x-4 mt-5">
             <div
               className=" lg:w-[364px] h-16 pl-5 pt-3 w-[100%] 2xl:w-[35rem] rounded  bg-mecaBorderColor"
               style={{ backgroundColor: "porcelain" }}
@@ -319,17 +319,17 @@ const VendorDetails: React.FC<VendorDetailsProps> = ({ vendorId }) => {
               <p className="text-xs text-gray-500">Transaction value</p>
               <p>{viewProfile.transactionValue}</p>
             </div>
-            
+
           </div>
 
-          {/* <div className="flex gap-x-4 mt-5">       
+          {/* <div className="flex gap-x-4 mt-5">
             <div
               className="lg:w-[364px] h-16 pl-5 pt-3 w-full 2xl:w-[27.7rem] rounded bg-mecaBorderColor"
               style={{ backgroundColor: "porcelain" }}
             >
               <p className="text-xs text-gray-500">Last active</p>
               <p>{viewProfile.lastActive}</p>
-            </div> 
+            </div>
           </div> */}
 
 
