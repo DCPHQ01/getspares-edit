@@ -120,10 +120,10 @@ export default function Login() {
             router.push(paths.toAdmin());
             break;
           case "VENDOR_ADMIN":
-            router.push(paths.toDashboard());
+            router.push(paths.toVendorDashboard());
             break;
           case "AGENT":
-            router.push(paths.toDashboard());
+            router.push(paths.toAgentDashboard());
             break;
           case "BUYER":
             router.push(paths.toHome());

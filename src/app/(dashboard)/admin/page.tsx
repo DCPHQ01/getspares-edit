@@ -1,12 +1,12 @@
 "use client";
 import React, { useState } from "react";
 import Sidepanel from "../../dashboard/components/sidepanel";
-import Overview from "./Overview";
-import Vendors from "./Vendors";
-import Agents from "./Agents";
-import Buyers from "./Buyers";
-import Inventory from "./Inventory";
-import Category from "./Category";
+import Overview from "./overview/page";
+import Vendors from "./vendor/page";
+import Agents from "./agents/page";
+import Buyers from "./buyers/page";
+import Inventory from "./inventory/page";
+import Category from "./category/page";
 import { useAppSelector } from "../../../redux";
 import { sidePanel } from "../../dashboard/components/utils/utils";
 import Profile from "./Profile";
@@ -41,7 +41,6 @@ import withAuth from "../../withAuth";
 import { useUserRole } from "../../hooks/useUserRole";
 import { paths } from "../../../path/paths";
 
-
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
@@ -62,32 +61,31 @@ function Page() {
   );
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);  
+  const handleClose = () => setOpen(false);
 
-
-  const SidePanelButton = () => {
-    const mecaAdmin = useAppSelector(
-      (state) => state.dashboard.sidePanelButton
-    );
-    switch (mecaAdmin) {
-      case sidePanel.OVERVIEW:
-        return <Overview />;
-      case sidePanel.VENDORS:
-        return <Vendors />;
-      case sidePanel.AGENTS:
-        return <Agents />;
-      case sidePanel.BUYERS:
-        return <Buyers />;
-      case sidePanel.INVENTORY:
-        return <Inventory />;
-      case sidePanel.CATEGORY:
-        return <Category />;
-      case sidePanel.PROFILE:
-        return <Profile />;
-      default:
-        return null;
-    }
-  };
+  // const SidePanelButton = () => {
+  //   const mecaAdmin = useAppSelector(
+  //     (state) => state.dashboard.sidePanelButton
+  //   );
+  //   switch (mecaAdmin) {
+  //     case sidePanel.OVERVIEW:
+  //       return <Overview />;
+  //     case sidePanel.VENDORS:
+  //       return <Vendors />;
+  //     case sidePanel.AGENTS:
+  //       return <Agents />;
+  //     case sidePanel.BUYERS:
+  //       return <Buyers />;
+  //     case sidePanel.INVENTORY:
+  //       return <Inventory />;
+  //     case sidePanel.CATEGORY:
+  //       return <Category />;
+  //     case sidePanel.PROFILE:
+  //       return <Profile />;
+  //     default:
+  //       return null;
+  //   }
+  // };
 
   const dispatch = useAppDispatch();
 
@@ -111,7 +109,8 @@ function Page() {
       icon: <MdDashboard />,
       title: "Overview",
       size: 18,
-      panel: sidePanel.OVERVIEW,
+      link: "/overview",
+      // panel: sidePanel.OVERVIEW,
       role: [roles.MECA_ADMIN, roles.VENDOR_ADMIN, roles.AGENTS, roles.BUYER],
     },
     {
@@ -207,12 +206,12 @@ function Page() {
     <>
       {/* desktop */}
       <div className={`hidden lg:flex flex-col`}>
-        <Sidepanel />
+        {/* <Sidepanel />
         <div
           className={`flex-1 my-[3.25rem] ml-[17.5rem] pl-[1.375rem] mr-[2.125rem] `}
         >
           <SidePanelButton />
-        </div>
+        </div> */}
       </div>
       {/* mobile */}
       <div className="lg:hidden w-full" id="contentContainerAddToCartMobile">
@@ -337,55 +336,55 @@ function Page() {
           <AdminMobilePage />
         </div>
         <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <div className="">
-            <div className="flex justify-between">
-              <div className="">
-                <Image
-                  className="h-12 w-12"
-                  src={featuredicons}
-                  id="featured icon"
-                  alt="featured icon"
-                />
-              </div>
-              <div className="cursor-pointer ">
-                <MdClose className="text-2xl" onClick={handleClose} />
-              </div>
-            </div>
-
-            <div className="text-gray-600 text-base mt-2">
-              <p className="font-bold text-xl text-black ">Confirm logout</p>
-              <p className="font-semibold text-lg ">
-                Are you sure you want to log out?
-              </p>
-            </div>
-            <div className="flex justify-between mb-10 mt-12 font-semibold">
-              <div className=" border-2 border-mecaBluePrimaryColor rounded-full">
-                <button
-                  onClick={handleClose}
-                  className="w-40 h-12 text-mecaBluePrimaryColor "
-                >
-                  Cancel
-                </button>
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <div className="">
+              <div className="flex justify-between">
+                <div className="">
+                  <Image
+                    className="h-12 w-12"
+                    src={featuredicons}
+                    id="featured icon"
+                    alt="featured icon"
+                  />
+                </div>
+                <div className="cursor-pointer ">
+                  <MdClose className="text-2xl" onClick={handleClose} />
+                </div>
               </div>
 
-              <div className="">
-                <button
-                  onClick={logoutCompletely}
-                  className="w-40 h-12 text-white bottom-2 bg-mecaBluePrimaryColor rounded-full"
-                >
-                  Logout
-                </button>
+              <div className="text-gray-600 text-base mt-2">
+                <p className="font-bold text-xl text-black ">Confirm logout</p>
+                <p className="font-semibold text-lg ">
+                  Are you sure you want to log out?
+                </p>
+              </div>
+              <div className="flex justify-between mb-10 mt-12 font-semibold">
+                <div className=" border-2 border-mecaBluePrimaryColor rounded-full">
+                  <button
+                    onClick={handleClose}
+                    className="w-40 h-12 text-mecaBluePrimaryColor "
+                  >
+                    Cancel
+                  </button>
+                </div>
+
+                <div className="">
+                  <button
+                    onClick={logoutCompletely}
+                    className="w-40 h-12 text-white bottom-2 bg-mecaBluePrimaryColor rounded-full"
+                  >
+                    Logout
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        </Box>
-      </Modal>
+          </Box>
+        </Modal>
       </div>
     </>
   );

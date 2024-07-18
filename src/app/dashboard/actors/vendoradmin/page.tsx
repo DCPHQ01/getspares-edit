@@ -1,25 +1,42 @@
 // "use client";
+// import React, { useState } from "react";
 // import { useAppSelector } from "../../../../redux";
 // import Sidepanel from "../../components/sidepanel";
 // import { sidePanel } from "../../components/utils/utils";
-// import Overview from "./Overview";
-// import Orders from "./Orders";
-// import Cart from "./Cart";
+// import VendorOverview from "./overview/page";
+// import VendorAgents from "./agents/page";
+// import VendorOrders from "./orders/page";
+// import VendorInventory from "./inventory/page";
 // import Profile from "./Profile";
 // import router from "next/router";
 // import { MdMenu, MdClose } from "react-icons/md";
-// import BuyerMobileDashboardPage from "./buyerMobileDashboard/page";
-// import React, { useState } from "react";
+// import VendorMobilePage from "./vendorMobile/page";
+
 // import { useAppDispatch } from "../../../../redux/hooks";
 // import { dashboardActions } from "../../../../redux/features/dashboard/dashboardSlice";
 // import { clearUser, setUser } from "../../../../redux/features/users/userSlice";
 // import { useRouter } from "next/navigation";
-// import { roles, userRole } from "../../../dashboard/components/utils/utils";
-// import { useUserRole } from "../../../hooks/useUserRole";
+// import { roles, userRole } fro../../components/utils/utilsils";
+
 // import Image from "next/image";
 // import Box from "@mui/material/Box";
 // import Modal from "@mui/material/Modal";
+// // import featuredicons from "../../../assets/images/Featuredicon.svg";
 // import featuredicons from "../../../../assets/images/Featuredicon.svg";
+
+// import {
+//   MdBusinessCenter,
+//   MdCategory,
+//   MdDashboard,
+//   MdInventory2,
+//   MdLocalPolice,
+//   MdLogout,
+//   MdPersonPin,
+//   MdShoppingCart,
+//   MdYard,
+// } from "react-icons/md";
+// import { useUserRole } from "../../../hooks/useUserRole";
+// import { paths } from "../../../../path/paths";
 
 // const style = {
 //   position: "absolute" as "absolute",
@@ -34,31 +51,20 @@
 //   p: 2,
 // };
 
-// import {
-//   MdBusinessCenter,
-//   MdCategory,
-//   MdDashboard,
-//   MdInventory2,
-//   MdLocalPolice,
-//   MdLogout,
-//   MdPersonPin,
-//   MdShoppingCart,
-//   MdYard,
-// } from "react-icons/md";
-// import { paths } from "../../../../path/paths";
-
 // function Index() {
 //   const SidePanelButton = () => {
-//     const buyermobile = useAppSelector(
-//       (state) => state.dashboard.sidePanelButton
+//     const vendormobile = useAppSelector(
+//       (state) => state?.dashboard.sidePanelButton
 //     );
-//     switch (buyermobile) {
+//     switch (vendormobile) {
 //       case sidePanel.OVERVIEW:
-//         return <Overview />;
+//         return <VendorOverview />;
+//       case sidePanel.AGENTS:
+//         return <VendorAgents />;
 //       case sidePanel.ORDERS:
-//         return <Orders />;
-//       case sidePanel.CART:
-//         return <Cart />;
+//         return <VendorOrders />;
+//       case sidePanel.INVENTORY:
+//         return <VendorInventory />;
 //       case sidePanel.PROFILE:
 //         return <Profile />;
 //       default:
@@ -71,21 +77,20 @@
 //   const [bottomActiveBtn, setBottomActiveButton] = useState<number | null>(
 //     null
 //   );
-//   const [open, setOpen] = React.useState(false);
-//   const handleOpen = () => setOpen(true);
-//   const handleClose = () => setOpen(false);
 
 //   const userRole = useUserRole();
 //   const role = userRole;
 
 //   const router = useRouter();
 
+//   const [open, setOpen] = React.useState(false);
+//   const handleOpen = () => setOpen(true);
+//   const handleClose = () => setOpen(false);
+
 //   const logOut = () => {
 //     dispatch(clearUser());
 //     router.push(paths.toHome());
 //   };
-
-//   // (roles, " roles");
 
 //   const profileBtn = () => {
 //     handleButtonClick(sidePanel.PROFILE);
@@ -164,12 +169,6 @@
 //       title: "Logout",
 //       size: 18,
 //       onClick: handleOpen,
-//       // onClick: () => {
-//       //   sessionStorage.clear();
-//       //   sessionStorage.removeItem("userDetails");
-//       //   dispatch(setUser({}));
-//       //   router.push(paths.toLogin());
-//       // },
 //     },
 //   ];
 
@@ -185,29 +184,28 @@
 //     dispatch(dashboardActions.setNavButton(panel));
 //     setBottomActiveButton(null);
 //   };
-
 //   const filteredButtons = buttons.filter((button) =>
 //     button.role.includes(role)
 //   );
-//   const [buyerMobileDashboard, setBuyerMobileDashboard] = useState(false);
+//   const [vendorMobileOpen, setVendorMobileOpen] = useState(false);
 
-//   const handleBuyerMobileDashboard = () => {
-//     setBuyerMobileDashboard(!buyerMobileDashboard);
+//   const handleVendorMobileOpen = () => {
+//     setVendorMobileOpen(!vendorMobileOpen);
 //   };
 
 //   return (
-//     <>
+//     <div className="">
+//       {/* desktop */}
 //       <div className={`hidden lg:flex flex-col`}>
-//         {/* desktop */}
-//         <Sidepanel />
+//         {/* <Sidepanel /> */}
 //         <div
 //           className={`flex-1 my-[3.25rem] ml-[17.5rem] pl-[1.375rem] mr-[2.125rem]`}
 //         >
-//           <SidePanelButton />
+//           {/* <SidePanelButton /> */}
 //         </div>
 //       </div>
-//       {/* mobile */}
 
+//       {/* mobile */}
 //       <div className="lg:hidden w-full" id="contentContainerAddToCartMobile">
 //         <div className="w-[100%] fixed top-0">
 //           <div style={{ width: "100%" }}>
@@ -225,17 +223,14 @@
 //                       e-meca
 //                     </p>
 
-//                     <div
-//                       onClick={handleBuyerMobileDashboard}
-//                       id="mobileMenuBtn"
-//                     >
+//                     <div onClick={handleVendorMobileOpen} id="mobileMenuBtn">
 //                       <MdMenu size={18} className="cursor-pointer" />
 //                     </div>
 //                   </div>
 
-//                   {buyerMobileDashboard && (
+//                   {vendorMobileOpen && (
 //                     <div
-//                       onClick={handleBuyerMobileDashboard}
+//                       onClick={handleVendorMobileOpen}
 //                       className="absolute z-[1000] top-0 bg-white w-[100%] h-[100vh] "
 //                     >
 //                       <div className=" z-[1000]">
@@ -251,7 +246,7 @@
 //                           </p>
 
 //                           <div
-//                             onClick={handleBuyerMobileDashboard}
+//                             onClick={handleVendorMobileOpen}
 //                             id="mobileMenuBtn"
 //                           >
 //                             <MdClose size={18} className="cursor-pointer" />
@@ -334,60 +329,60 @@
 //           </div>
 //         </div>
 //         <div className="w-[90%] m-auto z--50 mt-28 ">
-//           <BuyerMobileDashboardPage />
+//           <VendorMobilePage />
 //         </div>
-//         <Modal
-//           open={open}
-//           onClose={handleClose}
-//           aria-labelledby="modal-modal-title"
-//           aria-describedby="modal-modal-description"
-//         >
-//           <Box sx={style}>
-//             <div className="">
-//               <div className="flex justify-between">
-//                 <div className="">
-//                   <Image
-//                     className="h-12 w-12"
-//                     src={featuredicons}
-//                     id="featured icon"
-//                     alt="featured icon"
-//                   />
-//                 </div>
-//                 <div className="cursor-pointer ">
-//                   <MdClose className="text-2xl" onClick={handleClose} />
-//                 </div>
+//       </div>
+//       <Modal
+//         open={open}
+//         onClose={handleClose}
+//         aria-labelledby="modal-modal-title"
+//         aria-describedby="modal-modal-description"
+//       >
+//         <Box sx={style}>
+//           <div className="">
+//             <div className="flex justify-between">
+//               <div className="">
+//                 <Image
+//                   className="h-12 w-12"
+//                   src={featuredicons}
+//                   id="featured icon"
+//                   alt="featured icon"
+//                 />
 //               </div>
-
-//               <div className="text-gray-600 text-base mt-2">
-//                 <p className="font-bold text-xl text-black ">Confirm logout</p>
-//                 <p className="font-semibold text-lg ">
-//                   Are you sure you want to log out?
-//                 </p>
-//               </div>
-//               <div className="flex justify-between mb-10 mt-12 font-semibold">
-//                 <div className=" border-2 border-mecaBluePrimaryColor rounded-full">
-//                   <button
-//                     onClick={handleClose}
-//                     className="w-40 h-12 text-mecaBluePrimaryColor "
-//                   >
-//                     Cancel
-//                   </button>
-//                 </div>
-
-//                 <div className="">
-//                   <button
-//                     onClick={logoutCompletely}
-//                     className="w-40 h-12 text-white bottom-2 bg-mecaBluePrimaryColor rounded-full"
-//                   >
-//                     Logout
-//                   </button>
-//                 </div>
+//               <div className="cursor-pointer ">
+//                 <MdClose className="text-2xl" onClick={handleClose} />
 //               </div>
 //             </div>
-//           </Box>
-//         </Modal>
-//       </div>
-//     </>
+
+//             <div className="text-gray-600 text-base mt-2">
+//               <p className="font-bold text-xl text-black ">Confirm logout</p>
+//               <p className="font-semibold text-lg ">
+//                 Are you sure you want to log out?
+//               </p>
+//             </div>
+//             <div className="flex justify-between mb-10 mt-12 font-semibold">
+//               <div className=" border-2 border-mecaBluePrimaryColor rounded-full">
+//                 <button
+//                   onClick={handleClose}
+//                   className="w-40 h-12 text-mecaBluePrimaryColor "
+//                 >
+//                   Cancel
+//                 </button>
+//               </div>
+
+//               <div className="">
+//                 <button
+//                   onClick={logoutCompletely}
+//                   className="w-40 h-12 text-white bottom-2 bg-mecaBluePrimaryColor rounded-full"
+//                 >
+//                   Logout
+//                 </button>
+//               </div>
+//             </div>
+//           </div>
+//         </Box>
+//       </Modal>
+//     </div>
 //   );
 // }
 

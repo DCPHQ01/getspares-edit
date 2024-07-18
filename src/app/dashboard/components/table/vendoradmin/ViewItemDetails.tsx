@@ -50,10 +50,6 @@ const ViewItemDetails: React.FC<NavProps> = ({ routeBack, productId }) => {
     }
   }, [productId]);
 
-  const onClick = () => {
-    router.push(paths.toDashboard());
-  };
-
   const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
   const handleImageClick = (index: number) => {
     setSelectedImageIndex(index);

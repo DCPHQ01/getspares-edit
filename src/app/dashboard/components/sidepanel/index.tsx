@@ -48,7 +48,13 @@ function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
   //   const userRole = decoded?.resource_access?.meca?.roles[0];
   //   const names = decoded;
   const dispatch = useAppDispatch();
-  const [activeButton, setActiveButton] = useState<number | null>(0);
+  const [activeButton, setActiveButton] = useState<number | null>(() => {
+    const savedIndex = sessionStorage.getItem("activeButtonIndex");
+    if (savedIndex) {
+      return parseInt(savedIndex, 10);
+    }
+    return 0;
+  });
   const [bottomActiveBtn, setBottomActiveButton] = useState<number | null>(
     null
   );
@@ -58,6 +64,8 @@ function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
   const userRole = useUserRole();
   const role = userRole;
 
+  console.log("roles ", role);
+
   const router = useRouter();
 
   const logOut = () => {
@@ -65,10 +73,8 @@ function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
     router.push(paths.toHome());
   };
 
-  // (roles, " roles");
-
   const profileBtn = () => {
-    handleButtonClick(sidePanel.PROFILE);
+    // handleButtonClick(sidePanel.PROFILE);
     setActiveButton(null);
     setBottomActiveButton(0);
   };
@@ -78,56 +84,83 @@ function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
       icon: <MdDashboard />,
       title: "Overview",
       size: 18,
-      panel: sidePanel.OVERVIEW,
+      // link: `${handleDynamicRoutingByRoles}/overview`,
+      link: `${
+        role === "MECA_ADMIN"
+          ? "/admin/overview"
+          : role === "VENDOR_ADMIN"
+          ? "/dashboard/vendor/overview"
+          : "/dashboard/buyer/overview"
+      } `,
+      // panel: sidePanel.OVERVIEW,
       role: [roles.MECA_ADMIN, roles.VENDOR_ADMIN, roles.AGENTS, roles.BUYER],
     },
     {
       icon: <MdYard />,
       title: "Vendors",
       size: 18,
-      panel: sidePanel.VENDORS,
+      link: "/admin/vendor",
+      // panel: sidePanel.VENDORS,
       role: [roles.MECA_ADMIN, roles.AGENTS],
     },
     {
       icon: <MdLocalPolice />,
       title: "Agents",
       size: 18,
-      panel: sidePanel.AGENTS,
+      link: `${
+        role === "MECA_ADMIN" ? "/admin/agents" : "/dashboard/vendor/agents"
+      } `,
+      // panel: sidePanel.AGENTS,
       role: [roles.MECA_ADMIN, roles.VENDOR_ADMIN],
     },
     {
       icon: <MdBusinessCenter />,
       title: "Buyers",
       size: 18,
-      panel: sidePanel.BUYERS,
+      link: "/admin/buyers",
+      // panel: sidePanel.BUYERS,
       role: [roles.MECA_ADMIN],
     },
     {
       icon: <MdBusinessCenter />,
       title: "Orders",
       size: 18,
-      panel: sidePanel.ORDERS,
+      link: `${
+        role === "VENDOR_ADMIN"
+          ? "/dashboard/vendor/orders"
+          : "/dashboard/buyer/orders"
+      } `,
+      // panel: sidePanel.ORDERS,
       role: [roles.VENDOR_ADMIN, roles.AGENTS, roles.BUYER],
     },
     {
       icon: <MdShoppingCart />,
       title: "Cart",
       size: 18,
-      panel: sidePanel.CART,
+      link: "/dashboard/buyer/cart",
+      // panel: sidePanel.CART,
       role: [roles.BUYER],
     },
     {
       icon: <MdInventory2 />,
       title: "Inventory",
       size: 18,
-      panel: sidePanel.INVENTORY,
+      link: `${
+        role === "MECA_ADMIN"
+          ? "/admin/inventory"
+          : "/dashboard/vendor/inventory"
+      } `,
+      // panel: sidePanel.INVENTORY,
       role: [roles.MECA_ADMIN, roles.VENDOR_ADMIN],
     },
     {
       icon: <MdCategory />,
       title: "Category",
       size: 18,
-      panel: sidePanel.CATEGORY,
+      link: `${
+        role === "MECA_ADMIN" ? "/admin/category" : "/dashboard/vendor/category"
+      }`,
+      // panel: sidePanel.CATEGORY,
       role: [roles.MECA_ADMIN],
     },
   ];
@@ -154,12 +187,12 @@ function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
     router.push("/login");
   };
 
-  const handleButtonClick = (panel: any, index?: any) => {
+  const handleButtonClick = (link: string, index: number) => {
+    console.log("clicked");
+    router.push(link);
     setActiveButton(index);
-    dispatch(dashboardActions.setNavButton(panel));
-    setBottomActiveButton(null);
+    sessionStorage.setItem("activeButtonIndex", index.toString());
   };
-
   const filteredButtons = buttons.filter((button) =>
     button.role.includes(role)
   );
@@ -186,7 +219,7 @@ function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
               className={`flex items-center text-[#364152] rounded-full hover:bg-[#EFF4FF] hover:text-[#0852C0] w-full py-[0.5rem] px-[0.75rem] gap-4 mb-[1rem] ${
                 activeButton === index ? "bg-[#EFF4FF] text-[#0852C0]" : ""
               }`}
-              onClick={() => handleButtonClick(btn.panel, index)}
+              onClick={() => handleButtonClick(btn.link, index)}
             >
               <span>{React.cloneElement(btn.icon, { size: btn.size })}</span>
               <span>{btn.title}</span>
