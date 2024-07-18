@@ -167,7 +167,6 @@ export default function ProductDescription() {
     if (savedCartItems) {
       const i = savedCartItems.findIndex((e) => e.id === payload.id);
       if (i > -1) {
-        // We know that at least 1 object that matches has been found at the index i
         return;
       } else {
         newArr.push(payload);
@@ -225,10 +224,6 @@ export default function ProductDescription() {
       }
     }
   };
-
-  // const routeToSellerPage = ()=> {
-  //   router.push(`category/products/sales`);
-  // }
 
   useEffect(() => {
     if (cart.length !== 0) {
