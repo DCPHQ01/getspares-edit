@@ -107,12 +107,6 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
                     <td id={`companyData_${index}`}>
                       <div className={`w-full flex items-center gap-x-4`}>
                         {d?.imageUrl ? (
-                          // <img
-                          //   src={d.imageUrl}
-                          //   className="object-contain"
-                          //   alt="Avatar"
-                          //   id={`avatar_${index}`}
-                          // />
                           <CldImage
                             src={d?.imageUrl} // Use this sample image or upload your own via the Media Explorer
                             width="40" // Transform the image: auto-crop to square aspect_ratio

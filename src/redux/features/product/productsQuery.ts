@@ -125,6 +125,12 @@ export const productsQuery = createApi({
         body,
       }),
     }),
+    getAllSales: builder.query({
+      query: ({vendorId}) => ({
+        url: `/inventory/vendor/${vendorId}`,
+        method: "GET",
+      }),
+    })
   }),
 });
 
@@ -137,4 +143,5 @@ export const {
   useRemoveProductFromCartMutation,
   useViewCartQuery,
   useGetAllVendorProductsQuery,
+  useGetAllSalesQuery,
 } = productsQuery;

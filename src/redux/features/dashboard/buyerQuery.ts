@@ -34,7 +34,6 @@ export const buyerQuery = createApi({
     getOverviewOrderTables: builder.query({
         query: () => ({
           url: "/product/recent",
-
         method: "GET",
       }),
     }),

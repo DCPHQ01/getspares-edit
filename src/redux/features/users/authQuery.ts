@@ -137,12 +137,6 @@ export const authQuery = createApi({
         method: "GET",
       }),
     }),
-    getAllSales: builder.query({
-      query: () => ({
-        url: "/sales",
-        method: "GET",
-      }),
-    })
   }),
 });
 
@@ -163,5 +157,4 @@ export const {
   useResetPasswordMutation,
   useSearchAllProductsQuery,
   useGetAllCompaniesQuery,
-  useGetAllSalesQuery,
 } = authQuery;

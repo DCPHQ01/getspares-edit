@@ -123,6 +123,10 @@ export default function ProductDescription() {
     skip: !productId,
   });
 
+  console.log("Vendor id: ",data?.data?.vendorId);
+  sessionStorage.setItem("vendorsId",data?.data?.vendorId)
+
+
   const { vertical, horizontal, open } = state;
 
   const dispatch = useAppDispatch();
@@ -134,6 +138,8 @@ export default function ProductDescription() {
   const { data: relatedProductData } = useGetRelatedProductQuery(productId, {
     skip: !productId,
   });
+     
+ 
 
   const [addToCart, { isLoading: cartLoading }] =
     useAddSingleProductToCartMutation();
@@ -220,9 +226,9 @@ export default function ProductDescription() {
     }
   };
 
-  const routeToSellerPage = ()=> {
-    router.push(`category/products/${data?.data.categoryName}/sales`);
-  }
+  // const routeToSellerPage = ()=> {
+  //   router.push(`category/products/sales`);
+  // }
 
   useEffect(() => {
     if (cart.length !== 0) {
@@ -241,10 +247,6 @@ export default function ProductDescription() {
   useLayoutEffect(() => {
     setProductImages(data?.data.images);
   }, [data]);
-
-  // const handleSeller =()=>{
-  //   router.push(paths.toDashboard());
-  // }
 
   return (
     <div className="relative">
@@ -409,15 +411,15 @@ export default function ProductDescription() {
                     id="viewSellerButtonDiv"
                     className="w-[40%] flex justify-end items-center"
                   >
-                 
+                 <Link href={"/category/products/sales"}>
                       <button
                         type="button"
                         id="viewSellerButton"
-                        className="w-[93px] h-[32px] text-sm text-bold text-mecaBluePrimaryColor rounded-lg cursor-pointer"
-                      
+                        className="w-[93px] h-[32px] text-sm text-bold text-mecaBluePrimaryColor rounded-lg cursor-pointer hover:underline"
                         >
-                        View Seller
+                        View Vendor
                       </button>
+                 </Link>
                   
                   </div>
                     </div>
