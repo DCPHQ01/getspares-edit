@@ -12,6 +12,7 @@ import { MdChevronRight } from "react-icons/md";
 import { useGetAllSalesQuery } from '../../../../redux/features/product/productsQuery'
 import Card from "../../../../components/Homepage/Card"
 import HomeImage2 from "../../../../assets/images/homeImage1.png"
+import { ColorRing } from 'react-loader-spinner';
 
 interface productDetails {
   id: string;
@@ -31,7 +32,7 @@ const Sales = () => {
     }
   }, []);
 
-  const { data, isError } = useGetAllSalesQuery({ vendorId });
+  const { data, isError, isFetching } = useGetAllSalesQuery({ vendorId });
 
   const [salesProduct, setSalesProduct] = useState<productDetails[]>([]);
   const name = data?.data?.vendorInventoryDetailsResponse.vendorName;
@@ -50,11 +51,33 @@ const Sales = () => {
   return (
     <div>
       <TopBarWhileInside />
+      {isFetching ?
+
+      <div className='h-screen w-full'>
+      <ColorRing
+                  visible={true}
+                  height="80"
+                  width="80"
+                  ariaLabel="color-ring-loading"
+                  wrapperStyle={{}}
+                  wrapperClass="color-ring-wrapper"
+                  colors={[
+                    "#0000FF",
+                    "#0099ff",
+                    "#4800ff",
+                    "#00bbff",
+                    "#0000FF",
+                  ]}
+                />
+      </div>
+     :
+      <>
+    
       <div className='px-12'>
         <div className='h-80 w-full mt-48 bg-blue-100'>
           <div className='flex flex-col pl-10 pt-10'>
-            {companyImg ? (
-              <Image
+            {companyImg !== "string"? (
+              <img
                 src={companyImg}
                 width="50"
                 height="50"
@@ -95,6 +118,8 @@ const Sales = () => {
           </div>
         ))}
       </div>
+      </>
+       }
     </div>
   );
 }
