@@ -114,6 +114,10 @@ const CalledPagesPageTwoPages = () => {
     router.push(paths.toAddProductDashboardBasicInfo());
   };
   const handleNextPage = () => {
+    if(imagesUrl.length === 0){
+      alert("Please add an image");
+      return;
+    }
     router.push(paths.toAddProductDashboardSpecifications());
     sessionStorage.setItem("images", JSON.stringify(imagesUrl));
     // sessionStorage.setItem("clickedImage", JSON.stringify(imagesUrl));
