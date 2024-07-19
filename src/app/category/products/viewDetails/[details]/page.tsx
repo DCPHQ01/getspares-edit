@@ -263,7 +263,7 @@ const Details = () => {
                         className="w-[68px] h-[22px] bg-mecaSuccess rounded-full flex justify-center items-center"
                       >
                         <p className="text-mecaIconSuccessColor text-sm font-normal">
-                          {viewBuyerProducts?.availabilityStatus}
+                          {viewBuyerProducts?.availabilityStatus === "IN_STOCK" ? "In stock" : "Out of stock"}
                         </p>
                       </div>
                     </div>

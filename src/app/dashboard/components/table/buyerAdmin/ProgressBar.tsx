@@ -22,7 +22,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ percentage }) => {
   return (
     <div
       style={{
-        width: "73%",
+        width: "100%",
         height: "9.88px",
         flexShrink: "0",
         borderRadius: "16px",
