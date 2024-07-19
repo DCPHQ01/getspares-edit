@@ -160,7 +160,7 @@ const VendorDetails = ({ vendorId }: VendorDetailsProps) => {
           </div>
         </div>
 
-        <div onClick={handleViewAdminProfile} className="">
+        {/* <div onClick={handleViewAdminProfile} className="">
           <button
             id="addButton"
             className={`bg-[#095AD3] lg:w-[200px] w-[100%] text-white rounded-full py-[0.58rem] px-[1.5rem] 
@@ -206,7 +206,7 @@ const VendorDetails = ({ vendorId }: VendorDetailsProps) => {
                 <p className="font-normal text-sm text-mecaGrayBodyText">Date onboarded</p>
                 <p className="font-bold text-sm">{formattedDateCreated}</p>
                 {/* <p>12:00pm, Jan 2023</p> */}
-              </div>
+              {/* </div>
             </div>
             <hr></hr>
             <div className="text-center mt-4">
@@ -218,7 +218,7 @@ const VendorDetails = ({ vendorId }: VendorDetailsProps) => {
               </button>
             </div>
           </Box>
-        </Modal>
+        </Modal> */} 
       </div>
       <hr></hr>
 
