@@ -1,17 +1,13 @@
-"use client"; // Ensure this directive is at the top
+"use client";
 
-import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
+import OrderDetailsComponent from "./orderDetailsComponent";
 
-const OrderDetailsComponent = dynamic(() => import("./orderDetailsComponent"), {
-  ssr: false,
-});
-
-const ViewParticularOrderDetailsPage: React.FC = () => {
+const ViewParticularOrderDetailsPage = () => {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    setIsMounted(true); // Component has mounted
+    setIsMounted(true);
   }, []);
 
   return <div>{isMounted && <OrderDetailsComponent />}</div>;

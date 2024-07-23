@@ -6,19 +6,6 @@ interface ProgressBarProps {
 }
 
 const ProgressBar: React.FC<ProgressBarProps> = ({ percentage }) => {
-  // const [progress, setProgress] = useState<number>(0);
-
-  // useEffect(() => {
-  //   const progressTimeout = setTimeout(() => {
-  //     if (percentage) {
-  //       setProgress(percentage);
-  //     }
-  //   }, 1000);
-  //   return () => clearTimeout(progressTimeout);
-  // }, []);
-
-  // console.log("progress bar ", percentage);
-
   return (
     <div
       style={{

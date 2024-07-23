@@ -16,22 +16,19 @@ function OrderVendorMobile() {
     page,
     size,
   });
-  
-  const [hasLast,setHasLast] = useState(false);
+
+  const [hasLast, setHasLast] = useState(false);
   const [hasOrders, setHasOrders] = useState(false);
   const [vendorOrderList, setVendorOrderList] = useState([]);
   useEffect(() => {
     if (data) {
-      setPage(data?.data.number)
-      setHasLast(data?.data.last)
+      setPage(data?.data.number);
+      setHasLast(data?.data.last);
       const resultList = data.data?.content;
       if (resultList) {
         setVendorOrderList(resultList);
       } else {
-        console.error(
-          
-          resultList
-        );
+        console.error(resultList);
       }
     }
   }, [data]);
@@ -40,8 +37,8 @@ function OrderVendorMobile() {
   const totalPage = data?.data.totalPages;
 
   const handlePreviousPage = () => {
-    if(page > 0){
-      setPage((prevPage) => prevPage - 1)
+    if (page > 0) {
+      setPage((prevPage) => prevPage - 1);
     }
   };
 
@@ -82,16 +79,26 @@ function OrderVendorMobile() {
       </div> */}
 
       <div className=" flex justify-end mt-5 mb-5 font-bold text-lg">
-       {page > 0 && <button className="flex gap-x-2 border border-[#EAECF0]  rounded-md h-[36px] w-[36px] pl-1" onClick={handlePreviousPage}>
-          <MdChevronLeft className="mt-1 text-2xl" />
-        </button>}
-        { !hasLast ? <button
-          title="right"
-          className="flex gap-x-2 border border-[#EAECF0] rounded-md h-[36px] w-[36px] pl-1"
-          onClick={handleNextPage}
-        >
-          <MdChevronRight className="mt-1 text-2xl" />
-        </button> : ""}
+        {page > 0 && (
+          <button
+            title="previous"
+            className="flex gap-x-2 border border-[#EAECF0]  rounded-md h-[36px] w-[36px] pl-1"
+            onClick={handlePreviousPage}
+          >
+            <MdChevronLeft className="mt-1 text-2xl" />
+          </button>
+        )}
+        {!hasLast ? (
+          <button
+            title="right"
+            className="flex gap-x-2 border border-[#EAECF0] rounded-md h-[36px] w-[36px] pl-1"
+            onClick={handleNextPage}
+          >
+            <MdChevronRight className="mt-1 text-2xl" />
+          </button>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

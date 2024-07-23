@@ -26,9 +26,9 @@ function AgentVendorMobile() {
           onTabChange={(status) => status}
         />
         {/* <div className={` flex mt-5`}> */}
-          {/* <div className=""><SortButton /></div> */}
+        {/* <div className=""><SortButton /></div> */}
 
-          {/* <SearchBox />
+        {/* <SearchBox />
         </div> */}
       </div>
 

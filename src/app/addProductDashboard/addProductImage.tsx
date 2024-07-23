@@ -32,7 +32,7 @@ const AddProductImage = () => {
   const handleClose = () => setOpen(false);
 
   const handleDashBoard = () => {
-    router.push(paths.toDashboard());
+    router.push("/dashboard/vendor/inventory");
   };
 
   const dispatch = useAppDispatch();
@@ -145,7 +145,7 @@ const AddProductImage = () => {
             <div className="pt-[3rem] mb-3 w-[80%] m-auto flex justify-between">
               <div>
                 <span
-                  onClick={() => router.push(paths.toDashboard())}
+                  onClick={handleDashBoard}
                   id="e-mecaLogod"
                   className="font-bold text-2xl cursor-pointer text-mecaActiveIconsNavColor"
                 >
@@ -226,7 +226,7 @@ const AddProductImage = () => {
             <div className="pt-[3rem] mb-3 w-[80%] m-auto">
               <div>
                 <span
-                  onClick={() => router.push(paths.toDashboard())}
+                  onClick={handleDashBoard}
                   id="e-mecaLogod"
                   className="font-bold text-2xl cursor-pointer mb-10 text-mecaActiveIconsNavColor"
                 >

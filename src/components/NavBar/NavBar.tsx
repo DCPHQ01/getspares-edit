@@ -25,7 +25,6 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MecaGlobalSearch from "./MecaGlobalSearch";
 
-
 const navData = [
   {
     id: 1,
@@ -101,7 +100,7 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
   };
 
   const handleDashboard = () => {
-    router.push(paths.toDashboard());
+    router.push(paths.toBuyerDashboard());
   };
   const [toggleProfile, setToggleProfile] = useState(false);
   const [tokens, setTokens] = useState("");

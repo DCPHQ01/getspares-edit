@@ -36,12 +36,11 @@ const ProductReview = () => {
 
   const storedProductId = sessionStorage.getItem("myProductId");
   const parsedProductId = storedProductId ? storedProductId : "";
-  console.log("ProductId  sessionStorage:", parsedProductId);
 
   const { data, isLoading, isError } = useGetAllBuyersFeedbackQuery({
     productId: storedProductId || "",
   });
-  console.log(data, "hhh", productId);
+
   const [viewFeedbacks, setViewFeedbacks] = useState<viewAllFeedBack[]>([]);
 
   useEffect(() => {
