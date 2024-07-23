@@ -33,10 +33,6 @@ function Orders() {
         title={`Orders`}
         amount={totalElement}
       />
-      {/* <div className="flex justify-end">
-        <Searchbox />
-      </div> */}
-
       <OrderTable data={buyerOrderList} isLoading={isLoading} />
     </div>
   );

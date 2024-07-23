@@ -47,15 +47,19 @@ function Index({ sidePanelRoles }: { sidePanelRoles?: any }) {
 
   //   const userRole = decoded?.resource_access?.meca?.roles[0];
   //   const names = decoded;
-  const dispatch = useAppDispatch();
-  const [activeButton, setActiveButton] = useState<number | null>(() => {
-    const savedIndex = sessionStorage.getItem("activeButtonIndex");
-    const savedButtomBtn = sessionStorage.getItem("activeBottomButtonIndex");
-    if (savedIndex) {
-      return parseInt(savedIndex, 10);
+  const getInitialActiveButton = () => {
+    if (typeof window !== "undefined") {
+      const savedIndex = sessionStorage.getItem("activeButtonIndex");
+      if (savedIndex) {
+        return parseInt(savedIndex, 10);
+      }
     }
     return 0;
-  });
+  };
+  const dispatch = useAppDispatch();
+  const [activeButton, setActiveButton] = useState<number | null>(
+    getInitialActiveButton
+  );
   const [bottomActiveBtn, setBottomActiveButton] = useState<number | null>(
     null
   );

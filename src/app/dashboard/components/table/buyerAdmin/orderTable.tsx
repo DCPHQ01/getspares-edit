@@ -60,7 +60,6 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
     sessionStorage.setItem("selectedOrderId", orderId);
     setSelectedOrderId(orderId);
   };
-  const id = sessionStorage.getItem("selectedOrderId");
 
   return (
     <div>

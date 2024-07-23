@@ -99,7 +99,6 @@ function Page() {
   };
 
   const profileBtn = () => {
-    // handleButtonClick(sidePanel.PROFILE);
     router.push("/admin/profile");
     setActiveButton(null);
     setBottomActiveButton(0);

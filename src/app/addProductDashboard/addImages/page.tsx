@@ -41,6 +41,7 @@ const CalledPagesPageTwoPages = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [imagesUrl, setImagesUrl] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [imageError, setImageError] = useState("");
 
   const handleImageUpload: React.ChangeEventHandler<HTMLInputElement> = async (
     event
@@ -114,6 +115,10 @@ const CalledPagesPageTwoPages = () => {
     router.push(paths.toAddProductDashboardBasicInfo());
   };
   const handleNextPage = () => {
+    if (imagesUrl.length === 0) {
+      setImageError("Please add at least one image");
+      return;
+    }
     router.push(paths.toAddProductDashboardSpecifications());
     sessionStorage.setItem("images", JSON.stringify(imagesUrl));
     // sessionStorage.setItem("clickedImage", JSON.stringify(imagesUrl));
@@ -138,10 +143,9 @@ const CalledPagesPageTwoPages = () => {
     const savedImages = sessionStorage.getItem("images");
     if (savedImages) {
       setImagesUrl(JSON.parse(savedImages));
+    } else {
+      setImagesUrl(productImage?.images);
     }
-    else{
-          setImagesUrl(productImage?.images);
-        }
   }, [productImage]);
   // useEffect(() => {
   //   if (productImage) {
@@ -177,11 +181,11 @@ const CalledPagesPageTwoPages = () => {
                   autoComplete="off"
                 >
                   <div
-                    onClick={handleImageClick}
                     style={{ backgroundColor: "#EFF2F3" }}
                     className=" h-60 lg:w-[27rem] w-[100%] mb-5 mt-10 pt-6 cursor-pointer"
                   >
                     <div
+                      onClick={handleImageClick}
                       id="addImage"
                       className="flex flex-col  items-center justify-center"
                     >
@@ -283,11 +287,12 @@ const CalledPagesPageTwoPages = () => {
                     >
                       <p>Next </p>
                       <span>
-                        <MdChevronRight className="mt-1 " />
+                        <MdChevronRight className="mt-1" />
                       </span>
                     </button>
                   </div>
                 </div>
+                {imageError && <p className="text-red-500"> {imageError}</p>}
               </div>
 
               <div className="hidden lg:block">

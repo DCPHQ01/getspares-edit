@@ -13,14 +13,14 @@ import Card from "../../../../components/cards/indexTwo";
 
 interface VendorOverview {
   dateAndTimeAdded: string;
-  // imageUrl?: string;
   orderValue?: number | string;
   totalSold: number;
   productName: string;
 }
 
-function VendorOverview() {
+function Overview() {
   const { data, isLoading, isError } = useGetMecaVendorOverviewQuery({});
+  let usersFirstName = "";
   const [overView, setOverView] = useState(
     data?.data ?? {
       totalNumberOfAgents: 0,
@@ -42,13 +42,20 @@ function VendorOverview() {
     }
   }, [data]);
 
-  let usersFirstName = "";
-  try {
-    const userName = JSON.parse(sessionStorage.getItem("userDetails") || "");
-    usersFirstName = userName?.firstName;
-  } catch (error) {
-    console.error("Error parsing user details:", error);
-  }
+  useEffect(() => {
+    const savedUserName = sessionStorage.getItem("userDetails");
+    if (savedUserName) {
+      const user = JSON.parse(savedUserName);
+      usersFirstName = user?.firstName;
+    }
+  }, []);
+
+  // try {
+  //   const userName = JSON.parse(sessionStorage.getItem("userDetails") || "");
+  //   usersFirstName = userName?.firstName;
+  // } catch (error) {
+  //   console.error("Error parsing user details:", error);
+  // }
 
   return (
     <>
@@ -76,4 +83,4 @@ function VendorOverview() {
   );
 }
 
-export default VendorOverview;
+export default Overview;
