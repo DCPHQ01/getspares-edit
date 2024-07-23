@@ -114,12 +114,10 @@ const Sales = () => {
   );
 };
 
-export default Sales;
+const MyComponentWithSuspense = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <Sales />
+  </Suspense>
+);
 
-export function WrappedAddProductImage() {
-  return (
-    <Suspense>
-      <Sales />
-    </Suspense>
-  );
-}
+export default MyComponentWithSuspense;
