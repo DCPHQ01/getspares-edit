@@ -50,8 +50,7 @@ const ProductReview = () => {
     }
   }, [data]);
 
-  const [viewFeedbackGraph, setViewFeedbackGraph] =
-    useState<AllFeedbackGraph>();
+  const [viewFeedbackGraph, setViewFeedbackGraph] = useState<AllFeedbackGraph>();
   useEffect(() => {
     if (data) {
       const listOfGraph = data?.data?.feedBackGraph;
@@ -68,8 +67,13 @@ const ProductReview = () => {
   const [selectedRating, setSelectedRating] = React.useState<number | null>(
     null
   );
+  const[errorMessage,setErrorMessage]= useState("")
 
   const handleOpenModal = () => {
+    if (viewFeedbacks.length > 0) {
+      return;
+      setErrorMessage("You cannot give feeback more than once")
+    }
     setOpenModal(true);
   };
   const handleOpenViewAllCommentsModal = () => {
@@ -80,6 +84,7 @@ const ProductReview = () => {
     setSelectedRating(rating);
   };
 
+
   const graph = [
     {
       id: 5,
@@ -87,10 +92,10 @@ const ProductReview = () => {
       number: 5,
       progressbar: (
         <ProgressBar
-          percentage={viewFeedbackGraph?.ratingPercentages?.fiveStar}
+          percentage={viewFeedbackGraph?.ratingPercentages?.fiveStar || 0}
         />
       ),
-      percentage: viewFeedbackGraph?.ratingPercentages?.fiveStar,
+      percentage: viewFeedbackGraph?.ratingPercentages?.fiveStar || 0,
     },
     {
       id: 4,
@@ -98,10 +103,10 @@ const ProductReview = () => {
       number: 4,
       progressbar: (
         <ProgressBar
-          percentage={viewFeedbackGraph?.ratingPercentages?.fourStar}
+          percentage={viewFeedbackGraph?.ratingPercentages?.fourStar || 0}
         />
       ),
-      percentage: viewFeedbackGraph?.ratingPercentages?.fourStar,
+      percentage: viewFeedbackGraph?.ratingPercentages?.fourStar || 0,
     },
     {
       id: 3,
@@ -109,10 +114,10 @@ const ProductReview = () => {
       number: 3,
       progressbar: (
         <ProgressBar
-          percentage={viewFeedbackGraph?.ratingPercentages?.threeStar}
+          percentage={viewFeedbackGraph?.ratingPercentages?.threeStar || 0}
         />
       ),
-      percentage: viewFeedbackGraph?.ratingPercentages?.threeStar,
+      percentage: viewFeedbackGraph?.ratingPercentages?.threeStar || 0,
     },
     {
       id: 2,
@@ -120,10 +125,10 @@ const ProductReview = () => {
       number: 2,
       progressbar: (
         <ProgressBar
-          percentage={viewFeedbackGraph?.ratingPercentages?.twoStar}
+          percentage={viewFeedbackGraph?.ratingPercentages?.twoStar || 0}
         />
       ),
-      percentage: viewFeedbackGraph?.ratingPercentages?.twoStar,
+      percentage: viewFeedbackGraph?.ratingPercentages?.twoStar || 0,
     },
     {
       id: 1,
@@ -134,46 +139,49 @@ const ProductReview = () => {
           percentage={viewFeedbackGraph?.ratingPercentages?.oneStar || 0}
         />
       ),
-      percentage: viewFeedbackGraph?.ratingPercentages?.oneStar,
+      percentage: viewFeedbackGraph?.ratingPercentages?.oneStar || 0,
     },
   ];
 
   return (
-    <div>
+    <div className="w-full">
       <div className={`flex justify-between p-[2px]`}>
         <div className={`text-xl font-semibold`}>Feedbacks & Reviews</div>
-        <button
+       
+          <button
           onClick={handleOpenModal}
           className={`w-[170px] h-[40px] text-[#095AD3] text-white rounded-full bg-[#095AD3]`}
         >
           Give Feedback
         </button>
+        {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+        
       </div>
-
+   
       <div className={`lg:flex gap-16 mt-4`}>
         <div
           className={`border-gray-300 lg:w-[470px] w-[100%]  h-[344px] border bg-[#F8FAFC] rounded-lg p-3`}
         >
           <div className={`w-[242px] h-[72px] flex gap-6`}>
             <div className={`text-2xl font-semibold`}>
-              {viewFeedbackGraph?.averageRating}
+              {viewFeedbackGraph?.averageRating || 0}
             </div>
 
             <div className={``}>
               <Rating
                 name="read-only"
                 sx={{ color: "#095AD3" }}
-                value={Number(viewFeedbackGraph?.averageRating)}
+                value={Number(viewFeedbackGraph?.averageRating || 0)}
                 readOnly
               />
               <div className={`font-normal text-xs`}>
-                Based on {viewFeedbackGraph?.averageRating} ratings
+                Based on {viewFeedbackGraph?.averageRating || 0} ratings
               </div>
             </div>
           </div>
 
           {graph.map((graph, id) => (
-            <div className="" key={graph.id}>
+            <div className="lg:max-w-[60%] xl:max-w-[76%] w-full" key={graph.id}>
               <div className={`flex gap-4 mt-4`}>
                 <div className={`flex gap-2 w-24`}>
                   <div className={`mt-0`}>{graph.starSharp}</div>

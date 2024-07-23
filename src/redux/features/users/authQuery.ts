@@ -157,5 +157,5 @@ export const {
   useResetPasswordVerifyEmailMutation,
   useResetPasswordMutation,
   useSearchAllProductsQuery,
-   useGetAllCompaniesQuery,
+  useGetAllCompaniesQuery,
 } = authQuery;

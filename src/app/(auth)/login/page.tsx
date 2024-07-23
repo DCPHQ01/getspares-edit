@@ -195,7 +195,7 @@ export default function Login() {
           className="text-meca-gray-600 text-center px-8"
           id="forgotPasswordText"
         >
-          Welcome back! Please input your correct details
+          Welcome back! Please input your details
         </p>
         <FormControl className="flex flex-col gap-8 w-full mt-6" id="form">
           <FormControl className="w-full" variant="filled">

@@ -146,7 +146,7 @@ const VendorTable: React.FC<VendorTableProps> = ({ vendorList, isLoading }) => {
                         className={`flex gap-3 text-[0.88rem] py-[1rem] px-[1.25rem] items-center`}
                       >
                         {d.imageUrl ? (
-                          <Image
+                          <img
                             src={d.imageUrl}
                             className="object-contain"
                             alt="Avatar"
