@@ -50,7 +50,7 @@ const CalledPagesPageThreePages = () => {
         imageUrl: companyImage,
       });
 
-      router.push(paths.toDashboard());
+      router.push(paths.toVendorDashboard());
       data;
     } catch (error) {}
   }

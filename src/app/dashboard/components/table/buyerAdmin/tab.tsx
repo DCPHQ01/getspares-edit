@@ -57,8 +57,6 @@ const DetailsTable = ({ data }: productInformationProps) => {
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
-
-  console.log("data for buyers ", data);
   return (
     <div className="w-[100%]">
       <Box>

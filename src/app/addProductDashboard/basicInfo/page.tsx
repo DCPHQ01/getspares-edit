@@ -142,7 +142,6 @@ const CalledPagesPageOnePages = () => {
   };
 
   const checkDescriptionLength = (value: string) => {
-    console.log("New value:", value);
     if (value.length > 5000) {
       setDescriptionError("Description exceeds the 5000 word limit.");
     } else {

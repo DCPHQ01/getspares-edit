@@ -20,11 +20,13 @@ import { paths } from "../../../../../path/paths";
 
 function OverviewVendorMobile() {
   const { data, isLoading, isError } = useGetMecaVendorOverviewQuery({});
-  const [overView, setOverView] = useState( data?.data ?? {
-    totalNumberOfAgents: 0,
-    totalNumberOfProductsSold: 0,
-    totalOrderValue: 0,
-  });
+  const [overView, setOverView] = useState(
+    data?.data ?? {
+      totalNumberOfAgents: 0,
+      totalNumberOfProductsSold: 0,
+      totalOrderValue: 0,
+    }
+  );
   const [topPerformingProducts, setTopPerformingProducts] = useState<
     VendorOverview[]
   >([]);
@@ -41,9 +43,9 @@ function OverviewVendorMobile() {
   let usersName: any;
 
   const savedItems =
-     typeof window !== "undefined" && window.sessionStorage
-        ? sessionStorage.getItem("categoryId") || ""
-        : '';
+    typeof window !== "undefined" && window.sessionStorage
+      ? sessionStorage.getItem("categoryId") || ""
+      : "";
 
   useEffect(() => {
     const userName = sessionStorage.getItem("userDetails");
@@ -56,9 +58,9 @@ function OverviewVendorMobile() {
   let userFirstName = "";
   try {
     const userName =
-       typeof window !== "undefined" && window.sessionStorage
-          ? JSON.parse(sessionStorage.getItem("userDetails") || "")
-          : '';
+      typeof window !== "undefined" && window.sessionStorage
+        ? JSON.parse(sessionStorage.getItem("userDetails") || "")
+        : "";
     // const userName = JSON.parse(sessionStorage.getItem("userDetails") || "");
     userFirstName = userName?.firstName;
   } catch (error) {
@@ -79,9 +81,7 @@ function OverviewVendorMobile() {
             </Link>
           </div>
         </div>
-        <Cards 
-        cardField={overView}
-        />
+        <Cards cardField={overView} />
         {/* <div
           className={` justify-between items-center mt-[3.25rem] mb-[1.25rem]`}
         >

@@ -1,5 +1,5 @@
 "use client";
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import styles from "../styles.module.css";
 import ViewParticularOrderDetailsPage from "../../../../category/products/viewDetails/viewParticularOrderDetails/page";
 import { ColorRing } from "react-loader-spinner";
@@ -60,9 +60,6 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
     sessionStorage.setItem("selectedOrderId", orderId);
     setSelectedOrderId(orderId);
   };
-  const id = sessionStorage.getItem("selectedOrderId");
-  // console.log("The orderId: ",id)
-
 
   return (
     <div>
@@ -130,7 +127,9 @@ const OrderTable = ({ data, isLoading }: BuyerOrderTableProps) => {
                         <div
                           className={`text-[0.88rem] py-[1rem] px-[2.75rem] `}
                         >
-                          <div id={`date_${index}`}>{formatAllDateTwo(d.dateCreated)}</div>
+                          <div id={`date_${index}`}>
+                            {formatAllDateTwo(d.dateCreated)}
+                          </div>
                           <div
                             className={`text-[#4B5565]`}
                             id={`time_${index}`}

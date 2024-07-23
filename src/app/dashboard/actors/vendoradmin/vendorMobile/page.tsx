@@ -27,5 +27,3 @@ const VendorMobilePage = () => {
 };
 
 export default VendorMobilePage;
-
-

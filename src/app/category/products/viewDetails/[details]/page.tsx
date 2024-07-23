@@ -106,19 +106,6 @@ const Details = () => {
   const id = segments[4];
   const router = useRouter();
 
-  // const handleClick = () => {
-  //   dispatch(
-  //     addToCart({
-  //       id,
-  //     })
-  //   );
-  //   setState({ ...state, open: true });
-
-  //   setTimeout(() => {
-  //     setState({ ...state, open: false });
-  //   }, 3000);
-  // };
-
   const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
   const handleImageClick = (index: number) => {
     setSelectedImageIndex(index);
@@ -129,11 +116,13 @@ const Details = () => {
   const handleProductDescription = () => {
     setProductDescription(!productDescription);
   };
+  const [showMore, setShowMore] = useState(false);
+  const changeSize = () => {
+    setShowMore((showMore) => !showMore);
+  };
 
   const firstImages = images?.slice(0, 5);
   const remainingImages = images?.slice(5);
-
-  // const productId = sessionStorage.getItem("productId");
 
   const [viewBuyerProducts, setViewBuyerProducts] =
     useState<viewBuyersProductDetails>();
@@ -155,6 +144,16 @@ const Details = () => {
   const handleOpenVendorModal = () => {
     setOpenVendorModal((val) => !val);
   };
+
+  const getDescription = () => {
+    if (
+      viewBuyerProducts &&
+      typeof viewBuyerProducts.description === "string"
+    ) {
+      return viewBuyerProducts.description;
+    }
+    return "";
+  };
   return (
     <div className="relative pt-5" id="detailsDiv">
       <div id="mainContainer" className="container px-4 md:px-8 lg:px-16">
@@ -167,7 +166,7 @@ const Details = () => {
             className="flex items-center gap-x-2"
           >
             <Link href="/dashboard">
-              <button className="text-base cursor-pointer font-nunito font-normal text-mecaDarkBlueBackgroundOverlay">
+              <button className="text-base cursor-pointer font-nunito capitalize font-normal text-mecaDarkBlueBackgroundOverlay">
                 {viewBuyerProducts?.name}
               </button>
             </Link>
@@ -248,8 +247,21 @@ const Details = () => {
                     {viewBuyerProducts?.name}
                   </h2>
                   <div id="aboutProduct" className="w-full mt-3">
-                    <p className="text-sm font-nunito font-normal text-mecaGrayBodyText">
+                    {/* <p className="text-sm font-nunito font-normal text-mecaGrayBodyText">
                       {viewBuyerProducts?.description}
+                    </p> */}
+                    <p className="text-sm font-nunito font-normal text-mecaGrayBodyText">
+                      {showMore
+                        ? getDescription()
+                        : `${getDescription().substring(0, 200)}`}
+                      {getDescription().length > 200 && (
+                        <span
+                          onClick={changeSize}
+                          style={{ color: "#095AD3", cursor: "pointer" }}
+                        >
+                          {showMore ? " show less" : " ...show more"}
+                        </span>
+                      )}
                     </p>
                   </div>
                   <div id="priceButtonDiv" className="flex flex-col mt-6">
@@ -258,15 +270,28 @@ const Details = () => {
                         {formatAmount4(String(viewBuyerProducts?.amount))}
                         {/* {viewBuyerProducts?.amount} */}
                       </p>
-                      <div
-                        id="inStockBtn"
-                        className="w-[68px] h-[22px] bg-mecaSuccess rounded-full flex justify-center items-center"
-                      >
-                        <p className="text-mecaIconSuccessColor text-sm font-normal">
-                          {viewBuyerProducts?.availabilityStatus === "IN_STOCK" ? "In stock" : "Out of stock"}
-                        </p>
-                      </div>
+
+                      {viewBuyerProducts?.availabilityStatus === "IN_STOCK" ? (
+                        <div
+                          id="inStockBtn"
+                          className="w-[68px] h-[22px] bg-mecaSuccess rounded-full flex justify-center items-center"
+                        >
+                          <p className="text-mecaIconSuccessColor text-sm font-normal">
+                            In stock
+                          </p>
+                        </div>
+                      ) : (
+                        <div
+                          id="inStockBtn"
+                          className="w-[100px] h-[22px] bg-mecaTableTextErrorBackgroundColor rounded-full flex justify-center items-center"
+                        >
+                          <p className="text-mecaTableTextErrorColor text-sm font-normal">
+                            Out of stock
+                          </p>
+                        </div>
+                      )}
                     </div>
+
                     <div
                       id="buttonDiv"
                       className="w-full h-full mt-4 flex flex-col gap-y-4"
@@ -288,6 +313,6 @@ const Details = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Details;

@@ -52,7 +52,7 @@ const AddCompanyModal = () => {
               id="confirmpageButton"
               className={nunito_sans.className}
             >
-              <Link href={paths.toDashboard()}>
+              <Link href={"/dashboard/vendor/overview"}>
                 <button
                   id="cancelbtn"
                   className="btn btn-sm btn-circle btn-ghost"
@@ -84,11 +84,12 @@ const AddCompanyModal = () => {
               className="modalbtn gap-y-3 text-lg font-semibold"
               id="confirmpageButton2"
             >
-              <Link id="continuebtnLink" href={paths.toModalPageVendor()} className="btn bg-mecaBluePrimaryColor  text-white  font-semibold rounded-full w-full">
-                <button
-                  id="continuebtn"
-                  className="w-full h-12"
-                >
+              <Link
+                id="continuebtnLink"
+                href={paths.toModalPageVendor()}
+                className="btn bg-mecaBluePrimaryColor  text-white  font-semibold rounded-full w-full"
+              >
+                <button id="continuebtn" className="w-full h-12">
                   Continue
                 </button>
               </Link>

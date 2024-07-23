@@ -37,8 +37,6 @@ const OrderDetailsComponent = () => {
     }
   }, [data]);
 
-  console.log("particular order", data);
-
   return (
     <div className="">
       <div>

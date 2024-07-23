@@ -63,7 +63,7 @@ export default function NavBarWhileInsideApp() {
   }
 
   const handleDashboard = () => {
-    router.push(paths.toDashboard());
+    router.push(paths.toBuyerDashboard());
   };
   const logOut = () => {
     sessionStorage.clear();

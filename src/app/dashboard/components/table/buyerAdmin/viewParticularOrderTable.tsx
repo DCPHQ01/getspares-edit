@@ -57,7 +57,6 @@ const ViewParticularOrderTable = ({
   };
 
   const id = sessionStorage.getItem("myProductId");
-  console.log("The id: ", id);
   return (
     <div className="">
       <div className="w-[95%] lg:flex gap-x-10">
