@@ -4,7 +4,7 @@ import part from "../../../../assets/images/parts.png";
 import star from "../../../../assets/images/Star.png";
 import Image from "next/image";
 
-import { Suspense, useEffect, useLayoutEffect, useState } from "react";
+import React, { Suspense, useEffect, useLayoutEffect, useState } from "react";
 
 import {
   Accordion,
@@ -37,6 +37,7 @@ interface ItemsDataProps {
   price: string;
   image?: any;
   name: string;
+  isLoading?: boolean
 }
 
 type FilterItem = {
@@ -96,7 +97,7 @@ export default function Products() {
       },
     }),
   };
-  const { data, isFetching } = useGetProductInCategoryQuery(payload);
+  const { data, isFetching, isLoading } = useGetProductInCategoryQuery(payload);
 
   const handleProductDescription = (id: number) => {
     router.push(`/category/products/${searches}/${id}`);
@@ -376,23 +377,27 @@ export default function Products() {
                   className="mt-4 w-full flex items-center flex-wrap gap-x-5"
                   id="allItemsContainerDiv"
                 >
-                  {isFetching ? (
-                    <div className="w-full h-[615px] flex justify-center items-center">
-                      <ColorRing
-                        visible={true}
-                        height="100"
-                        width="100"
-                        ariaLabel="color-ring-loading"
-                        wrapperStyle={{}}
-                        wrapperClass="color-ring-wrapper"
-                        colors={[
-                          "#0000FF",
-                          "#0099ff",
-                          "#4800ff",
-                          "#00bbff",
-                          "#0000FF",
-                        ]}
-                      />
+                  {isLoading ? (
+                    <div className="text-center mt-28 relative lg:left-[210%] lg:right[210%] md:left-[213%] md:right[213%] sm:left-[21]">
+                      {/*<ColorRing*/}
+                      {/*    visible={true}*/}
+                      {/*    height="40"*/}
+                      {/*    width="40"*/}
+                      {/*    ariaLabel="color-ring-loading"*/}
+                      {/*    wrapperStyle={{*/}
+                      {/*      position: "absolute",*/}
+                      {/*      bottom: "75%",*/}
+                      {/*      left: "44%",*/}
+                      {/*    }}*/}
+                      {/*    wrapperClass="color-ring-wrapper"*/}
+                      {/*    colors={[*/}
+                      {/*      "#095AD3",*/}
+                      {/*      "#095AD3",*/}
+                      {/*      "#095AD3",*/}
+                      {/*      "#095AD3",*/}
+                      {/*      "#095AD3",*/}
+                      {/*    ]}*/}
+                      {/*/>*/}
                     </div>
                   ) : data?.data?.content?.length <= 0 ? (
                     <div className="w-full flex justify-center items-center">
@@ -469,7 +474,8 @@ export default function Products() {
                         </div>
                       </div>
                     ))
-                  )}
+                  )
+                  }
                 </div>
               </div>
             </div>

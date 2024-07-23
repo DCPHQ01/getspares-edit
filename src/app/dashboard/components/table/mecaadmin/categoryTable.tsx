@@ -40,8 +40,6 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
   categoryList,
   isLoading,
 }) => {
-  console.log("category lists ", categoryList);
-
   return (
     <div id="tableContainer">
       <div
@@ -71,7 +69,7 @@ const CategoryTable: React.FC<CategoryTableProps> = ({
           </thead>
           <tbody className="-z-50">
             {isLoading ? (
-              <div className="text-center mt-28 relative lg:left-[210%] lg:right[210%] md:left-[213%] md:right[213%] sm:left-[21">
+              <div className="text-center mt-28 relative lg:left-[210%] lg:right[210%] md:left-[213%] md:right[213%] sm:left-[21]">
                 <ColorRing
                   visible={true}
                   height="40"
