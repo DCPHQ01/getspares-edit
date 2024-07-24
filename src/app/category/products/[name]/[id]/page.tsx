@@ -123,10 +123,6 @@ export default function ProductDescription() {
     skip: !productId,
   });
 
-  console.log("Vendor id: ",data?.data?.vendorId);
-  sessionStorage.setItem("vendorsId",data?.data?.vendorId)
-
-
   const { vertical, horizontal, open } = state;
 
   const dispatch = useAppDispatch();
@@ -138,8 +134,6 @@ export default function ProductDescription() {
   const { data: relatedProductData } = useGetRelatedProductQuery(productId, {
     skip: !productId,
   });
-     
- 
 
   const [addToCart, { isLoading: cartLoading }] =
     useAddSingleProductToCartMutation();
@@ -222,6 +216,14 @@ export default function ProductDescription() {
       } catch (error: any) {
         error.data;
       }
+    }
+  };
+
+  const handleRoutes = () => {
+    if (!isAuthenticated) {
+      router.push(paths.toLogin());
+    } else {
+      router.push("/category/products/sales?vendorId=" + data?.data.vendorId);
     }
   };
 
@@ -403,20 +405,20 @@ export default function ProductDescription() {
                         </div>
                       </div>
                       <div
-                    id="viewSellerButtonDiv"
-                    className="w-[40%] flex justify-end items-center"
-                  >
-                 <Link href={"/category/products/sales"}>
-                      <button
-                        type="button"
-                        id="viewSellerButton"
-                        className="w-[93px] h-[32px] text-sm text-bold text-mecaBluePrimaryColor rounded-lg cursor-pointer hover:underline"
+                        id="viewSellerButtonDiv"
+                        className="w-[40%] flex justify-end items-center"
+                      >
+                        {/* <Link href={"/category/products/sales"}> */}
+                        <button
+                          type="button"
+                          id="viewSellerButton"
+                          onClick={handleRoutes}
+                          className="w-[93px] h-[32px] text-sm text-bold text-mecaBluePrimaryColor rounded-lg cursor-pointer hover:underline"
                         >
-                        View Vendor
-                      </button>
-                 </Link>
-                  
-                  </div>
+                          View Vendor
+                        </button>
+                        {/* </Link> */}
+                      </div>
                     </div>
                     <div id="aboutProduct" className="w-full mt-8">
                       <p className="text-sm font-nunito font-normal text-mecaGrayBodyText">
@@ -440,7 +442,8 @@ export default function ProductDescription() {
                         </p>
                         <div
                           id="inStockBtn"
-                          className={`w-[68px] h-[22px] ${
+                          // className={`w-[72px] h-[32px] ${
+                          className={` px-5 py-2.5 me-2 mb-2 ${
                             data?.data.availabilityStatus === "IN_STOCK"
                               ? "bg-mecaSuccess"
                               : "bg-red-200"
@@ -455,77 +458,79 @@ export default function ProductDescription() {
                           >
                             {data?.data.availabilityStatus === "IN_STOCK"
                               ? "In stock"
-                              : "N/A"}
+                              : "Out Of Stock"}
                           </p>
                         </div>
                       </div>
-                      <div
-                        id="buttonDiv"
-                        className="w-full h-full mt-4 flex flex-col gap-y-4"
-                      >
-                        {!visible ? (
-                          <button
-                            onClick={handleClick(
-                              {
-                                vertical: "top",
-                                horizontal: "center",
-                              },
-                              data?.data
-                            )}
-                            type="button"
-                            className="w-full h-[44px] text-white text-lg font-nunito font-semibold flex items-center justify-center bg-mecaBluePrimaryColor rounded-full"
-                          >
-                            Add to cart
-                          </button>
-                        ) : (
-                          <button
-                            onClick={handleClick(
-                              {
-                                vertical: "top",
-                                horizontal: "center",
-                              },
-                              data?.data
-                            )}
-                            type="button"
-                            disabled
-                            className="w-full h-[44px] text-mecaBluePrimaryColor text-lg font-nunito font-semibold flex items-center justify-center rounded-full border border-mecaBluePrimaryColor"
-                          >
-                            Added to cart
-                          </button>
-                        )}
-
-                        <button
-                          onClick={() =>
-                            buyNow({
-                              vertical: "top",
-                              horizontal: "center",
-                            })
-                          }
-                          type="button"
-                          className="w-full h-[44px] text-mecaBluePrimaryColor text-lg font-nunito font-semibold flex items-center justify-center border bg-white border-mecaBluePrimaryColor rounded-full"
-                        >
-                          Buy now
-                        </button>
-
-                        <Snackbar
-                          anchorOrigin={{ vertical, horizontal }}
-                          open={open}
-                          autoHideDuration={6000}
-                        >
+                      { data?.data.availabilityStatus === "IN_STOCK" &&
                           <div
-                            id="snackbar"
-                            className="absolute top-20 flex gap-2 items-center bg-mecaSuccessBackgroundColor border border-mecaBorderSuccess text-mecaIconSuccessColor w-[449px] h-[44px] rounded-md px-4"
+                              id="buttonDiv"
+                              className="w-full h-full mt-4 flex flex-col gap-y-4"
                           >
-                            <MdCheckCircle
-                              size={20}
-                              className="text-mecaBorderSuccess"
-                            />
-                            <p className="text-sm font-normal font-nunito">
-                              Added to cart successfully
-                            </p>
+                            {!visible ? (
+                                <button
+                                    onClick={handleClick(
+                                        {
+                                          vertical: "top",
+                                          horizontal: "center",
+                                        },
+                                        data?.data
+                                    )}
+                                    type="button"
+                                    className="w-full h-[44px] text-white text-lg font-nunito font-semibold flex items-center justify-center bg-mecaBluePrimaryColor rounded-full"
+                                >
+                                  Add to cart
+                                </button>
+                            ) : (
+                                <button
+                                    onClick={handleClick(
+                                        {
+                                          vertical: "top",
+                                          horizontal: "center",
+                                        },
+                                        data?.data
+                                    )}
+                                    type="button"
+                                    disabled
+                                    className="w-full h-[44px] text-mecaBluePrimaryColor text-lg font-nunito font-semibold flex items-center justify-center rounded-full border border-mecaBluePrimaryColor"
+                                >
+                                  Added to cart
+                                </button>
+                            )}
+
+                            <button
+                                onClick={() =>
+                                    buyNow({
+                                      vertical: "top",
+                                      horizontal: "center",
+                                    })
+                                }
+                                type="button"
+                                className="w-full h-[44px] text-mecaBluePrimaryColor text-lg font-nunito font-semibold flex items-center justify-center border bg-white border-mecaBluePrimaryColor rounded-full"
+                            >
+                              Buy now
+                            </button>
+
+                            <Snackbar
+                                anchorOrigin={{ vertical, horizontal }}
+                                open={open}
+                                autoHideDuration={6000}
+                            >
+                              <div
+                                  id="snackbar"
+                                  className="absolute top-20 flex gap-2 items-center bg-mecaSuccessBackgroundColor border border-mecaBorderSuccess text-mecaIconSuccessColor w-[449px] h-[44px] rounded-md px-4"
+                              >
+                                <MdCheckCircle
+                                    size={20}
+                                    className="text-mecaBorderSuccess"
+                                />
+                                <p className="text-sm font-normal font-nunito">
+                                  Added to cart successfully
+                                </p>
+                              </div>
+                            </Snackbar>
                           </div>
-                        </Snackbar>
-                      </div>
+                      }
                     </div>
                   </div>
                 </div>

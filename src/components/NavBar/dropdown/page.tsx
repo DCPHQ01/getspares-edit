@@ -36,7 +36,7 @@ const DropdownPage: React.FC<DropdownPageProps> = ({ closeDropdown }) => {
   }, [closeDropdown]);
 
   const router = useRouter();
-  const { data: getCategoriesData, isFetching } = useGetCategoryQuery({});
+  const { data: getCategoriesData, isFetching,isLoading } = useGetCategoryQuery({});
 
   const handleProductDescription = async (
     categoryName: string,
@@ -74,7 +74,7 @@ const DropdownPage: React.FC<DropdownPageProps> = ({ closeDropdown }) => {
           className="mt-48 border-2 border-white hidden lg:flex flex-col"
         >
           <div>
-            {isFetching ? (
+            {isLoading ? (
               <div className="w-[50vw] h-96 flex justify-center items-center">
                 <ColorRing
                   visible={true}
@@ -151,23 +151,23 @@ const DropdownPage: React.FC<DropdownPageProps> = ({ closeDropdown }) => {
               <hr id="mobiledropviewcontainer6" className=""></hr>
             </div>
 
-            {isFetching ? (
+            {isLoading ? (
               <div className="mt-72 flex justify-center items-center">
-                <ColorRing
-                  visible={true}
-                  height="40"
-                  width="40"
-                  ariaLabel="color-ring-loading"
-                  wrapperStyle={{}}
-                  wrapperClass="color-ring-wrapper"
-                  colors={[
-                    "#0000FF",
-                    "#0000FF",
-                    "#0000FF",
-                    "#0000FF",
-                    "#0000FF",
-                  ]}
-                />
+                {/*<ColorRing*/}
+                {/*  visible={true}*/}
+                {/*  height="40"*/}
+                {/*  width="40"*/}
+                {/*  ariaLabel="color-ring-loading"*/}
+                {/*  wrapperStyle={{}}*/}
+                {/*  wrapperClass="color-ring-wrapper"*/}
+                {/*  colors={[*/}
+                {/*    "#0000FF",*/}
+                {/*    "#0000FF",*/}
+                {/*    "#0000FF",*/}
+                {/*    "#0000FF",*/}
+                {/*    "#0000FF",*/}
+                {/*  ]}*/}
+                {/*/>*/}
               </div>
             ) : (
               <div className="w-full p-10 lg:grid lg:grid-cols-3 gap-x-10 scrollbar-none overflow-y-scroll">
