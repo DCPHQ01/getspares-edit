@@ -50,8 +50,7 @@ export const paths = {
   toDashboardActorsBuyer: () => "/dashboard/actors/buyer/:id",
   toAddProductDashboardDetails: () => "/addProductDashboard/details",
   toAddProductDashboardAddImages: () => "/addProductDashboard/addImages",
-  toAddProductDashboardSpecifications: () =>
-    "/addProductDashboard/specifications",
+  toAddProductDashboardSpecifications: () => "/addProductDashboard/specifications",
   toAddProductDashboardBasicInfo: () => "/addProductDashboard/basicInfo",
   toAdmin: () => "/admin/overview",
   toSignUp: () => "/signup",

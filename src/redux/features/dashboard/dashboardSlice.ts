@@ -7,6 +7,7 @@ interface IProps {
 
 const initialState: IProps = {
   sidePanelButton: sidePanel?.OVERVIEW,
+
 };
 const dashboardSlice = createSlice({
   name: "dashboard",
@@ -15,6 +16,7 @@ const dashboardSlice = createSlice({
     setNavButton: (state, action: PayloadAction<any>) => {
       state.sidePanelButton = action.payload;
     },
+
   },
 });
 

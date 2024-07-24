@@ -5,9 +5,7 @@ import Box from "@mui/material/Box";
 // import ImageComponent from "../../../components/imageComp/ImageComponent";
 import TextField from "@mui/material/TextField";
 import { MdChevronRight, MdPhotoLibrary } from "react-icons/md";
-
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-
 import { paths } from "../../../path/paths";
 import { useGetCategoryQuery } from "../../../redux/features/users/authQuery";
 import { ColorRing } from "react-loader-spinner";
