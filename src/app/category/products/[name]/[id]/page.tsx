@@ -138,8 +138,6 @@ export default function ProductDescription() {
   const { data: relatedProductData } = useGetRelatedProductQuery(productId, {
     skip: !productId,
   });
-     
- 
 
   const [addToCart, { isLoading: cartLoading }] =
     useAddSingleProductToCartMutation();
