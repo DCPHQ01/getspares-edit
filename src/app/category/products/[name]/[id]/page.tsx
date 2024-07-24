@@ -123,10 +123,6 @@ export default function ProductDescription() {
     skip: !productId,
   });
 
-  console.log("Vendor id: ",data?.data?.vendorId);
-  sessionStorage.setItem("vendorsId",data?.data?.vendorId)
-
-
   const { vertical, horizontal, open } = state;
 
   const dispatch = useAppDispatch();
@@ -220,6 +216,14 @@ export default function ProductDescription() {
       } catch (error: any) {
         error.data;
       }
+    }
+  };
+
+  const handleRoutes = () => {
+    if (!isAuthenticated) {
+      router.push(paths.toLogin());
+    } else {
+      router.push("/category/products/sales?vendorId=" + data?.data.vendorId);
     }
   };
 
@@ -401,20 +405,20 @@ export default function ProductDescription() {
                         </div>
                       </div>
                       <div
-                    id="viewSellerButtonDiv"
-                    className="w-[40%] flex justify-end items-center"
-                  >
-                 <Link href={"/category/products/sales"}>
-                      <button
-                        type="button"
-                        id="viewSellerButton"
-                        className="w-[93px] h-[32px] text-sm text-bold text-mecaBluePrimaryColor rounded-lg cursor-pointer hover:underline"
+                        id="viewSellerButtonDiv"
+                        className="w-[40%] flex justify-end items-center"
+                      >
+                        {/* <Link href={"/category/products/sales"}> */}
+                        <button
+                          type="button"
+                          id="viewSellerButton"
+                          onClick={handleRoutes}
+                          className="w-[93px] h-[32px] text-sm text-bold text-mecaBluePrimaryColor rounded-lg cursor-pointer hover:underline"
                         >
-                        View Vendor
-                      </button>
-                 </Link>
-                  
-                  </div>
+                          View Vendor
+                        </button>
+                        {/* </Link> */}
+                      </div>
                     </div>
                     <div id="aboutProduct" className="w-full mt-8">
                       <p className="text-sm font-nunito font-normal text-mecaGrayBodyText">

@@ -126,11 +126,11 @@ export const productsQuery = createApi({
       }),
     }),
     getAllSales: builder.query({
-      query: ({vendorId}) => ({
+      query: (vendorId: string) => ({
         url: `/inventory/vendor/${vendorId}`,
         method: "GET",
       }),
-    })
+    }),
   }),
 });
 
