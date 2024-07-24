@@ -17,6 +17,7 @@ interface viewAllFeedBack {
   orderId: string;
   rating: number;
   dateCreated: string;
+  buyerId: string;
 }
 
 interface AllFeedbackGraph {
@@ -31,9 +32,6 @@ interface AllFeedbackGraph {
   };
 }
 const ProductReview = () => {
-  // const [pd, setPd] = useState<string | null>(null);
-  let productId = "";
-
   const storedProductId = sessionStorage.getItem("myProductId");
   const parsedProductId = storedProductId ? storedProductId : "";
 
@@ -50,7 +48,8 @@ const ProductReview = () => {
     }
   }, [data]);
 
-  const [viewFeedbackGraph, setViewFeedbackGraph] = useState<AllFeedbackGraph>();
+  const [viewFeedbackGraph, setViewFeedbackGraph] =
+    useState<AllFeedbackGraph>();
   useEffect(() => {
     if (data) {
       const listOfGraph = data?.data?.feedBackGraph;
@@ -62,17 +61,22 @@ const ProductReview = () => {
 
   const [value, setValue] = React.useState<number | null>(2);
   const [openModal, setOpenModal] = React.useState<boolean>(false);
+  const [currentUserId, setCurrentUserId] = useState<string>("");
   const [openViewAllCommentsModal, setOpenViewAllCommentsModal] =
     React.useState<boolean>(false);
   const [selectedRating, setSelectedRating] = React.useState<number | null>(
     null
   );
-  const[errorMessage,setErrorMessage]= useState("")
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleOpenModal = () => {
-    if (viewFeedbacks.length > 0) {
+    const userHasSubmittedFeedback = viewFeedbacks.some(
+      (feedback) => feedback.buyerId === currentUserId
+    );
+
+    if (userHasSubmittedFeedback) {
+      setErrorMessage("You cannot give feedback more than once");
       return;
-      setErrorMessage("You cannot give feeback more than once")
     }
     setOpenModal(true);
   };
@@ -83,7 +87,6 @@ const ProductReview = () => {
   const handleRatingClick = (rating: number) => {
     setSelectedRating(rating);
   };
-
 
   const graph = [
     {
@@ -143,21 +146,29 @@ const ProductReview = () => {
     },
   ];
 
+  useEffect(() => {
+    const savedUserId = sessionStorage.getItem("userDetails");
+    if (savedUserId) {
+      const userId = JSON.parse(savedUserId);
+      setCurrentUserId(userId.userId);
+    }
+  }, []);
+
   return (
     <div className="w-full">
       <div className={`flex justify-between p-[2px]`}>
         <div className={`text-xl font-semibold`}>Feedbacks & Reviews</div>
-       
+        <div className="block" id="feedbackButtonDiv">
           <button
-          onClick={handleOpenModal}
-          className={`w-[170px] h-[40px] text-[#095AD3] text-white rounded-full bg-[#095AD3]`}
-        >
-          Give Feedback
-        </button>
-        {errorMessage && <p className="text-red-500">{errorMessage}</p>}
-        
+            onClick={handleOpenModal}
+            className={`w-[170px] h-[40px] text-[#095AD3] text-white rounded-full bg-[#095AD3]`}
+          >
+            Give Feedback
+          </button>
+          {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+        </div>
       </div>
-   
+
       <div className={`lg:flex gap-16 mt-4`}>
         <div
           className={`border-gray-300 lg:w-[470px] w-[100%]  h-[344px] border bg-[#F8FAFC] rounded-lg p-3`}
@@ -181,7 +192,10 @@ const ProductReview = () => {
           </div>
 
           {graph.map((graph, id) => (
-            <div className="lg:max-w-[60%] xl:max-w-[76%] w-full" key={graph.id}>
+            <div
+              className="lg:max-w-[60%] xl:max-w-[76%] w-full"
+              key={graph.id}
+            >
               <div className={`flex gap-4 mt-4`}>
                 <div className={`flex gap-2 w-24`}>
                   <div className={`mt-0`}>{graph.starSharp}</div>
@@ -220,7 +234,7 @@ const ProductReview = () => {
           </div>
           {firstTwoItem?.map((firstTwoItem, index) => {
             return (
-              <div className={`mb-4`}>
+              <div className={`mb-4`} key={index}>
                 <div className={`mb-2`}>
                   <div>{firstTwoItem.reviewerFullName}</div>
                   <Rating

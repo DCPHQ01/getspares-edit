@@ -111,7 +111,7 @@ const ViewAllComments: React.FC<ReviewModalProps> = ({
           </div>
           {viewAllFeedBack?.map((review, index) => {
             return (
-              <div className={`mb-6`}>
+              <div className={`mb-6`} key={index}>
                 <div className={`mb-1.5`}>
                   <div>{review.reviewerFullName}</div>
                   <Rating

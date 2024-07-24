@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { MdChevronRight } from "react-icons/md";
 import ViewParticularOrderTable from "../../../../dashboard/components/table/buyerAdmin/viewParticularOrderTable";
 import { useGetOrderDetailsQuery } from "../../../../../redux/features/dashboard/buyerQuery";
+import { useRouter } from "next/navigation";
 
 const OrderDetailsComponent = () => {
   const [id, setId] = useState<string | null>(null);
@@ -25,6 +26,8 @@ const OrderDetailsComponent = () => {
     orderItems: [],
   });
 
+  const router = useRouter();
+
   useEffect(() => {
     if (data) {
       const resultList = data?.data;
@@ -37,12 +40,18 @@ const OrderDetailsComponent = () => {
     }
   }, [data]);
 
+  const handleRouteToOrder = () => {
+    router.push("/dashboard/buyer/orders");
+  };
+
   return (
     <div className="">
       <div>
         <div className="">
           <h1 className="ml-10 mt-5 flex text-base gap-x-3">
-            <div className="">Orders</div>
+            <div className="cursor-pointer" onClick={handleRouteToOrder}>
+              Orders
+            </div>
             <div className="flex text-mecaGrayBodyText font-light ">
               <MdChevronRight className="mt-1" /> <span> order details</span>
             </div>
