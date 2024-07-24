@@ -165,7 +165,7 @@ const Details = () => {
             id="productDescriptionBreadcrumbs"
             className="flex items-center gap-x-2"
           >
-            <Link href="/dashboard">
+            <Link href="/dashboard/buyer/orders">
               <button className="text-base cursor-pointer font-nunito capitalize font-normal text-mecaDarkBlueBackgroundOverlay">
                 {viewBuyerProducts?.name}
               </button>
