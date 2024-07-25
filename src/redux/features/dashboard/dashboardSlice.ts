@@ -10,7 +10,7 @@ const initialState: IProps = {
   sidePanelButton: sidePanel?.OVERVIEW,
   image: []
 };
-const dashboardSlice = createSlice({
+export const dashboardSlice = createSlice({
   name: "dashboard",
   initialState,
   reducers: {
