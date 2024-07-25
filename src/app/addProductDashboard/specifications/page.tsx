@@ -6,7 +6,8 @@ import ImageComponent from "../../../components/imageComp/ImageComponent";
 import TextField from "@mui/material/TextField";
 import { MdChevronLeft, MdChevronRight, MdPhotoLibrary } from "react-icons/md";
 import { paths } from "../../../path/paths";
-import { useAppSelector } from "../../../redux/hooks";
+import {useAppDispatch, useAppSelector} from "../../../redux/hooks";
+import {setAddImages} from "../../../redux/features/dashboard/dashboardSlice";
 
 const CalledPagesPageFourPages = () => {
   const [productName, setProductName] = useState("");
@@ -19,9 +20,9 @@ const CalledPagesPageFourPages = () => {
     color: "",
   });
 
+  const dispatch = useAppDispatch()
   useEffect(() => {
     const storedBasicInfoValues = sessionStorage?.getItem("basicInfoValues");
-
     const parsedBasicInfoValues =
       storedBasicInfoValues && JSON?.parse(storedBasicInfoValues);
 
@@ -39,13 +40,18 @@ const CalledPagesPageFourPages = () => {
   };
 
   const router = useRouter();
+
+  const [imageUrl, setImageUrl] = useState('');
+
   useEffect(() => {
-    const savedImages = sessionStorage.getItem("images");
-    if (savedImages) {
-      setImages(JSON.parse(savedImages));
+    const storedImages = JSON.parse(sessionStorage.getItem('images') || '[]');
+    if (storedImages.length > 0) {
+    dispatch(setAddImages(storedImages))
     }
   }, []);
 
+  const dashboardImages = useAppSelector((state)=> state.dashboard.image)
+  console.log("dashboard images ", dashboardImages)
   const handleViewNextImages = () => {
     setCurrentImageIndex((prevIndex) =>
       prevIndex < images.length - 1 ? prevIndex + 1 : 0
@@ -194,11 +200,11 @@ const CalledPagesPageFourPages = () => {
                 </div>
                 <Box>
                   <div className="inputImage imagetext  h-[283px] w-[25.1rem]">
-                    {images && images.length > 0 ? (
+                    {dashboardImages && dashboardImages.length > 0 ? (
                       <div className="relative flex justify-center">
                         <div className="rounded-full">
                           <img
-                            src={images[currentImageIndex]}
+                            src={dashboardImages[currentImageIndex]}
                             alt="Uploaded"
                             className="h-[283px] w-[28rem] object-cover"
                           />

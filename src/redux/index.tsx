@@ -35,6 +35,7 @@ export const store = configureStore({
     product: productSlice,
     dashboard: dashboardSlice,
   },
+
   middleware: (getDefaultMiddleware: any) =>
     getDefaultMiddleware().concat([
       authQuery.middleware,

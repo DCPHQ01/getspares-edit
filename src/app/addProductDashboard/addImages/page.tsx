@@ -80,6 +80,8 @@ const CalledPagesPageTwoPages = () => {
     }
   };
 
+
+
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleImageClick = () => {
