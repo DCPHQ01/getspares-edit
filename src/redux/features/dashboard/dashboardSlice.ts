@@ -17,13 +17,12 @@ const dashboardSlice = createSlice({
     setNavButton: (state, action: PayloadAction<any>) => {
       state.sidePanelButton = action.payload;
     },
-    setAddImages: (state, action: PayloadAction<any>) => {
-      state.image.push(action.payload);
+    setAddImages: (state, action: PayloadAction<string[]>) => {
+      state.image= action.payload;
     },
 
   },
 });
 
-// export const dashboardActions = dashboardSlice.actions;
 export const{setAddImages, setNavButton} = dashboardSlice.actions
 export default dashboardSlice.reducer;

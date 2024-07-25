@@ -143,6 +143,9 @@ const CalledPagesPageFivePages = () => {
     }
   }, [productSpec]);
 
+  const dashboardImages = useAppSelector((state)=> state.dashboard.image)
+  console.log("dashboard images ", dashboardImages)
+
   return (
     <>
       <div className="lg:w-[48%] w-[100%]" id="pageone1">
@@ -188,7 +191,7 @@ const CalledPagesPageFivePages = () => {
                 </div>
 
                 <TextField
-                  type="url"
+                  type="text"
                   id="filledbasic"
                   label="Manufacturer part number"
                   variant="filled"
@@ -220,7 +223,7 @@ const CalledPagesPageFivePages = () => {
                     name="condition"
                     style={{ backgroundColor: "porcelain" }}
                     required={true}
-                    className="lg:w-[29.4rem] w-[100%]  h-14 border capitalize bg-mecaInputBgColor rounded-md pl-2 mb-5 outline-none"
+                    className="lg:w-[29.4rem] w-[100%] h-14 border capitalize bg-mecaInputBgColor rounded-md pl-2 mb-5 outline-none"
                     title="condition"
                     value={technicalDetails.condition}
                     onChange={(e) =>
@@ -324,11 +327,11 @@ const CalledPagesPageFivePages = () => {
                 </div>
                 <Box>
                   <div className="inputImage imagetext  h-[283px] w-[25.1rem]">
-                    {images && images.length > 0 ? (
+                    {dashboardImages && dashboardImages.length > 0 ? (
                       <div className="relative flex justify-center">
                         <div className="rounded-full">
                           <img
-                            src={images[currentImageIndex]}
+                            src={dashboardImages[currentImageIndex]}
                             alt="Uploaded"
                             className="h-[283px] w-[28rem] object-cover"
                           />

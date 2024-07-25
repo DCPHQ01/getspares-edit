@@ -75,7 +75,7 @@ const DropdownPage: React.FC<DropdownPageProps> = ({ closeDropdown }) => {
         >
           <div>
             {isLoading ? (
-              <div className="w-[50vw] h-96 flex justify-center items-center">
+              <div className="w-[700px] h-96 flex justify-center items-center">
                 <ColorRing
                   visible={true}
                   height="40"
@@ -93,7 +93,7 @@ const DropdownPage: React.FC<DropdownPageProps> = ({ closeDropdown }) => {
                 />
               </div>
             ) : (
-              <div className="w-full p-10 lg:grid lg:grid-cols-3 gap-x-10 scrollbar-none overflow-y-scroll">
+              <div className="w-[700px] h-96 p-10 lg:grid lg:grid-cols-3 gap-x-10 scrollbar-none overflow-y-scroll">
                 {getCategoriesData?.data.map((category: any) => (
                   <div
                     onClick={() =>
@@ -115,7 +115,7 @@ const DropdownPage: React.FC<DropdownPageProps> = ({ closeDropdown }) => {
 
       <div className="lg:hidden">
         <Card
-          className=" w-full lg:h-96 h-[100vh] scrollbar-none overflow-y-scroll"
+          className="w-full lg:h-96 h-[100vh] scrollbar-none overflow-y-scroll"
           style={{
             boxShadow: "0px 2px 8px 0px #63636333",
             zIndex: 200,
@@ -125,7 +125,7 @@ const DropdownPage: React.FC<DropdownPageProps> = ({ closeDropdown }) => {
             <div className="lg:hidden w-full">
               <div className="pl-5 pr-5">
                 <div
-                  className="w-[100%] h-[60px] border-b-2 border-b-mecaBottomBorder items-center lg:hidden"
+                  className="w-full h-[60px] border-b-2 border-b-mecaBottomBorder items-center lg:hidden"
                   id="mobiledropviewcontainer2"
                   style={{
                     display: "flex",

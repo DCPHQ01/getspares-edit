@@ -41,17 +41,16 @@ const CalledPagesPageFourPages = () => {
 
   const router = useRouter();
 
-  const [imageUrl, setImageUrl] = useState('');
-
   useEffect(() => {
     const storedImages = JSON.parse(sessionStorage.getItem('images') || '[]');
     if (storedImages.length > 0) {
     dispatch(setAddImages(storedImages))
     }
-  }, []);
+  }, [dispatch]);
 
   const dashboardImages = useAppSelector((state)=> state.dashboard.image)
   console.log("dashboard images ", dashboardImages)
+
   const handleViewNextImages = () => {
     setCurrentImageIndex((prevIndex) =>
       prevIndex < images.length - 1 ? prevIndex + 1 : 0

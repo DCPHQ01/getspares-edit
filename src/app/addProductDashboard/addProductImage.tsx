@@ -122,6 +122,8 @@ const AddProductImage = () => {
       setError(error.message);
     }
   };
+  const dashboardImages = useAppSelector((state)=>state.dashboard.image)
+  console.log("dashboard images ", dashboardImages)
 
   const searchParams = useSearchParams();
   const productId = searchParams?.get("id");
