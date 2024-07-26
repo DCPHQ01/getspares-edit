@@ -32,7 +32,7 @@ import {
 } from "react-icons/md";
 
 import { useAppDispatch } from "../../../redux/hooks";
-import { dashboardActions } from "../../../redux/features/dashboard/dashboardSlice";
+import  dashboardSlice  from "../../../redux/features/dashboard/dashboardSlice"
 import { clearUser, setUser } from "../../../redux/features/users/userSlice";
 import { useRouter } from "next/navigation";
 // import { roles, sidePanel, userRole } from "../../utils/utils";
@@ -189,7 +189,6 @@ function Page() {
 
   const handleButtonClick = (panel: any, index?: any) => {
     setActiveButton(index);
-    dispatch(dashboardActions.setNavButton(panel));
     setBottomActiveButton(null);
   };
 

@@ -165,6 +165,7 @@ export default function Home() {
             {/* <p id="btnText">View more</p> */}
           </button>
         </span>
+        <div className="bg-white scrollbar-none w-full overflow-y-hidden">
         <div id="carouselContainer" className="flex gap-x-5">
           {productData?.data.map(
             (product: ProductType, index: number) =>
@@ -187,9 +188,10 @@ export default function Home() {
           <Card image={HomeImage1} /> */}
         </div>
       </div>
+      </div>
       <ProductCarousel />
       <div
-        className="text-mecaDarkBlueBackgroundOverlay py-8"
+        className="scrollbar-none w-full overflow-y-hidden text-mecaDarkBlueBackgroundOverlay py-8"
         id="newProductsContainer"
       >
         <span className="flex justify-between py-8" id="newProductsSpan">

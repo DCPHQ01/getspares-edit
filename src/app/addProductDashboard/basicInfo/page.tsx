@@ -5,9 +5,7 @@ import Box from "@mui/material/Box";
 // import ImageComponent from "../../../components/imageComp/ImageComponent";
 import TextField from "@mui/material/TextField";
 import { MdChevronRight, MdPhotoLibrary } from "react-icons/md";
-
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-
 import { paths } from "../../../path/paths";
 import { useGetCategoryQuery } from "../../../redux/features/users/authQuery";
 import { ColorRing } from "react-loader-spinner";
@@ -167,7 +165,7 @@ const CalledPagesPageOnePages = () => {
 
   return (
     <>
-      <div className="lg:w-[80%]  w-[100%] " id="pageone1">
+      <div className="lg:w-[80%] w-[100%] " id="pageone1">
         <div className="pageWrapper" id="pageone2">
           <div className=" md:flex flex-col mt-[4.5rem]" id="pageone3">
             <div className="lg:flex lg:gap-x-10 lg:justify-between">
@@ -191,7 +189,7 @@ const CalledPagesPageOnePages = () => {
                 </div>
               ) : (
                 <>
-                  <div className="mt-[12rem] lg:mt-0 ">
+                  <div className=" lg:mt-0 ">
                     <div className="mb-10 pageHeader w-[100%]" id="pageone4">
                       <header className="font-bold text-lg" id="pageone5">
                         Basic information
@@ -252,7 +250,9 @@ const CalledPagesPageOnePages = () => {
                               id: number;
                               name: string;
                             }): JSX.Element => (
-                              <MenuItem value={category.name} key={category.id}>
+                              <MenuItem
+                                  className={`w-[500px] gap-x-10 scrollbar-none overflow-y-scroll`}
+                                  value={category.name} key={category.id}>
                                 {category.name}
                               </MenuItem>
                             )
