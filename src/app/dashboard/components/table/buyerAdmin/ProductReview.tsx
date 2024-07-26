@@ -161,17 +161,22 @@ const ProductReview = () => {
         <div className="block" id="feedbackButtonDiv">
           <button
             onClick={handleOpenModal}
-            className={`w-[170px] h-[40px] text-[#095AD3] text-white rounded-full bg-[#095AD3]`}
+            className={`w-[170px] h-[40px]  text-white rounded-full bg-[#095AD3]`}
           >
             Give Feedback
           </button>
-          {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+          <div>
+         
+          </div>
         </div>
+      </div>
+      <div className="flex justify-end">
+      {errorMessage && <p className="text-red-500">{errorMessage}</p>}
       </div>
 
       <div className={`lg:flex gap-16 mt-4`}>
         <div
-          className={`border-gray-300 lg:w-[470px] w-[100%]  h-[344px] border bg-[#F8FAFC] rounded-lg p-3`}
+          className={`border-gray-300 md:w-[400px] lg:w-[470px] w-[150%]  h-[344px] border bg-[#F8FAFC] rounded-lg p-3`}
         >
           <div className={`w-[242px] h-[72px] flex gap-6`}>
             <div className={`text-2xl font-semibold`}>
@@ -196,15 +201,19 @@ const ProductReview = () => {
               className="lg:max-w-[60%] xl:max-w-[76%] w-full"
               key={graph.id}
             >
-              <div className={`flex gap-4 mt-4`}>
+              <div className={`flex gap-4 mt-4 w-80`}>
                 <div className={`flex gap-2 w-24`}>
                   <div className={`mt-0`}>{graph.starSharp}</div>
                   <div className="flex gap-x-2">
                     <div className="">{graph.number}</div>
-                    <div className="">({`${graph.percentage}%`})</div>
+                    <div className="w-96">({`${graph.percentage}%`})</div>
                   </div>
                 </div>
-                {graph.progressbar}
+                {/* <div className=""> */}
+                  {graph.progressbar}
+                  {/* </div> */}
+                
+              
               </div>
             </div>
           ))}

@@ -6,6 +6,7 @@ import OverviewTable from "../../components/table/buyerAdmin/overviewTable";
 import { useGetOverviewOrderTableQuery } from "../../../../redux/features/dashboard/buyerQuery";
 import { paths } from "../../../../path/paths";
 import { useRouter } from "next/navigation";
+import BuyerOverviewMobile from "../buyerMobileDashboard/BuyerOverviewMobile";
 
 interface Overview {
   orderId: string;
@@ -37,6 +38,7 @@ function Overview() {
 
   return (
     <>
+    <div className="hidden lg:flex flex-col">
       <div className={`flex items-center justify-between bottom-5`}>
         <p className={`font-semibold text-[1.9rem]`}>Recently added parts</p>
         <div>
@@ -61,6 +63,8 @@ function Overview() {
           <OverviewTable overviewList={overViewList} isLoading={isLoading} />
         </>
       )}
+      </div> 
+
     </>
   );
 }
