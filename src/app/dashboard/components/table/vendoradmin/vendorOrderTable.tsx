@@ -9,6 +9,7 @@ import { formatAmount44 } from "../../../../../components/utils";
 import { formatAmount44ToNaira } from "../../../../../components/utils";
 import { MdBusinessCenter } from "react-icons/md";
 import { formatAllDateTwo } from "../../utils/utils";
+import {ColorRing} from "react-loader-spinner";
 
 type VendorData = {
   orderId: string;
@@ -23,7 +24,8 @@ interface VendorTableProps {
   isError?: boolean;
 }
 
-const VendorOrderTable = ({ data }: VendorTableProps) => {
+const VendorOrderTable = ({ data, isLoading }: VendorTableProps) => {
+
   const [renderDetails, setRenderDetails] = useState(false);
   const formatDateTime = (dateTime: string) => {
     const date = dayjs(dateTime).format("DD-MM-YYYY");
@@ -70,8 +72,30 @@ const VendorOrderTable = ({ data }: VendorTableProps) => {
               </th>
             </tr>
           </thead>
-          <tbody>
-            {data.length === 0 ? (
+          <tbody className={`-z-50 h-[25rem]`} >
+          {isLoading ? (
+              <div className="text-center mt-28 relative lg:left-[100%] lg:right[100%] h-[30rem]">
+                <ColorRing
+                    visible={true}
+                    height="40"
+                    width="40"
+                    ariaLabel="color-ring-loading"
+                    wrapperStyle={{
+                      position: "absolute",
+                      bottom: "75%",
+                      left: "44%",
+                    }}
+                    wrapperClass="color-ring-wrapper"
+                    colors={[
+                      "#095AD3",
+                      "#095AD3",
+                      "#095AD3",
+                      "#095AD3",
+                      "#095AD3",
+                    ]}
+                />
+              </div>
+              ) : data.length === 0 ? (
               <div className="h-28 mt-[35rem] relative right-[80%] left-[80%]">
                 <div className="flex justify-center">
                   <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">

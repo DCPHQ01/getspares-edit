@@ -60,7 +60,7 @@ function Overview() {
   return (
     <>
       <div>
-        <div className={`flex justify-between items-center`}>
+        <div className={`flex justify-between items-center mb-8`}>
           <div>
             <Header
               subtitle={`Take a quick glance on what is happening with meca`}

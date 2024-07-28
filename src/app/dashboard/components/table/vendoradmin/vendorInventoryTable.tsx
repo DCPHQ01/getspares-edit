@@ -116,6 +116,7 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
     setAnchorEl(event.target as HTMLElement);
   };
 
+  // @ts-ignore
   return (
     <>
       <div id="tableContainer">
@@ -149,9 +150,9 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
                   <th className={`lg:sticky`} id="actionHeader"></th>
                 </tr>
               </thead>
-              <tbody className="-z-50">
-                {/* {isLoading ? (
-                  <div className="text-center  mt-28 relative left-[130%] right[130%]">
+              <tbody className={`-z-50 h-[25rem]`}>
+                 {isLoading ? (
+                  <div className="text-center  mt-28 relative left-[160%] right[160%]">
                     <ColorRing
                       visible={true}
                       height="40"
@@ -172,8 +173,8 @@ const VendorInventoryTable: React.FC<InventoryTableProps> = ({
                       ]}
                     />
                   <p>Loading Inventory...</p>
-                  </div> */}
-                {inventoryData?.length === 0 ? (
+                  </div> ) :
+                inventoryData?.length === 0 ? (
                   <div className="relative right-[100%] left-[100%] flex flex-col justify-center items-center pt-32 leading-10">
                     <div className=" h-28">
                       <div className="w-[5.6rem] h-[5.6rem] bg-blue-100 flex justify-center items-center rounded-full">

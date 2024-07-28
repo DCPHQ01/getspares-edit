@@ -33,7 +33,7 @@ interface ImageProps {
   images: string[];
 }
 
-const CalledPagesPageTwoPages = () => {
+  const CalledPagesPageTwoPages = () => {
   const [productName, setProductName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
@@ -75,7 +75,6 @@ const CalledPagesPageTwoPages = () => {
       } catch (error) {
         console.error("Error uploading images:", error);
       }
-
       setIsLoading(false);
     }
   };
@@ -259,7 +258,9 @@ const CalledPagesPageTwoPages = () => {
                       </div>
                     )}
                     <div className="text-gray-600 text-base mt-2 text-center">
-                      <p className="font-bold text-mecaBluePrimaryColor">
+                      <p className="font-bold text-mecaBluePrimaryColor"
+                         onClick={handleImageClick}
+                      >
                         Add image
                       </p>
                       <p className="font-normal">by clicking</p>
@@ -271,7 +272,6 @@ const CalledPagesPageTwoPages = () => {
                   <div id="firstPreviousbtn9">
                     <button
                       type="submit"
-                      onClick={handlePreviousPage}
                       className="w-[116px] flex justify-center gap-x-3 pt-2 h-10 font-semibold border rounded-full text-mecaBluePrimaryColor border-mecaBluePrimaryColor mb-6 "
                     >
                       <span>

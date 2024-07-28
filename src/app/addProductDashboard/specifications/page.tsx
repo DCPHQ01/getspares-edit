@@ -199,11 +199,12 @@ const CalledPagesPageFourPages = () => {
                 </div>
                 <Box>
                   <div className="inputImage imagetext  h-[283px] w-[25.1rem]">
-                    {dashboardImages && dashboardImages.length > 0 ? (
-                      <div className="relative flex justify-center">
+                    {/*{dashboardImages && dashboardImages.length > 0 ? (*/}
+                    {images && images.length > 0 ? (
+                        <div className="relative flex justify-center">
                         <div className="rounded-full">
                           <img
-                            src={dashboardImages[currentImageIndex]}
+                            src={images[currentImageIndex]}
                             alt="Uploaded"
                             className="h-[283px] w-[28rem] object-cover"
                           />
