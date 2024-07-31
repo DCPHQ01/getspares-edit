@@ -4,7 +4,7 @@ import { CartProduct } from "../../types/cart/product";
 import Image from "next/image";
 import Parts from "../../assets/images/parts.png";
 import { MdDeleteOutline, MdMoreVert } from "react-icons/md";
-import { formatAmount44, useNewFocus } from "../utils";
+import { formatAmount4, formatAmount44, useNewFocus } from "../utils";
 import { useEffect, useRef, useState } from "react";
 import { setCart } from "../../redux/features/product/productSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -224,7 +224,7 @@ export const CheckOutCard = ({ cardCartItem }: Props) => {
                   )}
                 </div>
                 <div className="font-bold">
-                  <p>{formatAmount44(cardCartItem.amount)}</p>
+                  <p>{formatAmount4(String(cardCartItem.amount))}</p>
                 </div>
               </div>
             </div>

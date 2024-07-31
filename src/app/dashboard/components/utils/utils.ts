@@ -32,12 +32,16 @@ export const formatAllDate = (date: string, format = "YYYY-MM-DD") => {
   }
 };
 
-export const formatAllDateTwo = (date: string, inputFormat = "DD:MM:YYYY HH:mm", outputFormat = "DD-MM-YYYY") => {
+export const formatAllDateTwo = (
+  date: string,
+  inputFormat = "DD:MM:YYYY HH:mm",
+  outputFormat = "DD-MM-YYYY"
+) => {
   if (date) {
     const finalDate = dayjs(date, inputFormat).format(outputFormat);
     return finalDate;
   }
-  return null; 
+  return null;
 };
 
 export const formatAllTime = (time: string) => {
@@ -52,6 +56,3 @@ export const formatAllTime = (time: string) => {
 };
 
 export const userRole = roles.MECA_ADMIN;
-// export const userRole = roles.VENDOR_ADMIN;
-// export const userRole = roles.AGENTS;
-// export const userRole = roles.BUYER;

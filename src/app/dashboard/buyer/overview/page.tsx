@@ -38,17 +38,31 @@ function Overview() {
 
   return (
     <>
-    <div className="hidden lg:flex flex-col">
-      <div className={`flex items-center justify-between bottom-5`}>
-        <p className={`font-semibold text-[1.9rem]`}>Recently added parts</p>
-        <div>
-          {/* <button
+      <div className="hidden lg:flex flex-col">
+        <div className={`flex items-center justify-between bottom-5`}>
+          <p className={`font-semibold text-[1.9rem]`}>Recently added parts</p>
+          <div>
+            {/* <button
             className={`underline text-[#095AD3] cursor-pointer`}
             onClick={handleMore}
           >
             View more
           </button> */}
+          </div>
         </div>
+        <div className={` mb-[4rem]`}>
+          <BuyerCard />
+        </div>
+        {!opened && (
+          <>
+            <Header
+              subtitle={`Keep track of your orders on meca`}
+              title={`Orders`}
+              amount={overViewList.length}
+            />
+            <OverviewTable overviewList={overViewList} isLoading={isLoading} />
+          </>
+        )}
       </div>
       <div className={` mb-[4rem]`}>
         <BuyerCard />
@@ -63,8 +77,6 @@ function Overview() {
           <OverviewTable overviewList={overViewList} isLoading={isLoading} />
         </>
       )}
-      </div> 
-
     </>
   );
 }
