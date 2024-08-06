@@ -75,9 +75,9 @@ function Overview() {
         />
         <Cards cardField={adminOverview} />
         <div
-          className={` flex justify-between items-center mt-[3.25rem] mb-[1.25rem]`}
+          className={` lg:flex justify-between items-center mt-[3.25rem] mb-[1.25rem]`}
         >
-          <div>
+          <div className="lg:mb-0 mb-4">
             <Header
               subtitle={`A quick glance on vendors with highest sales on meca`}
               title={`Top performing vendors`}

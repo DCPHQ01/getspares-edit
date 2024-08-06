@@ -41,14 +41,7 @@ function Overview() {
       <div className="hidden lg:flex flex-col">
         <div className={`flex items-center justify-between bottom-5`}>
           <p className={`font-semibold text-[1.9rem]`}>Recently added parts</p>
-          <div>
-            {/* <button
-            className={`underline text-[#095AD3] cursor-pointer`}
-            onClick={handleMore}
-          >
-            View more
-          </button> */}
-          </div>
+          <div></div>
         </div>
         <div className={` mb-[4rem]`}>
           <BuyerCard />
@@ -64,8 +57,8 @@ function Overview() {
           </>
         )}
       </div>
-      <div className={` mb-[4rem]`}>
-        <BuyerCard />
+      <div className="flex flex-col lg:hidden">
+        <BuyerOverviewMobile />
       </div>
       {!opened && (
         <>

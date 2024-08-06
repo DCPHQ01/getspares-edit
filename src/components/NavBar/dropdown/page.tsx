@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { MdChevronLeft, MdClear } from "react-icons/md";
 import Menu from "@mui/material/Menu";
 import { ColorRing } from "react-loader-spinner";
+import TruncateText from "../../utils/utils";
 
 interface DropdownPageProps {
   closeDropdown: () => void;
@@ -36,7 +37,11 @@ const DropdownPage: React.FC<DropdownPageProps> = ({ closeDropdown }) => {
   }, [closeDropdown]);
 
   const router = useRouter();
-  const { data: getCategoriesData, isFetching,isLoading } = useGetCategoryQuery({});
+  const {
+    data: getCategoriesData,
+    isFetching,
+    isLoading,
+  } = useGetCategoryQuery({});
 
   const handleProductDescription = async (
     categoryName: string,
@@ -93,7 +98,7 @@ const DropdownPage: React.FC<DropdownPageProps> = ({ closeDropdown }) => {
                 />
               </div>
             ) : (
-              <div className="w-[700px] h-96 p-10 lg:grid lg:grid-cols-3 gap-x-10 scrollbar-none overflow-y-scroll">
+              <div className="w-[700px] h-96 px-6 lg:grid lg:grid-cols-3 gap-x-10 scrollbar-none overflow-y-scroll">
                 {getCategoriesData?.data.map((category: any) => (
                   <div
                     onClick={() =>
@@ -102,7 +107,7 @@ const DropdownPage: React.FC<DropdownPageProps> = ({ closeDropdown }) => {
                     className="w-[100%] h-10 cursor-pointer"
                     key={category.id}
                   >
-                    {category.name}
+                    <TruncateText text={category.name} maxLength={20} />
                   </div>
                 ))}
               </div>

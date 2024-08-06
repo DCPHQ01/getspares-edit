@@ -83,15 +83,15 @@ const Profile = () => {
 
       <hr></hr>
 
-      <div className="flex justify-between mt-5">
-        <div className="">
+      <div className="lg:flex justify-between mt-5">
+        <div className="lg:mb-0 mb-4 ">
           <p className="text-lg font-semibold">Personal info</p>
           <span className="text-sm text-mecaGrayBodyText">
             Update your photo and personal details.
           </span>
         </div>
 
-        <div className="border-2 w-[60%] h-full p-5 rounded-xl flex flex-col gap-y-4">
+        <div className="border-2 lg:w-[60%] h-full p-5 rounded-xl flex flex-col gap-y-4">
           <Box className="flex gap-x-4">
             <TextField
               inputProps={{ readOnly: true }}

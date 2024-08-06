@@ -1,7 +1,6 @@
 import React from "react";
 import Card from "./card";
-import { formatAmount4,formatAmount5 } from "../utils";
-
+import { formatAmount4, formatAmount5 } from "../utils";
 
 interface CardProp {
   totalNumberOfAgents: number;
@@ -43,31 +42,33 @@ const Index: React.FC<CardProps> = ({ cardField }) => {
   return (
     <div>
       <div className="w-full">
-      <Card 
-      total="Total transaction value"
-      amount={formatAmount4(String(cardField?.totalOrderValue ?? ""))}
-      percentage={59}
-      onClick={() => {
-        ("View total transaction value");
-      }}
-      style= {`w-[100%]`}
+        <Card
+          total="Total transaction value"
+          amount={formatAmount4(String(cardField?.totalOrderValue ?? ""))}
+          percentage={59}
+          onClick={() => {
+            ("View total transaction value");
+          }}
+          style={`w-[100%]`}
+        />
+      </div>
 
-      />
-       </div>
-    
-    <div id="cardContainer" className={`mt-[1rem] flex justify-between w-full`}>
-      {cardProps?.map((card, index) => (
-        <div id={`card_${index}`} key={index}>
-          <Card
-            total={card.total}
-            amount={card.amount}
-            percentage={card.percentage}
-            onClick={card.onClick}
-            style= {`lg:w-[40.6vw] lg:h-[90%] h-[90%] `}
-          />
-        </div>
-      ))}
-    </div>
+      <div
+        id="cardContainer"
+        className={`mt-[1rem] lg:flex  gap-x-2 justify-between w-full`}
+      >
+        {cardProps?.map((card, index) => (
+          <div id={`card_${index}`} key={index}>
+            <Card
+              total={card.total}
+              amount={card.amount}
+              percentage={card.percentage}
+              onClick={card.onClick}
+              style={`lg:w-[40.6vw] lg:h-[90%] h-[90%] `}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

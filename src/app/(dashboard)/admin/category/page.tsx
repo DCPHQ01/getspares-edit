@@ -195,10 +195,10 @@ function Category() {
   return (
     <>
       <div
-        className="mb-[1.25rem] flex justify-between items-center"
+        className="mb-[1.25rem] lg:flex justify-between items-center"
         id="cateParentDiv"
       >
-        <div>
+        <div className=" lg:mb-0 mb-4">
           <Header
             subtitle="Keep track of categories and their products"
             title="Category"

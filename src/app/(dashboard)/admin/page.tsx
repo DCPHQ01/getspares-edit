@@ -32,7 +32,7 @@ import {
 } from "react-icons/md";
 
 import { useAppDispatch } from "../../../redux/hooks";
-import  dashboardSlice  from "../../../redux/features/dashboard/dashboardSlice"
+import dashboardSlice from "../../../redux/features/dashboard/dashboardSlice";
 import { clearUser, setUser } from "../../../redux/features/users/userSlice";
 import { useRouter } from "next/navigation";
 // import { roles, sidePanel, userRole } from "../../utils/utils";
@@ -204,14 +204,14 @@ function Page() {
   return (
     <>
       {/* desktop */}
-      <div className={`hidden lg:flex flex-col`}>
-        {/* <Sidepanel />
+      {/* <div className={`hidden lg:flex flex-col`}> */}
+      {/* <Sidepanel />
         <div
           className={`flex-1 my-[3.25rem] ml-[17.5rem] pl-[1.375rem] mr-[2.125rem] `}
         >
           <SidePanelButton />
         </div> */}
-      </div>
+      {/* </div> */}
       {/* mobile */}
       <div className="lg:hidden w-full" id="contentContainerAddToCartMobile">
         <div className="w-[100%] fixed top-0">

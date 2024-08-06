@@ -1,5 +1,5 @@
 "use client";
-import Header from "../../components/ui/header";
+import Header from "../ui/header";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -52,13 +52,13 @@ const Profile = () => {
       setDetails(JSON.parse(savedItem) as UserDetails);
     }
   }, []);
-
   return (
     <div>
       <Header subtitle={``} title={`Profile`} />
-      <div className="flex gap-x-2 mb-12 mt-4">
+
+      <div className="flex gap-x-2 mb-12">
         <Avatar
-          className="bg-mecaActiveBackgroundNavColor text-mecaBluePrimaryColor w-16 h-16 text-4xl"
+          className="bg-mecaActiveBackgroundNavColor -z-50 text-mecaBluePrimaryColor w-16 h-16 text-4xl"
           {...stringAvatar(`${details?.firstName} ${details?.lastName}`)}
         />
         <div className="mt-1">
@@ -71,15 +71,15 @@ const Profile = () => {
 
       <hr></hr>
 
-      <div className="lg:flex justify-between mt-5">
-        <div className=" lg:mb-0 mb-4">
+      <div className=" justify-between mt-5">
+        <div className="">
           <p className="font-semibold text-lg">Personal info</p>
           <span className="text-sm text-mecaGrayBodyText">
             Update your photo and personal details.
           </span>
         </div>
 
-        <div className="border-2 lg:w-[60%] h-[100%] p-5 rounded-xl ">
+        <div className="border-2 w-[100%] mt-10 h-[100%] p-5 rounded-xl ">
           <div>
             <div className=" h-16 mb-5  pl-5 pt-3 w-[100%] rounded  bg-mecaBorderColor">
               <p className="text-sm text-gray-500">Firstname</p>
@@ -97,7 +97,7 @@ const Profile = () => {
             </div>
 
             <div
-              className="lg:w-[364px] h-16 pl-5 pr-5 pt-3 w-[100%] 2xl:w-[35rem] rounded  bg-mecaBorderColor"
+              className="lg:w-[364px] h-16 pl-5 pt-3 w-[100%] 2xl:w-[35rem] rounded  bg-mecaBorderColor"
               style={{ backgroundColor: "porcelain" }}
             >
               <p className="text-xs text-gray-500">Email</p>

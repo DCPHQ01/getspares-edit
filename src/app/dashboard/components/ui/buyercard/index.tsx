@@ -9,7 +9,7 @@ import {
   formatAmount4,
   formatAmount442,
   formatAmount443,
-  formatAmount6
+  formatAmount6,
 } from "../../../../../components/utils";
 import TruncateText from "../../../../../components/utils/utils";
 
@@ -60,14 +60,14 @@ const Index = () => {
   };
 
   return (
-    <div className=" flex gap-x-5 justify-between scrollbar-none">
+    <div className=" lg:flex  gap-x-5 justify-between scrollbar-none">
       {imageLists.map((detail, index) => (
-        <div key={index} className="lg:w-[22rem]">
-          <div className="px-[1.2rem] py-[1.3rem] w-[353px] h-[287px] bg-[#F8FAFC] flex justify-center rounded-[8px] mb-[1rem]">
+        <div key={index} className="lg:w-[22rem] w-[100%]">
+          <div className="px-[1.2rem] py-[1.3rem] lg:w-[353px] w-[100%] h-[287px] bg-[#F8FAFC] flex justify-center rounded-[8px] mb-[1rem]">
             <img
               src={detail.image}
               alt="engine"
-              className="w-[315px] h-[247]"
+              className="lg:w-[315px]  w-[100%] object-cover h-[247]"
             />
           </div>
           <div className="flex justify-between mb-[1rem]">

@@ -264,9 +264,6 @@ function Page() {
                                     ? "bg-[#EFF4FF] text-[#0852C0]"
                                     : ""
                                 }`}
-                                // onClick={() =>
-                                // handleButtonClick(btn.panel, index)
-                                // }
                               >
                                 <span>
                                   {React.cloneElement(btn.icon, {

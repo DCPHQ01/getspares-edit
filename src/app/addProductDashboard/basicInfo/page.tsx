@@ -189,7 +189,7 @@ const CalledPagesPageOnePages = () => {
                 </div>
               ) : (
                 <>
-                  <div className=" lg:mt-0 ">
+                  <div className=" lg:mt-0 mt-52 ">
                     <div className="mb-10 pageHeader w-[100%]" id="pageone4">
                       <header className="font-bold text-lg" id="pageone5">
                         Basic information
@@ -251,8 +251,10 @@ const CalledPagesPageOnePages = () => {
                               name: string;
                             }): JSX.Element => (
                               <MenuItem
-                                  className={`w-[500px] gap-x-10 scrollbar-none overflow-y-scroll`}
-                                  value={category.name} key={category.id}>
+                                className={`w-[500px] gap-x-10 scrollbar-none overflow-y-scroll`}
+                                value={category.name}
+                                key={category.id}
+                              >
                                 {category.name}
                               </MenuItem>
                             )

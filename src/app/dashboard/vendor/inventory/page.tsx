@@ -67,8 +67,8 @@ function VendorInventory() {
 
   return (
     <>
-      <div className={`flex justify-between items-center`}>
-        <div>
+      <div className={` lg:flex justify-between items-center`}>
+        <div className=" lg:mb-0 mb-4">
           <Header
             subtitle={`Keep track of how each item is performing.`}
             title={`Inventory`}

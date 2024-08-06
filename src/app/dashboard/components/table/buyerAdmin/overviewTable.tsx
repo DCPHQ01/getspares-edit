@@ -5,7 +5,6 @@ import { ColorRing } from "react-loader-spinner";
 import { formatAmount4, formatAmount44 } from "../../../../../components/utils";
 import ViewParticularOrderDetailsPage from "../../../../category/products/viewDetails/viewParticularOrderDetails/page";
 import { formatAllDate, formatAllTime } from "../../utils/utils";
-import { MdBusinessCenter } from "react-icons/md";
 import EmptyState from "../../../../../components/utils/emptyState";
 
 interface Overview {

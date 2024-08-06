@@ -29,14 +29,13 @@ function Index() {
     setClicked(!clicked);
   };
 
-  const DropdownMenu = () => {
+  const DropdownMenu: React.FC = () => {
     const { data, isLoading, isError } = useGetCategoryQuery({});
     const [nameCategoryItems, setNameCategoryItems] = useState<
       nameCategoryItem[]
     >([]);
 
     const categories = data?.data;
-
 
     useEffect(() => {
       if (data && data.data) {

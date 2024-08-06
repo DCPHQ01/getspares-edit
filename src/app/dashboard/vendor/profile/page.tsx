@@ -100,8 +100,8 @@ const Profile = () => {
 
   return (
     <div>
-      <div className="flex justify-between">
-        <div className="flex items-center gap-x-2 mb-12">
+      <div className=" lg:flex justify-between">
+        <div className="flex items-center gap-x-2  lg:mb-12 mb-4">
           <Avatar
             className="bg-mecaActiveBackgroundNavColor text-mecaBluePrimaryColor w-16 h-16 text-4xl"
             {...stringAvatar(`${viewProfile.name}`)}
@@ -113,13 +113,13 @@ const Profile = () => {
             />
           </div>
         </div>
-        <div onClick={handleViewAdminProfile} className="">
+        <div onClick={handleViewAdminProfile} className="lg:mb-0 mb-4">
           <button
             id="addButton"
-            className={`bg-[#095AD3] lg:w-[200px] w-[100%] text-white rounded-full py-[0.58rem] px-[1.5rem] 
+            className={`bg-[#095AD3] lg:w-[200px] w-[100%] text-white  rounded-full py-[0.58rem] px-[1.5rem] 
         `}
           >
-            <div className={`flex text-white items-center justify-center`}>
+            <div className={`flex text-white items-center justify-center `}>
               <span className="">View Admin</span>
             </div>
           </button>
@@ -174,15 +174,15 @@ const Profile = () => {
 
       <hr></hr>
 
-      <div className="flex justify-between mt-5">
-        <div className="">
+      <div className=" lg:flex justify-between mt-5">
+        <div className=" lg:mb-0 mb-4">
           <p className="text-lg font-semibold">Company profile</p>
           <span className="text-sm text-mecaGrayBodyText">
             Update company description or address.
           </span>
         </div>
 
-        <div className="border-2 w-[60%] h-[100%] p-5 rounded-xl overflow-auto scrollbar-none ">
+        <div className="border-2  lg:w-[60%] h-[100%] p-5 rounded-xl overflow-auto scrollbar-none ">
           <div>
             <div className=" h-52 mb-5  pl-5 pt-3 w-[100%] rounded  bg-mecaBorderColor">
               <p className="text-sm text-gray-500">Description</p>

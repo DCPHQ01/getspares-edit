@@ -70,7 +70,7 @@ function Vendors() {
 
   return (
     <>
-      <div className={`flex justify-between items-center`}>
+      <div className={``}>
         <Header
           subtitle={`Keep track of vendor sales and their service ratings.`}
           title={`Vendors`}

@@ -42,7 +42,6 @@ const style = {
   bgcolor: "background.paper",
   border: "none",
   borderRadius: "8px",
-  // boxShadow: 24,
   p: 4,
   opacity: 1,
   gap: 12,
