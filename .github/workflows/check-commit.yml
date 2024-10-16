@@ -2,7 +2,7 @@ name: Count Dev Branch Commits, List Messages, and Build Status
 
 on: 
   schedule: 
-    - cron: '0/5 * * * *'  # Runs daily at 7 PM UTC
+    - cron: '0 19 * * *'  # Runs daily at 7 PM UTC
   push: 
     branches: 
       - dev
