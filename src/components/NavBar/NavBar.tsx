@@ -24,6 +24,8 @@ import { CartProduct } from "../../types/cart/product";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MecaGlobalSearch from "./MecaGlobalSearch";
+import mecaLogo from "../../assets/images/getspares_logo.png"
+import Image from "next/image";
 
 const navData = [
   {
@@ -154,15 +156,20 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
     <nav className="w-full bg-white relative" id="navbarContainer">
       {/* mobile and tab */}
       <div
-        className="w-full h-[60px] border-b-2 z-50 border-b-mecaBottomBorder px-4 flex justify-between items-center lg:hidden"
+        className="w-full h-[60px] overflow-y-hidden border-b-2 z-50 border-b-mecaBottomBorder px-4 flex justify-between items-center lg:hidden"
         id="contentContainer"
       >
-        <p
+        {/* <p
           className="text-mecaActiveIconsNavColor text-xl font-nunito font-bold cursor-pointer"
           onClick={() => router.push(paths.toHome())}
         >
           e-meca
-        </p>
+          </p> */}
+
+        <Image src={mecaLogo} width={200} alt="company logo" />
+        
+
+        
         <div className="flex items-center gap-x-2" id="menuSearchCart">
           <MdSearch size={18} />
           <Link href={paths.toCart()}>
@@ -194,16 +201,19 @@ export default function NavBar({ open, setOpen }: NavBarProps) {
         id="menuContainerDesktop"
       >
         <div
-          className="w-full h-[83px] flex justify-between items-center"
+          className="w-full h-[83px] flex overflow-y-hidden justify-between items-center"
           id="desktopNavContentContainer"
         >
           <div className="w-[20%]" id="mecaLogoDesktop">
-            <p
+            {/* <p
               className="text-mecaActiveIconsNavColor text-3xl font-nunito font-bold cursor-pointer"
               onClick={() => router.push(paths.toHome())}
             >
               e-meca
-            </p>
+            </p> */}
+         
+          <Image src={mecaLogo} alt="company logo" />
+
           </div>
           <div
             className="flex-grow flex justify-center items-center gap-x-2 relative"
