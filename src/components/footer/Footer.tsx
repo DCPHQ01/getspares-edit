@@ -4,6 +4,9 @@ import { ChangeEvent, useState } from "react";
 import RightSideList from "./footerList";
 import { useRouter } from "next/navigation";
 import { paths } from "../../path/paths";
+import mecaLogo from "../../assets/images/getspares_logo.png"
+import Image from "next/image";
+
 
 export default function Footer() {
   const [state, setState] = useState({
@@ -36,12 +39,15 @@ export default function Footer() {
       id="footerContainer"
     >
       <div id="mecaFooterLogo">
-        <p
+        {/* <p
           className="text-mecaActiveIconsNavColor text-5xl font-nunito font-bold cursor-pointer"
           onClick={() => router.push(paths.toHome())}
         >
           e-meca
-        </p>
+        </p> */}
+
+                <Image src={mecaLogo} width={200} alt="company logo" />
+        
         <div className="lg:flex justify-between" id="subContainer">
           <div className="lg:w-1/2">
             <div className="lg:w-1/2">
